@@ -113,6 +113,7 @@ class ViewController: UIViewController {
         //loginNavBar.setLeftBarButtonItem(backLeftNavBar, animated: false)
         loginNavBar.setRightBarButtonItem(menuRightNavBar, animated: false)
         loginNavBar.title = "Đăng nhập"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColorFromRGB(0xF00020)]
         
         
         menuRightNavBar.image = UIImage(named: "menu.png")
