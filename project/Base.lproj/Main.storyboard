@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nU0-G7-r3v">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Reveal View Controller-->
+        <scene sceneID="PbO-nn-OiY">
+            <objects>
+                <viewController id="nU0-G7-r3v" customClass="SWRevealViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dYh-1t-xV8"/>
+                        <viewControllerLayoutGuide type="bottom" id="wPK-In-rRV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="h99-YB-IvB" customClass="SWRevealView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Gnq-ql-P0W"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <segue destination="yWJ-4c-9No" kind="custom" identifier="sw_right" customClass="SWRevealViewControllerSegueSetController" id="XpM-EN-jPB"/>
+                        <segue destination="b6D-Zo-0xL" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="K7N-dT-mQi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nmu-6v-fPK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1203" y="-376"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="3sV-TV-VQB">
+            <objects>
+                <tableViewController id="yWJ-4c-9No" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="YQd-J9-4B5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ree-LM-7wL">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ree-LM-7wL" id="EuV-sA-ORO">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="yWJ-4c-9No" id="jpn-r2-DsF"/>
+                            <outlet property="delegate" destination="yWJ-4c-9No" id="df5-Mc-ShW"/>
+                        </connections>
+                    </tableView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b37-Nx-mRr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-613" y="-384"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="LqZ-hG-J1h">
+            <objects>
+                <navigationController id="b6D-Zo-0xL" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ezl-Cg-KdW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Chx-eV-12R"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fv9-O3-dQb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1209" y="361"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tài Khoản/Số Điện Thoại" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eeu-rD-CBp">
+                                <rect key="frame" x="40" y="237" width="217" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mật Khẩu" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mDN-Gd-7pd">
+                                <rect key="frame" x="40" y="285" width="217" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hiển thị mật khẩu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vx3-2C-1X5">
+                                <rect key="frame" x="93" y="323" width="134" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tUD-B5-4IU">
+                                <rect key="frame" x="52" y="382" width="217" height="40"/>
+                                <state key="normal" title="ĐĂNG NHẬP"/>
+                                <connections>
+                                    <action selector="Login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6RM-KH-B8D"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Osa-RX-1K7">
+                                <rect key="frame" x="42" y="455" width="217" height="40"/>
+                                <state key="normal" title="ĐĂNG KÝ"/>
+                                <connections>
+                                    <action selector="Register:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T0K-NR-3FI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HuI-gc-aJa" customClass="CheckBox" customModule="project" customModuleProvider="target">
+                                <rect key="frame" x="40" y="321" width="34" height="25"/>
+                                <state key="normal" title="CheckBox" image="checkbox-unchecked.png"/>
+                                <connections>
+                                    <action selector="ShowPassword:" destination="BYZ-38-t0r" eventType="touchUpInside" id="S2l-bp-WWa"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cLF-Jn-NAq">
+                                <rect key="frame" x="40" y="79" width="240" height="128"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="6NS-2E-c3P">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="xjf-ln-Of0"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="checkBoxButton" destination="HuI-gc-aJa" id="9ve-l4-wop"/>
+                        <outlet property="imgLogo" destination="cLF-Jn-NAq" id="98L-uR-Wen"/>
+                        <outlet property="lblCheckBox" destination="vx3-2C-1X5" id="hgW-on-TrD"/>
+                        <outlet property="loginButton" destination="tUD-B5-4IU" id="jiN-dS-Aun"/>
+                        <outlet property="loginNavBar" destination="6NS-2E-c3P" id="4yW-Jk-fGb"/>
+                        <outlet property="menuRightNavBar" destination="xjf-ln-Of0" id="HVa-lt-Gyc"/>
+                        <outlet property="signInButton" destination="Osa-RX-1K7" id="t8p-mK-GR6"/>
+                        <outlet property="txtAccount" destination="eeu-rD-CBp" id="Mlw-cz-1Yh"/>
+                        <outlet property="txtPassword" destination="mDN-Gd-7pd" id="N4D-vv-J6j"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-782" y="356"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="MpN-7l-3nS">
+            <objects>
+                <viewController id="nSy-q2-fao" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5zM-eo-HPv"/>
+                        <viewControllerLayoutGuide type="bottom" id="L6p-Hk-mJj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CfS-tJ-Om8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Hr9-G4-Agc"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2WP-dY-2vU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-424" y="400"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="checkbox-unchecked.png" width="300" height="300"/>
+    </resources>
+</document>
