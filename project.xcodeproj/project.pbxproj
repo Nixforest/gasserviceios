@@ -20,7 +20,6 @@
 		84284E321D40DF050079DEBC /* projectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E311D40DF050079DEBC /* projectUITests.swift */; };
 		84DC0D7E1D494C9600E52249 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DC0D7D1D494C9600E52249 /* menu.png */; };
 		84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC0D811D494D0E00E52249 /* SWRevealViewController.m */; };
-		84DD03D31D61DA2A009F133F /* notification.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DD03D21D61DA29009F133F /* notification.png */; };
 		84ED24F61D60E430003947BC /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 84ED24F41D60E430003947BC /* checkbox-checked.png */; };
 		84ED24F71D60E430003947BC /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 84ED24F51D60E430003947BC /* checkbox-unchecked.png */; };
 		84F691021D5A80B6007A03CB /* gas_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F691011D5A80B6007A03CB /* gas_logo.png */; };
@@ -65,7 +64,6 @@
 		84DC0D7F1D494D0D00E52249 /* project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "project-Bridging-Header.h"; sourceTree = "<group>"; };
 		84DC0D801D494D0E00E52249 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		84DC0D811D494D0E00E52249 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		84DD03D21D61DA29009F133F /* notification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notification.png; sourceTree = "<group>"; };
 		84ED24F41D60E430003947BC /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
 		84ED24F51D60E430003947BC /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked.png"; sourceTree = "<group>"; };
 		84F691011D5A80B6007A03CB /* gas_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gas_logo.png; sourceTree = "<group>"; };
@@ -156,7 +154,6 @@
 		84DC0D7C1D494B3000E52249 /* IMG */ = {
 			isa = PBXGroup;
 			children = (
-				84DD03D21D61DA29009F133F /* notification.png */,
 				84F691011D5A80B6007A03CB /* gas_logo.png */,
 				84ED24F41D60E430003947BC /* checkbox-checked.png */,
 				84ED24F51D60E430003947BC /* checkbox-unchecked.png */,
@@ -281,7 +278,6 @@
 			files = (
 				84284E1C1D40DF050079DEBC /* LaunchScreen.storyboard in Resources */,
 				84DC0D7E1D494C9600E52249 /* menu.png in Resources */,
-				84DD03D31D61DA2A009F133F /* notification.png in Resources */,
 				84ED24F71D60E430003947BC /* checkbox-unchecked.png in Resources */,
 				84ED24F61D60E430003947BC /* checkbox-checked.png in Resources */,
 				84284E191D40DF050079DEBC /* Assets.xcassets in Resources */,
