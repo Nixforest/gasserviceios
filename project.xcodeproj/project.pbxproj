@@ -7,12 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		840823E21D4A294500C77C43 /* MenuRightSideTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840823E11D4A294500C77C43 /* MenuRightSideTableViewController.swift */; };
 		842277C91D421E7E00611439 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842277C81D421E7E00611439 /* CheckBox.swift */; };
-		8422780B1D422EE900611439 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422780A1D422EE900611439 /* LoginButton.swift */; };
-		8422780D1D422EF900611439 /* RegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422780C1D422EF900611439 /* RegisterButton.swift */; };
 		84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E111D40DF050079DEBC /* AppDelegate.swift */; };
-		84284E141D40DF050079DEBC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E131D40DF050079DEBC /* ViewController.swift */; };
+		84284E141D40DF050079DEBC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E131D40DF050079DEBC /* LoginViewController.swift */; };
 		84284E171D40DF050079DEBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84284E151D40DF050079DEBC /* Main.storyboard */; };
 		84284E191D40DF050079DEBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84284E181D40DF050079DEBC /* Assets.xcassets */; };
 		84284E1C1D40DF050079DEBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84284E1A1D40DF050079DEBC /* LaunchScreen.storyboard */; };
@@ -20,6 +17,8 @@
 		84284E321D40DF050079DEBC /* projectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E311D40DF050079DEBC /* projectUITests.swift */; };
 		84DC0D7E1D494C9600E52249 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DC0D7D1D494C9600E52249 /* menu.png */; };
 		84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC0D811D494D0E00E52249 /* SWRevealViewController.m */; };
+		84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1C4AB1D621A7B00ADD587 /* RegisterViewController.swift */; };
+		84E5147A1D620B9C0012EFF3 /* UIColorFromRGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E514791D620B9C0012EFF3 /* UIColorFromRGB.swift */; };
 		84ED24F61D60E430003947BC /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 84ED24F41D60E430003947BC /* checkbox-checked.png */; };
 		84ED24F71D60E430003947BC /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 84ED24F51D60E430003947BC /* checkbox-unchecked.png */; };
 		84F691021D5A80B6007A03CB /* gas_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F691011D5A80B6007A03CB /* gas_logo.png */; };
@@ -43,13 +42,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		840823E11D4A294500C77C43 /* MenuRightSideTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuRightSideTableViewController.swift; sourceTree = "<group>"; };
 		842277C81D421E7E00611439 /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
-		8422780A1D422EE900611439 /* LoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
-		8422780C1D422EF900611439 /* RegisterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterButton.swift; sourceTree = "<group>"; };
 		84284E0E1D40DF050079DEBC /* project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84284E111D40DF050079DEBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		84284E131D40DF050079DEBC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		84284E131D40DF050079DEBC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		84284E161D40DF050079DEBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84284E181D40DF050079DEBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84284E1B1D40DF050079DEBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -64,6 +60,8 @@
 		84DC0D7F1D494D0D00E52249 /* project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "project-Bridging-Header.h"; sourceTree = "<group>"; };
 		84DC0D801D494D0E00E52249 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		84DC0D811D494D0E00E52249 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		84E1C4AB1D621A7B00ADD587 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		84E514791D620B9C0012EFF3 /* UIColorFromRGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorFromRGB.swift; sourceTree = "<group>"; };
 		84ED24F41D60E430003947BC /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
 		84ED24F51D60E430003947BC /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked.png"; sourceTree = "<group>"; };
 		84F691011D5A80B6007A03CB /* gas_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gas_logo.png; sourceTree = "<group>"; };
@@ -118,11 +116,10 @@
 			isa = PBXGroup;
 			children = (
 				84284E111D40DF050079DEBC /* AppDelegate.swift */,
-				84284E131D40DF050079DEBC /* ViewController.swift */,
+				84284E131D40DF050079DEBC /* LoginViewController.swift */,
+				84E1C4AB1D621A7B00ADD587 /* RegisterViewController.swift */,
 				842277C81D421E7E00611439 /* CheckBox.swift */,
-				840823E11D4A294500C77C43 /* MenuRightSideTableViewController.swift */,
-				8422780A1D422EE900611439 /* LoginButton.swift */,
-				8422780C1D422EF900611439 /* RegisterButton.swift */,
+				84E514791D620B9C0012EFF3 /* UIColorFromRGB.swift */,
 				84284E151D40DF050079DEBC /* Main.storyboard */,
 				84284E181D40DF050079DEBC /* Assets.xcassets */,
 				84284E1A1D40DF050079DEBC /* LaunchScreen.storyboard */,
@@ -307,12 +304,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84284E141D40DF050079DEBC /* ViewController.swift in Sources */,
-				8422780B1D422EE900611439 /* LoginButton.swift in Sources */,
+				84284E141D40DF050079DEBC /* LoginViewController.swift in Sources */,
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
+				84E5147A1D620B9C0012EFF3 /* UIColorFromRGB.swift in Sources */,
+				84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */,
 				842277C91D421E7E00611439 /* CheckBox.swift in Sources */,
-				8422780D1D422EF900611439 /* RegisterButton.swift in Sources */,
-				840823E21D4A294500C77C43 /* MenuRightSideTableViewController.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

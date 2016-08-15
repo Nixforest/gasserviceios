@@ -1,18 +1,15 @@
 //
-//  MenuRightSideTableViewController.swift
-//  project
+//  PopMenuViewController.swift
+//  popover
 //
-//  Created by Lâm Phạm on 7/28/16.
+//  Created by Lâm Phạm on 8/14/16.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
 import UIKit
 
-class MenuRightSideTableViewController: UITableViewController {
+class PopMenuViewController: UITableViewController {
 
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,25 +29,23 @@ class MenuRightSideTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return 0
     }
 
-    
-   /* override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+    /*
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
 
-        if indexPath.row == 0 {
-            cell.imgCellImage.image = UIImage(named: "back.png")
-            cell.lblCellLabel.text = "Back"
+        // Configure the cell...
 
         return cell
-    }*/
-    
+    }
+    */
 
     /*
     // Override to support conditional editing of the table view.
