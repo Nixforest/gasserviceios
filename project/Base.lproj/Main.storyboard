@@ -1,63 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nU0-G7-r3v">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="b6D-Zo-0xL">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--Reveal View Controller-->
-        <scene sceneID="PbO-nn-OiY">
-            <objects>
-                <viewController id="nU0-G7-r3v" customClass="SWRevealViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dYh-1t-xV8"/>
-                        <viewControllerLayoutGuide type="bottom" id="wPK-In-rRV"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="h99-YB-IvB" customClass="SWRevealView">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Gnq-ql-P0W"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <segue destination="yWJ-4c-9No" kind="custom" identifier="sw_right" customClass="SWRevealViewControllerSegueSetController" id="XpM-EN-jPB"/>
-                        <segue destination="b6D-Zo-0xL" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="K7N-dT-mQi"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nmu-6v-fPK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1203" y="-376"/>
-        </scene>
-        <!--Table View Controller-->
-        <scene sceneID="3sV-TV-VQB">
-            <objects>
-                <tableViewController id="yWJ-4c-9No" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="YQd-J9-4B5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ree-LM-7wL">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ree-LM-7wL" id="EuV-sA-ORO">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="yWJ-4c-9No" id="jpn-r2-DsF"/>
-                            <outlet property="delegate" destination="yWJ-4c-9No" id="df5-Mc-ShW"/>
-                        </connections>
-                    </tableView>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="b37-Nx-mRr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-613" y="-384"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="LqZ-hG-J1h">
             <objects>
@@ -73,12 +21,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fv9-O3-dQb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1209" y="361"/>
+            <point key="canvasLocation" x="-481" y="345"/>
         </scene>
-        <!--View Controller-->
+        <!--Login-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Login" id="BYZ-38-t0r" customClass="ViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -132,7 +80,33 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="6NS-2E-c3P">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="xjf-ln-Of0"/>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="z6X-UN-0ax">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="J9R-Jj-xBE">
+                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="showPopOver:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3cS-Zp-q3M"/>
+                                        <segue destination="nSy-q2-fao" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="J9R-Jj-xBE" id="UeA-3f-vvK">
+                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                        </segue>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="Hb1-Cm-dFn">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Cy7-Jp-rYU">
+                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="notification:" destination="BYZ-38-t0r" eventType="touchUpInside" id="reI-DE-Eap"/>
+                                        <action selector="showNotification:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nnt-2U-x2S"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -142,7 +116,8 @@
                         <outlet property="lblCheckBox" destination="vx3-2C-1X5" id="hgW-on-TrD"/>
                         <outlet property="loginButton" destination="tUD-B5-4IU" id="jiN-dS-Aun"/>
                         <outlet property="loginNavBar" destination="6NS-2E-c3P" id="4yW-Jk-fGb"/>
-                        <outlet property="menuRightNavBar" destination="xjf-ln-Of0" id="HVa-lt-Gyc"/>
+                        <outlet property="menuButton" destination="J9R-Jj-xBE" id="hFk-cV-83S"/>
+                        <outlet property="notiButton" destination="Cy7-Jp-rYU" id="g4s-uv-Eum"/>
                         <outlet property="signInButton" destination="Osa-RX-1K7" id="t8p-mK-GR6"/>
                         <outlet property="txtAccount" destination="eeu-rD-CBp" id="Mlw-cz-1Yh"/>
                         <outlet property="txtPassword" destination="mDN-Gd-7pd" id="N4D-vv-J6j"/>
@@ -150,7 +125,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-782" y="356"/>
+            <point key="canvasLocation" x="-12" y="345"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="MpN-7l-3nS">
@@ -161,16 +136,26 @@
                         <viewControllerLayoutGuide type="bottom" id="L6p-Hk-mJj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="CfS-tJ-Om8">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MY LABEL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CwV-e2-bwV">
+                                <rect key="frame" x="60" y="39" width="80" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Hr9-G4-Agc"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="200" height="100"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="200" height="100"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2WP-dY-2vU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-424" y="400"/>
+            <point key="canvasLocation" x="290" y="111"/>
         </scene>
     </scenes>
     <resources>
