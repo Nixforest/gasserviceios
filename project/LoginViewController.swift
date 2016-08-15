@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController, UIPopoverPresentationControllerDelegate {
 
     var bShowPassword:Bool!
     @IBOutlet weak var imgLogo: UIImageView!
@@ -18,10 +18,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var checkBoxButton: CheckBox!
     @IBOutlet weak var lblCheckBox: UILabel!
+    @IBOutlet weak var notiButton: UIButton!
+    @IBOutlet weak var menuButton: UIButton!
     
-    @IBOutlet weak var menuRightNavBar: UIBarButtonItem!
-    @IBOutlet weak var backLeftNavBar: UIBarButtonItem!
     @IBOutlet weak var loginNavBar: UINavigationItem!
+    
     
     
     @IBAction func ShowPassword(sender: AnyObject) {
@@ -60,6 +61,12 @@ class ViewController: UIViewController {
         }
     }
    
+    @IBAction func notification(sender: AnyObject) {
+        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
+        notificationAlert.addAction(cancelAction)
+        self.presentViewController(notificationAlert, animated: true, completion: nil)
+    }
     
     
     override func viewDidLoad() {
@@ -70,9 +77,6 @@ class ViewController: UIViewController {
         imgLogo.image = UIImage(named: "gas_logo.png")
         imgLogo.frame = CGRect(x: 65, y: 70, width: 190, height: 140)
         imgLogo.translatesAutoresizingMaskIntoConstraints = true
-        
-        //check box status
-        bShowPassword = false
         
         //account text field
         txtAccount.frame = CGRect(x: 30, y: 230, width: 260, height: 30)
@@ -85,6 +89,8 @@ class ViewController: UIViewController {
         checkBoxButton.translatesAutoresizingMaskIntoConstraints = true
         lblCheckBox.frame = CGRect(x: 50, y: 338, width: 140, height: 20)
         lblCheckBox.translatesAutoresizingMaskIntoConstraints = true
+        //check box status
+        bShowPassword = false
         
         
         
@@ -108,24 +114,34 @@ class ViewController: UIViewController {
         
         
         
-        //Login NavBar
-        
-        //loginNavBar.setLeftBarButtonItem(backLeftNavBar, animated: false)
-        loginNavBar.setRightBarButtonItem(menuRightNavBar, animated: false)
+        //login navigation bar
         loginNavBar.title = "Đăng nhập"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColorFromRGB(0xF00020)]
         
+        //menu button on NavBar
+        menuButton.setImage(UIImage(named: "menu.png"), forState: .Normal)
+        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
+        menuButton.setTitle("", forState: .Normal)
+        let menuNavBar = UIBarButtonItem()
+        menuNavBar.customView = menuButton
+        menuNavBar.enabled = false //disable menu button
         
-        menuRightNavBar.image = UIImage(named: "menu.png")
+        //noti button on NavBar
+        notiButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        notiButton.layer.cornerRadius = 0.5 * notiButton.bounds.size.width
+        notiButton.setTitle("!", forState: .Normal)
+        notiButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        notiButton.backgroundColor = UIColorFromRGB(0xF00020)
         
-        //backLeftNavBar.image = UIImage(named: "back.png")
+        notiButton.addTarget(self, action: #selector(notification), forControlEvents: .TouchUpInside)
+        let notiNavBar = UIBarButtonItem()
+        notiNavBar.customView = notiButton
         
-        //Menu Nav Bar open
-        menuRightNavBar.target = self.revealViewController()
-        menuRightNavBar.enabled = false
-        menuRightNavBar.action = #selector(SWRevealViewController.rightRevealToggle(_:))
+        //set right navigation bar item
+        self.navigationItem.rightBarButtonItems = [menuNavBar, notiNavBar]
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -141,5 +157,23 @@ class ViewController: UIViewController {
         )
     }
 
+    //popover menu
+    @IBAction func showPopOver(sender: AnyObject) {
+    print("menu tapped")
+    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "popOverMenu" {
+            let popoverVC = segue.destinationViewController
+            popoverVC.popoverPresentationController?.delegate = self
+        }
+    }
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.None
+    }
+    
+    
+    @IBAction func showNotification(sender: AnyObject) {
+        print("noti tapped")
+    }
 }
 
