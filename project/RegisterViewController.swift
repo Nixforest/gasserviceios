@@ -10,24 +10,31 @@ import UIKit
 
 
 class RegisterViewController: UIViewController, UIPopoverPresentationControllerDelegate {
-
-    @IBOutlet weak var registerNavBar: UINavigationItem!
-    @IBOutlet weak var notiButton: UIButton!
-    @IBOutlet weak var menuButton: UIButton!
     
+    //declare outlets
+    @IBOutlet weak var imgCenter: UIImageView!
+    @IBOutlet weak var imgName: UIImageView!
+    @IBOutlet weak var imgPhone: UIImageView!
+    @IBOutlet weak var imgAddress: UIImageView!
     
-    
-    @IBOutlet weak var imgNameIcon: UIImageView!
     @IBOutlet weak var txtName: UITextField!
-    @IBOutlet weak var imgPhoneIcon: UIImageView!
     @IBOutlet weak var txtPhone: UITextField!
-    @IBOutlet weak var imgAddressIcon: UIImageView!
     @IBOutlet weak var txtAddress: UITextField!
+    
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var imgRegister: UIImageView!
     
-    //Register Button Tapped
+    @IBOutlet weak var registerNavBar: UINavigationItem!
+    @IBOutlet weak var notificationButton: UIButton!
+    @IBOutlet weak var menuButton: UIButton!
+    
+    //declare actions
+    @IBAction func notificationButtonTapped(sender: AnyObject) {
+        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
+        notificationAlert.addAction(cancelAction)
+        self.presentViewController(notificationAlert, animated: true, completion: nil)
+    }
     @IBAction func registerButtonTapped(sender: AnyObject) {
         //declare Allert
         let registerAlert = UIAlertController(title: "Alert", message: "Bạn phải nhập đầy đủ thông tin", preferredStyle: .Alert)
@@ -42,21 +49,9 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
             print("Register Successfully")
         }
     }
-    //Cancel Button Tapped
     @IBAction func cancelButtonTapped(sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
-        notificationAlert.addAction(cancelAction)
-        self.presentViewController(notificationAlert, animated: true, completion: nil)
+        print("Cancel button tapped")
     }
-    
-    @IBAction func notificationButtonTapped(sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
-        notificationAlert.addAction(cancelAction)
-        self.presentViewController(notificationAlert, animated: true, completion: nil)
-    }
-    
     
     
     override func viewDidLoad() {
@@ -66,43 +61,48 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
         view.backgroundColor = UIColorFromRGB(0xECECEC)
         
         //logo customize
-        imgRegister.frame = CGRect(x: 65, y: 70, width: 190, height: 140)
-        imgNameIcon.frame = CGRect(x: 10, y: 230, width: 30, height: 30)
-        imgPhoneIcon.frame = CGRect(x: 10, y: 280, width: 30, height: 30)
-        imgAddressIcon.frame = CGRect(x: 10, y: 330, width: 30, height: 30)
+        imgCenter.frame = CGRect(x: 90, y: 70, width: 140, height: 140)
+        imgCenter.image = UIImage(named: "contact.png")
+        imgCenter.translatesAutoresizingMaskIntoConstraints = true
+        imgName.frame = CGRect(x: 20, y: 230, width: 40, height: 40)
+        imgName.image = UIImage(named: "contact.png")
+        imgName.translatesAutoresizingMaskIntoConstraints = true
+        imgPhone.frame = CGRect(x: 20, y: 280, width: 40, height: 40)
+        imgPhone.image = UIImage(named: "mobile.png")
+        imgPhone.translatesAutoresizingMaskIntoConstraints = true
+        imgAddress.frame = CGRect(x: 20, y: 330, width: 40, height: 40)
+        imgAddress.image = UIImage(named: "address.png")
+        imgAddress.translatesAutoresizingMaskIntoConstraints = true
         
         //textfield customize
-        txtName.frame = CGRect(x: 30, y: 230, width: 260, height: 30)
+        txtName.frame = CGRect(x: 70, y: 230, width: 220, height: 40)
         txtName.placeholder = "Họ và tên"
         txtName.translatesAutoresizingMaskIntoConstraints = true
         
-        txtPhone.frame = CGRect(x: 30, y: 280, width: 260, height: 30)
+        txtPhone.frame = CGRect(x: 70, y: 280, width: 220, height: 40)
         txtPhone.placeholder = "Số điện thoại"
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
         
-        txtAddress.frame = CGRect(x: 30, y: 330, width: 260, height: 30)
+        txtAddress.frame = CGRect(x: 70, y: 330, width: 220, height: 40)
         txtAddress.placeholder = "Địa chỉ"
         txtAddress.translatesAutoresizingMaskIntoConstraints = true
         
         //button customize
         registerButton.frame = CGRect(x: 30, y: 380, width: 260, height: 30)
-        registerButton.translatesAutoresizingMaskIntoConstraints = true
-        registerButton.frame = CGRect(x: 30, y: 430, width: 260, height: 30)
-        registerButton.backgroundColor = UIColorFromRGB(0xF00020)
         registerButton.setTitle("Đăng ký", forState: .Normal)
-        registerButton.addTarget(self, action: #selector(cancelButtonTapped), forControlEvents: .TouchUpInside)
+        registerButton.backgroundColor = UIColorFromRGB(0xF00020)
+        registerButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         registerButton.layer.cornerRadius = 6
-        self.view.addSubview(cancelButton)
+        //registerButton.addTarget(self, action: #selector(registerButtonTapped), forControlEvents: .TouchUpInside)
+        //self.view.addSubview(registerButton)
         registerButton.translatesAutoresizingMaskIntoConstraints = true
-        
-        cancelButton.frame = CGRect(x: 30, y: 380, width: 260, height: 30)
-        cancelButton.translatesAutoresizingMaskIntoConstraints = true
-        cancelButton.frame = CGRect(x: 30, y: 430, width: 260, height: 30)
-        cancelButton.backgroundColor = UIColorFromRGB(0xF00020)
+        cancelButton.frame = CGRect(x: 30, y: 420, width: 260, height: 30)
         cancelButton.setTitle("Thoát", forState: .Normal)
-        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), forControlEvents: .TouchUpInside)
+        cancelButton.backgroundColor = UIColorFromRGB(0xF00020)
+        cancelButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         cancelButton.layer.cornerRadius = 6
-        self.view.addSubview(cancelButton)
+        //cancelButton.addTarget(self, action: #selector(cancelButtonTapped), forControlEvents: .TouchUpInside)
+        //self.view.addSubview(cancelButton)
         cancelButton.translatesAutoresizingMaskIntoConstraints = true
         
         //Navigation Bar customize
@@ -110,33 +110,37 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColorFromRGB(0xF00020)]
         
         //menu button on NavBar
-        menuButton.setImage(UIImage(named: "menu.png"), forState: .Normal)
+        let menuOrigin = UIImage(named: "menu.png");
+        let tintedImage = menuOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        menuButton.setImage(tintedImage, forState: .Normal)
+        menuButton.tintColor = UIColorFromRGB(0xF00020)
         menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
+        
+        //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
         menuButton.setTitle("", forState: .Normal)
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton
         menuNavBar.enabled = false //disable menu button
         
         //noti button on NavBar
-        notiButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        notiButton.layer.cornerRadius = 0.5 * notiButton.bounds.size.width
-        notiButton.setTitle("!", forState: .Normal)
-        notiButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        notiButton.backgroundColor = UIColorFromRGB(0xF00020)
+        notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
+        notificationButton.setTitle("!", forState: .Normal)
+        notificationButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        notificationButton.backgroundColor = UIColorFromRGB(0xF00020)
+        notificationButton.addTarget(self, action: #selector(notificationButtonTapped), forControlEvents: .TouchUpInside)
+        let notificationNavBar = UIBarButtonItem()
+        notificationNavBar.customView = notificationButton
         
-        notiButton.addTarget(self, action: #selector(notificationButtonTapped), forControlEvents: .TouchUpInside)
-        let notiNavBar = UIBarButtonItem()
-        notiNavBar.customView = notiButton
-        
-        //set right navigation bar item
-        self.navigationItem.rightBarButtonItems = [menuNavBar, notiNavBar]
+        //set right bar item
+        registerNavBar.setLeftBarButtonItems([menuNavBar, notificationNavBar], animated: false)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    //color from RGB
     func UIColorFromRGB(rgbValue: UInt) -> UIColor {
         return UIColor(
             red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
@@ -146,9 +150,6 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
         )
     }
     //popover menu
-    @IBAction func showPopOver(sender: AnyObject) {
-        print("menu tapped")
-    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "popoverMenu" {
             let popoverVC = segue.destinationViewController

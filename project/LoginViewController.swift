@@ -119,7 +119,10 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColorFromRGB(0xF00020)]
         
         //menu button on NavBar
-        menuButton.setImage(UIImage(named: "menu.png"), forState: .Normal)
+        let menuOrigin = UIImage(named: "menu.png");
+        let tintedImage = menuOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        menuButton.setImage(tintedImage, forState: .Normal)
+        menuButton.tintColor = UIColorFromRGB(0xF00020)
         menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
         menuButton.setTitle("", forState: .Normal)
