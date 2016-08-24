@@ -13,9 +13,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    internal var rootNav:UINavigationController = UINavigationController()
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        //self.window?.rootViewController = testViewController()
+        //self.window?.makeKeyWindow()
+        
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let firstVC = mainStoryboard.instantiateViewControllerWithIdentifier("HomeTableViewController")
+        rootNav = UINavigationController(rootViewController: firstVC)
+        rootNav.navigationBarHidden = false
+        
+        self.window?.rootViewController = rootNav
+        
         return true
     }
 

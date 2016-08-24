@@ -18,13 +18,24 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var checkBoxButton: CheckBox!
     @IBOutlet weak var lblCheckBox: UILabel!
+    
     @IBOutlet weak var notiButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
     @IBOutlet weak var loginNavBar: UINavigationItem!
     
+    //let screenSize:CGRect = UIScreen.mainScreen().bounds
+    //let screenWidth = screenSize.width
+    //let screenHeight = screenSize.height
     
-    
+    @IBAction func backButtonTapped(sender: AnyObject) {
+        //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        //let homeVC = mainStoryboard.instantiateViewControllerWithIdentifier("HomeTableViewController")
+        //self.navigationController?.popToViewController(homeVC, animated: true)
+       self.navigationController?.popViewControllerAnimated(true)
+
+    }
     @IBAction func ShowPassword(sender: AnyObject) {
         bShowPassword = !bShowPassword
         txtPassword.secureTextEntry = !bShowPassword
@@ -47,18 +58,12 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     
     //Register
     @IBAction func Register(sender: AnyObject) {
-        //declare Allert
-        let registerAlert = UIAlertController(title: "Alert", message: "Bạn phải nhập tài khoản và mật khẩu", preferredStyle: .Alert)
-        //Alert Action
-        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(loginAlert) -> Void in ()})
-        registerAlert.addAction(okAction)
-        //check the value of the text field
-        if ((txtPassword.text?.isEmpty)! || (txtAccount.text?.isEmpty)!) {
-            //Call alert
-            self.presentViewController(registerAlert, animated: true, completion: nil)
-        }else {
-            print("Register Successfully")
-        }
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let registerVC = mainStoryboard.instantiateViewControllerWithIdentifier("RegisterViewController")
+        
+        //self.presentViewController(dangkiVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(registerVC, animated: true)
     }
    
     @IBAction func notification(sender: AnyObject) {
@@ -73,7 +78,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //background
-        view.backgroundColor = UIColorFromRGB(0xECECEC)
+        view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
         imgLogo.image = UIImage(named: "gas_logo.png")
         imgLogo.frame = CGRect(x: 65, y: 70, width: 190, height: 140)
         imgLogo.translatesAutoresizingMaskIntoConstraints = true
@@ -86,6 +91,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         
         //check box button
         checkBoxButton.frame = CGRect(x: 30, y: 340, width: 15, height: 15)
+        checkBoxButton.tintColor = UIColor.blackColor()
         checkBoxButton.translatesAutoresizingMaskIntoConstraints = true
         lblCheckBox.frame = CGRect(x: 50, y: 338, width: 140, height: 20)
         lblCheckBox.translatesAutoresizingMaskIntoConstraints = true
@@ -96,8 +102,9 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         
         //login button
         loginButton.frame = CGRect(x: 30, y: 400, width: 260, height: 40)
-        loginButton.backgroundColor = UIColorFromRGB(0xF00020)
+        loginButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         loginButton.setTitle("Đăng nhập", forState: .Normal)
+        loginButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         loginButton.addTarget(self, action: #selector(Login), forControlEvents: .TouchUpInside)
         loginButton.layer.cornerRadius = 6
         self.view.addSubview(loginButton)
@@ -105,8 +112,9 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         
         //sign in button
         signInButton.frame = CGRect(x: 30, y: 450, width: 260, height: 40)
-        signInButton.backgroundColor = UIColorFromRGB(0xF00020)
+        signInButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         signInButton.setTitle("Đăng ký", forState: .Normal)
+        signInButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         signInButton.addTarget(self, action: #selector(Register), forControlEvents: .TouchUpInside)
         signInButton.layer.cornerRadius = 6
         self.view.addSubview(signInButton)
@@ -116,13 +124,13 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         
         //login navigation bar
         loginNavBar.title = "Đăng nhập"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColorFromRGB(0xF00020)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
         
         //menu button on NavBar
         let menuOrigin = UIImage(named: "menu.png");
         let tintedImage = menuOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         menuButton.setImage(tintedImage, forState: .Normal)
-        menuButton.tintColor = UIColorFromRGB(0xF00020)
+        menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
         menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
         menuButton.setTitle("", forState: .Normal)
@@ -135,7 +143,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         notiButton.layer.cornerRadius = 0.5 * notiButton.bounds.size.width
         notiButton.setTitle("!", forState: .Normal)
         notiButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        notiButton.backgroundColor = UIColorFromRGB(0xF00020)
+        notiButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         
         notiButton.addTarget(self, action: #selector(notification), forControlEvents: .TouchUpInside)
         let notiNavBar = UIBarButtonItem()
@@ -143,6 +151,16 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         
         //set right navigation bar item
         self.navigationItem.rightBarButtonItems = [menuNavBar, notiNavBar]
+        let backOrigin = UIImage(named: "back.png");
+        let tintedBackLogo = backOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        backButton.setImage(tintedBackLogo, forState: .Normal)
+        backButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
+        backButton.setTitle("", forState: .Normal)
+        let backNavBar = UIBarButtonItem()
+        backNavBar.customView = backButton
+        loginNavBar.setLeftBarButtonItem(backNavBar, animated: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -150,15 +168,6 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         // Dispose of any resources that can be recreated.
     }
     
-    //RGB color
-    func UIColorFromRGB(rgbValue: UInt) -> UIColor {
-        return UIColor(
-            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(1.0)
-        )
-    }
 
     //popover menu
     @IBAction func showPopOver(sender: AnyObject) {
