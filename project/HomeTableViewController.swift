@@ -49,9 +49,9 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.methodOfReceivedNotification(_:)), name:"pushtoLoginVC", object: nil)
-        aList = ["maintenanceRequest", "maintenanceList", "serviceRating", "account"]
-        aListIcon = ["MaintenanceRequest.jpeg", "MaintenanceList.jpeg", "ServiceRating.jpeg", "Account.jpeg"]
-        aListText = ["Yêu cầu bảo trì", "Danh sách bảo trì", "Đánh giá dịch vụ", "Tài khoản"]
+        aList = ["ordergas", "maintenanceRequest", "maintenanceList", "serviceRating", "account"]
+        aListIcon = ["ordergas.png","MaintenanceRequest.jpeg", "MaintenanceList.jpeg", "ServiceRating.jpeg", "Account.jpeg"]
+        aListText = ["Đặt Gas","Yêu cầu bảo trì", "Danh sách bảo trì", "Đánh giá dịch vụ", "Tài khoản"]
         
         homeNavBar.title = "Home"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
@@ -148,12 +148,14 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         //cell background color
         switch indexPath.row {
         case 0:
-            cell.backgroundColor = ColorFromRGB().getColorFromRGB(0x666666)
+            cell.backgroundColor = ColorFromRGB().getColorFromRGB(0x29B6F6)
         case 1:
-            cell.backgroundColor = ColorFromRGB().getColorFromRGB(0xFAB102)
+            cell.backgroundColor = ColorFromRGB().getColorFromRGB(0x666666)
         case 2:
-            cell.backgroundColor = ColorFromRGB().getColorFromRGB(0xFF673E)
+            cell.backgroundColor = ColorFromRGB().getColorFromRGB(0xFAB102)
         case 3:
+            cell.backgroundColor = ColorFromRGB().getColorFromRGB(0xFF673E)
+        case 4:
             cell.backgroundColor = ColorFromRGB().getColorFromRGB(0x8C60FF)
         default: break
             

@@ -10,19 +10,15 @@ import UIKit
 
 class menuHomeViewController: UIViewController {
 
-    @IBAction func toLoginVC(sender: AnyObject) {
-    }
+    
+    @IBOutlet weak var configButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
+    @IBAction func configButtonTapped(sender: AnyObject) {
+    }
     @IBAction func loginButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(false) { 
             NSNotificationCenter.defaultCenter().postNotificationName("pushtoLoginVC", object: nil)
         }
-      /*  let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginVC = mainStoryboard.instantiateViewControllerWithIdentifier("LoginViewController")
-        //self.navigationController?.pushViewController(loginVC, animated: true)
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let aVariable:UINavigationController = appDelegate.rootNav
-        aVariable.pushViewController(loginVC, animated: true)*/
     }
     
     override func viewDidLoad() {
@@ -36,6 +32,15 @@ class menuHomeViewController: UIViewController {
         loginButton.layer.cornerRadius = 6
         self.view.addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = true
+        configButton.frame = CGRect(x: 0, y: 50, width: 200, height: 40)
+        configButton.backgroundColor = UIColor.whiteColor()
+        configButton.setTitle("Cài đặt", forState: .Normal)
+        configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
+       // configButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
+        configButton.layer.cornerRadius = 6
+        self.view.addSubview(loginButton)
+        configButton.translatesAutoresizingMaskIntoConstraints = true
+
 
         self.navigationController?.navigationBarHidden = true
         // Do any additional setup after loading the view.

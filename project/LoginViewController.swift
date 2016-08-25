@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class LoginViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
 
     var bShowPassword:Bool!
     @IBOutlet weak var imgLogo: UIImageView!
@@ -30,11 +30,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     //let screenHeight = screenSize.height
     
     @IBAction func backButtonTapped(sender: AnyObject) {
-        //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        //let homeVC = mainStoryboard.instantiateViewControllerWithIdentifier("HomeTableViewController")
-        //self.navigationController?.popToViewController(homeVC, animated: true)
        self.navigationController?.popViewControllerAnimated(true)
-
     }
     @IBAction func ShowPassword(sender: AnyObject) {
         bShowPassword = !bShowPassword
@@ -52,7 +48,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
             //Call alert
             self.presentViewController(loginAlert, animated: true, completion: nil)
         }else {
-            print("Login Successfully")
+            self.navigationController?.popViewControllerAnimated(true)
         }
     }
     
@@ -161,8 +157,30 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         let backNavBar = UIBarButtonItem()
         backNavBar.customView = backButton
         loginNavBar.setLeftBarButtonItem(backNavBar, animated: false)
+        
+        txtAccount.delegate = self
+        txtPassword.delegate = self
+        
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        //hide keyboard
+        //textField.resignFirstResponder()
+        let nextTag = textField.tag + 1
+        // Try to find next responder
+        let nextResponder = textField.superview?.viewWithTag(nextTag) as UIResponder!
+        
+        if (nextResponder != nil){
+            // Found next responder, so set it.
+            nextResponder?.becomeFirstResponder()
+        }
+        else
+        {
+            // Not found, so remove keyboard
+            textField.resignFirstResponder()
+        }
+        return true
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
