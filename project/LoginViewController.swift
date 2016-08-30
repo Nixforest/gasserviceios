@@ -24,7 +24,8 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     @IBOutlet weak var backButton: UIButton!
     
     @IBOutlet weak var loginNavBar: UINavigationItem!
-    
+    var hideKeyboard:Bool = true
+    var loginStatus:NSUserDefaults!
     //let screenSize:CGRect = UIScreen.mainScreen().bounds
     //let screenWidth = screenSize.width
     //let screenHeight = screenSize.height
@@ -48,6 +49,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
             //Call alert
             self.presentViewController(loginAlert, animated: true, completion: nil)
         }else {
+            
             self.navigationController?.popViewControllerAnimated(true)
         }
     }
@@ -161,6 +163,10 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         txtAccount.delegate = self
         txtPassword.delegate = self
         
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.hideKeyboard(_:)))
+        self.view.addGestureRecognizer(gesture)
+
+        
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -178,6 +184,9 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         {
             // Not found, so remove keyboard
             textField.resignFirstResponder()
+            UIView.animateWithDuration(0.3) {
+                self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height)
+            }
         }
         return true
     }
@@ -205,5 +214,16 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     @IBAction func showNotification(sender: AnyObject) {
         print("noti tapped")
     }
+    func hideKeyboard(sender:UITapGestureRecognizer){
+        self.view.endEditing(true)
+        hideKeyboard = true
+        
+    }
+    
+    internal func textFieldShouldBeginEditing(textField: UITextField) -> Bool{
+        hideKeyboard = false
+        return true
+    }
+
 }
 

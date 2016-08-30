@@ -9,7 +9,7 @@
 import UIKit
 
 
-class RegisterViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class RegisterViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
     
     //declare outlets
     @IBOutlet weak var imgCenter: UIImageView!
@@ -29,6 +29,8 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     
+    var hideKeyboard:Bool = true
+    var loginStatus:NSUserDefaults!
     //declare actions
     
     @IBAction func backButtonTapped(sender: AnyObject) {
@@ -100,15 +102,15 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
         txtName.frame = CGRect(x: 70, y: 230, width: 220, height: 40)
         txtName.placeholder = "Họ và tên"
         txtName.translatesAutoresizingMaskIntoConstraints = true
-        
+        txtName.delegate = self
         txtPhone.frame = CGRect(x: 70, y: 280, width: 220, height: 40)
         txtPhone.placeholder = "Số điện thoại"
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
-        
+        txtPhone.delegate = self
         txtAddress.frame = CGRect(x: 70, y: 330, width: 220, height: 40)
         txtAddress.placeholder = "Địa chỉ"
         txtAddress.translatesAutoresizingMaskIntoConstraints = true
-        
+        txtAddress.delegate = self
         //button customize
         registerButton.frame = CGRect(x: 30, y: 400, width: 260, height: 30)
         registerButton.setTitle("Đăng ký", forState: .Normal)
@@ -161,6 +163,10 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
         
         //let aColor:UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
         
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.hideKeyboard(_:)))
+        self.view.addGestureRecognizer(gesture)
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -178,5 +184,44 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
     }
+    internal func textFieldShouldBeginEditing(textField: UITextField) -> Bool{
+        if hideKeyboard == true {
+        UIView.animateWithDuration(0.3) {
+            self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - 100, self.view.frame.size.width, self.view.frame.size.height)
+            }
+            hideKeyboard = false
+        }
+        return true
+    }
+    func hideKeyboard(sender:UITapGestureRecognizer){
+        self.view.endEditing(true)
+        UIView.animateWithDuration(0.3) {
+            self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height)
+        }
+        hideKeyboard = true
+        
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        //hide keyboard
+        //textField.resignFirstResponder()
+        let nextTag = textField.tag + 1
+        // Try to find next responder
+        let nextResponder = textField.superview?.viewWithTag(nextTag) as UIResponder!
+        
+        if (nextResponder != nil){
+            // Found next responder, so set it.
+            nextResponder?.becomeFirstResponder()
+        }
+        else
+        {
+            // Not found, so remove keyboard
+            textField.resignFirstResponder()
+            UIView.animateWithDuration(0.3) {
+                self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height)
+            }
+        }
+        return true
+    }
+
 
 }

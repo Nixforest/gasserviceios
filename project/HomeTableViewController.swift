@@ -11,6 +11,7 @@ import UIKit
 class HomeTableViewController: UITableViewController,UIPopoverPresentationControllerDelegate {
 
     var flag:NSInteger = 0
+    var loginStatus:NSUserDefaults!
     
     @IBAction func fff(sender: AnyObject) {
         /*
@@ -169,7 +170,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
     }
 
         func toAccountViewController(sender:UIButton) {
-            if sender.tag == 3 {
+            if sender.tag == 4 {
                 let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let registerVC = mainStoryboard.instantiateViewControllerWithIdentifier("AccountViewController")
                 self.navigationController?.pushViewController(registerVC, animated: true)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class AccountViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var accountNavBar: UINavigationItem!
     @IBOutlet weak var menuButton: UIButton!
@@ -28,6 +28,8 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
     @IBOutlet weak var txtPhone: UITextField!
     @IBOutlet weak var txtAddress: UITextField!
     
+    var hideKeyboard:Bool = true
+    var loginStatus:NSUserDefaults!
     
     @IBAction func notificationButtonTapped(sender: AnyObject) {
         let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
@@ -87,15 +89,15 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         txtName.frame = CGRect(x: 70, y: 230, width: 220, height: 40)
         txtName.placeholder = "Họ và tên"
         txtName.translatesAutoresizingMaskIntoConstraints = true
-        
+        txtName.delegate = self
         txtPhone.frame = CGRect(x: 70, y: 280, width: 220, height: 40)
         txtPhone.placeholder = "Số điện thoại"
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
-        
+        txtPhone.delegate = self
         txtAddress.frame = CGRect(x: 70, y: 330, width: 220, height: 40)
         txtAddress.placeholder = "Địa chỉ"
         txtAddress.translatesAutoresizingMaskIntoConstraints = true
-        
+        txtAddress.delegate = self
         //button customize
         saveButton.frame = CGRect(x: 30, y: 380, width: 260, height: 30)
         saveButton.setTitle("Lưu", forState: .Normal)
@@ -156,6 +158,8 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
 
 
         // Do any additional setup after loading the view.
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(AccountViewController.hideKeyboard(_:)))
+        self.view.addGestureRecognizer(gesture)
     }
 
     override func didReceiveMemoryWarning() {
@@ -183,6 +187,44 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
     }
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
+    }
+
+    internal func textFieldShouldBeginEditing(textField: UITextField) -> Bool{
+        if hideKeyboard == true {
+            UIView.animateWithDuration(0.3) {
+                self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - 100, self.view.frame.size.width, self.view.frame.size.height)
+            }
+            hideKeyboard = false
+        }
+        return true
+    }
+    func hideKeyboard(sender:UITapGestureRecognizer){
+        self.view.endEditing(true)
+        UIView.animateWithDuration(0.3) {
+            self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height)
+        }
+        hideKeyboard = true
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        //hide keyboard
+        //textField.resignFirstResponder()
+        let nextTag = textField.tag + 1
+        // Try to find next responder
+        let nextResponder = textField.superview?.viewWithTag(nextTag) as UIResponder!
+        
+        if (nextResponder != nil){
+            // Found next responder, so set it.
+            nextResponder?.becomeFirstResponder()
+        }
+        else
+        {
+            // Not found, so remove keyboard
+            textField.resignFirstResponder()
+            UIView.animateWithDuration(0.3) {
+                self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height)
+            }
+        }
+        return true
     }
 
 }

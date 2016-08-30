@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChangePasswordViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class ChangePasswordViewController: UIViewController, UIPopoverPresentationControllerDelegate,UITextFieldDelegate {
 
     var bShowPassword:Bool!
     @IBOutlet weak var changePasswordNavBar: UINavigationItem!
@@ -25,6 +25,9 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
     @IBOutlet weak var txtOldPassword: UITextField!
     @IBOutlet weak var txtNewPassword: UITextField!
     @IBOutlet weak var txtNewPasswordRetype: UITextField!
+    
+    var hideKeyboard:Bool = true
+    var loginStatus:NSUserDefaults!
     
     @IBAction func checkboxButtonTapped(sender: AnyObject) {
         bShowPassword = !bShowPassword
@@ -75,15 +78,16 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         txtOldPassword.frame = CGRect(x: 45, y: 100, width: 230, height: 40)
         txtOldPassword.placeholder = "Mật khẩu cũ"
         txtOldPassword.translatesAutoresizingMaskIntoConstraints = true
+        txtOldPassword.delegate = self
         
         txtNewPassword.frame = CGRect(x: 45, y: 150, width: 230, height: 40)
         txtNewPassword.placeholder = "Mật khẩu mới"
         txtNewPassword.translatesAutoresizingMaskIntoConstraints = true
-        
+        txtNewPassword.delegate = self
         txtNewPasswordRetype.frame = CGRect(x: 45, y: 200, width: 230, height: 40)
         txtNewPasswordRetype.placeholder = "Nhập lại mật khẩu mới"
         txtNewPasswordRetype.translatesAutoresizingMaskIntoConstraints = true
-
+        txtNewPasswordRetype.delegate = self
         //check box button
         checkboxButton.frame = CGRect(x: 45, y: 250, width: 15, height: 15)
         checkboxButton.tintColor = UIColor.blackColor()
@@ -142,6 +146,10 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         backNavBar.customView = backButton
         changePasswordNavBar.setLeftBarButtonItem(backNavBar, animated: false)
         // Do any additional setup after loading the view.
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.hideKeyboard(_:)))
+        self.view.addGestureRecognizer(gesture)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -170,5 +178,37 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
     }
+
+    func hideKeyboard(sender:UITapGestureRecognizer){
+        self.view.endEditing(true)
+        hideKeyboard = true
+    }
+    
+    internal func textFieldShouldBeginEditing(textField: UITextField) -> Bool{
+        hideKeyboard = false
+        return true
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        //hide keyboard
+        //textField.resignFirstResponder()
+        let nextTag = textField.tag + 1
+        // Try to find next responder
+        let nextResponder = textField.superview?.viewWithTag(nextTag) as UIResponder!
+        
+        if (nextResponder != nil){
+            // Found next responder, so set it.
+            nextResponder?.becomeFirstResponder()
+        }
+        else
+        {
+            // Not found, so remove keyboard
+            textField.resignFirstResponder()
+            UIView.animateWithDuration(0.3) {
+                self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height)
+            }
+        }
+        return true
+    }
+
 
 }
