@@ -19,16 +19,15 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     @IBOutlet weak var checkBoxButton: CheckBox!
     @IBOutlet weak var lblCheckBox: UILabel!
     
-    @IBOutlet weak var notiButton: UIButton!
+    @IBOutlet weak var notificationButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     
     @IBOutlet weak var loginNavBar: UINavigationItem!
     var hideKeyboard:Bool = true
-    var loginStatus:NSUserDefaults!
-    //let screenSize:CGRect = UIScreen.mainScreen().bounds
-    //let screenWidth = screenSize.width
-    //let screenHeight = screenSize.height
+    var loginStatusCarrier:NSUserDefaults!
+    var loginStatus:Bool = false
+    
     
     @IBAction func backButtonTapped(sender: AnyObject) {
        self.navigationController?.popViewControllerAnimated(true)
@@ -49,8 +48,9 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
             //Call alert
             self.presentViewController(loginAlert, animated: true, completion: nil)
         }else {
-            
             self.navigationController?.popViewControllerAnimated(true)
+            //loginStatus = true
+            //loginStatusCarrier.setObject(loginStatus, forKey: "loginStatus")
         }
     }
     
@@ -74,6 +74,15 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //transmit login status
+        /*loginStatusCarrier = NSUserDefaults()
+        loginStatus = (loginStatusCarrier.objectForKey("Text") as? Bool)!
+        //notification button enable/disable
+        if loginStatus == true {
+            notificationButton.enabled = true
+        } else {
+            notificationButton.enabled = false
+        }*/
         // Do any additional setup after loading the view, typically from a nib.
         //background
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
@@ -129,7 +138,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         let tintedImage = menuOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         menuButton.setImage(tintedImage, forState: .Normal)
         menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
         menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
         menuButton.setTitle("", forState: .Normal)
         let menuNavBar = UIBarButtonItem()
@@ -137,15 +146,15 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         menuNavBar.enabled = false //disable menu button
         
         //noti button on NavBar
-        notiButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        notiButton.layer.cornerRadius = 0.5 * notiButton.bounds.size.width
-        notiButton.setTitle("!", forState: .Normal)
-        notiButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        notiButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
+        notificationButton.setTitle("!", forState: .Normal)
+        notificationButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         
-        notiButton.addTarget(self, action: #selector(notification), forControlEvents: .TouchUpInside)
+        notificationButton.addTarget(self, action: #selector(notification), forControlEvents: .TouchUpInside)
         let notiNavBar = UIBarButtonItem()
-        notiNavBar.customView = notiButton
+        notiNavBar.customView = notificationButton
         
         //set right navigation bar item
         self.navigationItem.rightBarButtonItems = [menuNavBar, notiNavBar]

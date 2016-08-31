@@ -27,7 +27,8 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
     @IBOutlet weak var txtNewPasswordRetype: UITextField!
     
     var hideKeyboard:Bool = true
-    var loginStatus:NSUserDefaults!
+    //var loginStatusCarrier:NSUserDefaults!
+    //var loginStatus:Bool = false
     
     @IBAction func checkboxButtonTapped(sender: AnyObject) {
         bShowPassword = !bShowPassword
@@ -71,6 +72,15 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //transmit login status
+        /*loginStatusCarrier = NSUserDefaults()
+        loginStatus = (loginStatusCarrier.objectForKey("loginStatus") as? Bool)!
+        //notification button enable/disable
+        if loginStatus == true {
+            notificationButton.enabled = true
+        } else {
+            notificationButton.enabled = false
+        }*/
         //background
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
         
@@ -116,7 +126,7 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         let tintedImage = menuOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         menuButton.setImage(tintedImage, forState: .Normal)
         menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
         
         //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
         menuButton.setTitle("", forState: .Normal)

@@ -13,6 +13,7 @@ class menuHomeViewController: UIViewController {
     
     @IBOutlet weak var configButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
     @IBAction func configButtonTapped(sender: AnyObject) {
     }
     @IBAction func loginButtonTapped(sender: AnyObject) {
@@ -32,7 +33,7 @@ class menuHomeViewController: UIViewController {
         loginButton.layer.cornerRadius = 6
         self.view.addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = true
-        configButton.frame = CGRect(x: 0, y: 50, width: 200, height: 40)
+        configButton.frame = CGRect(x: 0, y: 90, width: 200, height: 40)
         configButton.backgroundColor = UIColor.whiteColor()
         configButton.setTitle("Cài đặt", forState: .Normal)
         configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
@@ -40,6 +41,16 @@ class menuHomeViewController: UIViewController {
         configButton.layer.cornerRadius = 6
         self.view.addSubview(loginButton)
         configButton.translatesAutoresizingMaskIntoConstraints = true
+        
+        registerButton.frame = CGRect(x: 0, y: 50, width: 200, height: 40)
+        registerButton.backgroundColor = UIColor.whiteColor()
+        registerButton.setTitle("Đăng ký", forState: .Normal)
+        registerButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
+        //loginButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
+        registerButton.layer.cornerRadius = 6
+        self.view.addSubview(loginButton)
+        registerButton.translatesAutoresizingMaskIntoConstraints = true
+
 
 
         self.navigationController?.navigationBarHidden = true

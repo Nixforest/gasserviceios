@@ -29,7 +29,8 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
     @IBOutlet weak var txtAddress: UITextField!
     
     var hideKeyboard:Bool = true
-    var loginStatus:NSUserDefaults!
+    //var loginStatusCarrier:NSUserDefaults!
+    //var loginStatus:Bool = false
     
     @IBAction func notificationButtonTapped(sender: AnyObject) {
         let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
@@ -67,7 +68,15 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //transmit login status
+        /*loginStatusCarrier = NSUserDefaults()
+        loginStatus = (loginStatusCarrier.objectForKey("loginStatus") as? Bool)!
+        //notification button enable/disable
+        if loginStatus == true {
+            notificationButton.enabled = true
+        } else {
+            notificationButton.enabled = false
+        }*/
         //background
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
         
@@ -127,7 +136,7 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         let tintedImage = menuOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         menuButton.setImage(tintedImage, forState: .Normal)
         menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
         menuButton.setTitle("", forState: .Normal)
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton

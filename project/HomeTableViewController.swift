@@ -11,7 +11,10 @@ import UIKit
 class HomeTableViewController: UITableViewController,UIPopoverPresentationControllerDelegate {
 
     var flag:NSInteger = 0
-    var loginStatus:NSUserDefaults!
+    //var loginStatusCarrier:NSUserDefaults!
+    //var loginStatus:Bool = false
+    
+    
     
     @IBAction func fff(sender: AnyObject) {
         /*
@@ -49,12 +52,35 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //transmit login status
+        /*loginStatusCarrier = NSUserDefaults()
+        loginStatus = (loginStatusCarrier.objectForKey("loginStatus") as? Bool)!
+        //notification button enable/disable
+        if loginStatus == true {
+            notificationButton.enabled = true
+        } else {
+            notificationButton.enabled = false
+        }*/
+        
+        view.backgroundColor = UIColor.grayColor()
+        
+        //push screen
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.methodOfReceivedNotification(_:)), name:"pushtoLoginVC", object: nil)
+        //border screen
+        let redColor = UIColor.grayColor().CGColor
+        let borderWidth:CGFloat = 0x05
+        self.view.frame = CGRectInset(view.frame, -borderWidth, -borderWidth)
+        self.view.layer.borderColor = redColor
+        self.view.layer.borderWidth = borderWidth
+        self.view.layer.borderWidth = borderWidth
+ 
+        //declare List
         aList = ["ordergas", "maintenanceRequest", "maintenanceList", "serviceRating", "account"]
         aListIcon = ["ordergas.png","MaintenanceRequest.jpeg", "MaintenanceList.jpeg", "ServiceRating.jpeg", "Account.jpeg"]
         aListText = ["Đặt Gas","Yêu cầu bảo trì", "Danh sách bảo trì", "Đánh giá dịch vụ", "Tài khoản"]
         
-        homeNavBar.title = "Home"
+        //Navigation Bar
+        homeNavBar.title = "Gas Services"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
         self.navigationItem.setHidesBackButton(true, animated:true);
         //menu button on NavBar
@@ -62,7 +88,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         let tintedImage = menuOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         menuButton.setImage(tintedImage, forState: .Normal)
         menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
         
         //menuButton.addTarget(self, action: #selector(menuButtonTapped), forControlEvents: .TouchUpInside)
         menuButton.setTitle("", forState: .Normal)
@@ -128,6 +154,9 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        //tableView.frame = CGRectMake(5, 5, screenWidth - 10, screenHeight - 10)
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         let imgIcon:UIImageView = UIImageView(frame: CGRectMake(5, 5, 90, 90))
         imgIcon.image = UIImage(named: aListIcon[indexPath.row])
