@@ -12,27 +12,14 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
 
     var flag:NSInteger = 0
     //var loginStatusCarrier:NSUserDefaults!
-    //var loginStatus:Bool = false
+    var loginStatus:Bool = true
     
     
     
-    @IBAction func fff(sender: AnyObject) {
-        /*
-        flag = flag + 1
-        if flag % 2 == 0 {
-            popView.hidden = false
-        }
-        if flag % 2 == 1 {
-            popView.hidden = true
-        }
-        if flag == 2 {
-            flag = 0
-        }*/
-    }
+    
     @IBOutlet weak var homeNavBar: UINavigationItem!
     @IBOutlet weak var notificationButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
-    let popView:UIView = UIView()
     
     
     @IBAction func notificationButtonTapped(sender: AnyObject) {
@@ -103,7 +90,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         
  
         //declare List
-        aList = ["ordergas", "maintenanceRequest", "maintenanceList", "serviceRating", "account"]
+        aList = ["@CONTENT00113", "@CONTENT00041", "@CONTENT00099", "@CONTENT00098", "@CONTENT00100"]
         aListIcon = ["ordergas.png","MaintenanceRequest.jpeg", "MaintenanceList.jpeg", "ServiceRating.jpeg", "Account.jpeg"]
         aListText = ["Đặt Gas","Yêu cầu bảo trì", "Danh sách bảo trì", "Đánh giá dịch vụ", "Tài khoản"]
         
@@ -141,18 +128,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        popView.frame = CGRectMake(0, 0, self.view.frame.size.width, 200)
-        popView.backgroundColor = UIColor.whiteColor()
-        let popBtn:UIButton = UIButton()
-        popBtn.frame = CGRectMake(0, 0, 50, 50)
-        popBtn.backgroundColor = UIColor.redColor()
-        popBtn.addTarget(self, action: #selector(HomeTableViewController.testAction), forControlEvents: UIControlEvents.TouchUpInside)
-        popView.addSubview(popBtn)
-        self.view.addSubview(popView)
         
-        
-        
-        popView.hidden = true
     }
     
     func pushToLoginVC(notification: NSNotification){
@@ -216,14 +192,38 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         case 4:
             cell.backgroundColor = ColorFromRGB().getColorFromRGB(0x8C60FF)
         default: break
-            
         }
+        //show cell
+        if loginStatus == false {
+            switch indexPath.row {
+            case 2:
+                cell.hidden = true
+            case 3:
+                cell.hidden = true
+            case 4:
+                cell.hidden = true
+            default: break
+            }
+        }
+
+        
 
         return cell
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
+        var rowHeight:CGFloat = 0.0
+        if loginStatus == false {
+            if (indexPath.row == 2) || (indexPath.row == 3) || (indexPath.row == 4) {
+                rowHeight = 0.0
+            } else {
+                rowHeight = 100.0
+            }
+            
+        } else {
+            rowHeight = 100.0
+        }
+        return rowHeight
     }
 
         func toAccountViewController(sender:UIButton) {
@@ -291,10 +291,6 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         return UIModalPresentationStyle.None
     }
     
-    func testAction() {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let registerVC = mainStoryboard.instantiateViewControllerWithIdentifier("LoginViewController")
-        self.navigationController?.pushViewController(registerVC, animated: true)
-    }
+    
 
 }

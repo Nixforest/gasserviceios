@@ -674,7 +674,6 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
-                                        <action selector="fff:" destination="aj3-26-YhU" eventType="touchUpInside" id="pgx-gB-nHl"/>
                                         <segue destination="HFH-Pu-JEi" kind="popoverPresentation" identifier="popoverMenu" popoverAnchorView="kBC-MC-yKf" id="CTm-5f-9N6">
                                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                         </segue>
