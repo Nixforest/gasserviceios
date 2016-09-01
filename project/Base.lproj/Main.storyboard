@@ -723,21 +723,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99D-OZ-W5I">
-                                <rect key="frame" x="77" y="20" width="46" height="30"/>
+                                <rect key="frame" x="34" y="20" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="loginButtonTapped:" destination="HFH-Pu-JEi" eventType="touchUpInside" id="0DC-6M-4yu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Vt-LZ-Obe">
-                                <rect key="frame" x="77" y="50" width="46" height="30"/>
+                                <rect key="frame" x="34" y="50" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="registerButtonTapped:" destination="HFH-Pu-JEi" eventType="touchUpInside" id="BMc-DO-xel"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ir0-3g-KBS">
-                                <rect key="frame" x="77" y="88" width="46" height="30"/>
+                                <rect key="frame" x="34" y="88" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="configButtonTapped:" destination="HFH-Pu-JEi" eventType="touchUpInside" id="eyZ-En-JTc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oI5-Uo-wDd">
+                                <rect key="frame" x="122" y="50" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="issueButtonTapped:" destination="HFH-Pu-JEi" eventType="touchUpInside" id="lQa-W6-xIo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHK-PI-Rie">
+                                <rect key="frame" x="122" y="20" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="loginButtonTapped:" destination="HFH-Pu-JEi" eventType="touchUpInside" id="rs1-30-vYr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L8P-9g-Hd0">
+                                <rect key="frame" x="122" y="20" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="logoutButtonTapped:" destination="HFH-Pu-JEi" eventType="touchUpInside" id="IdT-Ec-wlH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -749,7 +773,9 @@
                     <size key="freeformSize" width="200" height="130"/>
                     <connections>
                         <outlet property="configButton" destination="Ir0-3g-KBS" id="2zr-xJ-JzR"/>
+                        <outlet property="issueButton" destination="oI5-Uo-wDd" id="gwb-JW-FIb"/>
                         <outlet property="loginButton" destination="99D-OZ-W5I" id="DmI-yU-swA"/>
+                        <outlet property="logoutButton" destination="L8P-9g-Hd0" id="uft-Wz-hBR"/>
                         <outlet property="registerButton" destination="1Vt-LZ-Obe" id="2Tt-os-Auo"/>
                     </connections>
                 </viewController>

@@ -41,7 +41,29 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         notificationAlert.addAction(cancelAction)
         self.presentViewController(notificationAlert, animated: true, completion: nil)
     }
-    
+    func configButtonTapped(notification: NSNotification){
+        let notificationAlert = UIAlertController(title: "Thông báo", message: "configButtonTapped", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
+        notificationAlert.addAction(cancelAction)
+        self.presentViewController(notificationAlert, animated: true, completion: nil)
+    }
+    func pushToRegisterVC(notification: NSNotification){
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let RegisterVC = mainStoryboard.instantiateViewControllerWithIdentifier("RegisterViewController")
+        self.navigationController?.pushViewController(RegisterVC, animated: true)
+    }
+    func logoutButtonTapped(notification: NSNotification){
+        let notificationAlert = UIAlertController(title: "Thông báo", message: "logoutButtonTapped", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
+        notificationAlert.addAction(cancelAction)
+        self.presentViewController(notificationAlert, animated: true, completion: nil)
+    }
+    func issueButtonTapped(notification: NSNotification){
+        let notificationAlert = UIAlertController(title: "Thông báo", message: "issueButtonTapped", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
+        notificationAlert.addAction(cancelAction)
+        self.presentViewController(notificationAlert, animated: true, completion: nil)
+    }
     
     
     
@@ -64,15 +86,21 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         
         view.backgroundColor = UIColor.grayColor()
         
-        //push screen
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.methodOfReceivedNotification(_:)), name:"pushtoLoginVC", object: nil)
+        //menu button tapped
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.pushToLoginVC(_:)), name:"loginButtonInHomeTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.pushToRegisterVC(_:)), name:"registerButtonInHomeTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.configButtonTapped(_:)), name:"configButtonInHomeTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.logoutButtonTapped(_:)), name:"logoutButtonInHomeTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.issueButtonTapped(_:)), name:"issueButtonInHomeTapped", object: nil)
+        
+        
         //border screen
         let redColor = UIColor.grayColor().CGColor
         let borderWidth:CGFloat = 0x05
         self.view.frame = CGRectInset(view.frame, -borderWidth, -borderWidth)
         self.view.layer.borderColor = redColor
         self.view.layer.borderWidth = borderWidth
-        self.view.layer.borderWidth = borderWidth
+        
  
         //declare List
         aList = ["ordergas", "maintenanceRequest", "maintenanceList", "serviceRating", "account"]
@@ -127,7 +155,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         popView.hidden = true
     }
     
-    func methodOfReceivedNotification(notification: NSNotification){
+    func pushToLoginVC(notification: NSNotification){
         //Take Action on Notification
           let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
          let loginVC = mainStoryboard.instantiateViewControllerWithIdentifier("LoginViewController")
