@@ -12,7 +12,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
 
     var flag:NSInteger = 0
     //var loginStatusCarrier:NSUserDefaults!
-    var loginStatus:Bool = true
+    var loginStatus:Bool = false
     
     
     
@@ -169,6 +169,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         txtCellName.text = aListText[indexPath.row]
         cell.addSubview(txtCellName)
         cell.tag = indexPath.row
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         
         let cellButton:UIButton = UIButton()
         cellButton.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);

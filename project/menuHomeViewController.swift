@@ -10,7 +10,7 @@ import UIKit
 
 class menuHomeViewController: UIViewController {
 
-    var loginStatus:Bool!
+    var loginStatus:Bool = false
     
     @IBOutlet weak var configButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
@@ -54,7 +54,7 @@ class menuHomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
         //login status
-        loginStatus = true
+        
         if loginStatus == true {
             loginButton.hidden = true
             logoutButton.hidden = false
