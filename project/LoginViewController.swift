@@ -27,7 +27,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     var hideKeyboard:Bool = true
     var loginStatusCarrier:NSUserDefaults!
     var loginStatus:Bool = false
-    
+    var imgLogoTappedCounter:Int = 0
     
     @IBAction func backButtonTapped(sender: AnyObject) {
        self.navigationController?.popViewControllerAnimated(true)
@@ -39,7 +39,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     //Login
     @IBAction func Login(sender: AnyObject) {
         //declare Allert
-        let loginAlert = UIAlertController(title: "Alert", message: "Bạn phải nhập tài khoản và mật khẩu", preferredStyle: .Alert)
+        let loginAlert = UIAlertController(title: "Alert", message: "CONTENT00023", preferredStyle: .Alert)
         //Alert Action
         let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(loginAlert) -> Void in ()})
         loginAlert.addAction(okAction)
@@ -70,7 +70,34 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         notificationAlert.addAction(cancelAction)
         self.presentViewController(notificationAlert, animated: true, completion: nil)
     }
+    func imgLogoTapped(gestureRecognizer: UITapGestureRecognizer) {
+        //tappedImageView will be the image view that was tapped.
+        //dismiss it, animate it off screen, whatever.
+        let tappedImageView = gestureRecognizer.view!
+    }
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        imgLogoTappedCounter += 1
+        print(imgLogoTappedCounter)
+        if imgLogoTappedCounter == 7 {
+            let imgLogoTappedCounterAlert = UIAlertController(title: "Alert", message: "To Config Screen", preferredStyle: .Alert)
+            //Alert Action
+            let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(loginAlert) -> Void in ()})
+            imgLogoTappedCounterAlert.addAction(okAction)
+            //Call alert
+            self.presentViewController(imgLogoTappedCounterAlert, animated: true, completion: nil)
+            imgLogoTappedCounter = 0
+            print(imgLogoTappedCounter)
+        }
+    }
     
+    func configButtonInLoginTapped(notification: NSNotification) {
+        let Alert = UIAlertController(title: "Alert", message: "To Config Screen", preferredStyle: .Alert)
+        //Alert Action
+        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(Alert) -> Void in ()})
+        Alert.addAction(okAction)
+        //Call alert
+        self.presentViewController(Alert, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,18 +111,38 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
             notificationButton.enabled = false
         }*/
         // Do any additional setup after loading the view, typically from a nib.
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.configButtonInLoginTapped(_:)), name:"configButtonInLoginTapped", object: nil)
+        
         //background
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
         imgLogo.image = UIImage(named: "gas_logo.png")
         imgLogo.frame = CGRect(x: 65, y: 70, width: 190, height: 140)
         imgLogo.translatesAutoresizingMaskIntoConstraints = true
+        imgLogo.userInteractionEnabled = true
+        //now you need a tap gesture recognizer
+        //note that target and action point to what happens when the action is recognized.
+        let imgLogoTappedRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.imgLogoTapped(_:)))
+        //Add the recognizer to your view.
+        imgLogo.addGestureRecognizer(imgLogoTappedRecognizer)
+        if imgLogoTappedCounter == 7 {
+            let imgLogoTappedCounterAlert = UIAlertController(title: "Alert", message: "To Config Screen", preferredStyle: .Alert)
+            //Alert Action
+            let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(loginAlert) -> Void in ()})
+            imgLogoTappedCounterAlert.addAction(okAction)
+            //check the value of text field
+            
+            //Call alert
+            self.presentViewController(imgLogoTappedCounterAlert, animated: true, completion: nil)
+        
+        }
         
         //account text field
         txtAccount.frame = CGRect(x: 30, y: 230, width: 260, height: 30)
         txtAccount.translatesAutoresizingMaskIntoConstraints = true
         txtPassword.frame = CGRect(x: 30, y: 280, width: 260, height: 30)
         txtPassword.translatesAutoresizingMaskIntoConstraints = true
-        
+        self.txtAccount.becomeFirstResponder()
         //check box button
         checkBoxButton.frame = CGRect(x: 30, y: 340, width: 15, height: 15)
         checkBoxButton.tintColor = UIColor.blackColor()
@@ -143,18 +190,20 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         menuButton.setTitle("", forState: .Normal)
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton
-        menuNavBar.enabled = false //disable menu button
+        menuNavBar.enabled = true
         
         //noti button on NavBar
         notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
         notificationButton.setTitle("!", forState: .Normal)
         notificationButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        
+        //notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020) //when enable
+        notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xD5D5D5) //when disable
+
         notificationButton.addTarget(self, action: #selector(notification), forControlEvents: .TouchUpInside)
         let notiNavBar = UIBarButtonItem()
         notiNavBar.customView = notificationButton
+        notiNavBar.enabled = false
         
         //set right navigation bar item
         self.navigationItem.rightBarButtonItems = [menuNavBar, notiNavBar]

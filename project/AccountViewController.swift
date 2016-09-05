@@ -17,7 +17,7 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
 
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var changePasswordButton: UIButton!
-    @IBOutlet weak var exitButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
     
     @IBOutlet weak var imgAccountCenter: UIImageView!
     @IBOutlet weak var imgName: UIImageView!
@@ -57,14 +57,20 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         
         let changePasswordVC = mainStoryoard.instantiateViewControllerWithIdentifier("ChangePasswordViewController")
         self.navigationController?.pushViewController(changePasswordVC, animated: true)
-        print("to login screen")
-    
     }
     
     @IBAction func backButtonTapped(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    
+    @IBAction func logoutButtonTapped(sender: AnyObject) {
+        let Alert = UIAlertController(title: "Thông báo", message: "logout button tapped", preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(Alert) -> Void in ()})
+        Alert.addAction(okAction)
+        self.presentViewController(Alert, animated: true, completion: nil)
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,23 +115,23 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         txtAddress.delegate = self
         //button customize
         saveButton.frame = CGRect(x: 30, y: 380, width: 260, height: 30)
-        saveButton.setTitle("Lưu", forState: .Normal)
+        saveButton.setTitle("@CONTENT00086", forState: .Normal)
         saveButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         saveButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         saveButton.translatesAutoresizingMaskIntoConstraints = true
         saveButton.layer.cornerRadius = 6
         changePasswordButton.frame = CGRect(x: 30, y: 420, width: 260, height: 30)
-        changePasswordButton.setTitle("Đổi mật khẩu", forState: .Normal)
+        changePasswordButton.setTitle("@CONTENT00089", forState: .Normal)
         changePasswordButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         changePasswordButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         changePasswordButton.layer.cornerRadius = 6
         changePasswordButton.translatesAutoresizingMaskIntoConstraints = true
-        exitButton.frame = CGRect(x: 30, y: 460, width: 260, height: 30)
-        exitButton.setTitle("Thoát", forState: .Normal)
-        exitButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        exitButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        exitButton.layer.cornerRadius = 6
-        exitButton.translatesAutoresizingMaskIntoConstraints = true
+        logoutButton.frame = CGRect(x: 30, y: 460, width: 260, height: 30)
+        logoutButton.setTitle("@CONTENT00090", forState: .Normal)
+        logoutButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        logoutButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        logoutButton.layer.cornerRadius = 6
+        logoutButton.translatesAutoresizingMaskIntoConstraints = true
         
         //Navigation Bar customize
         accountNavBar.title = "Tài khoản"

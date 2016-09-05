@@ -11,8 +11,8 @@ import UIKit
 class HomeTableViewController: UITableViewController,UIPopoverPresentationControllerDelegate {
 
     var flag:NSInteger = 0
-    //var loginStatusCarrier:NSUserDefaults!
-    var loginStatus:Bool = false
+    //var loginStatusCarrier:NSUserDefaults! 
+    var loginStatus:Bool = true
     
     
     
@@ -91,7 +91,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
  
         //declare List
         aList = ["@CONTENT00113", "@CONTENT00041", "@CONTENT00099", "@CONTENT00098", "@CONTENT00100"]
-        aListIcon = ["ordergas.png","MaintenanceRequest.jpeg", "MaintenanceList.jpeg", "ServiceRating.jpeg", "Account.jpeg"]
+        aListIcon = ["ordergas.png","CreateUpHold.jpeg", "UpHoldList.jpeg", "ServiceRating.jpeg", "Account.jpeg"]
         aListText = ["Đặt Gas","Yêu cầu bảo trì", "Danh sách bảo trì", "Đánh giá dịch vụ", "Tài khoản"]
         
         //Navigation Bar

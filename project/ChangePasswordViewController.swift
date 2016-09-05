@@ -17,6 +17,7 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
     @IBOutlet weak var backButton: UIButton!
     
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
     
     
     @IBOutlet weak var checkboxButton: CheckBox!
@@ -36,17 +37,23 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         txtNewPassword.secureTextEntry = !bShowPassword
         txtNewPasswordRetype.secureTextEntry = !bShowPassword
     }
+    @IBAction func logoutButtonTapped(sender: AnyObject) {
+        let Alert = UIAlertController(title: "Thông báo", message: "logout button tapped", preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(Alert) -> Void in ()})
+        Alert.addAction(okAction)
+        self.presentViewController(Alert, animated: true, completion: nil)
+    }
     
     @IBAction func backButtonTapped(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
     @IBAction func saveButtonTapped(sender: AnyObject) {
         //Alert
-        let saveAlert = UIAlertController(title: "Alert", message: "Bạn phải nhập đầy đủ thông tin", preferredStyle: .Alert)
+        let saveAlert = UIAlertController(title: "Alert", message: "@CONTENT00025", preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(saveAlert) -> Void in ()})
         saveAlert.addAction(okAction)
         
-        let checkNewPasswordAlert = UIAlertController(title: "Alert", message: "Mật khẩu mới không trùng nhau", preferredStyle: .Alert)
+        let checkNewPasswordAlert = UIAlertController(title: "Alert", message: "@CONTENT00026", preferredStyle: .Alert)
         checkNewPasswordAlert.addAction(okAction)
         
         if (((txtOldPassword.text?.isEmpty)! || (txtNewPassword.text?.isEmpty)! || (txtNewPasswordRetype.text?.isEmpty)!)){
@@ -86,16 +93,16 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         
         //textfield customize
         txtOldPassword.frame = CGRect(x: 45, y: 100, width: 230, height: 40)
-        txtOldPassword.placeholder = "Mật khẩu cũ"
+        txtOldPassword.placeholder = "@CONTENT00083"
         txtOldPassword.translatesAutoresizingMaskIntoConstraints = true
         txtOldPassword.delegate = self
         
         txtNewPassword.frame = CGRect(x: 45, y: 150, width: 230, height: 40)
-        txtNewPassword.placeholder = "Mật khẩu mới"
+        txtNewPassword.placeholder = "@CONTENT00084"
         txtNewPassword.translatesAutoresizingMaskIntoConstraints = true
         txtNewPassword.delegate = self
         txtNewPasswordRetype.frame = CGRect(x: 45, y: 200, width: 230, height: 40)
-        txtNewPasswordRetype.placeholder = "Nhập lại mật khẩu mới"
+        txtNewPasswordRetype.placeholder = "@CONTENT00085"
         txtNewPasswordRetype.translatesAutoresizingMaskIntoConstraints = true
         txtNewPasswordRetype.delegate = self
         //check box button
@@ -103,18 +110,29 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         checkboxButton.tintColor = UIColor.blackColor()
         checkboxButton.translatesAutoresizingMaskIntoConstraints = true
         lblCheckboxButton.frame = CGRect(x: 65, y: 248, width: 140, height: 20)
-        lblCheckboxButton.text = "Hiện mật khẩu"
+        lblCheckboxButton.text = "@CONTENT00102"
         lblCheckboxButton.translatesAutoresizingMaskIntoConstraints = true
         //check box status
         bShowPassword = false
+        txtOldPassword.secureTextEntry = !bShowPassword
+        txtNewPassword.secureTextEntry = !bShowPassword
+        txtNewPasswordRetype.secureTextEntry = !bShowPassword
         
         //button customize
         saveButton.frame = CGRect(x: 30, y: 310, width: 260, height: 30)
-        saveButton.setTitle("Lưu", forState: .Normal)
+        saveButton.setTitle("@CONTENT00086", forState: .Normal)
         saveButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         saveButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         saveButton.translatesAutoresizingMaskIntoConstraints = true
         saveButton.layer.cornerRadius = 6
+        
+        logoutButton.frame = CGRect(x: 30, y: 350, width: 260, height: 30)
+        logoutButton.setTitle("@CONTENT00090", forState: .Normal)
+        logoutButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        logoutButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        logoutButton.layer.cornerRadius = 6
+        logoutButton.translatesAutoresizingMaskIntoConstraints = true
+
         
         
         //Navigation Bar customize
