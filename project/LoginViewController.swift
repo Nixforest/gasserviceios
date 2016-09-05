@@ -74,8 +74,6 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         //tappedImageView will be the image view that was tapped.
         //dismiss it, animate it off screen, whatever.
         let tappedImageView = gestureRecognizer.view!
-    }
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         imgLogoTappedCounter += 1
         print(imgLogoTappedCounter)
         if imgLogoTappedCounter == 7 {
@@ -89,7 +87,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
             print(imgLogoTappedCounter)
         }
     }
-    
+        
     func configButtonInLoginTapped(notification: NSNotification) {
         let Alert = UIAlertController(title: "Alert", message: "To Config Screen", preferredStyle: .Alert)
         //Alert Action
@@ -125,17 +123,14 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         let imgLogoTappedRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.imgLogoTapped(_:)))
         //Add the recognizer to your view.
         imgLogo.addGestureRecognizer(imgLogoTappedRecognizer)
-        if imgLogoTappedCounter == 7 {
+        /*if imgLogoTappedCounter == 7 {
             let imgLogoTappedCounterAlert = UIAlertController(title: "Alert", message: "To Config Screen", preferredStyle: .Alert)
             //Alert Action
             let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(loginAlert) -> Void in ()})
             imgLogoTappedCounterAlert.addAction(okAction)
-            //check the value of text field
-            
             //Call alert
             self.presentViewController(imgLogoTappedCounterAlert, animated: true, completion: nil)
-        
-        }
+        }*/
         
         //account text field
         txtAccount.frame = CGRect(x: 30, y: 230, width: 260, height: 30)
