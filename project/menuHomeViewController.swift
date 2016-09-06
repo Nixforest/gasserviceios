@@ -70,7 +70,7 @@ class menuHomeViewController: UIViewController {
         //login button
         loginButton.frame = CGRect(x: 0, y: 10, width: 200, height: 40)
         loginButton.backgroundColor = UIColor.whiteColor()
-        loginButton.setTitle("@CONTENT00051", forState: .Normal)
+        loginButton.setTitle(GlobalConst.CONTENT00051, forState: .Normal)
         loginButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
         loginButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
         loginButton.layer.cornerRadius = 6
@@ -89,7 +89,7 @@ class menuHomeViewController: UIViewController {
         //config button
         configButton.frame = CGRect(x: 0, y: 90, width: 200, height: 40)
         configButton.backgroundColor = UIColor.whiteColor()
-        configButton.setTitle("@CONTENT00111", forState: .Normal)
+        configButton.setTitle(GlobalConst.CONTENT00111, forState: .Normal)
         configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
        // configButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
         configButton.layer.cornerRadius = 6
@@ -98,7 +98,7 @@ class menuHomeViewController: UIViewController {
         //register button
         registerButton.frame = CGRect(x: 0, y: 50, width: 200, height: 40)
         registerButton.backgroundColor = UIColor.whiteColor()
-        registerButton.setTitle("@CONTENT00052", forState: .Normal)
+        registerButton.setTitle(GlobalConst.CONTENT00052, forState: .Normal)
         registerButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
         //loginButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
         registerButton.layer.cornerRadius = 6
