@@ -79,7 +79,7 @@ class menuHomeViewController: UIViewController {
         //logout button
         logoutButton.frame = CGRect(x: 0, y: 10, width: 200, height: 40)
         logoutButton.backgroundColor = UIColor.whiteColor()
-        logoutButton.setTitle("@CONTENT00115", forState: .Normal)
+        logoutButton.setTitle(GlobalConst.CONTENT00115, forState: .Normal)
         logoutButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
         logoutButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
         logoutButton.layer.cornerRadius = 6
@@ -107,7 +107,7 @@ class menuHomeViewController: UIViewController {
         //manage button
         issueButton.frame = CGRect(x: 0, y: 50, width: 200, height: 40)
         issueButton.backgroundColor = UIColor.whiteColor()
-        issueButton.setTitle("@CONTENT00114", forState: .Normal)
+        issueButton.setTitle(GlobalConst.CONTENT00114, forState: .Normal)
         issueButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
         //loginButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
         issueButton.layer.cornerRadius = 6

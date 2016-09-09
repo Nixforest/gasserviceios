@@ -93,16 +93,16 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         
         //textfield customize
         txtOldPassword.frame = CGRect(x: 45, y: 100, width: 230, height: 40)
-        txtOldPassword.placeholder = "@CONTENT00083"
+        txtOldPassword.placeholder = GlobalConst.CONTENT00083
         txtOldPassword.translatesAutoresizingMaskIntoConstraints = true
         txtOldPassword.delegate = self
         
         txtNewPassword.frame = CGRect(x: 45, y: 150, width: 230, height: 40)
-        txtNewPassword.placeholder = "@CONTENT00084"
+        txtNewPassword.placeholder = GlobalConst.CONTENT00084
         txtNewPassword.translatesAutoresizingMaskIntoConstraints = true
         txtNewPassword.delegate = self
         txtNewPasswordRetype.frame = CGRect(x: 45, y: 200, width: 230, height: 40)
-        txtNewPasswordRetype.placeholder = "@CONTENT00085"
+        txtNewPasswordRetype.placeholder = GlobalConst.CONTENT00085
         txtNewPasswordRetype.translatesAutoresizingMaskIntoConstraints = true
         txtNewPasswordRetype.delegate = self
         //check box button
@@ -110,7 +110,7 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         checkboxButton.tintColor = UIColor.blackColor()
         checkboxButton.translatesAutoresizingMaskIntoConstraints = true
         lblCheckboxButton.frame = CGRect(x: 65, y: 248, width: 140, height: 20)
-        lblCheckboxButton.text = "@CONTENT00102"
+        lblCheckboxButton.text = GlobalConst.CONTENT00102
         lblCheckboxButton.translatesAutoresizingMaskIntoConstraints = true
         //check box status
         bShowPassword = false
@@ -120,14 +120,14 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         
         //button customize
         saveButton.frame = CGRect(x: 30, y: 310, width: 260, height: 30)
-        saveButton.setTitle("@CONTENT00086", forState: .Normal)
+        saveButton.setTitle(GlobalConst.CONTENT00086, forState: .Normal)
         saveButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         saveButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         saveButton.translatesAutoresizingMaskIntoConstraints = true
         saveButton.layer.cornerRadius = 6
         
         logoutButton.frame = CGRect(x: 30, y: 350, width: 260, height: 30)
-        logoutButton.setTitle("@CONTENT00090", forState: .Normal)
+        logoutButton.setTitle(GlobalConst.CONTENT00090, forState: .Normal)
         logoutButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         logoutButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         logoutButton.layer.cornerRadius = 6
@@ -136,7 +136,7 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         
         
         //Navigation Bar customize
-        changePasswordNavBar.title = "Đổi mật khẩu"
+        changePasswordNavBar.title = GlobalConst.CONTENT00089
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
         
         //menu button on NavBar

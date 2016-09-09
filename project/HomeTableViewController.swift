@@ -72,6 +72,11 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         }*/
         
         view.backgroundColor = UIColor.grayColor()
+        let grayColor = UIColor.grayColor().CGColor
+        let borderWidth:CGFloat = 0x05
+        self.view.frame = CGRectInset(view.frame, -borderWidth, +borderWidth)
+        self.view.layer.borderColor = grayColor
+        self.view.layer.borderWidth = borderWidth
         
         //menu button tapped
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.pushToLoginVC(_:)), name:"loginButtonInHomeTapped", object: nil)
@@ -80,22 +85,13 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.logoutButtonTapped(_:)), name:"logoutButtonInHomeTapped", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.issueButtonTapped(_:)), name:"issueButtonInHomeTapped", object: nil)
         
-        
-        //border screen
-        let redColor = UIColor.grayColor().CGColor
-        let borderWidth:CGFloat = 0x05
-        self.view.frame = CGRectInset(view.frame, -borderWidth, -borderWidth)
-        self.view.layer.borderColor = redColor
-        self.view.layer.borderWidth = borderWidth
-        
- 
         //declare List
-        aList = ["@CONTENT00113", "@CONTENT00041", "@CONTENT00099", "@CONTENT00098", "@CONTENT00100"]
+        aList = [GlobalConst.CONTENT00113, GlobalConst.CONTENT00041, GlobalConst.CONTENT00099, GlobalConst.CONTENT00098, GlobalConst.CONTENT00100]
         aListIcon = ["ordergas.png","CreateUpHold.jpeg", "UpHoldList.jpeg", "ServiceRating.jpeg", "Account.jpeg"]
         aListText = ["Đặt Gas","Yêu cầu bảo trì", "Danh sách bảo trì", "Đánh giá dịch vụ", "Tài khoản"]
         
         //Navigation Bar
-        homeNavBar.title = "Gas Services"
+        homeNavBar.title = GlobalConst.CONTENT00108
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
         self.navigationItem.setHidesBackButton(true, animated:true);
         //menu button on NavBar
@@ -106,7 +102,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
         
         //menuButton.addTarget(self, action: #selector(menuButtonTapped), forControlEvents: .TouchUpInside)
-        menuButton.setTitle("", forState: .Normal)
+        //menuButton.setTitle("", forState: .Normal)
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton
         menuNavBar.enabled = true //disable menu button
@@ -159,9 +155,8 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        //tableView.frame = CGRectMake(5, 5, screenWidth - 10, screenHeight - 10)
+        let cell = tableView.dequeueReusableCellWithIdentifier("homeCell", forIndexPath: indexPath)
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         let imgIcon:UIImageView = UIImageView(frame: CGRectMake(5, 5, 90, 90))
         imgIcon.image = UIImage(named: aListIcon[indexPath.row])
         cell.addSubview(imgIcon)
@@ -174,7 +169,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         let cellButton:UIButton = UIButton()
         cellButton.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
         cellButton.tag = indexPath.row
-        cellButton.addTarget(self, action: #selector(toAccountViewController(_ :)), forControlEvents: UIControlEvents.TouchUpInside)
+        cellButton.addTarget(self, action: #selector(cellAction(_ :)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.contentView.addSubview(cellButton)
         
         //cell text color
@@ -206,9 +201,6 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
             default: break
             }
         }
-
-        
-
         return cell
     }
     
@@ -227,13 +219,21 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         return rowHeight
     }
 
-        func toAccountViewController(sender:UIButton) {
-            if sender.tag == 4 {
-                let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let registerVC = mainStoryboard.instantiateViewControllerWithIdentifier("AccountViewController")
-                self.navigationController?.pushViewController(registerVC, animated: true)
-            }
-        } 
+    func cellAction(sender:UIButton) {
+        switch sender.tag {
+        case 2:
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let upholdListVC = mainStoryboard.instantiateViewControllerWithIdentifier("UpholdListViewController")
+            self.navigationController?.pushViewController(upholdListVC, animated: true)
+
+        case 4:
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let accountVC = mainStoryboard.instantiateViewControllerWithIdentifier("AccountViewController")
+            self.navigationController?.pushViewController(accountVC, animated: true)
+        default:
+            break
+        }
+    }
 
     
     /*

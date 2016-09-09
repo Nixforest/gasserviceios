@@ -39,7 +39,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     //Login
     @IBAction func Login(sender: AnyObject) {
         //declare Allert
-        let loginAlert = UIAlertController(title: "Alert", message: "CONTENT00023", preferredStyle: .Alert)
+        let loginAlert = UIAlertController(title: "Alert", message: GlobalConst.CONTENT00023, preferredStyle: .Alert)
         //Alert Action
         let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(loginAlert) -> Void in ()})
         loginAlert.addAction(okAction)
@@ -134,15 +134,20 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         
         //account text field
         txtAccount.frame = CGRect(x: 30, y: 230, width: 260, height: 30)
+        txtAccount.placeholder = GlobalConst.CONTENT00049
         txtAccount.translatesAutoresizingMaskIntoConstraints = true
+        self.txtAccount.becomeFirstResponder()
+        
         txtPassword.frame = CGRect(x: 30, y: 280, width: 260, height: 30)
         txtPassword.translatesAutoresizingMaskIntoConstraints = true
-        self.txtAccount.becomeFirstResponder()
+        txtPassword.placeholder = GlobalConst.CONTENT00050
+        
         //check box button
         checkBoxButton.frame = CGRect(x: 30, y: 340, width: 15, height: 15)
         checkBoxButton.tintColor = UIColor.blackColor()
         checkBoxButton.translatesAutoresizingMaskIntoConstraints = true
-        lblCheckBox.frame = CGRect(x: 50, y: 338, width: 140, height: 20)
+        lblCheckBox.frame = CGRect(x: 50, y: 338, width: 120, height: 20)
+        lblCheckBox.text = GlobalConst.CONTENT00102
         lblCheckBox.translatesAutoresizingMaskIntoConstraints = true
         //check box status
         bShowPassword = false
@@ -152,7 +157,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         //login button
         loginButton.frame = CGRect(x: 30, y: 400, width: 260, height: 40)
         loginButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        loginButton.setTitle("Đăng nhập", forState: .Normal)
+        loginButton.setTitle(GlobalConst.CONTENT00051, forState: .Normal)
         loginButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         loginButton.addTarget(self, action: #selector(Login), forControlEvents: .TouchUpInside)
         loginButton.layer.cornerRadius = 6
@@ -162,7 +167,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         //sign in button
         signInButton.frame = CGRect(x: 30, y: 450, width: 260, height: 40)
         signInButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        signInButton.setTitle("Đăng ký", forState: .Normal)
+        signInButton.setTitle(GlobalConst.CONTENT00052, forState: .Normal)
         signInButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         signInButton.addTarget(self, action: #selector(Register), forControlEvents: .TouchUpInside)
         signInButton.layer.cornerRadius = 6
@@ -172,7 +177,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         
         
         //login navigation bar
-        loginNavBar.title = "Đăng nhập"
+        loginNavBar.title = GlobalConst.CONTENT00051
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
         
         //menu button on NavBar

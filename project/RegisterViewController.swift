@@ -131,7 +131,7 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
         registerButton.translatesAutoresizingMaskIntoConstraints = true
                 
         //Navigation Bar customize
-        registerNavBar.title = "Đăng ký"
+        registerNavBar.title = GlobalConst.CONTENT00052
         
         //menu button on NavBar
         let menuOrigin = UIImage(named: "menu.png");

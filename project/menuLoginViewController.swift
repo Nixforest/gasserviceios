@@ -23,7 +23,7 @@ class menuLoginViewController: UIViewController {
         super.viewDidLoad()
         configButton.frame = CGRect(x: 0, y: 10, width: 200, height: 40)
         configButton.backgroundColor = UIColor.whiteColor()
-        configButton.setTitle("@CONTENT00111", forState: .Normal)
+        configButton.setTitle(GlobalConst.CONTENT00111, forState: .Normal)
         configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
         configButton.addTarget(self, action: #selector(configButtonTapped), forControlEvents: .TouchUpInside)
         configButton.layer.cornerRadius = 6

@@ -19,7 +19,7 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
     @IBOutlet weak var changePasswordButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     
-    @IBOutlet weak var imgAccountCenter: UIImageView!
+    @IBOutlet weak var imgAvatar: UIImageView!
     @IBOutlet weak var imgName: UIImageView!
     @IBOutlet weak var imgPhone: UIImageView!
     @IBOutlet weak var imgAddress: UIImageView!
@@ -87,9 +87,9 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
         
         //logo customize
-        imgAccountCenter.frame = CGRect(x: 90, y: 70, width: 140, height: 140)
-        imgAccountCenter.image = UIImage(named: "contact.png")
-        imgAccountCenter.translatesAutoresizingMaskIntoConstraints = true
+        imgAvatar.frame = CGRect(x: 90, y: 70, width: 140, height: 140)
+        imgAvatar.image = UIImage(named: "contact.png")
+        imgAvatar.translatesAutoresizingMaskIntoConstraints = true
         imgName.frame = CGRect(x: 20, y: 230, width: 40, height: 40)
         imgName.image = UIImage(named: "contact.png")
         imgName.translatesAutoresizingMaskIntoConstraints = true
@@ -115,26 +115,26 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         txtAddress.delegate = self
         //button customize
         saveButton.frame = CGRect(x: 30, y: 380, width: 260, height: 30)
-        saveButton.setTitle("@CONTENT00086", forState: .Normal)
+        saveButton.setTitle(GlobalConst.CONTENT00086, forState: .Normal)
         saveButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         saveButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         saveButton.translatesAutoresizingMaskIntoConstraints = true
         saveButton.layer.cornerRadius = 6
         changePasswordButton.frame = CGRect(x: 30, y: 420, width: 260, height: 30)
-        changePasswordButton.setTitle("@CONTENT00089", forState: .Normal)
+        changePasswordButton.setTitle(GlobalConst.CONTENT00089, forState: .Normal)
         changePasswordButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         changePasswordButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         changePasswordButton.layer.cornerRadius = 6
         changePasswordButton.translatesAutoresizingMaskIntoConstraints = true
         logoutButton.frame = CGRect(x: 30, y: 460, width: 260, height: 30)
-        logoutButton.setTitle("@CONTENT00090", forState: .Normal)
+        logoutButton.setTitle(GlobalConst.CONTENT00090, forState: .Normal)
         logoutButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         logoutButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         logoutButton.layer.cornerRadius = 6
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
         
         //Navigation Bar customize
-        accountNavBar.title = "Tài khoản"
+        accountNavBar.title = GlobalConst.CONTENT00100
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
         
         //menu button on NavBar
