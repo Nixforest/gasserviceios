@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UpholdListViewController: UIViewController {
+class UpholdListViewController: UIViewController, UIPopoverPresentationControllerDelegate {
 
     
     var width = UIScreen.mainScreen().bounds.width
@@ -18,6 +18,7 @@ class UpholdListViewController: UIViewController {
     
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var notificationButton: UIButton!
     @IBOutlet weak var upholdListNavBar: UINavigationItem!
     
     @IBOutlet weak var txtSearchBox: UITextField!
@@ -32,6 +33,14 @@ class UpholdListViewController: UIViewController {
     @IBAction func backButtonTapped(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
+    @IBAction func notificationButtonTapped(sender: AnyObject) {
+        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
+        notificationAlert.addAction(cancelAction)
+        self.presentViewController(notificationAlert, animated: true, completion: nil)
+
+        
+    }
     @IBAction func problemUpholdButtonTapped(sender: AnyObject) {
         showProblemUpholdList = true
         periodUpholdList.hidden = true
@@ -39,6 +48,7 @@ class UpholdListViewController: UIViewController {
         
         problemUpholdButton.backgroundColor = UIColor.whiteColor()
         problemUpholdButton.setTitleColor(UIColor.redColor(), forState: .Normal)
+        
         
         periodUpholdButton.backgroundColor = UIColor.redColor()
         periodUpholdButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
@@ -52,12 +62,12 @@ class UpholdListViewController: UIViewController {
         
         problemUpholdButton.backgroundColor = UIColor.redColor()
         problemUpholdButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        problemUpholdButton.layer.borderColor = UIColor.whiteColor().CGColor
+        problemUpholdButton.layer.borderColor = UIColor.redColor().CGColor
         
         periodUpholdButton.backgroundColor = UIColor.whiteColor()
         periodUpholdButton.setTitleColor(UIColor.redColor(), forState: .Normal)
         periodUpholdButton.layer.borderColor = UIColor.redColor().CGColor
-
+        periodUpholdButton.layer.borderWidth = 2
     }
     
     override func viewDidLoad() {
@@ -83,12 +93,14 @@ class UpholdListViewController: UIViewController {
         problemUpholdButton.backgroundColor = UIColor.whiteColor()
         problemUpholdButton.setTitle(GlobalConst.CONTENT00077, forState: .Normal)
         problemUpholdButton.setTitleColor(UIColor.redColor(), forState: .Normal)
+        problemUpholdButton.layer.borderWidth = 2
         problemUpholdButton.layer.borderColor = UIColor.redColor().CGColor
         
         periodUpholdButton.frame = CGRectMake(width/2 + 1, 110, width/2, 50)
         periodUpholdButton.backgroundColor = UIColor.redColor()
         periodUpholdButton.setTitle(GlobalConst.CONTENT00078, forState: .Normal)
         periodUpholdButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        //periodUpholdButton.layer.borderWidth = 2
         periodUpholdButton.layer.borderColor = UIColor.whiteColor().CGColor
         
         //Navigation Bar
@@ -107,8 +119,17 @@ class UpholdListViewController: UIViewController {
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton
         menuNavBar.enabled = true //disable menu button
+        notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
+        notificationButton.setTitle("!", forState: .Normal)
+        notificationButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        notificationButton.addTarget(self, action: #selector(notificationButtonTapped), forControlEvents: .TouchUpInside)
+        let notificationNavBar = UIBarButtonItem()
+        notificationNavBar.customView = notificationButton
         
-        upholdListNavBar.setRightBarButtonItem(menuNavBar, animated: false)
+        upholdListNavBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
+
         let backOrigin = UIImage(named: "back.png");
         let tintedBackLogo = backOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         backButton.setImage(tintedBackLogo, forState: .Normal)
@@ -123,6 +144,15 @@ class UpholdListViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "upholdListPopoverMenu" {
+            let popoverVC = segue.destinationViewController
+            popoverVC.popoverPresentationController?.delegate = self
+        }
+    }
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.None
     }
     
 

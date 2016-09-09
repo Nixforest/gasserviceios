@@ -860,18 +860,37 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="K4Q-6W-KM9">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xc3-Ys-aJQ">
-                                <rect key="frame" x="233" y="7" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="K4Q-6W-KM9">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xc3-Ys-aJQ">
+                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <segue destination="gpH-Q6-KIn" kind="popoverPresentation" identifier="upholdListPopoverMenu" popoverAnchorView="xc3-Ys-aJQ" id="9Vd-mp-bec">
+                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                        </segue>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="5sJ-EI-8XF">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PJx-qE-UkD">
+                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <action selector="notificationButtonTapped:" destination="oYw-eb-ON9" eventType="touchUpInside" id="sJa-ZN-5ej"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="backButton" destination="w3e-qE-YzU" id="3uQ-el-9lL"/>
                         <outlet property="menuButton" destination="xc3-Ys-aJQ" id="wji-03-bKX"/>
+                        <outlet property="notificationButton" destination="PJx-qE-UkD" id="XgM-U5-TA7"/>
                         <outlet property="periodUpholdButton" destination="7vK-ge-hzF" id="gas-10-f8W"/>
                         <outlet property="periodUpholdList" destination="RxW-xd-TgA" id="uR1-Lq-beE"/>
                         <outlet property="problemUpholdButton" destination="T4b-tm-Z5E" id="lhn-kj-zzE"/>
@@ -883,6 +902,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rvw-EK-tWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-491" y="-1938"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="M7v-e0-gvf">
+            <objects>
+                <viewController id="gpH-Q6-KIn" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8E6-C5-7v8"/>
+                        <viewControllerLayoutGuide type="bottom" id="I72-tH-med"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WNm-xy-RdO">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="200" height="100"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="200" height="100"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zuE-CZ-jNT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-94" y="-2415"/>
         </scene>
         <!--Period Uphold List Table View Controller-->
         <scene sceneID="cSX-XD-G4U">
