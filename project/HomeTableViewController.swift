@@ -29,10 +29,9 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         self.presentViewController(notificationAlert, animated: true, completion: nil)
     }
     func configButtonTapped(notification: NSNotification){
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "configButtonTapped", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
-        notificationAlert.addAction(cancelAction)
-        self.presentViewController(notificationAlert, animated: true, completion: nil)
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationViewController")
+        self.navigationController?.pushViewController(configVC, animated: true)
     }
     func pushToRegisterVC(notification: NSNotification){
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -40,10 +39,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         self.navigationController?.pushViewController(RegisterVC, animated: true)
     }
     func logoutButtonTapped(notification: NSNotification){
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "logoutButtonTapped", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
-        notificationAlert.addAction(cancelAction)
-        self.presentViewController(notificationAlert, animated: true, completion: nil)
+        self.tableView.reloadData()
     }
     func issueButtonTapped(notification: NSNotification){
         let notificationAlert = UIAlertController(title: "Thông báo", message: "issueButtonTapped", preferredStyle: .Alert)
@@ -51,7 +47,13 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         notificationAlert.addAction(cancelAction)
         self.presentViewController(notificationAlert, animated: true, completion: nil)
     }
-    
+    func pushToLoginVC(notification: NSNotification){
+        //Take Action on Notification
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC = mainStoryboard.instantiateViewControllerWithIdentifier("LoginViewController")
+        self.navigationController?.pushViewController(loginVC, animated: true)
+        
+    }
     
     
     var aList:[String]!
@@ -72,10 +74,9 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         }*/
         
         view.backgroundColor = UIColor.grayColor()
-        let grayColor = UIColor.grayColor().CGColor
+        
         let borderWidth:CGFloat = 0x05
         self.view.frame = CGRectInset(view.frame, -borderWidth, +borderWidth)
-        self.view.layer.borderColor = grayColor
         self.view.layer.borderWidth = borderWidth
         
         //menu button tapped
@@ -127,13 +128,18 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         
     }
     
-    func pushToLoginVC(notification: NSNotification){
-        //Take Action on Notification
-          let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-         let loginVC = mainStoryboard.instantiateViewControllerWithIdentifier("LoginViewController")
-         self.navigationController?.pushViewController(loginVC, animated: true)
-        
+     override func viewDidAppear(animated: Bool) {
+        let grayColor = UIColor.grayColor().CGColor
+        let yellowColor = UIColor.yellowColor().CGColor
+        if GlobalConst.TRAINING_MODE_FLAG == true {
+            self.view.layer.borderColor = yellowColor
+        } else {
+                    self.view.layer.borderColor = grayColor
+        }
+        self.tableView.reloadData()
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -190,14 +196,24 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         default: break
         }
         //show cell
-        if loginStatus == false {
+        if GlobalConst.LOGIN_STATUS == false {
+            switch indexPath.row {
+                case 2:
+                    cell.hidden = true
+                case 3:
+                    cell.hidden = true
+                case 4:
+                    cell.hidden = true
+                default: break
+            }
+        } else {
             switch indexPath.row {
             case 2:
-                cell.hidden = true
+                cell.hidden = false
             case 3:
-                cell.hidden = true
+                cell.hidden = false
             case 4:
-                cell.hidden = true
+                cell.hidden = false
             default: break
             }
         }
@@ -235,6 +251,8 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         }
     }
 
+    
+    
     
     /*
     // Override to support conditional editing of the table view.

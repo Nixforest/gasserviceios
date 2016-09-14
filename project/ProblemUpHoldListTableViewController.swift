@@ -16,10 +16,10 @@ class ProblemUpHoldListTableViewController: UITableViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.grayColor()
         let grayColor = UIColor.grayColor().CGColor
-        let borderWidth:CGFloat = 0x05
-        self.view.frame = CGRectInset(view.frame, -borderWidth, -borderWidth)
+        
+        self.view.frame = CGRectInset(view.frame, -GlobalConst.PARENT_BORDER_WIDTH, -GlobalConst.PARENT_BORDER_WIDTH)
         self.view.layer.borderColor = grayColor
-        self.view.layer.borderWidth = borderWidth
+        self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -49,17 +49,45 @@ class ProblemUpHoldListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ProblemUpholdCell", forIndexPath: indexPath)
 
-        cell.backgroundColor = UIColor.whiteColor()
-        cell.layer.borderWidth = 2.0
-        cell.layer.borderColor = UIColor.redColor().CGColor
+        cell.backgroundColor = UIColor.clearColor()
+        //cell.layer.borderWidth = 1.0
+        //cell.layer.borderColor = UIColor.redColor().CGColor
+        let bgrView = UIView()
+        bgrView.backgroundColor = UIColor.whiteColor()
+        bgrView.frame = CGRectMake(GlobalConst.PARENT_BORDER_WIDTH , GlobalConst.PARENT_BORDER_WIDTH, cell.frame.size.width - GlobalConst.PARENT_BORDER_WIDTH * 2 - (cell.frame.size.height - 5 * 2)/2, cell.frame.size.height - 5 * 2)
+        bgrView.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        bgrView.layer.borderColor = ColorFromRGB().getColorFromRGB(0xF00020).CGColor
+        bgrView.clipsToBounds = true
+        bgrView.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
+        cell.contentView.addSubview(bgrView)
+        
+        let txtName:UILabel = UILabel(frame: CGRectMake(10, 10, GlobalConst.SCREEN_WIDTH - 10, 20))
+        let txtIssue:UILabel = UILabel(frame: CGRectMake(10, 30, GlobalConst.SCREEN_WIDTH - 10, 20))
+        let txtStatus:UILabel = UILabel(frame: CGRectMake(10, 50, GlobalConst.SCREEN_WIDTH - 10, 20))
+        let txtDate:UILabel = UILabel(frame: CGRectMake(10, 70, GlobalConst.SCREEN_WIDTH - 10, 20))
+        txtName.text = "hai san bien dong"
+        txtIssue.text = "hu bep"
+        txtStatus.text = "moi"
+        txtDate.text = "dd/mm/yy hour:min"
+
+        cell.contentView.addSubview(txtName)
+        cell.contentView.addSubview(txtIssue)
+        cell.contentView.addSubview(txtStatus)
+        cell.contentView.addSubview(txtDate)
         
         let doneButton:UIButton = UIButton()
-        doneButton.frame = CGRectMake(280, 20, 20, 20)
+        doneButton.frame = CGRectMake(270, GlobalConst.PARENT_BORDER_WIDTH, (cell.frame.size.height - 5 * 2)/2, (cell.frame.size.height - 5 * 2)/2)
+        doneButton.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        doneButton.layer.borderColor = UIColor.redColor().CGColor
+        doneButton.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         doneButton.setImage(UIImage(named: "done.png"), forState: .Normal)
         //doneButton.addTarget(self, action: #selector(cellAction(_ :)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.contentView.addSubview(doneButton)
         let ratingButton:UIButton = UIButton()
-        ratingButton.frame = CGRectMake(280, 60, 20, 20)
+        ratingButton.frame = CGRectMake(270, GlobalConst.PARENT_BORDER_WIDTH + (cell.frame.size.height - 5 * 2)/2, (cell.frame.size.height - 5 * 2)/2, (cell.frame.size.height - 5 * 2)/2)
+        ratingButton.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        ratingButton.layer.borderColor = UIColor.redColor().CGColor
+        ratingButton.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         ratingButton.setImage(UIImage(named: "rating.png"), forState: .Normal)
         //doneButton.addTarget(self, action: #selector(cellAction(_ :)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.contentView.addSubview(ratingButton)

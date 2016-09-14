@@ -48,7 +48,9 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
             //Call alert
             self.presentViewController(loginAlert, animated: true, completion: nil)
         }else {
+            GlobalConst.LOGIN_STATUS = true
             self.navigationController?.popViewControllerAnimated(true)
+            print(GlobalConst.LOGIN_STATUS)
             //loginStatus = true
             //loginStatusCarrier.setObject(loginStatus, forKey: "loginStatus")
         }
@@ -89,12 +91,9 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     }
         
     func configButtonInLoginTapped(notification: NSNotification) {
-        let Alert = UIAlertController(title: "Alert", message: "To Config Screen", preferredStyle: .Alert)
-        //Alert Action
-        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(Alert) -> Void in ()})
-        Alert.addAction(okAction)
-        //Call alert
-        self.presentViewController(Alert, animated: true, completion: nil)
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationTableViewController")
+        self.navigationController?.pushViewController(configVC, animated: true)
     }
     
     override func viewDidLoad() {
@@ -114,6 +113,9 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         
         //background
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
+        let borderWidth:CGFloat = 0x05
+        self.view.layer.borderWidth = borderWidth
+    
         imgLogo.image = UIImage(named: "gas_logo.png")
         imgLogo.frame = CGRect(x: 65, y: 70, width: 190, height: 140)
         imgLogo.translatesAutoresizingMaskIntoConstraints = true
@@ -252,6 +254,17 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    //training mode
+    override func viewDidAppear(animated: Bool) {
+        let grayColor = UIColor.grayColor().CGColor
+        let yellowColor = UIColor.yellowColor().CGColor
+        if GlobalConst.TRAINING_MODE_FLAG == true {
+            self.view.layer.borderColor = yellowColor
+        } else {
+            self.view.layer.borderColor = grayColor
+        }
+    }
+
     
 
     //popover menu

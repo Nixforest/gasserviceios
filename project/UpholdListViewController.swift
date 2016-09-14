@@ -8,28 +8,49 @@
 
 import UIKit
 
-class UpholdListViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class UpholdListViewController: UIViewController, UIPopoverPresentationControllerDelegate, UIPickerViewDelegate, UIGestureRecognizerDelegate {
 
-    
     var width = UIScreen.mainScreen().bounds.width
     var height = UIScreen.mainScreen().bounds.height
     
     var showProblemUpholdList:Bool! = true
+    
+    var aStatusList:[String]! = ["Mới", "Xử lý", "Hoàn thành", "Yêu cầu chuyển", "Xử lý dài ngày"]
     
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var notificationButton: UIButton!
     @IBOutlet weak var upholdListNavBar: UINavigationItem!
     
-    @IBOutlet weak var txtSearchBox: UITextField!
+    @IBOutlet weak var searchBox: UISearchBar!
     
-    @IBOutlet weak var problemUpholdButton: UIButton!
-    @IBOutlet weak var periodUpholdButton: UIButton!
+    @IBOutlet weak var upholdListButton: UISegmentedControl!
+    
+    
+    @IBOutlet weak var lblStatusList: UILabel!
+    
     
     @IBOutlet weak var problemUpholdList: UIView!
     @IBOutlet weak var periodUpholdList: UIView!
+    @IBOutlet weak var statusListView: UIView!
     
     
+    @IBAction func upholdListChange(sender: AnyObject) {
+        switch upholdListButton.selectedSegmentIndex
+        {
+        case 0:
+            showProblemUpholdList = true
+            periodUpholdList.hidden = true
+            problemUpholdList.hidden = false
+
+        case 1:
+            showProblemUpholdList = false
+            problemUpholdList.hidden = true
+            periodUpholdList.hidden = false
+        default:
+            break
+        }
+    }
     @IBAction func backButtonTapped(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -38,44 +59,72 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
         notificationAlert.addAction(cancelAction)
         self.presentViewController(notificationAlert, animated: true, completion: nil)
-
-        
     }
-    @IBAction func problemUpholdButtonTapped(sender: AnyObject) {
+            @IBAction func showStatusListButtonTapped(sender: AnyObject) {
+        statusListView.hidden = false
         showProblemUpholdList = true
-        periodUpholdList.hidden = true
-        problemUpholdList.hidden = false
-        
-        problemUpholdButton.backgroundColor = UIColor.whiteColor()
-        problemUpholdButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-        
-        
-        periodUpholdButton.backgroundColor = UIColor.redColor()
-        periodUpholdButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-
     }
-    @IBAction func periodUpholdListButtonTapped(sender: AnyObject) {
-        showProblemUpholdList = false
-        problemUpholdList.hidden = true
-        periodUpholdList.hidden = false
-        
-        
-        problemUpholdButton.backgroundColor = UIColor.redColor()
-        problemUpholdButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        problemUpholdButton.layer.borderColor = UIColor.redColor().CGColor
-        
-        periodUpholdButton.backgroundColor = UIColor.whiteColor()
-        periodUpholdButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-        periodUpholdButton.layer.borderColor = UIColor.redColor().CGColor
-        periodUpholdButton.layer.borderWidth = 2
+    //training mode
+    override func viewDidAppear(animated: Bool) {
+        let grayColor = UIColor.grayColor().CGColor
+        let yellowColor = UIColor.yellowColor().CGColor
+        if GlobalConst.TRAINING_MODE_FLAG == true {
+            self.view.layer.borderColor = yellowColor
+        } else {
+            self.view.layer.borderColor = grayColor
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let borderWidth:CGFloat = 0x05
+        self.view.layer.borderWidth = borderWidth
+        //add Picker to View
+        statusListView.hidden = true
+        statusListView.frame = CGRect(x: 30, y: 30, width: 200, height: 200)
+        statusListView.translatesAutoresizingMaskIntoConstraints = true
+        let statusListPicker = UIPickerView()
+        statusListPicker.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        statusListPicker.backgroundColor = UIColor.grayColor()
+        statusListPicker.delegate = self
+        statusListView.addSubview(statusListPicker)
+        
+        lblStatusList.frame = CGRect(x: borderWidth, y: CGFloat(80), width: GlobalConst.SCREEN_WIDTH - borderWidth, height: 50)
+        
+        searchBox.placeholder = GlobalConst.CONTENT00060
+        searchBox.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH , y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT , width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , height: GlobalConst.SEARCH_BOX_HEIGHT )
+        searchBox.translatesAutoresizingMaskIntoConstraints = true
+        //segment control - uphold button
+        let font = UIFont.systemFontOfSize(15)
+        upholdListButton.setTitleTextAttributes([NSFontAttributeName: font],
+                                                forState: UIControlState.Normal)
+        
+        upholdListButton.setTitle(GlobalConst.CONTENT00077, forSegmentAtIndex: 0)
+        upholdListButton.setTitle(GlobalConst.CONTENT00078, forSegmentAtIndex: 1)
+        upholdListButton.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        upholdListButton.layer.borderColor = ColorFromRGB().getColorFromRGB(0xF00020).CGColor
+        upholdListButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        upholdListButton.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: 140, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , height: 30)
+        upholdListButton.translatesAutoresizingMaskIntoConstraints = true
+        
+        //add action to label
+        lblStatusList.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH , y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT , width: GlobalConst.SCREEN_WIDTH, height: 30)
+        lblStatusList.translatesAutoresizingMaskIntoConstraints = true
+        lblStatusList.text = "Chọn trạng thái"
+        lblStatusList.textColor = UIColor.grayColor()
+        lblStatusList.userInteractionEnabled = true
+        let statusListTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UpholdListViewController.showStatusListButtonTapped))
+        statusListTap.numberOfTapsRequired = 1
+        lblStatusList.addGestureRecognizer(statusListTap)
+        self.view.addSubview(lblStatusList)
+        statusListTap.delegate = self
+        
+        
 
-        problemUpholdList.frame = CGRectMake(0, 130, width, height - 150)
+        problemUpholdList.frame = CGRectMake(0, 170, GlobalConst.SCREEN_WIDTH , GlobalConst.SCREEN_HEIGHT - 170)
         problemUpholdList.translatesAutoresizingMaskIntoConstraints = true
-        periodUpholdList.frame = CGRectMake(0, 130, width, height - 150)
+        periodUpholdList.frame = CGRectMake(0, 170, GlobalConst.SCREEN_WIDTH, GlobalConst.SCREEN_HEIGHT - 170)
         periodUpholdList.translatesAutoresizingMaskIntoConstraints = true
         
         
@@ -89,19 +138,6 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
             problemUpholdList.hidden = true
             periodUpholdList.hidden = false
         }*/
-        problemUpholdButton.frame = CGRectMake(0, 110, width/2, 50)
-        problemUpholdButton.backgroundColor = UIColor.whiteColor()
-        problemUpholdButton.setTitle(GlobalConst.CONTENT00077, forState: .Normal)
-        problemUpholdButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-        problemUpholdButton.layer.borderWidth = 2
-        problemUpholdButton.layer.borderColor = UIColor.redColor().CGColor
-        
-        periodUpholdButton.frame = CGRectMake(width/2 + 1, 110, width/2, 50)
-        periodUpholdButton.backgroundColor = UIColor.redColor()
-        periodUpholdButton.setTitle(GlobalConst.CONTENT00078, forState: .Normal)
-        periodUpholdButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        //periodUpholdButton.layer.borderWidth = 2
-        periodUpholdButton.layer.borderColor = UIColor.whiteColor().CGColor
         
         //Navigation Bar
         upholdListNavBar.title = GlobalConst.CONTENT00112
@@ -144,6 +180,8 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
+
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "upholdListPopoverMenu" {
@@ -155,6 +193,27 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         return UIModalPresentationStyle.None
     }
     
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return aStatusList.count
+    }
+    
+    // Delegate
+    func pickerView(pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return 200
+    }
+    func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 30
+    }
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return aStatusList[row]
+    }
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        lblStatusList.text = aStatusList[row]
+        statusListView.hidden = true
+    }
 
     /*
     // MARK: - Navigation

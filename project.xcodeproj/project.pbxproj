@@ -11,6 +11,8 @@
 		841273091D829E3A00BCC56D /* UpholdListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841273081D829E3A00BCC56D /* UpholdListViewController.swift */; };
 		8412730D1D82AD7200BCC56D /* ProblemUpHoldListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8412730C1D82AD7200BCC56D /* ProblemUpHoldListTableViewController.swift */; };
 		842277C91D421E7E00611439 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842277C81D421E7E00611439 /* CheckBox.swift */; };
+		8424683F1D86F9DA00356B20 /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424683E1D86F9DA00356B20 /* ConfigurationViewController.swift */; };
+		842468411D86FAAE00356B20 /* ConfigurationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842468401D86FAAE00356B20 /* ConfigurationTableViewCell.swift */; };
 		84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E111D40DF050079DEBC /* AppDelegate.swift */; };
 		84284E141D40DF050079DEBC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E131D40DF050079DEBC /* LoginViewController.swift */; };
 		84284E171D40DF050079DEBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84284E151D40DF050079DEBC /* Main.storyboard */; };
@@ -19,6 +21,7 @@
 		84284E271D40DF050079DEBC /* projectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E261D40DF050079DEBC /* projectTests.swift */; };
 		84284E321D40DF050079DEBC /* projectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E311D40DF050079DEBC /* projectUITests.swift */; };
 		84289B051D67D505009A88EC /* menuHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84289B041D67D505009A88EC /* menuHomeViewController.swift */; };
+		842CA8E71D89045E003D9EFF /* menuAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CA8E61D89045E003D9EFF /* menuAccountViewController.swift */; };
 		84331BEB1D771B560089B0FA /* contact.png in Resources */ = {isa = PBXBuildFile; fileRef = 84331BE91D771B560089B0FA /* contact.png */; };
 		84331BEC1D771B560089B0FA /* mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 84331BEA1D771B560089B0FA /* mobile.png */; };
 		84A4C0631D63117000C0B84C /* address.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C05C1D63117000C0B84C /* address.png */; };
@@ -36,6 +39,8 @@
 		84E1E7A01D664CCD007710BD /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1E79F1D664CCD007710BD /* ChangePasswordViewController.swift */; };
 		84E3CED41D74D36800DDF416 /* loginStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E3CED31D74D36800DDF416 /* loginStatus.swift */; };
 		84E7184B1D660859006F4995 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7184A1D660859006F4995 /* AccountViewController.swift */; };
+		84E83D541D87C171007C7A90 /* InfoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E83D521D87C171007C7A90 /* InfoIcon.png */; };
+		84E83D551D87C171007C7A90 /* TrainingModeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E83D531D87C171007C7A90 /* TrainingModeIcon.png */; };
 		84EB38D01D6B938C0031CF84 /* MenuSub.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EB38CF1D6B938C0031CF84 /* MenuSub.xib */; };
 		84EDDFB01D7D869000861ACB /* menuLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EDDFAF1D7D869000861ACB /* menuLoginViewController.swift */; };
 		84EFBEAC1D6F173A00FEBE80 /* ordergas.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFBEAB1D6F173A00FEBE80 /* ordergas.png */; };
@@ -71,6 +76,8 @@
 		841273081D829E3A00BCC56D /* UpholdListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdListViewController.swift; sourceTree = "<group>"; };
 		8412730C1D82AD7200BCC56D /* ProblemUpHoldListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProblemUpHoldListTableViewController.swift; sourceTree = "<group>"; };
 		842277C81D421E7E00611439 /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		8424683E1D86F9DA00356B20 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
+		842468401D86FAAE00356B20 /* ConfigurationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationTableViewCell.swift; sourceTree = "<group>"; };
 		84284E0E1D40DF050079DEBC /* project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84284E111D40DF050079DEBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84284E131D40DF050079DEBC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +92,7 @@
 		84284E311D40DF050079DEBC /* projectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectUITests.swift; sourceTree = "<group>"; };
 		84284E331D40DF050079DEBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84289B041D67D505009A88EC /* menuHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuHomeViewController.swift; sourceTree = "<group>"; };
+		842CA8E61D89045E003D9EFF /* menuAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuAccountViewController.swift; sourceTree = "<group>"; };
 		84331BE91D771B560089B0FA /* contact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contact.png; sourceTree = "<group>"; };
 		84331BEA1D771B560089B0FA /* mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobile.png; sourceTree = "<group>"; };
 		84A4C05C1D63117000C0B84C /* address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address.png; sourceTree = "<group>"; };
@@ -104,6 +112,8 @@
 		84E1E79F1D664CCD007710BD /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		84E3CED31D74D36800DDF416 /* loginStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginStatus.swift; sourceTree = "<group>"; };
 		84E7184A1D660859006F4995 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		84E83D521D87C171007C7A90 /* InfoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InfoIcon.png; sourceTree = "<group>"; };
+		84E83D531D87C171007C7A90 /* TrainingModeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrainingModeIcon.png; sourceTree = "<group>"; };
 		84EB38CF1D6B938C0031CF84 /* MenuSub.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuSub.xib; sourceTree = "<group>"; };
 		84EDDFAF1D7D869000861ACB /* menuLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuLoginViewController.swift; sourceTree = "<group>"; };
 		84EFBEAB1D6F173A00FEBE80 /* ordergas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ordergas.png; sourceTree = "<group>"; };
@@ -171,11 +181,14 @@
 				84E1C4AB1D621A7B00ADD587 /* RegisterViewController.swift */,
 				84E1E79F1D664CCD007710BD /* ChangePasswordViewController.swift */,
 				84E7184A1D660859006F4995 /* AccountViewController.swift */,
+				842CA8E61D89045E003D9EFF /* menuAccountViewController.swift */,
 				84F481901D66FFC10072DC7A /* HomeTableViewController.swift */,
 				84289B041D67D505009A88EC /* menuHomeViewController.swift */,
 				84B2E9CD1D7EFA51005E4A54 /* PeriodUpholdListTableViewController.swift */,
 				8412730C1D82AD7200BCC56D /* ProblemUpHoldListTableViewController.swift */,
 				841273081D829E3A00BCC56D /* UpholdListViewController.swift */,
+				8424683E1D86F9DA00356B20 /* ConfigurationViewController.swift */,
+				842468401D86FAAE00356B20 /* ConfigurationTableViewCell.swift */,
 				842277C81D421E7E00611439 /* CheckBox.swift */,
 				84284E151D40DF050079DEBC /* Main.storyboard */,
 				84EB38CF1D6B938C0031CF84 /* MenuSub.xib */,
@@ -214,6 +227,8 @@
 		84DC0D7C1D494B3000E52249 /* IMG */ = {
 			isa = PBXGroup;
 			children = (
+				84E83D521D87C171007C7A90 /* InfoIcon.png */,
+				84E83D531D87C171007C7A90 /* TrainingModeIcon.png */,
 				84B2E9CF1D7F0D3E005E4A54 /* done.png */,
 				84B2E9D01D7F0D3E005E4A54 /* rating.png */,
 				84EFFBE81D7D912500900578 /* config.png */,
@@ -351,6 +366,7 @@
 			files = (
 				84A4C0631D63117000C0B84C /* address.png in Resources */,
 				84B2E9D11D7F0D3E005E4A54 /* done.png in Resources */,
+				84E83D541D87C171007C7A90 /* InfoIcon.png in Resources */,
 				84A4C0651D63117000C0B84C /* checkbox-unchecked.png in Resources */,
 				84331BEB1D771B560089B0FA /* contact.png in Resources */,
 				84EFBEAC1D6F173A00FEBE80 /* ordergas.png in Resources */,
@@ -370,6 +386,7 @@
 				84E041B11D668DFD00A89608 /* back.png in Resources */,
 				84F481991D67040E0072DC7A /* ServiceRating.jpeg in Resources */,
 				84284E171D40DF050079DEBC /* Main.storyboard in Resources */,
+				84E83D551D87C171007C7A90 /* TrainingModeIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,11 +418,14 @@
 				84E7184B1D660859006F4995 /* AccountViewController.swift in Sources */,
 				84E1E7A01D664CCD007710BD /* ChangePasswordViewController.swift in Sources */,
 				84F2D62E1D66121B0091F6D3 /* ColorFromRGB.swift in Sources */,
+				842468411D86FAAE00356B20 /* ConfigurationTableViewCell.swift in Sources */,
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
 				84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */,
 				84F481911D66FFC10072DC7A /* HomeTableViewController.swift in Sources */,
+				842CA8E71D89045E003D9EFF /* menuAccountViewController.swift in Sources */,
 				842277C91D421E7E00611439 /* CheckBox.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
+				8424683F1D86F9DA00356B20 /* ConfigurationViewController.swift in Sources */,
 				8401A9A41D75CD6800FDCB17 /* toBool.swift in Sources */,
 				84EDDFB01D7D869000861ACB /* menuLoginViewController.swift in Sources */,
 				92026C471D7E843D004232CA /* GlobalConst.swift in Sources */,
@@ -483,6 +503,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -502,7 +523,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -528,6 +549,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -541,7 +563,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -556,10 +578,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = project/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3cc27ed5-95fc-4e13-839d-a87c8488ab36";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -573,10 +596,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = project/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3cc27ed5-95fc-4e13-839d-a87c8488ab36";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
 			};
 			name = Release;

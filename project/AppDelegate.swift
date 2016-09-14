@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //self.window?.rootViewController = testViewController()
         //self.window?.makeKeyWindow()
-        
+ 
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
         let firstVC = mainStoryboard.instantiateViewControllerWithIdentifier("HomeTableViewController")
@@ -27,6 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         rootNav.navigationBarHidden = false
         
         self.window?.rootViewController = rootNav
+ 
+        //let  testVC = TestViewController()
+        //self.window?.rootViewController = testVC
         
         return true
     }

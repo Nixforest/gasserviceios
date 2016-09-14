@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
+class AccountViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var accountNavBar: UINavigationItem!
     @IBOutlet weak var menuButton: UIButton!
@@ -31,6 +31,7 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
     var hideKeyboard:Bool = true
     //var loginStatusCarrier:NSUserDefaults!
     //var loginStatus:Bool = false
+    var userAvatarPicker = UIImagePickerController()
     
     @IBAction func notificationButtonTapped(sender: AnyObject) {
         let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
@@ -65,11 +66,18 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
     
     
     @IBAction func logoutButtonTapped(sender: AnyObject) {
-        let Alert = UIAlertController(title: "Thông báo", message: "logout button tapped", preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(Alert) -> Void in ()})
-        Alert.addAction(okAction)
-        self.presentViewController(Alert, animated: true, completion: nil)
-
+        GlobalConst.LOGIN_STATUS = false
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    //training mode
+    override func viewDidAppear(animated: Bool) {
+        let grayColor = UIColor.grayColor().CGColor
+        let yellowColor = UIColor.yellowColor().CGColor
+        if GlobalConst.TRAINING_MODE_FLAG == true {
+            self.view.layer.borderColor = yellowColor
+        } else {
+            self.view.layer.borderColor = grayColor
+        }
     }
     
     override func viewDidLoad() {
@@ -85,11 +93,19 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         }*/
         //background
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
-        
+        let borderWidth:CGFloat = 0x05
+        self.view.layer.borderWidth = borderWidth
         //logo customize
         imgAvatar.frame = CGRect(x: 90, y: 70, width: 140, height: 140)
         imgAvatar.image = UIImage(named: "contact.png")
         imgAvatar.translatesAutoresizingMaskIntoConstraints = true
+        imgAvatar.userInteractionEnabled = true
+        
+        let avatarTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AccountViewController.avatarPicker))
+        avatarTap.numberOfTapsRequired = 1
+        imgAvatar.addGestureRecognizer(avatarTap)
+        self.view.addSubview(imgAvatar)
+        
         imgName.frame = CGRect(x: 20, y: 230, width: 40, height: 40)
         imgName.image = UIImage(named: "contact.png")
         imgName.translatesAutoresizingMaskIntoConstraints = true
@@ -241,5 +257,18 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         }
         return true
     }
-
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
+        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+        })
+        imgAvatar.image = image
+    }
+    func avatarPicker(){
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
+            print("pick avatar")
+            userAvatarPicker.delegate = self
+            userAvatarPicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
+            userAvatarPicker.allowsEditing = false
+            self.presentViewController(userAvatarPicker, animated: true, completion: nil)
+        }
+    }
 }

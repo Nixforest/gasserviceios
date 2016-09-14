@@ -75,6 +75,16 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         notificationAlert.addAction(cancelAction)
         self.presentViewController(notificationAlert, animated: true, completion: nil)
     }
+    //training mode
+    override func viewDidAppear(animated: Bool) {
+        let grayColor = UIColor.grayColor().CGColor
+        let yellowColor = UIColor.yellowColor().CGColor
+        if GlobalConst.TRAINING_MODE_FLAG == true {
+            self.view.layer.borderColor = yellowColor
+        } else {
+            self.view.layer.borderColor = grayColor
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +100,8 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         }*/
         //background
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
-        
+        let borderWidth:CGFloat = 0x05
+        self.view.layer.borderWidth = borderWidth
         //textfield customize
         txtOldPassword.frame = CGRect(x: 45, y: 100, width: 230, height: 40)
         txtOldPassword.placeholder = GlobalConst.CONTENT00083

@@ -37,7 +37,9 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
     @IBAction func backButtonTapped(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
-    
+    @IBAction func showPopover(sender: AnyObject) {
+        print("menu tapped")
+    }
     
     @IBAction func notificationButtonTapped(sender: AnyObject) {
         let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
@@ -76,6 +78,16 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
     @IBAction func cancelButtonTapped(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
+    //training mode
+    override func viewDidAppear(animated: Bool) {
+        let grayColor = UIColor.grayColor().CGColor
+        let yellowColor = UIColor.yellowColor().CGColor
+        if GlobalConst.TRAINING_MODE_FLAG == true {
+            self.view.layer.borderColor = yellowColor
+        } else {
+            self.view.layer.borderColor = grayColor
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -92,7 +104,8 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
         //background
         
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
-        
+        let borderWidth:CGFloat = 0x05
+        self.view.layer.borderWidth = borderWidth
         //logo customize
         imgCenter.frame = CGRect(x: (self.view.frame.size.width - 140)/2, y: 70, width: 140, height: 140)
         imgCenter.image = UIImage(named: "contact.png")
@@ -140,21 +153,23 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
         menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
         menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
         
-        //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
+        menuButton.addTarget(self, action: #selector(showPopover), forControlEvents: .TouchUpInside)
         menuButton.setTitle("", forState: .Normal)
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton
-        menuNavBar.enabled = false //disable menu button
+        menuNavBar.enabled = true //disable menu button
         
         //noti button on NavBar
         notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
         notificationButton.setTitle("!", forState: .Normal)
         notificationButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        //notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)//when enable
+        notificationButton.backgroundColor = UIColor.grayColor()//when disable
         notificationButton.addTarget(self, action: #selector(notificationButtonTapped), forControlEvents: .TouchUpInside)
         let notificationNavBar = UIBarButtonItem()
         notificationNavBar.customView = notificationButton
+        notificationNavBar.enabled = false
         
         registerNavBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
         //back button
@@ -193,6 +208,7 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
     }
+    
     internal func textFieldShouldBeginEditing(textField: UITextField) -> Bool{
         if hideKeyboard == true {
         UIView.animateWithDuration(0.3) {

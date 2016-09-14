@@ -122,4 +122,23 @@ class GlobalConst {
     static let CONTENT00113 = "Đặt Gas"
     static let CONTENT00114 = "Quản lý sự việc"
     static let CONTENT00115 = "Đăng xuất"
+    static let CONTENT00121 = "Bật/Tắt Training Mode"
+    static let CONTENT00122 = "Yêu cầu bảo trì"
+    static let CONTENT00128	=					"Cài đặt"
+    static let CONTENT00138	=					"Training mode"
+    static let CONTENT00139	=					"Yêu cầu Bảo trì"
+    
+    static let SCREEN_WIDTH = UIScreen.mainScreen().bounds.width
+    static let SCREEN_HEIGHT = UIScreen.mainScreen().bounds.height
+    static let BUTTON_HEIGHT:Int = 50
+    static let PARENT_BORDER_WIDTH:CGFloat = 5
+    static let BUTTON_BORDER_WIDTH:CGFloat = 1
+    static let BUTTON_CORNER_RADIUS:CGFloat = 7
+    static let STATUS_BAR_HEIGHT:CGFloat = 20
+    static let NAV_BAR_HEIGHT:CGFloat = 44
+    static let SEARCH_BOX_HEIGHT:CGFloat = 44
+    static let POPOVER_WIDTH:Int = 200
+    
+    static var TRAINING_MODE_FLAG:Bool = false
+    static var LOGIN_STATUS:Bool = true
 }

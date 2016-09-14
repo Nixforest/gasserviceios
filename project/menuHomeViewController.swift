@@ -40,6 +40,7 @@ class menuHomeViewController: UIViewController {
         }
     }
     @IBAction func logoutButtonTapped(sender: AnyObject) {
+        GlobalConst.LOGIN_STATUS = false
         self.dismissViewControllerAnimated(false) {
             NSNotificationCenter.defaultCenter().postNotificationName("logoutButtonInHomeTapped", object: nil)
         }
@@ -55,7 +56,7 @@ class menuHomeViewController: UIViewController {
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
         //login status
         
-        if loginStatus == true {
+        if GlobalConst.LOGIN_STATUS == true {
             loginButton.hidden = true
             logoutButton.hidden = false
             registerButton.hidden = true
@@ -68,49 +69,39 @@ class menuHomeViewController: UIViewController {
         }
         
         //login button
-        loginButton.frame = CGRect(x: 0, y: 10, width: 200, height: 40)
+        loginButton.frame = CGRect(x: 0, y: 0, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat(GlobalConst.BUTTON_HEIGHT))
         loginButton.backgroundColor = UIColor.whiteColor()
         loginButton.setTitle(GlobalConst.CONTENT00051, forState: .Normal)
         loginButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
-        loginButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
-        loginButton.layer.cornerRadius = 6
         self.view.addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = true
         //logout button
-        logoutButton.frame = CGRect(x: 0, y: 10, width: 200, height: 40)
+        logoutButton.frame = CGRect(x: 0, y: 0, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat(GlobalConst.BUTTON_HEIGHT))
         logoutButton.backgroundColor = UIColor.whiteColor()
         logoutButton.setTitle(GlobalConst.CONTENT00115, forState: .Normal)
         logoutButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
-        logoutButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
-        logoutButton.layer.cornerRadius = 6
         self.view.addSubview(logoutButton)
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
 
         //config button
-        configButton.frame = CGRect(x: 0, y: 90, width: 200, height: 40)
+        configButton.frame = CGRect(x: 0, y: CGFloat( GlobalConst.BUTTON_HEIGHT) * 2, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat( GlobalConst.BUTTON_HEIGHT))
         configButton.backgroundColor = UIColor.whiteColor()
         configButton.setTitle(GlobalConst.CONTENT00111, forState: .Normal)
         configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
-       // configButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
-        configButton.layer.cornerRadius = 6
         self.view.addSubview(loginButton)
         configButton.translatesAutoresizingMaskIntoConstraints = true
         //register button
-        registerButton.frame = CGRect(x: 0, y: 50, width: 200, height: 40)
+        registerButton.frame = CGRect(x: 0, y: CGFloat( GlobalConst.BUTTON_HEIGHT), width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat( GlobalConst.BUTTON_HEIGHT))
         registerButton.backgroundColor = UIColor.whiteColor()
         registerButton.setTitle(GlobalConst.CONTENT00052, forState: .Normal)
         registerButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
-        //loginButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
-        registerButton.layer.cornerRadius = 6
         self.view.addSubview(registerButton)
         registerButton.translatesAutoresizingMaskIntoConstraints = true
-        //manage button
-        issueButton.frame = CGRect(x: 0, y: 50, width: 200, height: 40)
+        //issue button
+        issueButton.frame = CGRect(x: 0, y: CGFloat( GlobalConst.BUTTON_HEIGHT), width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat( GlobalConst.BUTTON_HEIGHT))
         issueButton.backgroundColor = UIColor.whiteColor()
         issueButton.setTitle(GlobalConst.CONTENT00114, forState: .Normal)
         issueButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
-        //loginButton.addTarget(self, action: #selector(loginButtonTapped), forControlEvents: .TouchUpInside)
-        issueButton.layer.cornerRadius = 6
         self.view.addSubview(issueButton)
         issueButton.translatesAutoresizingMaskIntoConstraints = true
 
