@@ -130,14 +130,21 @@ class GlobalConst {
     
     static let SCREEN_WIDTH = UIScreen.mainScreen().bounds.width
     static let SCREEN_HEIGHT = UIScreen.mainScreen().bounds.height
-    static let BUTTON_HEIGHT:Int = 50
+    static let BUTTON_HEIGHT:CGFloat = 50
     static let PARENT_BORDER_WIDTH:CGFloat = 5
     static let BUTTON_BORDER_WIDTH:CGFloat = 1
     static let BUTTON_CORNER_RADIUS:CGFloat = 7
     static let STATUS_BAR_HEIGHT:CGFloat = 20
     static let NAV_BAR_HEIGHT:CGFloat = 44
     static let SEARCH_BOX_HEIGHT:CGFloat = 44
-    static let POPOVER_WIDTH:Int = 200
+    static let POPOVER_WIDTH:CGFloat = 200
+    static let LABEL_HEIGHT:CGFloat = 30
+    static let CELL_HEIGHT_SHOW:CGFloat = 100
+    static let CELL_HEIGHT_HIDE:CGFloat = 0
+    static let BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
+    static let PARENT_BORDER_COLOR_GRAY:UIColor = UIColor.grayColor()
+    static let PARENT_BORDER_COLOR_YELLOW:UIColor = UIColor.yellowColor()
+    static let BACKGROUND_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xECECEC)
     
     static var TRAINING_MODE_FLAG:Bool = false
     static var LOGIN_STATUS:Bool = true

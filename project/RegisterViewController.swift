@@ -80,12 +80,10 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
     }
     //training mode
     override func viewDidAppear(animated: Bool) {
-        let grayColor = UIColor.grayColor().CGColor
-        let yellowColor = UIColor.yellowColor().CGColor
         if GlobalConst.TRAINING_MODE_FLAG == true {
-            self.view.layer.borderColor = yellowColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
         } else {
-            self.view.layer.borderColor = grayColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
         }
     }
     

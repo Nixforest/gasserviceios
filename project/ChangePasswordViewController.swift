@@ -81,12 +81,10 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
     }
     //training mode
     override func viewDidAppear(animated: Bool) {
-        let grayColor = UIColor.grayColor().CGColor
-        let yellowColor = UIColor.yellowColor().CGColor
         if GlobalConst.TRAINING_MODE_FLAG == true {
-            self.view.layer.borderColor = yellowColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
         } else {
-            self.view.layer.borderColor = grayColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
         }
     }
     //NSNotification action
@@ -108,7 +106,7 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChangePasswordViewController.gasServiceButtonInChangePassVCTapped(_:)), name:"gasServiceButtonInChangePassVCTapped", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChangePasswordViewController.issueButtonInChangePassVCTapped(_:)), name:"issueButtonInChangePassVCTapped", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChangePasswordViewController.configButtonInChangePassVCTapped(_:)), name:"configButtonInChangePassVCTapped", object: nil)

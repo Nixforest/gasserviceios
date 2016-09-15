@@ -129,12 +129,10 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
     }
     
      override func viewDidAppear(animated: Bool) {
-        let grayColor = UIColor.grayColor().CGColor
-        let yellowColor = UIColor.yellowColor().CGColor
         if GlobalConst.TRAINING_MODE_FLAG == true {
-            self.view.layer.borderColor = yellowColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
         } else {
-                    self.view.layer.borderColor = grayColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
         }
         self.tableView.reloadData()
     }
@@ -221,16 +219,16 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var rowHeight:CGFloat = 0.0
+        var rowHeight:CGFloat
         if loginStatus == false {
             if (indexPath.row == 2) || (indexPath.row == 3) || (indexPath.row == 4) {
-                rowHeight = 0.0
+                rowHeight = GlobalConst.CELL_HEIGHT_HIDE
             } else {
-                rowHeight = 100.0
+                rowHeight = GlobalConst.CELL_HEIGHT_SHOW
             }
             
         } else {
-            rowHeight = 100.0
+            rowHeight = GlobalConst.CELL_HEIGHT_SHOW
         }
         return rowHeight
     }

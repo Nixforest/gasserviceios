@@ -71,17 +71,37 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
     }
     //training mode
     override func viewDidAppear(animated: Bool) {
-        let grayColor = UIColor.grayColor().CGColor
-        let yellowColor = UIColor.yellowColor().CGColor
         if GlobalConst.TRAINING_MODE_FLAG == true {
-            self.view.layer.borderColor = yellowColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
         } else {
-            self.view.layer.borderColor = grayColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
         }
     }
+    //NSNotification action
+    func gasServiceButtonInAccountVCTapped(notification: NSNotification) {
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+    func issueButtonInAccountVCTapped(notification: NSNotification) {
+        /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
+         self.navigationController?.pushViewController(configVC, animated: true)
+         */
+        print("issue button tapped")
+    }
+    func configButtonInAccountVCTapped(notification: NSNotification) {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationViewController")
+        self.navigationController?.pushViewController(configVC, animated: true)
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.gasServiceButtonInAccountVCTapped(_:)), name:"gasServiceButtonInAccountVCTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)), name:"issueButtonInAccountVCTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.configButtonInAccountVCTapped(_:)), name:"configButtonInAccountVCTapped", object: nil)
+
         //transmit login status
         /*loginStatusCarrier = NSUserDefaults()
         loginStatus = (loginStatusCarrier.objectForKey("loginStatus") as? Bool)!

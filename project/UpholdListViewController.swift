@@ -66,20 +66,54 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
     }
     //training mode
     override func viewDidAppear(animated: Bool) {
-        let grayColor = UIColor.grayColor().CGColor
-        let yellowColor = UIColor.yellowColor().CGColor
         if GlobalConst.TRAINING_MODE_FLAG == true {
-            self.view.layer.borderColor = yellowColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
         } else {
-            self.view.layer.borderColor = grayColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
         }
     }
+    func gasServiceButtonInUpholdListVCTapped(notification: NSNotification) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    func issueButtonInUpholdListVCTapped(notification: NSNotification) {
+        /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
+         self.navigationController?.pushViewController(configVC, animated: true)
+         */
+        print("issue button tapped")
+    }
+    func configButtonInUpholdListVCTapped(notification: NSNotification) {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationViewController")
+        self.navigationController?.pushViewController(configVC, animated: true)
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UpholdListViewController.gasServiceButtonInUpholdListVCTapped(_:)), name:"gasServiceButtonInUpholdListVCTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UpholdListViewController.issueButtonInUpholdListVCTapped(_:)), name:"issueButtonInUpholdListVCTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UpholdListViewController.configButtonInUpholdListVCTapped(_:)), name:"configButtonInUpholdListVCTapped", object: nil)
+
         
         let borderWidth:CGFloat = 0x05
         self.view.layer.borderWidth = borderWidth
+        //search box
+        searchBox.placeholder = GlobalConst.CONTENT00060
+        searchBox.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH , y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT , width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , height: GlobalConst.SEARCH_BOX_HEIGHT )
+        searchBox.translatesAutoresizingMaskIntoConstraints = true
+        //label status list + action
+        lblStatusList.frame = CGRect(x: borderWidth, y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT, width: GlobalConst.SCREEN_WIDTH - borderWidth * 2, height: GlobalConst.LABEL_HEIGHT)
+        lblStatusList.translatesAutoresizingMaskIntoConstraints = true
+        lblStatusList.text = "Chọn trạng thái"
+        lblStatusList.textColor = UIColor.grayColor()
+        lblStatusList.userInteractionEnabled = true
+        let statusListTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UpholdListViewController.showStatusListButtonTapped))
+        statusListTap.numberOfTapsRequired = 1
+        lblStatusList.addGestureRecognizer(statusListTap)
+        self.view.addSubview(lblStatusList)
+        statusListTap.delegate = self
         //add Picker to View
         statusListView.hidden = true
         statusListView.frame = CGRect(x: 30, y: 30, width: 200, height: 200)
@@ -89,12 +123,6 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         statusListPicker.backgroundColor = UIColor.grayColor()
         statusListPicker.delegate = self
         statusListView.addSubview(statusListPicker)
-        
-        lblStatusList.frame = CGRect(x: borderWidth, y: CGFloat(80), width: GlobalConst.SCREEN_WIDTH - borderWidth, height: 50)
-        
-        searchBox.placeholder = GlobalConst.CONTENT00060
-        searchBox.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH , y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT , width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , height: GlobalConst.SEARCH_BOX_HEIGHT )
-        searchBox.translatesAutoresizingMaskIntoConstraints = true
         //segment control - uphold button
         let font = UIFont.systemFontOfSize(15)
         upholdListButton.setTitleTextAttributes([NSFontAttributeName: font],
@@ -105,26 +133,12 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         upholdListButton.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         upholdListButton.layer.borderColor = ColorFromRGB().getColorFromRGB(0xF00020).CGColor
         upholdListButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        upholdListButton.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: 140, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , height: 30)
+        upholdListButton.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.LABEL_HEIGHT, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , height: GlobalConst.BUTTON_HEIGHT)
         upholdListButton.translatesAutoresizingMaskIntoConstraints = true
-        
-        //add action to label
-        lblStatusList.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH , y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT , width: GlobalConst.SCREEN_WIDTH, height: 30)
-        lblStatusList.translatesAutoresizingMaskIntoConstraints = true
-        lblStatusList.text = "Chọn trạng thái"
-        lblStatusList.textColor = UIColor.grayColor()
-        lblStatusList.userInteractionEnabled = true
-        let statusListTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UpholdListViewController.showStatusListButtonTapped))
-        statusListTap.numberOfTapsRequired = 1
-        lblStatusList.addGestureRecognizer(statusListTap)
-        self.view.addSubview(lblStatusList)
-        statusListTap.delegate = self
-        
-        
-
-        problemUpholdList.frame = CGRectMake(0, 170, GlobalConst.SCREEN_WIDTH , GlobalConst.SCREEN_HEIGHT - 170)
+        //uphold list view
+        problemUpholdList.frame = CGRectMake(0, GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT , GlobalConst.SCREEN_WIDTH , GlobalConst.SCREEN_HEIGHT - GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + CGFloat(GlobalConst.BUTTON_HEIGHT) + GlobalConst.LABEL_HEIGHT)
         problemUpholdList.translatesAutoresizingMaskIntoConstraints = true
-        periodUpholdList.frame = CGRectMake(0, 170, GlobalConst.SCREEN_WIDTH, GlobalConst.SCREEN_HEIGHT - 170)
+        periodUpholdList.frame = CGRectMake(0, GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT, GlobalConst.SCREEN_WIDTH, GlobalConst.SCREEN_HEIGHT - GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT)
         periodUpholdList.translatesAutoresizingMaskIntoConstraints = true
         
         

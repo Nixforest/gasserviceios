@@ -25,6 +25,7 @@
 		84331BEB1D771B560089B0FA /* contact.png in Resources */ = {isa = PBXBuildFile; fileRef = 84331BE91D771B560089B0FA /* contact.png */; };
 		84331BEC1D771B560089B0FA /* mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 84331BEA1D771B560089B0FA /* mobile.png */; };
 		8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435C24B1D8A9E2B00F9903D /* menuChangePasswordViewController.swift */; };
+		8435C24E1D8ABED100F9903D /* menuUpholdListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435C24D1D8ABED100F9903D /* menuUpholdListViewController.swift */; };
 		84A4C0631D63117000C0B84C /* address.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C05C1D63117000C0B84C /* address.png */; };
 		84A4C0641D63117000C0B84C /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C05D1D63117000C0B84C /* checkbox-checked.png */; };
 		84A4C0651D63117000C0B84C /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C05E1D63117000C0B84C /* checkbox-unchecked.png */; };
@@ -97,6 +98,7 @@
 		84331BE91D771B560089B0FA /* contact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contact.png; sourceTree = "<group>"; };
 		84331BEA1D771B560089B0FA /* mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobile.png; sourceTree = "<group>"; };
 		8435C24B1D8A9E2B00F9903D /* menuChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuChangePasswordViewController.swift; sourceTree = "<group>"; };
+		8435C24D1D8ABED100F9903D /* menuUpholdListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuUpholdListViewController.swift; sourceTree = "<group>"; };
 		84A4C05C1D63117000C0B84C /* address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address.png; sourceTree = "<group>"; };
 		84A4C05D1D63117000C0B84C /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
 		84A4C05E1D63117000C0B84C /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked.png"; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				84B2E9CD1D7EFA51005E4A54 /* PeriodUpholdListTableViewController.swift */,
 				8412730C1D82AD7200BCC56D /* ProblemUpHoldListTableViewController.swift */,
 				841273081D829E3A00BCC56D /* UpholdListViewController.swift */,
+				8435C24D1D8ABED100F9903D /* menuUpholdListViewController.swift */,
 				8424683E1D86F9DA00356B20 /* ConfigurationViewController.swift */,
 				842468401D86FAAE00356B20 /* ConfigurationTableViewCell.swift */,
 				842277C81D421E7E00611439 /* CheckBox.swift */,
@@ -435,6 +438,7 @@
 				92026C471D7E843D004232CA /* GlobalConst.swift in Sources */,
 				84E3CED41D74D36800DDF416 /* loginStatus.swift in Sources */,
 				8412730D1D82AD7200BCC56D /* ProblemUpHoldListTableViewController.swift in Sources */,
+				8435C24E1D8ABED100F9903D /* menuUpholdListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

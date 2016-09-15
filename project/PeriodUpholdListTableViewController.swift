@@ -92,7 +92,7 @@ class PeriodUpholdListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let rowHeight:CGFloat = 100.0
+        let rowHeight:CGFloat = GlobalConst.CELL_HEIGHT_SHOW
         return rowHeight
     }
 

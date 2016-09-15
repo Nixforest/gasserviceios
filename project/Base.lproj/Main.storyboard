@@ -628,17 +628,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnG-5B-QoM">
-                                <rect key="frame" x="52" y="20" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wb5-RO-Ih5">
-                                <rect key="frame" x="52" y="70" width="46" height="30"/>
+                                <rect key="frame" x="77" y="100" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="configButtonTapped:" destination="r84-IB-4V0" eventType="touchUpInside" id="n6K-13-sti"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2WT-ug-5mb">
-                                <rect key="frame" x="52" y="44" width="46" height="30"/>
+                                <rect key="frame" x="77" y="60" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="issueButtonTapped:" destination="r84-IB-4V0" eventType="touchUpInside" id="qaK-3O-fPA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnG-5B-QoM">
+                                <rect key="frame" x="77" y="22" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="gasServiceButtonTapped:" destination="r84-IB-4V0" eventType="touchUpInside" id="NkZ-Tu-ofK"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -951,22 +960,50 @@
             </objects>
             <point key="canvasLocation" x="-491" y="-1938"/>
         </scene>
-        <!--View Controller-->
+        <!--Menu Uphold List View Controller-->
         <scene sceneID="M7v-e0-gvf">
             <objects>
-                <viewController id="gpH-Q6-KIn" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="menuUpholdListViewController" id="gpH-Q6-KIn" customClass="menuUpholdListViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8E6-C5-7v8"/>
                         <viewControllerLayoutGuide type="bottom" id="I72-tH-med"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WNm-xy-RdO">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="50a-4d-BGs">
+                                <rect key="frame" x="77" y="28" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="gasServiceButtonTapped:" destination="gpH-Q6-KIn" eventType="touchUpInside" id="5EH-Ah-0tr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xsP-Xq-9KB">
+                                <rect key="frame" x="77" y="66" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="issueButtonTapped:" destination="gpH-Q6-KIn" eventType="touchUpInside" id="hEF-Qe-K1k"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXB-fC-es5">
+                                <rect key="frame" x="77" y="104" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="configButtonTapped:" destination="gpH-Q6-KIn" eventType="touchUpInside" id="DA3-yl-kUa"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="200" height="100"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="200" height="150"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="200" height="100"/>
+                    <size key="freeformSize" width="200" height="150"/>
+                    <connections>
+                        <outlet property="configButton" destination="MXB-fC-es5" id="Wuc-OS-fTF"/>
+                        <outlet property="gasServiceButton" destination="50a-4d-BGs" id="4Kl-ui-uzY"/>
+                        <outlet property="issueButton" destination="xsP-Xq-9KB" id="8m9-z9-6Ko"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zuE-CZ-jNT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -1,32 +1,34 @@
 //
-//  menuAccountViewController.swift
+//  menuUpholdListViewController.swift
 //  project
 //
-//  Created by Lâm Phạm on 9/14/16.
+//  Created by Lâm Phạm on 9/15/16.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
 import UIKit
 
-class menuAccountViewController: UIViewController {
+class menuUpholdListViewController: UIViewController {
 
+    
     @IBOutlet weak var gasServiceButton: UIButton!
     @IBOutlet weak var issueButton: UIButton!
     @IBOutlet weak var configButton: UIButton!
     
     @IBAction func gasServiceButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(false) {
-            NSNotificationCenter.defaultCenter().postNotificationName("gasServiceButtonInAccountVCTapped", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName("gasServiceButtonInUpholdListVCTapped", object: nil)
         }
+
     }
     @IBAction func issueButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(false) {
-            NSNotificationCenter.defaultCenter().postNotificationName("issueButtonInAccountVCTapped", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName("issueButtonInUpholdListVCTapped", object: nil)
         }
     }
     @IBAction func configButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(false) {
-            NSNotificationCenter.defaultCenter().postNotificationName("configButtonInAccountVCTapped", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName("configButtonInUpholdListVCTapped", object: nil)
         }
     }
     
@@ -34,6 +36,8 @@ class menuAccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+
         gasServiceButton.frame = CGRect(x: 0, y: 0, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat(GlobalConst.BUTTON_HEIGHT))
         gasServiceButton.backgroundColor = UIColor.whiteColor()
         gasServiceButton.setTitle(GlobalConst.CONTENT00110, forState: .Normal)
@@ -54,9 +58,6 @@ class menuAccountViewController: UIViewController {
         self.view.addSubview(configButton)
         configButton.translatesAutoresizingMaskIntoConstraints = true
 
-        
-        
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
