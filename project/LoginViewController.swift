@@ -75,24 +75,22 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     func imgLogoTapped(gestureRecognizer: UITapGestureRecognizer) {
         //tappedImageView will be the image view that was tapped.
         //dismiss it, animate it off screen, whatever.
-        let tappedImageView = gestureRecognizer.view!
+        //let tappedImageView = gestureRecognizer.view!
         imgLogoTappedCounter += 1
         print(imgLogoTappedCounter)
         if imgLogoTappedCounter == 7 {
-            let imgLogoTappedCounterAlert = UIAlertController(title: "Alert", message: "To Config Screen", preferredStyle: .Alert)
-            //Alert Action
-            let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(loginAlert) -> Void in ()})
-            imgLogoTappedCounterAlert.addAction(okAction)
-            //Call alert
-            self.presentViewController(imgLogoTappedCounterAlert, animated: true, completion: nil)
             imgLogoTappedCounter = 0
             print(imgLogoTappedCounter)
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationViewController")
+            self.navigationController?.pushViewController(configVC, animated: true)
+            
         }
     }
         
     func configButtonInLoginTapped(notification: NSNotification) {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationTableViewController")
+        let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationViewController")
         self.navigationController?.pushViewController(configVC, animated: true)
     }
     
@@ -125,14 +123,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         let imgLogoTappedRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.imgLogoTapped(_:)))
         //Add the recognizer to your view.
         imgLogo.addGestureRecognizer(imgLogoTappedRecognizer)
-        /*if imgLogoTappedCounter == 7 {
-            let imgLogoTappedCounterAlert = UIAlertController(title: "Alert", message: "To Config Screen", preferredStyle: .Alert)
-            //Alert Action
-            let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(loginAlert) -> Void in ()})
-            imgLogoTappedCounterAlert.addAction(okAction)
-            //Call alert
-            self.presentViewController(imgLogoTappedCounterAlert, animated: true, completion: nil)
-        }*/
+        
         
         //account text field
         txtAccount.frame = CGRect(x: 30, y: 230, width: 260, height: 30)

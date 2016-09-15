@@ -24,6 +24,7 @@
 		842CA8E71D89045E003D9EFF /* menuAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CA8E61D89045E003D9EFF /* menuAccountViewController.swift */; };
 		84331BEB1D771B560089B0FA /* contact.png in Resources */ = {isa = PBXBuildFile; fileRef = 84331BE91D771B560089B0FA /* contact.png */; };
 		84331BEC1D771B560089B0FA /* mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 84331BEA1D771B560089B0FA /* mobile.png */; };
+		8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435C24B1D8A9E2B00F9903D /* menuChangePasswordViewController.swift */; };
 		84A4C0631D63117000C0B84C /* address.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C05C1D63117000C0B84C /* address.png */; };
 		84A4C0641D63117000C0B84C /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C05D1D63117000C0B84C /* checkbox-checked.png */; };
 		84A4C0651D63117000C0B84C /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C05E1D63117000C0B84C /* checkbox-unchecked.png */; };
@@ -95,6 +96,7 @@
 		842CA8E61D89045E003D9EFF /* menuAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuAccountViewController.swift; sourceTree = "<group>"; };
 		84331BE91D771B560089B0FA /* contact.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contact.png; sourceTree = "<group>"; };
 		84331BEA1D771B560089B0FA /* mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobile.png; sourceTree = "<group>"; };
+		8435C24B1D8A9E2B00F9903D /* menuChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuChangePasswordViewController.swift; sourceTree = "<group>"; };
 		84A4C05C1D63117000C0B84C /* address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address.png; sourceTree = "<group>"; };
 		84A4C05D1D63117000C0B84C /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
 		84A4C05E1D63117000C0B84C /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked.png"; sourceTree = "<group>"; };
@@ -179,9 +181,10 @@
 				84284E131D40DF050079DEBC /* LoginViewController.swift */,
 				84EDDFAF1D7D869000861ACB /* menuLoginViewController.swift */,
 				84E1C4AB1D621A7B00ADD587 /* RegisterViewController.swift */,
-				84E1E79F1D664CCD007710BD /* ChangePasswordViewController.swift */,
 				84E7184A1D660859006F4995 /* AccountViewController.swift */,
 				842CA8E61D89045E003D9EFF /* menuAccountViewController.swift */,
+				84E1E79F1D664CCD007710BD /* ChangePasswordViewController.swift */,
+				8435C24B1D8A9E2B00F9903D /* menuChangePasswordViewController.swift */,
 				84F481901D66FFC10072DC7A /* HomeTableViewController.swift */,
 				84289B041D67D505009A88EC /* menuHomeViewController.swift */,
 				84B2E9CD1D7EFA51005E4A54 /* PeriodUpholdListTableViewController.swift */,
@@ -417,6 +420,7 @@
 				84B2E9CE1D7EFA51005E4A54 /* PeriodUpholdListTableViewController.swift in Sources */,
 				84E7184B1D660859006F4995 /* AccountViewController.swift in Sources */,
 				84E1E7A01D664CCD007710BD /* ChangePasswordViewController.swift in Sources */,
+				8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */,
 				84F2D62E1D66121B0091F6D3 /* ColorFromRGB.swift in Sources */,
 				842468411D86FAAE00356B20 /* ConfigurationTableViewCell.swift in Sources */,
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,

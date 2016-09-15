@@ -31,6 +31,10 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
     //var loginStatusCarrier:NSUserDefaults!
     //var loginStatus:Bool = false
     
+    func menuButtonTapped(sender: AnyObject) {
+        print("menu tapped")
+    }
+    
     @IBAction func checkboxButtonTapped(sender: AnyObject) {
         bShowPassword = !bShowPassword
         txtOldPassword.secureTextEntry = !bShowPassword
@@ -85,10 +89,30 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
             self.view.layer.borderColor = grayColor
         }
     }
+    //NSNotification action
+    func gasServiceButtonInChangePassVCTapped(notification: NSNotification) {
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+    func issueButtonInChangePassVCTapped(notification: NSNotification) {
+        /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
+        self.navigationController?.pushViewController(configVC, animated: true)
+         */
+        print("issue button tapped")
+    }
+    func configButtonInChangePassVCTapped(notification: NSNotification) {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationViewController")
+        self.navigationController?.pushViewController(configVC, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChangePasswordViewController.gasServiceButtonInChangePassVCTapped(_:)), name:"gasServiceButtonInChangePassVCTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChangePasswordViewController.issueButtonInChangePassVCTapped(_:)), name:"issueButtonInChangePassVCTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChangePasswordViewController.configButtonInChangePassVCTapped(_:)), name:"configButtonInChangePassVCTapped", object: nil)
+        
         //transmit login status
         /*loginStatusCarrier = NSUserDefaults()
         loginStatus = (loginStatusCarrier.objectForKey("loginStatus") as? Bool)!
@@ -157,11 +181,11 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
         menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
         
-        //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
+        menuButton.addTarget(self, action: #selector(menuButtonTapped), forControlEvents: .TouchUpInside)
         menuButton.setTitle("", forState: .Normal)
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton
-        menuNavBar.enabled = false//disable menu button
+        menuNavBar.enabled = true//disable menu button
         
         //noti button on NavBar
         notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
@@ -172,7 +196,7 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         //notificationButton.addTarget(self, action: #selector(notificationButtonTapped), forControlEvents: .TouchUpInside)
         let notificationNavBar = UIBarButtonItem()
         notificationNavBar.customView = notificationButton
-        changePasswordNavBar.setLeftBarButtonItems([menuNavBar, notificationNavBar], animated: false)
+        changePasswordNavBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
         //back button
         let backOrigin = UIImage(named: "back.png");
         let tintedBackLogo = backOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
