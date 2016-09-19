@@ -1033,7 +1033,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nua-pv-2hp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1647" y="-2541"/>
+            <point key="canvasLocation" x="1873" y="-2367"/>
         </scene>
         <!--Configuration View Controller-->
         <scene sceneID="4Ik-1w-rOI">
@@ -1154,7 +1154,52 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uaa-rC-zGL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1291" y="-2140"/>
+            <point key="canvasLocation" x="1495" y="-2140"/>
+        </scene>
+        <!--Infomation View Controller-->
+        <scene sceneID="tg3-VL-tIp">
+            <objects>
+                <viewController storyboardIdentifier="InfomationViewController" id="i7m-T1-FSf" customClass="InfomationViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WWX-CI-lTX"/>
+                        <viewControllerLayoutGuide type="bottom" id="hsJ-yl-XbU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vPc-S3-GKK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PtZ-2J-D3N">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="KWx-RP-EzU">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="jug-MR-E6o">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fnj-Rz-E69">
+                                <rect key="frame" x="16" y="7" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="backButtonTapped:" destination="i7m-T1-FSf" eventType="touchUpInside" id="Ld2-aI-qPF"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="backButton" destination="fnj-Rz-E69" id="Aun-aF-Ihr"/>
+                        <outlet property="infoTextView" destination="PtZ-2J-D3N" id="dkx-nD-jiY"/>
+                        <outlet property="infomationNavBar" destination="KWx-RP-EzU" id="7tK-SN-55H"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dba-mR-csa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1269" y="-2842"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aeD-cX-jdc">
@@ -1251,6 +1296,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l1G-Dr-0T9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="802" y="-2140"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ISa-HO-rAv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2qR-cd-Huk" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YZu-qP-1Rj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="i7m-T1-FSf" kind="relationship" relationship="rootViewController" id="Pbh-DR-eA3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EvA-Pa-9Ar" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="817" y="-2842"/>
         </scene>
     </scenes>
     <resources>

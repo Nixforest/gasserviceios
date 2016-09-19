@@ -141,6 +141,20 @@ class ConfigurationViewController: UIViewController, UITableViewDelegate, UITabl
         // #warning Incomplete implementation, return the number of rows
         return 2
     }
+    //cell action
+    func cellAction(sender:UIButton) {
+        switch sender.tag {
+            
+                
+            case 1:
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let InfoVC = mainStoryboard.instantiateViewControllerWithIdentifier("InfomationViewController")
+                self.navigationController?.pushViewController(InfoVC, animated: true)
+            default:
+                break
+        }
+    }
+
     
     
      func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -160,6 +174,13 @@ class ConfigurationViewController: UIViewController, UITableViewDelegate, UITabl
                 cell.rightImg.image = UIImage(named: "back.png")
                 cell.rightImg.transform = CGAffineTransformMakeRotation((180.0 * CGFloat(M_PI)) / 180.0)
                 cell.nameLbl.text = GlobalConst.CONTENT00139
+                let cellButton:UIButton = UIButton()
+                cellButton.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height)
+                cellButton.tag = indexPath.row
+                cellButton.addTarget(self, action: #selector(cellAction(_ :)), forControlEvents: UIControlEvents.TouchUpInside)
+                cell.contentView.addSubview(cellButton)
+            
+
             default:
                 break
             
@@ -168,6 +189,10 @@ class ConfigurationViewController: UIViewController, UITableViewDelegate, UITabl
         return cell //ConfigurationTableViewCell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "popoverMenu" {
