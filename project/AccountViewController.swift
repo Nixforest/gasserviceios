@@ -71,11 +71,7 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
     }
     //training mode
     override func viewDidAppear(animated: Bool) {
-        if GlobalConst.TRAINING_MODE_FLAG == true {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
-        } else {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
-        }
+        
     }
     //NSNotification action
     func gasServiceButtonInAccountVCTapped(notification: NSNotification) {
@@ -93,11 +89,20 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationViewController")
         self.navigationController?.pushViewController(configVC, animated: true)
     }
+    
+    func trainingModeOn(notification: NSNotification) {
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
+    }
+    func trainingModeOff(notification: NSNotification) {
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+    }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.trainingModeOn(_:)), name:"TrainingModeOn", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.trainingModeOff(_:)), name:"TrainingModeOff", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.gasServiceButtonInAccountVCTapped(_:)), name:"gasServiceButtonInAccountVCTapped", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)), name:"issueButtonInAccountVCTapped", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.configButtonInAccountVCTapped(_:)), name:"configButtonInAccountVCTapped", object: nil)
@@ -113,8 +118,9 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         }*/
         //background
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
-        let borderWidth:CGFloat = 0x05
-        self.view.layer.borderWidth = borderWidth
+        
+        self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
         //logo customize
         imgAvatar.frame = CGRect(x: 90, y: 70, width: 140, height: 140)
         imgAvatar.image = UIImage(named: "contact.png")
@@ -172,6 +178,7 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         //Navigation Bar customize
         accountNavBar.title = GlobalConst.CONTENT00100
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
+        
         
         //menu button on NavBar
         let menuOrigin = UIImage(named: "menu.png");

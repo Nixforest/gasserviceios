@@ -78,7 +78,7 @@ class menuHomeViewController: UIViewController {
         //logout button
         logoutButton.frame = CGRect(x: 0, y: 0, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat(GlobalConst.BUTTON_HEIGHT))
         logoutButton.backgroundColor = UIColor.whiteColor()
-        logoutButton.setTitle(GlobalConst.CONTENT00115, forState: .Normal)
+        logoutButton.setTitle(GlobalConst.CONTENT00132, forState: .Normal)
         logoutButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
         self.view.addSubview(logoutButton)
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
@@ -86,7 +86,7 @@ class menuHomeViewController: UIViewController {
         //config button
         configButton.frame = CGRect(x: 0, y: CGFloat( GlobalConst.BUTTON_HEIGHT) * 2, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat( GlobalConst.BUTTON_HEIGHT))
         configButton.backgroundColor = UIColor.whiteColor()
-        configButton.setTitle(GlobalConst.CONTENT00111, forState: .Normal)
+        configButton.setTitle(GlobalConst.CONTENT00128, forState: .Normal)
         configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
         self.view.addSubview(loginButton)
         configButton.translatesAutoresizingMaskIntoConstraints = true
@@ -100,7 +100,7 @@ class menuHomeViewController: UIViewController {
         //issue button
         issueButton.frame = CGRect(x: 0, y: CGFloat( GlobalConst.BUTTON_HEIGHT), width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat( GlobalConst.BUTTON_HEIGHT))
         issueButton.backgroundColor = UIColor.whiteColor()
-        issueButton.setTitle(GlobalConst.CONTENT00114, forState: .Normal)
+        issueButton.setTitle(GlobalConst.CONTENT00131, forState: .Normal)
         issueButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
         self.view.addSubview(issueButton)
         issueButton.translatesAutoresizingMaskIntoConstraints = true

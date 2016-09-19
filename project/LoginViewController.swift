@@ -93,6 +93,12 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationViewController")
         self.navigationController?.pushViewController(configVC, animated: true)
     }
+    func trainingModeOn(notification: NSNotification) {
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
+    }
+    func trainingModeOff(notification: NSNotification) {
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,13 +112,15 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
             notificationButton.enabled = false
         }*/
         // Do any additional setup after loading the view, typically from a nib.
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.trainingModeOn(_:)), name:"TrainingModeOn", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.trainingModeOff(_:)), name:"TrainingModeOff", object: nil)
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.configButtonInLoginTapped(_:)), name:"configButtonInLoginTapped", object: nil)
         
         //background
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
-        let borderWidth:CGFloat = 0x05
-        self.view.layer.borderWidth = borderWidth
+        self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
     
         imgLogo.image = UIImage(named: "gas_logo.png")
         imgLogo.frame = CGRect(x: 65, y: 70, width: 190, height: 140)
@@ -247,11 +255,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
     }
     //training mode
     override func viewDidAppear(animated: Bool) {
-        if GlobalConst.TRAINING_MODE_FLAG == true {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
-        } else {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
-        }
+        
     }
 
     

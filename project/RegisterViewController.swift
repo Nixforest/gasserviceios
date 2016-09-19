@@ -80,11 +80,13 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
     }
     //training mode
     override func viewDidAppear(animated: Bool) {
-        if GlobalConst.TRAINING_MODE_FLAG == true {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
-        } else {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
-        }
+        
+    }
+    func trainingModeOn(notification: NSNotification) {
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
+    }
+    func trainingModeOff(notification: NSNotification) {
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
     }
     
     
@@ -100,10 +102,12 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
             notificationButton.enabled = false
         }*/
         //background
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RegisterViewController.trainingModeOn(_:)), name:"TrainingModeOn", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RegisterViewController.trainingModeOff(_:)), name:"TrainingModeOff", object: nil)
         
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
-        let borderWidth:CGFloat = 0x05
-        self.view.layer.borderWidth = borderWidth
+        self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
         //logo customize
         imgCenter.frame = CGRect(x: (self.view.frame.size.width - 140)/2, y: 70, width: 140, height: 140)
         imgCenter.image = UIImage(named: "contact.png")

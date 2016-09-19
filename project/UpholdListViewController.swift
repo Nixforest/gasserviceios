@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UpholdListViewController: UIViewController, UIPopoverPresentationControllerDelegate, UIPickerViewDelegate, UIGestureRecognizerDelegate {
+class UpholdListViewController: UIViewController, UIPopoverPresentationControllerDelegate, UIPickerViewDelegate, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
 
     var width = UIScreen.mainScreen().bounds.width
     var height = UIScreen.mainScreen().bounds.height
@@ -26,12 +26,11 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
     
     @IBOutlet weak var upholdListButton: UISegmentedControl!
     
+    @IBOutlet weak var periodTableView: UITableView!
+    @IBOutlet weak var problemTableView: UITableView!
     
     @IBOutlet weak var lblStatusList: UILabel!
     
-    
-    @IBOutlet weak var problemUpholdList: UIView!
-    @IBOutlet weak var periodUpholdList: UIView!
     @IBOutlet weak var statusListView: UIView!
     
     
@@ -40,13 +39,14 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         {
         case 0:
             showProblemUpholdList = true
-            periodUpholdList.hidden = true
-            problemUpholdList.hidden = false
+            periodTableView.hidden = true
+            problemTableView.hidden = false
 
         case 1:
             showProblemUpholdList = false
-            problemUpholdList.hidden = true
-            periodUpholdList.hidden = false
+            problemTableView.hidden = true
+            periodTableView.hidden = false
+            periodTableView.reloadData()
         default:
             break
         }
@@ -66,6 +66,7 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
     }
     //training mode
     override func viewDidAppear(animated: Bool) {
+        //training mode enable/disable
         if GlobalConst.TRAINING_MODE_FLAG == true {
             self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
         } else {
@@ -91,6 +92,10 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //cell
+        self.periodTableView.registerNib(UINib(nibName: "periodTableViewCell", bundle: nil), forCellReuseIdentifier: "periodTableViewCell")
+        self.problemTableView.registerNib(UINib(nibName: "problemTableViewCell", bundle: nil), forCellReuseIdentifier: "problemTableViewCell")
+
         //Notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UpholdListViewController.gasServiceButtonInUpholdListVCTapped(_:)), name:"gasServiceButtonInUpholdListVCTapped", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UpholdListViewController.issueButtonInUpholdListVCTapped(_:)), name:"issueButtonInUpholdListVCTapped", object: nil)
@@ -136,25 +141,19 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         upholdListButton.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.LABEL_HEIGHT, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , height: GlobalConst.BUTTON_HEIGHT)
         upholdListButton.translatesAutoresizingMaskIntoConstraints = true
         //uphold list view
-        problemUpholdList.frame = CGRectMake(0, GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT , GlobalConst.SCREEN_WIDTH , GlobalConst.SCREEN_HEIGHT - GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + CGFloat(GlobalConst.BUTTON_HEIGHT) + GlobalConst.LABEL_HEIGHT)
-        problemUpholdList.translatesAutoresizingMaskIntoConstraints = true
-        periodUpholdList.frame = CGRectMake(0, GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT, GlobalConst.SCREEN_WIDTH, GlobalConst.SCREEN_HEIGHT - GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT)
-        periodUpholdList.translatesAutoresizingMaskIntoConstraints = true
+        problemTableView.translatesAutoresizingMaskIntoConstraints = true
+        problemTableView.frame = CGRectMake(0, GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT , GlobalConst.SCREEN_WIDTH , GlobalConst.SCREEN_HEIGHT - GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + CGFloat(GlobalConst.BUTTON_HEIGHT) + GlobalConst.LABEL_HEIGHT)
+        
+        periodTableView.translatesAutoresizingMaskIntoConstraints = true
+        periodTableView.frame = CGRectMake(0, GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT, GlobalConst.SCREEN_WIDTH, GlobalConst.SCREEN_HEIGHT - GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT)
         
         
         //show-hide UpholdList
-        periodUpholdList.hidden = true
-        problemUpholdList.hidden = false
-        /*if showProblemUpholdList == true {
-            problemUpholdList.hidden = false
-            periodUpholdList.hidden = true
-        } else {
-            problemUpholdList.hidden = true
-            periodUpholdList.hidden = false
-        }*/
+        periodTableView.hidden = true
+        problemTableView.hidden = false
         
         //Navigation Bar
-        upholdListNavBar.title = GlobalConst.CONTENT00112
+        upholdListNavBar.title = GlobalConst.CONTENT00129
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
         self.navigationItem.setHidesBackButton(true, animated:true);
         //menu button on NavBar
@@ -189,6 +188,9 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         backNavBar.customView = backButton
         upholdListNavBar.setLeftBarButtonItem(backNavBar, animated: false)
         // Do any additional setup after loading the view.
+        
+        
+        periodTableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -227,6 +229,42 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         lblStatusList.text = aStatusList[row]
         statusListView.hidden = true
+    }
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        var count = NSInteger()
+        if tableView == periodTableView {
+            count = 15
+        }
+        if tableView == problemTableView {
+            count = 20
+        }
+
+        return count
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) ->
+        UITableViewCell {
+            var cellReturn = UITableViewCell()
+            if tableView == periodTableView {
+                let cell:periodTableViewCell = tableView.dequeueReusableCellWithIdentifier("periodTableViewCell") as! periodTableViewCell
+                cellReturn = cell
+            }
+            if tableView == problemTableView {
+                let cell:problemTableViewCell = tableView.dequeueReusableCellWithIdentifier("problemTableViewCell") as! problemTableViewCell
+                cellReturn = cell
+            }
+        
+            return cellReturn
+    }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        var height = CGFloat()
+        if tableView == periodTableView {
+            height = GlobalConst.CELL_HEIGHT_SHOW
+            
+        }
+        if tableView == problemTableView {
+            height = GlobalConst.CELL_HEIGHT_SHOW
+        }
+        return height
     }
 
     /*

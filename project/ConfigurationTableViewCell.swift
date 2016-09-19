@@ -30,13 +30,16 @@ class ConfigurationTableViewCell: UITableViewCell {
         // Configurine the view for the selected state
     }
     
+    
     @IBAction func changeValue(sender: AnyObject) {
         if mySw.on {
             GlobalConst.TRAINING_MODE_FLAG = true
             print(GlobalConst.TRAINING_MODE_FLAG)
+            NSNotificationCenter.defaultCenter().postNotificationName("TrainingModeOn", object: nil)
         } else {
             GlobalConst.TRAINING_MODE_FLAG = false
             print(GlobalConst.TRAINING_MODE_FLAG)
+            NSNotificationCenter.defaultCenter().postNotificationName("TrainingModeOff", object: nil)
         }
         
     }

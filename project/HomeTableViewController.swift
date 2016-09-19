@@ -60,24 +60,35 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
     var aListIcon:[String]!
     var aListText:[String]!
     
+    func trainingModeOn(notification: NSNotification) {
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
+    }
+    func trainingModeOff(notification: NSNotification) {
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //transmit login status
-        /*loginStatusCarrier = NSUserDefaults()
-        loginStatus = (loginStatusCarrier.objectForKey("loginStatus") as? Bool)!
+        //training mode enable/disable
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.trainingModeOn(_:)), name:"TrainingModeOn", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.trainingModeOff(_:)), name:"TrainingModeOff", object: nil)
+        
         //notification button enable/disable
-        if loginStatus == true {
-            notificationButton.enabled = true
+        if GlobalConst.LOGIN_STATUS == true {
+            self.notificationButton.enabled = true
+            self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         } else {
-            notificationButton.enabled = false
-        }*/
+            self.notificationButton.enabled = false
+            self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_GRAY
+        }
         
         view.backgroundColor = UIColor.grayColor()
         
-        let borderWidth:CGFloat = 0x05
-        self.view.frame = CGRectInset(view.frame, -borderWidth, +borderWidth)
-        self.view.layer.borderWidth = borderWidth
+        self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+        self.view.frame = CGRectInset(view.frame, -GlobalConst.CELL_BORDER_WIDTH, +GlobalConst.CELL_BORDER_WIDTH)
+        
         
         //menu button tapped
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.pushToLoginVC(_:)), name:"loginButtonInHomeTapped", object: nil)
@@ -87,7 +98,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.issueButtonTapped(_:)), name:"issueButtonInHomeTapped", object: nil)
         
         //declare List
-        aList = [GlobalConst.CONTENT00113, GlobalConst.CONTENT00041, GlobalConst.CONTENT00099, GlobalConst.CONTENT00098, GlobalConst.CONTENT00100]
+        aList = [GlobalConst.CONTENT00130, GlobalConst.CONTENT00041, GlobalConst.CONTENT00099, GlobalConst.CONTENT00098, GlobalConst.CONTENT00100]
         aListIcon = ["ordergas.png","CreateUpHold.jpeg", "UpHoldList.jpeg", "ServiceRating.jpeg", "Account.jpeg"]
         aListText = ["Đặt Gas","Yêu cầu bảo trì", "Danh sách bảo trì", "Đánh giá dịch vụ", "Tài khoản"]
         
@@ -113,7 +124,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
         notificationButton.setTitle("!", forState: .Normal)
         notificationButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        //notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         notificationButton.addTarget(self, action: #selector(notificationButtonTapped), forControlEvents: .TouchUpInside)
         let notificationNavBar = UIBarButtonItem()
         notificationNavBar.customView = notificationButton
@@ -129,10 +140,13 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
     }
     
      override func viewDidAppear(animated: Bool) {
-        if GlobalConst.TRAINING_MODE_FLAG == true {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
+        //notification button enable/disable
+        if GlobalConst.LOGIN_STATUS == true {
+            self.notificationButton.enabled = true
+            self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         } else {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+            self.notificationButton.enabled = false
+            self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_GRAY
         }
         self.tableView.reloadData()
     }
@@ -161,7 +175,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         
         let cell = tableView.dequeueReusableCellWithIdentifier("homeCell", forIndexPath: indexPath)
         
-        let imgIcon:UIImageView = UIImageView(frame: CGRectMake(5, 5, 90, 90))
+        let imgIcon:UIImageView = UIImageView(frame: CGRectMake(GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.CELL_BORDER_WIDTH * 2, GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.CELL_BORDER_WIDTH * 2, GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.CELL_BORDER_WIDTH) * 2, GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.CELL_BORDER_WIDTH) * 2))
         imgIcon.image = UIImage(named: aListIcon[indexPath.row])
         cell.addSubview(imgIcon)
         let txtCellName:UILabel = UILabel(frame: CGRectMake(110, 0, 200, 100))
@@ -169,6 +183,8 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         cell.addSubview(txtCellName)
         cell.tag = indexPath.row
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        cell.layer.borderWidth = GlobalConst.CELL_BORDER_WIDTH
+        cell.layer.borderColor = GlobalConst.CELL_BORDER_COLOR.CGColor
         
         let cellButton:UIButton = UIButton()
         cellButton.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);

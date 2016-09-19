@@ -42,10 +42,9 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         txtNewPasswordRetype.secureTextEntry = !bShowPassword
     }
     @IBAction func logoutButtonTapped(sender: AnyObject) {
-        let Alert = UIAlertController(title: "Thông báo", message: "logout button tapped", preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(Alert) -> Void in ()})
-        Alert.addAction(okAction)
-        self.presentViewController(Alert, animated: true, completion: nil)
+        GlobalConst.LOGIN_STATUS = false
+        self.navigationController?.popToRootViewControllerAnimated(true)
+        
     }
     
     @IBAction func backButtonTapped(sender: AnyObject) {
@@ -81,11 +80,7 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
     }
     //training mode
     override func viewDidAppear(animated: Bool) {
-        if GlobalConst.TRAINING_MODE_FLAG == true {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
-        } else {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
-        }
+        
     }
     //NSNotification action
     func gasServiceButtonInChangePassVCTapped(notification: NSNotification) {
@@ -104,9 +99,18 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         self.navigationController?.pushViewController(configVC, animated: true)
     }
     
+    func trainingModeOn(notification: NSNotification) {
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
+    }
+    func trainingModeOff(notification: NSNotification) {
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChangePasswordViewController.trainingModeOn(_:)), name:"TrainingModeOn", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChangePasswordViewController.trainingModeOff(_:)), name:"TrainingModeOff", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChangePasswordViewController.gasServiceButtonInChangePassVCTapped(_:)), name:"gasServiceButtonInChangePassVCTapped", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChangePasswordViewController.issueButtonInChangePassVCTapped(_:)), name:"issueButtonInChangePassVCTapped", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChangePasswordViewController.configButtonInChangePassVCTapped(_:)), name:"configButtonInChangePassVCTapped", object: nil)
@@ -122,8 +126,8 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         }*/
         //background
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
-        let borderWidth:CGFloat = 0x05
-        self.view.layer.borderWidth = borderWidth
+        self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
         //textfield customize
         txtOldPassword.frame = CGRect(x: 45, y: 100, width: 230, height: 40)
         txtOldPassword.placeholder = GlobalConst.CONTENT00083

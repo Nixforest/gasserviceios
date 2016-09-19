@@ -23,7 +23,7 @@ class menuLoginViewController: UIViewController {
         super.viewDidLoad()
         configButton.frame = CGRect(x: 0, y: 0, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat(GlobalConst.BUTTON_HEIGHT))
         configButton.backgroundColor = UIColor.whiteColor()
-        configButton.setTitle(GlobalConst.CONTENT00111, forState: .Normal)
+        configButton.setTitle(GlobalConst.CONTENT00128, forState: .Normal)
         configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
         configButton.addTarget(self, action: #selector(configButtonTapped), forControlEvents: .TouchUpInside)
         self.view.addSubview(configButton)

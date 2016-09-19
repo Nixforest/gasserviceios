@@ -17,6 +17,7 @@ class ConfigurationViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var configView: UIView!
     @IBOutlet weak var configTableView: UITableView!
     
     @IBAction func backButtonTapped(sender: AnyObject) {
@@ -30,19 +31,46 @@ class ConfigurationViewController: UIViewController, UITableViewDelegate, UITabl
     
     //training mode
     override func viewDidAppear(animated: Bool) {
-        let grayColor = UIColor.grayColor().CGColor
-        let yellowColor = UIColor.yellowColor().CGColor
+        //training mode enable/disable
         if GlobalConst.TRAINING_MODE_FLAG == true {
-            self.view.layer.borderColor = yellowColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
         } else {
-            self.view.layer.borderColor = grayColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
         }
+        
+        //notification button enable/disable
+        if GlobalConst.LOGIN_STATUS == true {
+            notificationButton.enabled = true
+            notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)//when enable
+        } else {
+            notificationButton.enabled = false
+            notificationButton.backgroundColor = UIColor.grayColor()//when disable
+        }
+        
+    }
+    func trainingModeOn(notification: NSNotification) {
+        configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
+    }
+    func trainingModeOff(notification: NSNotification) {
+        configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ConfigurationViewController.trainingModeOn(_:)), name:"TrainingModeOn", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ConfigurationViewController.trainingModeOff(_:)), name:"TrainingModeOff", object: nil)
+        
+        configView.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
+        configView.translatesAutoresizingMaskIntoConstraints = true
+        
         configTableView.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
+        configTableView.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.PARENT_BORDER_WIDTH, width: configView.frame.size.width, height: configView.frame.size.height - GlobalConst.PARENT_BORDER_WIDTH)
+        configTableView.translatesAutoresizingMaskIntoConstraints = true
         searchBar.placeholder = GlobalConst.CONTENT00128
         
         
