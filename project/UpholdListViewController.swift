@@ -17,6 +17,7 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
     
     var aStatusList:[String]! = ["Mới", "Xử lý", "Hoàn thành", "Yêu cầu chuyển", "Xử lý dài ngày"]
     
+    @IBOutlet weak var view2: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var notificationButton: UIButton!
@@ -63,6 +64,8 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
             @IBAction func showStatusListButtonTapped(sender: AnyObject) {
         statusListView.hidden = false
         showProblemUpholdList = true
+                view2.hidden = false
+
     }
     //training mode
     override func viewDidAppear(animated: Bool) {
@@ -92,6 +95,13 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view2.hidden = true
+        view2.backgroundColor = UIColor.clearColor()
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight] // for supporting device rotation
+        view2.addSubview(blurEffectView)
         //cell
         self.periodTableView.registerNib(UINib(nibName: "periodTableViewCell", bundle: nil), forCellReuseIdentifier: "periodTableViewCell")
         self.problemTableView.registerNib(UINib(nibName: "problemTableViewCell", bundle: nil), forCellReuseIdentifier: "problemTableViewCell")
@@ -121,11 +131,12 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         statusListTap.delegate = self
         //add Picker to View
         statusListView.hidden = true
-        statusListView.frame = CGRect(x: 30, y: 30, width: 200, height: 200)
         statusListView.translatesAutoresizingMaskIntoConstraints = true
+        statusListView.frame = CGRect(x: 0, y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.LABEL_HEIGHT, width: GlobalConst.SCREEN_WIDTH, height: GlobalConst.SCREEN_HEIGHT/4)
+        
         let statusListPicker = UIPickerView()
-        statusListPicker.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
-        statusListPicker.backgroundColor = UIColor.grayColor()
+        statusListPicker.frame = CGRect(x: 0, y: 0, width: GlobalConst.SCREEN_WIDTH, height: GlobalConst.SCREEN_HEIGHT/4)
+        statusListPicker.backgroundColor = UIColor.whiteColor()
         statusListPicker.delegate = self
         statusListView.addSubview(statusListPicker)
         //segment control - uphold button
@@ -229,6 +240,8 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         lblStatusList.text = aStatusList[row]
         statusListView.hidden = true
+        view2.hidden = true
+
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         var count = NSInteger()

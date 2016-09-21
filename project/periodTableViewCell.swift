@@ -21,9 +21,9 @@ class periodTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        periodView.translatesAutoresizingMaskIntoConstraints = true
+       /* periodView.translatesAutoresizingMaskIntoConstraints = true
         periodView.backgroundColor = UIColor.whiteColor()
-        periodView.frame = CGRectMake(GlobalConst.PARENT_BORDER_WIDTH * 2 , GlobalConst.PARENT_BORDER_WIDTH, GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , GlobalConst.CELL_HEIGHT_SHOW - 5 * 2)
+        periodView.frame = CGRectMake(GlobalConst.PARENT_BORDER_WIDTH * 2 , GlobalConst.PARENT_BORDER_WIDTH, GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , 83)
         periodView.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         periodView.layer.borderColor = ColorFromRGB().getColorFromRGB(0xF00020).CGColor
         periodView.clipsToBounds = true
@@ -49,7 +49,7 @@ class periodTableViewCell: UITableViewCell {
         doneButton.layer.borderColor = UIColor.redColor().CGColor
         doneButton.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         doneButton.setImage(UIImage(named: "done.png"), forState: .Normal)
-        
+        */
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

@@ -616,6 +616,33 @@
             </objects>
             <point key="canvasLocation" x="1784" y="-402"/>
         </scene>
+        <!--Uphold Detail View Controller-->
+        <scene sceneID="k5U-i0-Lf5">
+            <objects>
+                <viewController storyboardIdentifier="UpholdDetailViewController" id="NrZ-sm-3YH" customClass="UpholdDetailViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="g25-d9-W3c"/>
+                        <viewControllerLayoutGuide type="bottom" id="Fit-dO-37o"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0Fa-P5-7Ka">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KPR-az-hRy">
+                                <rect key="frame" x="0.0" y="20" width="320" height="389"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="mainScrollView" destination="KPR-az-hRy" id="Uho-eT-wqj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tjw-A8-vsD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1911" y="-1687"/>
+        </scene>
         <!--Menu Account View Controller-->
         <scene sceneID="zdA-Q1-Mns">
             <objects>
@@ -880,17 +907,13 @@
                                     <action selector="upholdListChange:" destination="oYw-eb-ON9" eventType="valueChanged" id="CzV-wI-ZKD"/>
                                 </connections>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G1v-zS-4VE">
-                                <rect key="frame" x="40" y="184" width="240" height="128"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ho4-M1-kMd">
                                 <rect key="frame" x="139" y="109" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QXc-fu-aYw">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QXc-fu-aYw">
                                 <rect key="frame" x="0.0" y="161" width="181" height="407"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -898,7 +921,7 @@
                                     <outlet property="delegate" destination="oYw-eb-ON9" id="HJ9-4O-2BL"/>
                                 </connections>
                             </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gmz-so-odz">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gmz-so-odz">
                                 <rect key="frame" x="179" y="161" width="141" height="407"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="1" green="0.054796324879999997" blue="0.09030248867" alpha="1" colorSpace="calibratedRGB"/>
@@ -907,6 +930,14 @@
                                     <outlet property="delegate" destination="oYw-eb-ON9" id="ILp-Ke-fLG"/>
                                 </connections>
                             </tableView>
+                            <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UEt-oR-25B">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                <color key="backgroundColor" red="1" green="0.87858707270000003" blue="0.16833148370000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G1v-zS-4VE">
+                                <rect key="frame" x="40" y="184" width="240" height="128"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -959,6 +990,7 @@
                         <outlet property="statusListView" destination="G1v-zS-4VE" id="ief-Rs-Cgd"/>
                         <outlet property="upholdListButton" destination="pBP-2u-lbB" id="6Lj-7b-eKI"/>
                         <outlet property="upholdListNavBar" destination="Rhb-f0-pJI" id="XCW-OF-jf5"/>
+                        <outlet property="view2" destination="UEt-oR-25B" id="Zwy-It-fYr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rvw-EK-tWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1012,7 +1044,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zuE-CZ-jNT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-94" y="-2415"/>
+            <point key="canvasLocation" x="-124" y="-2147"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="qa5-c4-O27">
