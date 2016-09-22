@@ -17,21 +17,21 @@ class CheckBox: UIButton {
     var bChecked:Bool = false {
         didSet {
             if (bChecked == true) {
-                self.setImage(imgChecked, forState: .Normal)
+                self.setImage(imgChecked, for: UIControlState())
             }else {
-                self.setImage(imgUnchecked, forState: .Normal)
+                self.setImage(imgUnchecked, for: UIControlState())
             }
         }
     }
     //Initial Value bChecked == false
     override func awakeFromNib() {
-        self.addTarget(self, action: #selector(CheckBox.buttonClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addTarget(self, action: #selector(CheckBox.buttonClicked(_:)), for: UIControlEvents.touchUpInside)
         self.bChecked = false
         
     }
     
     //click event
-    func buttonClicked(sender: UIButton) {
+    func buttonClicked(_ sender: UIButton) {
         if (sender == self) {
             if (bChecked == false) {
                 bChecked = true

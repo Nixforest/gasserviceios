@@ -21,25 +21,25 @@ class ConfigurationTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         mySw.setOn(GlobalConst.TRAINING_MODE_FLAG, animated:true)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configurine the view for the selected state
     }
     
     
-    @IBAction func changeValue(sender: AnyObject) {
-        if mySw.on {
+    @IBAction func changeValue(_ sender: AnyObject) {
+        if mySw.isOn {
             GlobalConst.TRAINING_MODE_FLAG = true
             print(GlobalConst.TRAINING_MODE_FLAG)
-            NSNotificationCenter.defaultCenter().postNotificationName("TrainingModeOn", object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "TrainingModeOn"), object: nil)
         } else {
             GlobalConst.TRAINING_MODE_FLAG = false
             print(GlobalConst.TRAINING_MODE_FLAG)
-            NSNotificationCenter.defaultCenter().postNotificationName("TrainingModeOff", object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "TrainingModeOff"), object: nil)
         }
         
     }

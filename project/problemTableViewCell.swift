@@ -21,19 +21,19 @@ class problemTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         problemView.translatesAutoresizingMaskIntoConstraints = true
-        problemView.backgroundColor = UIColor.whiteColor()
-        problemView.frame = CGRectMake(GlobalConst.PARENT_BORDER_WIDTH * 2 , GlobalConst.PARENT_BORDER_WIDTH, GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , GlobalConst.CELL_HEIGHT_SHOW - 5 * 2)
+        problemView.backgroundColor = UIColor.white
+        problemView.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH * 2 , y: GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , height: GlobalConst.CELL_HEIGHT_SHOW - 5 * 2)
         problemView.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        problemView.layer.borderColor = ColorFromRGB().getColorFromRGB(0xF00020).CGColor
+        problemView.layer.borderColor = ColorFromRGB().getColorFromRGB(0xF00020).cgColor
         problemView.clipsToBounds = true
         problemView.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         
         lblName.translatesAutoresizingMaskIntoConstraints = true
-        lblName.frame = CGRectMake(GlobalConst.PARENT_BORDER_WIDTH * 3, GlobalConst.PARENT_BORDER_WIDTH , GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblName.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH * 3, y: GlobalConst.PARENT_BORDER_WIDTH , width: GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         lblIssue.translatesAutoresizingMaskIntoConstraints = true
-        lblIssue.frame = CGRectMake(GlobalConst.PARENT_BORDER_WIDTH * 3, GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_IN_CELL_HEIGHT , GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblIssue.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH * 3, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_IN_CELL_HEIGHT , width: GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         lblStatus.translatesAutoresizingMaskIntoConstraints = true
-        lblStatus.frame = CGRectMake(GlobalConst.PARENT_BORDER_WIDTH * 3,  GlobalConst.PARENT_BORDER_WIDTH + (GlobalConst.LABEL_IN_CELL_HEIGHT * 2), GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblStatus.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH * 3,  y: GlobalConst.PARENT_BORDER_WIDTH + (GlobalConst.LABEL_IN_CELL_HEIGHT * 2), width: GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         lblTimeCreate.translatesAutoresizingMaskIntoConstraints = true
         lblTimeCreate.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH * 2, y: GlobalConst.PARENT_BORDER_WIDTH + (GlobalConst.LABEL_IN_CELL_HEIGHT * 3), width: GlobalConst.SCREEN_WIDTH - GlobalConst.LABEL_IN_CELL_HEIGHT, height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         
@@ -43,22 +43,22 @@ class problemTableViewCell: UITableViewCell {
         lblTimeCreate.text = "Thoi gian tao"
         
         doneButton.translatesAutoresizingMaskIntoConstraints = true
-        doneButton.frame = CGRectMake((GlobalConst.PARENT_BORDER_WIDTH * 2) + GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, GlobalConst.PARENT_BORDER_WIDTH, (GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH * 2))/2, (GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH * 2))/2)
+        doneButton.frame = CGRect(x: (GlobalConst.PARENT_BORDER_WIDTH * 2) + GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, y: GlobalConst.PARENT_BORDER_WIDTH, width: (GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH * 2))/2, height: (GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH * 2))/2)
         doneButton.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        doneButton.layer.borderColor = UIColor.redColor().CGColor
+        doneButton.layer.borderColor = UIColor.red.cgColor
         doneButton.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        doneButton.setImage(UIImage(named: "done.png"), forState: .Normal)
+        doneButton.setImage(UIImage(named: "done.png"), for: UIControlState())
 
         ratingButton.translatesAutoresizingMaskIntoConstraints = true
-        ratingButton.frame = CGRectMake((GlobalConst.PARENT_BORDER_WIDTH * 2) + GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, GlobalConst.PARENT_BORDER_WIDTH + (GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH * 2))/2, (GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH * 2))/2, (GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH * 2))/2)
+        ratingButton.frame = CGRect(x: (GlobalConst.PARENT_BORDER_WIDTH * 2) + GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, y: GlobalConst.PARENT_BORDER_WIDTH + (GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH * 2))/2, width: (GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH * 2))/2, height: (GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH * 2))/2)
         ratingButton.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        ratingButton.layer.borderColor = UIColor.redColor().CGColor
+        ratingButton.layer.borderColor = UIColor.red.cgColor
         ratingButton.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        ratingButton.setImage(UIImage(named: "rating.png"), forState: .Normal)
+        ratingButton.setImage(UIImage(named: "rating.png"), for: UIControlState())
         
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

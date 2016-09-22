@@ -57,6 +57,8 @@
 		84F481981D67040E0072DC7A /* CreateUpHold.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84F481941D67040E0072DC7A /* CreateUpHold.jpeg */; };
 		84F481991D67040E0072DC7A /* ServiceRating.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84F481951D67040E0072DC7A /* ServiceRating.jpeg */; };
 		92026C471D7E843D004232CA /* GlobalConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92026C461D7E843D004232CA /* GlobalConst.swift */; };
+		926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F31D9276B5000D2DED /* CommonProcess.swift */; };
+		926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F61D927BE0000D2DED /* CommonViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +137,8 @@
 		84F481941D67040E0072DC7A /* CreateUpHold.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CreateUpHold.jpeg; sourceTree = "<group>"; };
 		84F481951D67040E0072DC7A /* ServiceRating.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ServiceRating.jpeg; sourceTree = "<group>"; };
 		92026C461D7E843D004232CA /* GlobalConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConst.swift; sourceTree = "<group>"; };
+		926670F31D9276B5000D2DED /* CommonProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonProcess.swift; sourceTree = "<group>"; };
+		926670F61D927BE0000D2DED /* CommonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +189,7 @@
 		84284E101D40DF050079DEBC /* project */ = {
 			isa = PBXGroup;
 			children = (
+				926670F51D927BB4000D2DED /* Common */,
 				84E172D71D9218F6003121D6 /* XibFiles */,
 				842BA3551D8EA7DC004ECBFF /* TableView Cell */,
 				84284E111D40DF050079DEBC /* AppDelegate.swift */,
@@ -290,6 +295,15 @@
 			name = XibFiles;
 			sourceTree = "<group>";
 		};
+		926670F51D927BB4000D2DED /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				926670F31D9276B5000D2DED /* CommonProcess.swift */,
+				926670F61D927BE0000D2DED /* CommonViewController.swift */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -358,14 +372,17 @@
 				TargetAttributes = {
 					84284E0D1D40DF050079DEBC = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = B6EW6RYD29;
+						DevelopmentTeam = HFC2RL83D6;
+						LastSwiftMigration = 0800;
 					};
 					84284E211D40DF050079DEBC = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 84284E0D1D40DF050079DEBC;
 					};
 					84284E2C1D40DF050079DEBC = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 84284E0D1D40DF050079DEBC;
 					};
 				};
@@ -458,6 +475,7 @@
 				84EBBD251D8F8E7300FB4D25 /* InfomationViewController.swift in Sources */,
 				84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */,
 				84F481911D66FFC10072DC7A /* HomeTableViewController.swift in Sources */,
+				926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */,
 				842CA8E71D89045E003D9EFF /* menuAccountViewController.swift in Sources */,
 				842277C91D421E7E00611439 /* CheckBox.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
@@ -465,6 +483,7 @@
 				842BA3581D8EA806004ECBFF /* periodTableViewCell.swift in Sources */,
 				8424683F1D86F9DA00356B20 /* ConfigurationViewController.swift in Sources */,
 				84EDDFB01D7D869000861ACB /* menuLoginViewController.swift in Sources */,
+				926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */,
 				92026C471D7E843D004232CA /* GlobalConst.swift in Sources */,
 				8435C24E1D8ABED100F9903D /* menuUpholdListViewController.swift in Sources */,
 			);
@@ -613,14 +632,16 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = HFC2RL83D6;
 				INFOPLIST_FILE = project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
+				PRODUCT_BUNDLE_IDENTIFIER = nixforest.gasservice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -631,13 +652,15 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = HFC2RL83D6;
 				INFOPLIST_FILE = project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
+				PRODUCT_BUNDLE_IDENTIFIER = nixforest.gasservice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -649,6 +672,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lampham.projectTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/project.app/project";
 			};
 			name = Debug;
@@ -661,6 +685,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lampham.projectTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/project.app/project";
 			};
 			name = Release;
@@ -672,6 +697,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lampham.projectUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = project;
 			};
 			name = Debug;
@@ -683,6 +709,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lampham.projectUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = project;
 			};
 			name = Release;

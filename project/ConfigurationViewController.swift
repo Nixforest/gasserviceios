@@ -20,50 +20,50 @@ class ConfigurationViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var configView: UIView!
     @IBOutlet weak var configTableView: UITableView!
     
-    @IBAction func backButtonTapped(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func backButtonTapped(_ sender: AnyObject) {
+        self.navigationController?.popViewController(animated: true)
     }
-    @IBAction func notificationButtonTapped(sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
+    @IBAction func notificationButtonTapped(_ sender: AnyObject) {
+        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: {(notificationAlert) -> Void in ()})
         notificationAlert.addAction(cancelAction)
-        self.presentViewController(notificationAlert, animated: true, completion: nil)}
+        self.present(notificationAlert, animated: true, completion: nil)}
     
     //training mode
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         //training mode enable/disable
         if GlobalConst.TRAINING_MODE_FLAG == true {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
         } else {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
         }
         
         //notification button enable/disable
         if GlobalConst.LOGIN_STATUS == true {
-            notificationButton.enabled = true
+            notificationButton.isEnabled = true
             notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)//when enable
         } else {
-            notificationButton.enabled = false
-            notificationButton.backgroundColor = UIColor.grayColor()//when disable
+            notificationButton.isEnabled = false
+            notificationButton.backgroundColor = UIColor.gray//when disable
         }
         
     }
-    func trainingModeOn(notification: NSNotification) {
-        configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
+    func trainingModeOn(_ notification: Notification) {
+        configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
     }
-    func trainingModeOff(notification: NSNotification) {
-        configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+    func trainingModeOff(_ notification: Notification) {
+        configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+        configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
 
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ConfigurationViewController.trainingModeOn(_:)), name:"TrainingModeOn", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ConfigurationViewController.trainingModeOff(_:)), name:"TrainingModeOff", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ConfigurationViewController.trainingModeOn(_:)), name:NSNotification.Name(rawValue: "TrainingModeOn"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ConfigurationViewController.trainingModeOff(_:)), name:NSNotification.Name(rawValue: "TrainingModeOff"), object: nil)
         
         configView.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         configView.translatesAutoresizingMaskIntoConstraints = true
@@ -77,40 +77,40 @@ class ConfigurationViewController: UIViewController, UITableViewDelegate, UITabl
         configurationNavBar.title = GlobalConst.CONTENT00128
         
         let menuOrigin = UIImage(named: "menu.png");
-        let tintedImage = menuOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        menuButton.setImage(tintedImage, forState: .Normal)
+        let tintedImage = menuOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        menuButton.setImage(tintedImage, for: UIControlState())
         menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
         menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
         
         //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
-        menuButton.setTitle("", forState: .Normal)
+        menuButton.setTitle("", for: UIControlState())
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton
-        menuNavBar.enabled = true //disable menu button
+        menuNavBar.isEnabled = true //disable menu button
         //noti button on NavBar
         notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
-        notificationButton.setTitle("!", forState: .Normal)
-        notificationButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        notificationButton.setTitle("!", for: UIControlState())
+        notificationButton.setTitleColor(UIColor.white, for: UIControlState())
         //notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)//when enable
-        notificationButton.backgroundColor = UIColor.grayColor()//when disable
-        notificationButton.addTarget(self, action: #selector(notificationButtonTapped), forControlEvents: .TouchUpInside)
+        notificationButton.backgroundColor = UIColor.gray//when disable
+        notificationButton.addTarget(self, action: #selector(notificationButtonTapped), for: .touchUpInside)
         let notificationNavBar = UIBarButtonItem()
         notificationNavBar.customView = notificationButton
-        notificationNavBar.enabled = false
+        notificationNavBar.isEnabled = false
         
         configurationNavBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
         //back button
         let backOrigin = UIImage(named: "back.png");
-        let tintedBackLogo = backOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        backButton.setImage(tintedBackLogo, forState: .Normal)
+        let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        backButton.setImage(tintedBackLogo, for: UIControlState())
         backButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
-        backButton.setTitle("", forState: .Normal)
+        backButton.setTitle("", for: UIControlState())
         let backNavBar = UIBarButtonItem()
         backNavBar.customView = backButton
-        configurationNavBar.setLeftBarButtonItem(backNavBar, animated: false)
+        configurationNavBar.setLeftBarButton(backNavBar, animated: false)
 
         // Do any additional setup after loading the view.
     }
@@ -132,23 +132,23 @@ class ConfigurationViewController: UIViewController, UITableViewDelegate, UITabl
     */
     // MARK: - Table view data source
     
-     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 2
     }
     //cell action
-    func cellAction(sender:UIButton) {
+    func cellAction(_ sender:UIButton) {
         switch sender.tag {
             
                 
             case 1:
                 let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let InfoVC = mainStoryboard.instantiateViewControllerWithIdentifier("InfomationViewController")
+                let InfoVC = mainStoryboard.instantiateViewController(withIdentifier: "InfomationViewController")
                 self.navigationController?.pushViewController(InfoVC, animated: true)
             default:
                 break
@@ -157,27 +157,27 @@ class ConfigurationViewController: UIViewController, UITableViewDelegate, UITabl
 
     
     
-     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ConfigurationTableViewCell", forIndexPath: indexPath) as! ConfigurationTableViewCell
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ConfigurationTableViewCell", for: indexPath) as! ConfigurationTableViewCell
         
         //custom cell
-        switch indexPath.row {
+        switch (indexPath as NSIndexPath).row {
             case 0:
-                cell.rightImg.hidden = true
-                cell.mySw.hidden = false
+                cell.rightImg.isHidden = true
+                cell.mySw.isHidden = false
                 cell.leftImg.image = UIImage(named: "TrainingModeIcon.png")
                 cell.nameLbl.text = GlobalConst.CONTENT00138
             case 1:
-                cell.rightImg.hidden = false
-                cell.mySw.hidden = true
+                cell.rightImg.isHidden = false
+                cell.mySw.isHidden = true
                 cell.leftImg.image = UIImage(named: "InfoIcon.png")
                 cell.rightImg.image = UIImage(named: "back.png")
-                cell.rightImg.transform = CGAffineTransformMakeRotation((180.0 * CGFloat(M_PI)) / 180.0)
+                cell.rightImg.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(M_PI)) / 180.0)
                 cell.nameLbl.text = GlobalConst.CONTENT00139
                 let cellButton:UIButton = UIButton()
-                cellButton.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height)
-                cellButton.tag = indexPath.row
-                cellButton.addTarget(self, action: #selector(cellAction(_ :)), forControlEvents: UIControlEvents.TouchUpInside)
+                cellButton.frame = CGRect(x: 0, y: 0, width: cell.contentView.frame.size.width, height: cell.contentView.frame.size.height)
+                cellButton.tag = (indexPath as NSIndexPath).row
+                cellButton.addTarget(self, action: #selector(cellAction(_ :)), for: UIControlEvents.touchUpInside)
                 cell.contentView.addSubview(cellButton)
             
 
@@ -189,19 +189,19 @@ class ConfigurationViewController: UIViewController, UITableViewDelegate, UITabl
         return cell //ConfigurationTableViewCell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popoverMenu" {
-            let popoverVC = segue.destinationViewController
+            let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
         }
     }
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
 
 }

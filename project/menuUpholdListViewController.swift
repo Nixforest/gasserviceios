@@ -15,20 +15,20 @@ class menuUpholdListViewController: UIViewController {
     @IBOutlet weak var issueButton: UIButton!
     @IBOutlet weak var configButton: UIButton!
     
-    @IBAction func gasServiceButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(false) {
-            NSNotificationCenter.defaultCenter().postNotificationName("gasServiceButtonInUpholdListVCTapped", object: nil)
+    @IBAction func gasServiceButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "gasServiceButtonInUpholdListVCTapped"), object: nil)
         }
 
     }
-    @IBAction func issueButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(false) {
-            NSNotificationCenter.defaultCenter().postNotificationName("issueButtonInUpholdListVCTapped", object: nil)
+    @IBAction func issueButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "issueButtonInUpholdListVCTapped"), object: nil)
         }
     }
-    @IBAction func configButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(false) {
-            NSNotificationCenter.defaultCenter().postNotificationName("configButtonInUpholdListVCTapped", object: nil)
+    @IBAction func configButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "configButtonInUpholdListVCTapped"), object: nil)
         }
     }
     
@@ -39,22 +39,22 @@ class menuUpholdListViewController: UIViewController {
         
 
         gasServiceButton.frame = CGRect(x: 0, y: 0, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat(GlobalConst.BUTTON_HEIGHT))
-        gasServiceButton.backgroundColor = UIColor.whiteColor()
-        gasServiceButton.setTitle(GlobalConst.CONTENT00127, forState: .Normal)
-        gasServiceButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
+        gasServiceButton.backgroundColor = UIColor.white
+        gasServiceButton.setTitle(GlobalConst.CONTENT00127, for: UIControlState())
+        gasServiceButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), for: UIControlState())
         self.view.addSubview(gasServiceButton)
         gasServiceButton.translatesAutoresizingMaskIntoConstraints = true
         
         issueButton.frame = CGRect(x: 0, y: CGFloat( GlobalConst.BUTTON_HEIGHT), width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat( GlobalConst.BUTTON_HEIGHT))
-        issueButton.backgroundColor = UIColor.whiteColor()
-        issueButton.setTitle(GlobalConst.CONTENT00131, forState: .Normal)
-        issueButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
+        issueButton.backgroundColor = UIColor.white
+        issueButton.setTitle(GlobalConst.CONTENT00131, for: UIControlState())
+        issueButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), for: UIControlState())
         self.view.addSubview(issueButton)
         issueButton.translatesAutoresizingMaskIntoConstraints = true
         configButton.frame = CGRect(x: 0, y: CGFloat( GlobalConst.BUTTON_HEIGHT) * 2, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat( GlobalConst.BUTTON_HEIGHT))
-        configButton.backgroundColor = UIColor.whiteColor()
-        configButton.setTitle(GlobalConst.CONTENT00128, forState: .Normal)
-        configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
+        configButton.backgroundColor = UIColor.white
+        configButton.setTitle(GlobalConst.CONTENT00128, for: UIControlState())
+        configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), for: UIControlState())
         self.view.addSubview(configButton)
         configButton.translatesAutoresizingMaskIntoConstraints = true
 

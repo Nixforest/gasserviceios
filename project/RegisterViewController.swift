@@ -9,7 +9,7 @@
 import UIKit
 
 
-class RegisterViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
+class RegisterViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
     
     //declare outlets
     @IBOutlet weak var imgCenter: UIImageView!
@@ -24,7 +24,7 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
     @IBOutlet weak var registerButton: UIButton!
     
     
-    @IBOutlet weak var registerNavBar: UINavigationItem!
+    //@IBOutlet weak var registerNavBar: UINavigationItem!
     @IBOutlet weak var notificationButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
@@ -34,32 +34,32 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
     //var loginStatus:Bool = false
     //declare actions
     
-    @IBAction func backButtonTapped(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func backButtonTapped(_ sender: AnyObject) {
+        self.navigationController?.popViewController(animated: true)
     }
-    @IBAction func showPopover(sender: AnyObject) {
+    @IBAction func showPopover(_ sender: AnyObject) {
         print("menu tapped")
     }
     
-    @IBAction func notificationButtonTapped(sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
+    @IBAction func notificationButtonTapped(_ sender: AnyObject) {
+        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: {(notificationAlert) -> Void in ()})
         notificationAlert.addAction(cancelAction)
-        self.presentViewController(notificationAlert, animated: true, completion: nil)
+        self.present(notificationAlert, animated: true, completion: nil)
     }
-    @IBAction func registerButtonTapped(sender: AnyObject) {
+    @IBAction func registerButtonTapped(_ sender: AnyObject) {
         //Alert
-        let registerAlert = UIAlertController(title: "Alert", message: "Bạn phải nhập đầy đủ thông tin", preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(registerAction) -> Void in ()})
+        let registerAlert = UIAlertController(title: "Alert", message: "Bạn phải nhập đầy đủ thông tin", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: {(registerAction) -> Void in ()})
         registerAlert.addAction(okAction)
         
-        let registerCodeAlert = UIAlertController(title: "Nhập mã xác thực", message: "Một mã xác thực đã được gửi đến số điện thoại của bạn dưới dạng tin nhắn, hãy nhập nó vào ô bên dưới", preferredStyle: .Alert)
-        let registerAction = UIAlertAction(title: "Đăng ký", style: .Default, handler: {(registerCodeAlert) -> Void in()
+        let registerCodeAlert = UIAlertController(title: "Nhập mã xác thực", message: "Một mã xác thực đã được gửi đến số điện thoại của bạn dưới dạng tin nhắn, hãy nhập nó vào ô bên dưới", preferredStyle: .alert)
+        let registerAction = UIAlertAction(title: "Đăng ký", style: .default, handler: {(registerCodeAlert) -> Void in()
             print("Register successfully")
             })
-        let cancelAction = UIAlertAction(title: "Để sau", style: .Cancel, handler: {(registerCodeAlert) -> Void in()
+        let cancelAction = UIAlertAction(title: "Để sau", style: .cancel, handler: {(registerCodeAlert) -> Void in()
         })
-        registerCodeAlert.addTextFieldWithConfigurationHandler { (textField : UITextField!) -> Void in
+        registerCodeAlert.addTextField { (textField : UITextField!) -> Void in
             let firstTextField = registerCodeAlert.textFields![0] as UITextField
             firstTextField.placeholder = "Mã xác thực"
             firstTextField.layer.cornerRadius = 20.0
@@ -70,24 +70,24 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
         //check the value of text field
         if (((txtName.text?.isEmpty)! || (txtPhone.text?.isEmpty)! || (txtAddress.text?.isEmpty)!)){
             //Call alert
-            self.presentViewController(registerAlert, animated: true, completion: nil)
+            self.present(registerAlert, animated: true, completion: nil)
         }else {
-            self.presentViewController(registerCodeAlert, animated: true, completion: nil)
+            self.present(registerCodeAlert, animated: true, completion: nil)
         }
     }
-    @IBAction func cancelButtonTapped(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func cancelButtonTapped(_ sender: AnyObject) {
+        self.navigationController?.popViewController(animated: true)
     }
     //training mode
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
     }
-    func trainingModeOn(notification: NSNotification) {
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
-    }
-    func trainingModeOff(notification: NSNotification) {
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
-    }
+//    func trainingModeOn(_ notification: Notification) {
+//        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
+//    }
+//    func trainingModeOff(_ notification: Notification) {
+//        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
+//    }
     
     
     override func viewDidLoad() {
@@ -102,12 +102,12 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
             notificationButton.enabled = false
         }*/
         //background
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RegisterViewController.trainingModeOn(_:)), name:"TrainingModeOn", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RegisterViewController.trainingModeOff(_:)), name:"TrainingModeOff", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RegisterViewController.trainingModeOn(_:)), name:NSNotification.Name(rawValue: "TrainingModeOn"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RegisterViewController.trainingModeOff(_:)), name:NSNotification.Name(rawValue: "TrainingModeOff"), object: nil)
         
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
         //logo customize
         imgCenter.frame = CGRect(x: (self.view.frame.size.width - 140)/2, y: 70, width: 140, height: 140)
         imgCenter.image = UIImage(named: "contact.png")
@@ -137,55 +137,55 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
         txtAddress.delegate = self
         //button customize
         registerButton.frame = CGRect(x: 30, y: 400, width: 260, height: 30)
-        registerButton.setTitle("Đăng ký", forState: .Normal)
+        registerButton.setTitle("Đăng ký", for: UIControlState())
         registerButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        registerButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        registerButton.setTitleColor(UIColor.white, for: UIControlState())
         registerButton.layer.cornerRadius = 6
         //registerButton.addTarget(self, action: #selector(registerButtonTapped), forControlEvents: .TouchUpInside)
         //self.view.addSubview(registerButton)
         registerButton.translatesAutoresizingMaskIntoConstraints = true
                 
         //Navigation Bar customize
-        registerNavBar.title = GlobalConst.CONTENT00052
+        navigationBar.title = GlobalConst.CONTENT00052
         
         //menu button on NavBar
         let menuOrigin = UIImage(named: "menu.png");
-        let tintedImage = menuOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        menuButton.setImage(tintedImage, forState: .Normal)
+        let tintedImage = menuOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        menuButton.setImage(tintedImage, for: UIControlState())
         menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
         menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
         
-        menuButton.addTarget(self, action: #selector(showPopover), forControlEvents: .TouchUpInside)
-        menuButton.setTitle("", forState: .Normal)
+        menuButton.addTarget(self, action: #selector(showPopover), for: .touchUpInside)
+        menuButton.setTitle("", for: UIControlState())
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton
-        menuNavBar.enabled = true //disable menu button
+        menuNavBar.isEnabled = true //disable menu button
         
         //noti button on NavBar
         notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
-        notificationButton.setTitle("!", forState: .Normal)
-        notificationButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        notificationButton.setTitle("!", for: UIControlState())
+        notificationButton.setTitleColor(UIColor.white, for: UIControlState())
         //notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)//when enable
-        notificationButton.backgroundColor = UIColor.grayColor()//when disable
-        notificationButton.addTarget(self, action: #selector(notificationButtonTapped), forControlEvents: .TouchUpInside)
+        notificationButton.backgroundColor = UIColor.gray//when disable
+        notificationButton.addTarget(self, action: #selector(notificationButtonTapped), for: .touchUpInside)
         let notificationNavBar = UIBarButtonItem()
         notificationNavBar.customView = notificationButton
-        notificationNavBar.enabled = false
+        notificationNavBar.isEnabled = false
         
-        registerNavBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
+        navigationBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
         //back button
         let backOrigin = UIImage(named: "back.png");
-        let tintedBackLogo = backOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        backButton.setImage(tintedBackLogo, forState: .Normal)
+        let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        backButton.setImage(tintedBackLogo, for: UIControlState())
         backButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
-        backButton.setTitle("", forState: .Normal)
+        backButton.setTitle("", for: UIControlState())
         let backNavBar = UIBarButtonItem()
         backNavBar.customView = backButton
         
-        registerNavBar.setLeftBarButtonItem(backNavBar, animated: false)
+        navigationBar.setLeftBarButton(backNavBar, animated: false)
         
         //let aColor:UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
         
@@ -201,34 +201,34 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
     }
   
     //popover menu
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popoverMenu" {
-            let popoverVC = segue.destinationViewController
+            let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
         }
     }
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
     
-    internal func textFieldShouldBeginEditing(textField: UITextField) -> Bool{
+    internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         if hideKeyboard == true {
-        UIView.animateWithDuration(0.3) {
-            self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - 100, self.view.frame.size.width, self.view.frame.size.height)
-            }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - 100, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            }) 
             hideKeyboard = false
         }
         return true
     }
-    func hideKeyboard(sender:UITapGestureRecognizer){
+    func hideKeyboard(_ sender:UITapGestureRecognizer){
         self.view.endEditing(true)
-        UIView.animateWithDuration(0.3) {
-            self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height)
-        }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.frame = CGRect(x: self.view.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        }) 
         hideKeyboard = true
         
     }
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //hide keyboard
         //textField.resignFirstResponder()
         let nextTag = textField.tag + 1
@@ -243,9 +243,9 @@ class RegisterViewController: UIViewController, UIPopoverPresentationControllerD
         {
             // Not found, so remove keyboard
             textField.resignFirstResponder()
-            UIView.animateWithDuration(0.3) {
-                self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height)
-            }
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.frame = CGRect(x: self.view.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            }) 
         }
         return true
     }

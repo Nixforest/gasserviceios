@@ -8,71 +8,121 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
-
+class LoginViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
+    //MARK: Properties
     var bShowPassword:Bool!
+    /**
+     * Logo image
+     */
     @IBOutlet weak var imgLogo: UIImageView!
+    /**
+     * Account edit text
+     */
     @IBOutlet weak var txtAccount: UITextField!
+    /**
+     * Password edit text
+     */
     @IBOutlet weak var txtPassword: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var signInButton: UIButton!
-    @IBOutlet weak var checkBoxButton: CheckBox!
-    @IBOutlet weak var lblCheckBox: UILabel!
-    
-    @IBOutlet weak var notificationButton: UIButton!
-    @IBOutlet weak var menuButton: UIButton!
-    @IBOutlet weak var backButton: UIButton!
-    
-    @IBOutlet weak var loginNavBar: UINavigationItem!
+    /**
+     * Login button
+     */
+    @IBOutlet weak var btnLogin: UIButton!
+    /**
+     * Sign in button
+     */
+    @IBOutlet weak var btnSignin: UIButton!
+    /**
+     * Show password checkbox
+     */
+    @IBOutlet weak var chbShowPassword: CheckBox!
+    /**
+     * Show password label
+     */
+    @IBOutlet weak var lblShowPassword: UILabel!
+    /**
+     * Notification button
+     */
+    @IBOutlet weak var btnNotification: UIButton!
+    /**
+     * Menu button
+     */
+    @IBOutlet weak var btnMenu: UIButton!
+    /**
+     * Back button
+     */
+    @IBOutlet weak var btnBack: UIButton!
+    /**
+     * Back button
+     */
+    //@IBOutlet weak var loginNavBar: UINavigationItem!
     var hideKeyboard:Bool = true
-    var loginStatusCarrier:NSUserDefaults!
+    var loginStatusCarrier:UserDefaults!
     var loginStatus:Bool = false
     var imgLogoTappedCounter:Int = 0
+    let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
     
-    @IBAction func backButtonTapped(sender: AnyObject) {
-       self.navigationController?.popViewControllerAnimated(true)
+    //MARK: Actions
+    /**
+     * Handle tap on Back button
+     * - parameter sender:AnyObject
+     */
+    @IBAction func backButtonTapped(_ sender: AnyObject) {
+       _ = self.navigationController?.popViewController(animated: true)
+        print("Click back button")
     }
-    @IBAction func ShowPassword(sender: AnyObject) {
+    
+    /// Handle check/uncheck on Show password checkbox
+    /// - parameter sender:AnyObject
+    @IBAction func showPassword(_ sender: AnyObject) {
         bShowPassword = !bShowPassword
-        txtPassword.secureTextEntry = !bShowPassword
+        txtPassword.isSecureTextEntry = !bShowPassword
     }
-    //Login
-    @IBAction func Login(sender: AnyObject) {
+    
+    /// Handle tap on Login button
+    /// - parameter sender:AnyObject
+    @IBAction func Login(_ sender: AnyObject) {
         //declare Allert
-        let loginAlert = UIAlertController(title: "Alert", message: GlobalConst.CONTENT00023, preferredStyle: .Alert)
+        let loginAlert = UIAlertController(title: "Alert", message: GlobalConst.CONTENT00023, preferredStyle: .alert)
         //Alert Action
-        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: {(loginAlert) -> Void in ()})
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: {(loginAlert) -> Void in ()})
         loginAlert.addAction(okAction)
-        //check the value of text field
+        // Check the value of text field
         if (((txtPassword.text?.isEmpty)! || (txtAccount.text?.isEmpty)!)){
-            //Call alert
-            self.presentViewController(loginAlert, animated: true, completion: nil)
-        }else {
+            // Call alert
+            self.present(loginAlert, animated: true, completion: nil)
+        } else {
             GlobalConst.LOGIN_STATUS = true
-            self.navigationController?.popViewControllerAnimated(true)
+            _ = self.navigationController?.popViewController(animated: true)
             print(GlobalConst.LOGIN_STATUS)
             //loginStatus = true
             //loginStatusCarrier.setObject(loginStatus, forKey: "loginStatus")
         }
     }
     
-    //Register
-    @IBAction func Register(sender: AnyObject) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+    /// Handle tap on Login button
+    /// - parameter sender:AnyObject
+    @IBAction func Register(_ sender: AnyObject) {
+        //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let registerVC = mainStoryboard.instantiateViewControllerWithIdentifier("RegisterViewController")
+        let registerVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REGISTER_VIEW_CTRL)
         
         //self.presentViewController(dangkiVC, animated: true, completion: nil)
         self.navigationController?.pushViewController(registerVC, animated: true)
     }
-   
-    @IBAction func notification(sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
+    
+    /**
+     * Handle tap on Notification button
+     */
+    @IBAction func notification(_ sender: AnyObject) {
+        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: {(notificationAlert) -> Void in ()})
         notificationAlert.addAction(cancelAction)
-        self.presentViewController(notificationAlert, animated: true, completion: nil)
+        self.present(notificationAlert, animated: true, completion: nil)
     }
-    func imgLogoTapped(gestureRecognizer: UITapGestureRecognizer) {
+    /**
+     * Handle tap on Logo image
+     */
+    func imgLogoTapped(_ gestureRecognizer: UITapGestureRecognizer) {
         //tappedImageView will be the image view that was tapped.
         //dismiss it, animate it off screen, whatever.
         //let tappedImageView = gestureRecognizer.view!
@@ -81,25 +131,35 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         if imgLogoTappedCounter == 7 {
             imgLogoTappedCounter = 0
             print(imgLogoTappedCounter)
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationViewController")
+            //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let configVC = mainStoryboard.instantiateViewController(withIdentifier: "ConfigurationViewController")
             self.navigationController?.pushViewController(configVC, animated: true)
             
         }
     }
-        
-    func configButtonInLoginTapped(notification: NSNotification) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationViewController")
+    
+    /**
+     * Handle tap on Configuration menu item
+     */
+    func configButtonInLoginTapped(_ notification: Notification) {
+        let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CONFIGURATION_VIEW_CTRL)
         self.navigationController?.pushViewController(configVC, animated: true)
     }
-    func trainingModeOn(notification: NSNotification) {
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
-    }
-    func trainingModeOff(notification: NSNotification) {
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
-    }
-    
+//    /**
+//     * Handle turn on training mode
+//     */
+//    func trainingModeOn(_ notification: Notification) {
+//        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
+//    }
+//    /**
+//     * Handle turn off training mode
+//     */
+//    func trainingModeOff(_ notification: Notification) {
+//        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
+//    }
+    /**
+     * View did load
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         //transmit login status
@@ -107,25 +167,27 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         loginStatus = (loginStatusCarrier.objectForKey("Text") as? Bool)!
         //notification button enable/disable
         if loginStatus == true {
-            notificationButton.enabled = true
+            btnNotification.enabled = true
         } else {
-            notificationButton.enabled = false
+            btnNotification.enabled = false
         }*/
         // Do any additional setup after loading the view, typically from a nib.
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.trainingModeOn(_:)), name:"TrainingModeOn", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.trainingModeOff(_:)), name:"TrainingModeOff", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.trainingModeOn(_:)), name:NSNotification.Name(rawValue: "TrainingModeOn"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.trainingModeOn(_:)),name:NSNotification.Name(rawValue: "TrainingModeOn"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.trainingModeOff(_:)), name:NSNotification.Name(rawValue: "TrainingModeOff"), object: nil)
+        //CommonProcess.handleTrainingMode(self)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.configButtonInLoginTapped(_:)), name:"configButtonInLoginTapped", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.configButtonInLoginTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInLoginTapped"), object: nil)
         
         //background
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
     
         imgLogo.image = UIImage(named: "gas_logo.png")
         imgLogo.frame = CGRect(x: 65, y: 70, width: 190, height: 140)
         imgLogo.translatesAutoresizingMaskIntoConstraints = true
-        imgLogo.userInteractionEnabled = true
+        imgLogo.isUserInteractionEnabled = true
         //now you need a tap gesture recognizer
         //note that target and action point to what happens when the action is recognized.
         let imgLogoTappedRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.imgLogoTapped(_:)))
@@ -144,80 +206,80 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         txtPassword.placeholder = GlobalConst.CONTENT00050
         
         //check box button
-        checkBoxButton.frame = CGRect(x: 30, y: 340, width: 15, height: 15)
-        checkBoxButton.tintColor = UIColor.blackColor()
-        checkBoxButton.translatesAutoresizingMaskIntoConstraints = true
-        lblCheckBox.frame = CGRect(x: 50, y: 338, width: 120, height: 20)
-        lblCheckBox.text = GlobalConst.CONTENT00102
-        lblCheckBox.translatesAutoresizingMaskIntoConstraints = true
+        chbShowPassword.frame = CGRect(x: 30, y: 340, width: 15, height: 15)
+        chbShowPassword.tintColor = UIColor.black
+        chbShowPassword.translatesAutoresizingMaskIntoConstraints = true
+        lblShowPassword.frame = CGRect(x: 50, y: 338, width: 120, height: 20)
+        lblShowPassword.text = GlobalConst.CONTENT00102
+        lblShowPassword.translatesAutoresizingMaskIntoConstraints = true
         //check box status
         bShowPassword = false
         
         
         
         //login button
-        loginButton.frame = CGRect(x: 30, y: 400, width: 260, height: 40)
-        loginButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        loginButton.setTitle(GlobalConst.CONTENT00051, forState: .Normal)
-        loginButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        loginButton.addTarget(self, action: #selector(Login), forControlEvents: .TouchUpInside)
-        loginButton.layer.cornerRadius = 6
-        self.view.addSubview(loginButton)
-        loginButton.translatesAutoresizingMaskIntoConstraints = true
+        btnLogin.frame = CGRect(x: 30, y: 400, width: 260, height: 40)
+        btnLogin.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        btnLogin.setTitle(GlobalConst.CONTENT00051, for: UIControlState())
+        btnLogin.setTitleColor(UIColor.white, for: UIControlState())
+        btnLogin.addTarget(self, action: #selector(Login), for: .touchUpInside)
+        btnLogin.layer.cornerRadius = 6
+        self.view.addSubview(btnLogin)
+        btnLogin.translatesAutoresizingMaskIntoConstraints = true
         
         //sign in button
-        signInButton.frame = CGRect(x: 30, y: 450, width: 260, height: 40)
-        signInButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        signInButton.setTitle(GlobalConst.CONTENT00052, forState: .Normal)
-        signInButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        signInButton.addTarget(self, action: #selector(Register), forControlEvents: .TouchUpInside)
-        signInButton.layer.cornerRadius = 6
-        self.view.addSubview(signInButton)
-        signInButton.translatesAutoresizingMaskIntoConstraints = true
+        btnSignin.frame = CGRect(x: 30, y: 450, width: 260, height: 40)
+        btnSignin.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        btnSignin.setTitle(GlobalConst.CONTENT00052, for: UIControlState())
+        btnSignin.setTitleColor(UIColor.white, for: UIControlState())
+        btnSignin.addTarget(self, action: #selector(Register), for: .touchUpInside)
+        btnSignin.layer.cornerRadius = 6
+        self.view.addSubview(btnSignin)
+        btnSignin.translatesAutoresizingMaskIntoConstraints = true
         
         
         
         //login navigation bar
-        loginNavBar.title = GlobalConst.CONTENT00051
+        navigationBar.title = GlobalConst.CONTENT00051
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
         
         //menu button on NavBar
         let menuOrigin = UIImage(named: "menu.png");
-        let tintedImage = menuOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        menuButton.setImage(tintedImage, forState: .Normal)
-        menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
-        menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
-        menuButton.setTitle("", forState: .Normal)
+        let tintedImage = menuOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        btnMenu.setImage(tintedImage, for: UIControlState())
+        btnMenu.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        btnMenu.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
+        btnMenu.addTarget(self, action: #selector(showPopOver), for: .touchUpInside)
+        btnMenu.setTitle("", for: UIControlState())
         let menuNavBar = UIBarButtonItem()
-        menuNavBar.customView = menuButton
-        menuNavBar.enabled = true
+        menuNavBar.customView = btnMenu
+        menuNavBar.isEnabled = true
         
         //noti button on NavBar
-        notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
-        notificationButton.setTitle("!", forState: .Normal)
-        notificationButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        //notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020) //when enable
-        notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xD5D5D5) //when disable
+        btnNotification.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        btnNotification.layer.cornerRadius = 0.5 * btnNotification.bounds.size.width
+        btnNotification.setTitle("!", for: UIControlState())
+        btnNotification.setTitleColor(UIColor.white, for: UIControlState())
+        //btnNotification.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020) //when enable
+        btnNotification.backgroundColor = ColorFromRGB().getColorFromRGB(0xD5D5D5) //when disable
 
-        notificationButton.addTarget(self, action: #selector(notification), forControlEvents: .TouchUpInside)
+        btnNotification.addTarget(self, action: #selector(notification), for: .touchUpInside)
         let notiNavBar = UIBarButtonItem()
-        notiNavBar.customView = notificationButton
-        notiNavBar.enabled = false
+        notiNavBar.customView = btnNotification
+        notiNavBar.isEnabled = false
         
         //set right navigation bar item
         self.navigationItem.rightBarButtonItems = [menuNavBar, notiNavBar]
         let backOrigin = UIImage(named: "back.png");
-        let tintedBackLogo = backOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        backButton.setImage(tintedBackLogo, forState: .Normal)
-        backButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
-        backButton.setTitle("", forState: .Normal)
+        let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        btnBack.setImage(tintedBackLogo, for: UIControlState())
+        btnBack.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        btnBack.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        //btnMenu.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
+        btnBack.setTitle("", for: UIControlState())
         let backNavBar = UIBarButtonItem()
-        backNavBar.customView = backButton
-        loginNavBar.setLeftBarButtonItem(backNavBar, animated: false)
+        backNavBar.customView = btnBack
+        navigationBar.setLeftBarButton(backNavBar, animated: false)
         
         txtAccount.delegate = self
         txtPassword.delegate = self
@@ -228,7 +290,7 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //hide keyboard
         //textField.resignFirstResponder()
         let nextTag = textField.tag + 1
@@ -243,9 +305,9 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         {
             // Not found, so remove keyboard
             textField.resignFirstResponder()
-            UIView.animateWithDuration(0.3) {
-                self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height)
-            }
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.frame = CGRect(x: self.view.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            }) 
         }
         return true
     }
@@ -254,37 +316,37 @@ class LoginViewController: UIViewController, UIPopoverPresentationControllerDele
         // Dispose of any resources that can be recreated.
     }
     //training mode
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
     }
 
     
 
     //popover menu
-    @IBAction func showPopOver(sender: AnyObject) {
+    @IBAction func showPopOver(_ sender: AnyObject) {
     print("menu tapped")
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popOverMenu" {
-            let popoverVC = segue.destinationViewController
+            let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
         }
     }
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
     
     
-    @IBAction func showNotification(sender: AnyObject) {
+    @IBAction func showNotification(_ sender: AnyObject) {
         print("noti tapped")
     }
-    func hideKeyboard(sender:UITapGestureRecognizer){
+    func hideKeyboard(_ sender:UITapGestureRecognizer){
         self.view.endEditing(true)
         hideKeyboard = true
         
     }
     
-    internal func textFieldShouldBeginEditing(textField: UITextField) -> Bool{
+    internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         hideKeyboard = false
         return true
     }

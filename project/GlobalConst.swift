@@ -152,8 +152,8 @@ class GlobalConst {
     static let CONTENT00143 = "Chi tiết bảo trì"
     
     
-    static let SCREEN_WIDTH = UIScreen.mainScreen().bounds.width
-    static let SCREEN_HEIGHT = UIScreen.mainScreen().bounds.height
+    static let SCREEN_WIDTH = UIScreen.main.bounds.width
+    static let SCREEN_HEIGHT = UIScreen.main.bounds.height
     static let BUTTON_HEIGHT:CGFloat = 50
     static let PARENT_BORDER_WIDTH:CGFloat = 5
     static let BUTTON_BORDER_WIDTH:CGFloat = 1
@@ -166,15 +166,25 @@ class GlobalConst {
     static let CELL_HEIGHT_SHOW:CGFloat = 100
     static let CELL_HEIGHT_HIDE:CGFloat = 0
     static let CELL_BORDER_WIDTH:CGFloat = 2
-    static let CELL_BORDER_COLOR:UIColor = UIColor.whiteColor()
+    static let CELL_BORDER_COLOR:UIColor = UIColor.white
     static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.PARENT_BORDER_WIDTH * 2) / 4
     static let BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
-    static let BUTTON_COLOR_GRAY:UIColor = UIColor.grayColor()
-    static let PARENT_BORDER_COLOR_GRAY:UIColor = UIColor.grayColor()
-    static let PARENT_BORDER_COLOR_YELLOW:UIColor = UIColor.yellowColor()
+    static let BUTTON_COLOR_GRAY:UIColor = UIColor.gray
+    static let PARENT_BORDER_COLOR_GRAY:UIColor = UIColor.gray
+    static let PARENT_BORDER_COLOR_YELLOW:UIColor = UIColor.yellow
     static let BACKGROUND_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xECECEC)
     
     
     static var TRAINING_MODE_FLAG:Bool = false
     static var LOGIN_STATUS:Bool = true
+    
+    // MARK - Controller names
+    /**
+     * Name of RegisterViewController.
+     */
+    static let REGISTER_VIEW_CTRL = "RegisterViewController"
+    /**
+     * Name of ConfigurationViewController.
+     */
+    static let CONFIGURATION_VIEW_CTRL = "ConfigurationViewController"
 }

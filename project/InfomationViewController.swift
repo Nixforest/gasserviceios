@@ -14,8 +14,8 @@ class InfomationViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var infoTextView: UITextView!
     
-    @IBAction func backButtonTapped(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func backButtonTapped(_ sender: AnyObject) {
+        self.navigationController?.popViewController(animated: true)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,15 +26,15 @@ class InfomationViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
 
         let backOrigin = UIImage(named: "back.png");
-        let tintedBackLogo = backOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        backButton.setImage(tintedBackLogo, forState: .Normal)
+        let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        backButton.setImage(tintedBackLogo, for: UIControlState())
         backButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
-        backButton.setTitle("", forState: .Normal)
+        backButton.setTitle("", for: UIControlState())
         let backNavBar = UIBarButtonItem()
         backNavBar.customView = backButton
-        infomationNavBar.setLeftBarButtonItem(backNavBar, animated: false)
+        infomationNavBar.setLeftBarButton(backNavBar, animated: false)
 
     }
 

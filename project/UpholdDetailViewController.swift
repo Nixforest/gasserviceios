@@ -17,9 +17,9 @@ class UpholdDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSBundle.mainBundle().loadNibNamed("View", owner: self, options: nil)
+        Bundle.main.loadNibNamed("View", owner: self, options: nil)
         mainScrollView.addSubview(view1)
-        mainScrollView.contentSize = CGSizeMake(mainScrollView.frame.size.width, view1.frame.size.height)
+        mainScrollView.contentSize = CGSize(width: mainScrollView.frame.size.width, height: view1.frame.size.height)
         // Do any additional setup after loading the view.
     }
 

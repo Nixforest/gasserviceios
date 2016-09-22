@@ -23,31 +23,31 @@ class menuHomeViewController: UIViewController {
     
     
     
-    @IBAction func configButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(false) {
-            NSNotificationCenter.defaultCenter().postNotificationName("configButtonInHomeTapped", object: nil)
+    @IBAction func configButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "configButtonInHomeTapped"), object: nil)
         }
 
     }
-    @IBAction func registerButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(false) {
-            NSNotificationCenter.defaultCenter().postNotificationName("registerButtonInHomeTapped", object: nil)
+    @IBAction func registerButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "registerButtonInHomeTapped"), object: nil)
         }
     }
-    @IBAction func loginButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(false) { 
-            NSNotificationCenter.defaultCenter().postNotificationName("loginButtonInHomeTapped", object: nil)
+    @IBAction func loginButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: false) { 
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "loginButtonInHomeTapped"), object: nil)
         }
     }
-    @IBAction func logoutButtonTapped(sender: AnyObject) {
+    @IBAction func logoutButtonTapped(_ sender: AnyObject) {
         GlobalConst.LOGIN_STATUS = false
-        self.dismissViewControllerAnimated(false) {
-            NSNotificationCenter.defaultCenter().postNotificationName("logoutButtonInHomeTapped", object: nil)
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "logoutButtonInHomeTapped"), object: nil)
         }
     }
-    @IBAction func issueButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(false) {
-            NSNotificationCenter.defaultCenter().postNotificationName("issueButtonInHomeTapped", object: nil)
+    @IBAction func issueButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "issueButtonInHomeTapped"), object: nil)
         }
     }
     
@@ -57,58 +57,58 @@ class menuHomeViewController: UIViewController {
         //login status
         
         if GlobalConst.LOGIN_STATUS == true {
-            loginButton.hidden = true
-            logoutButton.hidden = false
-            registerButton.hidden = true
-            issueButton.hidden = false
+            loginButton.isHidden = true
+            logoutButton.isHidden = false
+            registerButton.isHidden = true
+            issueButton.isHidden = false
         } else {
-            loginButton.hidden = false
-            registerButton.hidden = false
-            logoutButton.hidden = true
-            issueButton.hidden = true
+            loginButton.isHidden = false
+            registerButton.isHidden = false
+            logoutButton.isHidden = true
+            issueButton.isHidden = true
         }
         
         //login button
         loginButton.frame = CGRect(x: 0, y: 0, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat(GlobalConst.BUTTON_HEIGHT))
-        loginButton.backgroundColor = UIColor.whiteColor()
-        loginButton.setTitle(GlobalConst.CONTENT00051, forState: .Normal)
-        loginButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
+        loginButton.backgroundColor = UIColor.white
+        loginButton.setTitle(GlobalConst.CONTENT00051, for: UIControlState())
+        loginButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), for: UIControlState())
         self.view.addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = true
         //logout button
         logoutButton.frame = CGRect(x: 0, y: 0, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat(GlobalConst.BUTTON_HEIGHT))
-        logoutButton.backgroundColor = UIColor.whiteColor()
-        logoutButton.setTitle(GlobalConst.CONTENT00132, forState: .Normal)
-        logoutButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
+        logoutButton.backgroundColor = UIColor.white
+        logoutButton.setTitle(GlobalConst.CONTENT00132, for: UIControlState())
+        logoutButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), for: UIControlState())
         self.view.addSubview(logoutButton)
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
 
         //config button
         configButton.frame = CGRect(x: 0, y: CGFloat( GlobalConst.BUTTON_HEIGHT) * 2, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat( GlobalConst.BUTTON_HEIGHT))
-        configButton.backgroundColor = UIColor.whiteColor()
-        configButton.setTitle(GlobalConst.CONTENT00128, forState: .Normal)
-        configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
+        configButton.backgroundColor = UIColor.white
+        configButton.setTitle(GlobalConst.CONTENT00128, for: UIControlState())
+        configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), for: UIControlState())
         self.view.addSubview(loginButton)
         configButton.translatesAutoresizingMaskIntoConstraints = true
         //register button
         registerButton.frame = CGRect(x: 0, y: CGFloat( GlobalConst.BUTTON_HEIGHT), width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat( GlobalConst.BUTTON_HEIGHT))
-        registerButton.backgroundColor = UIColor.whiteColor()
-        registerButton.setTitle(GlobalConst.CONTENT00052, forState: .Normal)
-        registerButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
+        registerButton.backgroundColor = UIColor.white
+        registerButton.setTitle(GlobalConst.CONTENT00052, for: UIControlState())
+        registerButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), for: UIControlState())
         self.view.addSubview(registerButton)
         registerButton.translatesAutoresizingMaskIntoConstraints = true
         //issue button
         issueButton.frame = CGRect(x: 0, y: CGFloat( GlobalConst.BUTTON_HEIGHT), width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat( GlobalConst.BUTTON_HEIGHT))
-        issueButton.backgroundColor = UIColor.whiteColor()
-        issueButton.setTitle(GlobalConst.CONTENT00131, forState: .Normal)
-        issueButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
+        issueButton.backgroundColor = UIColor.white
+        issueButton.setTitle(GlobalConst.CONTENT00131, for: UIControlState())
+        issueButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), for: UIControlState())
         self.view.addSubview(issueButton)
         issueButton.translatesAutoresizingMaskIntoConstraints = true
 
 
 
 
-        self.navigationController?.navigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
         // Do any additional setup after loading the view.
     }
 

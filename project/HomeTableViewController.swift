@@ -22,35 +22,35 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
     @IBOutlet weak var menuButton: UIButton!
     
     
-    @IBAction func notificationButtonTapped(sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
+    @IBAction func notificationButtonTapped(_ sender: AnyObject) {
+        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: {(notificationAlert) -> Void in ()})
         notificationAlert.addAction(cancelAction)
-        self.presentViewController(notificationAlert, animated: true, completion: nil)
+        self.present(notificationAlert, animated: true, completion: nil)
     }
-    func configButtonTapped(notification: NSNotification){
+    func configButtonTapped(_ notification: Notification){
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationViewController")
+        let configVC = mainStoryboard.instantiateViewController(withIdentifier: "ConfigurationViewController")
         self.navigationController?.pushViewController(configVC, animated: true)
     }
-    func pushToRegisterVC(notification: NSNotification){
+    func pushToRegisterVC(_ notification: Notification){
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let RegisterVC = mainStoryboard.instantiateViewControllerWithIdentifier("RegisterViewController")
+        let RegisterVC = mainStoryboard.instantiateViewController(withIdentifier: "RegisterViewController")
         self.navigationController?.pushViewController(RegisterVC, animated: true)
     }
-    func logoutButtonTapped(notification: NSNotification){
+    func logoutButtonTapped(_ notification: Notification){
         self.tableView.reloadData()
     }
-    func issueButtonTapped(notification: NSNotification){
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "issueButtonTapped", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .Cancel, handler: {(notificationAlert) -> Void in ()})
+    func issueButtonTapped(_ notification: Notification){
+        let notificationAlert = UIAlertController(title: "Thông báo", message: "issueButtonTapped", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: {(notificationAlert) -> Void in ()})
         notificationAlert.addAction(cancelAction)
-        self.presentViewController(notificationAlert, animated: true, completion: nil)
+        self.present(notificationAlert, animated: true, completion: nil)
     }
-    func pushToLoginVC(notification: NSNotification){
+    func pushToLoginVC(_ notification: Notification){
         //Take Action on Notification
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginVC = mainStoryboard.instantiateViewControllerWithIdentifier("LoginViewController")
+        let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
         self.navigationController?.pushViewController(loginVC, animated: true)
         
     }
@@ -60,42 +60,42 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
     var aListIcon:[String]!
     var aListText:[String]!
     
-    func trainingModeOn(notification: NSNotification) {
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.CGColor
+    func trainingModeOn(_ notification: Notification) {
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
     }
-    func trainingModeOff(notification: NSNotification) {
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
+    func trainingModeOff(_ notification: Notification) {
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //training mode enable/disable
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.trainingModeOn(_:)), name:"TrainingModeOn", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.trainingModeOff(_:)), name:"TrainingModeOff", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.trainingModeOn(_:)), name:NSNotification.Name(rawValue: "TrainingModeOn"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.trainingModeOff(_:)), name:NSNotification.Name(rawValue: "TrainingModeOff"), object: nil)
         
         //notification button enable/disable
         if GlobalConst.LOGIN_STATUS == true {
-            self.notificationButton.enabled = true
+            self.notificationButton.isEnabled = true
             self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         } else {
-            self.notificationButton.enabled = false
+            self.notificationButton.isEnabled = false
             self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_GRAY
         }
         
-        view.backgroundColor = UIColor.grayColor()
+        view.backgroundColor = UIColor.gray
         
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.CGColor
-        self.view.frame = CGRectInset(view.frame, -GlobalConst.CELL_BORDER_WIDTH, +GlobalConst.CELL_BORDER_WIDTH)
+        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
+        self.view.frame = view.frame.insetBy(dx: -GlobalConst.CELL_BORDER_WIDTH, dy: +GlobalConst.CELL_BORDER_WIDTH)
         
         
         //menu button tapped
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.pushToLoginVC(_:)), name:"loginButtonInHomeTapped", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.pushToRegisterVC(_:)), name:"registerButtonInHomeTapped", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.configButtonTapped(_:)), name:"configButtonInHomeTapped", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.logoutButtonTapped(_:)), name:"logoutButtonInHomeTapped", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.issueButtonTapped(_:)), name:"issueButtonInHomeTapped", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.pushToLoginVC(_:)), name:NSNotification.Name(rawValue: "loginButtonInHomeTapped"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.pushToRegisterVC(_:)), name:NSNotification.Name(rawValue: "registerButtonInHomeTapped"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.configButtonTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInHomeTapped"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.logoutButtonTapped(_:)), name:NSNotification.Name(rawValue: "logoutButtonInHomeTapped"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.issueButtonTapped(_:)), name:NSNotification.Name(rawValue: "issueButtonInHomeTapped"), object: nil)
         
         //declare List
         aList = [GlobalConst.CONTENT00130, GlobalConst.CONTENT00041, GlobalConst.CONTENT00099, GlobalConst.CONTENT00098, GlobalConst.CONTENT00100]
@@ -108,8 +108,8 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         self.navigationItem.setHidesBackButton(true, animated:true);
         //menu button on NavBar
         let menuOrigin = UIImage(named: "menu.png");
-        let tintedImage = menuOrigin?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        menuButton.setImage(tintedImage, forState: .Normal)
+        let tintedImage = menuOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        menuButton.setImage(tintedImage, for: UIControlState())
         menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
         menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
         
@@ -117,15 +117,15 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         //menuButton.setTitle("", forState: .Normal)
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton
-        menuNavBar.enabled = true //disable menu button
+        menuNavBar.isEnabled = true //disable menu button
         
         //noti button on NavBar
         notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
-        notificationButton.setTitle("!", forState: .Normal)
-        notificationButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        notificationButton.setTitle("!", for: UIControlState())
+        notificationButton.setTitleColor(UIColor.white, for: UIControlState())
         //notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        notificationButton.addTarget(self, action: #selector(notificationButtonTapped), forControlEvents: .TouchUpInside)
+        notificationButton.addTarget(self, action: #selector(notificationButtonTapped), for: .touchUpInside)
         let notificationNavBar = UIBarButtonItem()
         notificationNavBar.customView = notificationButton
         
@@ -139,13 +139,13 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         
     }
     
-     override func viewDidAppear(animated: Bool) {
+     override func viewDidAppear(_ animated: Bool) {
         //notification button enable/disable
         if GlobalConst.LOGIN_STATUS == true {
-            self.notificationButton.enabled = true
+            self.notificationButton.isEnabled = true
             self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         } else {
-            self.notificationButton.enabled = false
+            self.notificationButton.isEnabled = false
             self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_GRAY
         }
         self.tableView.reloadData()
@@ -160,43 +160,43 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return aList.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("homeCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "homeCell", for: indexPath)
         
-        let imgIcon:UIImageView = UIImageView(frame: CGRectMake(GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.CELL_BORDER_WIDTH * 2, GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.CELL_BORDER_WIDTH * 2, GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.CELL_BORDER_WIDTH) * 2, GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.CELL_BORDER_WIDTH) * 2))
-        imgIcon.image = UIImage(named: aListIcon[indexPath.row])
+        let imgIcon:UIImageView = UIImageView(frame: CGRect(x: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.CELL_BORDER_WIDTH * 2, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.CELL_BORDER_WIDTH * 2, width: GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.CELL_BORDER_WIDTH) * 2, height: GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.CELL_BORDER_WIDTH) * 2))
+        imgIcon.image = UIImage(named: aListIcon[(indexPath as NSIndexPath).row])
         cell.addSubview(imgIcon)
-        let txtCellName:UILabel = UILabel(frame: CGRectMake(110, 0, 200, 100))
-        txtCellName.text = aListText[indexPath.row]
+        let txtCellName:UILabel = UILabel(frame: CGRect(x: 110, y: 0, width: 200, height: 100))
+        txtCellName.text = aListText[(indexPath as NSIndexPath).row]
         cell.addSubview(txtCellName)
-        cell.tag = indexPath.row
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        cell.tag = (indexPath as NSIndexPath).row
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         cell.layer.borderWidth = GlobalConst.CELL_BORDER_WIDTH
-        cell.layer.borderColor = GlobalConst.CELL_BORDER_COLOR.CGColor
+        cell.layer.borderColor = GlobalConst.CELL_BORDER_COLOR.cgColor
         
         let cellButton:UIButton = UIButton()
-        cellButton.frame = CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
-        cellButton.tag = indexPath.row
-        cellButton.addTarget(self, action: #selector(cellAction(_ :)), forControlEvents: UIControlEvents.TouchUpInside)
+        cellButton.frame = CGRect(x: 0, y: 0, width: cell.contentView.frame.size.width, height: cell.contentView.frame.size.height);
+        cellButton.tag = (indexPath as NSIndexPath).row
+        cellButton.addTarget(self, action: #selector(cellAction(_ :)), for: UIControlEvents.touchUpInside)
         cell.contentView.addSubview(cellButton)
         
         //cell text color
-        txtCellName.textColor = UIColor.whiteColor()
+        txtCellName.textColor = UIColor.white
         
         //cell background color
-        switch indexPath.row {
+        switch (indexPath as NSIndexPath).row {
         case 0:
             cell.backgroundColor = ColorFromRGB().getColorFromRGB(0x29B6F6)
         case 1:
@@ -211,33 +211,33 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         }
         //show cell
         if GlobalConst.LOGIN_STATUS == false {
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
                 case 2:
-                    cell.hidden = true
+                    cell.isHidden = true
                 case 3:
-                    cell.hidden = true
+                    cell.isHidden = true
                 case 4:
-                    cell.hidden = true
+                    cell.isHidden = true
                 default: break
             }
         } else {
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
             case 2:
-                cell.hidden = false
+                cell.isHidden = false
             case 3:
-                cell.hidden = false
+                cell.isHidden = false
             case 4:
-                cell.hidden = false
+                cell.isHidden = false
             default: break
             }
         }
         return cell
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var rowHeight:CGFloat
         if loginStatus == false {
-            if (indexPath.row == 2) || (indexPath.row == 3) || (indexPath.row == 4) {
+            if ((indexPath as NSIndexPath).row == 2) || ((indexPath as NSIndexPath).row == 3) || ((indexPath as NSIndexPath).row == 4) {
                 rowHeight = GlobalConst.CELL_HEIGHT_HIDE
             } else {
                 rowHeight = GlobalConst.CELL_HEIGHT_SHOW
@@ -249,16 +249,16 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         return rowHeight
     }
 
-    func cellAction(sender:UIButton) {
+    func cellAction(_ sender:UIButton) {
         switch sender.tag {
         case 2:
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let upholdListVC = mainStoryboard.instantiateViewControllerWithIdentifier("UpholdListViewController")
+            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: "UpholdListViewController")
             self.navigationController?.pushViewController(upholdListVC, animated: true)
 
         case 4:
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let accountVC = mainStoryboard.instantiateViewControllerWithIdentifier("AccountViewController")
+            let accountVC = mainStoryboard.instantiateViewController(withIdentifier: "AccountViewController")
             self.navigationController?.pushViewController(accountVC, animated: true)
         default:
             break
@@ -313,15 +313,15 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
     }
     */
     //popover menu
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popoverMenu" {
-            let popoverVC = segue.destinationViewController
+            let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
             popoverVC.popoverPresentationController!
         }
     }
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
     
     

@@ -13,19 +13,19 @@ class menuLoginViewController: UIViewController {
     @IBOutlet weak var configButton: UIButton!
     @IBOutlet weak var iconConfigButton: UIImageView!
     
-    @IBAction func configButtonTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(false) {
-            NSNotificationCenter.defaultCenter().postNotificationName("configButtonInLoginTapped", object: nil)
+    @IBAction func configButtonTapped(_ sender: AnyObject) {
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "configButtonInLoginTapped"), object: nil)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configButton.frame = CGRect(x: 0, y: 0, width: CGFloat(GlobalConst.POPOVER_WIDTH), height: CGFloat(GlobalConst.BUTTON_HEIGHT))
-        configButton.backgroundColor = UIColor.whiteColor()
-        configButton.setTitle(GlobalConst.CONTENT00128, forState: .Normal)
-        configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), forState: .Normal)
-        configButton.addTarget(self, action: #selector(configButtonTapped), forControlEvents: .TouchUpInside)
+        configButton.backgroundColor = UIColor.white
+        configButton.setTitle(GlobalConst.CONTENT00128, for: UIControlState())
+        configButton.setTitleColor(ColorFromRGB().getColorFromRGB(0xF00020), for: UIControlState())
+        configButton.addTarget(self, action: #selector(configButtonTapped), for: .touchUpInside)
         self.view.addSubview(configButton)
         configButton.translatesAutoresizingMaskIntoConstraints = true
         iconConfigButton.image = UIImage(named: "config.png")
