@@ -53,7 +53,7 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         }
     }
     @IBAction func backButtonTapped(_ sender: AnyObject) {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     @IBAction func notificationButtonTapped(_ sender: AnyObject) {
         let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .alert)

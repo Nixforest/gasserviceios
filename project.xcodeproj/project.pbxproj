@@ -48,6 +48,8 @@
 		84EB38D01D6B938C0031CF84 /* MenuSub.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EB38CF1D6B938C0031CF84 /* MenuSub.xib */; };
 		84EBBD251D8F8E7300FB4D25 /* InfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBBD241D8F8E7300FB4D25 /* InfomationViewController.swift */; };
 		84EDDFB01D7D869000861ACB /* menuLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EDDFAF1D7D869000861ACB /* menuLoginViewController.swift */; };
+		84EF9C5C1D93C6B90008B30F /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF9C5B1D93C6B90008B30F /* AppViewController.swift */; };
+		84EF9C5F1D93C7680008B30F /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF9C5E1D93C7680008B30F /* Singleton.swift */; };
 		84EFBEAC1D6F173A00FEBE80 /* ordergas.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFBEAB1D6F173A00FEBE80 /* ordergas.png */; };
 		84EFFBE91D7D912500900578 /* config.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFFBE81D7D912500900578 /* config.png */; };
 		84F2D62E1D66121B0091F6D3 /* ColorFromRGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F2D62D1D66121B0091F6D3 /* ColorFromRGB.swift */; };
@@ -128,6 +130,8 @@
 		84EB38CF1D6B938C0031CF84 /* MenuSub.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuSub.xib; sourceTree = "<group>"; };
 		84EBBD241D8F8E7300FB4D25 /* InfomationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfomationViewController.swift; sourceTree = "<group>"; };
 		84EDDFAF1D7D869000861ACB /* menuLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuLoginViewController.swift; sourceTree = "<group>"; };
+		84EF9C5B1D93C6B90008B30F /* AppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
+		84EF9C5E1D93C7680008B30F /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		84EFBEAB1D6F173A00FEBE80 /* ordergas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ordergas.png; sourceTree = "<group>"; };
 		84EFFBE81D7D912500900578 /* config.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config.png; sourceTree = "<group>"; };
 		84F2D62D1D66121B0091F6D3 /* ColorFromRGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorFromRGB.swift; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 		84284E101D40DF050079DEBC /* project */ = {
 			isa = PBXGroup;
 			children = (
+				84EF9C5D1D93C7680008B30F /* Singleton */,
 				926670F51D927BB4000D2DED /* Common */,
 				84E172D71D9218F6003121D6 /* XibFiles */,
 				842BA3551D8EA7DC004ECBFF /* TableView Cell */,
@@ -295,11 +300,20 @@
 			name = XibFiles;
 			sourceTree = "<group>";
 		};
+		84EF9C5D1D93C7680008B30F /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				84EF9C5E1D93C7680008B30F /* Singleton.swift */,
+			);
+			path = Singleton;
+			sourceTree = "<group>";
+		};
 		926670F51D927BB4000D2DED /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				926670F31D9276B5000D2DED /* CommonProcess.swift */,
 				926670F61D927BE0000D2DED /* CommonViewController.swift */,
+				84EF9C5B1D93C6B90008B30F /* AppViewController.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -372,7 +386,7 @@
 				TargetAttributes = {
 					84284E0D1D40DF050079DEBC = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = HFC2RL83D6;
+						DevelopmentTeam = B6EW6RYD29;
 						LastSwiftMigration = 0800;
 					};
 					84284E211D40DF050079DEBC = {
@@ -467,11 +481,13 @@
 				84284E141D40DF050079DEBC /* LoginViewController.swift in Sources */,
 				84E7184B1D660859006F4995 /* AccountViewController.swift in Sources */,
 				84E1E7A01D664CCD007710BD /* ChangePasswordViewController.swift in Sources */,
+				84EF9C5F1D93C7680008B30F /* Singleton.swift in Sources */,
 				8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */,
 				84E172D61D921876003121D6 /* UpholdDetailViewController.swift in Sources */,
 				84F2D62E1D66121B0091F6D3 /* ColorFromRGB.swift in Sources */,
 				842468411D86FAAE00356B20 /* ConfigurationTableViewCell.swift in Sources */,
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
+				84EF9C5C1D93C6B90008B30F /* AppViewController.swift in Sources */,
 				84EBBD251D8F8E7300FB4D25 /* InfomationViewController.swift in Sources */,
 				84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */,
 				84F481911D66FFC10072DC7A /* HomeTableViewController.swift in Sources */,
@@ -632,11 +648,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = HFC2RL83D6;
+				DEVELOPMENT_TEAM = B6EW6RYD29;
 				INFOPLIST_FILE = project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nixforest.gasservice;
+				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
@@ -652,11 +668,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = HFC2RL83D6;
+				DEVELOPMENT_TEAM = B6EW6RYD29;
 				INFOPLIST_FILE = project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nixforest.gasservice;
+				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
