@@ -33,7 +33,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hiển thị mật khẩu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vx3-2C-1X5">
@@ -105,7 +105,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="z6X-UN-0ax">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="J9R-Jj-xBE">
-                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
@@ -118,7 +118,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="Hb1-Cm-dFn">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Cy7-Jp-rYU">
-                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>
@@ -198,7 +198,7 @@
                         <viewControllerLayoutGuide type="bottom" id="4cx-X3-rRq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="htF-az-2LI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-iS-2z7">
@@ -321,7 +321,7 @@
                         <viewControllerLayoutGuide type="bottom" id="88q-AA-GzH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zUg-eb-hi5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zyS-LC-AqQ">
@@ -452,7 +452,7 @@
                         <viewControllerLayoutGuide type="bottom" id="jxS-eD-NEy"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yJd-9l-kjb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oHN-5D-K88">
@@ -659,7 +659,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Fit-dO-37o"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0Fa-P5-7Ka">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KPR-az-hRy">
@@ -783,15 +783,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="HomeTableViewController" id="aj3-26-YhU" customClass="HomeTableViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Poh-q7-wxw">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="homeCell" id="UGx-Tl-9Ff">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UGx-Tl-9Ff" id="Qvq-DZ-IaK">
-                                    <frame key="frameInset" width="320" height="43"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -931,7 +931,7 @@
                         <viewControllerLayoutGuide type="bottom" id="fg3-7I-8Oe"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="YcB-XI-6wL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V2l-iZ-Y4v">
@@ -977,6 +977,11 @@
                                     <outlet property="delegate" destination="oYw-eb-ON9" id="ILp-Ke-fLG"/>
                                 </connections>
                             </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ImI-gF-muT">
+                                <frame key="frameInset" minX="67" minY="269" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                             <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UEt-oR-25B">
                                 <frame key="frameInset" width="320" height="524"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1004,7 +1009,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="K4Q-6W-KM9">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xc3-Ys-aJQ">
-                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
@@ -1016,7 +1021,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="5sJ-EI-8XF">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PJx-qE-UkD">
-                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>
@@ -1034,6 +1039,7 @@
                         <outlet property="notificationButton" destination="PJx-qE-UkD" id="XgM-U5-TA7"/>
                         <outlet property="periodTableView" destination="gmz-so-odz" id="3Ej-a3-F2U"/>
                         <outlet property="problemTableView" destination="QXc-fu-aYw" id="OQH-PB-1XO"/>
+                        <outlet property="searchBarTableView" destination="ImI-gF-muT" id="k6K-2g-lVM"/>
                         <outlet property="searchBox" destination="V2l-iZ-Y4v" id="LSv-JS-7ql"/>
                         <outlet property="statusListView" destination="G1v-zS-4VE" id="ief-Rs-Cgd"/>
                         <outlet property="upholdListButton" destination="pBP-2u-lbB" id="6Lj-7b-eKI"/>
@@ -1127,7 +1133,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ACm-bc-KEW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rz7-IJ-Wh0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PNn-PF-B6G">
@@ -1254,7 +1260,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hsJ-yl-XbU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vPc-S3-GKK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PtZ-2J-D3N">

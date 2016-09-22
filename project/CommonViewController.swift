@@ -31,8 +31,10 @@ class CommonViewController : UIViewController {
     func trainingModeOff(_ notification: Notification) {
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
     }
+    //
     override func viewDidLoad() {
         super.viewDidLoad()
-        CommonProcess.changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode(), aView: self.view)
+        
     }
+    
 }

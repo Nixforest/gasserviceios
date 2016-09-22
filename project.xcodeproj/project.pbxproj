@@ -51,6 +51,10 @@
 		84EF9C5F1D93C7680008B30F /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF9C5E1D93C7680008B30F /* Singleton.swift */; };
 		84EFBEAC1D6F173A00FEBE80 /* ordergas.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFBEAB1D6F173A00FEBE80 /* ordergas.png */; };
 		84EFFBE91D7D912500900578 /* config.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFFBE81D7D912500900578 /* config.png */; };
+		84F246861D93DDB300259C35 /* SearchBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F246821D93DDB300259C35 /* SearchBarTableViewCell.swift */; };
+		84F246871D93DDB300259C35 /* searchBarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F246831D93DDB300259C35 /* searchBarTableViewCell.xib */; };
+		84F246881D93DDB300259C35 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F246841D93DDB300259C35 /* SearchBarView.swift */; };
+		84F246891D93DDB300259C35 /* SearchBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F246851D93DDB300259C35 /* SearchBarView.xib */; };
 		84F2D62E1D66121B0091F6D3 /* ColorFromRGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F2D62D1D66121B0091F6D3 /* ColorFromRGB.swift */; };
 		84F481911D66FFC10072DC7A /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F481901D66FFC10072DC7A /* HomeTableViewController.swift */; };
 		84F481961D67040E0072DC7A /* Account.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84F481921D67040E0072DC7A /* Account.jpeg */; };
@@ -132,6 +136,10 @@
 		84EF9C5E1D93C7680008B30F /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		84EFBEAB1D6F173A00FEBE80 /* ordergas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ordergas.png; sourceTree = "<group>"; };
 		84EFFBE81D7D912500900578 /* config.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config.png; sourceTree = "<group>"; };
+		84F246821D93DDB300259C35 /* SearchBarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarTableViewCell.swift; sourceTree = "<group>"; };
+		84F246831D93DDB300259C35 /* searchBarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = searchBarTableViewCell.xib; sourceTree = "<group>"; };
+		84F246841D93DDB300259C35 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		84F246851D93DDB300259C35 /* SearchBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarView.xib; sourceTree = "<group>"; };
 		84F2D62D1D66121B0091F6D3 /* ColorFromRGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorFromRGB.swift; sourceTree = "<group>"; };
 		84F481901D66FFC10072DC7A /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		84F481921D67040E0072DC7A /* Account.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Account.jpeg; sourceTree = "<group>"; };
@@ -293,6 +301,10 @@
 		84E172D71D9218F6003121D6 /* XibFiles */ = {
 			isa = PBXGroup;
 			children = (
+				84F246821D93DDB300259C35 /* SearchBarTableViewCell.swift */,
+				84F246831D93DDB300259C35 /* searchBarTableViewCell.xib */,
+				84F246841D93DDB300259C35 /* SearchBarView.swift */,
+				84F246851D93DDB300259C35 /* SearchBarView.xib */,
 				84E172D81D921925003121D6 /* View.xib */,
 			);
 			name = XibFiles;
@@ -383,7 +395,7 @@
 				TargetAttributes = {
 					84284E0D1D40DF050079DEBC = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = HFC2RL83D6;
+						DevelopmentTeam = B6EW6RYD29;
 						LastSwiftMigration = 0800;
 					};
 					84284E211D40DF050079DEBC = {
@@ -427,8 +439,10 @@
 				84B2E9D11D7F0D3E005E4A54 /* done.png in Resources */,
 				84E83D541D87C171007C7A90 /* InfoIcon.png in Resources */,
 				84A4C0651D63117000C0B84C /* checkbox-unchecked.png in Resources */,
+				84F246891D93DDB300259C35 /* SearchBarView.xib in Resources */,
 				84331BEB1D771B560089B0FA /* contact.png in Resources */,
 				842BA35D1D8EA81B004ECBFF /* problemTableViewCell.xib in Resources */,
+				84F246871D93DDB300259C35 /* searchBarTableViewCell.xib in Resources */,
 				84EFBEAC1D6F173A00FEBE80 /* ordergas.png in Resources */,
 				84EB38D01D6B938C0031CF84 /* MenuSub.xib in Resources */,
 				84A4C0681D63117000C0B84C /* menu.png in Resources */,
@@ -478,6 +492,7 @@
 				84284E141D40DF050079DEBC /* LoginViewController.swift in Sources */,
 				84E7184B1D660859006F4995 /* AccountViewController.swift in Sources */,
 				84E1E7A01D664CCD007710BD /* ChangePasswordViewController.swift in Sources */,
+				84F246861D93DDB300259C35 /* SearchBarTableViewCell.swift in Sources */,
 				84EF9C5F1D93C7680008B30F /* Singleton.swift in Sources */,
 				8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */,
 				84E172D61D921876003121D6 /* UpholdDetailViewController.swift in Sources */,
@@ -491,6 +506,7 @@
 				842CA8E71D89045E003D9EFF /* menuAccountViewController.swift in Sources */,
 				842277C91D421E7E00611439 /* CheckBox.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
+				84F246881D93DDB300259C35 /* SearchBarView.swift in Sources */,
 				842BA35C1D8EA81B004ECBFF /* problemTableViewCell.swift in Sources */,
 				842BA3581D8EA806004ECBFF /* periodTableViewCell.swift in Sources */,
 				8424683F1D86F9DA00356B20 /* ConfigurationViewController.swift in Sources */,
@@ -644,11 +660,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = HFC2RL83D6;
+				DEVELOPMENT_TEAM = B6EW6RYD29;
 				INFOPLIST_FILE = project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nixforest.gasservice;
+				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
@@ -664,11 +680,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = HFC2RL83D6;
+				DEVELOPMENT_TEAM = B6EW6RYD29;
 				INFOPLIST_FILE = project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nixforest.gasservice;
+				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";

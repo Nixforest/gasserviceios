@@ -167,6 +167,7 @@ class GlobalConst {
     static let CELL_HEIGHT_HIDE:CGFloat = 0
     static let CELL_BORDER_WIDTH:CGFloat = 2
     static let CELL_BORDER_COLOR:UIColor = UIColor.white
+    static let CELL_IN_SEARCHBAR_TABLE_HEIGHT:CGFloat = 50
     static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.PARENT_BORDER_WIDTH * 2) / 4
     static let BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
     static let BUTTON_COLOR_GRAY:UIColor = UIColor.gray
