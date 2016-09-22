@@ -36,10 +36,12 @@ class ConfigurationTableViewCell: UITableViewCell {
             GlobalConst.TRAINING_MODE_FLAG = true
             print(GlobalConst.TRAINING_MODE_FLAG)
             NSNotificationCenter.defaultCenter().postNotificationName("TrainingModeOn", object: nil)
+            Singleton.sharedInstance.setTrainningMode(true)
         } else {
             GlobalConst.TRAINING_MODE_FLAG = false
             print(GlobalConst.TRAINING_MODE_FLAG)
             NSNotificationCenter.defaultCenter().postNotificationName("TrainingModeOff", object: nil)
+            Singleton.sharedInstance.setTrainningMode(false)
         }
         
     }

@@ -8,14 +8,24 @@
 
 import UIKit
 
-class UpholdListViewController: UIViewController, UIPopoverPresentationControllerDelegate, UIPickerViewDelegate, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate {
+class UpholdListViewController: UIViewController, UIPopoverPresentationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     var width = UIScreen.mainScreen().bounds.width
     var height = UIScreen.mainScreen().bounds.height
     
+    var filteredStr = String()
+    var searchActive:Bool = false
+    var beginSearch:Bool = false
+    var data = ["San Francisco","New York","San Jose","Chicago","Los Angeles","Austin","Seattle"]
+    
+    
     var showProblemUpholdList:Bool! = true
     
     var aStatusList:[String]! = ["Mới", "Xử lý", "Hoàn thành", "Yêu cầu chuyển", "Xử lý dài ngày"]
+    var statusIndex = Int()
+    
+    var timer = NSTimer()
+    
     
     @IBOutlet weak var view2: UIView!
     @IBOutlet weak var backButton: UIButton!
@@ -25,10 +35,12 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
     
     @IBOutlet weak var searchBox: UISearchBar!
     
+    
     @IBOutlet weak var upholdListButton: UISegmentedControl!
     
     @IBOutlet weak var periodTableView: UITableView!
     @IBOutlet weak var problemTableView: UITableView!
+    @IBOutlet weak var searchBarTableView: UITableView!
     
     @IBOutlet weak var lblStatusList: UILabel!
     
@@ -91,10 +103,15 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("ConfigurationViewController")
         self.navigationController?.pushViewController(configVC, animated: true)
     }
-
-    
+    func showSearchBarTableView(notification: NSNotification) {
+        searchBarTableView.hidden = !searchActive
+    }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        //blur view when status list picker active
         view2.hidden = true
         view2.backgroundColor = UIColor.clearColor()
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
@@ -105,19 +122,27 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         //cell
         self.periodTableView.registerNib(UINib(nibName: "periodTableViewCell", bundle: nil), forCellReuseIdentifier: "periodTableViewCell")
         self.problemTableView.registerNib(UINib(nibName: "problemTableViewCell", bundle: nil), forCellReuseIdentifier: "problemTableViewCell")
-
+        self.searchBarTableView.registerNib(UINib(nibName: "searchBarTableViewCell", bundle: nil), forCellReuseIdentifier: "searchBarTableViewCell")
         //Notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UpholdListViewController.gasServiceButtonInUpholdListVCTapped(_:)), name:"gasServiceButtonInUpholdListVCTapped", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UpholdListViewController.issueButtonInUpholdListVCTapped(_:)), name:"issueButtonInUpholdListVCTapped", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UpholdListViewController.configButtonInUpholdListVCTapped(_:)), name:"configButtonInUpholdListVCTapped", object: nil)
-
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UpholdListViewController.showSearchBarTableView(_:)), name:"showSearchBarTableView", object: nil)
         
         let borderWidth:CGFloat = 0x05
         self.view.layer.borderWidth = borderWidth
-        //search box
+        //search bar
         searchBox.placeholder = GlobalConst.CONTENT00060
-        searchBox.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH , y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT , width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , height: GlobalConst.SEARCH_BOX_HEIGHT )
         searchBox.translatesAutoresizingMaskIntoConstraints = true
+        searchBox.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH , y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT , width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , height: GlobalConst.SEARCH_BOX_HEIGHT )
+        searchBox.delegate = self
+        //show hide result of search bar action
+        searchBarTableView.translatesAutoresizingMaskIntoConstraints = true
+        searchBarTableView.hidden = !searchActive
+        searchBarTableView.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2, height: GlobalConst.CELL_IN_SEARCHBAR_TABLE_HEIGHT * 5)
+        searchBarTableView.delegate = self
+        searchBarTableView.dataSource = self
+        
         //label status list + action
         lblStatusList.frame = CGRect(x: borderWidth, y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT, width: GlobalConst.SCREEN_WIDTH - borderWidth * 2, height: GlobalConst.LABEL_HEIGHT)
         lblStatusList.translatesAutoresizingMaskIntoConstraints = true
@@ -153,10 +178,10 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         upholdListButton.translatesAutoresizingMaskIntoConstraints = true
         //uphold list view
         problemTableView.translatesAutoresizingMaskIntoConstraints = true
-        problemTableView.frame = CGRectMake(0, GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT , GlobalConst.SCREEN_WIDTH , GlobalConst.SCREEN_HEIGHT - GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + CGFloat(GlobalConst.BUTTON_HEIGHT) + GlobalConst.LABEL_HEIGHT)
+        problemTableView.frame = CGRectMake(0, GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT , GlobalConst.SCREEN_WIDTH , GlobalConst.CELL_HEIGHT_SHOW * 4)
         
         periodTableView.translatesAutoresizingMaskIntoConstraints = true
-        periodTableView.frame = CGRectMake(0, GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT, GlobalConst.SCREEN_WIDTH, GlobalConst.SCREEN_HEIGHT - GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT)
+        periodTableView.frame = CGRectMake(0, GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT, GlobalConst.SCREEN_WIDTH, GlobalConst.CELL_HEIGHT_SHOW * 4)
         
         
         //show-hide UpholdList
@@ -227,22 +252,55 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         return aStatusList.count
     }
     
-    // Delegate
+    //MARK: - Action
+    
+    func selectRowPicker(aButton:UIButton) {
+        let tagButton :Int = aButton.tag
+        print("tag :", tagButton)
+        lblStatusList.text = aStatusList[tagButton]
+        statusListView.hidden = true
+        view2.hidden = true
+    }
+    
+    
+    //MARK: - UIPickerViewDelegate
+    
     func pickerView(pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         return 200
     }
+    
     func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 30
     }
+    
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return aStatusList[row]
     }
+    
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        lblStatusList.text = aStatusList[row]
-        statusListView.hidden = true
-        view2.hidden = true
-
+        statusIndex = row
     }
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        let aView = UIView()
+        aView.frame = CGRectMake(0, 0, pickerView.frame.size.width, 30)
+        let aButton = UIButton()
+        aButton.frame = CGRectMake(0, 0, pickerView.frame.size.width/2, 30)
+        aButton.userInteractionEnabled = true
+        aView.userInteractionEnabled = true
+        aButton.tag = row
+        aButton.addTarget(self, action: #selector(UpholdListViewController.tsat), forControlEvents: .TouchUpInside)
+        aView.addSubview(aButton)
+        aButton.backgroundColor = UIColor.redColor()
+        
+        return aView
+    }
+    
+    func tsat()  {
+        print("")
+    }
+    
+    // MARK: - UITableViewDataSource
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         var count = NSInteger()
         if tableView == periodTableView {
@@ -250,6 +308,9 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         }
         if tableView == problemTableView {
             count = 20
+        }
+        if tableView == searchBarTableView {
+            count = data.count
         }
 
         return count
@@ -265,6 +326,17 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
                 let cell:problemTableViewCell = tableView.dequeueReusableCellWithIdentifier("problemTableViewCell") as! problemTableViewCell
                 cellReturn = cell
             }
+            if tableView == searchBarTableView {
+                let cell:SearchBarTableViewCell = tableView.dequeueReusableCellWithIdentifier("searchBarTableViewCell") as! SearchBarTableViewCell
+                 cell.textLabel?.text = data[indexPath.row];
+//                if(searchActive){
+//                    //cell.textLabel?.text = filtered[indexPath.row]
+//                } else {
+//                    cell.textLabel?.text = data[indexPath.row];
+//                }
+
+                cellReturn = cell
+            }
         
             return cellReturn
     }
@@ -272,22 +344,76 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         var height = CGFloat()
         if tableView == periodTableView {
             height = GlobalConst.CELL_HEIGHT_SHOW
-            
         }
         if tableView == problemTableView {
             height = GlobalConst.CELL_HEIGHT_SHOW
         }
+        if tableView == searchBarTableView {
+            height = 50
+        }
         return height
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    // MARK: - UITableViewDelegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if tableView == searchBarTableView {
+            print("select: ", data[indexPath.row])
+            searchBarTableView.hidden = true
+            searchBox.resignFirstResponder()
+            searchBox.text = data[indexPath.row]
+        }
     }
-    */
+    
+    // MARK: - Begin Searching
+    
+    func beginSearching()  {
+        if beginSearch == false {
+            beginSearch = true
+        }
+        
+        print("Call api search")
+        // CAll API
+        
+        // If Search seccess
+        searchBarTableView.hidden = false
+    }
+    
+    // MARK: - SearchbarDelegate
+    
+    //search bar action
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+        filteredStr = searchText
+        if filteredStr.characters.count > 4 {
+            beginSearch = false
+            searchActive = true
+            // Start count
+            timer.invalidate()
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(UpholdListViewController.beginSearching), userInfo: nil, repeats: false)
+            
+        }else {
+            beginSearch = false
+            searchActive = false
+        }
+        //searchBarTableView.reloadData()
+    }
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchActive = true
+        //NSNotificationCenter.defaultCenter().postNotificationName("showSearchBarTableView", object: nil)
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchActive = false
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchActive = false
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchActive = false
+    }
+
 
 }

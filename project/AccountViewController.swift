@@ -100,12 +100,7 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.trainingModeOn(_:)), name:"TrainingModeOn", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.trainingModeOff(_:)), name:"TrainingModeOff", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.gasServiceButtonInAccountVCTapped(_:)), name:"gasServiceButtonInAccountVCTapped", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)), name:"issueButtonInAccountVCTapped", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.configButtonInAccountVCTapped(_:)), name:"configButtonInAccountVCTapped", object: nil)
+        
 
         //transmit login status
         /*loginStatusCarrier = NSUserDefaults()
@@ -218,6 +213,17 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         // Do any additional setup after loading the view.
         let gesture = UITapGestureRecognizer(target: self, action: #selector(AccountViewController.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
+        
+        
+        //notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.trainingModeOn(_:)), name:"TrainingModeOn", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.trainingModeOff(_:)), name:"TrainingModeOff", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.gasServiceButtonInAccountVCTapped(_:)), name:"gasServiceButtonInAccountVCTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)), name:"issueButtonInAccountVCTapped", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AccountViewController.configButtonInAccountVCTapped(_:)), name:"configButtonInAccountVCTapped", object: nil)
+        // Set background color
+        AppViewController.sharedInstance.changeBackgroundColor(Singleton.sharedInstance.isTrainningMode, aView: self.view)
+        
     }
 
     override func didReceiveMemoryWarning() {

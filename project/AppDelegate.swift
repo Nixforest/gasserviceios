@@ -19,6 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //self.window?.rootViewController = testViewController()
         //self.window?.makeKeyWindow()
+        
+        // Check is trainning mode
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var isTrainningMode :Bool = false
+        if  defaults.objectForKey("trainningMode") != nil {
+            isTrainningMode = Bool(defaults.objectForKey("trainningMode")! as! NSNumber)
+        }
+        if  isTrainningMode == false {
+            Singleton.sharedInstance.isTrainningMode = false
+        }else {
+            Singleton.sharedInstance.isTrainningMode = true
+        }
+        
+        
  
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
