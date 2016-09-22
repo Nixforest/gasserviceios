@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountViewController: UIViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class AccountViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var accountNavBar: UINavigationItem!
     @IBOutlet weak var menuButton: UIButton!
@@ -90,12 +90,12 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         self.navigationController?.pushViewController(configVC, animated: true)
     }
     
-    func trainingModeOn(_ notification: Notification) {
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
-    }
-    func trainingModeOff(_ notification: Notification) {
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-    }
+//    func trainingModeOn(_ notification: Notification) {
+//        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
+//    }
+//    func trainingModeOff(_ notification: Notification) {
+//        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
+//    }
 
     
     override func viewDidLoad() {
@@ -222,7 +222,7 @@ class AccountViewController: UIViewController, UIPopoverPresentationControllerDe
         NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "issueButtonInAccountVCTapped"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.configButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInAccountVCTapped"), object: nil)
         // Set background color
-        AppViewController.sharedInstance.changeBackgroundColor(Singleton.sharedInstance.isTrainningMode, aView: self.view)
+        //CommonProcess.changeBackgroundColor(Singleton.sharedInstance.isTrainningMode, aView: self.view)
         
     }
 

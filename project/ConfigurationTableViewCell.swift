@@ -35,11 +35,13 @@ class ConfigurationTableViewCell: UITableViewCell {
         if mySw.isOn {
             GlobalConst.TRAINING_MODE_FLAG = true
             print(GlobalConst.TRAINING_MODE_FLAG)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "TrainingModeOn"), object: nil)
+            //NotificationCenter.default.post(name: Notification.Name(rawValue: "TrainingModeOn"), object: nil)
+            Singleton.sharedInstance.setTrainningMode(true)
         } else {
             GlobalConst.TRAINING_MODE_FLAG = false
             print(GlobalConst.TRAINING_MODE_FLAG)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "TrainingModeOff"), object: nil)
+            //NotificationCenter.default.post(name: Notification.Name(rawValue: "TrainingModeOff"), object: nil)
+            Singleton.sharedInstance.setTrainningMode(false)
         }
         
     }
