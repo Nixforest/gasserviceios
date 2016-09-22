@@ -29,13 +29,12 @@ class RegisterViewController: CommonViewController, UIPopoverPresentationControl
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     
-    var hideKeyboard:Bool = true
     //var loginStatusCarrier:NSUserDefaults!
     //var loginStatus:Bool = false
     //declare actions
     
     @IBAction func backButtonTapped(_ sender: AnyObject) {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     @IBAction func showPopover(_ sender: AnyObject) {
         print("menu tapped")
@@ -212,11 +211,11 @@ class RegisterViewController: CommonViewController, UIPopoverPresentationControl
     }
     
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
-        if hideKeyboard == true {
+        if isKeyboardShow == false {
         UIView.animate(withDuration: 0.3, animations: {
             self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - 100, width: self.view.frame.size.width, height: self.view.frame.size.height)
             }) 
-            hideKeyboard = false
+            isKeyboardShow = true
         }
         return true
     }
@@ -225,7 +224,7 @@ class RegisterViewController: CommonViewController, UIPopoverPresentationControl
         UIView.animate(withDuration: 0.3, animations: {
             self.view.frame = CGRect(x: self.view.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
         }) 
-        hideKeyboard = true
+        isKeyboardShow = false
         
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

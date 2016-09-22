@@ -8,10 +8,17 @@
 
 import Foundation
 class CommonViewController : UIViewController {
+    //MARK: Properties
     /**
-     * Back button
+     * Navigation bar
      */
     @IBOutlet weak var navigationBar: UINavigationItem!
+    /**
+     * Flag check keyboard is show or hide
+     */
+    var isKeyboardShow : Bool = false
+    
+    //MARK: Methods
     /**
      * Handle turn on training mode
      */

@@ -51,11 +51,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
      * Back button
      */
     @IBOutlet weak var btnBack: UIButton!
-    /**
-     * Back button
-     */
-    //@IBOutlet weak var loginNavBar: UINavigationItem!
-    var hideKeyboard:Bool = true
+    
     var loginStatusCarrier:UserDefaults!
     var loginStatus:Bool = false
     var imgLogoTappedCounter:Int = 0
@@ -284,7 +280,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         txtAccount.delegate = self
         txtPassword.delegate = self
         
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.hideKeyboard(_:)))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
 
         
@@ -342,12 +338,20 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
     }
     func hideKeyboard(_ sender:UITapGestureRecognizer){
         self.view.endEditing(true)
-        hideKeyboard = true
+//        UIView.animate(withDuration: 0.3, animations: {
+//            self.view.frame = CGRect(x: self.view.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+//            })
+        isKeyboardShow = false
         
     }
     
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
-        hideKeyboard = false
+        if isKeyboardShow == false {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - 100, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            })
+            isKeyboardShow = true
+        }
         return true
     }
 
