@@ -9,41 +9,44 @@
 import UIKit
 
 class Singleton: NSObject {
+    /**
+     * Object instance
+     */
     static let sharedInstance: Singleton = {
         let instance = Singleton()
-        
         return instance
-        
-
     }()
-    /*private static var __once: () = {
-            Static.instance = Singleton()
-        }()
-    class var sharedInstance: Singleton {
-        struct Static {
-            static var onceToken: Int = 0
-            static var instance: Singleton? = nil
-        }
-        _ = Singleton.__once
-        return Static.instance!
-    }*/
+    /** Default Setting */
     let defaults = UserDefaults.standard
-    
+    /** Flag login */
     var isLogin = Bool()
+    /** Flag training mode */
     var isTrainningMode = Bool()
+    var userToken : String = ""
     
     // Call When Login Success
-    func loginSuccess()  {
-        self.isLogin = true
+    func loginSuccess(_ token: String)  {
+        isLogin = true
+        userToken = token
         defaults.set(isLogin, forKey: "isLogin")
+        defaults.set(userToken, forKey: "user.token")
         defaults.synchronize()
     }
     
     // Call When Logout Success
     func logoutSuccess()  {
-        self.isLogin = false
+        isLogin = false
+        userToken = ""
         defaults.set(isLogin, forKey: "isLogin")
+        defaults.set(userToken, forKey: "user.token")
         defaults.synchronize()
+    }
+    /**
+     * Get user token
+     * - return: User token string
+     */
+    func getUserToken() -> String {
+        return userToken
     }
     
     // Check Login
@@ -73,5 +76,14 @@ class Singleton: NSObject {
         return self.isTrainningMode
         
     }
-    
+    /**
+     * Get server ULR
+     * - return: Server URL
+     */
+    func getServerURL() -> String {
+//        if !checkTrainningMode() {
+//            return GlobalConst.SERVER_RUNNING_URL
+//        }
+        return GlobalConst.SERVER_TRAINING_URL
+    }
 }

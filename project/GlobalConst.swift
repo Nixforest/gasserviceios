@@ -151,7 +151,7 @@ class GlobalConst {
     static let CONTENT00142	= "Đã có phiên bản mới, vui lòng cập nhật!"
     static let CONTENT00143 = "Chi tiết bảo trì"
     
-    
+    // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
     static let SCREEN_HEIGHT = UIScreen.main.bounds.height
     static let BUTTON_HEIGHT:CGFloat = 50
@@ -166,9 +166,31 @@ class GlobalConst {
     static let CELL_HEIGHT_SHOW:CGFloat = 100
     static let CELL_HEIGHT_HIDE:CGFloat = 0
     static let CELL_BORDER_WIDTH:CGFloat = 2
-    static let CELL_BORDER_COLOR:UIColor = UIColor.white
     static let CELL_IN_SEARCHBAR_TABLE_HEIGHT:CGFloat = 50
+    static let LOGIN_USERNAME_EDITTEXT_X : CGFloat = 30
+    static let LOGIN_USERNAME_EDITTEXT_Y : CGFloat = 230
+    static let LOGIN_PASSWORD_EDITTEXT_Y : CGFloat = 280
+    static let LOGIN_SHOWPASS_CHECKBOX_Y : CGFloat = 340
+    static let LOGIN_SHOWPASS_LABEL_X : CGFloat = 50
+    static let LOGIN_SHOWPASS_LABEL_Y : CGFloat = 338
+    static let LOGIN_LOGIN_BUTTON_Y : CGFloat = 400
+    static let LOGIN_REGISTER_BUTTON_Y : CGFloat = 450
+    static let EDITTEXT_W : CGFloat = 260
+    static let EDITTEXT_H : CGFloat = 30
+    static let CHECKBOX_W : CGFloat = 30
+    static let CHECKBOX_H : CGFloat = 30
+    static let LABEL_W : CGFloat = 120
+    static let LABEL_H : CGFloat = 20
+    static let BUTTON_W : CGFloat = 260
+    static let BUTTON_H : CGFloat = 40
+    static let LOGIN_BUTTON_CORNER_RADIUS : CGFloat = 6
+    static let MENU_BUTTON_W : CGFloat = 30
+    static let MENU_BUTTON_H : CGFloat = 25
+    static let NOTIFY_BUTTON_H : CGFloat = 30
+    
+    // ----- Color defines -----
     static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.PARENT_BORDER_WIDTH * 2) / 4
+    static let CELL_BORDER_COLOR:UIColor = UIColor.white
     static let BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
     static let BUTTON_COLOR_GRAY:UIColor = UIColor.gray
     static let PARENT_BORDER_COLOR_GRAY:UIColor = UIColor.gray
@@ -188,4 +210,10 @@ class GlobalConst {
      * Name of ConfigurationViewController.
      */
     static let CONFIGURATION_VIEW_CTRL = "ConfigurationViewController"
+    
+    // MARK - Domain constants
+    /** Main server URL */
+    static let SERVER_RUNNING_URL = "http://spj.daukhimiennam.com"
+    /** Training server URL */
+    static let SERVER_TRAINING_URL = "http://android.huongminhgroup.com"
 }

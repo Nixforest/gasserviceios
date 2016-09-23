@@ -75,7 +75,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.trainingModeOff(_:)), name:NSNotification.Name(rawValue: "TrainingModeOff"), object: nil)
         
         //notification button enable/disable
-        if GlobalConst.LOGIN_STATUS == true {
+        if Singleton.sharedInstance.checkIsLogin() == true {
             self.notificationButton.isEnabled = true
             self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         } else {
@@ -141,7 +141,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
     
      override func viewDidAppear(_ animated: Bool) {
         //notification button enable/disable
-        if GlobalConst.LOGIN_STATUS == true {
+        if Singleton.sharedInstance.checkIsLogin() == true {
             self.notificationButton.isEnabled = true
             self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         } else {
@@ -210,7 +210,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         default: break
         }
         //show cell
-        if GlobalConst.LOGIN_STATUS == false {
+        if Singleton.sharedInstance.checkIsLogin() == false {
             switch (indexPath as NSIndexPath).row {
                 case 2:
                     cell.isHidden = true

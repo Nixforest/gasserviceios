@@ -40,7 +40,7 @@ class menuHomeViewController: UIViewController {
         }
     }
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
-        GlobalConst.LOGIN_STATUS = false
+        Singleton.sharedInstance.logoutSuccess()
         self.dismiss(animated: false) {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "logoutButtonInHomeTapped"), object: nil)
         }
@@ -56,7 +56,7 @@ class menuHomeViewController: UIViewController {
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
         //login status
         
-        if GlobalConst.LOGIN_STATUS == true {
+        if Singleton.sharedInstance.checkIsLogin() == true {
             loginButton.isHidden = true
             logoutButton.isHidden = false
             registerButton.isHidden = true

@@ -20,21 +20,39 @@ class CommonViewController : UIViewController {
     
     //MARK: Methods
     /**
-     * Handle turn on training mode
+     * Notify turn on training mode
      */
     func trainingModeOn(_ notification: Notification) {
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
     }
     /**
-     * Handle turn off training mode
+     * Notify turn off training mode
      */
     func trainingModeOff(_ notification: Notification) {
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
     }
-    //
+    /**
+     * View did load
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
+        //changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
+    }
+    /**
+     * TrainingMode on/off
+     * - parameter isTrainingMode: Training mode flag
+     */
+    func changeBackgroundColor(_ isTrainingMode :Bool)  {
+        if isTrainingMode {
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
+        }else {
+            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
+        }
         
+    }
+    func asignNotifyForTrainingModeChange() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.trainingModeOn(_:)), name:NSNotification.Name(rawValue: "TrainingModeOn"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.trainingModeOff(_:)), name:NSNotification.Name(rawValue: "TrainingModeOff"), object: nil)
     }
     
 }

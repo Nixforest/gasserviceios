@@ -222,8 +222,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "issueButtonInAccountVCTapped"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.configButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInAccountVCTapped"), object: nil)
         // Set background color
-        
-        CommonProcess.changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode(), aView: self.view)
+        changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
 
     }
 
