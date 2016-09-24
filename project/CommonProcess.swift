@@ -8,7 +8,7 @@
 
 import Foundation
 class CommonProcess {
-    static func requestLogin(username: String, password: String) {
+    static func requestLogin(username: String, password: String, view: CommonViewController) {
         let url:URL = URL(string: Singleton.sharedInstance.getServerURL() + "/api/site/login")!
         let session = URLSession.shared
         
@@ -27,38 +27,70 @@ class CommonProcess {
             data, response, error) in
             // Check error
             guard error == nil else {
-                print(error)
+                view.showAlert(message: "Lỗi kết nối đến máy chủ")
                 return
             }
             guard let data = data else {
-                print("Data is empty")
+                view.showAlert(message: "Lỗi kết nối đến máy chủ")
                 return
             }
-            //guard let _:Data = data, let _:URLResponse = response  , error == nil else {
-            //    print("error")
-            //    return
-            //}
-            
-//            let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-//            print(dataString)
-            let json = try! JSONSerialization.jsonObject(with: data, options: [])
-            //print(json)
-            
-
-            if let json = json as? [String: Any] {
-                print(json["status"])
-                print(json["user_id"])
-                print(json["message"])
-                print(json["need_change_pass"])
-                
-                let status = json["status"]!
-                if ((status.compare("1")) != nil) {
-                    Singleton.sharedInstance.loginSuccess(json["token"]! as! String)
-                }
+            // Convert to string
+            let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+            print(dataString)
+            // Convert to object
+            let model: LoginRespModel = LoginRespModel(jsonString: dataString as! String)
+            if model.status == "1" {
+                Singleton.sharedInstance.loginSuccess(model.token)
+//                Singleton.sharedInstance.setUserInfo(userInfo: model.user_info, userId: model.user_id, roleId: model.role_id)
+                print(Singleton.sharedInstance.getUserToken())
+            }
+            _ = view.navigationController?.popViewController(animated: true)
+        })
+        
+        task.resume()
+    }
+    static func requestLogout() {
+        let url:URL = URL(string: Singleton.sharedInstance.getServerURL() + "/api/site/logout")!
+        let session = URLSession.shared
+        
+        let request = NSMutableURLRequest(url: url)
+        request.httpMethod = "POST"
+        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+        
+        // Make data string
+        let dataStr: String = String(format: "{\"token\":\"%@\"}",
+                                     Singleton.sharedInstance.getUserToken())
+        let paramString = "q=" + dataStr
+        request.httpBody = paramString.data(using: String.Encoding.utf8)
+        
+        let task = session.dataTask(with: request as URLRequest, completionHandler: {
+            (
+            data, response, error) in
+            // Check error
+            guard error == nil else {
+                //view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                return
+            }
+            guard let data = data else {
+                //view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                return
+            }
+            // Convert to string
+            let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+            //print(dataString)
+            // Convert to object
+            let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
+            if model.status == "1" {
+                Singleton.sharedInstance.logoutSuccess()
                 print(Singleton.sharedInstance.getUserToken())
             }
         })
         
         task.resume()
+    }
+    static func requestUserProfile(view: CommonViewController) {
+        var userProfileReq = UserProfileRequest(url: "/api/user/profile", reqMethod: "POST", view: view)
+        userProfileReq.setData(token: Singleton.sharedInstance.getUserToken())
+        userProfileReq.execute()
     }
 }

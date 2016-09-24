@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeTableViewController: UITableViewController,UIPopoverPresentationControllerDelegate {
+class HomeTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 
     var flag:NSInteger = 0
     //var loginStatusCarrier:NSUserDefaults! 
@@ -39,6 +39,7 @@ class HomeTableViewController: UITableViewController,UIPopoverPresentationContro
         self.navigationController?.pushViewController(RegisterVC, animated: true)
     }
     func logoutButtonTapped(_ notification: Notification){
+        CommonProcess.requestLogout()
         self.tableView.reloadData()
     }
     func issueButtonTapped(_ notification: Notification){

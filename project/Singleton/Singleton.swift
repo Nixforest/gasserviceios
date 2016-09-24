@@ -22,8 +22,34 @@ class Singleton: NSObject {
     var isLogin = Bool()
     /** Flag training mode */
     var isTrainningMode = Bool()
+    /** User token */
     var userToken : String = ""
+    /** List menu */
+    var menu: [ConfigBean] = [ConfigBean]()
+    /** List data uphold */
+    var data_uphold: [ConfigBean] = [ConfigBean]()
+    /** Max upload */
+    var max_upload: String = ""
+    /** List data issue */
+    var data_issue: [ConfigBean] = [ConfigBean]()
+    /** List user info */
+    var user_info: UserInfoBean = UserInfoBean()
+    /** List check menu */
+    var check_menu: [ConfigBean] = [ConfigBean]()
+    /** Flag need change pass */
+    var need_change_pass: String = ""
+    /** Flag need update app */
+    var need_update_app: String = ""
+    /** Name of role */
+    var role_name: String = ""
+    /** List streets */
+    var list_street: [ConfigBean] = [ConfigBean]()
+    /** List agents */
+    var list_agent: [ConfigBean] = [ConfigBean]()
+    /** List family type */
+    var list_hgd_type: [ConfigBean] = [ConfigBean]()
     
+    // MARK - Methods
     // Call When Login Success
     func loginSuccess(_ token: String)  {
         isLogin = true
@@ -85,5 +111,23 @@ class Singleton: NSObject {
 //            return GlobalConst.SERVER_RUNNING_URL
 //        }
         return GlobalConst.SERVER_TRAINING_URL
+    }
+    /**
+     * Set user information
+     * - parameter userInfo: List user information
+     * - parameter userId: Id of user
+     * - parameter roleId: Id of role
+     */
+    func setUserInfo(userInfo: UserInfoBean) {
+        self.user_info = userInfo
+    }
+    /**
+     * Set list streets.
+     * parameter listStreets: List streets
+     */
+    func setListStreets(listStreets: [ConfigBean]) {
+        for item in listStreets {
+            self.list_street.append(item)
+        }
     }
 }

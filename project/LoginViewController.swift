@@ -90,9 +90,8 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
             // Call alert
             self.present(loginAlert, animated: true, completion: nil)
         } else {
-            CommonProcess.requestLogin(username: txtAccount.text!, password: txtPassword.text!)
-            _ = self.navigationController?.popViewController(animated: true)
-            print(GlobalConst.LOGIN_STATUS)
+            CommonProcess.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
+            //_ = self.navigationController?.popViewController(animated: true)
         }
     }
     

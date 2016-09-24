@@ -62,6 +62,13 @@
 		84F481981D67040E0072DC7A /* CreateUpHold.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84F481941D67040E0072DC7A /* CreateUpHold.jpeg */; };
 		84F481991D67040E0072DC7A /* ServiceRating.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84F481951D67040E0072DC7A /* ServiceRating.jpeg */; };
 		92026C471D7E843D004232CA /* GlobalConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92026C461D7E843D004232CA /* GlobalConst.swift */; };
+		920765501D94E2BC006ABF26 /* BaseRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9207654F1D94E2BC006ABF26 /* BaseRespModel.swift */; };
+		92458D761D961B3C00AB16DE /* ConfigBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92458D751D961B3C00AB16DE /* ConfigBean.swift */; };
+		92458D781D96216A00AB16DE /* LoginRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92458D771D96216A00AB16DE /* LoginRespModel.swift */; };
+		92458D7A1D96357F00AB16DE /* UserInfoBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92458D791D96357F00AB16DE /* UserInfoBean.swift */; };
+		92458D7D1D963B1F00AB16DE /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92458D7C1D963B1F00AB16DE /* BaseRequest.swift */; };
+		92458D7F1D963EE900AB16DE /* UserProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92458D7E1D963EE900AB16DE /* UserProfileRequest.swift */; };
+		92458D821D9647F500AB16DE /* UserProfileRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92458D811D9647F500AB16DE /* UserProfileRespModel.swift */; };
 		926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F31D9276B5000D2DED /* CommonProcess.swift */; };
 		926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F61D927BE0000D2DED /* CommonViewController.swift */; };
 /* End PBXBuildFile section */
@@ -147,6 +154,13 @@
 		84F481941D67040E0072DC7A /* CreateUpHold.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CreateUpHold.jpeg; sourceTree = "<group>"; };
 		84F481951D67040E0072DC7A /* ServiceRating.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ServiceRating.jpeg; sourceTree = "<group>"; };
 		92026C461D7E843D004232CA /* GlobalConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConst.swift; sourceTree = "<group>"; };
+		9207654F1D94E2BC006ABF26 /* BaseRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRespModel.swift; sourceTree = "<group>"; };
+		92458D751D961B3C00AB16DE /* ConfigBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigBean.swift; sourceTree = "<group>"; };
+		92458D771D96216A00AB16DE /* LoginRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRespModel.swift; sourceTree = "<group>"; };
+		92458D791D96357F00AB16DE /* UserInfoBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoBean.swift; sourceTree = "<group>"; };
+		92458D7C1D963B1F00AB16DE /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
+		92458D7E1D963EE900AB16DE /* UserProfileRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileRequest.swift; sourceTree = "<group>"; };
+		92458D811D9647F500AB16DE /* UserProfileRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileRespModel.swift; sourceTree = "<group>"; };
 		926670F31D9276B5000D2DED /* CommonProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonProcess.swift; sourceTree = "<group>"; };
 		926670F61D927BE0000D2DED /* CommonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,6 +213,9 @@
 		84284E101D40DF050079DEBC /* project */ = {
 			isa = PBXGroup;
 			children = (
+				92458D801D9647B800AB16DE /* Response */,
+				92458D7B1D963AFB00AB16DE /* API */,
+				9207654E1D94E295006ABF26 /* Model */,
 				84EF9C5D1D93C7680008B30F /* Singleton */,
 				926670F51D927BB4000D2DED /* Common */,
 				84E172D71D9218F6003121D6 /* XibFiles */,
@@ -318,6 +335,34 @@
 			path = Singleton;
 			sourceTree = "<group>";
 		};
+		9207654E1D94E295006ABF26 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				92458D751D961B3C00AB16DE /* ConfigBean.swift */,
+				92458D771D96216A00AB16DE /* LoginRespModel.swift */,
+				92458D791D96357F00AB16DE /* UserInfoBean.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		92458D7B1D963AFB00AB16DE /* API */ = {
+			isa = PBXGroup;
+			children = (
+				92458D7C1D963B1F00AB16DE /* BaseRequest.swift */,
+				92458D7E1D963EE900AB16DE /* UserProfileRequest.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		92458D801D9647B800AB16DE /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				9207654F1D94E2BC006ABF26 /* BaseRespModel.swift */,
+				92458D811D9647F500AB16DE /* UserProfileRespModel.swift */,
+			);
+			name = Response;
+			sourceTree = "<group>";
+		};
 		926670F51D927BB4000D2DED /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -395,7 +440,7 @@
 				TargetAttributes = {
 					84284E0D1D40DF050079DEBC = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = B6EW6RYD29;
+						DevelopmentTeam = HFC2RL83D6;
 						LastSwiftMigration = 0800;
 					};
 					84284E211D40DF050079DEBC = {
@@ -487,6 +532,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92458D761D961B3C00AB16DE /* ConfigBean.swift in Sources */,
+				92458D7F1D963EE900AB16DE /* UserProfileRequest.swift in Sources */,
 				841273091D829E3A00BCC56D /* UpholdListViewController.swift in Sources */,
 				84289B051D67D505009A88EC /* menuHomeViewController.swift in Sources */,
 				84284E141D40DF050079DEBC /* LoginViewController.swift in Sources */,
@@ -502,16 +549,21 @@
 				84EBBD251D8F8E7300FB4D25 /* InfomationViewController.swift in Sources */,
 				84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */,
 				84F481911D66FFC10072DC7A /* HomeTableViewController.swift in Sources */,
+				92458D7D1D963B1F00AB16DE /* BaseRequest.swift in Sources */,
+				92458D7A1D96357F00AB16DE /* UserInfoBean.swift in Sources */,
 				926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */,
+				92458D821D9647F500AB16DE /* UserProfileRespModel.swift in Sources */,
 				842CA8E71D89045E003D9EFF /* menuAccountViewController.swift in Sources */,
 				842277C91D421E7E00611439 /* CheckBox.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
 				84F246881D93DDB300259C35 /* SearchBarView.swift in Sources */,
+				920765501D94E2BC006ABF26 /* BaseRespModel.swift in Sources */,
 				842BA35C1D8EA81B004ECBFF /* problemTableViewCell.swift in Sources */,
 				842BA3581D8EA806004ECBFF /* periodTableViewCell.swift in Sources */,
 				8424683F1D86F9DA00356B20 /* ConfigurationViewController.swift in Sources */,
 				84EDDFB01D7D869000861ACB /* menuLoginViewController.swift in Sources */,
 				926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */,
+				92458D781D96216A00AB16DE /* LoginRespModel.swift in Sources */,
 				92026C471D7E843D004232CA /* GlobalConst.swift in Sources */,
 				8435C24E1D8ABED100F9903D /* menuUpholdListViewController.swift in Sources */,
 			);
@@ -660,11 +712,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = B6EW6RYD29;
+				DEVELOPMENT_TEAM = HFC2RL83D6;
 				INFOPLIST_FILE = project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
+				PRODUCT_BUNDLE_IDENTIFIER = nixforest.gasservices;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
@@ -680,11 +732,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = B6EW6RYD29;
+				DEVELOPMENT_TEAM = HFC2RL83D6;
 				INFOPLIST_FILE = project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
+				PRODUCT_BUNDLE_IDENTIFIER = nixforest.gasservices;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";

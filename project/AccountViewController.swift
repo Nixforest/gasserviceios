@@ -66,7 +66,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
     
     
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
-        GlobalConst.LOGIN_STATUS = false
+        CommonProcess.requestLogout()
         self.navigationController?.popViewController(animated: true)
     }
     //training mode
@@ -100,7 +100,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        CommonProcess.requestUserProfile(view: self)
 
         //transmit login status
         /*loginStatusCarrier = NSUserDefaults()
@@ -221,9 +221,18 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.gasServiceButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "gasServiceButtonInAccountVCTapped"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "issueButtonInAccountVCTapped"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.configButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInAccountVCTapped"), object: nil)
+        
+        // Notify set data
+        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.setData(_:)), name:NSNotification.Name(rawValue: "view.setData"), object: nil)
+        
         // Set background color
         changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
 
+    }
+    override func setData(_ notification: Notification) {
+        txtName.text = Singleton.sharedInstance.user_info.first_name
+        txtPhone.text = Singleton.sharedInstance.user_info.phone
+        txtAddress.text = Singleton.sharedInstance.user_info.address
     }
 
     override func didReceiveMemoryWarning() {
