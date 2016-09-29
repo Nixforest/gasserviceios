@@ -11,49 +11,29 @@ import UIKit
 class LoginViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
     //MARK: Properties
     var bShowPassword:Bool!
-    /**
-     * Logo image
-     */
+    /** Logo image */
     @IBOutlet weak var imgLogo: UIImageView!
-    /**
-     * Username edit text
-     */
+    /** Username edit text */
     @IBOutlet weak var txtAccount: UITextField!
-    /**
-     * Password edit text
-     */
+    /** Password edit text */
     @IBOutlet weak var txtPassword: UITextField!
-    /**
-     * Login button
-     */
+    /** Login button */
     @IBOutlet weak var btnLogin: UIButton!
-    /**
-     * Sign in button
-     */
+    /** Sign in button */
     @IBOutlet weak var btnSignin: UIButton!
-    /**
-     * Show password checkbox
-     */
+    /** Show password checkbox */
     @IBOutlet weak var chbShowPassword: CheckBox!
-    /**
-     * Show password label
-     */
+    /** Show password label */
     @IBOutlet weak var lblShowPassword: UILabel!
-    /**
-     * Notification button
-     */
+    /** Notification button */
     @IBOutlet weak var btnNotification: UIButton!
-    /**
-     * Menu button
-     */
+    /** Menu button */
     @IBOutlet weak var btnMenu: UIButton!
-    /**
-     * Back button
-     */
+    /** Back button */
     @IBOutlet weak var btnBack: UIButton!
-    
-    var loginStatus:Bool = false
+    /** Tap counter on logo */
     var imgLogoTappedCounter:Int = 0
+    /** Main story board */
     let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
     
     //MARK: Actions
@@ -80,19 +60,24 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
      * - parameter sender:AnyObject
      */
     @IBAction func Login(_ sender: AnyObject) {
-        //declare Allert
-        let loginAlert = UIAlertController(title: "Alert", message: GlobalConst.CONTENT00023, preferredStyle: .alert)
-        //Alert Action
-        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: {(loginAlert) -> Void in ()})
+        // Declare Allert
+        let loginAlert = UIAlertController(title: GlobalConst.CONTENT00162,
+                                           message: GlobalConst.CONTENT00023,
+                                           preferredStyle: .alert)
+        // Alert Action
+        let okAction = UIAlertAction(title: GlobalConst.CONTENT00008,
+                                     style: .cancel,
+                                     handler: {(loginAlert) -> Void in ()})
         loginAlert.addAction(okAction)
-        // Check the value of text field
+        
+        // Check the value of text field is empty or not
         if (((txtPassword.text?.isEmpty)! || (txtAccount.text?.isEmpty)!)){
             // Call alert
             self.present(loginAlert, animated: true, completion: nil)
         } else {
+            // Start login process
             LoadingView.shared.showOverlay(view: self.view)
             CommonProcess.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
-            //_ = self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -101,11 +86,8 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
      * - parameter sender:AnyObject
      */
     @IBAction func Register(_ sender: AnyObject) {
-        //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        
         let registerVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REGISTER_VIEW_CTRL)
         
-        //self.presentViewController(dangkiVC, animated: true, completion: nil)
         self.navigationController?.pushViewController(registerVC, animated: true)
     }
     
@@ -114,11 +96,30 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
      * - parameter sender:AnyObject
      */
     @IBAction func notification(_ sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: {(notificationAlert) -> Void in ()})
+        let notificationAlert = UIAlertController(title: GlobalConst.CONTENT00162,
+                                                  message: "Bạn có tin nhắn mới",
+                                                  preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: GlobalConst.CONTENT00008,
+                                         style: .cancel,
+                                         handler: {(notificationAlert) -> Void in ()})
         notificationAlert.addAction(cancelAction)
         self.present(notificationAlert, animated: true, completion: nil)
     }
+    /**
+     * Pop over menu
+     */
+    @IBAction func showPopOver(_ sender: AnyObject) {
+        print("menu tapped")
+    }
+    
+    /**
+     * Show notification
+     */
+    @IBAction func showNotification(_ sender: AnyObject) {
+        print("noti tapped")
+    }
+    
+    //MARK: Methods
     /**
      * Handle tap on Logo image
      * - parameter gestureRecognizer: UITapGestureRecognizer
@@ -128,14 +129,12 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         //dismiss it, animate it off screen, whatever.
         //let tappedImageView = gestureRecognizer.view!
         imgLogoTappedCounter += 1
-        print(imgLogoTappedCounter)
         if imgLogoTappedCounter == 7 {
             imgLogoTappedCounter = 0
             print(imgLogoTappedCounter)
             //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let configVC = mainStoryboard.instantiateViewController(withIdentifier: "ConfigurationViewController")
+            let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CONFIGURATION_VIEW_CTRL)
             self.navigationController?.pushViewController(configVC, animated: true)
-            
         }
     }
     
@@ -153,18 +152,21 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        // Training mode
         asignNotifyForTrainingModeChange()
-
+        // Menu item tap
         NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.configButtonInLoginTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInLoginTapped"), object: nil)
         
-        // background
+        // Background
         self.view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-    
-        imgLogo.image = UIImage(named: "gas_logo.png")
-        imgLogo.frame = CGRect(x: 65, y: 70, width: 190, height: 140)
+        let heigh = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        imgLogo.image = UIImage(named: GlobalConst.LOGO_IMG_NAME)
+        imgLogo.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W) / 2,
+                               y: heigh,
+                               width: GlobalConst.LOGIN_LOGO_W,
+                               height: GlobalConst.LOGIN_LOGO_H)
         imgLogo.translatesAutoresizingMaskIntoConstraints = true
         imgLogo.isUserInteractionEnabled = true
         // now you need a tap gesture recognizer
@@ -175,8 +177,8 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         
         
         // Username text field
-        txtAccount.frame = CGRect(x: GlobalConst.LOGIN_USERNAME_EDITTEXT_X,
-                                  y: GlobalConst.LOGIN_USERNAME_EDITTEXT_Y,
+        txtAccount.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
+                                  y: imgLogo.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.EDITTEXT_W,
                                   height: GlobalConst.EDITTEXT_H)
         txtAccount.placeholder = GlobalConst.CONTENT00049
@@ -185,24 +187,24 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         //self.txtAccount.becomeFirstResponder()
         
         // Password textfield
-        txtPassword.frame = CGRect(x: GlobalConst.LOGIN_USERNAME_EDITTEXT_X,
-                                   y: GlobalConst.LOGIN_PASSWORD_EDITTEXT_Y,
+        txtPassword.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
+                                   y: txtAccount.frame.maxY + GlobalConst.MARGIN,
                                    width: GlobalConst.EDITTEXT_W,
                                    height: GlobalConst.EDITTEXT_H)
         txtPassword.translatesAutoresizingMaskIntoConstraints = true
         txtPassword.placeholder = GlobalConst.CONTENT00050
         
         // Show password check box
-        chbShowPassword.frame = CGRect(x: GlobalConst.LOGIN_USERNAME_EDITTEXT_X,
-                                       y: GlobalConst.LOGIN_SHOWPASS_CHECKBOX_Y,
+        chbShowPassword.frame = CGRect(x: txtPassword.frame.minX,
+                                       y: txtPassword.frame.maxY + GlobalConst.MARGIN,
                                        width: GlobalConst.CHECKBOX_W,
                                        height: GlobalConst.CHECKBOX_H)
         chbShowPassword.tintColor = UIColor.black
         chbShowPassword.translatesAutoresizingMaskIntoConstraints = true
         
         // Show password label
-        lblShowPassword.frame = CGRect(x: GlobalConst.LOGIN_SHOWPASS_LABEL_X,
-                                       y: GlobalConst.LOGIN_SHOWPASS_LABEL_Y,
+        lblShowPassword.frame = CGRect(x: chbShowPassword.frame.maxX + GlobalConst.MARGIN,
+                                       y: txtPassword.frame.maxY + GlobalConst.MARGIN,
                                        width: GlobalConst.LABEL_W,
                                        height: GlobalConst.LABEL_H)
         lblShowPassword.text = GlobalConst.CONTENT00102
@@ -213,8 +215,8 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         
         
         // Login button
-        btnLogin.frame = CGRect(x: GlobalConst.LOGIN_USERNAME_EDITTEXT_X,
-                                y: GlobalConst.LOGIN_LOGIN_BUTTON_Y,
+        btnLogin.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                y: chbShowPassword.frame.maxY + GlobalConst.MARGIN,
                                 width: GlobalConst.BUTTON_W,
                                 height: GlobalConst.BUTTON_H)
         btnLogin.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
@@ -226,8 +228,8 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         btnLogin.translatesAutoresizingMaskIntoConstraints = true
         
         // Sign in button
-        btnSignin.frame = CGRect(x: GlobalConst.LOGIN_USERNAME_EDITTEXT_X,
-                                 y: GlobalConst.LOGIN_REGISTER_BUTTON_Y,
+        btnSignin.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                 y: btnLogin.frame.maxY + GlobalConst.MARGIN,
                                  width: GlobalConst.BUTTON_W,
                                  height: GlobalConst.BUTTON_H)
         btnSignin.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
@@ -265,22 +267,22 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         btnNotification.layer.cornerRadius = 0.5 * btnNotification.bounds.size.width
         btnNotification.setTitle("!", for: UIControlState())
         btnNotification.setTitleColor(UIColor.white, for: UIControlState())
-        //btnNotification.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020) //when enable
-        btnNotification.backgroundColor = GlobalConst.BUTTON_COLOR_RED //when disable
+        btnNotification.backgroundColor = GlobalConst.BUTTON_COLOR_GRAY //when disable
 
         btnNotification.addTarget(self, action: #selector(notification), for: .touchUpInside)
         let notiNavBar = UIBarButtonItem()
         notiNavBar.customView = btnNotification
         notiNavBar.isEnabled = false
         
-        //set right navigation bar item
+        // Set right navigation bar item
         self.navigationItem.rightBarButtonItems = [menuNavBar, notiNavBar]
         let backOrigin = UIImage(named: "back.png");
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         btnBack.setImage(tintedBackLogo, for: UIControlState())
         btnBack.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        btnBack.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        //btnMenu.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
+        btnBack.frame = CGRect(x: 0, y: 0,
+                               width: GlobalConst.MENU_BUTTON_W,
+                               height: GlobalConst.MENU_BUTTON_W)
         btnBack.setTitle("", for: UIControlState())
         let backNavBar = UIBarButtonItem()
         backNavBar.customView = btnBack
@@ -292,6 +294,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         let gesture = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
         self.changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
+        
         // Fill data in training mode
         if Singleton.sharedInstance.checkTrainningMode() {
             txtAccount.text = "truongnd"
@@ -322,6 +325,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         }
         return true
     }
+    
     /**
      * Handle memory warning
      */
@@ -330,28 +334,34 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         // Dispose of any resources that can be recreated.
     }
     
-
-    //popover menu
-    @IBAction func showPopOver(_ sender: AnyObject) {
-        print("menu tapped")
-    }
+    /**
+     * Override
+     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popOverMenu" {
             let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
         }
     }
+    
+    /**
+     * ...
+     */
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
     }
     
-    
-    @IBAction func showNotification(_ sender: AnyObject) {
-        print("noti tapped")
-    }
+    /**
+     * Hide keyboard
+     * - parameter sender: Gesture
+     */
     func hideKeyboard(_ sender:UITapGestureRecognizer){
         hideKeyboard()
     }
+    
+    /**
+     * Hide keyboard
+     */
     func hideKeyboard() {
         self.view.endEditing(true)
         UIView.animate(withDuration: 0.3, animations: {

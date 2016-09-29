@@ -151,6 +151,7 @@ class GlobalConst {
     static let CONTENT00141	= "Cập nhật"
     static let CONTENT00142	= "Đã có phiên bản mới, vui lòng cập nhật!"
     static let CONTENT00143 = "Chi tiết bảo trì"
+    static let CONTENT00162 = "Thông báo"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
@@ -178,8 +179,8 @@ class GlobalConst {
     static let LOGIN_REGISTER_BUTTON_Y : CGFloat = 450
     static let EDITTEXT_W : CGFloat = 260
     static let EDITTEXT_H : CGFloat = 30
-    static let CHECKBOX_W : CGFloat = 30
-    static let CHECKBOX_H : CGFloat = 30
+    static let CHECKBOX_W : CGFloat = 20
+    static let CHECKBOX_H : CGFloat = 20
     static let LABEL_W : CGFloat = 120
     static let LABEL_H : CGFloat = 20
     static let BUTTON_W : CGFloat = 260
@@ -188,6 +189,10 @@ class GlobalConst {
     static let MENU_BUTTON_W : CGFloat = 30
     static let MENU_BUTTON_H : CGFloat = 25
     static let NOTIFY_BUTTON_H : CGFloat = 30
+    static let LOGIN_LOGO_W : CGFloat = 190
+    static let LOGIN_LOGO_H : CGFloat = 140
+    static let NAVIGATION_BAR_H : CGFloat = 70
+    static let MARGIN : CGFloat = 10
     
     // ----- Color defines -----
     static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.PARENT_BORDER_WIDTH * 2) / 4
@@ -217,4 +222,6 @@ class GlobalConst {
     static let SERVER_RUNNING_URL = "http://spj.daukhimiennam.com"
     /** Training server URL */
     static let SERVER_TRAINING_URL = "http://android.huongminhgroup.com"
+    /** Logo image name */
+    static let LOGO_IMG_NAME = "gas_logo.png"
 }

@@ -66,6 +66,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
     
     
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
+        LoadingView.shared.showOverlay(view: self.view)
         CommonProcess.requestLogout()
         self.navigationController?.popViewController(animated: true)
     }

@@ -53,7 +53,6 @@ class CommonProcess {
         task.resume()
     }
     static func requestLogout() {
-        
         let url:URL = URL(string: Singleton.sharedInstance.getServerURL() + "/api/site/logout")!
         let session = URLSession.shared
         
@@ -90,6 +89,7 @@ class CommonProcess {
                 Singleton.sharedInstance.logoutSuccess()
                 print(Singleton.sharedInstance.getUserToken())
             }
+            LoadingView.shared.hideOverlayView()
         })
         
         task.resume()

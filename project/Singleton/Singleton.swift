@@ -63,7 +63,7 @@ class Singleton: NSObject {
     func logoutSuccess()  {
         isLogin = false
         userToken = ""
-        self.user_info = UserInfoBean()
+        self.user_info = nil
         defaults.set(isLogin, forKey: "isLogin")
         defaults.set(userToken, forKey: "user.token")
         defaults.synchronize()
