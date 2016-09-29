@@ -18,6 +18,7 @@ class BaseRequest {
     var session = URLSession.shared
     /** Current view */
     var view: CommonViewController
+    
     /**
      * Initializer
      * - parameter url: URL
@@ -27,6 +28,10 @@ class BaseRequest {
         self.reqMethod = reqMethod
         self.view = view
     }
+    
+    /**
+     * Execute task
+     */
     func execute() {
         let serverUrl: URL = URL(string: Singleton.sharedInstance.getServerURL() + self.url)!
         let request = NSMutableURLRequest(url: serverUrl)
@@ -37,28 +42,28 @@ class BaseRequest {
         let task = completetionHandler(request: request)
         task.resume()
     }
+    
+    /**
+     * Handle when complete task
+     */
     func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
         let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
             (
             data, response, error) in
             // Check error
             guard error == nil else {
-                //view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                self.view.showAlert(message: "Lỗi kết nối đến máy chủ")
                 return
             }
             guard let data = data else {
-                //view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                self.view.showAlert(message: "Lỗi kết nối đến máy chủ")
                 return
             }
             // Convert to string
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
             //print(dataString)
             // Convert to object
-            let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
-            if model.status == "1" {
-                Singleton.sharedInstance.logoutSuccess()
-                print(Singleton.sharedInstance.getUserToken())
-            }
+            //let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
         })
         return task
     }

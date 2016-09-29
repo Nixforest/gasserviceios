@@ -9,14 +9,12 @@
 import Foundation
 class CommonViewController : UIViewController {
     //MARK: Properties
-    /**
-     * Navigation bar
-     */
+    /** Navigation bar */
     @IBOutlet weak var navigationBar: UINavigationItem!
-    /**
-     * Flag check keyboard is show or hide
-     */
+    /** Flag check keyboard is show or hide */
     var isKeyboardShow : Bool = false
+    /** Main story board */
+    let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
     
     //MARK: Methods
     /**

@@ -33,8 +33,6 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
     @IBOutlet weak var btnBack: UIButton!
     /** Tap counter on logo */
     var imgLogoTappedCounter:Int = 0
-    /** Main story board */
-    let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
     
     //MARK: Actions
     /**
@@ -44,6 +42,21 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
     @IBAction func backButtonTapped(_ sender: AnyObject) {
        _ = self.navigationController?.popViewController(animated: true)
         print("Click back button")
+    }
+    
+    /**
+     * Handle tap on Notification button
+     * - parameter sender:AnyObject
+     */
+    @IBAction func notification(_ sender: AnyObject) {
+        let notificationAlert = UIAlertController(title: GlobalConst.CONTENT00162,
+                                                  message: "Bạn có tin nhắn mới",
+                                                  preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: GlobalConst.CONTENT00008,
+                                         style: .cancel,
+                                         handler: {(notificationAlert) -> Void in ()})
+        notificationAlert.addAction(cancelAction)
+        self.present(notificationAlert, animated: true, completion: nil)
     }
     
     /**
@@ -89,21 +102,6 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         let registerVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REGISTER_VIEW_CTRL)
         
         self.navigationController?.pushViewController(registerVC, animated: true)
-    }
-    
-    /**
-     * Handle tap on Notification button
-     * - parameter sender:AnyObject
-     */
-    @IBAction func notification(_ sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: GlobalConst.CONTENT00162,
-                                                  message: "Bạn có tin nhắn mới",
-                                                  preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: GlobalConst.CONTENT00008,
-                                         style: .cancel,
-                                         handler: {(notificationAlert) -> Void in ()})
-        notificationAlert.addAction(cancelAction)
-        self.present(notificationAlert, animated: true, completion: nil)
     }
     /**
      * Pop over menu
@@ -164,7 +162,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         let heigh = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
         imgLogo.image = UIImage(named: GlobalConst.LOGO_IMG_NAME)
         imgLogo.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W) / 2,
-                               y: heigh,
+                               y: heigh + GlobalConst.MARGIN,
                                width: GlobalConst.LOGIN_LOGO_W,
                                height: GlobalConst.LOGIN_LOGO_H)
         imgLogo.translatesAutoresizingMaskIntoConstraints = true

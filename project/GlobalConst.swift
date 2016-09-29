@@ -193,6 +193,9 @@ class GlobalConst {
     static let LOGIN_LOGO_H : CGFloat = 140
     static let NAVIGATION_BAR_H : CGFloat = 70
     static let MARGIN : CGFloat = 10
+    static let ACCOUNT_AVATAR_W : CGFloat = 140
+    static let ACCOUNT_AVATAR_H : CGFloat = 140
+    static let ACCOUNT_ICON_SIZE : CGFloat = 40
     
     // ----- Color defines -----
     static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.PARENT_BORDER_WIDTH * 2) / 4
@@ -208,14 +211,12 @@ class GlobalConst {
     static var LOGIN_STATUS:Bool = true
     
     // MARK - Controller names
-    /**
-     * Name of RegisterViewController.
-     */
+    /** Name of RegisterViewController */
     static let REGISTER_VIEW_CTRL = "RegisterViewController"
-    /**
-     * Name of ConfigurationViewController.
-     */
+    /** Name of ConfigurationViewController */
     static let CONFIGURATION_VIEW_CTRL = "ConfigurationViewController"
+    /** Name of ChangePasswordViewController */
+    static let CHANGE_PASSWORD_VIEW_CTRL = "ChangePasswordViewController"
     
     // MARK - Domain constants
     /** Main server URL */
@@ -224,4 +225,10 @@ class GlobalConst {
     static let SERVER_TRAINING_URL = "http://android.huongminhgroup.com"
     /** Logo image name */
     static let LOGO_IMG_NAME = "gas_logo.png"
+    /** Contact image name */
+    static let CONTACT_IMG_NAME = "contact.png"
+    /** Phone image name */
+    static let PHONE_IMG_NAME = "mobile.png"
+    /** Address image name */
+    static let ADDRESS_IMG_NAME = "address.png"
 }

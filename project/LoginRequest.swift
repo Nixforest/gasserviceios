@@ -1,13 +1,14 @@
 //
-//  UserProfileRequest.swift
+//  LoginRequest.swift
 //  project
 //
-//  Created by Nixforest on 9/23/16.
+//  Created by Nixforest on 9/29/16.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
 import Foundation
-class UserProfileRequest: BaseRequest {
+
+class LoginRequest: BaseRequest {
     override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
         let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
             (
@@ -25,15 +26,15 @@ class UserProfileRequest: BaseRequest {
             }
             // Convert to string
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            print(dataString)
             // Convert to object
-            let model: UserProfileRespModel = UserProfileRespModel(jsonString: dataString as! String)
+            let model: LoginRespModel = LoginRespModel(jsonString: dataString as! String)
             if model.status == "1" {
-                Singleton.sharedInstance.setUserInfo(userInfo: model.record)
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "view.setData"), object: nil)
-                //self.view.setData()
+                Singleton.sharedInstance.loginSuccess(model.token)
+                //                Singleton.sharedInstance.setUserInfo(userInfo: model.user_info, userId: model.user_id, roleId: model.role_id)
+                print(Singleton.sharedInstance.getUserToken())
             }
             LoadingView.shared.hideOverlayView()
+            _ = self.view.navigationController?.popViewController(animated: true)
         })
         return task
     }
@@ -48,7 +49,8 @@ class UserProfileRequest: BaseRequest {
      * Set data content
      * - parameter token: User token
      */
-    func setData(token: String) {
-        self.data = "q=" + String.init(format: "{\"token\":\"%@\"}", token)
+    func setData(username: String, password: String) {
+        self.data = "q=" + String.init(format: "{\"username\":\"%@\",\"password\":\"%@\",\"gcm_device_token\":\"1\",\"apns_device_token\":\"1\",\"type\":\"2\"}",
+                                       username, password)
     }
 }

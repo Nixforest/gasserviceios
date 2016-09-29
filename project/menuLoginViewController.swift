@@ -8,7 +8,7 @@
 
 import UIKit
 
-class menuLoginViewController: UIViewController {
+class menuLoginViewController: CommonMenuController {
 
     @IBOutlet weak var configButton: UIButton!
     @IBOutlet weak var iconConfigButton: UIImageView!

@@ -9,42 +9,65 @@
 import UIKit
 
 class AccountViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
-    @IBOutlet weak var accountNavBar: UINavigationItem!
+    // MARK: Properties
+    /** Menu button */
     @IBOutlet weak var menuButton: UIButton!
+    /** Notification button */
     @IBOutlet weak var notificationButton: UIButton!
+    /** Back button */
     @IBOutlet weak var backButton: UIButton!
-
+    /** Save button */
     @IBOutlet weak var saveButton: UIButton!
+    /** Change password button */
     @IBOutlet weak var changePasswordButton: UIButton!
+    /** Logout button */
     @IBOutlet weak var logoutButton: UIButton!
-    
+    /** Avatar image */
     @IBOutlet weak var imgAvatar: UIImageView!
+    /** Name image */
     @IBOutlet weak var imgName: UIImageView!
+    /** Phone image */
     @IBOutlet weak var imgPhone: UIImageView!
+    /** Address image */
     @IBOutlet weak var imgAddress: UIImageView!
-    
+    /** Name textbox */
     @IBOutlet weak var txtName: UITextField!
+    /** Phone textbox */
     @IBOutlet weak var txtPhone: UITextField!
+    /** Address textbox */
     @IBOutlet weak var txtAddress: UITextField!
-    
-    var hideKeyboard:Bool = true
-    //var loginStatusCarrier:NSUserDefaults!
-    //var loginStatus:Bool = false
+    /** User avatar picker */
     var userAvatarPicker = UIImagePickerController()
     
+    //MARK: Actions
+    /**
+     * Handle tap on Notification button
+     * - parameter sender:AnyObject
+     */
     @IBAction func notificationButtonTapped(_ sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Trở lại", style: .cancel, handler: {(notificationAlert) -> Void in ()})
+        let notificationAlert = UIAlertController(title: GlobalConst.CONTENT00162,
+                                                  message: "Bạn có tin nhắn mới",
+                                                  preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: GlobalConst.CONTENT00008,
+                                         style: .cancel,
+                                         handler: {(notificationAlert) -> Void in ()})
         notificationAlert.addAction(cancelAction)
         self.present(notificationAlert, animated: true, completion: nil)
     }
     
+    /**
+     * Handle tap on Save button
+     * - parameter sender:AnyObject
+     */
     @IBAction func saveButtonTapped(_ sender: AnyObject) {
-        let saveAlert = UIAlertController(title: "Alert", message: "Bạn phải nhập đầy đủ thông tin", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: {(saveAlert) -> Void in ()})
+        let saveAlert = UIAlertController(title: GlobalConst.CONTENT00162,
+                                          message: GlobalConst.CONTENT00025,
+                                          preferredStyle: .alert)
+        let okAction = UIAlertAction(title: GlobalConst.CONTENT00008,
+                                     style: .cancel,
+                                     handler: {(saveAlert) -> Void in ()})
         saveAlert.addAction(okAction)
-        //check the value of text field
+        // Check the value of text field
         if (((txtName.text?.isEmpty)! || (txtPhone.text?.isEmpty)! || (txtAddress.text?.isEmpty)!)){
             //Call alert
             self.present(saveAlert, animated: true, completion: nil)
@@ -53,31 +76,49 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         }
     }
     
+    /**
+     * Handle tap on Change password button
+     * - parameter sender:AnyObject
+     */
     @IBAction func changePasswordTapped(_ sender: AnyObject) {
-        let mainStoryoard = UIStoryboard(name: "Main", bundle: nil)
-        
-        let changePasswordVC = mainStoryoard.instantiateViewController(withIdentifier: "ChangePasswordViewController")
+        let changePasswordVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CHANGE_PASSWORD_VIEW_CTRL)
         self.navigationController?.pushViewController(changePasswordVC, animated: true)
     }
     
+    /**
+     * Handle tap on Back button
+     * - parameter sender:AnyObject
+     */
     @IBAction func backButtonTapped(_ sender: AnyObject) {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
-    
+    /**
+     * Handle tap on Logout button
+     * - parameter sender:AnyObject
+     */
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
         LoadingView.shared.showOverlay(view: self.view)
         CommonProcess.requestLogout()
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
+    
+    //MARK: Methods
     //training mode
     override func viewDidAppear(_ animated: Bool) {
         
     }
-    //NSNotification action
+    
+    /**
+     * Handle when tap on Home menu item
+     */
     func gasServiceButtonInAccountVCTapped(_ notification: Notification) {
-        self.navigationController?.popToRootViewController(animated: true)
+        _ = self.navigationController?.popToRootViewController(animated: true)
     }
+    
+    /**
+     * Handle when tap on Issue menu item
+     */
     func issueButtonInAccountVCTapped(_ notification: Notification) {
         /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
          let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
@@ -85,40 +126,39 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
          */
         print("issue button tapped")
     }
+    
+    /**
+     * Handle when tap on Config menu item
+     */
     func configButtonInAccountVCTapped(_ notification: Notification) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let configVC = mainStoryboard.instantiateViewController(withIdentifier: "ConfigurationViewController")
+        let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CONFIGURATION_VIEW_CTRL)
         self.navigationController?.pushViewController(configVC, animated: true)
     }
     
-//    func trainingModeOn(_ notification: Notification) {
-//        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
-//    }
-//    func trainingModeOff(_ notification: Notification) {
-//        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-//    }
-
-    
+    /**
+     * View did load
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //transmit login status
-        /*loginStatusCarrier = NSUserDefaults()
-        loginStatus = (loginStatusCarrier.objectForKey("loginStatus") as? Bool)!
-        //notification button enable/disable
-        if loginStatus == true {
-            notificationButton.enabled = true
-        } else {
-            notificationButton.enabled = false
-        }*/
-        //background
-        view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
+        // Training mode
+        asignNotifyForTrainingModeChange()
+        // Menu item tap
+        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.gasServiceButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "gasServiceButtonInAccountVCTapped"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "issueButtonInAccountVCTapped"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.configButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInAccountVCTapped"), object: nil)
+        
+        // Background
+        view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-        //logo customize
-        imgAvatar.frame = CGRect(x: 90, y: 70, width: 140, height: 140)
-        imgAvatar.image = UIImage(named: "contact.png")
+        // Logo customize
+        let heigh = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        imgAvatar.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.ACCOUNT_AVATAR_W) / 2,
+                                 y: heigh + GlobalConst.MARGIN,
+                                 width: GlobalConst.ACCOUNT_AVATAR_W,
+                                 height: GlobalConst.ACCOUNT_AVATAR_H)
+        imgAvatar.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
         imgAvatar.translatesAutoresizingMaskIntoConstraints = true
         imgAvatar.isUserInteractionEnabled = true
         
@@ -127,14 +167,24 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         imgAvatar.addGestureRecognizer(avatarTap)
         self.view.addSubview(imgAvatar)
         
-        imgName.frame = CGRect(x: 20, y: 230, width: 40, height: 40)
-        imgName.image = UIImage(named: "contact.png")
+        imgName.frame = CGRect(x: GlobalConst.MARGIN,
+                               y: imgAvatar.frame.maxY + GlobalConst.MARGIN,
+                               width: GlobalConst.ACCOUNT_ICON_SIZE,
+                               height: GlobalConst.ACCOUNT_ICON_SIZE)
+        imgName.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
         imgName.translatesAutoresizingMaskIntoConstraints = true
-        imgPhone.frame = CGRect(x: 20, y: 280, width: 40, height: 40)
-        imgPhone.image = UIImage(named: "mobile.png")
+        imgPhone.frame = CGRect(x: GlobalConst.MARGIN,
+                                y: imgName.frame.maxY + GlobalConst.MARGIN,
+                                width: GlobalConst.ACCOUNT_ICON_SIZE,
+                                height: GlobalConst.ACCOUNT_ICON_SIZE)
+        imgName.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
+        imgPhone.image = UIImage(named: GlobalConst.PHONE_IMG_NAME)
         imgPhone.translatesAutoresizingMaskIntoConstraints = true
-        imgAddress.frame = CGRect(x: 20, y: 330, width: 40, height: 40)
-        imgAddress.image = UIImage(named: "address.png")
+        imgAddress.frame = CGRect(x: GlobalConst.MARGIN,
+                                  y: imgPhone.frame.maxY + GlobalConst.MARGIN,
+                                  width: GlobalConst.ACCOUNT_ICON_SIZE,
+                                  height: GlobalConst.ACCOUNT_ICON_SIZE)
+        imgAddress.image = UIImage(named: GlobalConst.ADDRESS_IMG_NAME)
         imgAddress.translatesAutoresizingMaskIntoConstraints = true
         
         //textfield customize
@@ -171,7 +221,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
         
         //Navigation Bar customize
-        accountNavBar.title = GlobalConst.CONTENT00100
+        navigationBar.title = GlobalConst.CONTENT00100
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
         
         
@@ -196,7 +246,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         let notificationNavBar = UIBarButtonItem()
         notificationNavBar.customView = notificationButton
         //set right bar item
-        accountNavBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
+        navigationBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
     
         let backOrigin = UIImage(named: "back.png");
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
@@ -207,20 +257,12 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         backButton.setTitle("", for: UIControlState())
         let backNavBar = UIBarButtonItem()
         backNavBar.customView = backButton
-        accountNavBar.setLeftBarButton(backNavBar, animated: false)
+        navigationBar.setLeftBarButton(backNavBar, animated: false)
 
 
         // Do any additional setup after loading the view.
         let gesture = UITapGestureRecognizer(target: self, action: #selector(AccountViewController.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
-        
-        
-        //notification
-        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.trainingModeOn(_:)), name:NSNotification.Name(rawValue: "TrainingModeOn"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.trainingModeOff(_:)), name:NSNotification.Name(rawValue: "TrainingModeOff"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.gasServiceButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "gasServiceButtonInAccountVCTapped"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "issueButtonInAccountVCTapped"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.configButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInAccountVCTapped"), object: nil)
         
         // Notify set data
         NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.setData(_:)), name:NSNotification.Name(rawValue: "view.setData"), object: nil)
@@ -283,11 +325,11 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
     }
 
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
-        if hideKeyboard == true {
+        if isKeyboardShow == false {
             UIView.animate(withDuration: 0.3, animations: {
                 self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - 100, width: self.view.frame.size.width, height: self.view.frame.size.height)
             }) 
-            hideKeyboard = false
+            isKeyboardShow = true
         }
         return true
     }
@@ -296,7 +338,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         UIView.animate(withDuration: 0.3, animations: {
             self.view.frame = CGRect(x: self.view.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
         }) 
-        hideKeyboard = true
+        isKeyboardShow = false
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //hide keyboard
