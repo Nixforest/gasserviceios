@@ -362,6 +362,11 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
             searchBox.resignFirstResponder()
             searchBox.text = data[(indexPath as NSIndexPath).row]
         }
+        if tableView == problemTableView || tableView == periodTableView {
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let configVC = mainStoryboard.instantiateViewController(withIdentifier: "UpholdDetailEmployeeViewController")
+            self.navigationController?.pushViewController(configVC, animated: true)
+        }
     }
     
     // MARK: - Begin Searching

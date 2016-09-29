@@ -78,6 +78,7 @@ class GlobalConst {
     static let CONTENT00068 = "Close"
     static let CONTENT00069 = "Không có dữ liệu"
     static let CONTENT00070 = "Gửi trả lời"
+    static let CONTENT00071 = "Lịch sử trả lời"
     static let CONTENT00072 = "Thông tin"
     static let CONTENT00073 = "Đóng lại"
     static let CONTENT00074 = "Mới"

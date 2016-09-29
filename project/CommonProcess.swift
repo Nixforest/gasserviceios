@@ -28,10 +28,12 @@ class CommonProcess {
             // Check error
             guard error == nil else {
                 view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                LoadingView.shared.hideOverlayView()
                 return
             }
             guard let data = data else {
                 view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                LoadingView.shared.hideOverlayView()
                 return
             }
             // Convert to string
@@ -44,12 +46,14 @@ class CommonProcess {
 //                Singleton.sharedInstance.setUserInfo(userInfo: model.user_info, userId: model.user_id, roleId: model.role_id)
                 print(Singleton.sharedInstance.getUserToken())
             }
+            LoadingView.shared.hideOverlayView()
             _ = view.navigationController?.popViewController(animated: true)
         })
         
         task.resume()
     }
     static func requestLogout() {
+        
         let url:URL = URL(string: Singleton.sharedInstance.getServerURL() + "/api/site/logout")!
         let session = URLSession.shared
         
@@ -69,10 +73,12 @@ class CommonProcess {
             // Check error
             guard error == nil else {
                 //view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                LoadingView.shared.hideOverlayView()
                 return
             }
             guard let data = data else {
                 //view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                LoadingView.shared.hideOverlayView()
                 return
             }
             // Convert to string
@@ -89,7 +95,8 @@ class CommonProcess {
         task.resume()
     }
     static func requestUserProfile(view: CommonViewController) {
-        var userProfileReq = UserProfileRequest(url: "/api/user/profile", reqMethod: "POST", view: view)
+        LoadingView.shared.showOverlay(view: view.view)
+        let userProfileReq = UserProfileRequest(url: "/api/user/profile", reqMethod: "POST", view: view)
         userProfileReq.setData(token: Singleton.sharedInstance.getUserToken())
         userProfileReq.execute()
     }

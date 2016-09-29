@@ -100,7 +100,6 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        CommonProcess.requestUserProfile(view: self)
 
         //transmit login status
         /*loginStatusCarrier = NSUserDefaults()
@@ -227,12 +226,32 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         
         // Set background color
         changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
+        if Singleton.sharedInstance.user_info == nil {
+            CommonProcess.requestUserProfile(view: self)
+        } else {
+            txtName.text = Singleton.sharedInstance.user_info?.first_name
+            txtPhone.text = Singleton.sharedInstance.user_info?.phone
+            txtAddress.text = Singleton.sharedInstance.user_info?.address
+            if let url = NSURL(string: String(Singleton.sharedInstance.getServerURL() + (Singleton.sharedInstance.user_info?.image_avatar)!)!) {
+                if let data = NSData(contentsOf: url as URL) {
+                    imgAvatar.image = UIImage(data: data as Data)
+                }
+            }
+        }
 
     }
     override func setData(_ notification: Notification) {
-        txtName.text = Singleton.sharedInstance.user_info.first_name
-        txtPhone.text = Singleton.sharedInstance.user_info.phone
-        txtAddress.text = Singleton.sharedInstance.user_info.address
+        txtName.text = Singleton.sharedInstance.user_info?.first_name
+        txtPhone.text = Singleton.sharedInstance.user_info?.phone
+        txtAddress.text = Singleton.sharedInstance.user_info?.address
+//        var url = NSURL(fileURLWithPath: String(Singleton.sharedInstance.getServerURL() + (Singleton.sharedInstance.user_info?.image_avatar)!)!)
+//        var data = NSData(contentsOf: url as URL)
+//        imgAvatar.image = UIImage(data: data! as Data)
+        if let url = NSURL(string: String(Singleton.sharedInstance.getServerURL() + (Singleton.sharedInstance.user_info?.image_avatar)!)!) {
+            if let data = NSData(contentsOf: url as URL) {
+                imgAvatar.image = UIImage(data: data as Data)
+            }        
+        }
     }
 
     override func didReceiveMemoryWarning() {

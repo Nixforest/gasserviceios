@@ -20,6 +20,7 @@ class UpholdDetailViewController: UIViewController {
         Bundle.main.loadNibNamed("View", owner: self, options: nil)
         mainScrollView.addSubview(view1)
         mainScrollView.contentSize = CGSize(width: mainScrollView.frame.size.width, height: view1.frame.size.height)
+        
         // Do any additional setup after loading the view.
     }
 

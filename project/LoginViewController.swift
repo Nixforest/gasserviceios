@@ -90,6 +90,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
             // Call alert
             self.present(loginAlert, animated: true, completion: nil)
         } else {
+            LoadingView.shared.showOverlay(view: self.view)
             CommonProcess.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
             //_ = self.navigationController?.popViewController(animated: true)
         }

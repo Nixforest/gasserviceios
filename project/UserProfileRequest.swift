@@ -15,10 +15,12 @@ class UserProfileRequest: BaseRequest {
             // Check error
             guard error == nil else {
                 //view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                LoadingView.shared.hideOverlayView()
                 return
             }
             guard let data = data else {
                 //view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                LoadingView.shared.hideOverlayView()
                 return
             }
             // Convert to string
@@ -31,6 +33,7 @@ class UserProfileRequest: BaseRequest {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "view.setData"), object: nil)
                 //self.view.setData()
             }
+            LoadingView.shared.hideOverlayView()
         })
         return task
     }

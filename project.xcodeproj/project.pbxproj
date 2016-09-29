@@ -28,6 +28,12 @@
 		84331BEC1D771B560089B0FA /* mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 84331BEA1D771B560089B0FA /* mobile.png */; };
 		8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435C24B1D8A9E2B00F9903D /* menuChangePasswordViewController.swift */; };
 		8435C24E1D8ABED100F9903D /* menuUpholdListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435C24D1D8ABED100F9903D /* menuUpholdListViewController.swift */; };
+		84459EDF1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84459EDD1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.swift */; };
+		84459EE01D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84459EDE1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.xib */; };
+		84459EE61D9649450087F986 /* CreateUpholdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84459EE51D9649450087F986 /* CreateUpholdViewController.swift */; };
+		84459EE81D964B820087F986 /* CreateUpholdStep1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84459EE71D964B820087F986 /* CreateUpholdStep1ViewController.swift */; };
+		84459EEA1D964B930087F986 /* CreateUpholdStep2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84459EE91D964B930087F986 /* CreateUpholdStep2ViewController.swift */; };
+		84459EEC1D964BA10087F986 /* CreateUpholdStep3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84459EEB1D964BA10087F986 /* CreateUpholdStep3ViewController.swift */; };
 		84A4C0631D63117000C0B84C /* address.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C05C1D63117000C0B84C /* address.png */; };
 		84A4C0641D63117000C0B84C /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C05D1D63117000C0B84C /* checkbox-checked.png */; };
 		84A4C0651D63117000C0B84C /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C05E1D63117000C0B84C /* checkbox-unchecked.png */; };
@@ -48,6 +54,10 @@
 		84EB38D01D6B938C0031CF84 /* MenuSub.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EB38CF1D6B938C0031CF84 /* MenuSub.xib */; };
 		84EBBD251D8F8E7300FB4D25 /* InfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBBD241D8F8E7300FB4D25 /* InfomationViewController.swift */; };
 		84EDDFB01D7D869000861ACB /* menuLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EDDFAF1D7D869000861ACB /* menuLoginViewController.swift */; };
+		84EF507A1D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF50791D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift */; };
+		84EF507C1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EF507B1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib */; };
+		84EF50801D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF507F1D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift */; };
+		84EF50821D94481500EE41B4 /* UpholdDetailEmployeeHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF50811D94481500EE41B4 /* UpholdDetailEmployeeHistoryView.swift */; };
 		84EF9C5F1D93C7680008B30F /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF9C5E1D93C7680008B30F /* Singleton.swift */; };
 		84EFBEAC1D6F173A00FEBE80 /* ordergas.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFBEAB1D6F173A00FEBE80 /* ordergas.png */; };
 		84EFFBE91D7D912500900578 /* config.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFFBE81D7D912500900578 /* config.png */; };
@@ -71,6 +81,7 @@
 		92458D821D9647F500AB16DE /* UserProfileRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92458D811D9647F500AB16DE /* UserProfileRespModel.swift */; };
 		926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F31D9276B5000D2DED /* CommonProcess.swift */; };
 		926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F61D927BE0000D2DED /* CommonViewController.swift */; };
+		92F337451D96DCC500FDACBF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F337441D96DCC500FDACBF /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +129,12 @@
 		84331BEA1D771B560089B0FA /* mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobile.png; sourceTree = "<group>"; };
 		8435C24B1D8A9E2B00F9903D /* menuChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuChangePasswordViewController.swift; sourceTree = "<group>"; };
 		8435C24D1D8ABED100F9903D /* menuUpholdListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuUpholdListViewController.swift; sourceTree = "<group>"; };
+		84459EDD1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailEmployeeHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		84459EDE1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpholdDetailEmployeeHistoryTableViewCell.xib; sourceTree = "<group>"; };
+		84459EE51D9649450087F986 /* CreateUpholdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUpholdViewController.swift; sourceTree = "<group>"; };
+		84459EE71D964B820087F986 /* CreateUpholdStep1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUpholdStep1ViewController.swift; sourceTree = "<group>"; };
+		84459EE91D964B930087F986 /* CreateUpholdStep2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUpholdStep2ViewController.swift; sourceTree = "<group>"; };
+		84459EEB1D964BA10087F986 /* CreateUpholdStep3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUpholdStep3ViewController.swift; sourceTree = "<group>"; };
 		84A4C05C1D63117000C0B84C /* address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address.png; sourceTree = "<group>"; };
 		84A4C05D1D63117000C0B84C /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
 		84A4C05E1D63117000C0B84C /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked.png"; sourceTree = "<group>"; };
@@ -140,6 +157,10 @@
 		84EB38CF1D6B938C0031CF84 /* MenuSub.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuSub.xib; sourceTree = "<group>"; };
 		84EBBD241D8F8E7300FB4D25 /* InfomationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfomationViewController.swift; sourceTree = "<group>"; };
 		84EDDFAF1D7D869000861ACB /* menuLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuLoginViewController.swift; sourceTree = "<group>"; };
+		84EF50791D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailEmployeeViewController.swift; sourceTree = "<group>"; };
+		84EF507B1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpholdDetailEmployeeInfoView.xib; sourceTree = "<group>"; };
+		84EF507F1D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailEmployeeInfoView.swift; sourceTree = "<group>"; };
+		84EF50811D94481500EE41B4 /* UpholdDetailEmployeeHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailEmployeeHistoryView.swift; sourceTree = "<group>"; };
 		84EF9C5E1D93C7680008B30F /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		84EFBEAB1D6F173A00FEBE80 /* ordergas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ordergas.png; sourceTree = "<group>"; };
 		84EFFBE81D7D912500900578 /* config.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config.png; sourceTree = "<group>"; };
@@ -163,6 +184,7 @@
 		92458D811D9647F500AB16DE /* UserProfileRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileRespModel.swift; sourceTree = "<group>"; };
 		926670F31D9276B5000D2DED /* CommonProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonProcess.swift; sourceTree = "<group>"; };
 		926670F61D927BE0000D2DED /* CommonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
+		92F337441D96DCC500FDACBF /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +258,11 @@
 				842468401D86FAAE00356B20 /* ConfigurationTableViewCell.swift */,
 				84EBBD241D8F8E7300FB4D25 /* InfomationViewController.swift */,
 				84284E151D40DF050079DEBC /* Main.storyboard */,
+				84459EE51D9649450087F986 /* CreateUpholdViewController.swift */,
+				84459EE71D964B820087F986 /* CreateUpholdStep1ViewController.swift */,
+				84459EE91D964B930087F986 /* CreateUpholdStep2ViewController.swift */,
+				84459EEB1D964BA10087F986 /* CreateUpholdStep3ViewController.swift */,
+				84EF50791D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift */,
 				84E172D51D921875003121D6 /* UpholdDetailViewController.swift */,
 				84EB38CF1D6B938C0031CF84 /* MenuSub.xib */,
 				92026C461D7E843D004232CA /* GlobalConst.swift */,
@@ -276,6 +303,8 @@
 				842BA3571D8EA806004ECBFF /* periodTableViewCell.xib */,
 				842BA35A1D8EA81B004ECBFF /* problemTableViewCell.swift */,
 				842BA35B1D8EA81B004ECBFF /* problemTableViewCell.xib */,
+				84459EDD1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.swift */,
+				84459EDE1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.xib */,
 			);
 			name = "TableView Cell";
 			sourceTree = "<group>";
@@ -323,6 +352,9 @@
 				84F246841D93DDB300259C35 /* SearchBarView.swift */,
 				84F246851D93DDB300259C35 /* SearchBarView.xib */,
 				84E172D81D921925003121D6 /* View.xib */,
+				84EF507B1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib */,
+				84EF507F1D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift */,
+				84EF50811D94481500EE41B4 /* UpholdDetailEmployeeHistoryView.swift */,
 			);
 			name = XibFiles;
 			sourceTree = "<group>";
@@ -368,6 +400,7 @@
 			children = (
 				926670F31D9276B5000D2DED /* CommonProcess.swift */,
 				926670F61D927BE0000D2DED /* CommonViewController.swift */,
+				92F337441D96DCC500FDACBF /* LoadingView.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -482,6 +515,7 @@
 			files = (
 				84A4C0631D63117000C0B84C /* address.png in Resources */,
 				84B2E9D11D7F0D3E005E4A54 /* done.png in Resources */,
+				84459EE01D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.xib in Resources */,
 				84E83D541D87C171007C7A90 /* InfoIcon.png in Resources */,
 				84A4C0651D63117000C0B84C /* checkbox-unchecked.png in Resources */,
 				84F246891D93DDB300259C35 /* SearchBarView.xib in Resources */,
@@ -503,6 +537,7 @@
 				84E172D91D921925003121D6 /* View.xib in Resources */,
 				842BA3591D8EA806004ECBFF /* periodTableViewCell.xib in Resources */,
 				84F481961D67040E0072DC7A /* Account.jpeg in Resources */,
+				84EF507C1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib in Resources */,
 				84F481971D67040E0072DC7A /* UpHoldList.jpeg in Resources */,
 				84E041B11D668DFD00A89608 /* back.png in Resources */,
 				84F481991D67040E0072DC7A /* ServiceRating.jpeg in Resources */,
@@ -534,11 +569,15 @@
 			files = (
 				92458D761D961B3C00AB16DE /* ConfigBean.swift in Sources */,
 				92458D7F1D963EE900AB16DE /* UserProfileRequest.swift in Sources */,
+				84459EEC1D964BA10087F986 /* CreateUpholdStep3ViewController.swift in Sources */,
+				84EF50801D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift in Sources */,
 				841273091D829E3A00BCC56D /* UpholdListViewController.swift in Sources */,
 				84289B051D67D505009A88EC /* menuHomeViewController.swift in Sources */,
 				84284E141D40DF050079DEBC /* LoginViewController.swift in Sources */,
 				84E7184B1D660859006F4995 /* AccountViewController.swift in Sources */,
 				84E1E7A01D664CCD007710BD /* ChangePasswordViewController.swift in Sources */,
+				84EF50821D94481500EE41B4 /* UpholdDetailEmployeeHistoryView.swift in Sources */,
+				84EF507A1D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift in Sources */,
 				84F246861D93DDB300259C35 /* SearchBarTableViewCell.swift in Sources */,
 				84EF9C5F1D93C7680008B30F /* Singleton.swift in Sources */,
 				8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */,
@@ -546,18 +585,22 @@
 				84F2D62E1D66121B0091F6D3 /* ColorFromRGB.swift in Sources */,
 				842468411D86FAAE00356B20 /* ConfigurationTableViewCell.swift in Sources */,
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
+				84459EEA1D964B930087F986 /* CreateUpholdStep2ViewController.swift in Sources */,
 				84EBBD251D8F8E7300FB4D25 /* InfomationViewController.swift in Sources */,
 				84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */,
 				84F481911D66FFC10072DC7A /* HomeTableViewController.swift in Sources */,
 				92458D7D1D963B1F00AB16DE /* BaseRequest.swift in Sources */,
 				92458D7A1D96357F00AB16DE /* UserInfoBean.swift in Sources */,
 				926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */,
+				84459EDF1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.swift in Sources */,
+				84459EE61D9649450087F986 /* CreateUpholdViewController.swift in Sources */,
 				92458D821D9647F500AB16DE /* UserProfileRespModel.swift in Sources */,
 				842CA8E71D89045E003D9EFF /* menuAccountViewController.swift in Sources */,
 				842277C91D421E7E00611439 /* CheckBox.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
 				84F246881D93DDB300259C35 /* SearchBarView.swift in Sources */,
 				920765501D94E2BC006ABF26 /* BaseRespModel.swift in Sources */,
+				84459EE81D964B820087F986 /* CreateUpholdStep1ViewController.swift in Sources */,
 				842BA35C1D8EA81B004ECBFF /* problemTableViewCell.swift in Sources */,
 				842BA3581D8EA806004ECBFF /* periodTableViewCell.swift in Sources */,
 				8424683F1D86F9DA00356B20 /* ConfigurationViewController.swift in Sources */,
@@ -565,6 +608,7 @@
 				926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */,
 				92458D781D96216A00AB16DE /* LoginRespModel.swift in Sources */,
 				92026C471D7E843D004232CA /* GlobalConst.swift in Sources */,
+				92F337451D96DCC500FDACBF /* LoadingView.swift in Sources */,
 				8435C24E1D8ABED100F9903D /* menuUpholdListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

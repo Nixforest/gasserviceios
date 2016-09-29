@@ -33,7 +33,7 @@ class Singleton: NSObject {
     /** List data issue */
     var data_issue: [ConfigBean] = [ConfigBean]()
     /** List user info */
-    var user_info: UserInfoBean = UserInfoBean()
+    var user_info: UserInfoBean? = nil
     /** List check menu */
     var check_menu: [ConfigBean] = [ConfigBean]()
     /** Flag need change pass */
@@ -63,12 +63,13 @@ class Singleton: NSObject {
     func logoutSuccess()  {
         isLogin = false
         userToken = ""
+        self.user_info = UserInfoBean()
         defaults.set(isLogin, forKey: "isLogin")
         defaults.set(userToken, forKey: "user.token")
         defaults.synchronize()
     }
     /**
-     * Get user token
+     * Get user token			
      * - return: User token string
      */
     func getUserToken() -> String {
