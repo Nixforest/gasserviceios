@@ -192,8 +192,8 @@ class GlobalConst {
     // ----- Color defines -----
     static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.PARENT_BORDER_WIDTH * 2) / 4
     static let CELL_BORDER_COLOR:UIColor = UIColor.white
-    static let BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
-    static let BUTTON_COLOR_GRAY:UIColor = UIColor.gray
+    static let BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
+    static let BUTTON_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
     static let PARENT_BORDER_COLOR_GRAY:UIColor = UIColor.gray
     static let PARENT_BORDER_COLOR_YELLOW:UIColor = UIColor.yellow
     static let BACKGROUND_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xECECEC)

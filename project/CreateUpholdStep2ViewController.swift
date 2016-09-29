@@ -38,14 +38,21 @@ class CreateUpholdStep2ViewController: UIViewController {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "showDetail"), object: nil)
     }
     @IBAction func btnContactType4Tapped(_ sender: AnyObject) {
-        var inputTextField: UITextField?
-        inputTextField?.placeholder = "Nội dung"
+        var inputTextFieldName:UITextField?
+        var inputTextFieldPhone:UITextField?
         
         //Create the AlertController
         let actionSheetController: UIAlertController = UIAlertController(title: "Sự cố khác", message: "", preferredStyle: .alert)
             //Add a text field
-            actionSheetController.addTextField { textField -> Void in
-                inputTextField = textField
+            actionSheetController.addTextField {
+                (textFieldName: UITextField!) in
+                textFieldName.placeholder = "Nhập họ tên"
+                inputTextFieldName = textFieldName
+            }
+            actionSheetController.addTextField {
+                    (textFieldPhone: UITextField!) in
+                    textFieldPhone.placeholder = "Nhập số điện thoại"
+                inputTextFieldPhone = textFieldPhone
                 
             }
         
@@ -56,7 +63,7 @@ class CreateUpholdStep2ViewController: UIViewController {
             actionSheetController.addAction(cancelAction)
             //Create and an option action
             let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default) { action -> Void in
-                CreateUpholdViewController.sharedInstance.contactType = (inputTextField?.text)!
+                CreateUpholdViewController.sharedInstance.contactType = (inputTextFieldName?.text)! + " - " + (inputTextFieldPhone?.text)!
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "step2Done"), object: nil)
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "showDetail"), object: nil)
                 print(CreateUpholdViewController.sharedInstance.contactType)
