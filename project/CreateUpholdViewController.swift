@@ -16,6 +16,7 @@ class CreateUpholdViewController: UIViewController {
     }()
     
     var problemType:String = ""
+    var anotherProblemType:String = ""
     var contactType:String = ""
 
     var isStep1Done:Bool = false
@@ -32,21 +33,53 @@ class CreateUpholdViewController: UIViewController {
     @IBOutlet weak var ctnViewCreateUpholdStep2: UIView!
     @IBOutlet weak var ctnViewCreateUpholdStep3: UIView!
     
+    @IBOutlet weak var viewScrollButton: UIView!
     
     @IBAction func btnCreateUpholdStep1Tapped(_ sender: AnyObject) {
         ctnViewCreateUpholdStep1.isHidden = false
         ctnViewCreateUpholdStep2.isHidden = true
         ctnViewCreateUpholdStep3.isHidden = true
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "moveButtonStep1"), object: nil)
+        print(CreateUpholdViewController.sharedInstance.problemType)
+
     }
     @IBAction func btnCreateUpholdStep2Tapped(_ sender: AnyObject) {
         ctnViewCreateUpholdStep1.isHidden = true
         ctnViewCreateUpholdStep2.isHidden = false
         ctnViewCreateUpholdStep3.isHidden = true
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "moveButtonStep2"), object: nil)
     }
     @IBAction func btnCreateUpholdStep3Tapped(_ sender: AnyObject) {
         ctnViewCreateUpholdStep1.isHidden = true
         ctnViewCreateUpholdStep2.isHidden = true
         ctnViewCreateUpholdStep3.isHidden = false
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "moveButtonStep3"), object: nil)
+    }
+    
+    /**
+     * move step button to middle of line
+     */
+    func moveButtonToMiddleStep1(_ notification: Notification) {
+        self.moveButtonToMiddle(aButton: btnCreateUpholdStep1)
+    }
+    func moveButtonToMiddleStep2(_ notification: Notification) {
+        self.moveButtonToMiddle(aButton: btnCreateUpholdStep2)
+    }
+    func moveButtonToMiddleStep3(_ notification: Notification) {
+        self.moveButtonToMiddle(aButton: btnCreateUpholdStep3)
+    }
+    
+    func moveButtonToMiddle(aButton:UIButton) {
+        switch aButton.tag {
+        case 1:
+            viewScrollButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2), y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
+        case 2:
+            viewScrollButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT), y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
+        case 3:
+            viewScrollButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 2), y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
+        default:
+            break
+        }
     }
     
     func step1Done (_ notification: Notification) {
@@ -54,16 +87,18 @@ class CreateUpholdViewController: UIViewController {
         
         btnCreateUpholdStep1.isEnabled = isStep1Done
         btnCreateUpholdStep1.backgroundColor = UIColor.green
-    
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "moveButtonStep2"), object: nil)
         ctnViewCreateUpholdStep1.isHidden = true
         ctnViewCreateUpholdStep2.isHidden = false
         ctnViewCreateUpholdStep3.isHidden = true
+        
+        
     }
     func step2Done (_ notification: Notification) {
         isStep2Done = true
         btnCreateUpholdStep2.isEnabled = isStep2Done
         btnCreateUpholdStep2.backgroundColor = UIColor.green
-        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "moveButtonStep3"), object: nil)
         btnCreateUpholdStep3.isEnabled = isStep2Done
         
         ctnViewCreateUpholdStep1.isHidden = true
@@ -81,6 +116,7 @@ class CreateUpholdViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewBackground.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         viewBackground.translatesAutoresizingMaskIntoConstraints = true
         viewBackground.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         viewBackground.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
@@ -101,36 +137,45 @@ class CreateUpholdViewController: UIViewController {
         ctnViewCreateUpholdStep3.translatesAutoresizingMaskIntoConstraints = true
         ctnViewCreateUpholdStep3.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.PARENT_BORDER_WIDTH, width: (GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2)), height: viewBackground.frame.size.height - ((GlobalConst.PARENT_BORDER_WIDTH * 2) + GlobalConst.BUTTON_HEIGHT))
         
+        viewScrollButton.translatesAutoresizingMaskIntoConstraints = true
+        viewScrollButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2), y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
+        viewScrollButton.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
+        
+        
         btnCreateUpholdStep1.translatesAutoresizingMaskIntoConstraints = true
-        btnCreateUpholdStep1.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnCreateUpholdStep1.layer.borderColor = UIColor.green.cgColor
-        btnCreateUpholdStep1.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT * 3/2), y: GlobalConst.PARENT_BORDER_WIDTH + ctnViewCreateUpholdStep1.frame.size.height, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
+        //btnCreateUpholdStep1.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnCreateUpholdStep1.layer.borderColor = UIColor.green.cgColor
+        btnCreateUpholdStep1.frame = CGRect(x: 0, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
         btnCreateUpholdStep1.layer.cornerRadius = 0.5 * btnCreateUpholdStep1.bounds.size.width
         btnCreateUpholdStep1.setTitle("1", for: .normal)
         btnCreateUpholdStep1.setTitleColor(UIColor.white , for: .normal)
         btnCreateUpholdStep1.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        btnCreateUpholdStep1.tag = 1
+        
 
         
         btnCreateUpholdStep2.translatesAutoresizingMaskIntoConstraints = true
-        btnCreateUpholdStep2.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT * 3/2) + GlobalConst.BUTTON_HEIGHT, y: GlobalConst.PARENT_BORDER_WIDTH + ctnViewCreateUpholdStep1.frame.size.height, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
-        btnCreateUpholdStep2.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnCreateUpholdStep2.layer.borderColor = UIColor.green.cgColor
+        btnCreateUpholdStep2.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
+        //btnCreateUpholdStep2.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnCreateUpholdStep2.layer.borderColor = UIColor.green.cgColor
         btnCreateUpholdStep2.layer.cornerRadius = 0.5 * btnCreateUpholdStep1.bounds.size.width
         btnCreateUpholdStep2.setTitle("2", for: .normal)
         btnCreateUpholdStep2.setTitleColor(UIColor.white , for: .normal)
         btnCreateUpholdStep2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        btnCreateUpholdStep2.tag = 2
+        
         
         btnCreateUpholdStep3.translatesAutoresizingMaskIntoConstraints = true
-        btnCreateUpholdStep3.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT * 3/2) + (GlobalConst.BUTTON_HEIGHT * 2), y: GlobalConst.PARENT_BORDER_WIDTH + ctnViewCreateUpholdStep1.frame.size.height, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
-        btnCreateUpholdStep3.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnCreateUpholdStep3.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
+        btnCreateUpholdStep3.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT * 2, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
+        //btnCreateUpholdStep3.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnCreateUpholdStep3.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
         btnCreateUpholdStep3.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         btnCreateUpholdStep3.layer.borderColor = UIColor.green.cgColor
         btnCreateUpholdStep3.layer.cornerRadius = 0.5 * btnCreateUpholdStep1.bounds.size.width
         btnCreateUpholdStep3.setTitle("3", for: .normal)
         btnCreateUpholdStep3.setTitleColor(UIColor.green , for: .normal)
         btnCreateUpholdStep3.backgroundColor = UIColor.white
-
+        btnCreateUpholdStep3.tag = 3
         
         
         btnCreateUpholdStep1.isEnabled = isStep1Done
@@ -142,6 +187,9 @@ class CreateUpholdViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdViewController.step1Done(_:)), name:NSNotification.Name(rawValue: "step1Done"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdViewController.step2Done(_:)), name:NSNotification.Name(rawValue: "step2Done"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdViewController.step3Done(_:)), name:NSNotification.Name(rawValue: "step3Done"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdViewController.moveButtonToMiddleStep1(_:)), name:NSNotification.Name(rawValue: "moveButtonStep1"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdViewController.moveButtonToMiddleStep2(_:)), name:NSNotification.Name(rawValue: "moveButtonStep2"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdViewController.moveButtonToMiddleStep3(_:)), name:NSNotification.Name(rawValue: "moveButtonStep3"), object: nil)
     }
 
     override func didReceiveMemoryWarning() {

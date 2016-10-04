@@ -66,6 +66,12 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIScrollViewDele
         }
 
     }
+    @IBAction func btnCreateUpholdReplyTapped(_ sender: AnyObject) {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let configVC = mainStoryboard.instantiateViewController(withIdentifier: "ReplyUpholdViewController")
+        self.navigationController?.pushViewController(configVC, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

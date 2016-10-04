@@ -8,7 +8,7 @@
 
 import UIKit
 
-class menuAccountViewController: CommonMenuController {
+class menuAccountViewController: UIViewController {
 
     @IBOutlet weak var gasServiceButton: UIButton!
     @IBOutlet weak var issueButton: UIButton!

@@ -41,6 +41,7 @@ class CreateUpholdStep3ViewController: UIViewController {
     
     func showDetail(_ notification: Notification)  {
         lblProblemDetail.text = " " + CreateUpholdViewController.sharedInstance.problemType
+        lblContentDetail.text = " " + CreateUpholdViewController.sharedInstance.anotherProblemType
         lblContactDetail.text = " " + CreateUpholdViewController.sharedInstance.contactType
     }
     
@@ -125,8 +126,8 @@ class CreateUpholdStep3ViewController: UIViewController {
         btnSendInfo.setTitle("Gửi", for: .normal)
         btnSendInfo.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnSendInfo.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        btnSendInfo.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnSendInfo.layer.borderColor = UIColor.green.cgColor
+        //btnSendInfo.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnSendInfo.layer.borderColor = UIColor.green.cgColor
         btnSendInfo.tintColor = UIColor.white
         
         // Do any additional setup after loading the view.

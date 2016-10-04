@@ -93,8 +93,8 @@ class CreateUpholdStep2ViewController: UIViewController {
          */
         btnContactType1.translatesAutoresizingMaskIntoConstraints = true
         btnContactType1.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT, width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        btnContactType1.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnContactType1.layer.borderColor = UIColor.green.cgColor
+        //btnContactType1.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnContactType1.layer.borderColor = UIColor.green.cgColor
         btnContactType1.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         btnContactType1.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnContactType1.setTitle("Chủ quán", for: .normal)
@@ -104,8 +104,8 @@ class CreateUpholdStep2ViewController: UIViewController {
          */
         btnContactType2.translatesAutoresizingMaskIntoConstraints = true
         btnContactType2.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3)), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        btnContactType2.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnContactType2.layer.borderColor = UIColor.green.cgColor
+        //btnContactType2.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnContactType2.layer.borderColor = UIColor.green.cgColor
         btnContactType2.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         btnContactType2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnContactType2.setTitle("Người quản lý", for: .normal)
@@ -115,8 +115,8 @@ class CreateUpholdStep2ViewController: UIViewController {
          */
         btnContactType3.translatesAutoresizingMaskIntoConstraints = true
         btnContactType3.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 2), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        btnContactType3.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnContactType3.layer.borderColor = UIColor.green.cgColor
+        //btnContactType3.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnContactType3.layer.borderColor = UIColor.green.cgColor
         btnContactType3.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         btnContactType3.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnContactType3.setTitle("Nhân viên kỹ thuật", for: .normal)
@@ -126,8 +126,8 @@ class CreateUpholdStep2ViewController: UIViewController {
          */
         btnContactType4.translatesAutoresizingMaskIntoConstraints = true
         btnContactType4.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 3), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        btnContactType4.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnContactType4.layer.borderColor = UIColor.green.cgColor
+        //btnContactType4.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnContactType4.layer.borderColor = UIColor.green.cgColor
         btnContactType4.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         btnContactType4.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnContactType4.setTitle("Khác", for: .normal)

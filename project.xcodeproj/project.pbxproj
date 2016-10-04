@@ -28,6 +28,9 @@
 		84331BEC1D771B560089B0FA /* mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = 84331BEA1D771B560089B0FA /* mobile.png */; };
 		8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435C24B1D8A9E2B00F9903D /* menuChangePasswordViewController.swift */; };
 		8435C24E1D8ABED100F9903D /* menuUpholdListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435C24D1D8ABED100F9903D /* menuUpholdListViewController.swift */; };
+		843B11571DA0E56F002B3A5A /* ReplyUpholdStep1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843B11561DA0E56F002B3A5A /* ReplyUpholdStep1ViewController.swift */; };
+		843DAFC81D9FA37D00D517FC /* ReplyUpholdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843DAFC71D9FA37D00D517FC /* ReplyUpholdViewController.swift */; };
+		843DAFCB1D9FAC3B00D517FC /* ReplyUpholdStep0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843DAFCA1D9FAC3B00D517FC /* ReplyUpholdStep0ViewController.swift */; };
 		84459EDF1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84459EDD1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.swift */; };
 		84459EE01D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84459EDE1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.xib */; };
 		84459EE61D9649450087F986 /* CreateUpholdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84459EE51D9649450087F986 /* CreateUpholdViewController.swift */; };
@@ -43,6 +46,11 @@
 		84B2E9D11D7F0D3E005E4A54 /* done.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E9CF1D7F0D3E005E4A54 /* done.png */; };
 		84B2E9D21D7F0D3E005E4A54 /* rating.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E9D01D7F0D3E005E4A54 /* rating.png */; };
 		84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC0D811D494D0E00E52249 /* SWRevealViewController.m */; };
+		84DFE0031DA23ADA00A48B35 /* ReplyUpholdStep2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFE0021DA23ADA00A48B35 /* ReplyUpholdStep2ViewController.swift */; };
+		84DFE0051DA23AE700A48B35 /* ReplyUpholdStep3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFE0041DA23AE700A48B35 /* ReplyUpholdStep3ViewController.swift */; };
+		84DFE0071DA23AF300A48B35 /* ReplyUpholdStep4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFE0061DA23AF300A48B35 /* ReplyUpholdStep4ViewController.swift */; };
+		84DFE0091DA23AFD00A48B35 /* ReplyUpholdStep5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFE0081DA23AFD00A48B35 /* ReplyUpholdStep5ViewController.swift */; };
+		84DFE00B1DA23B0900A48B35 /* ReplyUpholdStep6ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFE00A1DA23B0900A48B35 /* ReplyUpholdStep6ViewController.swift */; };
 		84E041B11D668DFD00A89608 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E041B01D668DFD00A89608 /* back.png */; };
 		84E172D61D921876003121D6 /* UpholdDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E172D51D921875003121D6 /* UpholdDetailViewController.swift */; };
 		84E172D91D921925003121D6 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E172D81D921925003121D6 /* View.xib */; };
@@ -131,6 +139,9 @@
 		84331BEA1D771B560089B0FA /* mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobile.png; sourceTree = "<group>"; };
 		8435C24B1D8A9E2B00F9903D /* menuChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuChangePasswordViewController.swift; sourceTree = "<group>"; };
 		8435C24D1D8ABED100F9903D /* menuUpholdListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuUpholdListViewController.swift; sourceTree = "<group>"; };
+		843B11561DA0E56F002B3A5A /* ReplyUpholdStep1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyUpholdStep1ViewController.swift; sourceTree = "<group>"; };
+		843DAFC71D9FA37D00D517FC /* ReplyUpholdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyUpholdViewController.swift; sourceTree = "<group>"; };
+		843DAFCA1D9FAC3B00D517FC /* ReplyUpholdStep0ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyUpholdStep0ViewController.swift; sourceTree = "<group>"; };
 		84459EDD1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailEmployeeHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		84459EDE1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpholdDetailEmployeeHistoryTableViewCell.xib; sourceTree = "<group>"; };
 		84459EE51D9649450087F986 /* CreateUpholdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUpholdViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +159,11 @@
 		84DC0D7F1D494D0D00E52249 /* project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "project-Bridging-Header.h"; sourceTree = "<group>"; };
 		84DC0D801D494D0E00E52249 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		84DC0D811D494D0E00E52249 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		84DFE0021DA23ADA00A48B35 /* ReplyUpholdStep2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyUpholdStep2ViewController.swift; sourceTree = "<group>"; };
+		84DFE0041DA23AE700A48B35 /* ReplyUpholdStep3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyUpholdStep3ViewController.swift; sourceTree = "<group>"; };
+		84DFE0061DA23AF300A48B35 /* ReplyUpholdStep4ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyUpholdStep4ViewController.swift; sourceTree = "<group>"; };
+		84DFE0081DA23AFD00A48B35 /* ReplyUpholdStep5ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyUpholdStep5ViewController.swift; sourceTree = "<group>"; };
+		84DFE00A1DA23B0900A48B35 /* ReplyUpholdStep6ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyUpholdStep6ViewController.swift; sourceTree = "<group>"; };
 		84E041B01D668DFD00A89608 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		84E172D51D921875003121D6 /* UpholdDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailViewController.swift; sourceTree = "<group>"; };
 		84E172D81D921925003121D6 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = View.xib; path = XibFiles/View.xib; sourceTree = "<group>"; };
@@ -261,11 +277,9 @@
 				842468401D86FAAE00356B20 /* ConfigurationTableViewCell.swift */,
 				84EBBD241D8F8E7300FB4D25 /* InfomationViewController.swift */,
 				84284E151D40DF050079DEBC /* Main.storyboard */,
-				84459EE51D9649450087F986 /* CreateUpholdViewController.swift */,
-				84459EE71D964B820087F986 /* CreateUpholdStep1ViewController.swift */,
-				84459EE91D964B930087F986 /* CreateUpholdStep2ViewController.swift */,
-				84459EEB1D964BA10087F986 /* CreateUpholdStep3ViewController.swift */,
 				84EF50791D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift */,
+				843DAFC61D9FA34E00D517FC /* CreateUpholdVC */,
+				843DAFC91D9FAC1200D517FC /* ReplyUpholdVC */,
 				84E172D51D921875003121D6 /* UpholdDetailViewController.swift */,
 				84EB38CF1D6B938C0031CF84 /* MenuSub.xib */,
 				92026C461D7E843D004232CA /* GlobalConst.swift */,
@@ -310,6 +324,32 @@
 				84459EDE1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.xib */,
 			);
 			name = "TableView Cell";
+			sourceTree = "<group>";
+		};
+		843DAFC61D9FA34E00D517FC /* CreateUpholdVC */ = {
+			isa = PBXGroup;
+			children = (
+				84459EE51D9649450087F986 /* CreateUpholdViewController.swift */,
+				84459EE71D964B820087F986 /* CreateUpholdStep1ViewController.swift */,
+				84459EE91D964B930087F986 /* CreateUpholdStep2ViewController.swift */,
+				84459EEB1D964BA10087F986 /* CreateUpholdStep3ViewController.swift */,
+			);
+			name = CreateUpholdVC;
+			sourceTree = "<group>";
+		};
+		843DAFC91D9FAC1200D517FC /* ReplyUpholdVC */ = {
+			isa = PBXGroup;
+			children = (
+				843DAFC71D9FA37D00D517FC /* ReplyUpholdViewController.swift */,
+				843DAFCA1D9FAC3B00D517FC /* ReplyUpholdStep0ViewController.swift */,
+				843B11561DA0E56F002B3A5A /* ReplyUpholdStep1ViewController.swift */,
+				84DFE0021DA23ADA00A48B35 /* ReplyUpholdStep2ViewController.swift */,
+				84DFE0041DA23AE700A48B35 /* ReplyUpholdStep3ViewController.swift */,
+				84DFE0061DA23AF300A48B35 /* ReplyUpholdStep4ViewController.swift */,
+				84DFE0081DA23AFD00A48B35 /* ReplyUpholdStep5ViewController.swift */,
+				84DFE00A1DA23B0900A48B35 /* ReplyUpholdStep6ViewController.swift */,
+			);
+			name = ReplyUpholdVC;
 			sourceTree = "<group>";
 		};
 		84DC0D7C1D494B3000E52249 /* IMG */ = {
@@ -578,6 +618,7 @@
 				84459EEC1D964BA10087F986 /* CreateUpholdStep3ViewController.swift in Sources */,
 				84EF50801D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift in Sources */,
 				841273091D829E3A00BCC56D /* UpholdListViewController.swift in Sources */,
+				843DAFC81D9FA37D00D517FC /* ReplyUpholdViewController.swift in Sources */,
 				84289B051D67D505009A88EC /* menuHomeViewController.swift in Sources */,
 				84284E141D40DF050079DEBC /* LoginViewController.swift in Sources */,
 				84E7184B1D660859006F4995 /* AccountViewController.swift in Sources */,
@@ -586,13 +627,15 @@
 				84EF507A1D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift in Sources */,
 				84F246861D93DDB300259C35 /* SearchBarTableViewCell.swift in Sources */,
 				84EF9C5F1D93C7680008B30F /* Singleton.swift in Sources */,
+				84DFE0051DA23AE700A48B35 /* ReplyUpholdStep3ViewController.swift in Sources */,
 				8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */,
 				84E172D61D921876003121D6 /* UpholdDetailViewController.swift in Sources */,
 				84F2D62E1D66121B0091F6D3 /* ColorFromRGB.swift in Sources */,
 				842468411D86FAAE00356B20 /* ConfigurationTableViewCell.swift in Sources */,
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
 				84459EEA1D964B930087F986 /* CreateUpholdStep2ViewController.swift in Sources */,
-				9246E3D91D9DA49B00312DEA /* CommonMenuController.swift in Sources */,
+				84DFE0091DA23AFD00A48B35 /* ReplyUpholdStep5ViewController.swift in Sources */,
+				84DFE0031DA23ADA00A48B35 /* ReplyUpholdStep2ViewController.swift in Sources */,
 				84EBBD251D8F8E7300FB4D25 /* InfomationViewController.swift in Sources */,
 				84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */,
 				84F481911D66FFC10072DC7A /* HomeTableViewController.swift in Sources */,
@@ -600,21 +643,25 @@
 				92458D7A1D96357F00AB16DE /* UserInfoBean.swift in Sources */,
 				926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */,
 				84459EDF1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.swift in Sources */,
+				84DFE0071DA23AF300A48B35 /* ReplyUpholdStep4ViewController.swift in Sources */,
 				84459EE61D9649450087F986 /* CreateUpholdViewController.swift in Sources */,
 				92458D821D9647F500AB16DE /* UserProfileRespModel.swift in Sources */,
 				842CA8E71D89045E003D9EFF /* menuAccountViewController.swift in Sources */,
 				842277C91D421E7E00611439 /* CheckBox.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
+				843DAFCB1D9FAC3B00D517FC /* ReplyUpholdStep0ViewController.swift in Sources */,
 				84F246881D93DDB300259C35 /* SearchBarView.swift in Sources */,
 				920765501D94E2BC006ABF26 /* BaseRespModel.swift in Sources */,
 				84459EE81D964B820087F986 /* CreateUpholdStep1ViewController.swift in Sources */,
 				842BA35C1D8EA81B004ECBFF /* problemTableViewCell.swift in Sources */,
 				842BA3581D8EA806004ECBFF /* periodTableViewCell.swift in Sources */,
 				8424683F1D86F9DA00356B20 /* ConfigurationViewController.swift in Sources */,
+				84DFE00B1DA23B0900A48B35 /* ReplyUpholdStep6ViewController.swift in Sources */,
 				84EDDFB01D7D869000861ACB /* menuLoginViewController.swift in Sources */,
 				926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */,
 				92458D781D96216A00AB16DE /* LoginRespModel.swift in Sources */,
 				92026C471D7E843D004232CA /* GlobalConst.swift in Sources */,
+				843B11571DA0E56F002B3A5A /* ReplyUpholdStep1ViewController.swift in Sources */,
 				92F337451D96DCC500FDACBF /* LoadingView.swift in Sources */,
 				8435C24E1D8ABED100F9903D /* menuUpholdListViewController.swift in Sources */,
 				9246E3D71D9D9E3A00312DEA /* LoginRequest.swift in Sources */,

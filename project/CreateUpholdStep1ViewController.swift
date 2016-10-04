@@ -88,7 +88,7 @@ class CreateUpholdStep1ViewController: UIViewController {
             actionSheetController.addAction(cancelAction)
             //Create and an option action
             let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default) { action -> Void in
-                CreateUpholdViewController.sharedInstance.problemType = (inputTextField?.text)!
+                CreateUpholdViewController.sharedInstance.anotherProblemType = (inputTextField?.text)!
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
                 print(CreateUpholdViewController.sharedInstance.problemType)
 
@@ -122,8 +122,8 @@ class CreateUpholdStep1ViewController: UIViewController {
          */
         btnProblem1.translatesAutoresizingMaskIntoConstraints = true
         btnProblem1.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT, width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        btnProblem1.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnProblem1.layer.borderColor = UIColor.green.cgColor
+        //btnProblem1.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnProblem1.layer.borderColor = UIColor.green.cgColor
         btnProblem1.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         btnProblem1.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnProblem1.setTitle("Xì gas", for: .normal)
@@ -133,8 +133,8 @@ class CreateUpholdStep1ViewController: UIViewController {
          */
         btnProblem2.translatesAutoresizingMaskIntoConstraints = true
         btnProblem2.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3)), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        btnProblem2.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnProblem2.layer.borderColor = UIColor.green.cgColor
+        //btnProblem2.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnProblem2.layer.borderColor = UIColor.green.cgColor
         btnProblem2.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         btnProblem2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnProblem2.setTitle("Bảo trì bếp", for: .normal)
@@ -144,8 +144,8 @@ class CreateUpholdStep1ViewController: UIViewController {
          */
         btnProblem3.translatesAutoresizingMaskIntoConstraints = true
         btnProblem3.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 2), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        btnProblem3.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnProblem3.layer.borderColor = UIColor.green.cgColor
+        //btnProblem3.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+       // btnProblem3.layer.borderColor = UIColor.green.cgColor
         btnProblem3.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         btnProblem3.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnProblem3.setTitle("Kiểm tra hệ thống", for: .normal)
@@ -155,8 +155,8 @@ class CreateUpholdStep1ViewController: UIViewController {
          */
         btnProblem4.translatesAutoresizingMaskIntoConstraints = true
         btnProblem4.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 3), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        btnProblem4.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnProblem4.layer.borderColor = UIColor.green.cgColor
+        //btnProblem4.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnProblem4.layer.borderColor = UIColor.green.cgColor
         btnProblem4.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         btnProblem4.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnProblem4.setTitle("Hư bếp", for: .normal)
@@ -166,8 +166,8 @@ class CreateUpholdStep1ViewController: UIViewController {
          */
         btnProblem5.translatesAutoresizingMaskIntoConstraints = true
         btnProblem5.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 4), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        btnProblem5.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnProblem5.layer.borderColor = UIColor.green.cgColor
+        //btnProblem5.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnProblem5.layer.borderColor = UIColor.green.cgColor
         btnProblem5.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         btnProblem5.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnProblem5.setTitle("Đi lại đường ống", for: .normal)
@@ -177,8 +177,8 @@ class CreateUpholdStep1ViewController: UIViewController {
          */
         btnProblem6.translatesAutoresizingMaskIntoConstraints = true
         btnProblem6.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 5), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        btnProblem6.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        btnProblem6.layer.borderColor = UIColor.green.cgColor
+        //btnProblem6.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        //btnProblem6.layer.borderColor = UIColor.green.cgColor
         btnProblem6.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         btnProblem6.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnProblem6.setTitle("Khác", for: .normal)
