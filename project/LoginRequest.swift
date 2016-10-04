@@ -10,6 +10,7 @@ import Foundation
 
 class LoginRequest: BaseRequest {
     override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
+        let start = DispatchTime.now()
         let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
             (
             data, response, error) in
@@ -26,15 +27,38 @@ class LoginRequest: BaseRequest {
             }
             // Convert to string
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+            let end = DispatchTime.now()
+            var nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds;
+            var timeInterval = nanoTime / 1000000
+            print("Start LoginRequest -> Convert to string: \(end.uptimeNanoseconds) - \(start.uptimeNanoseconds) = \(timeInterval) miliseconds")
             // Convert to object
             let model: LoginRespModel = LoginRespModel(jsonString: dataString as! String)
+            let end1 = DispatchTime.now()
+            nanoTime = end1.uptimeNanoseconds - start.uptimeNanoseconds
+            timeInterval = nanoTime / 1000000
+            print("Start LoginRequest -> Convert to object: \(timeInterval) miliseconds")
             if model.status == "1" {
                 Singleton.sharedInstance.loginSuccess(model.token)
-                //                Singleton.sharedInstance.setUserInfo(userInfo: model.user_info, userId: model.user_id, roleId: model.role_id)
-                print(Singleton.sharedInstance.getUserToken())
             }
+            let end2 = DispatchTime.now()
+            nanoTime = end2.uptimeNanoseconds - start.uptimeNanoseconds
+            timeInterval = nanoTime / 1000000
+            print("Start LoginRequest -> Login success: \(timeInterval) miliseconds")
             LoadingView.shared.hideOverlayView()
-            _ = self.view.navigationController?.popViewController(animated: true)
+            let end3 = DispatchTime.now()
+            nanoTime = end3.uptimeNanoseconds - start.uptimeNanoseconds
+            timeInterval = nanoTime / 1000000
+            print("Start LoginRequest -> HideOverlayView: \(end3.uptimeNanoseconds) - \(start.uptimeNanoseconds) = \(timeInterval) miliseconds")
+            //DispatchQueue.async(execute: DispatchQueue.main)
+            //dispatch_async(DispatchQueue.main)
+            DispatchQueue.main.async {
+                _ = self.view.navigationController?.popViewController(animated: true)
+            }
+            
+            let end4 = DispatchTime.now()
+            nanoTime = end4.uptimeNanoseconds - start.uptimeNanoseconds
+            timeInterval = nanoTime / 1000000
+            print("Start LoginRequest -> popViewController: \(end4.uptimeNanoseconds) - \(start.uptimeNanoseconds) = \(timeInterval) miliseconds")
         })
         return task
     }

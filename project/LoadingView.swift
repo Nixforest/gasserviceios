@@ -35,7 +35,10 @@ public class LoadingView{
         activityIndicator.center = CGPoint(x: overlayView.bounds.width / 2, y: overlayView.bounds.height / 2)
         
         overlayView.addSubview(activityIndicator)
-        view.addSubview(overlayView)
+        DispatchQueue.main.async {
+            view.addSubview(self.overlayView)
+        }
+        //view.addSubview(overlayView)
         
         activityIndicator.startAnimating()
     }
@@ -44,6 +47,9 @@ public class LoadingView{
      */
     public func hideOverlayView() {
         activityIndicator.stopAnimating()
-        overlayView.removeFromSuperview()
+        DispatchQueue.main.async {
+            self.overlayView.removeFromSuperview()
+        }
+        //overlayView.removeFromSuperview()
     }
 }

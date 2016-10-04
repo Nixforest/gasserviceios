@@ -50,13 +50,28 @@ class ConfigBean: NSObject {
                 let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: AnyObject]
                 
                 // Loop
-                for (key, value) in json {
-                    let keyName = key as String
-                    if let keyValue = value as? String {
-                        // If property exists
-                        if (self.responds(to: NSSelectorFromString(keyName))) {
-                            self.setValue(keyValue, forKey: keyName)
-                        }
+//                for (key, value) in json {
+//                    let keyName = key as String
+//                    if let keyValue = value as? String {
+//                        // If property exists
+//                        if (self.responds(to: NSSelectorFromString(keyName))) {
+//                            self.setValue(keyValue, forKey: keyName)
+//                        }
+//                    }
+//                }
+                if let idStr = json["id"] as? String {
+                    self.id = idStr
+                } else {
+                    if let idInt = json["id"] as? Int {
+                        self.id = String(idInt)
+                    }
+                }
+                if let nameStr = json["name"] as? String  {
+                    self.name = nameStr
+                }
+                if let dataArr = json["data"] as? [[String: AnyObject]] {
+                    for listItem in dataArr {
+                        self.data.append(ConfigBean(jsonData: listItem))
                     }
                 }
             } catch let error as NSError {

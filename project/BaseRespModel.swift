@@ -30,25 +30,40 @@ class BaseRespModel : NSObject {
         
         if let jsonData = jsonString.data(using: String.Encoding.utf8, allowLossyConversion: false) {
             do {
-                let json = try! JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: AnyObject]
+                let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: AnyObject]
                 
                 // Loop
-                for (key, value) in json {
-                    let keyName = key as String
-                    if let keyValue = value as? String {
-                        // If property exists
-                        if (self.responds(to: NSSelectorFromString(keyName))) {
-                            self.setValue(keyValue, forKey: keyName)
-                        }
-                    } else {
-                        if let keyValueInt = value as? Int {
-                            // If property exists
-                            if (self.responds(to: NSSelectorFromString(keyName))) {
-                                self.setValue(String(keyValueInt), forKey: keyName)
-                            }
-                        }
-                    }
+//                for (key, value) in json {
+//                    let keyName = key as String
+//                    if let keyValue = value as? String {
+//                        // If property exists
+//                        if (self.responds(to: NSSelectorFromString(keyName))) {
+//                            self.setValue(keyValue, forKey: keyName)
+//                        }
+//                    } else {
+//                        if let keyValueInt = value as? Int {
+//                            // If property exists
+//                            if (self.responds(to: NSSelectorFromString(keyName))) {
+//                                self.setValue(String(keyValueInt), forKey: keyName)
+//                            }
+//                        }
+//                    }
+                //                }
+                // Status
+                let statusInt = json["status"] as? Int ?? 0
+                if statusInt != 0 {
+                    self.status = String(statusInt)
                 }
+                // Code
+                let codeInt = json["code"] as? Int ?? 0
+                if codeInt != 0 {
+                    self.code = String(codeInt)
+                }
+                // Message
+                self.message = json["message"] as? String ?? ""
+                
+                // Token
+                self.token = json["token"] as? String ?? ""
             } catch let error as NSError {
                 print("Failed to load: \(error.localizedDescription)")
             }

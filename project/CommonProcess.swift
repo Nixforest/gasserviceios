@@ -51,10 +51,15 @@ class CommonProcess {
 //        })
 //        
 //        task.resume()
+        let start = DispatchTime.now()
         LoadingView.shared.showOverlay(view: view.view)
         let request = LoginRequest(url: "/api/site/login", reqMethod: "POST", view: view)
         request.setData(username: username, password: password)
         request.execute()
+        let end = DispatchTime.now()
+        let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds;
+        let timeInterval = nanoTime / 1000000
+        print("Start request -> Start excute: \(timeInterval) miliseconds")
     }
     static func requestLogout() {
         let url:URL = URL(string: Singleton.sharedInstance.getServerURL() + "/api/site/logout")!

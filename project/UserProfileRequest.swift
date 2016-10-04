@@ -30,7 +30,9 @@ class UserProfileRequest: BaseRequest {
             let model: UserProfileRespModel = UserProfileRespModel(jsonString: dataString as! String)
             if model.status == "1" {
                 Singleton.sharedInstance.setUserInfo(userInfo: model.record)
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "view.setData"), object: nil)
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "view.setData"), object: nil)
+                }
                 //self.view.setData()
             }
             LoadingView.shared.hideOverlayView()
