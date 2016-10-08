@@ -41,6 +41,33 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
     
     //MARK: Actions
     /**
+     * Handle when tap on image to select from library
+     * - parameter sender: Tap gesture
+     */
+    @IBAction func selectImageFromLibrary(_ sender: UITapGestureRecognizer) {
+        let imgPickerController = UIImagePickerController()
+        imgPickerController.sourceType = .photoLibrary
+        imgPickerController.delegate = self
+        present(imgPickerController, animated: true, completion: nil)
+    }
+    
+    /**
+     * Handle cancel select image
+     * - parameter picker: ImagePickerController
+     */
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    /**
+     * Handle select image from library
+     */
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let selectedImgAvatar = info[UIImagePickerControllerOriginalImage] as! UIImage
+        imgAvatar.image = selectedImgAvatar
+        dismiss(animated: true, completion: nil)
+    }
+    /**
      * Handle tap on Notification button
      * - parameter sender:AnyObject
      */
@@ -136,6 +163,15 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
     }
     
     /**
+     * Handle when tap menu item
+     */
+    func asignNotifyForMenuItem() {
+        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.gasServiceButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "gasServiceButtonInAccountVCTapped"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "issueButtonInAccountVCTapped"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.configButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInAccountVCTapped"), object: nil)
+    }
+    
+    /**
      * View did load
      */
     override func viewDidLoad() {
@@ -143,16 +179,13 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         // Training mode
         asignNotifyForTrainingModeChange()
         // Menu item tap
-        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.gasServiceButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "gasServiceButtonInAccountVCTapped"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "issueButtonInAccountVCTapped"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.configButtonInAccountVCTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInAccountVCTapped"), object: nil)
+        asignNotifyForMenuItem()
         
         // Background
-        view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
-        
+        self.view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-        // Logo customize
+        // Avatar customize
         let heigh = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
         imgAvatar.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.ACCOUNT_AVATAR_W) / 2,
                                  y: heigh + GlobalConst.MARGIN,
@@ -161,18 +194,21 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         imgAvatar.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
         imgAvatar.translatesAutoresizingMaskIntoConstraints = true
         imgAvatar.isUserInteractionEnabled = true
+        // Handle tap on avatar
+//        let avatarTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AccountViewController.avatarPicker))
+//        avatarTap.numberOfTapsRequired = 1
+//        imgAvatar.addGestureRecognizer(avatarTap)
+//        self.view.addSubview(avatarTap)
         
-        let avatarTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AccountViewController.avatarPicker))
-        avatarTap.numberOfTapsRequired = 1
-        imgAvatar.addGestureRecognizer(avatarTap)
-        self.view.addSubview(imgAvatar)
-        
+        // Image name
         imgName.frame = CGRect(x: GlobalConst.MARGIN,
                                y: imgAvatar.frame.maxY + GlobalConst.MARGIN,
                                width: GlobalConst.ACCOUNT_ICON_SIZE,
                                height: GlobalConst.ACCOUNT_ICON_SIZE)
         imgName.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
         imgName.translatesAutoresizingMaskIntoConstraints = true
+        
+        // Image phone
         imgPhone.frame = CGRect(x: GlobalConst.MARGIN,
                                 y: imgName.frame.maxY + GlobalConst.MARGIN,
                                 width: GlobalConst.ACCOUNT_ICON_SIZE,
@@ -180,6 +216,8 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         imgName.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
         imgPhone.image = UIImage(named: GlobalConst.PHONE_IMG_NAME)
         imgPhone.translatesAutoresizingMaskIntoConstraints = true
+        
+        // Image address
         imgAddress.frame = CGRect(x: GlobalConst.MARGIN,
                                   y: imgPhone.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.ACCOUNT_ICON_SIZE,
@@ -187,40 +225,67 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         imgAddress.image = UIImage(named: GlobalConst.ADDRESS_IMG_NAME)
         imgAddress.translatesAutoresizingMaskIntoConstraints = true
         
-        //textfield customize
-        txtName.frame = CGRect(x: 70, y: 230, width: 220, height: 40)
-        txtName.placeholder = "Họ và tên"
+        // Name Textfield customize
+        txtName.frame = CGRect(x: imgName.frame.maxX + GlobalConst.MARGIN,
+                               y: imgAvatar.frame.maxY + GlobalConst.MARGIN,
+                               width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
+                               height: GlobalConst.ACCOUNT_ICON_SIZE)
+        txtName.placeholder = GlobalConst.CONTENT00055
         txtName.translatesAutoresizingMaskIntoConstraints = true
         txtName.delegate = self
-        txtPhone.frame = CGRect(x: 70, y: 280, width: 220, height: 40)
-        txtPhone.placeholder = "Số điện thoại"
+        
+        // Phone textfield
+        txtPhone.frame = CGRect(x: txtName.frame.minX,
+                                y: txtName.frame.maxY + GlobalConst.MARGIN,
+                                width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
+                                height: GlobalConst.ACCOUNT_ICON_SIZE)
+        txtPhone.placeholder = GlobalConst.CONTENT00054
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
         txtPhone.delegate = self
-        txtAddress.frame = CGRect(x: 70, y: 330, width: 220, height: 40)
-        txtAddress.placeholder = "Địa chỉ"
+        
+        // Address textfield
+        txtAddress.frame = CGRect(x: txtName.frame.minX,
+                                  y: txtPhone.frame.maxY + GlobalConst.MARGIN,
+                                  width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
+                                  height: GlobalConst.ACCOUNT_ICON_SIZE)
+        txtAddress.placeholder = GlobalConst.CONTENT00088
         txtAddress.translatesAutoresizingMaskIntoConstraints = true
         txtAddress.delegate = self
-        //button customize
-        saveButton.frame = CGRect(x: 30, y: 380, width: 260, height: 30)
+        
+        // Save Button customize
+        saveButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                  y: txtAddress.frame.maxY + GlobalConst.MARGIN,
+                                  width: GlobalConst.BUTTON_W,
+                                  height: GlobalConst.BUTTON_H)
         saveButton.setTitle(GlobalConst.CONTENT00086, for: UIControlState())
         saveButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         saveButton.setTitleColor(UIColor.white, for: UIControlState())
         saveButton.translatesAutoresizingMaskIntoConstraints = true
         saveButton.layer.cornerRadius = 6
-        changePasswordButton.frame = CGRect(x: 30, y: 420, width: 260, height: 30)
+        
+        // Change password button
+        changePasswordButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                            y: saveButton.frame.maxY + GlobalConst.MARGIN,
+                                            width: GlobalConst.BUTTON_W,
+                                            height: GlobalConst.BUTTON_H)
         changePasswordButton.setTitle(GlobalConst.CONTENT00089, for: UIControlState())
         changePasswordButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         changePasswordButton.setTitleColor(UIColor.white, for: UIControlState())
         changePasswordButton.layer.cornerRadius = 6
         changePasswordButton.translatesAutoresizingMaskIntoConstraints = true
-        logoutButton.frame = CGRect(x: 30, y: 460, width: 260, height: 30)
+        
+        // Logout button
+        logoutButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                    y: changePasswordButton.frame.maxY + GlobalConst.MARGIN,
+                                    width: GlobalConst.BUTTON_W,
+                                    height: GlobalConst.BUTTON_H)
         logoutButton.setTitle(GlobalConst.CONTENT00090, for: UIControlState())
         logoutButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
         logoutButton.setTitleColor(UIColor.white, for: UIControlState())
         logoutButton.layer.cornerRadius = 6
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
         
-        //Navigation Bar customize
+        // Navigation Bar customize
         navigationBar.title = GlobalConst.CONTENT00100
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
         
@@ -229,19 +294,23 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         let menuOrigin = UIImage(named: "menu.png");
         let tintedImage = menuOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         menuButton.setImage(tintedImage, for: UIControlState())
-        menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
+        menuButton.tintColor = GlobalConst.BUTTON_COLOR_RED
+        menuButton.frame = CGRect(x: 0, y: 0,
+                                  width: GlobalConst.MENU_BUTTON_W,
+                                  height: GlobalConst.MENU_BUTTON_H)
         menuButton.setTitle("", for: UIControlState())
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton
         menuNavBar.isEnabled = true //disable menu button
         
         //noti button on NavBar
-        notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        notificationButton.frame = CGRect(x: 0, y: 0,
+                                          width: GlobalConst.MENU_BUTTON_W,
+                                          height: GlobalConst.NOTIFY_BUTTON_H)
         notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
         notificationButton.setTitle("!", for: UIControlState())
         notificationButton.setTitleColor(UIColor.white, for: UIControlState())
-        notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         //notificationButton.addTarget(self, action: #selector(notificationButtonTapped), forControlEvents: .TouchUpInside)
         let notificationNavBar = UIBarButtonItem()
         notificationNavBar.customView = notificationButton
@@ -251,8 +320,10 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         let backOrigin = UIImage(named: "back.png");
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         backButton.setImage(tintedBackLogo, for: UIControlState())
-        backButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        backButton.tintColor = GlobalConst.BUTTON_COLOR_RED
+        backButton.frame = CGRect(x: 0, y: 0,
+                                  width: GlobalConst.MENU_BUTTON_W,
+                                  height: GlobalConst.MENU_BUTTON_W)
         //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
         backButton.setTitle("", for: UIControlState())
         let backNavBar = UIBarButtonItem()
@@ -269,13 +340,16 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         
         // Set background color
         changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
+        
+        // Load data from server?
         if Singleton.sharedInstance.user_info == nil {
+            // User information does not exist
             CommonProcess.requestUserProfile(view: self)
         } else {
-            txtName.text = Singleton.sharedInstance.user_info?.first_name
-            txtPhone.text = Singleton.sharedInstance.user_info?.phone
+            txtName.text    = Singleton.sharedInstance.user_info?.first_name
+            txtPhone.text   = Singleton.sharedInstance.user_info?.phone
             txtAddress.text = Singleton.sharedInstance.user_info?.address
-            if let url = NSURL(string: String(Singleton.sharedInstance.getServerURL() + (Singleton.sharedInstance.user_info?.image_avatar)!)!) {
+            if let url      = NSURL(string: String(Singleton.sharedInstance.getServerURL() + (Singleton.sharedInstance.user_info?.image_avatar)!)!) {
                 if let data = NSData(contentsOf: url as URL) {
                     imgAvatar.image = UIImage(data: data as Data)
                 }
@@ -283,13 +357,14 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         }
 
     }
+    
+    /**
+     * Set data for controls
+     */
     override func setData(_ notification: Notification) {
         txtName.text = Singleton.sharedInstance.user_info?.first_name
         txtPhone.text = Singleton.sharedInstance.user_info?.phone
         txtAddress.text = Singleton.sharedInstance.user_info?.address
-//        var url = NSURL(fileURLWithPath: String(Singleton.sharedInstance.getServerURL() + (Singleton.sharedInstance.user_info?.image_avatar)!)!)
-//        var data = NSData(contentsOf: url as URL)
-//        imgAvatar.image = UIImage(data: data! as Data)
         if let url = NSURL(string: String(Singleton.sharedInstance.getServerURL() + (Singleton.sharedInstance.user_info?.image_avatar)!)!) {
             if let data = NSData(contentsOf: url as URL) {
                 imgAvatar.image = UIImage(data: data as Data)
@@ -297,6 +372,9 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         }
     }
 
+    /**
+     * Memory warning handler
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -361,18 +439,18 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         }
         return true
     }
-    func imagePickerController(_ picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
-        self.dismiss(animated: true, completion: { () -> Void in
-        })
-        imgAvatar.image = image
-    }
-    func avatarPicker(){
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
-            print("pick avatar")
-            userAvatarPicker.delegate = self
-            userAvatarPicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum
-            userAvatarPicker.allowsEditing = false
-            self.present(userAvatarPicker, animated: true, completion: nil)
-        }
-    }
+//    func imagePickerController(_ picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
+//        self.dismiss(animated: true, completion: { () -> Void in
+//        })
+//        imgAvatar.image = image
+//    }
+//    func avatarPicker(){
+//        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
+//            print("pick avatar")
+//            userAvatarPicker.delegate = self
+//            userAvatarPicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum
+//            userAvatarPicker.allowsEditing = false
+//            self.present(userAvatarPicker, animated: true, completion: nil)
+//        }
+//    }
 }

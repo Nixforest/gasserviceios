@@ -33,7 +33,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hiển thị mật khẩu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vx3-2C-1X5">
@@ -105,7 +105,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="z6X-UN-0ax">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="J9R-Jj-xBE">
-                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
@@ -118,7 +118,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="Hb1-Cm-dFn">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Cy7-Jp-rYU">
-                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>
@@ -198,7 +198,7 @@
                         <viewControllerLayoutGuide type="bottom" id="4cx-X3-rRq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="htF-az-2LI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-iS-2z7">
@@ -321,7 +321,7 @@
                         <viewControllerLayoutGuide type="bottom" id="88q-AA-GzH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zUg-eb-hi5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zyS-LC-AqQ">
@@ -343,6 +343,10 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E61-VU-x5g">
                                 <frame key="frameInset" minX="40" minY="72" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="n4A-bD-xvk" appends="YES" id="5jl-lk-NI6"/>
+                                </connections>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b64-vd-c5g">
                                 <frame key="frameInset" minX="28" minY="246" width="40" height="42"/>
@@ -399,7 +403,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="Emh-Nu-nF0">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gD4-20-kqM">
-                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
@@ -411,7 +415,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="CpC-w8-OAz">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Tha-Mu-96f">
-                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>
@@ -440,6 +444,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZXt-PF-p0A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="n4A-bD-xvk">
+                    <connections>
+                        <action selector="selectImageFromLibrary:" destination="Y2S-kF-PYU" id="aCN-hF-pj5"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1190" y="-1234"/>
         </scene>
@@ -452,7 +461,7 @@
                         <viewControllerLayoutGuide type="bottom" id="jxS-eD-NEy"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yJd-9l-kjb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oHN-5D-K88">
@@ -659,7 +668,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Fit-dO-37o"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0Fa-P5-7Ka">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8SP-NE-ptt">
@@ -726,7 +735,7 @@
                         <viewControllerLayoutGuide type="bottom" id="7oV-4i-5Ub"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="85N-M2-qdo">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CCp-dm-qca">
@@ -1147,7 +1156,7 @@
                         <viewControllerLayoutGuide type="bottom" id="fg3-7I-8Oe"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="YcB-XI-6wL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V2l-iZ-Y4v">
@@ -1349,7 +1358,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wHs-f4-BhO"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PYu-0F-y63">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Adr-CN-M9t">
@@ -1442,7 +1451,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ACm-bc-KEW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rz7-IJ-Wh0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PNn-PF-B6G">
@@ -1569,7 +1578,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hsJ-yl-XbU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vPc-S3-GKK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PtZ-2J-D3N">

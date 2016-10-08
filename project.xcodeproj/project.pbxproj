@@ -88,7 +88,6 @@
 		92458D7F1D963EE900AB16DE /* UserProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92458D7E1D963EE900AB16DE /* UserProfileRequest.swift */; };
 		92458D821D9647F500AB16DE /* UserProfileRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92458D811D9647F500AB16DE /* UserProfileRespModel.swift */; };
 		9246E3D71D9D9E3A00312DEA /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9246E3D61D9D9E3A00312DEA /* LoginRequest.swift */; };
-		9246E3D91D9DA49B00312DEA /* CommonMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9246E3D81D9DA49B00312DEA /* CommonMenuController.swift */; };
 		926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F31D9276B5000D2DED /* CommonProcess.swift */; };
 		926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F61D927BE0000D2DED /* CommonViewController.swift */; };
 		92F337451D96DCC500FDACBF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F337441D96DCC500FDACBF /* LoadingView.swift */; };

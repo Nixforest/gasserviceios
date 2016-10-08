@@ -146,6 +146,12 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
     }
     
     /**
+     * Handle when tap menu item
+     */
+    func asignNotifyForMenuItem() {
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.configButtonInLoginTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInLoginTapped"), object: nil)
+    }
+    /**
      * View did load
      */
     override func viewDidLoad() {
@@ -153,7 +159,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         // Training mode
         asignNotifyForTrainingModeChange()
         // Menu item tap
-        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.configButtonInLoginTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInLoginTapped"), object: nil)
+        asignNotifyForMenuItem()
         
         // Background
         self.view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
@@ -248,7 +254,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         let menuOrigin = UIImage(named: "menu.png");
         let tintedImage = menuOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         btnMenu.setImage(tintedImage, for: UIControlState())
-        btnMenu.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        btnMenu.tintColor = GlobalConst.BUTTON_COLOR_RED
         btnMenu.frame = CGRect(x: 0, y: 0,
                                width: GlobalConst.MENU_BUTTON_W,
                                height: GlobalConst.MENU_BUTTON_H)
@@ -277,7 +283,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         let backOrigin = UIImage(named: "back.png");
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         btnBack.setImage(tintedBackLogo, for: UIControlState())
-        btnBack.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        btnBack.tintColor = GlobalConst.BUTTON_COLOR_RED
         btnBack.frame = CGRect(x: 0, y: 0,
                                width: GlobalConst.MENU_BUTTON_W,
                                height: GlobalConst.MENU_BUTTON_W)
