@@ -10,12 +10,6 @@ import UIKit
 
 class AccountViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     // MARK: Properties
-    /** Menu button */
-    @IBOutlet weak var menuButton: UIButton!
-    /** Notification button */
-    @IBOutlet weak var notificationButton: UIButton!
-    /** Back button */
-    @IBOutlet weak var backButton: UIButton!
     /** Save button */
     @IBOutlet weak var saveButton: UIButton!
     /** Change password button */
@@ -39,7 +33,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
     /** User avatar picker */
     var userAvatarPicker = UIImagePickerController()
     
-    //MARK: Actions
+    // MARK: Actions
     /**
      * Handle when tap on image to select from library
      * - parameter sender: Tap gesture
@@ -125,8 +119,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
      * - parameter sender:AnyObject
      */
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
-        LoadingView.shared.showOverlay(view: self.view)
-        CommonProcess.requestLogout()
+        CommonProcess.requestLogout(view: self.view)
         _ = self.navigationController?.popViewController(animated: true)
     }
     

@@ -45,7 +45,10 @@ class LoginRespModel : BaseRespModel {
      * Initializer
      */
     override init(jsonString: String) {
+        // Call super initializer
         super.init(jsonString: jsonString)
+        
+        // Start parse
         if let jsonData = jsonString.data(using: String.Encoding.utf8, allowLossyConversion: false) {
             do {
                 let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: AnyObject]
@@ -77,79 +80,82 @@ class LoginRespModel : BaseRespModel {
 //                        }
 //                    }
 //                }
+                if self.status != "1" {
+                    return
+                }
                 // Menu
-                let menuList = json["menu"] as? [[String: AnyObject]]
+                let menuList = json[DomainConst.KEY_MENU] as? [[String: AnyObject]]
                 for menu in menuList! {
                     self.menu.append(ConfigBean(jsonData: menu))
                 }
                 // Data uphold
-                let dataUpholdList = json["data_uphold"] as? [[String: AnyObject]]
+                let dataUpholdList = json[DomainConst.KEY_DATA_UPHOLD] as? [[String: AnyObject]]
                 for uphold in dataUpholdList! {
                     self.data_uphold.append(ConfigBean(jsonData: uphold))
                 }
                 
                 // Max upload
-                let maxUpload = json["max_upload"] as? Int ?? 0
+                let maxUpload = json[DomainConst.KEY_MAX_UPLOAD] as? Int ?? 0
                 if maxUpload != 0 {
                     self.max_upload = String(maxUpload)
                 }
                 // Data issue
-                let dataIssueList = json["data_issue"] as? [[String: AnyObject]]
+                let dataIssueList = json[DomainConst.KEY_DATA_ISSUE] as? [[String: AnyObject]]
                 for issue in dataIssueList! {
                     self.data_issue.append(ConfigBean(jsonData: issue))
                 }
                 
                 // Role id
-                self.role_id = json["role_id"] as? String ?? ""
+                self.role_id = json[DomainConst.KEY_ROLE_ID] as? String ?? ""
                 
                 // User id
-                self.user_id = json["user_id"] as? String ?? ""
+                self.user_id = json[DomainConst.KEY_USER_ID] as? String ?? ""
                 
                 // User information
-                let userInfoList = json["user_info"] as? [[String: AnyObject]]
+                let userInfoList = json[DomainConst.KEY_USER_INFO] as? [[String: AnyObject]]
                 for info in userInfoList! {
                     self.user_info.append(ConfigBean(jsonData: info))
                 }
                 
                 
                 // Check menu
-                let checkMenuList = json["check_menu"] as? [[String: AnyObject]]
+                let checkMenuList = json[DomainConst.KEY_CHECK_MENU] as? [[String: AnyObject]]
                 for checkMenu in checkMenuList! {
                     self.check_menu.append(ConfigBean(jsonData: checkMenu))
                 }
                 
                 // Flag need change password
-                self.need_change_pass = json["need_change_pass"] as? String ?? ""
+                self.need_change_pass = json[DomainConst.KEY_NEED_CHANGE_PASS] as? String ?? ""
                 
                 // Flag need update application
-                let needUpdateApp = json["need_update_app"] as? Int ?? 0
+                let needUpdateApp = json[DomainConst.KEY_NEED_UPDATE_APP] as? Int ?? 0
                 if needUpdateApp != 0 {
                     self.need_update_app = String(needUpdateApp)
                 }
                 
                 // Role name
-                self.role_name = json["role_name"] as? String ?? ""
+                self.role_name = json[DomainConst.KEY_ROLE_NAME] as? String ?? ""
                 
                 // List streets
-                let streetList = json["list_street"] as? [[String: AnyObject]]
+                let streetList = json[DomainConst.KEY_LIST_STREET] as? [[String: AnyObject]]
                 for street in streetList! {
                     self.list_street.append(ConfigBean(jsonData: street))
                 }
                 
                 // List agents
-                let agentList = json["list_agent"] as? [[String: AnyObject]]
+                let agentList = json[DomainConst.KEY_LIST_AGENT] as? [[String: AnyObject]]
                 for agent in agentList! {
                     self.list_agent.append(ConfigBean(jsonData: agent))
                 }
                 
                 // List agentd family
-                let agentFList = json["list_hgd_type"] as? [[String: AnyObject]]
+                let agentFList = json[DomainConst.KEY_LIST_HGD_TYPE] as? [[String: AnyObject]]
                 for agent in agentFList! {
                     self.list_hgd_type.append(ConfigBean(jsonData: agent))
                 }
                 
                 // List agentd family invest
-                let agentFIList = json["list_hgd_invest"] as? [[String: AnyObject]]
+                let agentFIList = json[DomainConst.KEY_LIST_HGD_INVEST] as? [[String: AnyObject]]
                 for agent in agentFIList! {
                     self.list_hgd_invest.append(ConfigBean(jsonData: agent))
                 }

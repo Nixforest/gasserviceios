@@ -42,8 +42,11 @@ class UserProfileRespModel: BaseRespModel {
 //                            }
 //                        }
 //                    }
-//                }
-                let record = json["record"] as? [String: AnyObject]
+                //                }
+                if self.status != "1" {
+                    return
+                }
+                let record = json[DomainConst.KEY_RECORD] as? [String: AnyObject]
                 self.record = UserInfoBean(jsonString: record!)
             } catch let error as NSError {
                 print("Failed to load: \(error.localizedDescription)")

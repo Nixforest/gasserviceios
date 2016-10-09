@@ -219,10 +219,6 @@ class GlobalConst {
     static let CHANGE_PASSWORD_VIEW_CTRL = "ChangePasswordViewController"
     
     // MARK - Domain constants
-    /** Main server URL */
-    static let SERVER_RUNNING_URL = "http://spj.daukhimiennam.com"
-    /** Training server URL */
-    static let SERVER_TRAINING_URL = "http://android.huongminhgroup.com"
     /** Logo image name */
     static let LOGO_IMG_NAME = "gas_logo.png"
     /** Contact image name */
@@ -231,4 +227,5 @@ class GlobalConst {
     static let PHONE_IMG_NAME = "mobile.png"
     /** Address image name */
     static let ADDRESS_IMG_NAME = "address.png"
+    static let HTTP_POST_REQUEST = "POST"
 }

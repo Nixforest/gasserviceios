@@ -9,7 +9,7 @@
 import Foundation
 class BaseRespModel : NSObject {
     /** Status */
-    var status: String = ""
+    var status: String = "0"
     /** Code */
     var code: String = ""
     /** Message */
@@ -24,6 +24,7 @@ class BaseRespModel : NSObject {
   
     /**
      * Initializer
+     * - parameter jsonString: String of json
      */
     init(jsonString: String) {
         super.init()
@@ -50,20 +51,20 @@ class BaseRespModel : NSObject {
 //                    }
                 //                }
                 // Status
-                let statusInt = json["status"] as? Int ?? 0
+                let statusInt = json[DomainConst.KEY_STATUS] as? Int ?? 0
                 if statusInt != 0 {
                     self.status = String(statusInt)
                 }
                 // Code
-                let codeInt = json["code"] as? Int ?? 0
+                let codeInt = json[DomainConst.KEY_CODE] as? Int ?? 0
                 if codeInt != 0 {
                     self.code = String(codeInt)
                 }
                 // Message
-                self.message = json["message"] as? String ?? ""
+                self.message = json[DomainConst.KEY_MESSAGE] as? String ?? ""
                 
                 // Token
-                self.token = json["token"] as? String ?? ""
+                self.token = json[DomainConst.KEY_TOKEN] as? String ?? ""
             } catch let error as NSError {
                 print("Failed to load: \(error.localizedDescription)")
             }

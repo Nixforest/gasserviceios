@@ -90,6 +90,9 @@
 		9246E3D71D9D9E3A00312DEA /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9246E3D61D9D9E3A00312DEA /* LoginRequest.swift */; };
 		926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F31D9276B5000D2DED /* CommonProcess.swift */; };
 		926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F61D927BE0000D2DED /* CommonViewController.swift */; };
+		92B39DC11DAA0F22007DDB4C /* ChangePassRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */; };
+		92D92A141DA94E9B00CD9BBD /* LogoutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D92A131DA94E9B00CD9BBD /* LogoutRequest.swift */; };
+		92D92A161DA955CB00CD9BBD /* DomainConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D92A151DA955CB00CD9BBD /* DomainConst.swift */; };
 		92F337451D96DCC500FDACBF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F337441D96DCC500FDACBF /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
@@ -203,6 +206,9 @@
 		9246E3D81D9DA49B00312DEA /* CommonMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMenuController.swift; sourceTree = "<group>"; };
 		926670F31D9276B5000D2DED /* CommonProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonProcess.swift; sourceTree = "<group>"; };
 		926670F61D927BE0000D2DED /* CommonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
+		92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassRequest.swift; sourceTree = "<group>"; };
+		92D92A131DA94E9B00CD9BBD /* LogoutRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutRequest.swift; sourceTree = "<group>"; };
+		92D92A151DA955CB00CD9BBD /* DomainConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DomainConst.swift; sourceTree = "<group>"; };
 		92F337441D96DCC500FDACBF /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -425,6 +431,8 @@
 				92458D7C1D963B1F00AB16DE /* BaseRequest.swift */,
 				92458D7E1D963EE900AB16DE /* UserProfileRequest.swift */,
 				9246E3D61D9D9E3A00312DEA /* LoginRequest.swift */,
+				92D92A131DA94E9B00CD9BBD /* LogoutRequest.swift */,
+				92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -446,6 +454,7 @@
 				926670F61D927BE0000D2DED /* CommonViewController.swift */,
 				92F337441D96DCC500FDACBF /* LoadingView.swift */,
 				9246E3D81D9DA49B00312DEA /* CommonMenuController.swift */,
+				92D92A151DA955CB00CD9BBD /* DomainConst.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -617,6 +626,7 @@
 				84459EEC1D964BA10087F986 /* CreateUpholdStep3ViewController.swift in Sources */,
 				84EF50801D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift in Sources */,
 				841273091D829E3A00BCC56D /* UpholdListViewController.swift in Sources */,
+				92D92A161DA955CB00CD9BBD /* DomainConst.swift in Sources */,
 				843DAFC81D9FA37D00D517FC /* ReplyUpholdViewController.swift in Sources */,
 				84289B051D67D505009A88EC /* menuHomeViewController.swift in Sources */,
 				84284E141D40DF050079DEBC /* LoginViewController.swift in Sources */,
@@ -653,7 +663,9 @@
 				920765501D94E2BC006ABF26 /* BaseRespModel.swift in Sources */,
 				84459EE81D964B820087F986 /* CreateUpholdStep1ViewController.swift in Sources */,
 				842BA35C1D8EA81B004ECBFF /* problemTableViewCell.swift in Sources */,
+				92D92A141DA94E9B00CD9BBD /* LogoutRequest.swift in Sources */,
 				842BA3581D8EA806004ECBFF /* periodTableViewCell.swift in Sources */,
+				92B39DC11DAA0F22007DDB4C /* ChangePassRequest.swift in Sources */,
 				8424683F1D86F9DA00356B20 /* ConfigurationViewController.swift in Sources */,
 				84DFE00B1DA23B0900A48B35 /* ReplyUpholdStep6ViewController.swift in Sources */,
 				84EDDFB01D7D869000861ACB /* menuLoginViewController.swift in Sources */,

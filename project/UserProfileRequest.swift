@@ -29,12 +29,21 @@ class UserProfileRequest: BaseRequest {
             // Convert to object
             let model: UserProfileRespModel = UserProfileRespModel(jsonString: dataString as! String)
             if model.status == "1" {
+                // Update user information
                 Singleton.sharedInstance.setUserInfo(userInfo: model.record)
+                // Notify update data on Account view (cross-thread)
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: "view.setData"), object: nil)
                 }
-                //self.view.setData()
+            } else {
+                // Hide overlay
+                LoadingView.shared.hideOverlayView()
+                DispatchQueue.main.async {
+                    self.view.showAlert(message: model.message)
+                }
+                return
             }
+            
             LoadingView.shared.hideOverlayView()
         })
         return task

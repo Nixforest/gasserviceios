@@ -39,8 +39,7 @@ class HomeTableViewController: UITableViewController, UIPopoverPresentationContr
         self.navigationController?.pushViewController(RegisterVC, animated: true)
     }
     func logoutButtonTapped(_ notification: Notification){
-        LoadingView.shared.showOverlay(view: self.view)
-        CommonProcess.requestLogout()
+        CommonProcess.requestLogout(view: self.view)
         self.tableView.reloadData()
     }
     func issueButtonTapped(_ notification: Notification){

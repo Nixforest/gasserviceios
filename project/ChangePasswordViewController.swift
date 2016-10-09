@@ -8,84 +8,100 @@
 
 import UIKit
 
-class ChangePasswordViewController: UIViewController, UIPopoverPresentationControllerDelegate,UITextFieldDelegate {
-
+class ChangePasswordViewController: CommonViewController, UIPopoverPresentationControllerDelegate,UITextFieldDelegate {
+    // MARK: Properties
+    /** Flag show password */
     var bShowPassword:Bool!
-    @IBOutlet weak var changePasswordNavBar: UINavigationItem!
-    @IBOutlet weak var menuButton: UIButton!
-    @IBOutlet weak var notificationButton: UIButton!
-    @IBOutlet weak var backButton: UIButton!
-    
+    /** Save button */
     @IBOutlet weak var saveButton: UIButton!
+    /** Logout button */
     @IBOutlet weak var logoutButton: UIButton!
-    
-    
+    /** Checkbox show password button */
     @IBOutlet weak var checkboxButton: CheckBox!
+    /** Checkbox show password label */
     @IBOutlet weak var lblCheckboxButton: UILabel!
-    
+    /** Old password textbox */
     @IBOutlet weak var txtOldPassword: UITextField!
+    /** New password textbox */
     @IBOutlet weak var txtNewPassword: UITextField!
+    /** Retype-New password textbox */
     @IBOutlet weak var txtNewPasswordRetype: UITextField!
-    
-    var hideKeyboard:Bool = true
-    //var loginStatusCarrier:NSUserDefaults!
-    //var loginStatus:Bool = false
-    
-    func menuButtonTapped(_ sender: AnyObject) {
-        print("menu tapped")
-    }
-    
+    // MARK: Actions
+    /**
+     * Handle tap on checkbox button
+     * - parameter sender: AnyObject
+     */
     @IBAction func checkboxButtonTapped(_ sender: AnyObject) {
         bShowPassword = !bShowPassword
         txtOldPassword.isSecureTextEntry = !bShowPassword
         txtNewPassword.isSecureTextEntry = !bShowPassword
         txtNewPasswordRetype.isSecureTextEntry = !bShowPassword
     }
+    
+    /**
+     * Handle tap on logout button
+     * - parameter sender: AnyObject
+     */
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
-        GlobalConst.LOGIN_STATUS = false
-        self.navigationController?.popToRootViewController(animated: true)
-        
+        CommonProcess.requestLogout(view: self.view)        
     }
     
+    /**
+     * Handle tap on Back button
+     * - parameter sender: AnyObject
+     */
     @IBAction func backButtonTapped(_ sender: AnyObject) {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
+    
+    /**
+     * Handle tap on Save button
+     * - parameter sender: AnyObject
+     */
     @IBAction func saveButtonTapped(_ sender: AnyObject) {
-        //Alert
-        let saveAlert = UIAlertController(title: "Alert", message: "@CONTENT00025", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: {(saveAlert) -> Void in ()})
-        saveAlert.addAction(okAction)
-        
-        let checkNewPasswordAlert = UIAlertController(title: "Alert", message: "@CONTENT00026", preferredStyle: .alert)
-        checkNewPasswordAlert.addAction(okAction)
-        
+        // Validate data is filled
         if (((txtOldPassword.text?.isEmpty)! || (txtNewPassword.text?.isEmpty)! || (txtNewPasswordRetype.text?.isEmpty)!)){
-            //Call alert
-            self.present(saveAlert, animated: true, completion: nil)
-        }else {
+            // Call alert
+            showAlert(message: GlobalConst.CONTENT00025)
+            return
         }
-        if((txtNewPassword.text) == (txtNewPasswordRetype.text)){
-            print("password update successfully")
-        }else {
-            self.present(checkNewPasswordAlert, animated: true, completion: nil)
+        // Check if password is correct
+        if (txtNewPassword.text == txtNewPasswordRetype.text){
+            //print("password update successfully")
+            CommonProcess.requestChangePassword(
+                oldPass: txtOldPassword.text!,
+                newPass: txtNewPassword.text!,
+                view: self)
+        } else {
+            // Call alert
+            showAlert(message: GlobalConst.CONTENT00026)
         }
 
     }
     
+    /**
+     * Handle tap on Notification button
+     * - parameter sender: AnyObject
+     */
     @IBAction func notificationButtonTapped(_ sender: AnyObject) {
         let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: {(notificationAlert) -> Void in ()})
         notificationAlert.addAction(cancelAction)
         self.present(notificationAlert, animated: true, completion: nil)
     }
-    //training mode
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-    //NSNotification action
+    
+    /**
+     * Handle tap on Menu item Gas service
+     * - parameter notification: Notification
+     */
     func gasServiceButtonInChangePassVCTapped(_ notification: Notification) {
-        self.navigationController?.popToRootViewController(animated: true)
+        _ = self.navigationController?.popToRootViewController(animated: true)
     }
+    
+    /**
+     * Handle tap on Menu ite Issue
+     * - parameter notification: Notification
+     */
     func issueButtonInChangePassVCTapped(_ notification: Notification) {
         /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
@@ -93,27 +109,36 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
          */
         print("issue button tapped")
     }
+    
+    /**
+     * Handle tap on Menu item Config
+     * - parameter notification: Notification
+     */
     func configButtonInChangePassVCTapped(_ notification: Notification) {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let configVC = mainStoryboard.instantiateViewController(withIdentifier: "ConfigurationViewController")
         self.navigationController?.pushViewController(configVC, animated: true)
     }
     
-    func trainingModeOn(_ notification: Notification) {
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
-    }
-    func trainingModeOff(_ notification: Notification) {
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //notification
-        NotificationCenter.default.addObserver(self, selector: #selector(ChangePasswordViewController.trainingModeOn(_:)), name:NSNotification.Name(rawValue: "TrainingModeOn"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ChangePasswordViewController.trainingModeOff(_:)), name:NSNotification.Name(rawValue: "TrainingModeOff"), object: nil)
+    /**
+     * Handle when tap menu item
+     */
+    func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self, selector: #selector(ChangePasswordViewController.gasServiceButtonInChangePassVCTapped(_:)), name:NSNotification.Name(rawValue: "gasServiceButtonInChangePassVCTapped"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ChangePasswordViewController.issueButtonInChangePassVCTapped(_:)), name:NSNotification.Name(rawValue: "issueButtonInChangePassVCTapped"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ChangePasswordViewController.configButtonInChangePassVCTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInChangePassVCTapped"), object: nil)
+    }
+    
+    /**
+     * View did load
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Training mode
+        asignNotifyForTrainingModeChange()
+        // Menu item tap
+        asignNotifyForMenuItem()
+        
         
         //transmit login status
         /*loginStatusCarrier = NSUserDefaults()
@@ -173,7 +198,7 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         
         
         //Navigation Bar customize
-        changePasswordNavBar.title = GlobalConst.CONTENT00089
+        navigationBar.title = GlobalConst.CONTENT00089
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
         
         //menu button on NavBar
@@ -183,7 +208,7 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
         menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
         
-        menuButton.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
+        //menuButton.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
         menuButton.setTitle("", for: UIControlState())
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton
@@ -198,7 +223,7 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         //notificationButton.addTarget(self, action: #selector(notificationButtonTapped), forControlEvents: .TouchUpInside)
         let notificationNavBar = UIBarButtonItem()
         notificationNavBar.customView = notificationButton
-        changePasswordNavBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
+        navigationBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
         //back button
         let backOrigin = UIImage(named: "back.png");
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
@@ -209,7 +234,7 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
         backButton.setTitle("", for: UIControlState())
         let backNavBar = UIBarButtonItem()
         backNavBar.customView = backButton
-        changePasswordNavBar.setLeftBarButton(backNavBar, animated: false)
+        navigationBar.setLeftBarButton(backNavBar, animated: false)
         // Do any additional setup after loading the view.
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.hideKeyboard(_:)))
@@ -246,11 +271,11 @@ class ChangePasswordViewController: UIViewController, UIPopoverPresentationContr
 
     func hideKeyboard(_ sender:UITapGestureRecognizer){
         self.view.endEditing(true)
-        hideKeyboard = true
+        isKeyboardShow = false
     }
     
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
-        hideKeyboard = false
+        isKeyboardShow = true
         return true
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

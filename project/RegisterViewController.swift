@@ -21,14 +21,7 @@ class RegisterViewController: CommonViewController, UIPopoverPresentationControl
     @IBOutlet weak var txtPhone: UITextField!
     @IBOutlet weak var txtAddress: UITextField!
     
-    @IBOutlet weak var registerButton: UIButton!
-    
-    
-    //@IBOutlet weak var registerNavBar: UINavigationItem!
-    @IBOutlet weak var notificationButton: UIButton!
-    @IBOutlet weak var menuButton: UIButton!
-    @IBOutlet weak var backButton: UIButton!
-    
+    @IBOutlet weak var registerButton: UIButton!    
     //var loginStatusCarrier:NSUserDefaults!
     //var loginStatus:Bool = false
     //declare actions

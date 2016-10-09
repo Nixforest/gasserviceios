@@ -1,14 +1,13 @@
 //
-//  LoginRequest.swift
+//  ChangePassRequest.swift
 //  project
 //
-//  Created by Nixforest on 9/29/16.
+//  Created by Nixforest on 10/8/16.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
 import Foundation
-
-class LoginRequest: BaseRequest {
+class ChangePassRequest: BaseRequest {
     override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
         let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
             (
@@ -26,12 +25,21 @@ class LoginRequest: BaseRequest {
             }
             // Convert to string
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            
+            print(dataString)
             // Convert to object
-            let model: LoginRespModel = LoginRespModel(jsonString: dataString as! String)
+            let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
             if model.status == "1" {
-                // Handle login is success
-                Singleton.sharedInstance.loginSuccess(model.token)
+                // Hide overlay
+                LoadingView.shared.hideOverlayView()
+                // Back to home page (cross-thread)
+                DispatchQueue.main.async {
+                    self.view.showAlert(
+                        message: model.message,
+                        okHandler: {
+                            (alert: UIAlertAction!) in
+                            _ = self.view.navigationController?.popViewController(animated: true)
+                    })
+                }
             } else {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
@@ -40,15 +48,10 @@ class LoginRequest: BaseRequest {
                 }
                 return
             }
-            // Hide overlay
-            LoadingView.shared.hideOverlayView()
-            // Back to home page (cross-thread)
-            DispatchQueue.main.async {
-                _ = self.view.navigationController?.popViewController(animated: true)
-            }
         })
         return task
     }
+    
     /**
      * Initializer
      * - parameter url: URL
@@ -56,14 +59,18 @@ class LoginRequest: BaseRequest {
     override init(url: String, reqMethod: String, view: CommonViewController) {
         super.init(url: url, reqMethod: reqMethod, view: view)
     }
+    
     /**
      * Set data content
-     * - parameter token: User token
+     * - parameter oldPass: Old password
+     * - parameter newPass: New password
      */
-    func setData(username: String, password: String) {
+    func setData(oldPass: String, newPass: String) {
         self.data = "q=" + String.init(
-            format: "{\"username\":\"%@\",\"password\":\"%@\",\"gcm_device_token\":\"1\",\"apns_device_token\":\"1\",\"type\":\"3\"}",
-            //format: "{\"username\":\"%@\",\"password\":\"%@\",\"gcm_device_token\":\"1\",\"apns_device_token\":\"1\"}",
-                                       username, password)
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\"}",
+            DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken(),
+            DomainConst.KEY_OLD_PASSWORD, oldPass,
+            DomainConst.KEY_NEW_PASSWORD, newPass,
+            DomainConst.KEY_NEW_PASSWORD_CONFIRM, newPass)
     }
 }

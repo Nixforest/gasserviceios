@@ -9,7 +9,7 @@
 import UIKit
 
 class LoginViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
-    //MARK: Properties
+    // MARK: Properties
     var bShowPassword:Bool!
     /** Logo image */
     @IBOutlet weak var imgLogo: UIImageView!
@@ -34,14 +34,13 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
     /** Tap counter on logo */
     var imgLogoTappedCounter:Int = 0
     
-    //MARK: Actions
+    // MARK: Actions
     /**
      * Handle tap on Back button
      * - parameter sender:AnyObject
      */
     @IBAction func backButtonTapped(_ sender: AnyObject) {
        _ = self.navigationController?.popViewController(animated: true)
-        print("Click back button")
     }
     
     /**
@@ -73,23 +72,12 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
      * - parameter sender:AnyObject
      */
     @IBAction func Login(_ sender: AnyObject) {
-        // Declare Allert
-        let loginAlert = UIAlertController(title: GlobalConst.CONTENT00162,
-                                           message: GlobalConst.CONTENT00023,
-                                           preferredStyle: .alert)
-        // Alert Action
-        let okAction = UIAlertAction(title: GlobalConst.CONTENT00008,
-                                     style: .cancel,
-                                     handler: {(loginAlert) -> Void in ()})
-        loginAlert.addAction(okAction)
-        
         // Check the value of text field is empty or not
         if (((txtPassword.text?.isEmpty)! || (txtAccount.text?.isEmpty)!)){
             // Call alert
-            self.present(loginAlert, animated: true, completion: nil)
+            showAlert(message: GlobalConst.CONTENT00023)
         } else {
             // Start login process
-            LoadingView.shared.showOverlay(view: self.view)
             CommonProcess.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
         }
     }
@@ -151,6 +139,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.configButtonInLoginTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInLoginTapped"), object: nil)
     }
+    
     /**
      * View did load
      */

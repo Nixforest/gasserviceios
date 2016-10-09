@@ -569,7 +569,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="5n4-M0-Yro">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FR9-Vx-Zff">
-                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
@@ -581,7 +581,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="Yic-LV-NZE">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LxY-V4-1QP">
-                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>
@@ -591,11 +591,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="55d-Ed-IRE" id="YC1-Of-rQM"/>
-                        <outlet property="changePasswordNavBar" destination="Ga8-8r-p2T" id="roB-TV-3X0"/>
                         <outlet property="checkboxButton" destination="GuU-AZ-y7c" id="n9j-9z-Ncz"/>
                         <outlet property="lblCheckboxButton" destination="kBh-VW-jiT" id="jCk-eH-a3N"/>
                         <outlet property="logoutButton" destination="VCL-oa-l3C" id="Ar2-oB-uRu"/>
                         <outlet property="menuButton" destination="FR9-Vx-Zff" id="BNI-BY-Z7H"/>
+                        <outlet property="navigationBar" destination="Ga8-8r-p2T" id="7Aq-y9-aaA"/>
                         <outlet property="notificationButton" destination="LxY-V4-1QP" id="Blu-xR-xCQ"/>
                         <outlet property="saveButton" destination="zz7-G6-osD" id="H9k-ak-ZAd"/>
                         <outlet property="txtNewPassword" destination="Esv-lg-5kB" id="K6A-6l-9WY"/>
@@ -1016,7 +1016,7 @@
                                 <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UGx-Tl-9Ff" id="Qvq-DZ-IaK">
-                                    <frame key="frameInset" width="320" height="43"/>
+                                    <frame key="frameInset" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -1473,7 +1473,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uHs-Pb-9Kl" id="ufp-uI-QHq">
-                                                    <frame key="frameInset" width="320" height="43"/>
+                                                    <frame key="frameInset" width="320" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-rT-a5I">

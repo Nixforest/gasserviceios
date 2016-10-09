@@ -50,69 +50,84 @@ class Singleton: NSObject {
     var list_hgd_type: [ConfigBean] = [ConfigBean]()
     
     // MARK - Methods
-    // Call When Login Success
+    /**
+     * Call When Login Success
+     * - parameter token: User token
+     */
     func loginSuccess(_ token: String)  {
         isLogin = true
         userToken = token
-        defaults.set(isLogin, forKey: "isLogin")
-        defaults.set(userToken, forKey: "user.token")
+        defaults.set(isLogin, forKey: DomainConst.KEY_SETTING_IS_LOGGING)
+        defaults.set(userToken, forKey: DomainConst.KEY_SETTING_USER_TOKEN)
         defaults.synchronize()
     }
     
-    // Call When Logout Success
+    /**
+     * Call When Logout Success
+     */
     func logoutSuccess()  {
         isLogin = false
         userToken = ""
         self.user_info = nil
-        defaults.set(isLogin, forKey: "isLogin")
-        defaults.set(userToken, forKey: "user.token")
+        defaults.set(isLogin, forKey: DomainConst.KEY_SETTING_IS_LOGGING)
+        defaults.set(userToken, forKey: DomainConst.KEY_SETTING_USER_TOKEN)
         defaults.synchronize()
     }
+    
     /**
      * Get user token			
-     * - return: User token string
+     * - returns: User token string
      */
     func getUserToken() -> String {
         return userToken
     }
     
-    // Check Login
+    /**
+     * Check login
+     * - returns: True if login is success, False otherwise
+     */
     func checkIsLogin() -> (Bool) {
         self.isLogin = false
-        if defaults.object(forKey: "isLogin") != nil {
-            self.isLogin = defaults.object(forKey: "isLogin") as! Bool
+        if defaults.object(forKey: DomainConst.KEY_SETTING_IS_LOGGING) != nil {
+            self.isLogin = defaults.object(forKey: DomainConst.KEY_SETTING_IS_LOGGING) as! Bool
         }
         
         return self.isLogin
-        
     }
     
-    // Set Trainning Mode
+    /**
+     * Set training mode
+     * - parameter isTrainingValue: Training mode value
+     */
     func setTrainningMode(_ isTrainningValue :Bool)  {
         self.isTrainningMode = isTrainningValue
-        defaults.set(isTrainningMode, forKey: "trainningMode")
+        defaults.set(isTrainningMode, forKey: DomainConst.KEY_SETTING_TRAINING_MODE)
         defaults.synchronize()
     }
     
-    // Get Trainning Mode
+    /**
+     * Get Trainning Mode
+     * - returns: True if training mode is ON, False otherwise
+     */
     func checkTrainningMode() -> (Bool) {
         self.isTrainningMode = false
-        if defaults.object(forKey: "trainningMode") != nil {
-            self.isTrainningMode = defaults.object(forKey: "trainningMode") as! Bool
+        if defaults.object(forKey: DomainConst.KEY_SETTING_TRAINING_MODE) != nil {
+            self.isTrainningMode = defaults.object(forKey: DomainConst.KEY_SETTING_TRAINING_MODE) as! Bool
         }
         return self.isTrainningMode
-        
     }
+    
     /**
      * Get server ULR
-     * - return: Server URL
+     * - returns: Server URL
      */
     func getServerURL() -> String {
 //        if !checkTrainningMode() {
-//            return GlobalConst.SERVER_RUNNING_URL
+//            return DomainConst.SERVER_URL
 //        }
-        return GlobalConst.SERVER_TRAINING_URL
+        return DomainConst.SERVER_URL_TRAINING
     }
+    
     /**
      * Set user information
      * - parameter userInfo: List user information
@@ -122,6 +137,7 @@ class Singleton: NSObject {
     func setUserInfo(userInfo: UserInfoBean) {
         self.user_info = userInfo
     }
+    
     /**
      * Set list streets.
      * parameter listStreets: List streets

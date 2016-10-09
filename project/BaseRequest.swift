@@ -22,11 +22,23 @@ class BaseRequest {
     /**
      * Initializer
      * - parameter url: URL
+     * - parameter reqMethod: Request method Get/Post
+     * - parameter view: current view
      */
     init(url: String, reqMethod: String, view: CommonViewController) {
         self.url = url
         self.reqMethod = reqMethod
         self.view = view
+    }
+    /**
+     * Initializer
+     * - parameter url: URL
+     * - parameter reqMethod: Request method Get/Post
+     */
+    init(url: String, reqMethod: String) {
+        self.url = url
+        self.reqMethod = reqMethod
+        self.view = CommonViewController()
     }
     
     /**
@@ -55,15 +67,10 @@ class BaseRequest {
                 self.view.showAlert(message: "Lỗi kết nối đến máy chủ")
                 return
             }
-            guard let data = data else {
+            guard data == nil else {
                 self.view.showAlert(message: "Lỗi kết nối đến máy chủ")
                 return
             }
-            // Convert to string
-            let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            //print(dataString)
-            // Convert to object
-            //let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
         })
         return task
     }

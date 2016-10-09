@@ -8,105 +8,74 @@
 
 import Foundation
 class CommonProcess {
+    /**
+     * Request login.
+     * - parameter username: Username
+     * - parameter password: Password
+     * - parameter view: View controller
+     */
     static func requestLogin(username: String, password: String, view: CommonViewController) {
-//        let url:URL = URL(string: Singleton.sharedInstance.getServerURL() + "/api/site/login")!
-//        let session = URLSession.shared
-//        
-//        let request = NSMutableURLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
-//        
-//        // Make data string
-//        let dataStr: String = String(format: "{\"username\":\"%@\",\"password\":\"%@\",\"gcm_device_token\":\"1\",\"apns_device_token\":\"1\",\"type\":\"2\"}",
-//                                     username, password)
-//        let paramString = "q=" + dataStr
-//        request.httpBody = paramString.data(using: String.Encoding.utf8)
-//        
-//        let task = session.dataTask(with: request as URLRequest, completionHandler: {
-//            (
-//            data, response, error) in
-//            // Check error
-//            guard error == nil else {
-//                view.showAlert(message: "Lỗi kết nối đến máy chủ")
-//                LoadingView.shared.hideOverlayView()
-//                return
-//            }
-//            guard let data = data else {
-//                view.showAlert(message: "Lỗi kết nối đến máy chủ")
-//                LoadingView.shared.hideOverlayView()
-//                return
-//            }
-//            // Convert to string
-//            let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-//            print(dataString)
-//            // Convert to object
-//            let model: LoginRespModel = LoginRespModel(jsonString: dataString as! String)
-//            if model.status == "1" {
-//                Singleton.sharedInstance.loginSuccess(model.token)
-////                Singleton.sharedInstance.setUserInfo(userInfo: model.user_info, userId: model.user_id, roleId: model.role_id)
-//                print(Singleton.sharedInstance.getUserToken())
-//            }
-//            LoadingView.shared.hideOverlayView()
-//            _ = view.navigationController?.popViewController(animated: true)
-//        })
-//        
-//        task.resume()
-        let start = DispatchTime.now()
+        //let start = DispatchTime.now()
+        // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
-        let request = LoginRequest(url: "/api/site/login", reqMethod: "POST", view: view)
+        let request = LoginRequest(url: DomainConst.PATH_SITE_LOGIN,
+                                   reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
         request.setData(username: username, password: password)
         request.execute()
-        let end = DispatchTime.now()
-        let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds;
-        let timeInterval = nanoTime / 1000000
-        print("Start request -> Start excute: \(timeInterval) miliseconds")
+        //let end = DispatchTime.now()
+        //let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds;
+        //let timeInterval = nanoTime / 1000000
+        //print("Start request -> Start excute: \(timeInterval) miliseconds")
     }
-    static func requestLogout() {
-        let url:URL = URL(string: Singleton.sharedInstance.getServerURL() + "/api/site/logout")!
-        let session = URLSession.shared
-        
-        let request = NSMutableURLRequest(url: url)
-        request.httpMethod = "POST"
-        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
-        
-        // Make data string
-        let dataStr: String = String(format: "{\"token\":\"%@\"}",
-                                     Singleton.sharedInstance.getUserToken())
-        let paramString = "q=" + dataStr
-        request.httpBody = paramString.data(using: String.Encoding.utf8)
-        
-        let task = session.dataTask(with: request as URLRequest, completionHandler: {
-            (
-            data, response, error) in
-            // Check error
-            guard error == nil else {
-                //view.showAlert(message: "Lỗi kết nối đến máy chủ")
-                LoadingView.shared.hideOverlayView()
-                return
-            }
-            guard let data = data else {
-                //view.showAlert(message: "Lỗi kết nối đến máy chủ")
-                LoadingView.shared.hideOverlayView()
-                return
-            }
-            // Convert to string
-            let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            //print(dataString)
-            // Convert to object
-            let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
-            if model.status == "1" {
-                Singleton.sharedInstance.logoutSuccess()
-                print(Singleton.sharedInstance.getUserToken())
-            }
-            LoadingView.shared.hideOverlayView()
-        })
-        
-        task.resume()
+    
+    /**
+     * Request logout
+     * - parameter view: View controller
+     */
+    static func requestLogout(view: CommonViewController) {
+        LoadingView.shared.showOverlay(view: view.view)
+        let logoutReq = LogoutRequest(url: DomainConst.PATH_SITE_LOGOUT,
+                                      reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        logoutReq.setData()
+        logoutReq.execute()
     }
+    
+    /**
+     * Request logout
+     * - parameter view: UIView
+     */
+    static func requestLogout(view: UIView) {
+        LoadingView.shared.showOverlay(view: view)
+        let logoutReq = LogoutRequest(url: DomainConst.PATH_SITE_LOGOUT,
+                                      reqMethod: GlobalConst.HTTP_POST_REQUEST)
+        logoutReq.setData()
+        logoutReq.execute()
+    }
+    
+    /**
+     * Request user information
+     * - parameter view: View controller
+     */
     static func requestUserProfile(view: CommonViewController) {
         LoadingView.shared.showOverlay(view: view.view)
-        let userProfileReq = UserProfileRequest(url: "/api/user/profile", reqMethod: "POST", view: view)
+        let userProfileReq = UserProfileRequest(url: DomainConst.PATH_USER_PROFILE,
+                                                reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
         userProfileReq.setData(token: Singleton.sharedInstance.getUserToken())
         userProfileReq.execute()
+    }
+    
+    /**
+     * Request change password.
+     * - parameter oldPass: Old password
+     * - parameter newPass: New password
+     * - parameter view: View controller
+     */
+    static func requestChangePassword(oldPass: String, newPass: String, view: CommonViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = ChangePassRequest(url: DomainConst.PATH_USER_CHANGE_PASS,
+                                   reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        request.setData(oldPass: oldPass, newPass: newPass)
+        request.execute()
     }
 }

@@ -8,27 +8,35 @@
 
 import Foundation
 class CommonViewController : UIViewController {
-    //MARK: Properties
+    // MARK: Properties
     /** Navigation bar */
     @IBOutlet weak var navigationBar: UINavigationItem!
+    /** Menu button */
+    @IBOutlet weak var menuButton: UIButton!
+    /** Notification button */
+    @IBOutlet weak var notificationButton: UIButton!
+    /** Back button */
+    @IBOutlet weak var backButton: UIButton!
     /** Flag check keyboard is show or hide */
     var isKeyboardShow : Bool = false
     /** Main story board */
     let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
     
-    //MARK: Methods
+    // MARK: Methods
     /**
      * Notify turn on training mode
      */
     func trainingModeOn(_ notification: Notification) {
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
     }
+    
     /**
      * Notify turn off training mode
      */
     func trainingModeOff(_ notification: Notification) {
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
     }
+    
     /**
      * View did load
      */
@@ -36,6 +44,7 @@ class CommonViewController : UIViewController {
         super.viewDidLoad()
         //changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
     }
+    
     /**
      * TrainingMode on/off
      * - parameter isTrainingMode: Training mode flag
@@ -48,21 +57,41 @@ class CommonViewController : UIViewController {
         }
         
     }
+    
     /**
      * Set data
      */
     func setData(_ notification: Notification) {
-        
+        // Not implement
     }
+    
     /**
      * Handle show alert message
+     * - parameter message: Message content
      */
     func showAlert(message: String) -> Void {
-        let alert = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: GlobalConst.CONTENT00162, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: GlobalConst.CONTENT00008, style: .cancel, handler: nil)
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    /**
+     * Handle show alert message
+     * - parameter message: Message content
+     * - parameter okHandler: Handler when tap OK button
+     */
+    func showAlert(message: String, okHandler:  @escaping (UIAlertAction) -> Swift.Void) -> Void {
+        let alert = UIAlertController(title: GlobalConst.CONTENT00162, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: GlobalConst.CONTENT00008, style: .cancel, handler: okHandler)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    /**
+     * Asign notify for training mode change
+     */
     func asignNotifyForTrainingModeChange() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.trainingModeOn(_:)), name:NSNotification.Name(rawValue: "TrainingModeOn"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.trainingModeOff(_:)), name:NSNotification.Name(rawValue: "TrainingModeOff"), object: nil)
