@@ -212,7 +212,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
                                 y: chbShowPassword.frame.maxY + GlobalConst.MARGIN,
                                 width: GlobalConst.BUTTON_W,
                                 height: GlobalConst.BUTTON_H)
-        btnLogin.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        btnLogin.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnLogin.setTitle(GlobalConst.CONTENT00051, for: UIControlState())
         btnLogin.setTitleColor(UIColor.white, for: UIControlState())
         btnLogin.addTarget(self, action: #selector(Login), for: .touchUpInside)
@@ -225,7 +225,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
                                  y: btnLogin.frame.maxY + GlobalConst.MARGIN,
                                  width: GlobalConst.BUTTON_W,
                                  height: GlobalConst.BUTTON_H)
-        btnSignin.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        btnSignin.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnSignin.setTitle(GlobalConst.CONTENT00052, for: UIControlState())
         btnSignin.setTitleColor(UIColor.white, for: UIControlState())
         btnSignin.addTarget(self, action: #selector(Register), for: .touchUpInside)
@@ -237,7 +237,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         
         // Navigation bar
         navigationBar.title = GlobalConst.CONTENT00051
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:GlobalConst.BUTTON_COLOR_RED]
         
         // Menu button on NavBar
         let menuOrigin = UIImage(named: "menu.png");

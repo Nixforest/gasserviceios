@@ -43,7 +43,7 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
      * - parameter sender: AnyObject
      */
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
-        CommonProcess.requestLogout(view: self.view)        
+        CommonProcess.requestLogout(view: self)
     }
     
     /**
@@ -139,74 +139,95 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
         // Menu item tap
         asignNotifyForMenuItem()
         
-        
-        //transmit login status
-        /*loginStatusCarrier = NSUserDefaults()
-        loginStatus = (loginStatusCarrier.objectForKey("loginStatus") as? Bool)!
-        //notification button enable/disable
-        if loginStatus == true {
-            notificationButton.enabled = true
-        } else {
-            notificationButton.enabled = false
-        }*/
-        //background
-        view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
+        // Background
+        view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-        //textfield customize
-        txtOldPassword.frame = CGRect(x: 45, y: 100, width: 230, height: 40)
+        
+        // Textfield old password
+        let heigh = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        txtOldPassword.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
+                                      y: heigh + GlobalConst.MARGIN,
+                                      width: GlobalConst.EDITTEXT_W,
+                                      height: GlobalConst.EDITTEXT_H)
         txtOldPassword.placeholder = GlobalConst.CONTENT00083
         txtOldPassword.translatesAutoresizingMaskIntoConstraints = true
         txtOldPassword.delegate = self
         
-        txtNewPassword.frame = CGRect(x: 45, y: 150, width: 230, height: 40)
+        // Textfield new password
+        txtNewPassword.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
+                                      y: txtOldPassword.frame.maxY + GlobalConst.MARGIN,
+                                      width: GlobalConst.EDITTEXT_W,
+                                      height: GlobalConst.EDITTEXT_H)
         txtNewPassword.placeholder = GlobalConst.CONTENT00084
         txtNewPassword.translatesAutoresizingMaskIntoConstraints = true
         txtNewPassword.delegate = self
-        txtNewPasswordRetype.frame = CGRect(x: 45, y: 200, width: 230, height: 40)
+        
+        // Textfield new password retype
+        txtNewPasswordRetype.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
+                                            y: txtNewPassword.frame.maxY + GlobalConst.MARGIN,
+                                            width: GlobalConst.EDITTEXT_W,
+                                            height: GlobalConst.EDITTEXT_H)
         txtNewPasswordRetype.placeholder = GlobalConst.CONTENT00085
         txtNewPasswordRetype.translatesAutoresizingMaskIntoConstraints = true
         txtNewPasswordRetype.delegate = self
-        //check box button
-        checkboxButton.frame = CGRect(x: 45, y: 250, width: 15, height: 15)
+        
+        // Show password check box
+        checkboxButton.frame = CGRect(x: txtOldPassword.frame.minX,
+                                      y: txtNewPasswordRetype.frame.maxY + GlobalConst.MARGIN,
+                                      width: GlobalConst.CHECKBOX_W,
+                                      height: GlobalConst.CHECKBOX_H)
         checkboxButton.tintColor = UIColor.black
         checkboxButton.translatesAutoresizingMaskIntoConstraints = true
-        lblCheckboxButton.frame = CGRect(x: 65, y: 248, width: 140, height: 20)
+        
+        // Show password label
+        lblCheckboxButton.frame = CGRect(x: checkboxButton.frame.maxX + GlobalConst.MARGIN,
+                                         y: checkboxButton.frame.minY,
+                                         width: GlobalConst.LABEL_W,
+                                         height: GlobalConst.LABEL_H)
         lblCheckboxButton.text = GlobalConst.CONTENT00102
         lblCheckboxButton.translatesAutoresizingMaskIntoConstraints = true
-        //check box status
         bShowPassword = false
         txtOldPassword.isSecureTextEntry = !bShowPassword
         txtNewPassword.isSecureTextEntry = !bShowPassword
         txtNewPasswordRetype.isSecureTextEntry = !bShowPassword
         
-        //button customize
-        saveButton.frame = CGRect(x: 30, y: 310, width: 260, height: 30)
+        // Save button
+        saveButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                  y: checkboxButton.frame.maxY + GlobalConst.MARGIN,
+                                  width: GlobalConst.BUTTON_W,
+                                  height: GlobalConst.BUTTON_H)
         saveButton.setTitle(GlobalConst.CONTENT00086, for: UIControlState())
-        saveButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        saveButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         saveButton.setTitleColor(UIColor.white, for: UIControlState())
         saveButton.translatesAutoresizingMaskIntoConstraints = true
         saveButton.layer.cornerRadius = 6
         
-        logoutButton.frame = CGRect(x: 30, y: 350, width: 260, height: 30)
+        // Logout buton
+        logoutButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                    y: saveButton.frame.maxY + GlobalConst.MARGIN,
+                                    width: GlobalConst.BUTTON_W,
+                                    height: GlobalConst.BUTTON_H)
         logoutButton.setTitle(GlobalConst.CONTENT00090, for: UIControlState())
-        logoutButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         logoutButton.setTitleColor(UIColor.white, for: UIControlState())
         logoutButton.layer.cornerRadius = 6
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
 
         
         
-        //Navigation Bar customize
+        // Navigation Bar customize
         navigationBar.title = GlobalConst.CONTENT00089
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:ColorFromRGB().getColorFromRGB(0xF00020)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:GlobalConst.BUTTON_COLOR_RED]
         
         //menu button on NavBar
         let menuOrigin = UIImage(named: "menu.png");
         let tintedImage = menuOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         menuButton.setImage(tintedImage, for: UIControlState())
-        menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
+        menuButton.tintColor = GlobalConst.BUTTON_COLOR_RED
+        menuButton.frame = CGRect(x: 0, y: 0,
+                                  width: GlobalConst.MENU_BUTTON_W,
+                                  height: GlobalConst.MENU_BUTTON_H)
         
         //menuButton.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
         menuButton.setTitle("", for: UIControlState())
@@ -215,12 +236,14 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
         menuNavBar.isEnabled = true//disable menu button
         
         //noti button on NavBar
-        notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        notificationButton.frame = CGRect(x: 0, y: 0,
+                                          width: GlobalConst.MENU_BUTTON_W,
+                                          height: GlobalConst.NOTIFY_BUTTON_H)
         notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
         notificationButton.setTitle("!", for: UIControlState())
         notificationButton.setTitleColor(UIColor.white, for: UIControlState())
-        notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        //notificationButton.addTarget(self, action: #selector(notificationButtonTapped), forControlEvents: .TouchUpInside)
+        notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        
         let notificationNavBar = UIBarButtonItem()
         notificationNavBar.customView = notificationButton
         navigationBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
@@ -228,8 +251,10 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
         let backOrigin = UIImage(named: "back.png");
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         backButton.setImage(tintedBackLogo, for: UIControlState())
-        backButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        backButton.tintColor = GlobalConst.BUTTON_COLOR_RED
+        backButton.frame = CGRect(x: 0, y: 0,
+                                  width: GlobalConst.MENU_BUTTON_W,
+                                  height: GlobalConst.MENU_BUTTON_W)
         //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
         backButton.setTitle("", for: UIControlState())
         let backNavBar = UIBarButtonItem()
@@ -258,26 +283,45 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
     }
     */
 
-    //popover menu
+    /**
+     * Handle show menu.
+     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popoverMenu" {
             let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
         }
     }
+    
+    /**
+     * ...
+     */
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
     }
 
+    /**
+     * Hilde keyboard
+     * - parameter sender: Gesture
+     */
     func hideKeyboard(_ sender:UITapGestureRecognizer){
         self.view.endEditing(true)
         isKeyboardShow = false
     }
     
+    /**
+     * Handle when focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         isKeyboardShow = true
         return true
     }
+    
+    /**
+     * Handle when lost focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //hide keyboard
         //textField.resignFirstResponder()
