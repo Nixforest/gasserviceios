@@ -18,9 +18,12 @@ class ReplyUpholdViewController: UIViewController {
     static var valStep0 = String()
     static var valStep1 = String()
     static var valStep2 = String()
-    static var valStep3 = String()
+    static var valNameStep3 = String()
+    static var valPhoneStep3 = String()
     static var valStep4 = String()
-    static var valStep5 = String()
+    static var valStep5 :[UIImage] = []
+    
+    
     
     var arrayCtnView:[Int] = [0, 1, 2, 3, 4, 5, 6]
     
@@ -45,6 +48,8 @@ class ReplyUpholdViewController: UIViewController {
     @IBOutlet weak var ctnviewReplyUpholdStep6: UIView!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnNext: UIButton!
+    
+    
     
     // MARK: - show containerView
     func showContainerView(aCtnView: UIView) {
@@ -169,36 +174,28 @@ class ReplyUpholdViewController: UIViewController {
     @IBAction func btnNextTapped(_ sender: AnyObject) {
         // 0->1
         if ctnviewReplyUpholdStep0.isHidden == false {
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep1)
+            checkValidData(viewStep: ctnviewReplyUpholdStep0)
         }else {
             // 1->2
             if ctnviewReplyUpholdStep1.isHidden == false {
-                if !ReplyUpholdViewController.valStep1.isEmpty {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-                }
-                self.showContainerView(aCtnView: ctnviewReplyUpholdStep2)
+                    checkValidData(viewStep: ctnviewReplyUpholdStep1)
             }else {
                 // 2->3
                 if ctnviewReplyUpholdStep2.isHidden == false {
-                    self.showContainerView(aCtnView: ctnviewReplyUpholdStep3)
+                        checkValidData(viewStep: ctnviewReplyUpholdStep2)
                 }else {
                     // 3->4
                     if ctnviewReplyUpholdStep3.isHidden == false {
-                        if !ReplyUpholdViewController.valStep3.isEmpty {
-                                NotificationCenter.default.post(name: Notification.Name(rawValue: "step3Done"), object: nil)
-                        }
-                        self.showContainerView(aCtnView: ctnviewReplyUpholdStep4)
+                            checkValidData(viewStep: ctnviewReplyUpholdStep3)
                     }else {
-                        
-                        if ctnviewReplyUpholdStep4.isHidden == false
-                        {if !ReplyUpholdViewController.valStep4.isEmpty {
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "step4Done"), object: nil)
-                            }
-
-                            self.showContainerView(aCtnView: ctnviewReplyUpholdStep5)
-                        }else {
+                        //4->5
+                        if ctnviewReplyUpholdStep4.isHidden == false {
+                                checkValidData(viewStep: ctnviewReplyUpholdStep4)
+                        } else {
+                            //5->6
                             if ctnviewReplyUpholdStep5.isHidden == false {
-                                self.showContainerView(aCtnView: ctnviewReplyUpholdStep6)
+                                    checkValidData(viewStep: ctnviewReplyUpholdStep5)
+                                NotificationCenter.default.post(name: Notification.Name(rawValue: "showValue"), object: nil)
                             }
                         }
                     }
@@ -206,56 +203,116 @@ class ReplyUpholdViewController: UIViewController {
             }
         }
     }
+    /**
+     * Step Button Tapped
+     */
     @IBAction func btnReplyUpholdStep0Tapped(_ sender: AnyObject) {
-        self.showContainerView(aCtnView: ctnviewReplyUpholdStep0)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep0ButtonToMiddle"), object: nil)
+        print(sender.tag)
+        switch sender.tag {
+        case 0:
+                self.showContainerView(aCtnView: self.ctnviewReplyUpholdStep0)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep0ButtonToMiddle"), object: nil)
+        case 1:
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep1)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep1ButtonToMiddle"), object: nil)
+        case 2:
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep2)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep2ButtonToMiddle"), object: nil)
+        case 3:
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep3)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep3ButtonToMiddle"), object: nil)
+        case 4:
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep4)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep4ButtonToMiddle"), object: nil)
+        case 5:
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep4)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep4ButtonToMiddle"), object: nil)
+        case 6:
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep6)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep6ButtonToMiddle"), object: nil)
+        default:
+            break
+        }
     }
-    @IBAction func btnReplyUpholdStep1Tapped(_ sender: AnyObject) {
-        self.showContainerView(aCtnView: ctnviewReplyUpholdStep1)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep1ButtonToMiddle"), object: nil)
-    }
-    @IBAction func btnReplyUpholdStep2Tapped(_ sender: AnyObject) {
-        self.showContainerView(aCtnView: ctnviewReplyUpholdStep2)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep2ButtonToMiddle"), object: nil)
-    }
-    @IBAction func btnReplyUpholdStep3Tapped(_ sender: AnyObject) {
-        self.showContainerView(aCtnView: ctnviewReplyUpholdStep3)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep3ButtonToMiddle"), object: nil)
-    }
-    @IBAction func btnReplyUpholdStep4Tapped(_ sender: AnyObject) {
-        self.showContainerView(aCtnView: ctnviewReplyUpholdStep4)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep4ButtonToMiddle"), object: nil)
-    }
-    @IBAction func btnReplyUpholdStep5Tapped(_ sender: AnyObject) {
-        self.showContainerView(aCtnView: ctnviewReplyUpholdStep5)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep5ButtonToMiddle"), object: nil)
-    }
-    @IBAction func btnReplyUpholdStep6Tapped(_ sender: AnyObject) {
-        self.showContainerView(aCtnView: ctnviewReplyUpholdStep6)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep6ButtonToMiddle"), object: nil)
-    }
+    
     
     // MARK: - move button to middle of line
     func moveStep0ButtonToMiddle(_ notification: Notification) {
         self.moveButtonToMiddle(aButton: btnReplyUpholdStep0)
+        //check status of Button
+        
+        setBtnColor(aButton: btnReplyUpholdStep1)
+        setBtnColor(aButton: btnReplyUpholdStep2)
+        setBtnColor(aButton: btnReplyUpholdStep3)
+        setBtnColor(aButton: btnReplyUpholdStep4)
+        setBtnColor(aButton: btnReplyUpholdStep5)
+        setBtnColor(aButton: btnReplyUpholdStep6)
     }
     func moveStep1ButtonToMiddle(_ notification: Notification) {
         self.moveButtonToMiddle(aButton: btnReplyUpholdStep1)
+        //check status of Button
+        setBtnColor(aButton: btnReplyUpholdStep0)
+        
+        setBtnColor(aButton: btnReplyUpholdStep2)
+        setBtnColor(aButton: btnReplyUpholdStep3)
+        setBtnColor(aButton: btnReplyUpholdStep4)
+        setBtnColor(aButton: btnReplyUpholdStep5)
+        setBtnColor(aButton: btnReplyUpholdStep6)
     }
     func moveStep2ButtonToMiddle(_ notification: Notification) {
         self.moveButtonToMiddle(aButton: btnReplyUpholdStep2)
+        //check status of Button
+        setBtnColor(aButton: btnReplyUpholdStep0)
+        setBtnColor(aButton: btnReplyUpholdStep1)
+        
+        setBtnColor(aButton: btnReplyUpholdStep3)
+        setBtnColor(aButton: btnReplyUpholdStep4)
+        setBtnColor(aButton: btnReplyUpholdStep5)
+        setBtnColor(aButton: btnReplyUpholdStep6)
     }
     func moveStep3ButtonToMiddle(_ notification: Notification) {
         self.moveButtonToMiddle(aButton: btnReplyUpholdStep3)
+        //check status of Button
+        setBtnColor(aButton: btnReplyUpholdStep0)
+        setBtnColor(aButton: btnReplyUpholdStep1)
+        setBtnColor(aButton: btnReplyUpholdStep2)
+        
+        setBtnColor(aButton: btnReplyUpholdStep4)
+        setBtnColor(aButton: btnReplyUpholdStep5)
+        setBtnColor(aButton: btnReplyUpholdStep6)
     }
     func moveStep4ButtonToMiddle(_ notification: Notification) {
         self.moveButtonToMiddle(aButton: btnReplyUpholdStep4)
+        //check status of Button
+        setBtnColor(aButton: btnReplyUpholdStep0)
+        setBtnColor(aButton: btnReplyUpholdStep1)
+        setBtnColor(aButton: btnReplyUpholdStep2)
+        setBtnColor(aButton: btnReplyUpholdStep3)
+        
+        setBtnColor(aButton: btnReplyUpholdStep5)
+        setBtnColor(aButton: btnReplyUpholdStep6)
     }
     func moveStep5ButtonToMiddle(_ notification: Notification) {
         self.moveButtonToMiddle(aButton: btnReplyUpholdStep5)
+        //check status of Button
+        setBtnColor(aButton: btnReplyUpholdStep0)
+        setBtnColor(aButton: btnReplyUpholdStep1)
+        setBtnColor(aButton: btnReplyUpholdStep2)
+        setBtnColor(aButton: btnReplyUpholdStep3)
+        setBtnColor(aButton: btnReplyUpholdStep4)
+        
+        setBtnColor(aButton: btnReplyUpholdStep6)
     }
     func moveStep6ButtonToMiddle(_ notification: Notification) {
         self.moveButtonToMiddle(aButton: btnReplyUpholdStep6)
+        //check status of Button
+        setBtnColor(aButton: btnReplyUpholdStep0)
+        setBtnColor(aButton: btnReplyUpholdStep1)
+        setBtnColor(aButton: btnReplyUpholdStep2)
+        setBtnColor(aButton: btnReplyUpholdStep3)
+        setBtnColor(aButton: btnReplyUpholdStep4)
+        setBtnColor(aButton: btnReplyUpholdStep5)
+        
     }
     
     func moveButtonToMiddle(aButton:UIButton) {
@@ -276,6 +333,16 @@ class ReplyUpholdViewController: UIViewController {
             scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 6) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
         default:
             break
+        }
+        aButton.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+    }
+    
+    // MARK: - Set button color
+    func setBtnColor(aButton: UIButton) {
+        if aButton.isEnabled == true {
+            aButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        } else {
+            aButton.backgroundColor = GlobalConst.BUTTON_COLOR_DISABLE
         }
     }
     
@@ -305,7 +372,7 @@ class ReplyUpholdViewController: UIViewController {
         isStep0Done = true
         btnReplyUpholdStep0.isEnabled = isStep0Done
         btnReplyUpholdStep1.isEnabled = isStep0Done
-        btnReplyUpholdStep0.backgroundColor = UIColor.green
+        btnReplyUpholdStep0.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         self.showContainerView(aCtnView: ctnviewReplyUpholdStep1)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep1ButtonToMiddle"), object: nil)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "showBtnBack"), object: nil)
@@ -314,7 +381,7 @@ class ReplyUpholdViewController: UIViewController {
         isStep1Done = true
         
         btnReplyUpholdStep2.isEnabled = isStep1Done
-        btnReplyUpholdStep1.backgroundColor = UIColor.green
+        btnReplyUpholdStep1.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         self.showContainerView(aCtnView: ctnviewReplyUpholdStep2)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep2ButtonToMiddle"), object: nil)
         //NotificationCenter.default.post(name: Notification.Name(rawValue: "showCtnViewStep2"), object: nil)
@@ -323,7 +390,7 @@ class ReplyUpholdViewController: UIViewController {
         isStep2Done = true
         
         btnReplyUpholdStep3.isEnabled = isStep2Done
-        btnReplyUpholdStep2.backgroundColor = UIColor.green
+        btnReplyUpholdStep2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         self.showContainerView(aCtnView: ctnviewReplyUpholdStep3)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep3ButtonToMiddle"), object: nil)
         //NotificationCenter.default.post(name: Notification.Name(rawValue: "showCtnViewStep3"), object: nil)
@@ -332,7 +399,7 @@ class ReplyUpholdViewController: UIViewController {
         isStep3Done = true
         
         btnReplyUpholdStep4.isEnabled = isStep3Done
-        btnReplyUpholdStep3.backgroundColor = UIColor.green
+        btnReplyUpholdStep3.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         self.showContainerView(aCtnView: ctnviewReplyUpholdStep4)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep4ButtonToMiddle"), object: nil)
         //NotificationCenter.default.post(name: Notification.Name(rawValue: "showCtnViewStep4"), object: nil)
@@ -340,7 +407,7 @@ class ReplyUpholdViewController: UIViewController {
     func step4Done (_ notification: Notification) {
         isStep4Done = true
         btnReplyUpholdStep5.isEnabled = isStep4Done
-        btnReplyUpholdStep4.backgroundColor = UIColor.green
+        btnReplyUpholdStep4.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         self.showContainerView(aCtnView: ctnviewReplyUpholdStep5)
         //ReplyUpholdStep4ViewController.sharedInstance.txtvStep4.becomeFirstResponder()
         NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep5ButtonToMiddle"), object: nil)
@@ -349,7 +416,7 @@ class ReplyUpholdViewController: UIViewController {
     func step5Done (_ notification: Notification) {
         isStep5Done = true
         btnReplyUpholdStep6.isEnabled = isStep5Done
-        btnReplyUpholdStep5.backgroundColor = UIColor.green
+        btnReplyUpholdStep5.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         self.showContainerView(aCtnView: ctnviewReplyUpholdStep6)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep6ButtonToMiddle"), object: nil)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "hideBtnNext"), object: nil)
@@ -381,7 +448,101 @@ class ReplyUpholdViewController: UIViewController {
             btnNext.isHidden = false
         }
     }
+    
+    // MARK: - check valid data in Step
+    func checkValidData(viewStep: UIView) {
+        switch viewStep.tag {
+        case 0:
+            if ReplyUpholdViewController.valStep0.isEmpty == true {
+                let nextAlert = UIAlertController(title: "",
+                                                  message: GlobalConst.CONTENT00028,
+                                                  preferredStyle: .alert)
+                let okAction = UIAlertAction(title: GlobalConst.CONTENT00008,
+                                             style: .cancel,
+                                             handler: {(notificationAlert) -> Void in ()})
+                nextAlert.addAction(okAction)
+                self.present(nextAlert, animated: true, completion: nil)
+            } else {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "step0Done"), object: nil)
+                self.showContainerView(aCtnView: ctnviewReplyUpholdStep1)
+            }
+        case 1:
+            if ReplyUpholdViewController.valStep1.isEmpty == true {
+                let nextAlert = UIAlertController(title: "",
+                                                  message: GlobalConst.CONTENT00028,
+                                                  preferredStyle: .alert)
+                let okAction = UIAlertAction(title: GlobalConst.CONTENT00008,
+                                             style: .cancel,
+                                             handler: {(notificationAlert) -> Void in ()})
+                nextAlert.addAction(okAction)
+                self.present(nextAlert, animated: true, completion: nil)
+            } else {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
+                self.showContainerView(aCtnView: ctnviewReplyUpholdStep2)
+            }
+        case 2:
+            if ReplyUpholdViewController.valStep2.isEmpty == true {
+                let nextAlert = UIAlertController(title: "",
+                                                  message: GlobalConst.CONTENT00028,
+                                                  preferredStyle: .alert)
+                let okAction = UIAlertAction(title: GlobalConst.CONTENT00008,
+                                             style: .cancel,
+                                             handler: {(notificationAlert) -> Void in ()})
+                nextAlert.addAction(okAction)
+                self.present(nextAlert, animated: true, completion: nil)
+            } else {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "step2Done"), object: nil)
+                self.showContainerView(aCtnView: ctnviewReplyUpholdStep3)
+            }
 
+        case 3:
+            if (ReplyUpholdViewController.valNameStep3.isEmpty == true) || (ReplyUpholdViewController.valPhoneStep3.isEmpty == true) {
+                let nextAlert = UIAlertController(title: "",
+                                                  message: GlobalConst.CONTENT00028,
+                                                  preferredStyle: .alert)
+                let okAction = UIAlertAction(title: GlobalConst.CONTENT00008,
+                                             style: .cancel,
+                                             handler: {(notificationAlert) -> Void in ()})
+                nextAlert.addAction(okAction)
+                self.present(nextAlert, animated: true, completion: nil)
+            } else {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "step3Done"), object: nil)
+                self.showContainerView(aCtnView: ctnviewReplyUpholdStep4)
+            }
+
+        case 4:
+            if ReplyUpholdViewController.valStep4.isEmpty == true {
+                print(ReplyUpholdViewController.valStep4)
+                let nextAlert = UIAlertController(title: "",
+                                                  message: GlobalConst.CONTENT00028,
+                                                  preferredStyle: .alert)
+                let okAction = UIAlertAction(title: GlobalConst.CONTENT00008,
+                                             style: .cancel,
+                                             handler: {(notificationAlert) -> Void in ()})
+                nextAlert.addAction(okAction)
+                self.present(nextAlert, animated: true, completion: nil)
+            } else {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "step4Done"), object: nil)
+                self.showContainerView(aCtnView: ctnviewReplyUpholdStep5)
+            }
+        case 5:
+            if ReplyUpholdViewController.valStep5.isEmpty == true {
+                let nextAlert = UIAlertController(title: "",
+                                                  message: GlobalConst.CONTENT00028,
+                                                  preferredStyle: .alert)
+                let okAction = UIAlertAction(title: GlobalConst.CONTENT00008,
+                                             style: .cancel,
+                                             handler: {(notificationAlert) -> Void in ()})
+                nextAlert.addAction(okAction)
+                self.present(nextAlert, animated: true, completion: nil)
+            } else {
+                self.showContainerView(aCtnView: ctnviewReplyUpholdStep6)
+            }
+
+        default:
+            break
+        }
+    }
 
     // MARK: - VIEWDIDLOAD
     override func viewDidLoad() {
@@ -468,7 +629,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep0.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep0.setTitle("1", for: .normal)
         btnReplyUpholdStep0.setTitleColor(UIColor.white , for: .normal)
-        btnReplyUpholdStep0.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        btnReplyUpholdStep0.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
         btnReplyUpholdStep0.tag = 0
         
         btnReplyUpholdStep1.translatesAutoresizingMaskIntoConstraints = true
@@ -478,7 +639,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep1.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep1.setTitle("2", for: .normal)
         btnReplyUpholdStep1.setTitleColor(UIColor.white , for: .normal)
-        btnReplyUpholdStep1.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        btnReplyUpholdStep1.backgroundColor = GlobalConst.BUTTON_COLOR_DISABLE
         btnReplyUpholdStep1.tag = 1
         
         btnReplyUpholdStep2.translatesAutoresizingMaskIntoConstraints = true
@@ -488,7 +649,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep2.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep2.setTitle("3", for: .normal)
         btnReplyUpholdStep2.setTitleColor(UIColor.white , for: .normal)
-        btnReplyUpholdStep2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        btnReplyUpholdStep2.backgroundColor = GlobalConst.BUTTON_COLOR_DISABLE
         btnReplyUpholdStep2.tag = 2
         //
         btnReplyUpholdStep3.translatesAutoresizingMaskIntoConstraints = true
@@ -498,7 +659,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep3.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep3.setTitle("4", for: .normal)
         btnReplyUpholdStep3.setTitleColor(UIColor.white , for: .normal)
-        btnReplyUpholdStep3.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        btnReplyUpholdStep3.backgroundColor = GlobalConst.BUTTON_COLOR_DISABLE
         btnReplyUpholdStep3.tag = 3
         
         btnReplyUpholdStep4.translatesAutoresizingMaskIntoConstraints = true
@@ -508,7 +669,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep4.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep4.setTitle("5", for: .normal)
         btnReplyUpholdStep4.setTitleColor(UIColor.white , for: .normal)
-        btnReplyUpholdStep4.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        btnReplyUpholdStep4.backgroundColor = GlobalConst.BUTTON_COLOR_DISABLE
         btnReplyUpholdStep4.tag = 4
         
         btnReplyUpholdStep5.translatesAutoresizingMaskIntoConstraints = true
@@ -518,7 +679,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep5.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep5.setTitle("6", for: .normal)
         btnReplyUpholdStep5.setTitleColor(UIColor.white , for: .normal)
-        btnReplyUpholdStep5.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        btnReplyUpholdStep5.backgroundColor = GlobalConst.BUTTON_COLOR_DISABLE
         btnReplyUpholdStep5.tag = 5
         
         btnReplyUpholdStep6.translatesAutoresizingMaskIntoConstraints = true
@@ -527,7 +688,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep6.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep6.setTitle("7", for: .normal)
         btnReplyUpholdStep6.setTitleColor(UIColor.white , for: .normal)
-        btnReplyUpholdStep6.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        btnReplyUpholdStep6.backgroundColor = GlobalConst.BUTTON_COLOR_DISABLE
         btnReplyUpholdStep6.tag = 6
 
         btnReplyUpholdStep0.isEnabled = false

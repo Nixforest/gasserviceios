@@ -9,21 +9,25 @@
 import UIKit
 
 class HomeTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
-
-    var flag:NSInteger = 0
-    //var loginStatusCarrier:NSUserDefaults! 
+    // MARK: Properties
+    /** Login status */
     var loginStatus:Bool = true
-    
-    
-    
-    
+    /** Navigation bar */
     @IBOutlet weak var homeNavBar: UINavigationItem!
+    /** Notification button */
     @IBOutlet weak var notificationButton: UIButton!
+    /** Menu button */
     @IBOutlet weak var menuButton: UIButton!
     
-    
+    // MARK: Actions
+    /**
+     * Handle tap on Notification button
+     * - parameter sender:AnyObject
+     */
     @IBAction func notificationButtonTapped(_ sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .alert)
+        let notificationAlert = UIAlertController(title: GlobalConst.CONTENT00162,
+                                                  message: "Bạn có tin nhắn mới",
+                                                  preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: {(notificationAlert) -> Void in ()})
         notificationAlert.addAction(cancelAction)
         self.present(notificationAlert, animated: true, completion: nil)

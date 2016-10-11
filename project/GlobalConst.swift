@@ -202,6 +202,8 @@ class GlobalConst {
     static let CELL_BORDER_COLOR:UIColor = UIColor.white
     static let BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
     static let BUTTON_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
+    static let BUTTON_COLOR_DISABLE:UIColor = ColorFromRGB().getColorFromRGB(0xEA9E00)
+    static let BUTTON_COLOR_SELECTING:UIColor = ColorFromRGB().getColorFromRGB(0x08C011)
     static let PARENT_BORDER_COLOR_GRAY:UIColor = UIColor.gray
     static let PARENT_BORDER_COLOR_YELLOW:UIColor = UIColor.yellow
     static let BACKGROUND_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xECECEC)
@@ -227,5 +229,9 @@ class GlobalConst {
     static let PHONE_IMG_NAME = "mobile.png"
     /** Address image name */
     static let ADDRESS_IMG_NAME = "address.png"
+    /** Menu image name */
+    static let MENU_IMG_NAME = "menu.png"
+    /** Back image name */
+    static let BACK_IMG_NAME = "back.png"
     static let HTTP_POST_REQUEST = "POST"
 }

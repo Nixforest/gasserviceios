@@ -21,22 +21,29 @@ class periodTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       /* periodView.translatesAutoresizingMaskIntoConstraints = true
-        periodView.backgroundColor = UIColor.whiteColor()
-        periodView.frame = CGRectMake(GlobalConst.PARENT_BORDER_WIDTH * 2 , GlobalConst.PARENT_BORDER_WIDTH, GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 , 83)
+        periodView.translatesAutoresizingMaskIntoConstraints = true
+        periodView.backgroundColor = UIColor.white
+        periodView.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH * 2,y: GlobalConst.PARENT_BORDER_WIDTH,width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 ,height: GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.PARENT_BORDER_WIDTH)
         periodView.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        periodView.layer.borderColor = ColorFromRGB().getColorFromRGB(0xF00020).CGColor
+        periodView.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
         periodView.clipsToBounds = true
         periodView.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         
         lblName.translatesAutoresizingMaskIntoConstraints = true
-        lblName.frame = CGRectMake(GlobalConst.PARENT_BORDER_WIDTH * 3, GlobalConst.PARENT_BORDER_WIDTH , GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblName.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH ,y: GlobalConst.PARENT_BORDER_WIDTH ,width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.BUTTON_HEIGHT,height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        periodView.addSubview(lblName)
+        
         lblIssue.translatesAutoresizingMaskIntoConstraints = true
-        lblIssue.frame = CGRectMake(GlobalConst.PARENT_BORDER_WIDTH * 3, GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_IN_CELL_HEIGHT , GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblIssue.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH ,y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_IN_CELL_HEIGHT ,width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.BUTTON_HEIGHT,height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        periodView.addSubview(lblIssue)
+        
         lblStatus.translatesAutoresizingMaskIntoConstraints = true
-        lblStatus.frame = CGRectMake(GlobalConst.PARENT_BORDER_WIDTH * 3,  GlobalConst.PARENT_BORDER_WIDTH + (GlobalConst.LABEL_IN_CELL_HEIGHT * 2), GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblStatus.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH ,y:  GlobalConst.PARENT_BORDER_WIDTH + (GlobalConst.LABEL_IN_CELL_HEIGHT * 2),width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.BUTTON_HEIGHT,height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        periodView.addSubview(lblStatus)
+        
         lblTimeCreate.translatesAutoresizingMaskIntoConstraints = true
-        lblTimeCreate.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH * 3, y: GlobalConst.PARENT_BORDER_WIDTH + (GlobalConst.LABEL_IN_CELL_HEIGHT * 3), width: GlobalConst.SCREEN_WIDTH - GlobalConst.LABEL_IN_CELL_HEIGHT, height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblTimeCreate.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH , y: GlobalConst.PARENT_BORDER_WIDTH + (GlobalConst.LABEL_IN_CELL_HEIGHT * 3),width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.BUTTON_HEIGHT, height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        periodView.addSubview(lblTimeCreate)
         
         lblName.text = "Khach hang"
         lblIssue.text = "Su co"
@@ -44,12 +51,13 @@ class periodTableViewCell: UITableViewCell {
         lblTimeCreate.text = "Thoi gian tao"
         
         doneButton.translatesAutoresizingMaskIntoConstraints = true
-        doneButton.frame = CGRectMake((GlobalConst.PARENT_BORDER_WIDTH * 2) + GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_HEIGHT, GlobalConst.PARENT_BORDER_WIDTH, (GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH * 2))/2, (GlobalConst.CELL_HEIGHT_SHOW - (GlobalConst.PARENT_BORDER_WIDTH * 2))/2)
+        doneButton.frame = CGRect(x: lblName.frame.size.width, y: GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
         doneButton.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        doneButton.layer.borderColor = UIColor.redColor().CGColor
+        doneButton.layer.borderColor = UIColor.red.cgColor
         doneButton.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        doneButton.setImage(UIImage(named: "done.png"), forState: .Normal)
-        */
+        doneButton.setImage(UIImage(named: "done.png"), for: .normal)
+        doneButton.backgroundColor = UIColor.clear
+        periodView.addSubview(doneButton)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

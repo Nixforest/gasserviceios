@@ -34,11 +34,13 @@ class ReplyUpholdStep3ViewController: UIViewController, UITextFieldDelegate {
         txtfName.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: lblStep3.frame.size.height, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4, height: GlobalConst.LABEL_HEIGHT * 1.5)
         txtfName.placeholder = "  Tên"
         txtfName.tag = 0
+        txtfName.delegate = self
         
         txtfPhone.translatesAutoresizingMaskIntoConstraints = true
         txtfPhone.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: lblStep3.frame.size.height + txtfName.frame.size.height, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4, height: GlobalConst.LABEL_HEIGHT * 1.5)
         txtfPhone.placeholder = "  Số điện thoại"
         txtfPhone.tag = 1
+        txtfPhone.delegate = self
         // Do any additional setup after loading the view.
         let tap = UITapGestureRecognizer(target: self, action: #selector(ReplyUpholdStep3ViewController.hideKeyboard))
         view.addGestureRecognizer(tap)
@@ -74,7 +76,14 @@ class ReplyUpholdStep3ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        ReplyUpholdViewController.valStep3 = txtfName.text! + txtfPhone.text!
+        if textField == txtfName {
+            ReplyUpholdViewController.valNameStep3 = txtfName.text!
+        }
+        //print(ReplyUpholdViewController.valStep3)
+        if textField == txtfPhone {
+        ReplyUpholdViewController.valPhoneStep3 = txtfPhone.text!
+        }
+        //print(ReplyUpholdViewController.valStep3)
     }
 
     /*

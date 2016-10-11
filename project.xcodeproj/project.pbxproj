@@ -19,6 +19,10 @@
 		84284E271D40DF050079DEBC /* projectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E261D40DF050079DEBC /* projectTests.swift */; };
 		84284E321D40DF050079DEBC /* projectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E311D40DF050079DEBC /* projectUITests.swift */; };
 		84289B051D67D505009A88EC /* menuHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84289B041D67D505009A88EC /* menuHomeViewController.swift */; };
+		8428E11E1DA8DFE00094D65E /* step5TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428E11C1DA8DFE00094D65E /* step5TableViewCell.swift */; };
+		8428E11F1DA8DFE00094D65E /* step5TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8428E11D1DA8DFE00094D65E /* step5TableViewCell.xib */; };
+		8428E1221DA9132E0094D65E /* step6ImgCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428E1201DA9132E0094D65E /* step6ImgCollectionViewCell.swift */; };
+		8428E1231DA9132E0094D65E /* step6ImgCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8428E1211DA9132E0094D65E /* step6ImgCollectionViewCell.xib */; };
 		842BA3581D8EA806004ECBFF /* periodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BA3561D8EA806004ECBFF /* periodTableViewCell.swift */; };
 		842BA3591D8EA806004ECBFF /* periodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842BA3571D8EA806004ECBFF /* periodTableViewCell.xib */; };
 		842BA35C1D8EA81B004ECBFF /* problemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BA35A1D8EA81B004ECBFF /* problemTableViewCell.swift */; };
@@ -132,6 +136,10 @@
 		84284E311D40DF050079DEBC /* projectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectUITests.swift; sourceTree = "<group>"; };
 		84284E331D40DF050079DEBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84289B041D67D505009A88EC /* menuHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuHomeViewController.swift; sourceTree = "<group>"; };
+		8428E11C1DA8DFE00094D65E /* step5TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = step5TableViewCell.swift; sourceTree = "<group>"; };
+		8428E11D1DA8DFE00094D65E /* step5TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = step5TableViewCell.xib; sourceTree = "<group>"; };
+		8428E1201DA9132E0094D65E /* step6ImgCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = step6ImgCollectionViewCell.swift; sourceTree = "<group>"; };
+		8428E1211DA9132E0094D65E /* step6ImgCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = step6ImgCollectionViewCell.xib; sourceTree = "<group>"; };
 		842BA3561D8EA806004ECBFF /* periodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = periodTableViewCell.swift; sourceTree = "<group>"; };
 		842BA3571D8EA806004ECBFF /* periodTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = periodTableViewCell.xib; sourceTree = "<group>"; };
 		842BA35A1D8EA81B004ECBFF /* problemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = problemTableViewCell.swift; sourceTree = "<group>"; };
@@ -352,7 +360,11 @@
 				84DFE0041DA23AE700A48B35 /* ReplyUpholdStep3ViewController.swift */,
 				84DFE0061DA23AF300A48B35 /* ReplyUpholdStep4ViewController.swift */,
 				84DFE0081DA23AFD00A48B35 /* ReplyUpholdStep5ViewController.swift */,
+				8428E11C1DA8DFE00094D65E /* step5TableViewCell.swift */,
+				8428E11D1DA8DFE00094D65E /* step5TableViewCell.xib */,
 				84DFE00A1DA23B0900A48B35 /* ReplyUpholdStep6ViewController.swift */,
+				8428E1201DA9132E0094D65E /* step6ImgCollectionViewCell.swift */,
+				8428E1211DA9132E0094D65E /* step6ImgCollectionViewCell.xib */,
 			);
 			name = ReplyUpholdVC;
 			sourceTree = "<group>";
@@ -572,6 +584,7 @@
 				84459EE01D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.xib in Resources */,
 				84E83D541D87C171007C7A90 /* InfoIcon.png in Resources */,
 				84A4C0651D63117000C0B84C /* checkbox-unchecked.png in Resources */,
+				8428E1231DA9132E0094D65E /* step6ImgCollectionViewCell.xib in Resources */,
 				84F246891D93DDB300259C35 /* SearchBarView.xib in Resources */,
 				84331BEB1D771B560089B0FA /* contact.png in Resources */,
 				842BA35D1D8EA81B004ECBFF /* problemTableViewCell.xib in Resources */,
@@ -596,6 +609,7 @@
 				84E041B11D668DFD00A89608 /* back.png in Resources */,
 				84F481991D67040E0072DC7A /* ServiceRating.jpeg in Resources */,
 				84284E171D40DF050079DEBC /* Main.storyboard in Resources */,
+				8428E11F1DA8DFE00094D65E /* step5TableViewCell.xib in Resources */,
 				84E83D551D87C171007C7A90 /* TrainingModeIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -636,6 +650,7 @@
 				84EF507A1D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift in Sources */,
 				84F246861D93DDB300259C35 /* SearchBarTableViewCell.swift in Sources */,
 				84EF9C5F1D93C7680008B30F /* Singleton.swift in Sources */,
+				8428E11E1DA8DFE00094D65E /* step5TableViewCell.swift in Sources */,
 				84DFE0051DA23AE700A48B35 /* ReplyUpholdStep3ViewController.swift in Sources */,
 				8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */,
 				84E172D61D921876003121D6 /* UpholdDetailViewController.swift in Sources */,
@@ -659,6 +674,7 @@
 				842277C91D421E7E00611439 /* CheckBox.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
 				843DAFCB1D9FAC3B00D517FC /* ReplyUpholdStep0ViewController.swift in Sources */,
+				8428E1221DA9132E0094D65E /* step6ImgCollectionViewCell.swift in Sources */,
 				84F246881D93DDB300259C35 /* SearchBarView.swift in Sources */,
 				920765501D94E2BC006ABF26 /* BaseRespModel.swift in Sources */,
 				84459EE81D964B820087F986 /* CreateUpholdStep1ViewController.swift in Sources */,

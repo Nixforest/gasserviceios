@@ -66,14 +66,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
      * - parameter sender:AnyObject
      */
     @IBAction func notificationButtonTapped(_ sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: GlobalConst.CONTENT00162,
-                                                  message: "Bạn có tin nhắn mới",
-                                                  preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: GlobalConst.CONTENT00008,
-                                         style: .cancel,
-                                         handler: {(notificationAlert) -> Void in ()})
-        notificationAlert.addAction(cancelAction)
-        self.present(notificationAlert, animated: true, completion: nil)
+        showAlert(message: "Bạn có tin nhắn mới")
     }
     
     /**
@@ -81,18 +74,12 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
      * - parameter sender:AnyObject
      */
     @IBAction func saveButtonTapped(_ sender: AnyObject) {
-        let saveAlert = UIAlertController(title: GlobalConst.CONTENT00162,
-                                          message: GlobalConst.CONTENT00025,
-                                          preferredStyle: .alert)
-        let okAction = UIAlertAction(title: GlobalConst.CONTENT00008,
-                                     style: .cancel,
-                                     handler: {(saveAlert) -> Void in ()})
-        saveAlert.addAction(okAction)
         // Check the value of text field
-        if (((txtName.text?.isEmpty)! || (txtPhone.text?.isEmpty)! || (txtAddress.text?.isEmpty)!)){
-            //Call alert
-            self.present(saveAlert, animated: true, completion: nil)
-        }else {
+        if (((txtName.text?.isEmpty)! || (txtPhone.text?.isEmpty)!
+            || (txtAddress.text?.isEmpty)!)) {
+            // Call alert
+            showAlert(message: GlobalConst.CONTENT00025)
+        } else {
             print("Save successfully")
         }
     }

@@ -52,6 +52,7 @@ class ReplyUpholdStep4ViewController: UIViewController, UITextViewDelegate {
     // MARK: - Textfield Delegate
     func textViewDidEndEditing(_ textView: UITextView) {
         ReplyUpholdViewController.valStep4 = txtvStep4.text
+        print(txtvStep4.text)
     }
     // MARK: - dismiss Keyboard
     func hideKeyboard() {

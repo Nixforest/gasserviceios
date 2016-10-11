@@ -221,7 +221,7 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:GlobalConst.BUTTON_COLOR_RED]
         
         //menu button on NavBar
-        let menuOrigin = UIImage(named: "menu.png");
+        let menuOrigin = UIImage(named: GlobalConst.MENU_IMG_NAME);
         let tintedImage = menuOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         menuButton.setImage(tintedImage, for: UIControlState())
         menuButton.tintColor = GlobalConst.BUTTON_COLOR_RED
@@ -229,7 +229,6 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
                                   width: GlobalConst.MENU_BUTTON_W,
                                   height: GlobalConst.MENU_BUTTON_H)
         
-        //menuButton.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
         menuButton.setTitle("", for: UIControlState())
         let menuNavBar = UIBarButtonItem()
         menuNavBar.customView = menuButton

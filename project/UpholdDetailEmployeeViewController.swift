@@ -78,7 +78,7 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIScrollViewDele
         viewBackground.translatesAutoresizingMaskIntoConstraints = true
         viewBackground.frame = CGRect(x: 0, y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT, width: GlobalConst.SCREEN_WIDTH, height: GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT))
         viewBackground.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
-        
+        viewBackground.backgroundColor = UIColor.white
         
         sgmScrollViewChange.translatesAutoresizingMaskIntoConstraints = true
         sgmScrollViewChange.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.PARENT_BORDER_WIDTH, width: (GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT)
@@ -98,11 +98,16 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIScrollViewDele
         //viewBackground.addSubview(scrViewInformation)
 
         btnCreateReply.translatesAutoresizingMaskIntoConstraints = true
-        btnCreateReply.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT, width: (GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT)
+        btnCreateReply.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH * 2, y: GlobalConst.PARENT_BORDER_WIDTH * 2 + GlobalConst.BUTTON_HEIGHT, width: (GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4), height: GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH * 2)
         btnCreateReply.isHidden = true
+        btnCreateReply.setTitle(GlobalConst.CONTENT00065, for: .normal)
+        btnCreateReply.setTitleColor(UIColor.white, for: .normal)
+        btnCreateReply.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        btnCreateReply.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
+        
         
         tblViewHistory.translatesAutoresizingMaskIntoConstraints = true
-        tblViewHistory.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT + GlobalConst.BUTTON_HEIGHT, width: (GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT ))
+        tblViewHistory.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT + GlobalConst.BUTTON_HEIGHT, width: (GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT * 2))
         tblViewHistory.isHidden = true
         
         self.tblViewHistory.register(UINib(nibName: "UpholdDetailEmployeeHistoryTableViewCell", bundle: nil), forCellReuseIdentifier: "UpholdDetailEmployeeHistoryTableViewCell")

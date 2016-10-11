@@ -17,7 +17,7 @@ class ReplyUpholdStep1ViewController: UIViewController, UIPickerViewDelegate, UI
 
     var infoStep1 = String()
     
-    let aResponseTime:[String] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]
+    let aResponseTime:[String] = ["0 phút", "5 phút", "10 phút", "15 phút", "20 phút", "25 phút", "30 phút", "35 phút", "40 phút", "45 phút", "50 phút", "55 phút", "1 tiếng", "2 tiếng", "3 tiếng", "4 tiếng ", "5 tiếng", "6 tiếng", "7 tiếng", "8 tiếng", "9 tiếng", "10 tiếng", "11 tiếng", "12 tiếng", "13 tiếng", "14 tiếng", "15 tiếng", "16 tiếng", "17 tiếng", "18 tiếng", "19 tiếng", "20 tiếng", "21 tiếng", "22 tiếng", "23 tiếng", "24 tiếng", "25 tiếng", "26 tiếng", "27 tiếng", "28 tiếng", "29 tiếng", "30 tiếng", "31 tiếng", "32 tiếng", "33 tiếng", "34 tiếng", "35 tiếng", "36 tiếng", "37 tiếng", "38 tiếng", "39 tiếng", "40 tiếng", "41 tiếng", "42 tiếng", "43 tiếng", "44 tiếng", "45 tiếng", "46 tiếng", "47 tiếng", "48 tiếng"]
     
     
     @IBOutlet weak var lblStep1: UILabel!

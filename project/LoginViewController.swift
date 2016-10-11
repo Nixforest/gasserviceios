@@ -25,12 +25,12 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
     @IBOutlet weak var chbShowPassword: CheckBox!
     /** Show password label */
     @IBOutlet weak var lblShowPassword: UILabel!
-    /** Notification button */
-    @IBOutlet weak var btnNotification: UIButton!
-    /** Menu button */
-    @IBOutlet weak var btnMenu: UIButton!
-    /** Back button */
-    @IBOutlet weak var btnBack: UIButton!
+//    /** Notification button */
+//    @IBOutlet weak var btnNotification: UIButton!
+//    /** Menu button */
+//    @IBOutlet weak var btnMenu: UIButton!
+//    /** Back button */
+//    @IBOutlet weak var btnBack: UIButton!
     /** Tap counter on logo */
     var imgLogoTappedCounter:Int = 0
     
@@ -48,14 +48,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
      * - parameter sender:AnyObject
      */
     @IBAction func notification(_ sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: GlobalConst.CONTENT00162,
-                                                  message: "Bạn có tin nhắn mới",
-                                                  preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: GlobalConst.CONTENT00008,
-                                         style: .cancel,
-                                         handler: {(notificationAlert) -> Void in ()})
-        notificationAlert.addAction(cancelAction)
-        self.present(notificationAlert, animated: true, completion: nil)
+        showAlert(message: "Bạn chưa đăng nhập")
     }
     
     /**
@@ -87,9 +80,10 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
      * - parameter sender:AnyObject
      */
     @IBAction func Register(_ sender: AnyObject) {
-        let registerVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REGISTER_VIEW_CTRL)
-        
-        self.navigationController?.pushViewController(registerVC, animated: true)
+//        let registerVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REGISTER_VIEW_CTRL)
+//        
+//        self.navigationController?.pushViewController(registerVC, animated: true)
+        showAlert(message: "Chức năng đã bị khoá, vui lòng thử lại sau!")
     }
     /**
      * Pop over menu
@@ -232,54 +226,12 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         btnSignin.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         self.view.addSubview(btnSignin)
         btnSignin.translatesAutoresizingMaskIntoConstraints = true
+        //btnSignin.isEnabled = false
         
         
         
         // Navigation bar
-        navigationBar.title = GlobalConst.CONTENT00051
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:GlobalConst.BUTTON_COLOR_RED]
-        
-        // Menu button on NavBar
-        let menuOrigin = UIImage(named: "menu.png");
-        let tintedImage = menuOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        btnMenu.setImage(tintedImage, for: UIControlState())
-        btnMenu.tintColor = GlobalConst.BUTTON_COLOR_RED
-        btnMenu.frame = CGRect(x: 0, y: 0,
-                               width: GlobalConst.MENU_BUTTON_W,
-                               height: GlobalConst.MENU_BUTTON_H)
-        btnMenu.addTarget(self, action: #selector(showPopOver), for: .touchUpInside)
-        btnMenu.setTitle("", for: UIControlState())
-        let menuNavBar = UIBarButtonItem()
-        menuNavBar.customView = btnMenu
-        menuNavBar.isEnabled = true
-        
-        // Notify button on NavBar
-        btnNotification.frame = CGRect(x: 0, y: 0,
-                                       width: GlobalConst.MENU_BUTTON_W,
-                                       height: GlobalConst.NOTIFY_BUTTON_H)
-        btnNotification.layer.cornerRadius = 0.5 * btnNotification.bounds.size.width
-        btnNotification.setTitle("!", for: UIControlState())
-        btnNotification.setTitleColor(UIColor.white, for: UIControlState())
-        btnNotification.backgroundColor = GlobalConst.BUTTON_COLOR_GRAY //when disable
-
-        btnNotification.addTarget(self, action: #selector(notification), for: .touchUpInside)
-        let notiNavBar = UIBarButtonItem()
-        notiNavBar.customView = btnNotification
-        notiNavBar.isEnabled = false
-        
-        // Set right navigation bar item
-        self.navigationItem.rightBarButtonItems = [menuNavBar, notiNavBar]
-        let backOrigin = UIImage(named: "back.png");
-        let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        btnBack.setImage(tintedBackLogo, for: UIControlState())
-        btnBack.tintColor = GlobalConst.BUTTON_COLOR_RED
-        btnBack.frame = CGRect(x: 0, y: 0,
-                               width: GlobalConst.MENU_BUTTON_W,
-                               height: GlobalConst.MENU_BUTTON_W)
-        btnBack.setTitle("", for: UIControlState())
-        let backNavBar = UIBarButtonItem()
-        backNavBar.customView = btnBack
-        navigationBar.setLeftBarButton(backNavBar, animated: false)
+        setupNavigationBar(title: GlobalConst.CONTENT00051, isNotifyEnable: true)
         
         txtAccount.delegate = self
         txtPassword.delegate = self

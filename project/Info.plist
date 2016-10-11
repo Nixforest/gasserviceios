@@ -49,5 +49,49 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+    <!-- � Camera -->
+    <key>NSCameraUsageDescription</key>
+    <string></string>
+    
+    <!-- � Microphone -->
+    <key>NSMicrophoneUsageDescription</key>
+    <string></string>
+    
+    <!-- � Location -->
+    <key>NSLocationUsageDescription</key>
+    <string></string>
+    
+    <!-- � Location When In Use -->
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string></string>
+    
+    <!-- � Location Always -->
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string></string>
+    
+    <!-- � Calendars -->
+    <key>NSCalendarsUsageDescription</key>
+    <string></string>
+    
+    <!-- ⏰ Reminders -->
+    <key>NSRemindersUsageDescription</key>
+    <string></string>
+    
+    <!-- � Motion -->
+    <key>NSMotionUsageDescription</key>
+    <string></string>
+    
+    <!-- � Health Update -->
+    <key>NSHealthUpdateUsageDescription</key>
+    <string></string>
+    
+    <!-- � Health Share -->
+    <key>NSHealthShareUsageDescription</key>
+    <string></string>
+    
+    <!-- ᛒ� Bluetooth Peripheral -->
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string></string>
+    
 </dict>
 </plist>

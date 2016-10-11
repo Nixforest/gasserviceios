@@ -178,10 +178,11 @@ class UpholdListViewController: UIViewController, UIPopoverPresentationControlle
         //uphold list view
         problemTableView.translatesAutoresizingMaskIntoConstraints = true
         problemTableView.frame = CGRect(x: 0, y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT , width: GlobalConst.SCREEN_WIDTH , height: GlobalConst.CELL_HEIGHT_SHOW * 4)
+        problemTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         periodTableView.translatesAutoresizingMaskIntoConstraints = true
         periodTableView.frame = CGRect(x: 0, y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_HEIGHT + GlobalConst.LABEL_HEIGHT, width: GlobalConst.SCREEN_WIDTH, height: GlobalConst.CELL_HEIGHT_SHOW * 4)
-        
+        periodTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         //show-hide UpholdList
         periodTableView.isHidden = true
