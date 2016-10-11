@@ -169,6 +169,7 @@ class ReplyUpholdViewController: UIViewController {
         }
         if ctnviewReplyUpholdStep6.isHidden == false {
             self.showContainerView(aCtnView: ctnviewReplyUpholdStep5)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "showBtnNext"), object: nil)
         }
     }
     @IBAction func btnNextTapped(_ sender: AnyObject) {
@@ -225,8 +226,8 @@ class ReplyUpholdViewController: UIViewController {
             self.showContainerView(aCtnView: ctnviewReplyUpholdStep4)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep4ButtonToMiddle"), object: nil)
         case 5:
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep4)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep4ButtonToMiddle"), object: nil)
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep5)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep5ButtonToMiddle"), object: nil)
         case 6:
             self.showContainerView(aCtnView: ctnviewReplyUpholdStep6)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep6ButtonToMiddle"), object: nil)

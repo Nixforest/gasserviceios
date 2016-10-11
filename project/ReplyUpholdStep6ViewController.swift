@@ -131,9 +131,15 @@ class ReplyUpholdStep6ViewController: UIViewController, UICollectionViewDataSour
          * Image CollectionView Step 5
          */
         cltviewStep5.translatesAutoresizingMaskIntoConstraints = true
-        cltviewStep5.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.PARENT_BORDER_WIDTH + (GlobalConst.LABEL_HEIGHT * 5) + GlobalConst.PARENT_BORDER_WIDTH, width: (viewContent.frame.size.width - (GlobalConst.PARENT_BORDER_WIDTH * 2)), height: viewContent.frame.size.height * 0.4)
-        cltviewStep5.backgroundColor = UIColor.clear
+        cltviewStep5.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
+                                    y: GlobalConst.PARENT_BORDER_WIDTH + (GlobalConst.LABEL_HEIGHT * 5) + GlobalConst.PARENT_BORDER_WIDTH,
+                                    width: (viewContent.frame.size.width - (GlobalConst.PARENT_BORDER_WIDTH * 2)),
+                                    height: viewContent.frame.size.height * 0.4)
+        cltviewStep5.backgroundColor = UIColor.white
         cltviewStep5.dataSource = self
+        cltviewStep5.bounds = cltviewStep5.frame
+        cltviewStep5.alwaysBounceHorizontal = true
+        
         
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(ReplyUpholdStep6ViewController.showValue(_:)), name:NSNotification.Name(rawValue: "showValue"), object: nil)
@@ -155,17 +161,27 @@ class ReplyUpholdStep6ViewController: UIViewController, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return ReplyUpholdViewController.valStep5.count
     }
-    
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // get a reference to our storyboard cell
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "step6Cell", for: indexPath as IndexPath) as! step6ImgCollectionViewCell
-        
-        
-        //let  aImage :UIImage = ReplyUpholdViewController.valStep5[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "step6ImgCollectionViewCell", for: indexPath as IndexPath) as! step6ImgCollectionViewCell
         cell.imgCell.image = ReplyUpholdViewController.valStep5[indexPath.row]
-        cell.backgroundColor = UIColor.cyan
+        cell.imgCell.contentMode = UIViewContentMode.scaleAspectFit
+        cell.frame = CGRect(x: cltviewStep5.frame.size.height * CGFloat(indexPath.row), y: cell.frame.origin.y, width: cltviewStep5.frame.size.height, height: cltviewStep5.frame.size.height)
+        cell.backgroundColor = UIColor.black
         return cell
+    }
+    //Use for interspacing
+    func collectionView(collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 1.0
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout
+        collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 1.0
     }
     
     // MARK: - UICollectionViewDelegate protocol

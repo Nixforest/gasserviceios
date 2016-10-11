@@ -15,6 +15,9 @@ class step6ImgCollectionViewCell: UICollectionViewCell {
         
         super.awakeFromNib()
         // Initialization code
+        imgCell.translatesAutoresizingMaskIntoConstraints = true
+        imgCell.frame = CGRect(x: 0, y: 0, width: self.frame.size.height, height: self.frame.size.height)
+        
     }
 
 }

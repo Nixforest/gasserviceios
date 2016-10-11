@@ -539,7 +539,7 @@
 				TargetAttributes = {
 					84284E0D1D40DF050079DEBC = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = HFC2RL83D6;
+						DevelopmentTeam = B6EW6RYD29;
 						LastSwiftMigration = 0800;
 					};
 					84284E211D40DF050079DEBC = {
@@ -838,11 +838,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = HFC2RL83D6;
+				DEVELOPMENT_TEAM = B6EW6RYD29;
 				INFOPLIST_FILE = project/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nixforest.gasservices;
+				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
@@ -858,11 +858,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = HFC2RL83D6;
+				DEVELOPMENT_TEAM = B6EW6RYD29;
 				INFOPLIST_FILE = project/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nixforest.gasservices;
+				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";

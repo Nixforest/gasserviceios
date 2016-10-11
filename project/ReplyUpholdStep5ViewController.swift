@@ -28,6 +28,7 @@ class ReplyUpholdStep5ViewController: UIViewController, UITableViewDelegate, UIT
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
             imagePicker.allowsEditing = true
+            
             self.present(imagePicker, animated: true, completion: nil)
         }
         
@@ -96,7 +97,7 @@ class ReplyUpholdStep5ViewController: UIViewController, UITableViewDelegate, UIT
     // MARK: - ImagePicker Delegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             aImgPicked.append(image)
             ReplyUpholdViewController.valStep5.append(image)
         }
