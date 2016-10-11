@@ -54,7 +54,10 @@ class ReplyUpholdStep6ViewController: UIViewController, UICollectionViewDataSour
         viewContent.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         viewContent.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
         viewContent.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        viewContent.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH , y: GlobalConst.PARENT_BORDER_WIDTH + lblHeaderStep6.frame.size.height, width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 4), height: GlobalConst.SCREEN_HEIGHT - ((GlobalConst.BUTTON_HEIGHT * 2) + (GlobalConst.PARENT_BORDER_WIDTH * 3) + lblHeaderStep6.frame.size.height + GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT))
+        viewContent.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH ,
+                                   y: GlobalConst.PARENT_BORDER_WIDTH + lblHeaderStep6.frame.size.height,
+                                   width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 4),
+                                   height: GlobalConst.SCREEN_HEIGHT - ((GlobalConst.BUTTON_HEIGHT * 2) + (GlobalConst.PARENT_BORDER_WIDTH * 3) + lblHeaderStep6.frame.size.height + GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT))
         /**
          * Value Step 2
          */
@@ -134,12 +137,12 @@ class ReplyUpholdStep6ViewController: UIViewController, UICollectionViewDataSour
         cltviewStep5.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
                                     y: GlobalConst.PARENT_BORDER_WIDTH + (GlobalConst.LABEL_HEIGHT * 5) + GlobalConst.PARENT_BORDER_WIDTH,
                                     width: (viewContent.frame.size.width - (GlobalConst.PARENT_BORDER_WIDTH * 2)),
-                                    height: viewContent.frame.size.height * 0.4)
+                                    height: viewContent.frame.size.height - (GlobalConst.LABEL_HEIGHT * 5) - (GlobalConst.PARENT_BORDER_WIDTH * 3))
         cltviewStep5.backgroundColor = UIColor.white
         cltviewStep5.dataSource = self
         cltviewStep5.bounds = cltviewStep5.frame
         cltviewStep5.alwaysBounceHorizontal = true
-        
+        cltviewStep5.bounces = true
         
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(ReplyUpholdStep6ViewController.showValue(_:)), name:NSNotification.Name(rawValue: "showValue"), object: nil)
