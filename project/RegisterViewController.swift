@@ -26,19 +26,10 @@ class RegisterViewController: CommonViewController, UIPopoverPresentationControl
     //var loginStatus:Bool = false
     //declare actions
     
-    @IBAction func backButtonTapped(_ sender: AnyObject) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
     @IBAction func showPopover(_ sender: AnyObject) {
         print("menu tapped")
     }
     
-    @IBAction func notificationButtonTapped(_ sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: {(notificationAlert) -> Void in ()})
-        notificationAlert.addAction(cancelAction)
-        self.present(notificationAlert, animated: true, completion: nil)
-    }
     @IBAction func registerButtonTapped(_ sender: AnyObject) {
         //Alert
         let registerAlert = UIAlertController(title: "Alert", message: "Bạn phải nhập đầy đủ thông tin", preferredStyle: .alert)

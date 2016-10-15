@@ -26,6 +26,7 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
     @IBOutlet weak var txtNewPassword: UITextField!
     /** Retype-New password textbox */
     @IBOutlet weak var txtNewPasswordRetype: UITextField!
+    
     // MARK: Actions
     /**
      * Handle tap on checkbox button
@@ -44,14 +45,6 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
      */
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
         CommonProcess.requestLogout(view: self)
-    }
-    
-    /**
-     * Handle tap on Back button
-     * - parameter sender: AnyObject
-     */
-    @IBAction func backButtonTapped(_ sender: AnyObject) {
-        _ = self.navigationController?.popViewController(animated: true)
     }
     
     /**
@@ -77,17 +70,6 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
             showAlert(message: GlobalConst.CONTENT00026)
         }
 
-    }
-    
-    /**
-     * Handle tap on Notification button
-     * - parameter sender: AnyObject
-     */
-    @IBAction func notificationButtonTapped(_ sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: {(notificationAlert) -> Void in ()})
-        notificationAlert.addAction(cancelAction)
-        self.present(notificationAlert, animated: true, completion: nil)
     }
     
     /**
@@ -124,9 +106,18 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self, selector: #selector(ChangePasswordViewController.gasServiceButtonInChangePassVCTapped(_:)), name:NSNotification.Name(rawValue: "gasServiceButtonInChangePassVCTapped"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ChangePasswordViewController.issueButtonInChangePassVCTapped(_:)), name:NSNotification.Name(rawValue: "issueButtonInChangePassVCTapped"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ChangePasswordViewController.configButtonInChangePassVCTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInChangePassVCTapped"), object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(ChangePasswordViewController.gasServiceButtonInChangePassVCTapped(_:)),
+                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(ChangePasswordViewController.issueButtonInChangePassVCTapped(_:)),
+                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(ChangePasswordViewController.configButtonInChangePassVCTapped(_:)),
+                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW),
+                                               object: nil)
     }
     
     /**
@@ -213,54 +204,9 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
         logoutButton.setTitleColor(UIColor.white, for: UIControlState())
         logoutButton.layer.cornerRadius = 6
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
-
-        
         
         // Navigation Bar customize
-        navigationBar.title = GlobalConst.CONTENT00089
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:GlobalConst.BUTTON_COLOR_RED]
-        
-        //menu button on NavBar
-        let menuOrigin = UIImage(named: GlobalConst.MENU_IMG_NAME);
-        let tintedImage = menuOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        menuButton.setImage(tintedImage, for: UIControlState())
-        menuButton.tintColor = GlobalConst.BUTTON_COLOR_RED
-        menuButton.frame = CGRect(x: 0, y: 0,
-                                  width: GlobalConst.MENU_BUTTON_W,
-                                  height: GlobalConst.MENU_BUTTON_H)
-        
-        menuButton.setTitle("", for: UIControlState())
-        let menuNavBar = UIBarButtonItem()
-        menuNavBar.customView = menuButton
-        menuNavBar.isEnabled = true//disable menu button
-        
-        //noti button on NavBar
-        notificationButton.frame = CGRect(x: 0, y: 0,
-                                          width: GlobalConst.MENU_BUTTON_W,
-                                          height: GlobalConst.NOTIFY_BUTTON_H)
-        notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
-        notificationButton.setTitle("!", for: UIControlState())
-        notificationButton.setTitleColor(UIColor.white, for: UIControlState())
-        notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        
-        let notificationNavBar = UIBarButtonItem()
-        notificationNavBar.customView = notificationButton
-        navigationBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
-        //back button
-        let backOrigin = UIImage(named: "back.png");
-        let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        backButton.setImage(tintedBackLogo, for: UIControlState())
-        backButton.tintColor = GlobalConst.BUTTON_COLOR_RED
-        backButton.frame = CGRect(x: 0, y: 0,
-                                  width: GlobalConst.MENU_BUTTON_W,
-                                  height: GlobalConst.MENU_BUTTON_W)
-        //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
-        backButton.setTitle("", for: UIControlState())
-        let backNavBar = UIBarButtonItem()
-        backNavBar.customView = backButton
-        navigationBar.setLeftBarButton(backNavBar, animated: false)
-        // Do any additional setup after loading the view.
-        
+        setupNavigationBar(title: GlobalConst.CONTENT00089, isNotifyEnable: true)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
 

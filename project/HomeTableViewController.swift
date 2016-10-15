@@ -96,11 +96,11 @@ class HomeTableViewController: UITableViewController, UIPopoverPresentationContr
         
         
         //menu button tapped
-        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.pushToLoginVC(_:)), name:NSNotification.Name(rawValue: "loginButtonInHomeTapped"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.pushToRegisterVC(_:)), name:NSNotification.Name(rawValue: "registerButtonInHomeTapped"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.configButtonTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInHomeTapped"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.logoutButtonTapped(_:)), name:NSNotification.Name(rawValue: "logoutButtonInHomeTapped"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.issueButtonTapped(_:)), name:NSNotification.Name(rawValue: "issueButtonInHomeTapped"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.pushToLoginVC(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.pushToRegisterVC(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_REGISTER_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.configButtonTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.logoutButtonTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_LOGOUT_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.issueButtonTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
         
         //declare List
         aList = [GlobalConst.CONTENT00130, GlobalConst.CONTENT00041, GlobalConst.CONTENT00099, GlobalConst.CONTENT00098, GlobalConst.CONTENT00100]

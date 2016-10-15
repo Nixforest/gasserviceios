@@ -70,7 +70,7 @@ class CommonViewController : UIViewController {
      */
     func showAlert(message: String) -> Void {
         let alert = UIAlertController(title: GlobalConst.CONTENT00162, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: GlobalConst.CONTENT00008, style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: GlobalConst.CONTENT00008, style: .default, handler: nil)
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }
@@ -127,6 +127,7 @@ class CommonViewController : UIViewController {
         notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
         notificationButton.setTitle("!", for: UIControlState())
         notificationButton.setTitleColor(UIColor.white, for: UIControlState())
+        notificationButton.addTarget(self, action: #selector(notificationButtonTapped(_:)), for: UIControlEvents.touchUpInside)
         
         // Set status of notify button
         if isNotifyEnable {
@@ -149,10 +150,27 @@ class CommonViewController : UIViewController {
                                   width: GlobalConst.MENU_BUTTON_W,
                                   height: GlobalConst.MENU_BUTTON_W)
         backButton.setTitle("", for: UIControlState())
+        backButton.addTarget(self, action: #selector(backButtonTapped(_:)), for: UIControlEvents.touchUpInside)
         
         let backNavBar = UIBarButtonItem()
         backNavBar.customView = backButton
         backNavBar.isEnabled = true
         navigationBar.setLeftBarButton(backNavBar, animated: false)
+    }
+    
+    /**
+     * Handle tap on Notification button
+     * - parameter sender: AnyObject
+     */
+    func notificationButtonTapped(_ sender: AnyObject) {
+        showAlert(message: "Bạn có tin nhắn mới")
+    }
+    
+    /**
+     * Handle tap on Back button
+     * - parameter sender:AnyObject
+     */
+    func backButtonTapped(_ sender: AnyObject) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }

@@ -86,6 +86,10 @@ class DomainConst {
     static let KEY_ISSUE_ID = "issue_id"
     /** Customer Id */
     static let KEY_CUSTOMER_ID = "customer_id"
+    /** Customer Name */
+    static let KEY_CUSTOMER_NAME = "customer_name"
+    /** Customer Address */
+    static let KEY_CUSTOMER_ADDRESS = "customer_address"
     /** Title */
     static let KEY_TITLE = "title"
     /** Message */
@@ -142,8 +146,14 @@ class DomainConst {
     static let KEY_SIGN_UP_CODE = "signup_code"
     /** Employee Id */
     static let KEY_EMPLOYEE_ID = "employee_id"
+    /** Employee Name */
+    static let KEY_EMPLOYEE_NAME = "employee_name"
+    /** Employee phone */
+    static let KEY_EMPLOYEE_PHONE = "employee_phone"
     /** Uphold type */
     static let KEY_UPHOLD_TYPE = "type_uphold"
+    /** Uphold type */
+    static let KEY_UPHOLD_TYPE_IDX = "uphold_type"
     /** Content */
     static let KEY_CONTENT = "content"
     /** Contact person */
@@ -152,6 +162,8 @@ class DomainConst {
     static let KEY_CONTACT_TEL = "contact_tel"
     /** Status */
     static let KEY_STATUS = "status"
+    /** Status number */
+    static let KEY_STATUS_NUMBER = "status_number"
     /** Uphold Id */
     static let KEY_UPHOLD_ID = "uphold_id"
     /** Hours handle */
@@ -260,6 +272,22 @@ class DomainConst {
     static let KEY_SETTING_USER_TOKEN = "gasservice.user.token"
     /** Setting key: training mode */
     static let KEY_SETTING_TRAINING_MODE = "gasservice.trainningMode"
+    /** Key total record */
+    static let KEY_TOTAL_RECORD = "total_record"
+    /** Code no */
+    static let KEY_CODE_NO = "code_no"
+    /** Level type */
+    static let KEY_LEVEL_TYPE = "level_type"
+    /** Created date */
+    static let KEY_CREATED_DATE = "created_date"
+    /** Created byte */
+    static let KEY_CREATED_BY = "created_by"
+    /** Sale name */
+    static let KEY_SALE_NAME = "sale_name"
+    /** Schedule month */
+    static let KEY_SCHEDULE_MONTH = "schedule_month"
+    /** Last reply message */
+    static let KEY_LAST_REPLY_MESSAGE = "last_reply_message"
     
     /** -----Specified constant----- */
     /** File parameter: file_name[ + ] */

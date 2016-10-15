@@ -8,6 +8,7 @@
 
 import Foundation
 class GlobalConst {
+    // MARK: Static strings
     static let CONTENT00001 = "Harpy Framework"
     static let CONTENT00002 = "Chưa chọn khách hàng"
     static let CONTENT00003 = "Chưa chọn nguyên nhân!"
@@ -193,12 +194,13 @@ class GlobalConst {
     static let LOGIN_LOGO_H : CGFloat = 140
     static let NAVIGATION_BAR_H : CGFloat = 70
     static let MARGIN : CGFloat = 10
+    static let MARGIN_CELL : CGFloat = 3
     static let ACCOUNT_AVATAR_W : CGFloat = 140
     static let ACCOUNT_AVATAR_H : CGFloat = 140
     static let ACCOUNT_ICON_SIZE : CGFloat = 40
     
     // ----- Color defines -----
-    static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.PARENT_BORDER_WIDTH * 2) / 4
+    static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.PARENT_BORDER_WIDTH * 2) / 5
     static let CELL_BORDER_COLOR:UIColor = UIColor.white
     static let BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
     static let BUTTON_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
@@ -212,15 +214,38 @@ class GlobalConst {
     static var TRAINING_MODE_FLAG:Bool = false
     static var LOGIN_STATUS:Bool = true
     
-    // MARK - Controller names
+    // MARK: Controller names
     /** Name of RegisterViewController */
     static let REGISTER_VIEW_CTRL = "RegisterViewController"
     /** Name of ConfigurationViewController */
     static let CONFIGURATION_VIEW_CTRL = "ConfigurationViewController"
+    /** Name of AccountViewController */
+    static let ACCOUNT_VIEW_CTRL = "AccountViewController"
+    /** Name of UpholdListViewController */
+    static let UPHOLDLIST_VIEW_CTRL = "UpholdListViewController"
     /** Name of ChangePasswordViewController */
     static let CHANGE_PASSWORD_VIEW_CTRL = "ChangePasswordViewController"
+    /** Period table view cell */
+    static let PERIOD_TABLE_VIEW_CELL = "periodTableViewCell"
+    /** Problem table view cell */
+    static let PROBLEM_TABLE_VIEW_CELL = "problemTableViewCell"
+    /** Search bar table view cell */
+    static let SEARCH_BAR_TABLE_VIEW_CELL = "searchBarTableViewCell"
     
-    // MARK - Domain constants
+    // MARK: Notification name
+    static let NOTIFY_NAME_LOGIN_ITEM                   = "loginItemTapped"
+    static let NOTIFY_NAME_LOGOUT_ITEM                  = "logoutItemTapped"
+    static let NOTIFY_NAME_REGISTER_ITEM                = "registerItemTapped"
+    static let NOTIFY_NAME_GAS_SERVICE_ITEM             = "gasServiceItemTapped"
+    static let NOTIFY_NAME_ISSUE_ITEM                   = "issueItemTapped"
+    static let NOTIFY_NAME_COFIG_ITEM                   = "configItemTapped"
+    static let NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW       = "configItemTappedAccountView"
+    static let NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW    = "configItemTappedChangePassView"
+    static let NOTIFY_NAME_COFIG_ITEM_HOMEVIEW          = "configItemTappedHomeView"
+    static let NOTIFY_NAME_SET_DATA_ACCOUNTVIEW         = "AccountViewController.setData"
+    static let NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW     = "UpholdListViewController.setData"
+    
+    // MARK: Domain constants
     /** Logo image name */
     static let LOGO_IMG_NAME = "gas_logo.png"
     /** Contact image name */

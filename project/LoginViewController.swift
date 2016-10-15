@@ -25,32 +25,10 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
     @IBOutlet weak var chbShowPassword: CheckBox!
     /** Show password label */
     @IBOutlet weak var lblShowPassword: UILabel!
-//    /** Notification button */
-//    @IBOutlet weak var btnNotification: UIButton!
-//    /** Menu button */
-//    @IBOutlet weak var btnMenu: UIButton!
-//    /** Back button */
-//    @IBOutlet weak var btnBack: UIButton!
     /** Tap counter on logo */
     var imgLogoTappedCounter:Int = 0
     
-    // MARK: Actions
-    /**
-     * Handle tap on Back button
-     * - parameter sender:AnyObject
-     */
-    @IBAction func backButtonTapped(_ sender: AnyObject) {
-       _ = self.navigationController?.popViewController(animated: true)
-    }
-    
-    /**
-     * Handle tap on Notification button
-     * - parameter sender:AnyObject
-     */
-    @IBAction func notification(_ sender: AnyObject) {
-        showAlert(message: "Bạn chưa đăng nhập")
-    }
-    
+    // MARK: Actions    
     /**
      * Handle check/uncheck on Show password checkbox
      * - parameter sender:AnyObject
@@ -85,19 +63,6 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
 //        self.navigationController?.pushViewController(registerVC, animated: true)
         showAlert(message: "Chức năng đã bị khoá, vui lòng thử lại sau!")
     }
-    /**
-     * Pop over menu
-     */
-    @IBAction func showPopOver(_ sender: AnyObject) {
-        print("menu tapped")
-    }
-    
-    /**
-     * Show notification
-     */
-    @IBAction func showNotification(_ sender: AnyObject) {
-        print("noti tapped")
-    }
     
     //MARK: Methods
     /**
@@ -131,7 +96,10 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.configButtonInLoginTapped(_:)), name:NSNotification.Name(rawValue: "configButtonInLoginTapped"), object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(LoginViewController.configButtonInLoginTapped(_:)),
+                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM),
+                                               object: nil)
     }
     
     /**
@@ -226,12 +194,9 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         btnSignin.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         self.view.addSubview(btnSignin)
         btnSignin.translatesAutoresizingMaskIntoConstraints = true
-        //btnSignin.isEnabled = false
-        
-        
         
         // Navigation bar
-        setupNavigationBar(title: GlobalConst.CONTENT00051, isNotifyEnable: true)
+        setupNavigationBar(title: GlobalConst.CONTENT00051, isNotifyEnable: false)
         
         txtAccount.delegate = self
         txtPassword.delegate = self
@@ -280,7 +245,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
     }
     
     /**
-     * Override
+     * Override: show menu controller
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popOverMenu" {

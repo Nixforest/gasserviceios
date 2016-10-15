@@ -32,6 +32,7 @@ class periodTableViewCell: UITableViewCell {
         lblName.translatesAutoresizingMaskIntoConstraints = true
         lblName.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH ,y: GlobalConst.PARENT_BORDER_WIDTH ,width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.BUTTON_HEIGHT,height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         periodView.addSubview(lblName)
+        lblName.font = UIFont.boldSystemFont(ofSize: 15)
         
         lblIssue.translatesAutoresizingMaskIntoConstraints = true
         lblIssue.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH ,y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_IN_CELL_HEIGHT ,width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.BUTTON_HEIGHT,height: GlobalConst.LABEL_IN_CELL_HEIGHT)

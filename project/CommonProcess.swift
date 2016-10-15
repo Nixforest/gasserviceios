@@ -78,4 +78,13 @@ class CommonProcess {
         request.setData(oldPass: oldPass, newPass: newPass)
         request.execute()
     }
+    
+    static func requestUpholdList(page: Int, type: Int, customerId: String, status: String, view: CommonViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = UpholdListRequest(url: DomainConst.PATH_SITE_UPHOLD_LIST, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        
+        request.setData(page: page, type: type, customerId: customerId, status: status)
+        request.execute()
+    }
 }

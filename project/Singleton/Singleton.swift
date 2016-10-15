@@ -31,7 +31,7 @@ class Singleton: NSObject {
     /** Max upload */
     var max_upload: String = ""
     /** List data issue */
-    var data_issue: [ConfigBean] = [ConfigBean]()
+    var listUpholdStatus: [ConfigBean] = [ConfigBean]()
     /** List user info */
     var user_info: UserInfoBean? = nil
     /** List check menu */
@@ -48,6 +48,8 @@ class Singleton: NSObject {
     var list_agent: [ConfigBean] = [ConfigBean]()
     /** List family type */
     var list_hgd_type: [ConfigBean] = [ConfigBean]()
+    /** Uphold list data */
+    var upholdList: UpholdListRespModel = UpholdListRespModel()
     
     // MARK - Methods
     /**
@@ -146,5 +148,27 @@ class Singleton: NSObject {
         for item in listStreets {
             self.list_street.append(item)
         }
+    }
+    
+    /**
+     * Save temp data.
+     * - parameter loginModel: LoginRespModel
+     */
+    func saveTempData(loginModel: LoginRespModel) {
+        for item in loginModel.data_uphold {
+            if item.id == DomainConst.KEY_STATUS {
+                for status in item.data {
+                    self.listUpholdStatus.append(status)
+                }
+            }
+        }
+    }
+    
+    /**
+     * Save uphold list.
+     * - parameter upholdListModel: Sata to save
+     */
+    func saveUpholdList(upholdListModel: UpholdListRespModel) {
+        self.upholdList = upholdListModel
     }
 }

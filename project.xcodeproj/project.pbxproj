@@ -95,6 +95,16 @@
 		926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F31D9276B5000D2DED /* CommonProcess.swift */; };
 		926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F61D927BE0000D2DED /* CommonViewController.swift */; };
 		92B39DC11DAA0F22007DDB4C /* ChangePassRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */; };
+		92B6A80F1DB1DA98001B0E69 /* UpholdListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */; };
+		92B6A8111DB1DB3D001B0E69 /* UpholdBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6A8101DB1DB3D001B0E69 /* UpholdBean.swift */; };
+		92B6DBAF1DACAC640017C70F /* MenuItemEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6DBAE1DACAC640017C70F /* MenuItemEnum.swift */; };
+		92B6DBB11DACB4E60017C70F /* CommonMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6DBB01DACB4E60017C70F /* CommonMenuViewController.swift */; };
+		92B6DBB31DACC2380017C70F /* gasservice.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6DBB21DACC2380017C70F /* gasservice.png */; };
+		92B6DBC71DACCB0D0017C70F /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6DBC61DACCB0D0017C70F /* logout.png */; };
+		92B6DBC91DACCBD60017C70F /* issueMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6DBC81DACCBD60017C70F /* issueMenu.png */; };
+		92B6DBCB1DACCC7A0017C70F /* loginMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6DBCA1DACCC7A0017C70F /* loginMenu.png */; };
+		92B6DBCD1DACCCE10017C70F /* regMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6DBCC1DACCCE10017C70F /* regMenu.png */; };
+		92B6DBCF1DACE6FF0017C70F /* UpholdListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6DBCE1DACE6FF0017C70F /* UpholdListRequest.swift */; };
 		92D92A141DA94E9B00CD9BBD /* LogoutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D92A131DA94E9B00CD9BBD /* LogoutRequest.swift */; };
 		92D92A161DA955CB00CD9BBD /* DomainConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D92A151DA955CB00CD9BBD /* DomainConst.swift */; };
 		92F337451D96DCC500FDACBF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F337441D96DCC500FDACBF /* LoadingView.swift */; };
@@ -215,6 +225,16 @@
 		926670F31D9276B5000D2DED /* CommonProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonProcess.swift; sourceTree = "<group>"; };
 		926670F61D927BE0000D2DED /* CommonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
 		92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassRequest.swift; sourceTree = "<group>"; };
+		92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdListRespModel.swift; sourceTree = "<group>"; };
+		92B6A8101DB1DB3D001B0E69 /* UpholdBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdBean.swift; sourceTree = "<group>"; };
+		92B6DBAE1DACAC640017C70F /* MenuItemEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemEnum.swift; sourceTree = "<group>"; };
+		92B6DBB01DACB4E60017C70F /* CommonMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMenuViewController.swift; sourceTree = "<group>"; };
+		92B6DBB21DACC2380017C70F /* gasservice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gasservice.png; path = ../../Downloads/gasservice.png; sourceTree = "<group>"; };
+		92B6DBC61DACCB0D0017C70F /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
+		92B6DBC81DACCBD60017C70F /* issueMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = issueMenu.png; sourceTree = "<group>"; };
+		92B6DBCA1DACCC7A0017C70F /* loginMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginMenu.png; sourceTree = "<group>"; };
+		92B6DBCC1DACCCE10017C70F /* regMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = regMenu.png; sourceTree = "<group>"; };
+		92B6DBCE1DACE6FF0017C70F /* UpholdListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdListRequest.swift; sourceTree = "<group>"; };
 		92D92A131DA94E9B00CD9BBD /* LogoutRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutRequest.swift; sourceTree = "<group>"; };
 		92D92A151DA955CB00CD9BBD /* DomainConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DomainConst.swift; sourceTree = "<group>"; };
 		92F337441D96DCC500FDACBF /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -372,6 +392,11 @@
 		84DC0D7C1D494B3000E52249 /* IMG */ = {
 			isa = PBXGroup;
 			children = (
+				92B6DBCC1DACCCE10017C70F /* regMenu.png */,
+				92B6DBCA1DACCC7A0017C70F /* loginMenu.png */,
+				92B6DBC81DACCBD60017C70F /* issueMenu.png */,
+				92B6DBC61DACCB0D0017C70F /* logout.png */,
+				92B6DBB21DACC2380017C70F /* gasservice.png */,
 				84E83D521D87C171007C7A90 /* InfoIcon.png */,
 				84E83D531D87C171007C7A90 /* TrainingModeIcon.png */,
 				84B2E9CF1D7F0D3E005E4A54 /* done.png */,
@@ -433,6 +458,7 @@
 				92458D801D9647B800AB16DE /* Response */,
 				92458D751D961B3C00AB16DE /* ConfigBean.swift */,
 				92458D791D96357F00AB16DE /* UserInfoBean.swift */,
+				92B6A8101DB1DB3D001B0E69 /* UpholdBean.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -445,6 +471,7 @@
 				9246E3D61D9D9E3A00312DEA /* LoginRequest.swift */,
 				92D92A131DA94E9B00CD9BBD /* LogoutRequest.swift */,
 				92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */,
+				92B6DBCE1DACE6FF0017C70F /* UpholdListRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -455,6 +482,7 @@
 				9207654F1D94E2BC006ABF26 /* BaseRespModel.swift */,
 				92458D771D96216A00AB16DE /* LoginRespModel.swift */,
 				92458D811D9647F500AB16DE /* UserProfileRespModel.swift */,
+				92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -467,6 +495,8 @@
 				92F337441D96DCC500FDACBF /* LoadingView.swift */,
 				9246E3D81D9DA49B00312DEA /* CommonMenuController.swift */,
 				92D92A151DA955CB00CD9BBD /* DomainConst.swift */,
+				92B6DBAE1DACAC640017C70F /* MenuItemEnum.swift */,
+				92B6DBB01DACB4E60017C70F /* CommonMenuViewController.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -539,7 +569,7 @@
 				TargetAttributes = {
 					84284E0D1D40DF050079DEBC = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = B6EW6RYD29;
+						DevelopmentTeam = HFC2RL83D6;
 						LastSwiftMigration = 0800;
 					};
 					84284E211D40DF050079DEBC = {
@@ -585,6 +615,7 @@
 				84E83D541D87C171007C7A90 /* InfoIcon.png in Resources */,
 				84A4C0651D63117000C0B84C /* checkbox-unchecked.png in Resources */,
 				8428E1231DA9132E0094D65E /* step6ImgCollectionViewCell.xib in Resources */,
+				92B6DBCB1DACCC7A0017C70F /* loginMenu.png in Resources */,
 				84F246891D93DDB300259C35 /* SearchBarView.xib in Resources */,
 				84331BEB1D771B560089B0FA /* contact.png in Resources */,
 				842BA35D1D8EA81B004ECBFF /* problemTableViewCell.xib in Resources */,
@@ -599,17 +630,21 @@
 				84331BEC1D771B560089B0FA /* mobile.png in Resources */,
 				84F481981D67040E0072DC7A /* CreateUpHold.jpeg in Resources */,
 				84EFFBE91D7D912500900578 /* config.png in Resources */,
+				92B6DBC71DACCB0D0017C70F /* logout.png in Resources */,
 				84A4C06B1D6311D000C0B84C /* example.txt in Resources */,
 				84284E191D40DF050079DEBC /* Assets.xcassets in Resources */,
 				84E172D91D921925003121D6 /* View.xib in Resources */,
 				842BA3591D8EA806004ECBFF /* periodTableViewCell.xib in Resources */,
 				84F481961D67040E0072DC7A /* Account.jpeg in Resources */,
+				92B6DBB31DACC2380017C70F /* gasservice.png in Resources */,
 				84EF507C1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib in Resources */,
 				84F481971D67040E0072DC7A /* UpHoldList.jpeg in Resources */,
 				84E041B11D668DFD00A89608 /* back.png in Resources */,
+				92B6DBC91DACCBD60017C70F /* issueMenu.png in Resources */,
 				84F481991D67040E0072DC7A /* ServiceRating.jpeg in Resources */,
 				84284E171D40DF050079DEBC /* Main.storyboard in Resources */,
 				8428E11F1DA8DFE00094D65E /* step5TableViewCell.xib in Resources */,
+				92B6DBCD1DACCCE10017C70F /* regMenu.png in Resources */,
 				84E83D551D87C171007C7A90 /* TrainingModeIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,13 +685,16 @@
 				84EF507A1D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift in Sources */,
 				84F246861D93DDB300259C35 /* SearchBarTableViewCell.swift in Sources */,
 				84EF9C5F1D93C7680008B30F /* Singleton.swift in Sources */,
+				92B6A8111DB1DB3D001B0E69 /* UpholdBean.swift in Sources */,
 				8428E11E1DA8DFE00094D65E /* step5TableViewCell.swift in Sources */,
 				84DFE0051DA23AE700A48B35 /* ReplyUpholdStep3ViewController.swift in Sources */,
 				8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */,
 				84E172D61D921876003121D6 /* UpholdDetailViewController.swift in Sources */,
 				84F2D62E1D66121B0091F6D3 /* ColorFromRGB.swift in Sources */,
+				92B6A80F1DB1DA98001B0E69 /* UpholdListRespModel.swift in Sources */,
 				842468411D86FAAE00356B20 /* ConfigurationTableViewCell.swift in Sources */,
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
+				92B6DBAF1DACAC640017C70F /* MenuItemEnum.swift in Sources */,
 				84459EEA1D964B930087F986 /* CreateUpholdStep2ViewController.swift in Sources */,
 				84DFE0091DA23AFD00A48B35 /* ReplyUpholdStep5ViewController.swift in Sources */,
 				84DFE0031DA23ADA00A48B35 /* ReplyUpholdStep2ViewController.swift in Sources */,
@@ -681,10 +719,12 @@
 				842BA35C1D8EA81B004ECBFF /* problemTableViewCell.swift in Sources */,
 				92D92A141DA94E9B00CD9BBD /* LogoutRequest.swift in Sources */,
 				842BA3581D8EA806004ECBFF /* periodTableViewCell.swift in Sources */,
+				92B6DBCF1DACE6FF0017C70F /* UpholdListRequest.swift in Sources */,
 				92B39DC11DAA0F22007DDB4C /* ChangePassRequest.swift in Sources */,
 				8424683F1D86F9DA00356B20 /* ConfigurationViewController.swift in Sources */,
 				84DFE00B1DA23B0900A48B35 /* ReplyUpholdStep6ViewController.swift in Sources */,
 				84EDDFB01D7D869000861ACB /* menuLoginViewController.swift in Sources */,
+				92B6DBB11DACB4E60017C70F /* CommonMenuViewController.swift in Sources */,
 				926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */,
 				92458D781D96216A00AB16DE /* LoginRespModel.swift in Sources */,
 				92026C471D7E843D004232CA /* GlobalConst.swift in Sources */,
@@ -838,11 +878,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = B6EW6RYD29;
+				DEVELOPMENT_TEAM = HFC2RL83D6;
 				INFOPLIST_FILE = project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
+				PRODUCT_BUNDLE_IDENTIFIER = nixforest.gasservice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
@@ -858,11 +898,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = B6EW6RYD29;
+				DEVELOPMENT_TEAM = HFC2RL83D6;
 				INFOPLIST_FILE = project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = lampham.project;
+				PRODUCT_BUNDLE_IDENTIFIER = nixforest.gasservice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
