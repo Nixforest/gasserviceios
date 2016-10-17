@@ -1127,42 +1127,11 @@
                     <view key="view" contentMode="scaleToFill" id="WNm-xy-RdO">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="50a-4d-BGs">
-                                <frame key="frameInset" minX="77" minY="28" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="gasServiceButtonTapped:" destination="gpH-Q6-KIn" eventType="touchUpInside" id="5EH-Ah-0tr"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xsP-Xq-9KB">
-                                <frame key="frameInset" minX="77" minY="66" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="issueButtonTapped:" destination="gpH-Q6-KIn" eventType="touchUpInside" id="hEF-Qe-K1k"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXB-fC-es5">
-                                <frame key="frameInset" minX="77" minY="104" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="configButtonTapped:" destination="gpH-Q6-KIn" eventType="touchUpInside" id="DA3-yl-kUa"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="200" height="150"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="200" height="150"/>
-                    <connections>
-                        <outlet property="configButton" destination="MXB-fC-es5" id="Wuc-OS-fTF"/>
-                        <outlet property="gasServiceButton" destination="50a-4d-BGs" id="4Kl-ui-uzY"/>
-                        <outlet property="issueButton" destination="xsP-Xq-9KB" id="8m9-z9-6Ko"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zuE-CZ-jNT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2355,6 +2324,6 @@
     </scenes>
     <resources>
         <image name="checkbox-unchecked.png" width="300" height="300"/>
-        <image name="done.png" width="204" height="204"/>
+        <image name="done.png" width="128" height="128"/>
     </resources>
 </document>

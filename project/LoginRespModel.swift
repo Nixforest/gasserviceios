@@ -40,7 +40,6 @@ class LoginRespModel : BaseRespModel {
     /** List family type */
     var list_hgd_invest: [ConfigBean] = [ConfigBean]()
     
-    
     /**
      * Initializer
      */

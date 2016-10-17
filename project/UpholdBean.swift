@@ -60,6 +60,8 @@ class UpholdBean: NSObject {
     var rating_note: String = ""
     /** Rating type */
     var rating_type: [ConfigBean] = [ConfigBean]()
+    /** Schedule type */
+    var schedule_type: String = ""
     
     /**
      * Initializer
@@ -97,6 +99,7 @@ class UpholdBean: NSObject {
         self.customer_id = jsonData[DomainConst.KEY_CUSTOMER_ID] as? String ?? ""
         self.rating_status = jsonData[DomainConst.KEY_RATING_STATUS] as? String ?? ""
         self.rating_note = jsonData[DomainConst.KEY_RATING_NOTE] as? String ?? ""
+        self.schedule_type = jsonData[DomainConst.KEY_SCHEDULE_TYPE] as? String ?? ""
         if let dataArr = jsonData[DomainConst.KEY_RATING_TYPE] as? [[String: AnyObject]] {
             for listItem in dataArr {
                 self.rating_type.append(ConfigBean(jsonData: listItem))

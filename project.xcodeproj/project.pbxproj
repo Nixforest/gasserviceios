@@ -94,6 +94,8 @@
 		9246E3D71D9D9E3A00312DEA /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9246E3D61D9D9E3A00312DEA /* LoginRequest.swift */; };
 		926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F31D9276B5000D2DED /* CommonProcess.swift */; };
 		926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F61D927BE0000D2DED /* CommonViewController.swift */; };
+		9278E8EF1DB4B3760027BFCE /* SearchCustomerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9278E8EE1DB4B3760027BFCE /* SearchCustomerRequest.swift */; };
+		9278E8F11DB4BE790027BFCE /* SearchCustomerRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9278E8F01DB4BE790027BFCE /* SearchCustomerRespModel.swift */; };
 		92B39DC11DAA0F22007DDB4C /* ChangePassRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */; };
 		92B6A80F1DB1DA98001B0E69 /* UpholdListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */; };
 		92B6A8111DB1DB3D001B0E69 /* UpholdBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6A8101DB1DB3D001B0E69 /* UpholdBean.swift */; };
@@ -224,6 +226,8 @@
 		9246E3D81D9DA49B00312DEA /* CommonMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMenuController.swift; sourceTree = "<group>"; };
 		926670F31D9276B5000D2DED /* CommonProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonProcess.swift; sourceTree = "<group>"; };
 		926670F61D927BE0000D2DED /* CommonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
+		9278E8EE1DB4B3760027BFCE /* SearchCustomerRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCustomerRequest.swift; sourceTree = "<group>"; };
+		9278E8F01DB4BE790027BFCE /* SearchCustomerRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCustomerRespModel.swift; sourceTree = "<group>"; };
 		92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassRequest.swift; sourceTree = "<group>"; };
 		92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdListRespModel.swift; sourceTree = "<group>"; };
 		92B6A8101DB1DB3D001B0E69 /* UpholdBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdBean.swift; sourceTree = "<group>"; };
@@ -472,6 +476,7 @@
 				92D92A131DA94E9B00CD9BBD /* LogoutRequest.swift */,
 				92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */,
 				92B6DBCE1DACE6FF0017C70F /* UpholdListRequest.swift */,
+				9278E8EE1DB4B3760027BFCE /* SearchCustomerRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -483,6 +488,7 @@
 				92458D771D96216A00AB16DE /* LoginRespModel.swift */,
 				92458D811D9647F500AB16DE /* UserProfileRespModel.swift */,
 				92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */,
+				9278E8F01DB4BE790027BFCE /* SearchCustomerRespModel.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -704,6 +710,7 @@
 				92458D7D1D963B1F00AB16DE /* BaseRequest.swift in Sources */,
 				92458D7A1D96357F00AB16DE /* UserInfoBean.swift in Sources */,
 				926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */,
+				9278E8EF1DB4B3760027BFCE /* SearchCustomerRequest.swift in Sources */,
 				84459EDF1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.swift in Sources */,
 				84DFE0071DA23AF300A48B35 /* ReplyUpholdStep4ViewController.swift in Sources */,
 				84459EE61D9649450087F986 /* CreateUpholdViewController.swift in Sources */,
@@ -712,6 +719,7 @@
 				842277C91D421E7E00611439 /* CheckBox.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
 				843DAFCB1D9FAC3B00D517FC /* ReplyUpholdStep0ViewController.swift in Sources */,
+				9278E8F11DB4BE790027BFCE /* SearchCustomerRespModel.swift in Sources */,
 				8428E1221DA9132E0094D65E /* step6ImgCollectionViewCell.swift in Sources */,
 				84F246881D93DDB300259C35 /* SearchBarView.swift in Sources */,
 				920765501D94E2BC006ABF26 /* BaseRespModel.swift in Sources */,

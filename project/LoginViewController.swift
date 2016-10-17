@@ -83,21 +83,21 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         }
     }
     
-    /**
-     * Handle tap on Configuration menu item
-     * - parameter notification: Notification
-     */
-    func configButtonInLoginTapped(_ notification: Notification) {
-        let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CONFIGURATION_VIEW_CTRL)
-        self.navigationController?.pushViewController(configVC, animated: true)
-    }
+//    /**
+//     * Handle tap on Configuration menu item
+//     * - parameter notification: Notification
+//     */
+//    func configButtonInLoginTapped(_ notification: Notification) {
+//        let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CONFIGURATION_VIEW_CTRL)
+//        self.navigationController?.pushViewController(configVC, animated: true)
+//    }
     
     /**
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(LoginViewController.configButtonInLoginTapped(_:)),
+                                               selector: #selector(super.configItemTap(_:)),
                                                name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM),
                                                object: nil)
     }

@@ -171,6 +171,22 @@ class CommonViewController : UIViewController {
      * - parameter sender:AnyObject
      */
     func backButtonTapped(_ sender: AnyObject) {
+        self.clearData()
         _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    /**
+     * Handle when tap on Config menu item
+     */
+    func configItemTap(_ notification: Notification) {
+        let config = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CONFIGURATION_VIEW_CTRL)
+        self.navigationController?.pushViewController(config, animated: true)
+    }
+    
+    /**
+     * Clear data on current view.
+     */
+    func clearData() {
+        
     }
 }

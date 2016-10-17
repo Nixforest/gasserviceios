@@ -288,6 +288,8 @@ class DomainConst {
     static let KEY_SCHEDULE_MONTH = "schedule_month"
     /** Last reply message */
     static let KEY_LAST_REPLY_MESSAGE = "last_reply_message"
+    /** Schedule Type */
+    static let KEY_SCHEDULE_TYPE = "schedule_type"
     
     /** -----Specified constant----- */
     /** File parameter: file_name[ + ] */

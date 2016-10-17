@@ -92,15 +92,15 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
         print("issue button tapped")
     }
     
-    /**
-     * Handle tap on Menu item Config
-     * - parameter notification: Notification
-     */
-    func configButtonInChangePassVCTapped(_ notification: Notification) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let configVC = mainStoryboard.instantiateViewController(withIdentifier: "ConfigurationViewController")
-        self.navigationController?.pushViewController(configVC, animated: true)
-    }
+//    /**
+//     * Handle tap on Menu item Config
+//     * - parameter notification: Notification
+//     */
+//    func configButtonInChangePassVCTapped(_ notification: Notification) {
+//        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let configVC = mainStoryboard.instantiateViewController(withIdentifier: "ConfigurationViewController")
+//        self.navigationController?.pushViewController(configVC, animated: true)
+//    }
     
     /**
      * Handle when tap menu item
@@ -115,7 +115,7 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
                                                name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(ChangePasswordViewController.configButtonInChangePassVCTapped(_:)),
+                                               selector: #selector(super.configItemTap(_:)),
                                                name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW),
                                                object: nil)
     }

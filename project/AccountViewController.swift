@@ -119,13 +119,13 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         print("issue button tapped")
     }
     
-    /**
-     * Handle when tap on Config menu item
-     */
-    func configButtonInAccountVCTapped(_ notification: Notification) {
-        let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CONFIGURATION_VIEW_CTRL)
-        self.navigationController?.pushViewController(configVC, animated: true)
-    }
+//    /**
+//     * Handle when tap on Config menu item
+//     */
+//    func configButtonInAccountVCTapped(_ notification: Notification) {
+//        let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CONFIGURATION_VIEW_CTRL)
+//        self.navigationController?.pushViewController(configVC, animated: true)
+//    }
     
     /**
      * Handle when tap menu item
@@ -140,7 +140,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
                                                name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(AccountViewController.configButtonInAccountVCTapped(_:)),
+                                               selector: #selector(super.configItemTap(_:)),
                                                name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
                                                object: nil)
     }

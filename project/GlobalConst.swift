@@ -194,7 +194,7 @@ class GlobalConst {
     static let LOGIN_LOGO_H : CGFloat = 140
     static let NAVIGATION_BAR_H : CGFloat = 70
     static let MARGIN : CGFloat = 10
-    static let MARGIN_CELL : CGFloat = 3
+    static let MARGIN_CELL : CGFloat = 1
     static let ACCOUNT_AVATAR_W : CGFloat = 140
     static let ACCOUNT_AVATAR_H : CGFloat = 140
     static let ACCOUNT_ICON_SIZE : CGFloat = 40
@@ -223,6 +223,8 @@ class GlobalConst {
     static let ACCOUNT_VIEW_CTRL = "AccountViewController"
     /** Name of UpholdListViewController */
     static let UPHOLDLIST_VIEW_CTRL = "UpholdListViewController"
+    /** Name of UpholdListViewController */
+    static let UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL = "UpholdDetailEmployeeViewController"
     /** Name of ChangePasswordViewController */
     static let CHANGE_PASSWORD_VIEW_CTRL = "ChangePasswordViewController"
     /** Period table view cell */
@@ -240,10 +242,12 @@ class GlobalConst {
     static let NOTIFY_NAME_ISSUE_ITEM                   = "issueItemTapped"
     static let NOTIFY_NAME_COFIG_ITEM                   = "configItemTapped"
     static let NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW       = "configItemTappedAccountView"
+    static let NOTIFY_NAME_COFIG_ITEM_UPHOLDLISTVIEW    = "configItemTappedUpholdListView"
     static let NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW    = "configItemTappedChangePassView"
     static let NOTIFY_NAME_COFIG_ITEM_HOMEVIEW          = "configItemTappedHomeView"
     static let NOTIFY_NAME_SET_DATA_ACCOUNTVIEW         = "AccountViewController.setData"
     static let NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW     = "UpholdListViewController.setData"
+    static let NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW     = "UpholdListViewController.showSearchBarTableView"
     
     // MARK: Domain constants
     /** Logo image name */

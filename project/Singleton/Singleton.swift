@@ -50,6 +50,8 @@ class Singleton: NSObject {
     var list_hgd_type: [ConfigBean] = [ConfigBean]()
     /** Uphold list data */
     var upholdList: UpholdListRespModel = UpholdListRespModel()
+    /** Search customer result */
+    var searchCustomerResult: SearchCustomerRespModel = SearchCustomerRespModel()
     
     // MARK - Methods
     /**
@@ -169,6 +171,22 @@ class Singleton: NSObject {
      * - parameter upholdListModel: Sata to save
      */
     func saveUpholdList(upholdListModel: UpholdListRespModel) {
-        self.upholdList = upholdListModel
+        if self.upholdList.record.count == 0{
+            self.upholdList = upholdListModel
+        } else {
+            self.upholdList.record.append(contentsOf: upholdListModel.record)
+        }
+    }
+    
+    /**
+     * Clear uphold list
+     */
+    func clearUpholdList() {
+        self.upholdList = UpholdListRespModel()
+    }
+    
+    /** Search customer result */
+    func saveSearchCustomerResult(result: SearchCustomerRespModel) {
+        self.searchCustomerResult = result
     }
 }

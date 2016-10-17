@@ -87,4 +87,13 @@ class CommonProcess {
         request.setData(page: page, type: type, customerId: customerId, status: status)
         request.execute()
     }
+    
+    static func requestSearchCustomer(keyword: String, view: CommonViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = SearchCustomerRequest(url: DomainConst.PATH_SITE_AUTOCOMPLETE_USER, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        
+        request.setData(keyword: keyword)
+        request.execute()
+    }
 }
