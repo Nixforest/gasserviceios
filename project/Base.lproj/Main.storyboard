@@ -641,7 +641,20 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="NyK-87-PNK"/>
+                    <navigationItem key="navigationItem" id="NyK-87-PNK">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="NnR-eK-uD6">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lnl-QN-Lej">
+                                <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <connections>
+                                <segue destination="8yS-VX-XH4" kind="popoverPresentation" identifier="popoverMenu" popoverAnchorBarButtonItem="NnR-eK-uD6" id="jhj-ce-7Jz">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="btnCreateReply" destination="aJw-kY-G6e" id="i6p-jj-FNt"/>
                         <outlet property="scrViewInformation" destination="KPR-az-hRy" id="7sE-qV-7cA"/>
@@ -653,6 +666,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tjw-A8-vsD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3685.5999999999999" y="-1612.4437781109445"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="gcm-r0-hMv">
+            <objects>
+                <viewController id="8yS-VX-XH4" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6M3-o4-8qs"/>
+                        <viewControllerLayoutGuide type="bottom" id="sx6-L0-EOD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="e79-NC-HIc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gcC-cy-Yed" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4410" y="-1703"/>
         </scene>
         <!--Reply Uphold View Controller-->
         <scene sceneID="60A-Rj-P1V">
@@ -913,7 +944,7 @@
                                 <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UGx-Tl-9Ff" id="Qvq-DZ-IaK">
-                                    <frame key="frameInset" width="320" height="44"/>
+                                    <frame key="frameInset" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -1282,7 +1313,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uHs-Pb-9Kl" id="ufp-uI-QHq">
-                                                    <frame key="frameInset" width="320" height="44"/>
+                                                    <frame key="frameInset" width="320" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-rT-a5I">
@@ -1341,7 +1372,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="Who-Su-Imd">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0hR-P1-CtS">
-                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
@@ -1353,7 +1384,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="G5w-Oy-kZA">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mjh-gB-ZS7">
-                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>

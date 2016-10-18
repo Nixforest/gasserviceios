@@ -107,12 +107,12 @@
 		926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F61D927BE0000D2DED /* CommonViewController.swift */; };
 		9278E8EF1DB4B3760027BFCE /* SearchCustomerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9278E8EE1DB4B3760027BFCE /* SearchCustomerRequest.swift */; };
 		9278E8F11DB4BE790027BFCE /* SearchCustomerRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9278E8F01DB4BE790027BFCE /* SearchCustomerRespModel.swift */; };
+		928D3AAA1DB60F31001E5E76 /* gasservice.png in Resources */ = {isa = PBXBuildFile; fileRef = 928D3AA91DB60F31001E5E76 /* gasservice.png */; };
 		92B39DC11DAA0F22007DDB4C /* ChangePassRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */; };
 		92B6A80F1DB1DA98001B0E69 /* UpholdListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */; };
 		92B6A8111DB1DB3D001B0E69 /* UpholdBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6A8101DB1DB3D001B0E69 /* UpholdBean.swift */; };
 		92B6DBAF1DACAC640017C70F /* MenuItemEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6DBAE1DACAC640017C70F /* MenuItemEnum.swift */; };
 		92B6DBB11DACB4E60017C70F /* CommonMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6DBB01DACB4E60017C70F /* CommonMenuViewController.swift */; };
-		92B6DBB31DACC2380017C70F /* gasservice.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6DBB21DACC2380017C70F /* gasservice.png */; };
 		92B6DBC71DACCB0D0017C70F /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6DBC61DACCB0D0017C70F /* logout.png */; };
 		92B6DBC91DACCBD60017C70F /* issueMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6DBC81DACCBD60017C70F /* issueMenu.png */; };
 		92B6DBCB1DACCC7A0017C70F /* loginMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6DBCA1DACCC7A0017C70F /* loginMenu.png */; };
@@ -250,12 +250,12 @@
 		926670F61D927BE0000D2DED /* CommonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
 		9278E8EE1DB4B3760027BFCE /* SearchCustomerRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCustomerRequest.swift; sourceTree = "<group>"; };
 		9278E8F01DB4BE790027BFCE /* SearchCustomerRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCustomerRespModel.swift; sourceTree = "<group>"; };
+		928D3AA91DB60F31001E5E76 /* gasservice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gasservice.png; sourceTree = "<group>"; };
 		92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassRequest.swift; sourceTree = "<group>"; };
 		92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdListRespModel.swift; sourceTree = "<group>"; };
 		92B6A8101DB1DB3D001B0E69 /* UpholdBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdBean.swift; sourceTree = "<group>"; };
 		92B6DBAE1DACAC640017C70F /* MenuItemEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemEnum.swift; sourceTree = "<group>"; };
 		92B6DBB01DACB4E60017C70F /* CommonMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMenuViewController.swift; sourceTree = "<group>"; };
-		92B6DBB21DACC2380017C70F /* gasservice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gasservice.png; path = ../../Downloads/gasservice.png; sourceTree = "<group>"; };
 		92B6DBC61DACCB0D0017C70F /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
 		92B6DBC81DACCBD60017C70F /* issueMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = issueMenu.png; sourceTree = "<group>"; };
 		92B6DBCA1DACCC7A0017C70F /* loginMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginMenu.png; sourceTree = "<group>"; };
@@ -434,11 +434,11 @@
 		84DC0D7C1D494B3000E52249 /* IMG */ = {
 			isa = PBXGroup;
 			children = (
+				928D3AA91DB60F31001E5E76 /* gasservice.png */,
 				92B6DBCC1DACCCE10017C70F /* regMenu.png */,
 				92B6DBCA1DACCC7A0017C70F /* loginMenu.png */,
 				92B6DBC81DACCBD60017C70F /* issueMenu.png */,
 				92B6DBC61DACCB0D0017C70F /* logout.png */,
-				92B6DBB21DACC2380017C70F /* gasservice.png */,
 				84F809AC1DB2141F0035AE36 /* emptyStar.png */,
 				84F809AD1DB2141F0035AE36 /* filledStar.png */,
 				84E000B71DAFA05800FEE1D7 /* delete.png */,
@@ -694,7 +694,7 @@
 				84E172D91D921925003121D6 /* View.xib in Resources */,
 				842BA3591D8EA806004ECBFF /* periodTableViewCell.xib in Resources */,
 				84F481961D67040E0072DC7A /* Account.jpeg in Resources */,
-				92B6DBB31DACC2380017C70F /* gasservice.png in Resources */,
+				928D3AAA1DB60F31001E5E76 /* gasservice.png in Resources */,
 				84EF507C1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib in Resources */,
 				84F481971D67040E0072DC7A /* UpHoldList.jpeg in Resources */,
 				84E000B81DAFA05800FEE1D7 /* delete.png in Resources */,

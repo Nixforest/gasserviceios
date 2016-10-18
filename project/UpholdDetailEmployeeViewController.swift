@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UpholdDetailEmployeeViewController: CommonViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
+class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var lblStatus: UILabel!
     @IBOutlet weak var txtvCustomerName: UITextView!
@@ -158,6 +158,23 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIScrollViewDele
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+     */
+    
+    /**
+     * Override: show menu controller
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "popOverMenu" {
+            let popoverVC = segue.destination
+            popoverVC.popoverPresentationController?.delegate = self
+        }
+    }
+    
+    /**
+     * ...
+     */
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
 
 }
