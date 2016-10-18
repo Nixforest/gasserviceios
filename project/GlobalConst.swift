@@ -225,6 +225,10 @@ class GlobalConst {
     static let UPHOLDLIST_VIEW_CTRL = "UpholdListViewController"
     /** Name of UpholdListViewController */
     static let UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL = "UpholdDetailEmployeeViewController"
+    
+    /** Name of UpholdListViewController */
+    static let UPHOLD_RATING_VIEW_CTRL = "UpholdRatingViewController"
+    
     /** Name of ChangePasswordViewController */
     static let CHANGE_PASSWORD_VIEW_CTRL = "ChangePasswordViewController"
     /** Period table view cell */

@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol problemTableViewCellDelegate {
+    func toRatingVC()
+}
+
 class problemTableViewCell: UITableViewCell {
+    
+    var delegate :problemTableViewCellDelegate?
+    
     /** Item view */
     @IBOutlet weak var problemView: UIView!
     /** Name */
@@ -34,6 +41,9 @@ class problemTableViewCell: UITableViewCell {
     /** Finish mark */
     @IBOutlet weak var finishMarkImg: UIImageView!
     
+    @IBAction func btnRatingTapped(_ sender: AnyObject) {
+        delegate?.toRatingVC()
+    }
     /**
      * Prepares the receiver for service after it has been loaded from an Interface Builder archive, or nib file.
      */

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UpholdListViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class UpholdListViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, problemTableViewCellDelegate {
     // MARK: Properties
     /** Current view type */
     var currentViewType = DomainConst.TYPE_TROUBLE
@@ -416,6 +416,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
                 if (Singleton.sharedInstance.upholdList.record.count > 0) {
                     cell.setData(model: Singleton.sharedInstance.upholdList.record[indexPath.row])
                 }
+                cell.delegate = self
                 cellReturn = cell
             }
             
@@ -435,7 +436,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
 
                 cellReturn = cell
             }
-        
+            cellReturn.selectionStyle = .none
             return cellReturn
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -472,7 +473,17 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         if tableView == problemTableView || tableView == periodTableView {
             let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL)
             self.navigationController?.pushViewController(detail, animated: true)
+            let cell:problemTableViewCell = tableView.dequeueReusableCell(
+                withIdentifier: GlobalConst.PROBLEM_TABLE_VIEW_CELL) as! problemTableViewCell
+            cell.ratingButton.addTarget(self, action: #selector(toRatingVC), for: .touchUpInside)
         }
+        
+    }
+    
+    // MARK: to Uphold Rating VC - ProblemTableView Delegate
+    func toRatingVC() {
+        let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.UPHOLD_RATING_VIEW_CTRL)
+        self.navigationController?.pushViewController(ratingVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
