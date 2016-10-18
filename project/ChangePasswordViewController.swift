@@ -73,14 +73,6 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
     }
     
     /**
-     * Handle tap on Menu item Gas service
-     * - parameter notification: Notification
-     */
-    func gasServiceButtonInChangePassVCTapped(_ notification: Notification) {
-        _ = self.navigationController?.popToRootViewController(animated: true)
-    }
-    
-    /**
      * Handle tap on Menu ite Issue
      * - parameter notification: Notification
      */
@@ -92,22 +84,12 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
         print("issue button tapped")
     }
     
-//    /**
-//     * Handle tap on Menu item Config
-//     * - parameter notification: Notification
-//     */
-//    func configButtonInChangePassVCTapped(_ notification: Notification) {
-//        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let configVC = mainStoryboard.instantiateViewController(withIdentifier: "ConfigurationViewController")
-//        self.navigationController?.pushViewController(configVC, animated: true)
-//    }
-    
     /**
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(ChangePasswordViewController.gasServiceButtonInChangePassVCTapped(_:)),
+                                               selector: #selector(self.gasServiceItemTapped),
                                                name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,

@@ -107,6 +107,7 @@ class ReplyUpholdStep0ViewController: UIViewController {
         self.buttonChosen(aButton: btnProblem4)
     }
     
+    // MARK : -- ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -125,7 +126,7 @@ class ReplyUpholdStep0ViewController: UIViewController {
          * Choose Problem Button 1
          */
         btnProblem0.translatesAutoresizingMaskIntoConstraints = true
-        btnProblem0.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT, width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
+        btnProblem0.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
         //btnProblem0.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         //btnProblem0.layer.borderColor = UIColor.green.cgColor
         btnProblem0.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
@@ -137,7 +138,7 @@ class ReplyUpholdStep0ViewController: UIViewController {
          * Choose Problem Button 2
          */
         btnProblem1.translatesAutoresizingMaskIntoConstraints = true
-        btnProblem1.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3)), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
+        btnProblem1.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH + (btnProblem0.frame.size.height + GlobalConst.PARENT_BORDER_WIDTH), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
         //btnProblem1.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         //btnProblem1.layer.borderColor = UIColor.green.cgColor
         btnProblem1.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
@@ -149,7 +150,7 @@ class ReplyUpholdStep0ViewController: UIViewController {
          * Choose Problem Button 3
          */
         btnProblem2.translatesAutoresizingMaskIntoConstraints = true
-        btnProblem2.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 2), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
+        btnProblem2.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH + (btnProblem0.frame.size.height + GlobalConst.PARENT_BORDER_WIDTH) * 2 , width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
         //btnProblem2.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         //btnProblem2.layer.borderColor = UIColor.green.cgColor
         btnProblem2.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
@@ -161,7 +162,7 @@ class ReplyUpholdStep0ViewController: UIViewController {
          * Choose Problem Button 4
          */
         btnProblem3.translatesAutoresizingMaskIntoConstraints = true
-        btnProblem3.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 3), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
+        btnProblem3.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + (btnProblem0.frame.size.height + GlobalConst.PARENT_BORDER_WIDTH) * 3 + GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
         //btnProblem3.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         //btnProblem3.layer.borderColor = UIColor.green.cgColor
         btnProblem3.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
@@ -173,7 +174,7 @@ class ReplyUpholdStep0ViewController: UIViewController {
          * Choose Problem Button 5
          */
         btnProblem4.translatesAutoresizingMaskIntoConstraints = true
-        btnProblem4.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 4), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
+        btnProblem4.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + (btnProblem0.frame.size.height + GlobalConst.PARENT_BORDER_WIDTH) * 4 + GlobalConst.PARENT_BORDER_WIDTH , width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
         //btnProblem4.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         //btnProblem4.layer.borderColor = UIColor.green.cgColor
         btnProblem4.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS

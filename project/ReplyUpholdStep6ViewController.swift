@@ -150,7 +150,7 @@ class ReplyUpholdStep6ViewController: UIViewController, UICollectionViewDataSour
          * add xib file to CollectionView Cell
          */
         //self.cltviewStep5.register(UINib(nibName: "your_xib_name", bundle: nil), forCellWithReuseIdentifier: "your_reusable_identifier")
-        self.cltviewStep5.register(UINib(nibName: "step6ImgCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "step6ImgCollectionViewCell")
+        self.cltviewStep5!.register(UINib(nibName: "CollectionViewCell1", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell1")
     }
 
     override func didReceiveMemoryWarning() {
@@ -167,25 +167,21 @@ class ReplyUpholdStep6ViewController: UIViewController, UICollectionViewDataSour
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // get a reference to our storyboard cell
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "step6ImgCollectionViewCell", for: indexPath as IndexPath) as! step6ImgCollectionViewCell
+        /*let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "step6ImgCollectionViewCell", for: indexPath as IndexPath) as! step6ImgCollectionViewCell
         cell.imgCell.image = ReplyUpholdViewController.valStep5[indexPath.row]
         cell.imgCell.contentMode = UIViewContentMode.scaleAspectFit
         cell.frame = CGRect(x: cltviewStep5.frame.size.height * CGFloat(indexPath.row), y: cell.frame.origin.y, width: cltviewStep5.frame.size.height, height: cltviewStep5.frame.size.height)
         cell.backgroundColor = UIColor.black
+        return cell*/
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell1", for: indexPath) as! CollectionViewCell1
+        cell.imageView1.frame  = CGRect(x: 0,  y: 0,  width: viewContent.frame.size.height - (GlobalConst.LABEL_HEIGHT * 5) - (GlobalConst.PARENT_BORDER_WIDTH * 3), height: viewContent.frame.size.height - (GlobalConst.LABEL_HEIGHT * 5) - (GlobalConst.PARENT_BORDER_WIDTH * 3))
+        cell.imageView1.image = ReplyUpholdViewController.valStep5[indexPath.row]
         return cell
     }
-    //Use for interspacing
-    func collectionView(collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 1.0
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+        return CGSize(width: viewContent.frame.size.height - (GlobalConst.LABEL_HEIGHT * 5) - (GlobalConst.PARENT_BORDER_WIDTH * 3), height: viewContent.frame.size.height - (GlobalConst.LABEL_HEIGHT * 5) - (GlobalConst.PARENT_BORDER_WIDTH * 3))
     }
-    
-    func collectionView(collectionView: UICollectionView, layout
-        collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 1.0
-    }
+
     
     // MARK: - UICollectionViewDelegate protocol
     

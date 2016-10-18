@@ -51,9 +51,105 @@ class ReplyUpholdViewController: UIViewController {
     
     
     
+    @IBOutlet weak var scrViewButton: UIView!
+    
+    @IBOutlet weak var btnReplyUpholdStep0: UIButton!
+    @IBOutlet weak var btnReplyUpholdStep1: UIButton!
+    @IBOutlet weak var btnReplyUpholdStep2: UIButton!
+    @IBOutlet weak var btnReplyUpholdStep3: UIButton!
+    @IBOutlet weak var btnReplyUpholdStep4: UIButton!
+    @IBOutlet weak var btnReplyUpholdStep5: UIButton!
+    @IBOutlet weak var btnReplyUpholdStep6: UIButton!
+
+    // MARK: - Button Action
+    
+    @IBAction func btnBackTapped(_ sender: AnyObject) {
+        if ctnviewReplyUpholdStep1.isHidden == false {
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep0)
+        }
+        if ctnviewReplyUpholdStep2.isHidden == false {
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep1)
+        }
+        if ctnviewReplyUpholdStep3.isHidden == false {
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep2)
+        }
+        if ctnviewReplyUpholdStep4.isHidden == false {
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep3)
+        }
+        if ctnviewReplyUpholdStep5.isHidden == false {
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep4)
+        }
+        if ctnviewReplyUpholdStep6.isHidden == false {
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep5)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "showBtnNext"), object: nil)
+        }
+    }
+    @IBAction func btnNextTapped(_ sender: AnyObject) {
+        // 0->1
+        if ctnviewReplyUpholdStep0.isHidden == false {
+            checkValidData(viewStep: ctnviewReplyUpholdStep0)
+        }else {
+            // 1->2
+            if ctnviewReplyUpholdStep1.isHidden == false {
+                    checkValidData(viewStep: ctnviewReplyUpholdStep1)
+            }else {
+                // 2->3
+                if ctnviewReplyUpholdStep2.isHidden == false {
+                        checkValidData(viewStep: ctnviewReplyUpholdStep2)
+                }else {
+                    // 3->4
+                    if ctnviewReplyUpholdStep3.isHidden == false {
+                            checkValidData(viewStep: ctnviewReplyUpholdStep3)
+                    }else {
+                        //4->5
+                        if ctnviewReplyUpholdStep4.isHidden == false {
+                                checkValidData(viewStep: ctnviewReplyUpholdStep4)
+                        } else {
+                            //5->6
+                            if ctnviewReplyUpholdStep5.isHidden == false {
+                                    checkValidData(viewStep: ctnviewReplyUpholdStep5)
+                                NotificationCenter.default.post(name: Notification.Name(rawValue: "showValue"), object: nil)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /**
+     * Step Button Tapped
+     */
+    @IBAction func btnReplyUpholdStep0Tapped(_ sender: AnyObject) {
+        switch sender.tag {
+        case 0:
+                self.showContainerView(aCtnView: self.ctnviewReplyUpholdStep0)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep0ButtonToMiddle"), object: nil)
+        case 1:
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep1)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep1ButtonToMiddle"), object: nil)
+        case 2:
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep2)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep2ButtonToMiddle"), object: nil)
+        case 3:
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep3)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep3ButtonToMiddle"), object: nil)
+        case 4:
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep4)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep4ButtonToMiddle"), object: nil)
+        case 5:
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep5)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep5ButtonToMiddle"), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "showBtnNext"), object: nil)
+        case 6:
+            self.showContainerView(aCtnView: ctnviewReplyUpholdStep6)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep6ButtonToMiddle"), object: nil)
+        default:
+            break
+        }
+    }
     // MARK: - show containerView
     func showContainerView(aCtnView: UIView) {
-       
+        
         switch aCtnView.tag {
         case 0:
             ctnviewReplyUpholdStep0.isHidden = false
@@ -132,105 +228,6 @@ class ReplyUpholdViewController: UIViewController {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep6ButtonToMiddle"), object: nil)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "showBtnBack"), object: nil)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "hideBtnNext"), object: nil)
-        default:
-            break
-        }
-    }
-    
-    
-    
-    @IBOutlet weak var scrViewButton: UIView!
-    
-    @IBOutlet weak var btnReplyUpholdStep0: UIButton!
-    @IBOutlet weak var btnReplyUpholdStep1: UIButton!
-    @IBOutlet weak var btnReplyUpholdStep2: UIButton!
-    @IBOutlet weak var btnReplyUpholdStep3: UIButton!
-    @IBOutlet weak var btnReplyUpholdStep4: UIButton!
-    @IBOutlet weak var btnReplyUpholdStep5: UIButton!
-    @IBOutlet weak var btnReplyUpholdStep6: UIButton!
-
-    // MARK: - Button Action
-    
-    @IBAction func btnBackTapped(_ sender: AnyObject) {
-        if ctnviewReplyUpholdStep1.isHidden == false {
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep0)
-        }
-        if ctnviewReplyUpholdStep2.isHidden == false {
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep1)
-        }
-        if ctnviewReplyUpholdStep3.isHidden == false {
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep2)
-        }
-        if ctnviewReplyUpholdStep4.isHidden == false {
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep3)
-        }
-        if ctnviewReplyUpholdStep5.isHidden == false {
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep4)
-        }
-        if ctnviewReplyUpholdStep6.isHidden == false {
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep5)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "showBtnNext"), object: nil)
-        }
-    }
-    @IBAction func btnNextTapped(_ sender: AnyObject) {
-        // 0->1
-        if ctnviewReplyUpholdStep0.isHidden == false {
-            checkValidData(viewStep: ctnviewReplyUpholdStep0)
-        }else {
-            // 1->2
-            if ctnviewReplyUpholdStep1.isHidden == false {
-                    checkValidData(viewStep: ctnviewReplyUpholdStep1)
-            }else {
-                // 2->3
-                if ctnviewReplyUpholdStep2.isHidden == false {
-                        checkValidData(viewStep: ctnviewReplyUpholdStep2)
-                }else {
-                    // 3->4
-                    if ctnviewReplyUpholdStep3.isHidden == false {
-                            checkValidData(viewStep: ctnviewReplyUpholdStep3)
-                    }else {
-                        //4->5
-                        if ctnviewReplyUpholdStep4.isHidden == false {
-                                checkValidData(viewStep: ctnviewReplyUpholdStep4)
-                        } else {
-                            //5->6
-                            if ctnviewReplyUpholdStep5.isHidden == false {
-                                    checkValidData(viewStep: ctnviewReplyUpholdStep5)
-                                NotificationCenter.default.post(name: Notification.Name(rawValue: "showValue"), object: nil)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    /**
-     * Step Button Tapped
-     */
-    @IBAction func btnReplyUpholdStep0Tapped(_ sender: AnyObject) {
-        print(sender.tag)
-        switch sender.tag {
-        case 0:
-                self.showContainerView(aCtnView: self.ctnviewReplyUpholdStep0)
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep0ButtonToMiddle"), object: nil)
-        case 1:
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep1)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep1ButtonToMiddle"), object: nil)
-        case 2:
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep2)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep2ButtonToMiddle"), object: nil)
-        case 3:
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep3)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep3ButtonToMiddle"), object: nil)
-        case 4:
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep4)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep4ButtonToMiddle"), object: nil)
-        case 5:
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep5)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep5ButtonToMiddle"), object: nil)
-        case 6:
-            self.showContainerView(aCtnView: ctnviewReplyUpholdStep6)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep6ButtonToMiddle"), object: nil)
         default:
             break
         }
@@ -319,19 +316,19 @@ class ReplyUpholdViewController: UIViewController {
     func moveButtonToMiddle(aButton:UIButton) {
         switch aButton.tag {
         case 0:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
+            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
         case 1:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
+            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
         case 2:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 2) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
+            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 2) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
         case 3:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 3) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
+            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 3) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
         case 4:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 4) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
+            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 4) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
         case 5:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 5) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
+            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 5) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
         case 6:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 6) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
+            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 6) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
         default:
             break
         }
@@ -410,9 +407,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep5.isEnabled = isStep4Done
         btnReplyUpholdStep4.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         self.showContainerView(aCtnView: ctnviewReplyUpholdStep5)
-        //ReplyUpholdStep4ViewController.sharedInstance.txtvStep4.becomeFirstResponder()
         NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep5ButtonToMiddle"), object: nil)
-        //NotificationCenter.default.post(name: Notification.Name(rawValue: "showCtnViewStep5"), object: nil)
     }
     func step5Done (_ notification: Notification) {
         isStep5Done = true
@@ -423,7 +418,7 @@ class ReplyUpholdViewController: UIViewController {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "hideBtnNext"), object: nil)
     }
     func step6Done (_ notification: Notification) {
-        isStep6Done = true
+        
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep6ButtonToMiddle"), object: nil)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "showCtnViewStep6"), object: nil)
@@ -537,6 +532,7 @@ class ReplyUpholdViewController: UIViewController {
                 nextAlert.addAction(okAction)
                 self.present(nextAlert, animated: true, completion: nil)
             } else {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "step5Done"), object: nil)
                 self.showContainerView(aCtnView: ctnviewReplyUpholdStep6)
             }
 
@@ -549,13 +545,23 @@ class ReplyUpholdViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // MARK: - initiation value
+//          ReplyUpholdViewController.valStep0 = String()
+//          ReplyUpholdViewController.valStep1 = String()
+//          ReplyUpholdViewController.valStep2 = String()
+//          ReplyUpholdViewController.valNameStep3 = String()
+//          ReplyUpholdViewController.valPhoneStep3 = String()
+//          ReplyUpholdViewController.valStep4 = String()
+//          ReplyUpholdViewController.valStep5 = []
+
+        
         // MARK: - Background
         viewBackground.translatesAutoresizingMaskIntoConstraints = true
         viewBackground.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         viewBackground.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
         viewBackground.frame = CGRect(x: 0, y: (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT), width: (GlobalConst.SCREEN_WIDTH), height: (GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT)))
         viewBackground.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
-        
+        // Btn Back
         btnBack.translatesAutoresizingMaskIntoConstraints = true
         btnBack.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.PARENT_BORDER_WIDTH - GlobalConst.BUTTON_HEIGHT * 2, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
         btnBack.setImage(UIImage(named: "back.png"), for: UIControlState())
@@ -566,7 +572,7 @@ class ReplyUpholdViewController: UIViewController {
         btnBack.layer.borderColor = GlobalConst.BUTTON_COLOR_GRAY.cgColor
         btnBack.isHidden = !isStep0Done
         viewBackground.addSubview(btnBack)
-        
+        //Btn Next
         btnNext.translatesAutoresizingMaskIntoConstraints = true
         btnNext.frame = CGRect(x: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH - GlobalConst.BUTTON_HEIGHT, y: viewBackground.frame.size.height - GlobalConst.PARENT_BORDER_WIDTH - GlobalConst.BUTTON_HEIGHT * 2, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
         btnNext.setImage(UIImage(named: "back.png"), for: UIControlState())
@@ -619,12 +625,14 @@ class ReplyUpholdViewController: UIViewController {
 
         // MARK: - Scroll Button
         scrViewButton.translatesAutoresizingMaskIntoConstraints = true
-        scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH, height: GlobalConst.BUTTON_HEIGHT)
+        scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) + GlobalConst.PARENT_BORDER_WIDTH,
+                                     y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH,
+                                     width:GlobalConst.BUTTON_HEIGHT * 7 ,
+                                     height: GlobalConst.BUTTON_HEIGHT)
         scrViewButton.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
+        // Btn 0
         btnReplyUpholdStep0.translatesAutoresizingMaskIntoConstraints = true
-        //btnReplyUpholdStep0.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnReplyUpholdStep0.layer.borderColor = UIColor.green.cgColor
         btnReplyUpholdStep0.frame = CGRect(x: 0, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
         scrViewButton.addSubview(btnReplyUpholdStep0)
         btnReplyUpholdStep0.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
@@ -632,60 +640,49 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep0.setTitleColor(UIColor.white , for: .normal)
         btnReplyUpholdStep0.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
         btnReplyUpholdStep0.tag = 0
-        
+        // Btn 1
         btnReplyUpholdStep1.translatesAutoresizingMaskIntoConstraints = true
         btnReplyUpholdStep1.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
-        //btnReplyUpholdStep1.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnReplyUpholdStep1.layer.borderColor = UIColor.green.cgColor
         btnReplyUpholdStep1.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep1.setTitle("2", for: .normal)
         btnReplyUpholdStep1.setTitleColor(UIColor.white , for: .normal)
         btnReplyUpholdStep1.backgroundColor = GlobalConst.BUTTON_COLOR_DISABLE
         btnReplyUpholdStep1.tag = 1
-        
+        // Btn 2
         btnReplyUpholdStep2.translatesAutoresizingMaskIntoConstraints = true
         btnReplyUpholdStep2.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT * 2, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
-        //btnReplyUpholdStep2.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnReplyUpholdStep2.layer.borderColor = UIColor.green.cgColor
         btnReplyUpholdStep2.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep2.setTitle("3", for: .normal)
         btnReplyUpholdStep2.setTitleColor(UIColor.white , for: .normal)
         btnReplyUpholdStep2.backgroundColor = GlobalConst.BUTTON_COLOR_DISABLE
         btnReplyUpholdStep2.tag = 2
-        //
+        // Btn 3
         btnReplyUpholdStep3.translatesAutoresizingMaskIntoConstraints = true
         btnReplyUpholdStep3.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT * 3, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
-        //btnReplyUpholdStep3.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnReplyUpholdStep3.layer.borderColor = UIColor.green.cgColor
         btnReplyUpholdStep3.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep3.setTitle("4", for: .normal)
         btnReplyUpholdStep3.setTitleColor(UIColor.white , for: .normal)
         btnReplyUpholdStep3.backgroundColor = GlobalConst.BUTTON_COLOR_DISABLE
         btnReplyUpholdStep3.tag = 3
-        
+        // Btn 4
         btnReplyUpholdStep4.translatesAutoresizingMaskIntoConstraints = true
         btnReplyUpholdStep4.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT * 4, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
-        //btnReplyUpholdStep4.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnReplyUpholdStep4.layer.borderColor = UIColor.green.cgColor
         btnReplyUpholdStep4.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep4.setTitle("5", for: .normal)
         btnReplyUpholdStep4.setTitleColor(UIColor.white , for: .normal)
         btnReplyUpholdStep4.backgroundColor = GlobalConst.BUTTON_COLOR_DISABLE
         btnReplyUpholdStep4.tag = 4
-        
+        // Btn 5
         btnReplyUpholdStep5.translatesAutoresizingMaskIntoConstraints = true
         btnReplyUpholdStep5.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT * 5, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
-        //btnReplyUpholdStep5.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnReplyUpholdStep5.layer.borderColor = UIColor.green.cgColor
         btnReplyUpholdStep5.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep5.setTitle("6", for: .normal)
         btnReplyUpholdStep5.setTitleColor(UIColor.white , for: .normal)
         btnReplyUpholdStep5.backgroundColor = GlobalConst.BUTTON_COLOR_DISABLE
         btnReplyUpholdStep5.tag = 5
-        
+        // Btn 6
         btnReplyUpholdStep6.translatesAutoresizingMaskIntoConstraints = true
         btnReplyUpholdStep6.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT * 6, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
-        
         btnReplyUpholdStep6.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep6.setTitle("7", for: .normal)
         btnReplyUpholdStep6.setTitleColor(UIColor.white , for: .normal)

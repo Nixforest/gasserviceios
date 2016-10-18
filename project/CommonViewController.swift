@@ -184,6 +184,13 @@ class CommonViewController : UIViewController {
     }
     
     /**
+     * Handle when tap on Home menu item
+     */
+    func gasServiceItemTapped(_ notification: Notification) {
+        _ = self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    /**
      * Clear data on current view.
      */
     func clearData() {

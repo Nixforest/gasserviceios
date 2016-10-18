@@ -32,11 +32,11 @@ class ReplyUpholdStep2ViewController: UIViewController {
     func buttonChosen(aButton: UIButton) {
         switch aButton.tag {
         case 0:
-            btn1Step2.backgroundColor = UIColor.green
+            btn1Step2.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
             btn2Step2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         case 1:
             btn1Step2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-            btn2Step2.backgroundColor = UIColor.green
+            btn2Step2.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
         default:
             break
         }
@@ -60,6 +60,7 @@ class ReplyUpholdStep2ViewController: UIViewController {
         txtvStep2.frame = CGRect(x: GlobalConst.SCREEN_WIDTH * 0.15, y: 0, width: GlobalConst.SCREEN_WIDTH * 0.7, height: GlobalConst.LABEL_HEIGHT * 2)
         txtvStep2.text = "Xin vui lòng đánh giá thông tin của khách hàng"
         txtvStep2.textAlignment = NSTextAlignment.center
+        txtvStep2.font = UIFont.systemFont(ofSize: 17)
         txtvStep2.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         // MARK: - Button Frame
@@ -80,7 +81,7 @@ class ReplyUpholdStep2ViewController: UIViewController {
          *  Button 2
          */
         btn2Step2.translatesAutoresizingMaskIntoConstraints = true
-        btn2Step2.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + txtvStep2.frame.size.height + GlobalConst.BUTTON_HEIGHT, width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT)
+        btn2Step2.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + txtvStep2.frame.size.height + GlobalConst.BUTTON_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT)
         //btn2Step2.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         //btn2Step2.layer.borderColor = UIColor.green.cgColor
         btn2Step2.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS

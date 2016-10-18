@@ -52,7 +52,9 @@ class ReplyUpholdStep5ViewController: UIViewController, UITableViewDelegate, UIT
         btnPickImageStep5.translatesAutoresizingMaskIntoConstraints = true
         btnPickImageStep5.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: lblStep5.frame.size.height, width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4, height: GlobalConst.LABEL_HEIGHT * 1.5)
         btnPickImageStep5.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnPickImageStep5.setTitle("pick", for: UIControlState.normal)
+        btnPickImageStep5.setTitle("Thêm hình ảnh", for: UIControlState.normal)
+        btnPickImageStep5.setTitleColor(UIColor.white, for: UIControlState.normal)
+        btnPickImageStep5.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         btnPickImageStep5.tag = 0
 
         /**
@@ -87,6 +89,18 @@ class ReplyUpholdStep5ViewController: UIViewController, UITableViewDelegate, UIT
         cell.delegate = self
         let  aImage :UIImage = aImgPicked[indexPath.row]
         cell.imgPicker.image = aImage
+        
+        // image picked
+        cell.imgPicker.translatesAutoresizingMaskIntoConstraints = true
+        cell.imgPicker.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.PARENT_BORDER_WIDTH, width: cell.frame.size.width - (GlobalConst.PARENT_BORDER_WIDTH * 3) - GlobalConst.BUTTON_HEIGHT, height: cell.frame.size.height - GlobalConst.PARENT_BORDER_WIDTH * 2)
+        // Button Delete
+        cell.btnDelete.translatesAutoresizingMaskIntoConstraints = true
+        cell.btnDelete.frame = CGRect(x: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 5) - GlobalConst.BUTTON_HEIGHT, y: cell.frame.size.height / 2 - (GlobalConst.BUTTON_HEIGHT / 2), width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
+        cell.btnDelete.setImage(UIImage(named: "delete.png"), for: .normal)
+        let deleteImage = UIImage(named: "delete.png");
+        let tintedImage = deleteImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        cell.btnDelete.setImage(tintedImage, for: .normal)
+        //cell.btnDelete.tintColor = UIColor.red
         return cell
     }
     
@@ -110,6 +124,7 @@ class ReplyUpholdStep5ViewController: UIViewController, UITableViewDelegate, UIT
     func removeAtRow(row :Int) {
     print("remove row ",row)
         aImgPicked.remove(at: row)
+        ReplyUpholdViewController.valStep5.remove(at: row)
         tblvImgStep5.reloadData()
     }
 

@@ -16,6 +16,8 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
     var currentPage = 0
     /** Current customer Id */
     var currentCustomerId = ""
+    /** Current status */
+    var currentStatus = ""
     /** Filtered string */
     var filteredStr = String()
     /** Flag search active */
@@ -24,8 +26,6 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
     var beginSearch:Bool = false
     /** Sample data of customers */
     var customerData = ["San Francisco","New York","San Jose","Chicago","Los Angeles","Austin","Seattle"]
-    /** Flag show Uphold list Problem */
-    var showProblemUpholdList:Bool! = true
     /** List of status */
     //var aStatusList:[String]! = ["Mới", "Xử lý", "Hoàn thành", "Yêu cầu chuyển", "Xử lý dài ngày"]
     //var aStatusList:[String] = [String]()
@@ -35,6 +35,9 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
     var timer = Timer()
     /** Tap gesture hide keyboard */
     var gestureHideKeyboard: UIGestureRecognizer = UIGestureRecognizer()
+    /** Tap gesture show status list */
+    var gestureShowStatusList: UIGestureRecognizer = UIGestureRecognizer()
+    
     /***/
     @IBOutlet weak var view2: UIView!
     /** Search box */
@@ -62,13 +65,11 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         {
         case 0:     // Problem uphold list
             currentViewType             = DomainConst.TYPE_TROUBLE
-            showProblemUpholdList       = true
             periodTableView.isHidden    = true
             problemTableView.isHidden   = false
 
         case 1:     // Periodically uphold list
             currentViewType             = DomainConst.TYPE_PERIODICALLY
-            showProblemUpholdList       = false
             problemTableView.isHidden   = true
             periodTableView.isHidden    = false
             //periodTableView.reloadData()
@@ -86,7 +87,6 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
      */
     @IBAction func showStatusListButtonTapped(_ sender: AnyObject) {
         statusListView.isHidden = false
-        showProblemUpholdList   = true
         view2.isHidden          = false
 
     }
@@ -105,15 +105,15 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
      * - parameter notification: Notification
      */
     func showSearchBarTableView(_ notification: Notification) {
+        // Load data for search bar table view
         searchBarTableView.reloadData()
+        // Show
         searchBarTableView.isHidden = !searchActive
-    }
-    
-    /**
-     * Handle when tap on Home menu item
-     */
-    func gasServiceItemTapped(_ notification: Notification) {
-        _ = self.navigationController?.popToRootViewController(animated: true)
+        // Move to front
+        searchBarTableView.layer.zPosition = 1
+        
+        // Remove status list gesture
+        //lblStatusList.removeGestureRecognizer(gestureShowStatusList)
     }
     
     /**
@@ -127,7 +127,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self, selector: #selector(UpholdListViewController.gasServiceItemTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.gasServiceItemTapped), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(UpholdListViewController.issueItemTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(super.configItemTap(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_UPHOLDLISTVIEW), object: nil)
     }
@@ -199,11 +199,13 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         lblStatusList.textColor = UIColor.gray
         lblStatusList.isUserInteractionEnabled = true
         // Handle tap on status selector
-        let statusListTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UpholdListViewController.showStatusListButtonTapped))
-        statusListTap.numberOfTapsRequired = 1
-        lblStatusList.addGestureRecognizer(statusListTap)
-        self.view.addSubview(lblStatusList)
-        statusListTap.delegate = self
+        let gestureShowStatusList: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(UpholdListViewController.showStatusListButtonTapped))
+        gestureShowStatusList.numberOfTapsRequired = 1
+        lblStatusList.addGestureRecognizer(gestureShowStatusList)
+        //self.view.addSubview(lblStatusList)
+        //gestureShowStatusList.delegate = self
         
         // Add Picker to View
         statusListView.isHidden = true
@@ -474,13 +476,17 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if (Singleton.sharedInstance.upholdList.record.count >= 10) {
-        let lastElement = Singleton.sharedInstance.upholdList.record.count - 1
-        if indexPath.row == lastElement {
-            print("load more")
-            currentPage += 1
-            CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: "", view: self)
+        // If current view is search bar table view
+        if tableView == searchBarTableView {
+            return
         }
+        // If current view is Uphold table view
+        if (Singleton.sharedInstance.upholdList.record.count >= 10) {
+            let lastElement = Singleton.sharedInstance.upholdList.record.count - 1
+            if indexPath.row == lastElement {
+                currentPage += 1
+                CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: "", view: self)
+            }
         }
     }
     
@@ -514,9 +520,11 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
             timer.invalidate()
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(UpholdListViewController.beginSearching), userInfo: nil, repeats: false)
             
-        }else {
+        } else {
             beginSearch = false
             searchActive = false
+            // Show
+            searchBarTableView.isHidden = !searchActive
         }
         //searchBarTableView.reloadData()
     }

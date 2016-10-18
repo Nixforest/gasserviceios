@@ -65,6 +65,7 @@ class ReplyUpholdStep3ViewController: UIViewController, UITextFieldDelegate {
         if (nextResponder != nil){
             // Found next responder, so set it.
             nextResponder?.becomeFirstResponder()
+            
         }
         else
         {
