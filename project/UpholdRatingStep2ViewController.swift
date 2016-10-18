@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UpholdRatingStep2ViewController: UIViewController, UITextViewDelegate {
+class UpholdRatingStep2ViewController: UIViewController, UITextViewDelegate, UIScrollViewDelegate {
 
     @IBOutlet weak var lblHeader: UILabel!
     @IBOutlet weak var txtvFeedback: UITextView!
@@ -35,10 +35,9 @@ class UpholdRatingStep2ViewController: UIViewController, UITextViewDelegate {
         txtvFeedback.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         txtvFeedback.text = ""
         txtvFeedback.delegate = self
+        txtvFeedback.alwaysBounceVertical = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(UpholdRatingStep2ViewController.hideKeyboard))
-        view.addGestureRecognizer(tap)
-
-        txtvFeedback.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
+        self.view.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
     }
 
@@ -47,6 +46,7 @@ class UpholdRatingStep2ViewController: UIViewController, UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     // MARK: - Textfield Delegate
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         UpholdRatingViewController.valStep2 = txtvFeedback.text
         print(txtvFeedback.text)
@@ -55,6 +55,11 @@ class UpholdRatingStep2ViewController: UIViewController, UITextViewDelegate {
     func hideKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
+    }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if scrollView == txtvFeedback {
+            view.endEditing(true)
+        }
     }
 
     /*
