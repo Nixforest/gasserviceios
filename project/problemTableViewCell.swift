@@ -49,13 +49,18 @@ class problemTableViewCell: UITableViewCell {
      */
     override func awakeFromNib() {
         super.awakeFromNib()
+        let marginX         = GlobalConst.MARGIN_CELL_X
+        let marginY         = GlobalConst.MARGIN_CELL_X
+        let contentMarginX  = GlobalConst.MARGIN_CELL_X
+        let contentMarginY  = GlobalConst.MARGIN_CELL_Y
+        let parentWidth     = GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2
         // Item view
         problemView.translatesAutoresizingMaskIntoConstraints = true
         problemView.backgroundColor = UIColor.white
-        problemView.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH * 2,
-                                   y: GlobalConst.PARENT_BORDER_WIDTH / 2,
-                                   width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4,
-                                   height: GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.PARENT_BORDER_WIDTH)
+        problemView.frame = CGRect(x: marginX,
+                                   y: marginY,
+                                   width: parentWidth - marginX * 2,
+                                   height: GlobalConst.CELL_HEIGHT_SHOW - marginY)
         problemView.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         problemView.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
         problemView.clipsToBounds = true
@@ -63,81 +68,81 @@ class problemTableViewCell: UITableViewCell {
         
         // Name
         lblName.translatesAutoresizingMaskIntoConstraints = true
-        lblName.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
-                               y: GlobalConst.MARGIN_CELL,
-                               width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.CELL_HEIGHT_SHOW / 2,
+        lblName.frame = CGRect(x: contentMarginX, y: contentMarginY,
+                               width: parentWidth - (marginX + contentMarginX) * 2 - GlobalConst.CELL_HEIGHT_SHOW / 2,
                                height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         problemView.addSubview(lblName)
         
         // Issue label
         lblIssueL.translatesAutoresizingMaskIntoConstraints = true
-        lblIssueL.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
-                                 y: lblName.frame.maxY,
-                                 width: 50,
+        lblIssueL.frame = CGRect(x: contentMarginX, y: lblName.frame.maxY,
+                                 width: lblIssueL.frame.width,
                                  height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblIssueL.sizeToFit()
         problemView.addSubview(lblIssueL)
         
         // Issue content
         lblIssue.translatesAutoresizingMaskIntoConstraints = true
         lblIssue.frame = CGRect(x: lblIssueL.frame.maxX,
-                                y: lblName.frame.maxY,
-                                width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.CELL_HEIGHT_SHOW / 2 - lblIssueL.frame.width,
+                                y: lblIssueL.frame.minY,
+                                width: parentWidth - contentMarginX * 2 - GlobalConst.CELL_HEIGHT_SHOW / 2 - lblIssueL.frame.width,
                                 height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         problemView.addSubview(lblIssue)
         
         // Status label
         lblStatusL.translatesAutoresizingMaskIntoConstraints = true
-        lblStatusL.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
+        lblStatusL.frame = CGRect(x: contentMarginX,
                                   y: lblIssueL.frame.maxY,
-                                  width: 82,
+                                  width: lblStatusL.frame.width,
                                   height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblStatusL.sizeToFit()
         problemView.addSubview(lblStatusL)
         
         // Status content
         lblStatus.translatesAutoresizingMaskIntoConstraints = true
         lblStatus.frame = CGRect(x: lblStatusL.frame.maxX,
-                                 y:  lblIssueL.frame.maxY,
-                                 width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.CELL_HEIGHT_SHOW / 2 - lblStatusL.frame.width,
+                                 y:  lblStatusL.frame.minY,
+                                 width: parentWidth - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.CELL_HEIGHT_SHOW / 2 - lblStatusL.frame.width,
                                  height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         problemView.addSubview(lblStatus)
         
         // Finish mark
         finishMarkImg.translatesAutoresizingMaskIntoConstraints = true
-        finishMarkImg.frame = CGRect(x: lblStatusL.frame.maxX + 90,
-                                     y: lblIssueL.frame.maxY,
+        finishMarkImg.frame = CGRect(x: lblStatus.frame.maxX,
+                                     y: lblStatusL.frame.minY,
                                      width: GlobalConst.LABEL_IN_CELL_HEIGHT,
                                      height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         finishMarkImg.image = UIImage(named: "done.png")
         
         // Employee label
         lblEmployeeL.translatesAutoresizingMaskIntoConstraints = true
-        lblEmployeeL.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
-                                    y: lblStatusL.frame.maxY,
-                                    width: 80,
+        lblEmployeeL.frame = CGRect(x: contentMarginX, y: lblStatusL.frame.maxY,
+                                    width: lblEmployeeL.frame.width,
                                     height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblEmployeeL.sizeToFit()
         problemView.addSubview(lblEmployeeL)
         
         // Employee name
         lblEmployee.translatesAutoresizingMaskIntoConstraints = true
         lblEmployee.frame = CGRect(x: lblEmployeeL.frame.maxX,
-                                   y: lblStatusL.frame.maxY,
-                                   width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.CELL_HEIGHT_SHOW / 2 - lblEmployeeL.frame.width,
+                                   y: lblEmployeeL.frame.minY,
+                                   width: parentWidth - contentMarginX * 2 - lblEmployeeL.frame.width - GlobalConst.CELL_HEIGHT_SHOW / 2,
                                    height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         problemView.addSubview(lblEmployee)
         
         // Time create label
         lblTimeCreateL.translatesAutoresizingMaskIntoConstraints = true
-        lblTimeCreateL.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
-                                      y: lblEmployeeL.frame.maxY,
-                                      width: 75,
+        lblTimeCreateL.frame = CGRect(x: contentMarginX, y: lblEmployeeL.frame.maxY,
+                                      width: lblTimeCreateL.frame.width,
                                       height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblTimeCreateL.sizeToFit()
         problemView.addSubview(lblTimeCreateL)
         
         // Time create content
         lblTimeCreate.translatesAutoresizingMaskIntoConstraints = true
         lblTimeCreate.frame = CGRect(x: lblTimeCreateL.frame.maxX,
-                                     y: lblEmployeeL.frame.maxY,
-                                     width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.CELL_HEIGHT_SHOW / 2 - lblTimeCreateL.frame.width,
+                                     y: lblTimeCreateL.frame.minY,
+                                     width: parentWidth - contentMarginX * 2 - GlobalConst.CELL_HEIGHT_SHOW / 2 - lblTimeCreateL.frame.width,
                                      height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         problemView.addSubview(lblTimeCreate)
         
@@ -150,13 +155,13 @@ class problemTableViewCell: UITableViewCell {
         let origImage = UIImage(named: "rating.png");
         let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
         ratingButton.translatesAutoresizingMaskIntoConstraints = true
-        ratingButton.frame = CGRect(x: lblName.frame.size.width,
-                                    y: 0 - GlobalConst.PARENT_BORDER_WIDTH,
+        ratingButton.frame = CGRect(x: lblName.frame.maxX + contentMarginX,
+                                    y: 0,
                                     width: GlobalConst.CELL_HEIGHT_SHOW / 2,
-                                    height: GlobalConst.CELL_HEIGHT_SHOW + GlobalConst.PARENT_BORDER_WIDTH)
+                                    height: GlobalConst.CELL_HEIGHT_SHOW)
         ratingButton.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         ratingButton.layer.borderColor = UIColor.red.cgColor
-        ratingButton.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
+        //ratingButton.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         //ratingButton.setImage(UIImage(named: "rating.png"), for: UIControlState())
         ratingButton.setImage(tintedImage, for: UIControlState.normal)
         //ratingButton.tintColor = GlobalConst.BUTTON_COLOR_RED
@@ -180,6 +185,9 @@ class problemTableViewCell: UITableViewCell {
         lblName.text        = model.customer_name
         lblIssue.text       = model.type_uphold
         lblStatus.text      = model.status
+        lblStatus.sizeToFit()
+        finishMarkImg.frame.origin.x = lblStatus.frame.maxX + GlobalConst.MARGIN_CELL_X
+        finishMarkImg.frame.origin.y = lblStatus.frame.minY
         lblTimeCreate.text  = model.created_date
         lblEmployee.text    = model.employee_name
         finishMarkImg.isHidden = true

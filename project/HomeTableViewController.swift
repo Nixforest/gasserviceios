@@ -89,7 +89,10 @@ class HomeTableViewController: UITableViewController, UIPopoverPresentationContr
         }
         
         view.backgroundColor = UIColor.gray
-        
+        // Check training mode
+        if Singleton.sharedInstance.checkTrainningMode() {
+            GlobalConst.PARENT_BORDER_WIDTH = 5
+        }
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
         self.view.frame = view.frame.insetBy(dx: -GlobalConst.CELL_BORDER_WIDTH, dy: +GlobalConst.CELL_BORDER_WIDTH)

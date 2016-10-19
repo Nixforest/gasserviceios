@@ -158,7 +158,7 @@ class GlobalConst {
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
     static let SCREEN_HEIGHT = UIScreen.main.bounds.height
     static let BUTTON_HEIGHT:CGFloat = 50
-    static let PARENT_BORDER_WIDTH:CGFloat = 5
+    static var PARENT_BORDER_WIDTH:CGFloat = 0
     static let BUTTON_BORDER_WIDTH:CGFloat = 1
     static let BUTTON_CORNER_RADIUS:CGFloat = 7
     static let STATUS_BAR_HEIGHT:CGFloat = 20
@@ -194,13 +194,14 @@ class GlobalConst {
     static let LOGIN_LOGO_H : CGFloat = 140
     static let NAVIGATION_BAR_H : CGFloat = 70
     static let MARGIN : CGFloat = 10
-    static let MARGIN_CELL : CGFloat = 1
+    static let MARGIN_CELL_Y : CGFloat = 1
+    static let MARGIN_CELL_X : CGFloat = 3
     static let ACCOUNT_AVATAR_W : CGFloat = 140
     static let ACCOUNT_AVATAR_H : CGFloat = 140
     static let ACCOUNT_ICON_SIZE : CGFloat = 40
     
     // ----- Color defines -----
-    static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.PARENT_BORDER_WIDTH * 2) / 5
+    static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.MARGIN_CELL_Y * 2) / 5
     static let CELL_BORDER_COLOR:UIColor = UIColor.white
     static let BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
     static let BUTTON_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
@@ -237,6 +238,8 @@ class GlobalConst {
     static let PROBLEM_TABLE_VIEW_CELL = "problemTableViewCell"
     /** Search bar table view cell */
     static let SEARCH_BAR_TABLE_VIEW_CELL = "searchBarTableViewCell"
+    /** Pop overmenu identifier */
+    static let POPOVER_MENU_IDENTIFIER = "popOverMenu"
     
     // MARK: Notification name
     static let NOTIFY_NAME_LOGIN_ITEM                   = "loginItemTapped"

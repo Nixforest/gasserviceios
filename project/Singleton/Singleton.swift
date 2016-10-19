@@ -32,6 +32,8 @@ class Singleton: NSObject {
     var max_upload: String = ""
     /** List data issue */
     var listUpholdStatus: [ConfigBean] = [ConfigBean]()
+    /** Id of role */
+    var role_id: String = ""
     /** List user info */
     var user_info: UserInfoBean? = nil
     /** List check menu */
@@ -157,6 +159,7 @@ class Singleton: NSObject {
      * - parameter loginModel: LoginRespModel
      */
     func saveTempData(loginModel: LoginRespModel) {
+        // Uphold status data
         for item in loginModel.data_uphold {
             if item.id == DomainConst.KEY_STATUS {
                 for status in item.data {
@@ -164,6 +167,19 @@ class Singleton: NSObject {
                 }
             }
         }
+        // Role id
+        self.role_id = loginModel.role_id
+        
+        // Role name
+        self.role_name = loginModel.role_name
+    }
+    
+    /**
+     * Check if current user is a customer.
+     * returns: True if user is a customer, False otherwise
+     */
+    func isCustomerUser() -> Bool {
+        return (self.role_id == DomainConst.ROLE_CUSTOMER)
     }
     
     /**

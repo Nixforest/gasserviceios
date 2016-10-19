@@ -17,9 +17,9 @@ class SearchBarTableViewCell: UITableViewCell {
         
         result.translatesAutoresizingMaskIntoConstraints = true
         result.backgroundColor = UIColor.white
-        result.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH * 2,
-                                  y: GlobalConst.PARENT_BORDER_WIDTH / 2,
-                                  width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4,
+        result.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
+                                  y: GlobalConst.MARGIN_CELL_X,
+                                  width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2 - GlobalConst.MARGIN_CELL_X * 2,
                                   height: self.frame.height - 1)
         //result.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         //periodView.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor

@@ -37,13 +37,17 @@ class periodTableViewCell: UITableViewCell {
      */
     override func awakeFromNib() {
         super.awakeFromNib()
+        let marginX         = GlobalConst.MARGIN_CELL_X
+        let marginY         = GlobalConst.MARGIN_CELL_X
+        let contentMarginX  = GlobalConst.MARGIN_CELL_X
+        let contentMarginY  = GlobalConst.MARGIN_CELL_Y
+        let parentWidth     = GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2
         // Item view
         periodView.translatesAutoresizingMaskIntoConstraints = true
         periodView.backgroundColor = UIColor.white
-        periodView.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH * 2,
-                                  y: GlobalConst.PARENT_BORDER_WIDTH / 2,
-                                  width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4,
-                                  height: GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.PARENT_BORDER_WIDTH)
+        periodView.frame = CGRect(x: marginX, y: marginY,
+                                  width: parentWidth - marginX * 2,
+                                  height: GlobalConst.CELL_HEIGHT_SHOW - marginY)
         periodView.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         periodView.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
         periodView.clipsToBounds = true
@@ -51,81 +55,80 @@ class periodTableViewCell: UITableViewCell {
         
         // Name
         lblName.translatesAutoresizingMaskIntoConstraints = true
-        lblName.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
-                               y: GlobalConst.MARGIN_CELL,
-                               width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.PARENT_BORDER_WIDTH,
+        lblName.frame = CGRect(x: contentMarginX, y: contentMarginY,
+                               width: parentWidth - (marginX + contentMarginX) * 2,
                                height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         periodView.addSubview(lblName)
         
         // Type periodically label
         lblTypeL.translatesAutoresizingMaskIntoConstraints = true
-        lblTypeL.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
-                                y: lblName.frame.maxY,
-                                width: 98,
-                                height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblTypeL.frame = CGRect(x: contentMarginX, y: lblName.frame.maxY,
+                               width: lblTypeL.frame.width,
+                               height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblTypeL.sizeToFit()
         periodView.addSubview(lblName)
         
         // Type periodically content
         lblType.translatesAutoresizingMaskIntoConstraints = true
         lblType.frame = CGRect(x: lblTypeL.frame.maxX,
-                               y: lblName.frame.maxY,
-                               width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - lblTypeL.frame.width,
+                               y: lblTypeL.frame.minY,
+                               width: parentWidth - contentMarginX * 2 - lblTypeL.frame.width,
                                height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         periodView.addSubview(lblType)
         
         // Status label
         lblStatusL.translatesAutoresizingMaskIntoConstraints = true
-        lblStatusL.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
-                                  y: lblTypeL.frame.maxY,
-                                  width: 82,
-                                  height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblStatusL.frame = CGRect(x: contentMarginX, y: lblTypeL.frame.maxY,
+                                width: lblStatusL.frame.width,
+                                height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblStatusL.sizeToFit()
         periodView.addSubview(lblStatusL)
         
         // Status content
         lblStatus.translatesAutoresizingMaskIntoConstraints = true
         lblStatus.frame = CGRect(x: lblStatusL.frame.maxX,
-                                 y:  lblTypeL.frame.maxY,
-                                 width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - lblStatusL.frame.width,
+                                 y:  lblStatusL.frame.minY,
+                                 width: parentWidth - GlobalConst.PARENT_BORDER_WIDTH * 4 - lblStatusL.frame.width,
                                  height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         periodView.addSubview(lblStatus)
         
         // Finish mark
         finishMarkImg.translatesAutoresizingMaskIntoConstraints = true
-        finishMarkImg.frame = CGRect(x: lblStatusL.frame.maxX + 90,
-                                     y: lblTypeL.frame.maxY,
+        finishMarkImg.frame = CGRect(x: lblStatus.frame.maxX,
+                                     y: lblStatusL.frame.minY,
                                      width: GlobalConst.LABEL_IN_CELL_HEIGHT,
                                      height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         finishMarkImg.image = UIImage(named: "done.png")
         
         // Employee label
         lblEmployeeL.translatesAutoresizingMaskIntoConstraints = true
-        lblEmployeeL.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
-                                 y: lblStatusL.frame.maxY,
-                                 width: 80,
+        lblEmployeeL.frame = CGRect(x: contentMarginX, y: lblStatusL.frame.maxY,
+                                 width: lblEmployeeL.frame.width,
                                  height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblEmployeeL.sizeToFit()
         periodView.addSubview(lblEmployeeL)
         
         // Employee name
         lblEmployee.translatesAutoresizingMaskIntoConstraints = true
         lblEmployee.frame = CGRect(x: lblEmployeeL.frame.maxX,
-                                   y: lblStatusL.frame.maxY,
-                                   width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - lblEmployeeL.frame.width,
+                                   y: lblEmployeeL.frame.minY,
+                                   width: parentWidth - contentMarginX * 2 - lblEmployeeL.frame.width,
                                    height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         periodView.addSubview(lblEmployee)
         
         // Time created label
         lblCreatedDateL.translatesAutoresizingMaskIntoConstraints = true
-        lblCreatedDateL.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
-                                y: lblEmployeeL.frame.maxY,
-                                width: 100,
+        lblCreatedDateL.frame = CGRect(x: contentMarginX, y: lblEmployeeL.frame.maxY,
+                                width: lblCreatedDateL.frame.width,
                                 height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+        lblCreatedDateL.sizeToFit()
         periodView.addSubview(lblCreatedDateL)
         
         // Time created content
         lblTimeCreate.translatesAutoresizingMaskIntoConstraints = true
         lblTimeCreate.frame = CGRect(x: lblCreatedDateL.frame.maxX,
-                                     y: lblEmployeeL.frame.maxY,
-                                     width: GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4 - lblCreatedDateL.frame.width,
+                                     y: lblCreatedDateL.frame.minY,
+                                     width: parentWidth - contentMarginX * 2 - lblCreatedDateL.frame.width,
                                      height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         periodView.addSubview(lblTimeCreate)
         
@@ -150,6 +153,9 @@ class periodTableViewCell: UITableViewCell {
         lblName.text        = model.customer_name
         lblType.text        = model.schedule_type
         lblStatus.text      = model.status
+        lblStatus.sizeToFit()
+        finishMarkImg.frame.origin.x = lblStatus.frame.maxX + GlobalConst.MARGIN_CELL_X
+        finishMarkImg.frame.origin.y = lblStatus.frame.minY
         lblTimeCreate.text  = model.created_date
         lblEmployee.text    = model.employee_name
         finishMarkImg.isHidden = true

@@ -309,7 +309,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
     
     //popover menu
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "popoverMenu" {
+        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
             let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
         }

@@ -191,7 +191,9 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
         setupNavigationBar(title: GlobalConst.CONTENT00089, isNotifyEnable: true)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
-
+        
+        // Set background color
+        self.changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
     }
 
     override func didReceiveMemoryWarning() {
@@ -214,7 +216,7 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
      * Handle show menu.
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "popoverMenu" {
+        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
             let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
         }

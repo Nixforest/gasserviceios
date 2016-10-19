@@ -203,6 +203,8 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
+        
+        // Set background color
         self.changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
         
         // Fill data in training mode
@@ -248,7 +250,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
      * Override: show menu controller
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "popOverMenu" {
+        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
             let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
         }

@@ -24,13 +24,8 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
     var searchActive:Bool = false
     /** Flag begin search */
     var beginSearch:Bool = false
-    /** Sample data of customers */
-    var customerData = ["San Francisco","New York","San Jose","Chicago","Los Angeles","Austin","Seattle"]
     /** List of status */
-    //var aStatusList:[String]! = ["Mới", "Xử lý", "Hoàn thành", "Yêu cầu chuyển", "Xử lý dài ngày"]
-    //var aStatusList:[String] = [String]()
     var aStatusList: [ConfigBean] = [ConfigBean]()
-    //var statusIndex = Int()
     /** Timer for search auto complete */
     var timer = Timer()
     /** Tap gesture hide keyboard */
@@ -72,13 +67,20 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
             currentViewType             = DomainConst.TYPE_PERIODICALLY
             problemTableView.isHidden   = true
             periodTableView.isHidden    = false
-            //periodTableView.reloadData()
         default:
             break
         }
-        currentPage = 0
         self.clearData()
-        CommonProcess.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: "", view: self)
+        self.searchBox.text = ""
+        self.currentCustomerId = ""
+        if aStatusList.count > 0 {
+            // Set selection text
+            lblStatusList.text = aStatusList[0].name
+            // Save current status
+            currentStatus = aStatusList[0].id
+        }
+        
+        CommonProcess.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
     }
     
     /**
@@ -86,18 +88,13 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
      * - parameter sender: AnyObject
      */
     @IBAction func showStatusListButtonTapped(_ sender: AnyObject) {
-        statusListView.isHidden = false
-        view2.isHidden          = false
-
+        if aStatusList.count > 0 {
+            statusListView.isHidden = false
+            view2.isHidden          = false
+        }
     }
     //training mode
     override func viewDidAppear(_ animated: Bool) {
-        //training mode enable/disable
-//        if GlobalConst.TRAINING_MODE_FLAG == true {
-//            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
-//        } else {
-//            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-//        }
     }
     
     /**
@@ -111,9 +108,6 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         searchBarTableView.isHidden = !searchActive
         // Move to front
         searchBarTableView.layer.zPosition = 1
-        
-        // Remove status list gesture
-        //lblStatusList.removeGestureRecognizer(gestureShowStatusList)
     }
     
     /**
@@ -152,6 +146,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
         view2.addSubview(blurEffectView)
+        let marginX = GlobalConst.PARENT_BORDER_WIDTH
         // Cell
         self.periodTableView.register(UINib(nibName: GlobalConst.PERIOD_TABLE_VIEW_CELL, bundle: nil),
                                       forCellReuseIdentifier: GlobalConst.PERIOD_TABLE_VIEW_CELL)
@@ -166,26 +161,26 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         let heigh = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
         searchBox.placeholder = GlobalConst.CONTENT00060
         searchBox.translatesAutoresizingMaskIntoConstraints = true
-        searchBox.frame = CGRect(x: 0,
+        searchBox.frame = CGRect(x: marginX,
                                  y: heigh,
-                                 width: GlobalConst.SCREEN_WIDTH,
+                                 width: GlobalConst.SCREEN_WIDTH - marginX * 2,
                                  height: GlobalConst.SEARCH_BOX_HEIGHT )
         searchBox.delegate = self
         // Show hide result of search bar action
         searchBarTableView.translatesAutoresizingMaskIntoConstraints = true
         searchBarTableView.isHidden = !searchActive
-        searchBarTableView.frame = CGRect(x: 0,
+        searchBarTableView.frame = CGRect(x: marginX,
                                           y: searchBox.frame.maxY,
-                                          width: GlobalConst.SCREEN_WIDTH,
+                                          width: GlobalConst.SCREEN_WIDTH - marginX * 2,
                                           height: GlobalConst.CELL_IN_SEARCHBAR_TABLE_HEIGHT * 5)
         searchBarTableView.delegate = self
         searchBarTableView.dataSource = self
         
         // Label status list + action
         lblStatusList.textAlignment = .center
-        lblStatusList.frame = CGRect(x: 0,
+        lblStatusList.frame = CGRect(x: marginX,
                                      y: searchBox.frame.maxY,
-                                     width: GlobalConst.SCREEN_WIDTH,
+                                     width: GlobalConst.SCREEN_WIDTH - marginX * 2,
                                      height: GlobalConst.LABEL_HEIGHT)
         lblStatusList.translatesAutoresizingMaskIntoConstraints = true
         
@@ -204,21 +199,19 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
             action: #selector(UpholdListViewController.showStatusListButtonTapped))
         gestureShowStatusList.numberOfTapsRequired = 1
         lblStatusList.addGestureRecognizer(gestureShowStatusList)
-        //self.view.addSubview(lblStatusList)
-        //gestureShowStatusList.delegate = self
         
         // Add Picker to View
         statusListView.isHidden = true
         statusListView.translatesAutoresizingMaskIntoConstraints = true
-        statusListView.frame = CGRect(x: 0,
+        statusListView.frame = CGRect(x: marginX,
                                       y: lblStatusList.frame.maxY,
-                                      width: GlobalConst.SCREEN_WIDTH,
+                                      width: GlobalConst.SCREEN_WIDTH - marginX * 2,
                                       height: GlobalConst.SCREEN_HEIGHT / 4)
         
         let statusListPicker = UIPickerView()
         statusListPicker.frame = CGRect(x: 0,
                                         y: 0,
-                                        width: GlobalConst.SCREEN_WIDTH,
+                                        width: GlobalConst.SCREEN_WIDTH - marginX * 2,
                                         height: GlobalConst.SCREEN_HEIGHT / 4)
         statusListPicker.backgroundColor = UIColor.white
         statusListPicker.delegate = self
@@ -234,23 +227,23 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         upholdListButton.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         upholdListButton.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
         upholdListButton.tintColor = GlobalConst.BUTTON_COLOR_RED
-        upholdListButton.frame = CGRect(x: 0,
+        upholdListButton.frame = CGRect(x: marginX,
                                         y: lblStatusList.frame.maxY,
-                                        width: GlobalConst.SCREEN_WIDTH,
+                                        width: GlobalConst.SCREEN_WIDTH - marginX * 2,
                                         height: GlobalConst.BUTTON_H)
         upholdListButton.translatesAutoresizingMaskIntoConstraints = true
         // Uphold list view
         problemTableView.translatesAutoresizingMaskIntoConstraints = true
-        problemTableView.frame = CGRect(x: 0,
+        problemTableView.frame = CGRect(x: marginX,
                                         y: upholdListButton.frame.maxY,
-                                        width: GlobalConst.SCREEN_WIDTH,
+                                        width: GlobalConst.SCREEN_WIDTH - marginX * 2,
                                         height: GlobalConst.SCREEN_HEIGHT - upholdListButton.frame.maxY - GlobalConst.PARENT_BORDER_WIDTH * 2)
         problemTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         periodTableView.translatesAutoresizingMaskIntoConstraints = true
-        periodTableView.frame = CGRect(x: 0,
+        periodTableView.frame = CGRect(x: marginX,
                                        y: upholdListButton.frame.maxY,
-                                       width: GlobalConst.SCREEN_WIDTH,
+                                       width: GlobalConst.SCREEN_WIDTH - marginX * 2,
                                        height: GlobalConst.SCREEN_HEIGHT - upholdListButton.frame.maxY - GlobalConst.PARENT_BORDER_WIDTH * 2)
         periodTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
@@ -264,11 +257,12 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         // Notify set data
         NotificationCenter.default.addObserver(self, selector: #selector(UpholdListViewController.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW), object: nil)
         
-        //periodTableView.reloadData()
         // Do any additional setup after loading the view.
         gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(UpholdListViewController.hideKeyboard))
         //view.addGestureRecognizer(tap)
-        CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: "", view: self)
+        CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+        // Set background color
+        self.changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
     }
     
     /**
@@ -284,15 +278,24 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
     
     /**
      * Clear data of view.
+     * Reset currentPage value
+     * Reset uphold list value
      */
     override func clearData() {
+        currentPage = 0
         Singleton.sharedInstance.clearUpholdList()
     }
     
     // MARK: - Textfield Delegate
+    /**
+     * Hide keyboard.
+     */
     func hideKeyboard() {
+        // Hide keyboard
         self.view.endEditing(true)
+        // Turn off flag
         isKeyboardShow = false
+        // Remove hide keyboard gesture
         self.view.removeGestureRecognizer(gestureHideKeyboard)
     }
 
@@ -308,7 +311,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
      * Override: show menu controller
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "popOverMenu" {
+        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
             let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
         }
@@ -321,6 +324,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         return UIModalPresentationStyle.none
     }
     
+    //MARK: - UIPickerViewDelegate
     /**
      * Scroll view select status.
      */
@@ -335,18 +339,6 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         return aStatusList.count
     }
     
-    // MARK: - Action
-    
-//    func selectRowPicker(_ aButton:UIButton) {
-//        let tagButton :Int = aButton.tag
-//        print("tag :", tagButton)
-//        lblStatusList.text = aStatusList[tagButton]
-//        statusListView.isHidden = true
-//        view2.isHidden = true
-//    }
-    
-    
-    //MARK: - UIPickerViewDelegate
     /**
      * Set width of picker view
      */
@@ -373,9 +365,19 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
      */
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         lblStatusList.tag = row
-        lblStatusList.text = aStatusList[row].name
-        statusListView.isHidden = true
-        view2.isHidden = true
+        if aStatusList.count > row {
+            // Set selection text
+            lblStatusList.text = aStatusList[row].name
+            // Save current status
+            currentStatus = aStatusList[row].id
+            // Hide status picker view
+            statusListView.isHidden = true
+            view2.isHidden = true
+            // Clear uphold data
+            clearData()
+            // Request data from server
+            CommonProcess.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+        }
     }
     
     // MARK: - UITableViewDataSource
@@ -384,18 +386,26 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         var count = NSInteger()
+        // Current view is periodically uphold
         if tableView == periodTableView {
             count = Singleton.sharedInstance.upholdList.record.count
         }
+        // Current view is problem uphold
         if tableView == problemTableView {
             count = Singleton.sharedInstance.upholdList.record.count
         }
+        
+        // Search bar is showing
         if tableView == searchBarTableView {
             count = Singleton.sharedInstance.searchCustomerResult.record.count
         }
 
         return count
     }
+    
+    /**
+     * Asks the data source for a cell to insert in a particular location of the table view.
+     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
         UITableViewCell {
             var cellReturn = UITableViewCell()
@@ -403,7 +413,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
             if tableView == periodTableView {
                 let cell:periodTableViewCell = tableView.dequeueReusableCell(
                     withIdentifier: GlobalConst.PERIOD_TABLE_VIEW_CELL) as! periodTableViewCell
-                if (Singleton.sharedInstance.upholdList.record.count > 0) {
+                if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
                     cell.setData(model: Singleton.sharedInstance.upholdList.record[indexPath.row])
                 }
                 cellReturn = cell
@@ -413,7 +423,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
             if tableView == problemTableView {
                 let cell:problemTableViewCell = tableView.dequeueReusableCell(
                     withIdentifier: GlobalConst.PROBLEM_TABLE_VIEW_CELL) as! problemTableViewCell
-                if (Singleton.sharedInstance.upholdList.record.count > 0) {
+                if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
                     cell.setData(model: Singleton.sharedInstance.upholdList.record[indexPath.row])
                 }
                 cell.delegate = self
@@ -424,84 +434,104 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
             if tableView == searchBarTableView {
                 let cell:SearchBarTableViewCell = tableView.dequeueReusableCell(
                     withIdentifier: GlobalConst.SEARCH_BAR_TABLE_VIEW_CELL) as! SearchBarTableViewCell
-                //cell.textLabel?.text = customerData[(indexPath as NSIndexPath).row]
-                if (Singleton.sharedInstance.searchCustomerResult.record.count > 0) {
+                if (Singleton.sharedInstance.searchCustomerResult.record.count > indexPath.row) {
                     cell.result.text = Singleton.sharedInstance.searchCustomerResult.record[indexPath.row].name
                 }
-//                if(searchActive){
-//                    //cell.textLabel?.text = filtered[indexPath.row]
-//                } else {
-//                    cell.textLabel?.text = customerData[indexPath.row];
-//                }
 
                 cellReturn = cell
             }
-            cellReturn.selectionStyle = .none
+            cellReturn.selectionStyle = .gray
             return cellReturn
     }
+    
+    /**
+     * Asks the delegate for the height to use for a row in a specified location.
+     */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height = CGFloat()
+        // Period view
         if tableView == periodTableView {
             height = GlobalConst.CELL_HEIGHT_SHOW
             
         }
+        // Problem view
         if tableView == problemTableView {
             height = GlobalConst.CELL_HEIGHT_SHOW
         }
+        // Search bar view
         if tableView == searchBarTableView {
             height = 50
         }
         return height
     }
     
-    // MARK: - UITableViewDelegate
     /**
      * Tells the delegate that the specified row is now selected.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Search bar
-        if tableView == searchBarTableView {
-            print("select: ", customerData[(indexPath as NSIndexPath).row])
-            searchBarTableView.isHidden = true
-            searchBox.resignFirstResponder()
-            //searchBox.text = customerData[(indexPath as NSIndexPath).row]
-            searchBox.text = Singleton.sharedInstance.searchCustomerResult.record[indexPath.row].name
-            self.clearData()
-            currentCustomerId = Singleton.sharedInstance.searchCustomerResult.record[indexPath.row].id
-            CommonProcess.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: "", view: self)
+        // Period view
+        if tableView == periodTableView {
+            if Singleton.sharedInstance.isCustomerUser() {
+                // Move to customer detail uphold G01F00S03
+            } else {
+                // Move to customer detail uphold G01F00S02
+                let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL)
+                self.navigationController?.pushViewController(detail, animated: true)
+            }
         }
-        if tableView == problemTableView || tableView == periodTableView {
-            let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL)
-            self.navigationController?.pushViewController(detail, animated: true)
+        if tableView == problemTableView {
+            if Singleton.sharedInstance.isCustomerUser() {
+                // Move to customer detail uphold G01F00S03
+            } else {
+                // Move to customer detail uphold G01F00S02
+                let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL)
+                self.navigationController?.pushViewController(detail, animated: true)
+            }
             let cell:problemTableViewCell = tableView.dequeueReusableCell(
                 withIdentifier: GlobalConst.PROBLEM_TABLE_VIEW_CELL) as! problemTableViewCell
             cell.ratingButton.addTarget(self, action: #selector(toRatingVC), for: .touchUpInside)
         }
         
+        // Search bar
+        if tableView == searchBarTableView {
+            searchBarTableView.isHidden = true
+            searchBox.resignFirstResponder()
+            if (Singleton.sharedInstance.searchCustomerResult.record.count > indexPath.row) {
+                searchBox.text = Singleton.sharedInstance.searchCustomerResult.record[indexPath.row].name
+                self.clearData()
+                currentCustomerId = Singleton.sharedInstance.searchCustomerResult.record[indexPath.row].id
+                CommonProcess.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+            }
+        }
     }
     
-    // MARK: to Uphold Rating VC - ProblemTableView Delegate
+    /**
+     * Handle when tap on Rating button.
+     */
     func toRatingVC() {
         let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.UPHOLD_RATING_VIEW_CTRL)
         self.navigationController?.pushViewController(ratingVC, animated: true)
     }
     
+    /**
+     * Tells the delegate the table view is about to draw a cell for a particular row.
+     */
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // If current view is search bar table view
-        if tableView == searchBarTableView {
-            return
-        }
         // If current view is Uphold table view
         if (Singleton.sharedInstance.upholdList.record.count >= 10) {
             let lastElement = Singleton.sharedInstance.upholdList.record.count - 1
             if indexPath.row == lastElement {
                 currentPage += 1
-                CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: "", view: self)
+                CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
             }
+        }
+        // If current view is search bar table view
+        if tableView == searchBarTableView {
+            return
         }
     }
     
-    // MARK: - Begin Searching
+    // MARK: - SearchbarDelegate
     /**
      * Handle begin search
      */
@@ -513,18 +543,15 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         print("Call api search")
         // CAll API
         CommonProcess.requestSearchCustomer(keyword: searchBox.text!, view: self)
-        
-        // If Search seccess
-        //searchBarTableView.isHidden = false
     }
     
-    // MARK: - SearchbarDelegate
-    
-    //search bar action
+    /**
+     * Tells the delegate that the user changed the search text.
+     */
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
         filteredStr = searchText
-        if filteredStr.characters.count > 4 {
+        if filteredStr.characters.count > (DomainConst.SEARCH_MIN_LENGTH - 1) {
             beginSearch = false
             searchActive = true
             // Start count
@@ -534,28 +561,51 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         } else {
             beginSearch = false
             searchActive = false
-            // Show
+            // Hide search bar table view
             searchBarTableView.isHidden = !searchActive
+            // Reset current customer id
+            self.currentCustomerId = ""
         }
-        //searchBarTableView.reloadData()
     }
+    
+    /**
+     * Tells the delegate when the user begins editing the search text.
+     */
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchActive = true
-        //NSNotificationCenter.defaultCenter().postNotificationName("showSearchBarTableView", object: nil)
         isKeyboardShow = true
         self.view.addGestureRecognizer(gestureHideKeyboard)
     }
     
+    /**
+     * Tells the delegate that the user finished editing the search text.
+     */
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchActive = false
+        searchActive = true
+        // If text is empty
+        if (searchBar.text?.isEmpty)! {
+            // Clear uphold data
+            clearData()
+            // Reset current customer id
+            currentCustomerId = ""
+            // Request data from server
+            CommonProcess.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+        }
     }
     
+    /**
+     * Tells the delegate that the cancel button was tapped.
+     */
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchActive = false
     }
     
+    /**
+     * Tells the delegate that the search button was tapped.
+     */
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false
+        searchActive = true
+        beginSearching()
     }
 
 
