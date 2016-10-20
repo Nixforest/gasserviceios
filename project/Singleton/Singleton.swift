@@ -54,6 +54,10 @@ class Singleton: NSObject {
     var upholdList: UpholdListRespModel = UpholdListRespModel()
     /** Search customer result */
     var searchCustomerResult: SearchCustomerRespModel = SearchCustomerRespModel()
+    /** Shared string */
+    var sharedString = ""
+    /** Shared int */
+    var sharedInt = -1
     
     // MARK - Methods
     /**

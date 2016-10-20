@@ -56,13 +56,12 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
      * - parameter sender: AnyObject
      */
     @IBAction func upholdListChange(_ sender: AnyObject) {
-        switch upholdListButton.selectedSegmentIndex
-        {
+        switch upholdListButton.selectedSegmentIndex {
         case 0:     // Problem uphold list
             currentViewType             = DomainConst.TYPE_TROUBLE
             periodTableView.isHidden    = true
             problemTableView.isHidden   = false
-
+            
         case 1:     // Periodically uphold list
             currentViewType             = DomainConst.TYPE_PERIODICALLY
             problemTableView.isHidden   = true
@@ -475,8 +474,11 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
                 // Move to customer detail uphold G01F00S03
             } else {
                 // Move to customer detail uphold G01F00S02
-                let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL)
-                self.navigationController?.pushViewController(detail, animated: true)
+                if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
+                    Singleton.sharedInstance.sharedInt = indexPath.row
+                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL)
+                    self.navigationController?.pushViewController(detail, animated: true)
+                }
             }
         }
         if tableView == problemTableView {
@@ -484,8 +486,11 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
                 // Move to customer detail uphold G01F00S03
             } else {
                 // Move to customer detail uphold G01F00S02
-                let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL)
-                self.navigationController?.pushViewController(detail, animated: true)
+                if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
+                    Singleton.sharedInstance.sharedInt = indexPath.row
+                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL)
+                    self.navigationController?.pushViewController(detail, animated: true)
+                }
             }
             let cell:problemTableViewCell = tableView.dequeueReusableCell(
                 withIdentifier: GlobalConst.PROBLEM_TABLE_VIEW_CELL) as! problemTableViewCell

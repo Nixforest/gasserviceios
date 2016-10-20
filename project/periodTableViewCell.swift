@@ -66,7 +66,7 @@ class periodTableViewCell: UITableViewCell {
                                width: lblTypeL.frame.width,
                                height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         lblTypeL.sizeToFit()
-        periodView.addSubview(lblName)
+        periodView.addSubview(lblTypeL)
         
         // Type periodically content
         lblType.translatesAutoresizingMaskIntoConstraints = true
@@ -75,7 +75,7 @@ class periodTableViewCell: UITableViewCell {
                                width: parentWidth - contentMarginX * 2 - lblTypeL.frame.width,
                                height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         periodView.addSubview(lblType)
-        
+
         // Status label
         lblStatusL.translatesAutoresizingMaskIntoConstraints = true
         lblStatusL.frame = CGRect(x: contentMarginX, y: lblTypeL.frame.maxY,
@@ -92,7 +92,7 @@ class periodTableViewCell: UITableViewCell {
                                  height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         periodView.addSubview(lblStatus)
         
-        // Finish mark
+//        // Finish mark
         finishMarkImg.translatesAutoresizingMaskIntoConstraints = true
         finishMarkImg.frame = CGRect(x: lblStatus.frame.maxX,
                                      y: lblStatusL.frame.minY,
@@ -115,7 +115,7 @@ class periodTableViewCell: UITableViewCell {
                                    width: parentWidth - contentMarginX * 2 - lblEmployeeL.frame.width,
                                    height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         periodView.addSubview(lblEmployee)
-        
+
         // Time created label
         lblCreatedDateL.translatesAutoresizingMaskIntoConstraints = true
         lblCreatedDateL.frame = CGRect(x: contentMarginX, y: lblEmployeeL.frame.maxY,
@@ -123,7 +123,7 @@ class periodTableViewCell: UITableViewCell {
                                 height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         lblCreatedDateL.sizeToFit()
         periodView.addSubview(lblCreatedDateL)
-        
+
         // Time created content
         lblTimeCreate.translatesAutoresizingMaskIntoConstraints = true
         lblTimeCreate.frame = CGRect(x: lblCreatedDateL.frame.maxX,

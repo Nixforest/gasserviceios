@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="100"/>
+                <frame key="frameInset" width="320" height="99"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yto-HK-zRF">
@@ -93,7 +93,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="finishMarkImg" destination="GYJ-lJ-Y8p" id="X5i-Qf-OX6"/>
-                <outlet property="lblCreatedDateL" destination="c0O-tc-1eo" id="4Bu-gi-wFs"/>
+                <outlet property="lblCreatedDateL" destination="c0O-tc-1eo" id="AoI-zF-0BB"/>
                 <outlet property="lblEmployee" destination="5bm-40-e1e" id="ZnL-oG-T2e"/>
                 <outlet property="lblEmployeeL" destination="NPC-oE-onr" id="asQ-06-W2A"/>
                 <outlet property="lblName" destination="uy2-ZO-HaD" id="c1g-PP-gvH"/>

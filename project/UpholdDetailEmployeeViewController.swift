@@ -21,8 +21,8 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
     @IBOutlet weak var lblCreator: UILabel!
     @IBOutlet weak var lblCreatedDate: UILabel!
     @IBOutlet weak var lblCode: UILabel!
-
-    
+    /** Index */
+    var index = -1
     
     /**
      * Background setting
@@ -49,31 +49,38 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
      * Segment ScrollView Control Action
      */
     @IBAction func sgmScrollViewChangeAction(_ sender: AnyObject) {
-        switch sgmScrollViewChange.selectedSegmentIndex
-        {
-            case 0:
-                
-                tblViewHistory.isHidden = true
-                scrViewInformation.isHidden = false
-                btnCreateReply.isHidden = true
-            case 1:
-                
-                scrViewInformation.isHidden = true
-                tblViewHistory.isHidden = false
-                btnCreateReply.isHidden = false
+        switch sgmScrollViewChange.selectedSegmentIndex {
+        case 0:     // Information tab
+            tblViewHistory.isHidden     = true
+            scrViewInformation.isHidden = false
+            btnCreateReply.isHidden     = true
+            
+        case 1:     // History tab
+            scrViewInformation.isHidden = true
+            tblViewHistory.isHidden     = false
+            btnCreateReply.isHidden     = false
         default:
             break
         }
 
     }
+    
+    /**
+     * Handle tap create uphold reply button.
+     */
     @IBAction func btnCreateUpholdReplyTapped(_ sender: AnyObject) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let configVC = mainStoryboard.instantiateViewController(withIdentifier: "ReplyUpholdViewController")
+        let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REPLY_UPHOLD_VIEW_CTRL)
         self.navigationController?.pushViewController(configVC, animated: true)
     }
     
+    /**
+     * View did load.
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
+        if Singleton.sharedInstance.sharedInt != -1 {
+            self.index = Singleton.sharedInstance.sharedInt
+        }
         
         viewBackground.translatesAutoresizingMaskIntoConstraints = true
         viewBackground.frame = CGRect(x: 0, y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT, width: GlobalConst.SCREEN_WIDTH, height: GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT))
@@ -89,7 +96,11 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
         //viewBackground.addSubview(sgmScrollViewChange)
         
         scrViewInformation.translatesAutoresizingMaskIntoConstraints = true
-        scrViewInformation.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT , width: (GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT))
+        scrViewInformation.frame = CGRect(
+            x: GlobalConst.PARENT_BORDER_WIDTH,
+            y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT,
+            width: (GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2),
+            height: GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT))
         
         scrViewInformation.delegate = self
         
@@ -124,9 +135,19 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
     
 
     override func viewDidLayoutSubviews() {
-        viewInformation.frame = CGRect(x: 0, y: 0, width: scrViewInformation.frame.size.width, height: scrViewInformation.frame.size.height)
-        scrViewInformation.contentSize = CGSize(width: viewInformation.frame.size.width, height: viewInformation.frame.size.height)
-
+        viewInformation.frame = CGRect(
+            x: GlobalConst.MARGIN_CELL_X,
+            y: GlobalConst.MARGIN_CELL_X,
+            width: scrViewInformation.frame.size.width - GlobalConst.MARGIN_CELL_X * 2,
+            //height: scrViewInformation.frame.size.height - GlobalConst.MARGIN_CELL_X * 3)
+            height: GlobalConst.LABEL_HEIGHT * 13)
+        viewInformation.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        viewInformation.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
+        viewInformation.clipsToBounds = true
+        viewInformation.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
+        scrViewInformation.contentSize = CGSize(
+            width: viewInformation.frame.size.width,
+            height: viewInformation.frame.size.height + GlobalConst.LABEL_HEIGHT * 13 - (scrViewInformation.frame.size.height - GlobalConst.MARGIN_CELL_X * 3))
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

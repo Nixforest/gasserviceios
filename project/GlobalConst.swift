@@ -152,6 +152,11 @@ class GlobalConst {
     static let CONTENT00141	= "Cập nhật"
     static let CONTENT00142	= "Đã có phiên bản mới, vui lòng cập nhật!"
     static let CONTENT00143 = "Chi tiết bảo trì"
+    static let CONTENT00144 = "NVKD"
+    static let CONTENT00145 = "NV Bảo trì"
+    static let CONTENT00146 = "Liên hệ"
+    static let CONTENT00147 = "Sự cố"
+    static let CONTENT00148 = "Mã số"
     static let CONTENT00162 = "Thông báo"
     
     // ----- Size of control -----
@@ -165,7 +170,7 @@ class GlobalConst {
     static let NAV_BAR_HEIGHT:CGFloat = 44
     static let SEARCH_BOX_HEIGHT:CGFloat = 44
     static let POPOVER_WIDTH:CGFloat = 200
-    static let LABEL_HEIGHT:CGFloat = 30
+    static let LABEL_HEIGHT:CGFloat = 34
     static let CELL_HEIGHT_SHOW:CGFloat = 100
     static let CELL_HEIGHT_HIDE:CGFloat = 0
     static let CELL_BORDER_WIDTH:CGFloat = 2
@@ -226,6 +231,8 @@ class GlobalConst {
     static let UPHOLDLIST_VIEW_CTRL = "UpholdListViewController"
     /** Name of UpholdListViewController */
     static let UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL = "UpholdDetailEmployeeViewController"
+    /** Name of ReplyUpholdViewController */
+    static let REPLY_UPHOLD_VIEW_CTRL = "ReplyUpholdViewController"
     
     /** Name of UpholdListViewController */
     static let UPHOLD_RATING_VIEW_CTRL = "UpholdRatingViewController"
