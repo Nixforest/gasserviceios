@@ -8,27 +8,21 @@
 
 import UIKit
 
-class ConfigurationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
-
-    @IBOutlet weak var menuButton: UIButton!
-    @IBOutlet weak var notificationButton: UIButton!
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var configurationNavBar: UINavigationItem!
-    
+class ConfigurationViewController: CommonViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {    
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var configView: UIView!
     @IBOutlet weak var configTableView: UITableView!
-    
-    @IBAction func backButtonTapped(_ sender: AnyObject) {
-        self.navigationController?.popViewController(animated: true)
+    /**
+     * Handle when tap on Issue menu item
+     */
+    func issueButtonInAccountVCTapped(_ notification: Notification) {
+        /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
+         self.navigationController?.pushViewController(configVC, animated: true)
+         */
+        print("issue button tapped")
     }
-    @IBAction func notificationButtonTapped(_ sender: AnyObject) {
-        let notificationAlert = UIAlertController(title: "Thông báo", message: "Bạn có tin nhắn mới", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Back", style: .cancel, handler: {(notificationAlert) -> Void in ()})
-        notificationAlert.addAction(cancelAction)
-        self.present(notificationAlert, animated: true, completion: nil)}
-    
     //training mode
     override func viewDidAppear(_ animated: Bool) {
         //training mode enable/disable
@@ -48,16 +42,29 @@ class ConfigurationViewController: UIViewController, UITableViewDelegate, UITabl
         }
         
     }
-    func trainingModeOn(_ notification: Notification) {
-        configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
-    }
-    func trainingModeOff(_ notification: Notification) {
-        configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
+    
+    /**
+     * Handle when tap menu item
+     */
+    func asignNotifyForMenuItem() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.gasServiceItemTapped(_:)),
+                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(ConfigurationViewController.issueButtonInAccountVCTapped(_:)),
+                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.pushToLoginVC(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.pushToRegisterVC(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_REGISTER_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.configButtonTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.logoutButtonTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_LOGOUT_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTableViewController.issueButtonTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        asignNotifyForMenuItem()
         
         configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
 
@@ -74,44 +81,45 @@ class ConfigurationViewController: UIViewController, UITableViewDelegate, UITabl
         searchBar.placeholder = GlobalConst.CONTENT00128
         
         
-        configurationNavBar.title = GlobalConst.CONTENT00128
-        
-        let menuOrigin = UIImage(named: "menu.png");
-        let tintedImage = menuOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        menuButton.setImage(tintedImage, for: UIControlState())
-        menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
-        
-        //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
-        menuButton.setTitle("", for: UIControlState())
-        let menuNavBar = UIBarButtonItem()
-        menuNavBar.customView = menuButton
-        menuNavBar.isEnabled = true //disable menu button
-        //noti button on NavBar
-        notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
-        notificationButton.setTitle("!", for: UIControlState())
-        notificationButton.setTitleColor(UIColor.white, for: UIControlState())
-        //notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)//when enable
-        notificationButton.backgroundColor = UIColor.gray//when disable
-        notificationButton.addTarget(self, action: #selector(notificationButtonTapped), for: .touchUpInside)
-        let notificationNavBar = UIBarButtonItem()
-        notificationNavBar.customView = notificationButton
-        notificationNavBar.isEnabled = false
-        
-        configurationNavBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
-        //back button
-        let backOrigin = UIImage(named: "back.png");
-        let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        backButton.setImage(tintedBackLogo, for: UIControlState())
-        backButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
-        backButton.setTitle("", for: UIControlState())
-        let backNavBar = UIBarButtonItem()
-        backNavBar.customView = backButton
-        configurationNavBar.setLeftBarButton(backNavBar, animated: false)
-
+//        configurationNavBar.title = GlobalConst.CONTENT00128
+//        
+//        let menuOrigin = UIImage(named: "menu.png");
+//        let tintedImage = menuOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+//        menuButton.setImage(tintedImage, for: UIControlState())
+//        menuButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
+//        menuButton.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
+//        
+//        //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
+//        menuButton.setTitle("", for: UIControlState())
+//        let menuNavBar = UIBarButtonItem()
+//        menuNavBar.customView = menuButton
+//        menuNavBar.isEnabled = true //disable menu button
+//        //noti button on NavBar
+//        notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//        notificationButton.layer.cornerRadius = 0.5 * notificationButton.bounds.size.width
+//        notificationButton.setTitle("!", for: UIControlState())
+//        notificationButton.setTitleColor(UIColor.white, for: UIControlState())
+//        //notificationButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)//when enable
+//        notificationButton.backgroundColor = UIColor.gray//when disable
+//        notificationButton.addTarget(self, action: #selector(notificationButtonTapped), for: .touchUpInside)
+//        let notificationNavBar = UIBarButtonItem()
+//        notificationNavBar.customView = notificationButton
+//        notificationNavBar.isEnabled = false
+//        
+//        configurationNavBar.setRightBarButtonItems([menuNavBar, notificationNavBar], animated: false)
+//        //back button
+//        let backOrigin = UIImage(named: "back.png");
+//        let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+//        backButton.setImage(tintedBackLogo, for: UIControlState())
+//        backButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
+//        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//        //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
+//        backButton.setTitle("", for: UIControlState())
+//        let backNavBar = UIBarButtonItem()
+//        backNavBar.customView = backButton
+//        configurationNavBar.setLeftBarButton(backNavBar, animated: false)
+//
+        setupNavigationBar(title: GlobalConst.CONTENT00128, isNotifyEnable: true)
         // Do any additional setup after loading the view.
     }
 

@@ -74,4 +74,16 @@ class BaseRequest {
         })
         return task
     }
+    
+    /**
+     * Show alert when connection has error.
+     * - parameter message: Message string
+     */
+    func showAlert(message: String) {
+        // Hide overlay
+        LoadingView.shared.hideOverlayView()
+        DispatchQueue.main.async {
+            self.view.showAlert(message: message)
+        }
+    }
 }

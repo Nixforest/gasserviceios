@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PeriodUpholdDetailCustomerViewController: UIViewController {
+class PeriodUpholdDetailCustomerViewController: CommonViewController {
     
     // MARK: Header and label declare
     let lblHeader0 = UILabel()
@@ -122,7 +122,7 @@ class PeriodUpholdDetailCustomerViewController: UIViewController {
         lblCustomerName.layer.borderColor = GlobalConst.BACKGROUND_COLOR_GRAY.cgColor
         lblCustomerName.text = "Tên KH"
         lblCustomerName.font = UIFont.boldSystemFont(ofSize: 15.0)
-        lblCustomerName.isUserInteractionEnabled = false
+        lblCustomerName.isEditable = false
         scrollView.addSubview(lblCustomerName)
         
         lblCustomerNameValue.translatesAutoresizingMaskIntoConstraints = true
@@ -133,7 +133,7 @@ class PeriodUpholdDetailCustomerViewController: UIViewController {
         lblCustomerNameValue.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         lblCustomerNameValue.layer.borderColor = GlobalConst.BACKGROUND_COLOR_GRAY.cgColor
         lblCustomerNameValue.font = UIFont.boldSystemFont(ofSize: 15.0)
-        lblCustomerNameValue.isUserInteractionEnabled = false
+        lblCustomerNameValue.isEditable = false
         lblCustomerNameValue.text = "2"
         scrollView.addSubview(lblCustomerNameValue)
         
@@ -147,7 +147,7 @@ class PeriodUpholdDetailCustomerViewController: UIViewController {
         lblAddress.layer.borderColor = GlobalConst.BACKGROUND_COLOR_GRAY.cgColor
         lblAddress.text = "Địa chỉ"
         lblAddress.font = UIFont.boldSystemFont(ofSize: 15.0)
-        lblAddress.isUserInteractionEnabled = false
+        lblAddress.isEditable = false
         scrollView.addSubview(lblAddress)
         
         lblAddressValue.translatesAutoresizingMaskIntoConstraints = true
@@ -159,7 +159,7 @@ class PeriodUpholdDetailCustomerViewController: UIViewController {
         lblAddressValue.layer.borderColor = GlobalConst.BACKGROUND_COLOR_GRAY.cgColor
         lblAddressValue.text = "3"
         lblAddressValue.font = UIFont.boldSystemFont(ofSize: 15.0)
-        lblAddressValue.isUserInteractionEnabled = false
+        lblAddressValue.isEditable = false
         scrollView.addSubview(lblAddressValue)
         
         // Label UpholdPeriod and UpholdPeriodValue

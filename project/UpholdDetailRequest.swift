@@ -27,7 +27,7 @@ class UpholdDetailRequest: BaseRequest {
             // Convert to string
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
             //print(dataString)
-//            // Convert to object
+            // Convert to object
             let model: UpholdDetailRespModel = UpholdDetailRespModel(jsonString: dataString as! String)
             if model.status == "1" {
                 Singleton.sharedInstance.saveCurrentUpholdDetail(model: model.model_uphold)
@@ -36,7 +36,8 @@ class UpholdDetailRequest: BaseRequest {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: model)
                 }
             } else {
-                
+                self.showAlert(message: model.message)
+                return
             }
             // Hide overlay
             LoadingView.shared.hideOverlayView()

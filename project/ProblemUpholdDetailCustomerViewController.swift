@@ -139,7 +139,7 @@ class ProblemUpholdDetailCustomerViewController: CommonViewController {
         lblCustomerName.layer.borderColor = GlobalConst.BACKGROUND_COLOR_GRAY.cgColor
         lblCustomerName.text = "Tên KH"
         lblCustomerName.font = UIFont.boldSystemFont(ofSize: 15.0)
-        lblCustomerName.isUserInteractionEnabled = false
+        lblCustomerName.isEditable = false
         scrollView.addSubview(lblCustomerName)
         
         lblCustomerNameValue.translatesAutoresizingMaskIntoConstraints = true
@@ -150,7 +150,7 @@ class ProblemUpholdDetailCustomerViewController: CommonViewController {
         lblCustomerNameValue.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         lblCustomerNameValue.layer.borderColor = GlobalConst.BACKGROUND_COLOR_GRAY.cgColor
         lblCustomerNameValue.font = UIFont.boldSystemFont(ofSize: 15.0)
-        lblCustomerNameValue.isUserInteractionEnabled = false
+        lblCustomerNameValue.isEditable = false
         lblCustomerNameValue.text = "2"
         scrollView.addSubview(lblCustomerNameValue)
         
@@ -164,7 +164,7 @@ class ProblemUpholdDetailCustomerViewController: CommonViewController {
         lblAddress.layer.borderColor = GlobalConst.BACKGROUND_COLOR_GRAY.cgColor
         lblAddress.text = "Địa chỉ"
         lblAddress.font = UIFont.boldSystemFont(ofSize: 15.0)
-        lblAddress.isUserInteractionEnabled = false
+        lblAddress.isEditable = false
         scrollView.addSubview(lblAddress)
         
         lblAddressValue.translatesAutoresizingMaskIntoConstraints = true
@@ -176,7 +176,7 @@ class ProblemUpholdDetailCustomerViewController: CommonViewController {
         lblAddressValue.layer.borderColor = GlobalConst.BACKGROUND_COLOR_GRAY.cgColor
         lblAddressValue.text = "3"
         lblAddressValue.font = UIFont.boldSystemFont(ofSize: 15.0)
-        lblAddressValue.isUserInteractionEnabled = false
+        lblAddressValue.isEditable = false
         scrollView.addSubview(lblAddressValue)
         
         // Label Contact and ContactValue
@@ -232,7 +232,7 @@ class ProblemUpholdDetailCustomerViewController: CommonViewController {
         lblContent.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         lblContent.layer.borderColor = GlobalConst.BACKGROUND_COLOR_GRAY.cgColor
         lblContent.text = "Nội dung"
-        lblContent.isUserInteractionEnabled = false
+        lblContent.isEditable = false
         lblContent.font = UIFont.boldSystemFont(ofSize: 15.0)
         scrollView.addSubview(lblContent)
         
@@ -245,7 +245,7 @@ class ProblemUpholdDetailCustomerViewController: CommonViewController {
         lblContentValue.layer.borderColor = GlobalConst.BACKGROUND_COLOR_GRAY.cgColor
         lblContentValue.text = "6"
         lblContentValue.font = UIFont.boldSystemFont(ofSize: 15.0)
-        lblContentValue.isUserInteractionEnabled = false
+        lblContentValue.isEditable = false
         scrollView.addSubview(lblContentValue)
         
         // MARK: - Header 1 and label

@@ -8,6 +8,7 @@
 
 import Foundation
 class SearchCustomerRespModel: BaseRespModel {
+    /** Record */
     var record: [ConfigBean] = [ConfigBean]()
     
     /**

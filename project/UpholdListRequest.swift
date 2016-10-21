@@ -35,19 +35,11 @@ class UpholdListRequest: BaseRequest {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW), object: model)
                 }
             } else {
-//                // Hide overlay
-//                LoadingView.shared.hideOverlayView()
-//                DispatchQueue.main.async {
-//                    self.view.showAlert(message: model.message)
-//                }
-//                return
+                self.showAlert(message: model.message)
+                return
             }
             // Hide overlay
             LoadingView.shared.hideOverlayView()
-            // Back to home page (cross-thread)
-//            DispatchQueue.main.async {
-//                _ = self.view.navigationController?.popViewController(animated: true)
-//            }
         })
         return task
     }

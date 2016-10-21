@@ -235,6 +235,10 @@ class GlobalConst {
     static let UPHOLDLIST_VIEW_CTRL = "UpholdListViewController"
     /** Name of UpholdListViewController */
     static let UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL = "UpholdDetailEmployeeViewController"
+    /** Name of UpholdListViewController */
+    static let PROBLEM_UPHOLDDETAIL_CUSTOMER_VIEW_CTRL = "ProblemUpholdDetailCustomerViewController"
+    /** Name of UpholdListViewController */
+    static let PERIOD_UPHOLDDETAIL_CUSTOMER_VIEW_CTRL = "PeriodUpholdDetailCustomerViewController"
     /** Name of ReplyUpholdViewController */
     static let REPLY_UPHOLD_VIEW_CTRL = "ReplyUpholdViewController"
     
@@ -261,6 +265,7 @@ class GlobalConst {
     static let NOTIFY_NAME_COFIG_ITEM                   = "configItemTapped"
     static let NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW       = "configItemTappedAccountView"
     static let NOTIFY_NAME_COFIG_ITEM_UPHOLDLISTVIEW    = "configItemTappedUpholdListView"
+    static let NOTIFY_NAME_COFIG_ITEM_UPHOLDDETAILVIEW    = "configItemTappedUpholdDetailView"
     static let NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW    = "configItemTappedChangePassView"
     static let NOTIFY_NAME_COFIG_ITEM_HOMEVIEW          = "configItemTappedHomeView"
     static let NOTIFY_NAME_SET_DATA_ACCOUNTVIEW         = "AccountViewController.setData"

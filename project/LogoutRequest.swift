@@ -31,11 +31,7 @@ class LogoutRequest: BaseRequest {
                 // Handle logout is success
                 Singleton.sharedInstance.logoutSuccess()
             } else {
-                // Hide overlay
-                LoadingView.shared.hideOverlayView()
-                DispatchQueue.main.async {
-                    self.view.showAlert(message: model.message)
-                }
+                self.showAlert(message: model.message)
                 return
             }
             // Hide overlay

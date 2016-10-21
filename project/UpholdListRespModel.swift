@@ -8,8 +8,11 @@
 
 import Foundation
 class UpholdListRespModel: BaseRespModel {
+    /** Total record */
     var total_record: Int = 0
+    /** Total page */
     var total_page: Int = 0
+    /** Record */
     var record: [UpholdBean] = [UpholdBean]()
     
     /**

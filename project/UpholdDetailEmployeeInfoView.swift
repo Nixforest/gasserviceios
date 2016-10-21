@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UpholdDetailEmployeeInfoView: UIView {
+class UpholdDetailEmployeeInfoView: UIView, UITextFieldDelegate {
     /** Label Status */
     @IBOutlet weak var lblStatus: UILabel!
     /** Label Customer name */
@@ -158,6 +158,7 @@ class UpholdDetailEmployeeInfoView: UIView {
         alignTextVerticalInTextView(textView: lbl)
         lbl.frame = CGRect(x: marginX + leftWidth, y: offset, width: rightWidth, height: height)
         lbl.layer.addBorder(edge: UIRectEdge.top)
+        lbl.isEditable = false
     }
     
     func alignTextVerticalInTextView(textView :UITextView) {

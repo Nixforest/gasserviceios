@@ -34,11 +34,7 @@ class LoginRequest: BaseRequest {
                 Singleton.sharedInstance.loginSuccess(model.token)
                 Singleton.sharedInstance.saveTempData(loginModel: model)
             } else {
-                // Hide overlay
-                LoadingView.shared.hideOverlayView()
-                DispatchQueue.main.async {
-                    self.view.showAlert(message: model.message)
-                }
+                self.showAlert(message: model.message)
                 return
             }
             // Hide overlay

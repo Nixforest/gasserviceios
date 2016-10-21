@@ -92,7 +92,7 @@ class periodTableViewCell: UITableViewCell {
                                  height: GlobalConst.LABEL_IN_CELL_HEIGHT)
         periodView.addSubview(lblStatus)
         
-//        // Finish mark
+        // Finish mark
         finishMarkImg.translatesAutoresizingMaskIntoConstraints = true
         finishMarkImg.frame = CGRect(x: lblStatus.frame.maxX,
                                      y: lblStatusL.frame.minY,

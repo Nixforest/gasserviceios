@@ -50,11 +50,42 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
         self.navigationController?.pushViewController(configVC, animated: true)
     }
     
+    
     /**
-     * View did load.
+     * Handle when tap on Issue menu item
+     */
+    func issueButtonInAccountVCTapped(_ notification: Notification) {
+        /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
+         self.navigationController?.pushViewController(configVC, animated: true)
+         */
+        print("issue button tapped")
+    }
+    
+    /**
+     * Handle when tap menu item
+     */
+    func asignNotifyForMenuItem() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.gasServiceItemTapped(_:)),
+                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)),
+                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(super.configItemTap(_:)),
+                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
+                                               object: nil)
+    }
+    /**
+     * MARK: View did load.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Menu item tap
+        asignNotifyForMenuItem()
         
         // Tab button
         let marginX = GlobalConst.PARENT_BORDER_WIDTH
@@ -72,9 +103,14 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
         scrViewInformation.translatesAutoresizingMaskIntoConstraints = true
         scrViewInformation.frame = CGRect(
             x: marginX,
-            y: sgmScrollViewChange.frame.maxY,
+            y: sgmScrollViewChange.frame.maxY + GlobalConst.MARGIN_CELL_Y,
             width: GlobalConst.SCREEN_WIDTH - marginX * 2,
-            height: GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT))
+            height: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.MARGIN_CELL_Y * 2))
+        
+        scrViewInformation.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+        scrViewInformation.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
+        scrViewInformation.clipsToBounds = true
+        scrViewInformation.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         
         scrViewInformation.delegate = self
         
@@ -99,13 +135,17 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
         tblViewHistory.frame = CGRect(
             x: marginX, y: btnCreateReply.frame.maxY + GlobalConst.MARGIN_CELL_Y,
             width: GlobalConst.SCREEN_WIDTH - marginX * 2,
-            height: GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT * 2))
+            height: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H * 2 + GlobalConst.MARGIN_CELL_Y * 2))
         tblViewHistory.isHidden = true
         
         self.tblViewHistory.register(UINib(nibName: "UpholdDetailEmployeeHistoryTableViewCell", bundle: nil), forCellReuseIdentifier: "UpholdDetailEmployeeHistoryTableViewCell")
         tblViewHistory.dataSource = self
         tblViewHistory.delegate = self
         
+        // MARK: - NavBar
+        setupNavigationBar(title: GlobalConst.CONTENT00143, isNotifyEnable: true)
+        
+        // MARK: - Notification Center
         NotificationCenter.default.addObserver(self, selector: #selector(UpholdDetailEmployeeViewController.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
         // Set data
         if Singleton.sharedInstance.sharedInt != -1 {
@@ -139,19 +179,17 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
             width: scrViewInformation.frame.size.width - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X) * 2,
             //height: scrViewInformation.frame.size.height - GlobalConst.MARGIN_CELL_X * 3)
             height: GlobalConst.LABEL_HEIGHT * 14)
-        viewInformation.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        viewInformation.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
-        viewInformation.clipsToBounds = true
-        viewInformation.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         scrViewInformation.contentSize = CGSize(
             width: viewInformation.frame.size.width,
-            height: viewInformation.frame.size.height + GlobalConst.LABEL_HEIGHT * 13 - (scrViewInformation.frame.size.height - GlobalConst.MARGIN_CELL_X * 3))
+        height: viewInformation.frame.size.height)
+            //height: viewInformation.frame.size.height + GlobalConst.LABEL_HEIGHT * 14 - (scrViewInformation.frame.size.height - GlobalConst.MARGIN_CELL_X * 3))
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: TableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         let count:Int = 5
         return count
@@ -183,7 +221,7 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
      * Override: show menu controller
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "popOverMenu" {
+        if segue.identifier == "popoverMenu" {
             let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
         }

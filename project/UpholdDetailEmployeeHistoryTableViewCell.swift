@@ -42,7 +42,7 @@ class UpholdDetailEmployeeHistoryTableViewCell: UITableViewCell {
         parentView.translatesAutoresizingMaskIntoConstraints = true
         parentView.frame = CGRect(x: marginX, y: marginY,
                                   width: parentWidth - marginX * 2,
-                                  height: self.frame.height)
+                                  height: self.frame.height - marginY * 2)
         parentView.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         parentView.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
         parentView.clipsToBounds = true

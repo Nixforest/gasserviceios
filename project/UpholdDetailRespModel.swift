@@ -8,6 +8,7 @@
 
 import Foundation
 class UpholdDetailRespModel: BaseRespModel {
+    /** Model uphold */
     var model_uphold: UpholdBean = UpholdBean()
     
     /**

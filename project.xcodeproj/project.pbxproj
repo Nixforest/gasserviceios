@@ -55,6 +55,7 @@
 		84A4C06B1D6311D000C0B84C /* example.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C06A1D6311D000C0B84C /* example.txt */; };
 		84B2E9D11D7F0D3E005E4A54 /* done.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E9CF1D7F0D3E005E4A54 /* done.png */; };
 		84B2E9D21D7F0D3E005E4A54 /* rating.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B2E9D01D7F0D3E005E4A54 /* rating.png */; };
+		84D930D61DBA084A007A8F02 /* G01F00S02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D930D51DBA084A007A8F02 /* G01F00S02MenuVC.swift */; };
 		84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC0D811D494D0E00E52249 /* SWRevealViewController.m */; };
 		84DFE0031DA23ADA00A48B35 /* ReplyUpholdStep2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFE0021DA23ADA00A48B35 /* ReplyUpholdStep2ViewController.swift */; };
 		84DFE0051DA23AE700A48B35 /* ReplyUpholdStep3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFE0041DA23AE700A48B35 /* ReplyUpholdStep3ViewController.swift */; };
@@ -83,8 +84,6 @@
 		84EFFBE91D7D912500900578 /* config.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFFBE81D7D912500900578 /* config.png */; };
 		84F246861D93DDB300259C35 /* SearchBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F246821D93DDB300259C35 /* SearchBarTableViewCell.swift */; };
 		84F246871D93DDB300259C35 /* searchBarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F246831D93DDB300259C35 /* searchBarTableViewCell.xib */; };
-		84F246881D93DDB300259C35 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F246841D93DDB300259C35 /* SearchBarView.swift */; };
-		84F246891D93DDB300259C35 /* SearchBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F246851D93DDB300259C35 /* SearchBarView.xib */; };
 		84F2D62E1D66121B0091F6D3 /* ColorFromRGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F2D62D1D66121B0091F6D3 /* ColorFromRGB.swift */; };
 		84F481911D66FFC10072DC7A /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F481901D66FFC10072DC7A /* HomeTableViewController.swift */; };
 		84F481961D67040E0072DC7A /* Account.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84F481921D67040E0072DC7A /* Account.jpeg */; };
@@ -95,6 +94,7 @@
 		84F809AF1DB2141F0035AE36 /* filledStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F809AD1DB2141F0035AE36 /* filledStar.png */; };
 		84F809B11DB2192B0035AE36 /* CosmosDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F809B01DB2192B0035AE36 /* CosmosDistrib.swift */; };
 		92026C471D7E843D004232CA /* GlobalConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92026C461D7E843D004232CA /* GlobalConst.swift */; };
+		920555081DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920555071DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift */; };
 		920765501D94E2BC006ABF26 /* BaseRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9207654F1D94E2BC006ABF26 /* BaseRespModel.swift */; };
 		92458D761D961B3C00AB16DE /* ConfigBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92458D751D961B3C00AB16DE /* ConfigBean.swift */; };
 		92458D781D96216A00AB16DE /* LoginRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92458D771D96216A00AB16DE /* LoginRespModel.swift */; };
@@ -198,6 +198,7 @@
 		84A4C06A1D6311D000C0B84C /* example.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.txt; sourceTree = "<group>"; };
 		84B2E9CF1D7F0D3E005E4A54 /* done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = done.png; sourceTree = "<group>"; };
 		84B2E9D01D7F0D3E005E4A54 /* rating.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rating.png; sourceTree = "<group>"; };
+		84D930D51DBA084A007A8F02 /* G01F00S02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F00S02MenuVC.swift; sourceTree = "<group>"; };
 		84DC0D7F1D494D0D00E52249 /* project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "project-Bridging-Header.h"; sourceTree = "<group>"; };
 		84DC0D801D494D0E00E52249 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		84DC0D811D494D0E00E52249 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
@@ -228,8 +229,6 @@
 		84EFFBE81D7D912500900578 /* config.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config.png; sourceTree = "<group>"; };
 		84F246821D93DDB300259C35 /* SearchBarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarTableViewCell.swift; sourceTree = "<group>"; };
 		84F246831D93DDB300259C35 /* searchBarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = searchBarTableViewCell.xib; sourceTree = "<group>"; };
-		84F246841D93DDB300259C35 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
-		84F246851D93DDB300259C35 /* SearchBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarView.xib; sourceTree = "<group>"; };
 		84F2D62D1D66121B0091F6D3 /* ColorFromRGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorFromRGB.swift; sourceTree = "<group>"; };
 		84F481901D66FFC10072DC7A /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		84F481921D67040E0072DC7A /* Account.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Account.jpeg; sourceTree = "<group>"; };
@@ -240,6 +239,7 @@
 		84F809AD1DB2141F0035AE36 /* filledStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledStar.png; sourceTree = "<group>"; };
 		84F809B01DB2192B0035AE36 /* CosmosDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosDistrib.swift; sourceTree = "<group>"; };
 		92026C461D7E843D004232CA /* GlobalConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConst.swift; sourceTree = "<group>"; };
+		920555071DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00ConfigurationMenuVC.swift; sourceTree = "<group>"; };
 		9207654F1D94E2BC006ABF26 /* BaseRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRespModel.swift; sourceTree = "<group>"; };
 		92458D751D961B3C00AB16DE /* ConfigBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigBean.swift; sourceTree = "<group>"; };
 		92458D771D96216A00AB16DE /* LoginRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRespModel.swift; sourceTree = "<group>"; };
@@ -248,7 +248,6 @@
 		92458D7E1D963EE900AB16DE /* UserProfileRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileRequest.swift; sourceTree = "<group>"; };
 		92458D811D9647F500AB16DE /* UserProfileRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileRespModel.swift; sourceTree = "<group>"; };
 		9246E3D61D9D9E3A00312DEA /* LoginRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
-		9246E3D81D9DA49B00312DEA /* CommonMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMenuController.swift; sourceTree = "<group>"; };
 		926670F31D9276B5000D2DED /* CommonProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonProcess.swift; sourceTree = "<group>"; };
 		926670F61D927BE0000D2DED /* CommonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
 		9278E8EE1DB4B3760027BFCE /* SearchCustomerRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCustomerRequest.swift; sourceTree = "<group>"; };
@@ -339,12 +338,13 @@
 				841273081D829E3A00BCC56D /* UpholdListViewController.swift */,
 				8435C24D1D8ABED100F9903D /* menuUpholdListViewController.swift */,
 				8424683E1D86F9DA00356B20 /* ConfigurationViewController.swift */,
+				920555071DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift */,
 				842468401D86FAAE00356B20 /* ConfigurationTableViewCell.swift */,
 				84EBBD241D8F8E7300FB4D25 /* InfomationViewController.swift */,
 				84284E151D40DF050079DEBC /* Main.storyboard */,
-				84EF50791D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift */,
 				8448883D1DB1E25A0010130A /* UpholdRating */,
-				84E2EDEA1DB52BB900FB444B /* PeriodUpholdDetail */,
+				84D930D41DBA07B2007A8F02 /* G01F00S02 */,
+				84E2EDEA1DB52BB900FB444B /* UpholdDetailCustomer */,
 				843DAFC61D9FA34E00D517FC /* CreateUpholdVC */,
 				843DAFC91D9FAC1200D517FC /* ReplyUpholdVC */,
 				84E172D51D921875003121D6 /* UpholdDetailViewController.swift */,
@@ -383,6 +383,8 @@
 		842BA3551D8EA7DC004ECBFF /* TableView Cell */ = {
 			isa = PBXGroup;
 			children = (
+				84F246821D93DDB300259C35 /* SearchBarTableViewCell.swift */,
+				84F246831D93DDB300259C35 /* searchBarTableViewCell.xib */,
 				842BA3561D8EA806004ECBFF /* periodTableViewCell.swift */,
 				842BA3571D8EA806004ECBFF /* periodTableViewCell.xib */,
 				842BA35A1D8EA81B004ECBFF /* problemTableViewCell.swift */,
@@ -437,6 +439,17 @@
 			name = UpholdRating;
 			sourceTree = "<group>";
 		};
+		84D930D41DBA07B2007A8F02 /* G01F00S02 */ = {
+			isa = PBXGroup;
+			children = (
+				84EF50791D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift */,
+				84D930D51DBA084A007A8F02 /* G01F00S02MenuVC.swift */,
+				84EF507B1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib */,
+				84EF507F1D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift */,
+			);
+			name = G01F00S02;
+			sourceTree = "<group>";
+		};
 		84DC0D7C1D494B3000E52249 /* IMG */ = {
 			isa = PBXGroup;
 			children = (
@@ -483,10 +496,6 @@
 		84E172D71D9218F6003121D6 /* XibFiles */ = {
 			isa = PBXGroup;
 			children = (
-				84F246821D93DDB300259C35 /* SearchBarTableViewCell.swift */,
-				84F246831D93DDB300259C35 /* searchBarTableViewCell.xib */,
-				84F246841D93DDB300259C35 /* SearchBarView.swift */,
-				84F246851D93DDB300259C35 /* SearchBarView.xib */,
 				84E172D81D921925003121D6 /* View.xib */,
 				84EF507B1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib */,
 				84EF507F1D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift */,
@@ -494,13 +503,13 @@
 			name = XibFiles;
 			sourceTree = "<group>";
 		};
-		84E2EDEA1DB52BB900FB444B /* PeriodUpholdDetail */ = {
+		84E2EDEA1DB52BB900FB444B /* UpholdDetailCustomer */ = {
 			isa = PBXGroup;
 			children = (
 				842B8EF71DB8C43C009BA6A9 /* PeriodUpholdDetailCustomerViewController.swift */,
 				842B8EF81DB8C43C009BA6A9 /* ProblemUpholdDetailCustomerViewController.swift */,
 			);
-			name = PeriodUpholdDetail;
+			name = UpholdDetailCustomer;
 			sourceTree = "<group>";
 		};
 		84EF9C5D1D93C7680008B30F /* Singleton */ = {
@@ -557,7 +566,6 @@
 				926670F31D9276B5000D2DED /* CommonProcess.swift */,
 				926670F61D927BE0000D2DED /* CommonViewController.swift */,
 				92F337441D96DCC500FDACBF /* LoadingView.swift */,
-				9246E3D81D9DA49B00312DEA /* CommonMenuController.swift */,
 				92D92A151DA955CB00CD9BBD /* DomainConst.swift */,
 				92B6DBAE1DACAC640017C70F /* MenuItemEnum.swift */,
 				92B6DBB01DACB4E60017C70F /* CommonMenuViewController.swift */,
@@ -680,7 +688,6 @@
 				84A4C0651D63117000C0B84C /* checkbox-unchecked.png in Resources */,
 				8428E1231DA9132E0094D65E /* step6ImgCollectionViewCell.xib in Resources */,
 				92B6DBCB1DACCC7A0017C70F /* loginMenu.png in Resources */,
-				84F246891D93DDB300259C35 /* SearchBarView.xib in Resources */,
 				84F809AE1DB2141F0035AE36 /* emptyStar.png in Resources */,
 				84331BEB1D771B560089B0FA /* contact.png in Resources */,
 				84EB7C941DAEA38800047DB7 /* CollectionViewCell1.xib in Resources */,
@@ -750,6 +757,7 @@
 				843DAFC81D9FA37D00D517FC /* ReplyUpholdViewController.swift in Sources */,
 				844888411DB1E28A0010130A /* UpholdRatingStep1ViewController.swift in Sources */,
 				84289B051D67D505009A88EC /* menuHomeViewController.swift in Sources */,
+				920555081DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift in Sources */,
 				84284E141D40DF050079DEBC /* LoginViewController.swift in Sources */,
 				84E7184B1D660859006F4995 /* AccountViewController.swift in Sources */,
 				84E1E7A01D664CCD007710BD /* ChangePasswordViewController.swift in Sources */,
@@ -759,6 +767,7 @@
 				92B6A8111DB1DB3D001B0E69 /* UpholdBean.swift in Sources */,
 				9281C3B21DB94B4700BA17D7 /* UpholdReplyBean.swift in Sources */,
 				9281C3B01DB93EE600BA17D7 /* UpholdDetailRequest.swift in Sources */,
+				84D930D61DBA084A007A8F02 /* G01F00S02MenuVC.swift in Sources */,
 				8428E11E1DA8DFE00094D65E /* step5TableViewCell.swift in Sources */,
 				84DFE0051DA23AE700A48B35 /* ReplyUpholdStep3ViewController.swift in Sources */,
 				8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */,
@@ -792,7 +801,6 @@
 				9278E8F11DB4BE790027BFCE /* SearchCustomerRespModel.swift in Sources */,
 				842B8EFA1DB8C43C009BA6A9 /* ProblemUpholdDetailCustomerViewController.swift in Sources */,
 				8428E1221DA9132E0094D65E /* step6ImgCollectionViewCell.swift in Sources */,
-				84F246881D93DDB300259C35 /* SearchBarView.swift in Sources */,
 				920765501D94E2BC006ABF26 /* BaseRespModel.swift in Sources */,
 				84459EE81D964B820087F986 /* CreateUpholdStep1ViewController.swift in Sources */,
 				842BA35C1D8EA81B004ECBFF /* problemTableViewCell.swift in Sources */,

@@ -41,11 +41,7 @@ class ChangePassRequest: BaseRequest {
                     })
                 }
             } else {
-                // Hide overlay
-                LoadingView.shared.hideOverlayView()
-                DispatchQueue.main.async {
-                    self.view.showAlert(message: model.message)
-                }
+                self.showAlert(message: model.message)
                 return
             }
         })

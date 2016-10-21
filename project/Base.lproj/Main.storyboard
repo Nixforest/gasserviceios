@@ -639,21 +639,41 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="NyK-87-PNK">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="NnR-eK-uD6">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lnl-QN-Lej">
-                                <rect key="frame" x="233" y="7" width="71" height="30"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="nyM-b2-MAr">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vdS-4K-Dza">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                             </button>
-                            <connections>
-                                <segue destination="8yS-VX-XH4" kind="popoverPresentation" identifier="popoverMenu" popoverAnchorBarButtonItem="NnR-eK-uD6" id="jhj-ce-7Jz">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
-                            </connections>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="NnR-eK-uD6">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lnl-QN-Lej">
+                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <segue destination="8yS-VX-XH4" kind="popoverPresentation" identifier="popoverMenu" popoverAnchorView="lnl-QN-Lej" id="9HO-nH-LyT">
+                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                        </segue>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="4Sj-9F-QZK">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hDH-vb-HeA">
+                                    <rect key="frame" x="197" y="7" width="83" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="vdS-4K-Dza" id="2Wn-W8-mz7"/>
                         <outlet property="btnCreateReply" destination="aJw-kY-G6e" id="i6p-jj-FNt"/>
+                        <outlet property="menuButton" destination="lnl-QN-Lej" id="Eux-D6-fjl"/>
+                        <outlet property="navigationBar" destination="NyK-87-PNK" id="37v-e7-GNa"/>
+                        <outlet property="notificationButton" destination="hDH-vb-HeA" id="A8k-yh-VYK"/>
                         <outlet property="scrViewInformation" destination="KPR-az-hRy" id="7sE-qV-7cA"/>
                         <outlet property="sgmScrollViewChange" destination="8T1-Ob-QJ9" id="eIq-X0-lOj"/>
                         <outlet property="tblViewHistory" destination="dPd-Pb-NjF" id="eTe-Cc-2Vc"/>
@@ -663,19 +683,22 @@
             </objects>
             <point key="canvasLocation" x="3685.5999999999999" y="-1612.4437781109445"/>
         </scene>
-        <!--View Controller-->
+        <!--MenuVC-->
         <scene sceneID="gcm-r0-hMv">
             <objects>
-                <viewController storyboardIdentifier="g01f00_s02_menu" id="8yS-VX-XH4" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="g01f00_s02_menu" id="8yS-VX-XH4" customClass="G01F00S02MenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6M3-o4-8qs"/>
                         <viewControllerLayoutGuide type="bottom" id="sx6-L0-EOD"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="e79-NC-HIc">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="320" height="200"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="200"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gcC-cy-Yed" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1164,10 +1187,10 @@
             </objects>
             <point key="canvasLocation" x="150" y="-2171"/>
         </scene>
-        <!--View Controller-->
+        <!--Configuration MenuVC-->
         <scene sceneID="qa5-c4-O27">
             <objects>
-                <viewController id="e0D-Al-xL1" sceneMemberID="viewController">
+                <viewController id="e0D-Al-xL1" customClass="G00ConfigurationMenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UoH-Kb-JH9"/>
                         <viewControllerLayoutGuide type="bottom" id="AOn-rC-7yR"/>
@@ -1395,8 +1418,8 @@
                         <outlet property="backButton" destination="ALm-Xh-TXl" id="731-Mo-BCS"/>
                         <outlet property="configTableView" destination="leA-JA-DAE" id="f5Q-Qh-Wzg"/>
                         <outlet property="configView" destination="tMP-uu-sju" id="fAL-Gl-VXT"/>
-                        <outlet property="configurationNavBar" destination="9Z2-Kv-WlZ" id="crM-wA-GQH"/>
                         <outlet property="menuButton" destination="0hR-P1-CtS" id="BVL-5N-cXr"/>
+                        <outlet property="navigationBar" destination="9Z2-Kv-WlZ" id="vDT-i8-vuj"/>
                         <outlet property="notificationButton" destination="mjh-gB-ZS7" id="7zF-hx-Dlm"/>
                         <outlet property="searchBar" destination="PNn-PF-B6G" id="A6M-we-74U"/>
                     </connections>
@@ -1872,7 +1895,7 @@
                         <viewControllerLayoutGuide type="bottom" id="QLl-3B-8Db"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SBd-ci-dAe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Ez-9d-EG6">
@@ -2627,7 +2650,7 @@
                         <viewControllerLayoutGuide type="bottom" id="mIC-qU-hJY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4Hh-uz-YWO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A3z-Eb-Nsr">
@@ -2655,7 +2678,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Pn6-7k-Spr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="i3g-uO-dDL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ejb-ML-IC4">

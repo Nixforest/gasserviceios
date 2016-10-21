@@ -36,11 +36,7 @@ class UserProfileRequest: BaseRequest {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)
                 }
             } else {
-                // Hide overlay
-                LoadingView.shared.hideOverlayView()
-                DispatchQueue.main.async {
-                    self.view.showAlert(message: model.message)
-                }
+                self.showAlert(message: model.message)
                 return
             }
             
