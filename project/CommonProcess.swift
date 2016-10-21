@@ -68,7 +68,7 @@ class CommonProcess {
      * Request change password.
      * - parameter oldPass: Old password
      * - parameter newPass: New password
-     * - parameter view: View controller
+     * - parameter view:    View controller
      */
     static func requestChangePassword(oldPass: String, newPass: String, view: CommonViewController) {
         // Show overlay
@@ -79,6 +79,14 @@ class CommonProcess {
         request.execute()
     }
     
+    /**
+     * Request uphold list
+     * - parameter page:        Page index
+     * - parameter type:        Type uphold (Problem/Periodically)
+     * - parameter customerId:  Id of customer
+     * - parameter status:      Status of item
+     * - parameter view:        View controller
+     */
     static func requestUpholdList(page: Int, type: Int, customerId: String, status: String, view: CommonViewController) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
@@ -88,12 +96,32 @@ class CommonProcess {
         request.execute()
     }
     
+    /**
+     * Request search customer
+     * - parameter keyword: Keyword
+     * - parameter view:    View controller
+     */
     static func requestSearchCustomer(keyword: String, view: CommonViewController) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = SearchCustomerRequest(url: DomainConst.PATH_SITE_AUTOCOMPLETE_USER, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
         
         request.setData(keyword: keyword)
+        request.execute()
+    }
+    
+    /**
+     * Request uphold detail data
+     * - parameter upholdId:    Id of uphold
+     * - parameter replyId:     Id of uphold
+     * - parameter view:    View controller
+     */
+    static func requestUpholdDetail(upholdId: String, replyId: String,
+                                    view: CommonViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = UpholdDetailRequest(url: DomainConst.PATH_SITE_UPHOLD_VIEW, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        request.setData(upholdId: upholdId, replyId: upholdId)
         request.execute()
     }
 }

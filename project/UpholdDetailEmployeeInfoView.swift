@@ -100,9 +100,9 @@ class UpholdDetailEmployeeInfoView: UIView {
         setLayoutRight(lbl: tbxProblem, offset: lblContact.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
         
         // Label Content
-        setLayoutLeft(lbl: lblContent, offset: lblProblem.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00063)
+        setLayoutLeft(lbl: lblContent, offset: lblProblem.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00063)
         // Content value
-        setLayoutRight(lbl: tbxContent, offset: lblProblem.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+        setLayoutRight(lbl: tbxContent, offset: lblProblem.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00092)
         
         // Label Creator
         setLayoutLeft(lbl: lblCreator, offset: lblContent.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00095)
@@ -125,9 +125,9 @@ class UpholdDetailEmployeeInfoView: UIView {
             if Singleton.sharedInstance.upholdList.record.count > Singleton.sharedInstance.sharedInt {
                 setData(model: Singleton.sharedInstance.upholdList.record[Singleton.sharedInstance.sharedInt])
                 // Reset shared value
-                Singleton.sharedInstance.sharedInt = -1
+                //Singleton.sharedInstance.sharedInt = -1
             }
-        }
+                }
     }
     
     /**

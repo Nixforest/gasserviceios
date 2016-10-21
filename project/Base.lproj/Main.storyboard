@@ -599,42 +599,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8SP-NE-ptt">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8T1-Ob-QJ9">
+                                <frame key="frameInset" minX="-28" minY="269" width="375" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                                <color key="tintColor" red="1" green="0.054796324879999997" blue="0.09030248867" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="sgmScrollViewChangeAction:" destination="NrZ-sm-3YH" eventType="valueChanged" id="I1f-KO-Ocf"/>
+                                </connections>
+                            </segmentedControl>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="UpholdDetailemployeeInfoScrollView" translatesAutoresizingMaskIntoConstraints="NO" id="KPR-az-hRy">
+                                <frame key="frameInset" minX="69" minY="48" width="181" height="471"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dPd-Pb-NjF">
+                                <frame key="frameInset" minX="67" minY="71" width="186" height="425"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJw-kY-G6e">
+                                <frame key="frameInset" minX="67" minY="269" width="186" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.054796324879999997" blue="0.09030248867" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="btnCreateUpholdReplyTapped:" destination="NrZ-sm-3YH" eventType="touchUpInside" id="n6B-NU-R8u"/>
+                                </connections>
+                            </button>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8SP-NE-ptt">
                                 <frame key="frameInset" minY="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8T1-Ob-QJ9">
-                                        <frame key="frameInset" width="375" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <segments>
-                                            <segment title="First"/>
-                                            <segment title="Second"/>
-                                        </segments>
-                                        <color key="tintColor" red="1" green="0.054796324879999997" blue="0.09030248867" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="sgmScrollViewChangeAction:" destination="NrZ-sm-3YH" eventType="valueChanged" id="I1f-KO-Ocf"/>
-                                        </connections>
-                                    </segmentedControl>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="UpholdDetailemployeeInfoScrollView" translatesAutoresizingMaskIntoConstraints="NO" id="KPR-az-hRy">
-                                        <frame key="frameInset" minY="29" width="181" height="471"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </scrollView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dPd-Pb-NjF">
-                                        <frame key="frameInset" minX="189" minY="75" width="186" height="425"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJw-kY-G6e">
-                                        <frame key="frameInset" minX="189" minY="36" width="186" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="1" green="0.054796324879999997" blue="0.09030248867" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="btnCreateUpholdReplyTapped:" destination="NrZ-sm-3YH" eventType="touchUpInside" id="n6B-NU-R8u"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -659,7 +657,6 @@
                         <outlet property="scrViewInformation" destination="KPR-az-hRy" id="7sE-qV-7cA"/>
                         <outlet property="sgmScrollViewChange" destination="8T1-Ob-QJ9" id="eIq-X0-lOj"/>
                         <outlet property="tblViewHistory" destination="dPd-Pb-NjF" id="eTe-Cc-2Vc"/>
-                        <outlet property="viewBackground" destination="8SP-NE-ptt" id="gjb-Rn-efw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tjw-A8-vsD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1875,7 +1872,7 @@
                         <viewControllerLayoutGuide type="bottom" id="QLl-3B-8Db"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SBd-ci-dAe">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Ez-9d-EG6">
@@ -2621,16 +2618,16 @@
             </objects>
             <point key="canvasLocation" x="4414" y="1113"/>
         </scene>
-        <!--Period Uphold Detail View Controller-->
+        <!--Problem Uphold Detail Customer View Controller-->
         <scene sceneID="Wee-7y-ObK">
             <objects>
-                <viewController storyboardIdentifier="PeriodUpholdDetailViewController" id="cRu-ZW-iU3" customClass="PeriodUpholdDetailViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProblemUpholdDetailCustomerViewController" id="cRu-ZW-iU3" customClass="ProblemUpholdDetailCustomerViewController" customModule="project" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0kJ-e1-ocG"/>
                         <viewControllerLayoutGuide type="bottom" id="mIC-qU-hJY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4Hh-uz-YWO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A3z-Eb-Nsr">
@@ -2648,6 +2645,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3xr-eK-iUE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3660" y="1718.5907046476764"/>
+        </scene>
+        <!--Period Uphold Detail Customer View Controller-->
+        <scene sceneID="y68-P8-Ml6">
+            <objects>
+                <viewController storyboardIdentifier="PeriodUpholdDetailCustomerViewController" id="zKe-oR-QfJ" customClass="PeriodUpholdDetailCustomerViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Svn-nw-h0g"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pn6-7k-Spr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="i3g-uO-dDL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ejb-ML-IC4">
+                                <frame key="frameInset" minX="16" minY="84" width="343" height="563"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="GnF-3U-PFt"/>
+                    <connections>
+                        <outlet property="scrollView" destination="ejb-ML-IC4" id="jQr-Zf-FFw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OjN-CN-uTm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3660" y="2385.1574212893556"/>
         </scene>
         <!--Uphold Rating Step0 View Controller-->
         <scene sceneID="26M-WO-zIZ">
@@ -2725,6 +2750,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z5z-7v-r7j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2721" y="1719"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Pyr-jA-Yph">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dhS-aQ-Ihg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Wa-iP-zHj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zKe-oR-QfJ" kind="relationship" relationship="rootViewController" id="5cG-mH-dxb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dmd-59-4qE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2721" y="2386"/>
         </scene>
     </scenes>
     <resources>

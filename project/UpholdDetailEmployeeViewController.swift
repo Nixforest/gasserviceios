@@ -9,42 +9,19 @@
 import UIKit
 
 class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
-    
-    @IBOutlet weak var lblStatus: UILabel!
-    @IBOutlet weak var txtvCustomerName: UITextView!
-    @IBOutlet weak var lblBusinessEmployee: UILabel!
-    @IBOutlet weak var lblUpholdEmployee: UILabel!
-    @IBOutlet weak var txtvAddress: UITextView!
-    @IBOutlet weak var lblContact: UILabel!
-    @IBOutlet weak var lblProblem: UILabel!
-    @IBOutlet weak var lblContent: UILabel!
-    @IBOutlet weak var lblCreator: UILabel!
-    @IBOutlet weak var lblCreatedDate: UILabel!
-    @IBOutlet weak var lblCode: UILabel!
-    /** Index */
-    var index = -1
-    
-    /**
-     * Background setting
-     */
-    @IBOutlet weak var viewBackground: UIView!
-    /**
-     @IBOutlet weak var viewBackground: UIView!
-     * Segment ScrollView Control
-     */
+    // MARK: Properties
+    /** Segment ScrollView Control */
     @IBOutlet weak var sgmScrollViewChange: UISegmentedControl!
-    /**
-     * Information ScrollView
-     */
+    /** Information ScrollView */
     @IBOutlet weak var scrViewInformation: UIScrollView!
-
-    @IBOutlet var viewInformation: UIView!
-    /**
-     * Uphold History TableView
-     */
+    /** View informatino */
+    @IBOutlet var viewInformation: UpholdDetailEmployeeInfoView!
+    /** Uphold History TableView */
     @IBOutlet weak var tblViewHistory: UITableView!
+    /** Create reply button */
     @IBOutlet weak var btnCreateReply: UIButton!
     
+    // MARK: Actions
     /**
      * Segment ScrollView Control Action
      */
@@ -78,17 +55,14 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        if Singleton.sharedInstance.sharedInt != -1 {
-            self.index = Singleton.sharedInstance.sharedInt
-        }
         
-        viewBackground.translatesAutoresizingMaskIntoConstraints = true
-        viewBackground.frame = CGRect(x: 0, y: GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT, width: GlobalConst.SCREEN_WIDTH, height: GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT))
-        viewBackground.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
-        viewBackground.backgroundColor = UIColor.white
-        
+        // Tab button
+        let marginX = GlobalConst.PARENT_BORDER_WIDTH
+        let height = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
         sgmScrollViewChange.translatesAutoresizingMaskIntoConstraints = true
-        sgmScrollViewChange.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.PARENT_BORDER_WIDTH, width: (GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT)
+        sgmScrollViewChange.frame = CGRect(x: marginX, y: height,
+            width: GlobalConst.SCREEN_WIDTH - marginX * 2,
+            height: GlobalConst.BUTTON_H)
         sgmScrollViewChange.setTitle(GlobalConst.CONTENT00072, forSegmentAt: 0)
         sgmScrollViewChange.setTitle(GlobalConst.CONTENT00071, forSegmentAt: 1)
         sgmScrollViewChange.tintColor = GlobalConst.BUTTON_COLOR_RED
@@ -97,19 +71,23 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
         
         scrViewInformation.translatesAutoresizingMaskIntoConstraints = true
         scrViewInformation.frame = CGRect(
-            x: GlobalConst.PARENT_BORDER_WIDTH,
-            y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT,
-            width: (GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2),
+            x: marginX,
+            y: sgmScrollViewChange.frame.maxY,
+            width: GlobalConst.SCREEN_WIDTH - marginX * 2,
             height: GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT))
         
         scrViewInformation.delegate = self
         
         Bundle.main.loadNibNamed("UpholdDetailEmployeeInfoView", owner: self, options: nil)
-                scrViewInformation.addSubview(viewInformation)
+        scrViewInformation.addSubview(viewInformation)
         //viewBackground.addSubview(scrViewInformation)
 
         btnCreateReply.translatesAutoresizingMaskIntoConstraints = true
-        btnCreateReply.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH * 2, y: GlobalConst.PARENT_BORDER_WIDTH * 2 + GlobalConst.BUTTON_HEIGHT, width: (GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 4), height: GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH * 2)
+        btnCreateReply.frame = CGRect(
+            x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+            y: sgmScrollViewChange.frame.maxY + GlobalConst.MARGIN_CELL_Y,
+            width: GlobalConst.BUTTON_W,
+            height: GlobalConst.BUTTON_H)
         btnCreateReply.isHidden = true
         btnCreateReply.setTitle(GlobalConst.CONTENT00065, for: .normal)
         btnCreateReply.setTitleColor(UIColor.white, for: .normal)
@@ -118,29 +96,49 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
         
         
         tblViewHistory.translatesAutoresizingMaskIntoConstraints = true
-        tblViewHistory.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT + GlobalConst.BUTTON_HEIGHT, width: (GlobalConst.SCREEN_WIDTH - GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT * 2))
+        tblViewHistory.frame = CGRect(
+            x: marginX, y: btnCreateReply.frame.maxY + GlobalConst.MARGIN_CELL_Y,
+            width: GlobalConst.SCREEN_WIDTH - marginX * 2,
+            height: GlobalConst.SCREEN_HEIGHT - (GlobalConst.STATUS_BAR_HEIGHT + GlobalConst.NAV_BAR_HEIGHT + GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.BUTTON_HEIGHT * 2))
         tblViewHistory.isHidden = true
         
         self.tblViewHistory.register(UINib(nibName: "UpholdDetailEmployeeHistoryTableViewCell", bundle: nil), forCellReuseIdentifier: "UpholdDetailEmployeeHistoryTableViewCell")
         tblViewHistory.dataSource = self
         tblViewHistory.delegate = self
         
-        //viewBackground.addSubview(scrViewUpholdHistory)
-
-        
-        
-        // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(UpholdDetailEmployeeViewController.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
+        // Set data
+        if Singleton.sharedInstance.sharedInt != -1 {
+            // Check data is existed
+            if Singleton.sharedInstance.upholdList.record.count > Singleton.sharedInstance.sharedInt {
+                
+                CommonProcess.requestUpholdDetail(upholdId: Singleton.sharedInstance.upholdList.record[Singleton.sharedInstance.sharedInt].id, replyId: Singleton.sharedInstance.upholdList.record[Singleton.sharedInstance.sharedInt].reply_id, view: self)
+            }
+        }
     }
     
     
+    
+    /**
+     * Set data for controls
+     */
+    override func setData(_ notification: Notification) {
+//        if currentViewType == DomainConst.TYPE_TROUBLE {
+//            problemTableView.reloadData()
+//        } else {
+//            periodTableView.reloadData()
+//        }
+        print("set data")
+        viewInformation.setData(model: Singleton.sharedInstance.currentUpholdDetail)
+    }
 
     override func viewDidLayoutSubviews() {
         viewInformation.frame = CGRect(
-            x: GlobalConst.MARGIN_CELL_X,
-            y: GlobalConst.MARGIN_CELL_X,
-            width: scrViewInformation.frame.size.width - GlobalConst.MARGIN_CELL_X * 2,
+            x: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X,
+            y: GlobalConst.MARGIN_CELL_Y,
+            width: scrViewInformation.frame.size.width - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X) * 2,
             //height: scrViewInformation.frame.size.height - GlobalConst.MARGIN_CELL_X * 3)
-            height: GlobalConst.LABEL_HEIGHT * 13)
+            height: GlobalConst.LABEL_HEIGHT * 14)
         viewInformation.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         viewInformation.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
         viewInformation.clipsToBounds = true

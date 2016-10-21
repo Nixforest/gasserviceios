@@ -290,6 +290,18 @@ class DomainConst {
     static let KEY_LAST_REPLY_MESSAGE = "last_reply_message"
     /** Schedule Type */
     static let KEY_SCHEDULE_TYPE = "schedule_type"
+    /** Uid login */
+    static let KEY_UID_LOGIN = "uid_login"
+    /** Date time handle */
+    static let KEY_DATE_TIME_HANDLE = "date_time_handle"
+    /** Reply item */
+    static let KEY_REPLY_ITEM = "reply_item"
+    /** Image thumb */
+    static let KEY_IMG_THUMB = "thumb"
+    /** Image large */
+    static let KEY_IMG_LARGE = "large"
+    /** Image list */
+    static let KEY_IMAGES = "images"
     
     /** -----Specified constant----- */
     /** File parameter: file_name[ + ] */

@@ -138,11 +138,11 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         NotificationCenter.default.addObserver(self, selector: #selector(UpholdListViewController.showSearchBarTableView(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW), object: nil)
         
         // Blur view when status list picker active
-        view2.isHidden = true
-        view2.backgroundColor = UIColor.clear
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
+        view2.isHidden          = true
+        view2.backgroundColor   = UIColor.clear
+        let blurEffect          = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView      = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame    = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
         view2.addSubview(blurEffectView)
         let marginX = GlobalConst.PARENT_BORDER_WIDTH

@@ -23,6 +23,8 @@
 		8428E11F1DA8DFE00094D65E /* step5TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8428E11D1DA8DFE00094D65E /* step5TableViewCell.xib */; };
 		8428E1221DA9132E0094D65E /* step6ImgCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428E1201DA9132E0094D65E /* step6ImgCollectionViewCell.swift */; };
 		8428E1231DA9132E0094D65E /* step6ImgCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8428E1211DA9132E0094D65E /* step6ImgCollectionViewCell.xib */; };
+		842B8EF91DB8C43C009BA6A9 /* PeriodUpholdDetailCustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B8EF71DB8C43C009BA6A9 /* PeriodUpholdDetailCustomerViewController.swift */; };
+		842B8EFA1DB8C43C009BA6A9 /* ProblemUpholdDetailCustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B8EF81DB8C43C009BA6A9 /* ProblemUpholdDetailCustomerViewController.swift */; };
 		842BA3581D8EA806004ECBFF /* periodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BA3561D8EA806004ECBFF /* periodTableViewCell.swift */; };
 		842BA3591D8EA806004ECBFF /* periodTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842BA3571D8EA806004ECBFF /* periodTableViewCell.xib */; };
 		842BA35C1D8EA81B004ECBFF /* problemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BA35A1D8EA81B004ECBFF /* problemTableViewCell.swift */; };
@@ -65,7 +67,6 @@
 		84E172D91D921925003121D6 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E172D81D921925003121D6 /* View.xib */; };
 		84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1C4AB1D621A7B00ADD587 /* RegisterViewController.swift */; };
 		84E1E7A01D664CCD007710BD /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1E79F1D664CCD007710BD /* ChangePasswordViewController.swift */; };
-		84E2EDE91DB52BB200FB444B /* PeriodUpholdDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E2EDE81DB52BB200FB444B /* PeriodUpholdDetailViewController.swift */; };
 		84E7184B1D660859006F4995 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7184A1D660859006F4995 /* AccountViewController.swift */; };
 		84E83D541D87C171007C7A90 /* InfoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E83D521D87C171007C7A90 /* InfoIcon.png */; };
 		84E83D551D87C171007C7A90 /* TrainingModeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E83D531D87C171007C7A90 /* TrainingModeIcon.png */; };
@@ -77,7 +78,6 @@
 		84EF507A1D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF50791D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift */; };
 		84EF507C1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EF507B1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib */; };
 		84EF50801D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF507F1D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift */; };
-		84EF50821D94481500EE41B4 /* UpholdDetailEmployeeHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF50811D94481500EE41B4 /* UpholdDetailEmployeeHistoryView.swift */; };
 		84EF9C5F1D93C7680008B30F /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF9C5E1D93C7680008B30F /* Singleton.swift */; };
 		84EFBEAC1D6F173A00FEBE80 /* ordergas.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFBEAB1D6F173A00FEBE80 /* ordergas.png */; };
 		84EFFBE91D7D912500900578 /* config.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EFFBE81D7D912500900578 /* config.png */; };
@@ -107,6 +107,9 @@
 		926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F61D927BE0000D2DED /* CommonViewController.swift */; };
 		9278E8EF1DB4B3760027BFCE /* SearchCustomerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9278E8EE1DB4B3760027BFCE /* SearchCustomerRequest.swift */; };
 		9278E8F11DB4BE790027BFCE /* SearchCustomerRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9278E8F01DB4BE790027BFCE /* SearchCustomerRespModel.swift */; };
+		9281C3B01DB93EE600BA17D7 /* UpholdDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281C3AF1DB93EE600BA17D7 /* UpholdDetailRequest.swift */; };
+		9281C3B21DB94B4700BA17D7 /* UpholdReplyBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281C3B11DB94B4700BA17D7 /* UpholdReplyBean.swift */; };
+		9281C3B41DB9527400BA17D7 /* UpholdDetailRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281C3B31DB9527400BA17D7 /* UpholdDetailRespModel.swift */; };
 		928D3AAA1DB60F31001E5E76 /* gasservice.png in Resources */ = {isa = PBXBuildFile; fileRef = 928D3AA91DB60F31001E5E76 /* gasservice.png */; };
 		92B39DC11DAA0F22007DDB4C /* ChangePassRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */; };
 		92B6A80F1DB1DA98001B0E69 /* UpholdListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */; };
@@ -163,6 +166,8 @@
 		8428E11D1DA8DFE00094D65E /* step5TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = step5TableViewCell.xib; sourceTree = "<group>"; };
 		8428E1201DA9132E0094D65E /* step6ImgCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = step6ImgCollectionViewCell.swift; sourceTree = "<group>"; };
 		8428E1211DA9132E0094D65E /* step6ImgCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = step6ImgCollectionViewCell.xib; sourceTree = "<group>"; };
+		842B8EF71DB8C43C009BA6A9 /* PeriodUpholdDetailCustomerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodUpholdDetailCustomerViewController.swift; sourceTree = "<group>"; };
+		842B8EF81DB8C43C009BA6A9 /* ProblemUpholdDetailCustomerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProblemUpholdDetailCustomerViewController.swift; sourceTree = "<group>"; };
 		842BA3561D8EA806004ECBFF /* periodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = periodTableViewCell.swift; sourceTree = "<group>"; };
 		842BA3571D8EA806004ECBFF /* periodTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = periodTableViewCell.xib; sourceTree = "<group>"; };
 		842BA35A1D8EA81B004ECBFF /* problemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = problemTableViewCell.swift; sourceTree = "<group>"; };
@@ -207,7 +212,6 @@
 		84E172D81D921925003121D6 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = View.xib; path = XibFiles/View.xib; sourceTree = "<group>"; };
 		84E1C4AB1D621A7B00ADD587 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		84E1E79F1D664CCD007710BD /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
-		84E2EDE81DB52BB200FB444B /* PeriodUpholdDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodUpholdDetailViewController.swift; sourceTree = "<group>"; };
 		84E7184A1D660859006F4995 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		84E83D521D87C171007C7A90 /* InfoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InfoIcon.png; sourceTree = "<group>"; };
 		84E83D531D87C171007C7A90 /* TrainingModeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TrainingModeIcon.png; sourceTree = "<group>"; };
@@ -219,7 +223,6 @@
 		84EF50791D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailEmployeeViewController.swift; sourceTree = "<group>"; };
 		84EF507B1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpholdDetailEmployeeInfoView.xib; sourceTree = "<group>"; };
 		84EF507F1D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailEmployeeInfoView.swift; sourceTree = "<group>"; };
-		84EF50811D94481500EE41B4 /* UpholdDetailEmployeeHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailEmployeeHistoryView.swift; sourceTree = "<group>"; };
 		84EF9C5E1D93C7680008B30F /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		84EFBEAB1D6F173A00FEBE80 /* ordergas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ordergas.png; sourceTree = "<group>"; };
 		84EFFBE81D7D912500900578 /* config.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config.png; sourceTree = "<group>"; };
@@ -250,6 +253,9 @@
 		926670F61D927BE0000D2DED /* CommonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
 		9278E8EE1DB4B3760027BFCE /* SearchCustomerRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCustomerRequest.swift; sourceTree = "<group>"; };
 		9278E8F01DB4BE790027BFCE /* SearchCustomerRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCustomerRespModel.swift; sourceTree = "<group>"; };
+		9281C3AF1DB93EE600BA17D7 /* UpholdDetailRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailRequest.swift; sourceTree = "<group>"; };
+		9281C3B11DB94B4700BA17D7 /* UpholdReplyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdReplyBean.swift; sourceTree = "<group>"; };
+		9281C3B31DB9527400BA17D7 /* UpholdDetailRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailRespModel.swift; sourceTree = "<group>"; };
 		928D3AA91DB60F31001E5E76 /* gasservice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gasservice.png; sourceTree = "<group>"; };
 		92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassRequest.swift; sourceTree = "<group>"; };
 		92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdListRespModel.swift; sourceTree = "<group>"; };
@@ -484,7 +490,6 @@
 				84E172D81D921925003121D6 /* View.xib */,
 				84EF507B1D94371000EE41B4 /* UpholdDetailEmployeeInfoView.xib */,
 				84EF507F1D9437C200EE41B4 /* UpholdDetailEmployeeInfoView.swift */,
-				84EF50811D94481500EE41B4 /* UpholdDetailEmployeeHistoryView.swift */,
 			);
 			name = XibFiles;
 			sourceTree = "<group>";
@@ -492,7 +497,8 @@
 		84E2EDEA1DB52BB900FB444B /* PeriodUpholdDetail */ = {
 			isa = PBXGroup;
 			children = (
-				84E2EDE81DB52BB200FB444B /* PeriodUpholdDetailViewController.swift */,
+				842B8EF71DB8C43C009BA6A9 /* PeriodUpholdDetailCustomerViewController.swift */,
+				842B8EF81DB8C43C009BA6A9 /* ProblemUpholdDetailCustomerViewController.swift */,
 			);
 			name = PeriodUpholdDetail;
 			sourceTree = "<group>";
@@ -512,6 +518,7 @@
 				92458D751D961B3C00AB16DE /* ConfigBean.swift */,
 				92458D791D96357F00AB16DE /* UserInfoBean.swift */,
 				92B6A8101DB1DB3D001B0E69 /* UpholdBean.swift */,
+				9281C3B11DB94B4700BA17D7 /* UpholdReplyBean.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -526,6 +533,7 @@
 				92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */,
 				92B6DBCE1DACE6FF0017C70F /* UpholdListRequest.swift */,
 				9278E8EE1DB4B3760027BFCE /* SearchCustomerRequest.swift */,
+				9281C3AF1DB93EE600BA17D7 /* UpholdDetailRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -538,6 +546,7 @@
 				92458D811D9647F500AB16DE /* UserProfileRespModel.swift */,
 				92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */,
 				9278E8F01DB4BE790027BFCE /* SearchCustomerRespModel.swift */,
+				9281C3B31DB9527400BA17D7 /* UpholdDetailRespModel.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -744,11 +753,12 @@
 				84284E141D40DF050079DEBC /* LoginViewController.swift in Sources */,
 				84E7184B1D660859006F4995 /* AccountViewController.swift in Sources */,
 				84E1E7A01D664CCD007710BD /* ChangePasswordViewController.swift in Sources */,
-				84EF50821D94481500EE41B4 /* UpholdDetailEmployeeHistoryView.swift in Sources */,
 				84EF507A1D94352600EE41B4 /* UpholdDetailEmployeeViewController.swift in Sources */,
 				84F246861D93DDB300259C35 /* SearchBarTableViewCell.swift in Sources */,
 				84EF9C5F1D93C7680008B30F /* Singleton.swift in Sources */,
 				92B6A8111DB1DB3D001B0E69 /* UpholdBean.swift in Sources */,
+				9281C3B21DB94B4700BA17D7 /* UpholdReplyBean.swift in Sources */,
+				9281C3B01DB93EE600BA17D7 /* UpholdDetailRequest.swift in Sources */,
 				8428E11E1DA8DFE00094D65E /* step5TableViewCell.swift in Sources */,
 				84DFE0051DA23AE700A48B35 /* ReplyUpholdStep3ViewController.swift in Sources */,
 				8435C24C1D8A9E2B00F9903D /* menuChangePasswordViewController.swift in Sources */,
@@ -765,12 +775,12 @@
 				84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */,
 				84F809B11DB2192B0035AE36 /* CosmosDistrib.swift in Sources */,
 				84F481911D66FFC10072DC7A /* HomeTableViewController.swift in Sources */,
-				84E2EDE91DB52BB200FB444B /* PeriodUpholdDetailViewController.swift in Sources */,
 				92458D7D1D963B1F00AB16DE /* BaseRequest.swift in Sources */,
 				92458D7A1D96357F00AB16DE /* UserInfoBean.swift in Sources */,
 				926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */,
 				9278E8EF1DB4B3760027BFCE /* SearchCustomerRequest.swift in Sources */,
 				84459EDF1D9637DD0087F986 /* UpholdDetailEmployeeHistoryTableViewCell.swift in Sources */,
+				842B8EF91DB8C43C009BA6A9 /* PeriodUpholdDetailCustomerViewController.swift in Sources */,
 				84DFE0071DA23AF300A48B35 /* ReplyUpholdStep4ViewController.swift in Sources */,
 				8448883C1DB1D37C0010130A /* UpholdRatingViewController.swift in Sources */,
 				84459EE61D9649450087F986 /* CreateUpholdViewController.swift in Sources */,
@@ -780,6 +790,7 @@
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
 				843DAFCB1D9FAC3B00D517FC /* ReplyUpholdStep0ViewController.swift in Sources */,
 				9278E8F11DB4BE790027BFCE /* SearchCustomerRespModel.swift in Sources */,
+				842B8EFA1DB8C43C009BA6A9 /* ProblemUpholdDetailCustomerViewController.swift in Sources */,
 				8428E1221DA9132E0094D65E /* step6ImgCollectionViewCell.swift in Sources */,
 				84F246881D93DDB300259C35 /* SearchBarView.swift in Sources */,
 				920765501D94E2BC006ABF26 /* BaseRespModel.swift in Sources */,
@@ -791,6 +802,7 @@
 				92B39DC11DAA0F22007DDB4C /* ChangePassRequest.swift in Sources */,
 				8424683F1D86F9DA00356B20 /* ConfigurationViewController.swift in Sources */,
 				84DFE00B1DA23B0900A48B35 /* ReplyUpholdStep6ViewController.swift in Sources */,
+				9281C3B41DB9527400BA17D7 /* UpholdDetailRespModel.swift in Sources */,
 				84EDDFB01D7D869000861ACB /* menuLoginViewController.swift in Sources */,
 				92B6DBB11DACB4E60017C70F /* CommonMenuViewController.swift in Sources */,
 				926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */,

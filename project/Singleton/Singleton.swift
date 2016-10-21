@@ -58,6 +58,7 @@ class Singleton: NSObject {
     var sharedString = ""
     /** Shared int */
     var sharedInt = -1
+    var currentUpholdDetail: UpholdBean = UpholdBean()
     
     // MARK - Methods
     /**
@@ -208,5 +209,9 @@ class Singleton: NSObject {
     /** Search customer result */
     func saveSearchCustomerResult(result: SearchCustomerRespModel) {
         self.searchCustomerResult = result
+    }
+    
+    func saveCurrentUpholdDetail(model: UpholdBean) {
+        self.currentUpholdDetail = model
     }
 }

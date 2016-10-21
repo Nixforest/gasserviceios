@@ -47,6 +47,7 @@ class UpholdRatingViewController: CommonViewController {
         if ctnviewRatingStep2.isHidden == false {
             self.showContainerView(aCtnView: ctnviewRatingStep1)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "hideBtnSend"), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "showBtnNext"), object: nil)
         }
     }
     @IBAction func btnNextTapped(_ sender: AnyObject) {
@@ -94,6 +95,7 @@ class UpholdRatingViewController: CommonViewController {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep1ButtonToMiddle"), object: nil)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "showBtnBack"), object: nil)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "showBtnNext"), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "hideBtnSend"), object: nil)
             ctnviewRatingStep2.isHidden = true
         case 2:
             ctnviewRatingStep0.isHidden = true
@@ -101,7 +103,8 @@ class UpholdRatingViewController: CommonViewController {
             ctnviewRatingStep2.isHidden = false
             NotificationCenter.default.post(name: Notification.Name(rawValue: "moveStep2ButtonToMiddle"), object: nil)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "showBtnBack"), object: nil)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "showBtnNext"), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "hideBtnNext"), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "showBtnSend"), object: nil)
         default:
             break
         }
@@ -110,7 +113,7 @@ class UpholdRatingViewController: CommonViewController {
     func checkValidData(viewStep: UIView) {
         switch viewStep.tag {
         case 0:
-            if ReplyUpholdViewController.valStep0.isEmpty == true {
+            if UpholdRatingViewController.valStep0.isEmpty == true {
                 let nextAlert = UIAlertController(title: "",
                                                   message: GlobalConst.CONTENT00028,
                                                   preferredStyle: .alert)
@@ -228,12 +231,12 @@ class UpholdRatingViewController: CommonViewController {
     }
     func showBtnSend(_ notification: Notification) {
         if ctnviewRatingStep2.isHidden == false {
-            btnSend.isHidden = true
+            btnSend.isHidden = false
         }
     }
     func hideBtnSend(_ notification: Notification) {
         if ctnviewRatingStep2.isHidden == true {
-            btnSend.isHidden = false
+            btnSend.isHidden = true
         }
     }
     // MARK: - ViewDidLoad
@@ -356,6 +359,7 @@ class UpholdRatingViewController: CommonViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(UpholdRatingViewController.hideBtnNext(_:)), name:NSNotification.Name(rawValue: "hideBtnNext"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(UpholdRatingViewController.showBtnNext(_:)), name:NSNotification.Name(rawValue: "showBtnNext"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(UpholdRatingViewController.showBtnSend(_:)), name:NSNotification.Name(rawValue: "showBtnSend"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UpholdRatingViewController.hideBtnSend(_:)), name:NSNotification.Name(rawValue: "hideBtnSend"), object: nil)
     }
 
      override func didReceiveMemoryWarning() {

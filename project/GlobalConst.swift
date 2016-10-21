@@ -157,6 +157,10 @@ class GlobalConst {
     static let CONTENT00146 = "Liên hệ"
     static let CONTENT00147 = "Sự cố"
     static let CONTENT00148 = "Mã số"
+    static let CONTENT00149 = "Tạo trả lời"
+    static let CONTENT00150 = "Ngày xử lý"
+    static let CONTENT00151 = "Nội bộ"
+    static let CONTENT00152 = "Điện thoại"
     static let CONTENT00162 = "Thông báo"
     
     // ----- Size of control -----
@@ -262,6 +266,7 @@ class GlobalConst {
     static let NOTIFY_NAME_SET_DATA_ACCOUNTVIEW         = "AccountViewController.setData"
     static let NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW     = "UpholdListViewController.setData"
     static let NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW     = "UpholdListViewController.showSearchBarTableView"
+    static let NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW  = "UpholdDetailEmployeeViewController.setData"
     
     // MARK: Domain constants
     /** Logo image name */
