@@ -124,4 +124,15 @@ class CommonProcess {
         request.setData(upholdId: upholdId, replyId: upholdId)
         request.execute()
     }
+    
+    /**
+     * Set border for control.
+     * - parameter view: Control to set border
+     */
+    static func setBorder(view: UIView) {
+        view.layer.borderWidth  = GlobalConst.BUTTON_BORDER_WIDTH
+        view.layer.borderColor  = GlobalConst.BUTTON_COLOR_RED.cgColor
+        view.clipsToBounds      = true
+        view.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
+    }
 }

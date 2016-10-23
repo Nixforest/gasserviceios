@@ -29,6 +29,8 @@ class UpholdReplyBean: NSObject {
     var id: String = ""
     /** Hours handle */
     var hours_handle: String = ""
+    /** Contact phone */
+    var contact_phone: String = ""
     /** Note */
     var note: String = ""
     /** UID login */
@@ -60,6 +62,7 @@ class UpholdReplyBean: NSObject {
             }
         }
         self.hours_handle       = jsonData[DomainConst.KEY_HOURS_HANDLE] as? String ?? ""
+        self.contact_phone      = jsonData[DomainConst.KEY_CONTACT_PHONE] as? String ?? ""
         self.note               = jsonData[DomainConst.KEY_NOTE] as? String ?? ""
         self.uid_login          = jsonData[DomainConst.KEY_UID_LOGIN] as? String ?? ""
         self.status             = jsonData[DomainConst.KEY_STATUS] as? String ?? ""
@@ -72,5 +75,8 @@ class UpholdReplyBean: NSObject {
                 self.images.append(UpholdImageInfoItem(jsonData: listItem))
             }
         }
+    }
+    override init() {
+        
     }
 }

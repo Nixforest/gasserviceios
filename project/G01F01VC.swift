@@ -8,10 +8,10 @@
 
 import UIKit
 
-class CreateUpholdViewController: UIViewController {
+class G01F01VC: UIViewController {
     
-    static let sharedInstance: CreateUpholdViewController = {
-        let instance = CreateUpholdViewController()
+    static let sharedInstance: G01F01VC = {
+        let instance = G01F01VC()
         return instance
     }()
     
@@ -40,7 +40,7 @@ class CreateUpholdViewController: UIViewController {
         ctnViewCreateUpholdStep2.isHidden = true
         ctnViewCreateUpholdStep3.isHidden = true
         NotificationCenter.default.post(name: Notification.Name(rawValue: "moveButtonStep1"), object: nil)
-        print(CreateUpholdViewController.sharedInstance.problemType)
+        print(G01F01VC.sharedInstance.problemType)
 
     }
     @IBAction func btnCreateUpholdStep2Tapped(_ sender: AnyObject) {
@@ -184,12 +184,12 @@ class CreateUpholdViewController: UIViewController {
         
         
         // Do any additional setup after loading the view.
-        NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdViewController.step1Done(_:)), name:NSNotification.Name(rawValue: "step1Done"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdViewController.step2Done(_:)), name:NSNotification.Name(rawValue: "step2Done"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdViewController.step3Done(_:)), name:NSNotification.Name(rawValue: "step3Done"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdViewController.moveButtonToMiddleStep1(_:)), name:NSNotification.Name(rawValue: "moveButtonStep1"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdViewController.moveButtonToMiddleStep2(_:)), name:NSNotification.Name(rawValue: "moveButtonStep2"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdViewController.moveButtonToMiddleStep3(_:)), name:NSNotification.Name(rawValue: "moveButtonStep3"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F01VC.step1Done(_:)), name:NSNotification.Name(rawValue: "step1Done"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F01VC.step2Done(_:)), name:NSNotification.Name(rawValue: "step2Done"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F01VC.step3Done(_:)), name:NSNotification.Name(rawValue: "step3Done"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F01VC.moveButtonToMiddleStep1(_:)), name:NSNotification.Name(rawValue: "moveButtonStep1"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F01VC.moveButtonToMiddleStep2(_:)), name:NSNotification.Name(rawValue: "moveButtonStep2"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F01VC.moveButtonToMiddleStep3(_:)), name:NSNotification.Name(rawValue: "moveButtonStep3"), object: nil)
     }
 
     override func didReceiveMemoryWarning() {

@@ -168,6 +168,8 @@ class DomainConst {
     static let KEY_UPHOLD_ID = "uphold_id"
     /** Hours handle */
     static let KEY_HOURS_HANDLE = "hours_handle"
+    /** Contact phone */
+    static let KEY_CONTACT_PHONE = "contact_phone"
     /** Note */
     static let KEY_NOTE = "note"
     /** Report wrong */

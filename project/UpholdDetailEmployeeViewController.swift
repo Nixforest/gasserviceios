@@ -66,19 +66,23 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.gasServiceItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(super.configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.gasServiceItemTapped(_:)),
+            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)),
+            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(super.configItemTap(_:)),
+            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
+            object: nil)
     }
+    
     /**
      * MARK: View did load.
      */
@@ -98,26 +102,21 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
         sgmScrollViewChange.setTitle(GlobalConst.CONTENT00071, forSegmentAt: 1)
         sgmScrollViewChange.tintColor = GlobalConst.BUTTON_COLOR_RED
         
-        //viewBackground.addSubview(sgmScrollViewChange)
-        
+        // Information view
         scrViewInformation.translatesAutoresizingMaskIntoConstraints = true
         scrViewInformation.frame = CGRect(
-            x: marginX,
+            x: marginX + GlobalConst.MARGIN_CELL_X,
             y: sgmScrollViewChange.frame.maxY + GlobalConst.MARGIN_CELL_Y,
-            width: GlobalConst.SCREEN_WIDTH - marginX * 2,
+            width: GlobalConst.SCREEN_WIDTH - (marginX + GlobalConst.MARGIN_CELL_X) * 2,
             height: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.MARGIN_CELL_Y * 2))
-        
-        scrViewInformation.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        scrViewInformation.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
-        scrViewInformation.clipsToBounds = true
-        scrViewInformation.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        
+        // Draw border
+        CommonProcess.setBorder(view: scrViewInformation)
         scrViewInformation.delegate = self
-        
-        Bundle.main.loadNibNamed("UpholdDetailEmployeeInfoView", owner: self, options: nil)
+        // Load content
+        Bundle.main.loadNibNamed(GlobalConst.UPHOLD_DETAIL_EMPLOYEE_VIEW_CTRL, owner: self, options: nil)
         scrViewInformation.addSubview(viewInformation)
-        //viewBackground.addSubview(scrViewInformation)
 
+        // Create reply button
         btnCreateReply.translatesAutoresizingMaskIntoConstraints = true
         btnCreateReply.frame = CGRect(
             x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
@@ -130,15 +129,19 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
         btnCreateReply.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnCreateReply.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         
-        
+        // History view
         tblViewHistory.translatesAutoresizingMaskIntoConstraints = true
         tblViewHistory.frame = CGRect(
-            x: marginX, y: btnCreateReply.frame.maxY + GlobalConst.MARGIN_CELL_Y,
+            x: marginX,
+            y: btnCreateReply.frame.maxY + GlobalConst.MARGIN_CELL_Y,
             width: GlobalConst.SCREEN_WIDTH - marginX * 2,
             height: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H * 2 + GlobalConst.MARGIN_CELL_Y * 2))
         tblViewHistory.isHidden = true
+        tblViewHistory.separatorStyle = .none
         
-        self.tblViewHistory.register(UINib(nibName: "UpholdDetailEmployeeHistoryTableViewCell", bundle: nil), forCellReuseIdentifier: "UpholdDetailEmployeeHistoryTableViewCell")
+        self.tblViewHistory.register(
+            UINib(nibName: GlobalConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL, bundle: nil),
+            forCellReuseIdentifier: GlobalConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL)
         tblViewHistory.dataSource = self
         tblViewHistory.delegate = self
         
@@ -157,32 +160,29 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
         }
     }
     
-    
-    
     /**
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
-//        if currentViewType == DomainConst.TYPE_TROUBLE {
-//            problemTableView.reloadData()
-//        } else {
-//            periodTableView.reloadData()
-//        }
-        print("set data")
         viewInformation.setData(model: Singleton.sharedInstance.currentUpholdDetail)
+        
+        tblViewHistory.reloadData()
     }
 
+    /**
+     * Display sub view.
+     */
     override func viewDidLayoutSubviews() {
+        // Set content of Information view
         viewInformation.frame = CGRect(
-            x: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X,
+            x: GlobalConst.MARGIN_CELL_X,
             y: GlobalConst.MARGIN_CELL_Y,
             width: scrViewInformation.frame.size.width - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X) * 2,
-            //height: scrViewInformation.frame.size.height - GlobalConst.MARGIN_CELL_X * 3)
-            height: GlobalConst.LABEL_HEIGHT * 14)
+            height: UpholdDetailEmployeeInfoView.VIEW_HEIGHT)
+        // Set size of content
         scrViewInformation.contentSize = CGSize(
             width: viewInformation.frame.size.width,
-        height: viewInformation.frame.size.height)
-            //height: viewInformation.frame.size.height + GlobalConst.LABEL_HEIGHT * 14 - (scrViewInformation.frame.size.height - GlobalConst.MARGIN_CELL_X * 3))
+            height: viewInformation.frame.size.height)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -190,22 +190,29 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
     }
     
     // MARK: TableViewDataSource
+    /**
+     * Tells the data source to return the number of rows in a given section of a table view.
+     */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        let count:Int = 5
+        let count:Int = Singleton.sharedInstance.currentUpholdDetail.reply_item.count
         return count
     }
+    
+    /**
+     * Asks the data source for a cell to insert in a particular location of the table view.
+     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
         UITableViewCell {
-                let cell:UpholdDetailEmployeeHistoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "UpholdDetailEmployeeHistoryTableViewCell") as! UpholdDetailEmployeeHistoryTableViewCell
+            let cell:UpholdDetailEmployeeHistoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL) as! UpholdDetailEmployeeHistoryTableViewCell
+            if Singleton.sharedInstance.currentUpholdDetail.reply_item.count > indexPath.row {
+                cell.setData(model: Singleton.sharedInstance.currentUpholdDetail.reply_item[indexPath.row])
+            }
             return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let height:CGFloat = 300
+        let height:CGFloat = UpholdDetailEmployeeHistoryTableViewCell.VIEW_HEIGHT
         return height
     }
-
-    
-    
 
     /*
     // MARK: - Navigation

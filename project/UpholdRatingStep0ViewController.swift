@@ -100,11 +100,11 @@ class UpholdRatingStep0ViewController: UIViewController {
          * Choose Problem Button 3
          */
         btnOption2.translatesAutoresizingMaskIntoConstraints = true
-        btnOption2.frame = CGRect(
-            x: 0,
-            y: GlobalConst.PARENT_BORDER_WIDTH * 3 + GlobalConst.LABEL_HEIGHT * 2 + GlobalConst.BUTTON_HEIGHT * 4/3,
-            width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2),
-            height: GlobalConst.BUTTON_HEIGHT * 2/3)
+//        btnOption2.frame = CGRect(
+//            x: 0,
+//            y: GlobalConst.PARENT_BORDER_WIDTH * 3 + GlobalConst.LABEL_HEIGHT * 2 + GlobalConst.BUTTON_HEIGHT * 4/3,
+//            width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2),
+//            height: GlobalConst.BUTTON_HEIGHT * 2/3)
         btnOption2.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         btnOption2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnOption2.setTitle("Không hài lòng", for: .normal)

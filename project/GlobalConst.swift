@@ -161,7 +161,9 @@ class GlobalConst {
     static let CONTENT00150 = "Ngày xử lý"
     static let CONTENT00151 = "Nội bộ"
     static let CONTENT00152 = "Điện thoại"
+    static let CONTENT00161 = "Lịch bảo trì"
     static let CONTENT00162 = "Thông báo"
+    static let CONTENT00177 = "Loại định kỳ"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
@@ -241,18 +243,24 @@ class GlobalConst {
     static let PERIOD_UPHOLDDETAIL_CUSTOMER_VIEW_CTRL = "PeriodUpholdDetailCustomerViewController"
     /** Name of ReplyUpholdViewController */
     static let REPLY_UPHOLD_VIEW_CTRL = "ReplyUpholdViewController"
+    /** Name of UpholdDetailEmployeeInfoView */
+    static let UPHOLD_DETAIL_EMPLOYEE_VIEW_CTRL = "UpholdDetailEmployeeInfoView"
     
     /** Name of UpholdListViewController */
     static let UPHOLD_RATING_VIEW_CTRL = "UpholdRatingViewController"
     
     /** Name of ChangePasswordViewController */
     static let CHANGE_PASSWORD_VIEW_CTRL = "ChangePasswordViewController"
+    /** Name of G01F01VC */
+    static let G01_F01_VIEW_CTRL = "G01F01VC"
     /** Period table view cell */
     static let PERIOD_TABLE_VIEW_CELL = "periodTableViewCell"
     /** Problem table view cell */
     static let PROBLEM_TABLE_VIEW_CELL = "problemTableViewCell"
     /** Search bar table view cell */
     static let SEARCH_BAR_TABLE_VIEW_CELL = "searchBarTableViewCell"
+    /** Uphold detail employee history table view cell */
+    static let UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL = "UpholdDetailEmployeeHistoryTableViewCell"
     /** Pop overmenu identifier */
     static let POPOVER_MENU_IDENTIFIER = "popOverMenu"
     

@@ -29,20 +29,20 @@ class CreateUpholdStep3ViewController: UIViewController {
     
     @IBOutlet weak var btnSendInfo: UIButton!
     @IBAction func btnSendInfoTapped(_ sender: AnyObject) {
-        print(CreateUpholdViewController.sharedInstance.problemType, CreateUpholdViewController.sharedInstance.contactType)
+        print(G01F01VC.sharedInstance.problemType, G01F01VC.sharedInstance.contactType)
     }
 
     @IBOutlet weak var next3: UIButton!
     
     @IBAction func toNext3(_ sender: AnyObject) {
-        CreateUpholdViewController.sharedInstance.isStep3Done = true
+        G01F01VC.sharedInstance.isStep3Done = true
         NotificationCenter.default.post(name: Notification.Name(rawValue: "step3Done"), object: nil)
     }
     
     func showDetail(_ notification: Notification)  {
-        lblProblemDetail.text = " " + CreateUpholdViewController.sharedInstance.problemType
-        lblContentDetail.text = " " + CreateUpholdViewController.sharedInstance.anotherProblemType
-        lblContactDetail.text = " " + CreateUpholdViewController.sharedInstance.contactType
+        lblProblemDetail.text = " " + G01F01VC.sharedInstance.problemType
+        lblContentDetail.text = " " + G01F01VC.sharedInstance.anotherProblemType
+        lblContactDetail.text = " " + G01F01VC.sharedInstance.contactType
     }
     
     override func viewDidLoad() {

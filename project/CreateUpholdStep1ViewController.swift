@@ -31,41 +31,41 @@ class CreateUpholdStep1ViewController: UIViewController {
      * problem 1 choosen
      */
     @IBAction func btnProblem1Tapped(_ sender: AnyObject) {
-        CreateUpholdViewController.sharedInstance.problemType = (btnProblem1.titleLabel?.text)!
+        G01F01VC.sharedInstance.problemType = (btnProblem1.titleLabel?.text)!
         NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-        print(CreateUpholdViewController.sharedInstance.problemType)
+        print(G01F01VC.sharedInstance.problemType)
     }
     /**
      * problem 2 choosen
      */
     @IBAction func btnProblem2Tapped(_ sender: AnyObject) {
-        CreateUpholdViewController.sharedInstance.problemType = (btnProblem2.titleLabel?.text)!
+        G01F01VC.sharedInstance.problemType = (btnProblem2.titleLabel?.text)!
         NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-        print(CreateUpholdViewController.sharedInstance.problemType)
+        print(G01F01VC.sharedInstance.problemType)
     }
     /**
      * problem 3 choosen
      */
     @IBAction func btnProblem3Tapped(_ sender: AnyObject) {
-        CreateUpholdViewController.sharedInstance.problemType = (btnProblem3.titleLabel?.text)!
+        G01F01VC.sharedInstance.problemType = (btnProblem3.titleLabel?.text)!
         NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-        print(CreateUpholdViewController.sharedInstance.problemType)
+        print(G01F01VC.sharedInstance.problemType)
     }
     /**
      * problem 4 choosen
      */
     @IBAction func btnProblem4Tapped(_ sender: AnyObject) {
-        CreateUpholdViewController.sharedInstance.problemType = (btnProblem4.titleLabel?.text)!
+        G01F01VC.sharedInstance.problemType = (btnProblem4.titleLabel?.text)!
         NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-        print(CreateUpholdViewController.sharedInstance.problemType)
+        print(G01F01VC.sharedInstance.problemType)
     }
     /**
      * problem 5 choosen
      */
     @IBAction func btnProblem5Tapped(_ sender: AnyObject) {
-        CreateUpholdViewController.sharedInstance.problemType = (btnProblem5.titleLabel?.text)!
+        G01F01VC.sharedInstance.problemType = (btnProblem5.titleLabel?.text)!
         NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-        print(CreateUpholdViewController.sharedInstance.problemType)
+        print(G01F01VC.sharedInstance.problemType)
     }
     /**
      * problem 6 choosen
@@ -88,9 +88,9 @@ class CreateUpholdStep1ViewController: UIViewController {
             actionSheetController.addAction(cancelAction)
             //Create and an option action
             let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default) { action -> Void in
-                CreateUpholdViewController.sharedInstance.anotherProblemType = (inputTextField?.text)!
+                G01F01VC.sharedInstance.anotherProblemType = (inputTextField?.text)!
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-                print(CreateUpholdViewController.sharedInstance.problemType)
+                print(G01F01VC.sharedInstance.problemType)
 
             }
             actionSheetController.addAction(okAction)

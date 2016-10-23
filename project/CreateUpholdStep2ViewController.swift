@@ -19,22 +19,22 @@ class CreateUpholdStep2ViewController: UIViewController {
 
     
     @IBAction func btnContactType1Tapped(_ sender: AnyObject) {
-        CreateUpholdViewController.sharedInstance.contactType = (btnContactType1.titleLabel?.text)!
+        G01F01VC.sharedInstance.contactType = (btnContactType1.titleLabel?.text)!
         NotificationCenter.default.post(name: Notification.Name(rawValue: "step2Done"), object: nil)
-        print(CreateUpholdViewController.sharedInstance.contactType)
+        print(G01F01VC.sharedInstance.contactType)
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: "showDetail"), object: nil)
     }
     @IBAction func btnContactType2Tapped(_ sender: AnyObject) {
-        CreateUpholdViewController.sharedInstance.contactType = (btnContactType2.titleLabel?.text)!
+        G01F01VC.sharedInstance.contactType = (btnContactType2.titleLabel?.text)!
         NotificationCenter.default.post(name: Notification.Name(rawValue: "step2Done"), object: nil)
-        print(CreateUpholdViewController.sharedInstance.contactType)
+        print(G01F01VC.sharedInstance.contactType)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "showDetail"), object: nil)
     }
     @IBAction func btnContactType3Tapped(_ sender: AnyObject) {
-        CreateUpholdViewController.sharedInstance.contactType = (btnContactType3.titleLabel?.text)!
+        G01F01VC.sharedInstance.contactType = (btnContactType3.titleLabel?.text)!
         NotificationCenter.default.post(name: Notification.Name(rawValue: "step2Done"), object: nil)
-        print(CreateUpholdViewController.sharedInstance.contactType)
+        print(G01F01VC.sharedInstance.contactType)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "showDetail"), object: nil)
     }
     @IBAction func btnContactType4Tapped(_ sender: AnyObject) {
@@ -63,10 +63,10 @@ class CreateUpholdStep2ViewController: UIViewController {
             actionSheetController.addAction(cancelAction)
             //Create and an option action
             let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default) { action -> Void in
-                CreateUpholdViewController.sharedInstance.contactType = (inputTextFieldName?.text)! + " - " + (inputTextFieldPhone?.text)!
+                G01F01VC.sharedInstance.contactType = (inputTextFieldName?.text)! + " - " + (inputTextFieldPhone?.text)!
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "step2Done"), object: nil)
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "showDetail"), object: nil)
-                print(CreateUpholdViewController.sharedInstance.contactType)
+                print(G01F01VC.sharedInstance.contactType)
             }
             actionSheetController.addAction(okAction)
         self.present(actionSheetController, animated: true, completion: nil)

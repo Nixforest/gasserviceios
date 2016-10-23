@@ -13,9 +13,8 @@ protocol problemTableViewCellDelegate {
 }
 
 class problemTableViewCell: UITableViewCell {
-    
+    // MARK: Properties
     var delegate :problemTableViewCellDelegate?
-    
     /** Item view */
     @IBOutlet weak var problemView: UIView!
     /** Name */
@@ -44,6 +43,8 @@ class problemTableViewCell: UITableViewCell {
     @IBAction func btnRatingTapped(_ sender: AnyObject) {
         delegate?.toRatingVC()
     }
+    
+    // MARK: Methods
     /**
      * Prepares the receiver for service after it has been loaded from an Interface Builder archive, or nib file.
      */

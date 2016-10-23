@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpholdDetailEmployeeViewController" customModule="project" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UpholdDetailEmployeeHistoryTableViewCell" id="KGk-i7-Jjw" customClass="UpholdDetailEmployeeHistoryTableViewCell" customModule="project" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
@@ -20,6 +20,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ngày xử lý" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T2U-Vd-ulS">
+                                <frame key="frameInset" minX="62" minY="53" width="115" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ngày xử lý" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0HP-Zp-xy1">
                                 <frame key="frameInset" minX="62" minY="53" width="115" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -110,15 +117,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Account.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="oTS-hA-RAu">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Account.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="oTS-hA-RAu">
                                 <frame key="frameInset" minX="81" minY="32" width="77" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="CreateUpHold.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="7we-6C-6z8">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="CreateUpHold.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="7we-6C-6z8">
                                 <frame key="frameInset" minX="81" minY="32" width="77" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="InfoIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ggx-Tr-qez">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="InfoIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ggx-Tr-qez">
                                 <frame key="frameInset" minX="81" minY="32" width="77" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -144,6 +151,7 @@
                 <outlet property="lblInternal" destination="0zQ-b4-Ng0" id="oje-XD-Tbk"/>
                 <outlet property="lblNote" destination="lvJ-up-dNE" id="oBM-z6-LYZ"/>
                 <outlet property="lblPhone" destination="0yz-2J-809" id="n0o-7Z-4Uh"/>
+                <outlet property="lblReportWrong" destination="0HP-Zp-xy1" id="JYV-jf-7dd"/>
                 <outlet property="lblStatus" destination="igs-Qj-dz4" id="s7q-VX-Y46"/>
                 <outlet property="parentView" destination="dTa-wo-L1D" id="25y-cs-l0R"/>
                 <outlet property="tbxCreatedDay" destination="D4I-cl-xqp" id="ZqE-tB-cZ5"/>
