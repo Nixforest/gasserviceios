@@ -8,10 +8,10 @@
 
 import UIKit
 
-class CreateUpholdStep3ViewController: UIViewController {
+class G01F01S03VC: UIViewController {
     
-    static let sharedInstance: CreateUpholdStep3ViewController = {
-        let instance = CreateUpholdStep3ViewController()
+    static let sharedInstance: G01F01S03VC = {
+        let instance = G01F01S03VC()
         return instance
     }()
     
@@ -131,7 +131,7 @@ class CreateUpholdStep3ViewController: UIViewController {
         btnSendInfo.tintColor = UIColor.white
         
         // Do any additional setup after loading the view.
-        NotificationCenter.default.addObserver(self, selector: #selector(CreateUpholdStep3ViewController.showDetail(_:)), name:NSNotification.Name(rawValue: "showDetail"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F01S03VC.showDetail(_:)), name:NSNotification.Name(rawValue: "showDetail"), object: nil)
     }
     
 

@@ -73,7 +73,7 @@ class periodTableViewCell: UITableViewCell {
         lblType.frame = CGRect(x: lblTypeL.frame.maxX,
                                y: lblTypeL.frame.minY,
                                width: parentWidth - contentMarginX * 2 - lblTypeL.frame.width,
-                               height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+                               height: lblTypeL.frame.height)
         periodView.addSubview(lblType)
 
         // Status label
@@ -89,7 +89,7 @@ class periodTableViewCell: UITableViewCell {
         lblStatus.frame = CGRect(x: lblStatusL.frame.maxX,
                                  y:  lblStatusL.frame.minY,
                                  width: parentWidth - GlobalConst.PARENT_BORDER_WIDTH * 4 - lblStatusL.frame.width,
-                                 height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+                                 height: lblStatusL.frame.height)
         periodView.addSubview(lblStatus)
         
         // Finish mark
@@ -113,7 +113,7 @@ class periodTableViewCell: UITableViewCell {
         lblEmployee.frame = CGRect(x: lblEmployeeL.frame.maxX,
                                    y: lblEmployeeL.frame.minY,
                                    width: parentWidth - contentMarginX * 2 - lblEmployeeL.frame.width,
-                                   height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+                                   height: lblEmployeeL.frame.height)
         periodView.addSubview(lblEmployee)
 
         // Time created label
@@ -129,7 +129,7 @@ class periodTableViewCell: UITableViewCell {
         lblTimeCreate.frame = CGRect(x: lblCreatedDateL.frame.maxX,
                                      y: lblCreatedDateL.frame.minY,
                                      width: parentWidth - contentMarginX * 2 - lblCreatedDateL.frame.width,
-                                     height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+                                     height: lblCreatedDateL.frame.height)
         periodView.addSubview(lblTimeCreate)
         
         lblName.text = "Khach hang"

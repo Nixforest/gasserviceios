@@ -237,8 +237,8 @@ class GlobalConst {
     static let UPHOLDLIST_VIEW_CTRL = "UpholdListViewController"
     /** Name of UpholdListViewController */
     static let UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL = "UpholdDetailEmployeeViewController"
-    /** Name of UpholdListViewController */
-    static let PROBLEM_UPHOLDDETAIL_CUSTOMER_VIEW_CTRL = "ProblemUpholdDetailCustomerViewController"
+    /** Name of G01F00S03VC */
+    static let G01_F00_S03_VIEW_CTRL = "G01F00S03VC"
     /** Name of UpholdListViewController */
     static let PERIOD_UPHOLDDETAIL_CUSTOMER_VIEW_CTRL = "PeriodUpholdDetailCustomerViewController"
     /** Name of ReplyUpholdViewController */

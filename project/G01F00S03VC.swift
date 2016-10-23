@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProblemUpholdDetailCustomerViewController: CommonViewController {
+class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate {
 
     
     let lblHeader0 = UILabel()
@@ -52,9 +52,45 @@ class ProblemUpholdDetailCustomerViewController: CommonViewController {
     // ScrollView
     @IBOutlet weak var scrollView: UIScrollView!
     
+    
+    
+    /**
+     * Handle when tap on Issue menu item
+     */
+    func issueButtonInAccountVCTapped(_ notification: Notification) {
+        /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
+         self.navigationController?.pushViewController(configVC, animated: true)
+         */
+        print("issue button tapped")
+    }
+    
+    /**
+     * Handle when tap menu item
+     */
+    func asignNotifyForMenuItem() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.gasServiceItemTapped(_:)),
+            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(G01F00S03VC.issueButtonInAccountVCTapped(_:)),
+            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(super.configItemTap(_:)),
+            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
+            object: nil)
+    }
+    
     // MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Menu item tap
+        asignNotifyForMenuItem()
     
         // MARK: Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
@@ -393,6 +429,8 @@ class ProblemUpholdDetailCustomerViewController: CommonViewController {
         lblReportValue.layer.borderColor = GlobalConst.BACKGROUND_COLOR_GRAY.cgColor
         lblReportValue.text = "2"
         scrollView.addSubview(lblReportValue)
+        // MARK: - NavBar
+        setupNavigationBar(title: GlobalConst.CONTENT00143, isNotifyEnable: true)
 
         // Do any additional setup after loading the view.
     }
@@ -400,6 +438,23 @@ class ProblemUpholdDetailCustomerViewController: CommonViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    /**
+     * Override: show menu controller
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "popoverMenu" {
+            let popoverVC = segue.destination
+            popoverVC.popoverPresentationController?.delegate = self
+        }
+    }
+    
+    /**
+     * ...
+     */
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
     
 

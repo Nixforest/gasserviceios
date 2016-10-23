@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateUpholdStep2ViewController: UIViewController {
+class G01F01S02VC: UIViewController {
     
     @IBOutlet weak var lblChooseContact: UILabel!
     

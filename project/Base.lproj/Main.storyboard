@@ -649,7 +649,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="NnR-eK-uD6">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lnl-QN-Lej">
-                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
@@ -661,7 +661,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="4Sj-9F-QZK">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hDH-vb-HeA">
-                                    <rect key="frame" x="142" y="7" width="83" height="30"/>
+                                    <rect key="frame" x="197" y="7" width="83" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>
@@ -1125,7 +1125,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="K4Q-6W-KM9">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xc3-Ys-aJQ">
-                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
@@ -1137,7 +1137,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="5sJ-EI-8XF">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PJx-qE-UkD">
-                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>
@@ -1619,10 +1619,10 @@
             </objects>
             <point key="canvasLocation" x="3917.5999999999999" y="-2539.8800599700153"/>
         </scene>
-        <!--Create Uphold Step1 View Controller-->
+        <!--G01F01S01VC-->
         <scene sceneID="BJL-eY-PmM">
             <objects>
-                <viewController storyboardIdentifier="CreateUpholdStep1ViewController" id="n5y-PN-Cao" customClass="CreateUpholdStep1ViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G01F01S01VC" id="n5y-PN-Cao" customClass="G01F01S01VC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="guM-ei-ldx"/>
                         <viewControllerLayoutGuide type="bottom" id="dZx-h4-7Ix"/>
@@ -1706,10 +1706,10 @@
             </objects>
             <point key="canvasLocation" x="4765.6000000000004" y="-3212.2938530734637"/>
         </scene>
-        <!--Create Uphold Step2 View Controller-->
+        <!--G01F01S02VC-->
         <scene sceneID="4of-ro-QQ9">
             <objects>
-                <viewController storyboardIdentifier="CreateUpholdStep2ViewController" id="Qnv-iA-Hds" customClass="CreateUpholdStep2ViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G01F01S02VC" id="Qnv-iA-Hds" customClass="G01F01S02VC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QTT-ER-ryi"/>
                         <viewControllerLayoutGuide type="bottom" id="tTv-xX-XcK"/>
@@ -1774,10 +1774,10 @@
             </objects>
             <point key="canvasLocation" x="5497" y="-2874"/>
         </scene>
-        <!--Create Uphold Step3 View Controller-->
+        <!--G01F01S03VC-->
         <scene sceneID="SLY-1L-TBS">
             <objects>
-                <viewController storyboardIdentifier="CreateUpholdStep3ViewController" id="Kov-YJ-0uK" customClass="CreateUpholdStep3ViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G01F01S03VC" id="Kov-YJ-0uK" customClass="G01F01S03VC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ptc-Rh-7Nh"/>
                         <viewControllerLayoutGuide type="bottom" id="JZC-WQ-gpO"/>
@@ -2663,10 +2663,10 @@
             </objects>
             <point key="canvasLocation" x="4414" y="1113"/>
         </scene>
-        <!--Problem Uphold Detail Customer View Controller-->
+        <!--G01F00S03VC-->
         <scene sceneID="Wee-7y-ObK">
             <objects>
-                <viewController storyboardIdentifier="ProblemUpholdDetailCustomerViewController" id="cRu-ZW-iU3" customClass="ProblemUpholdDetailCustomerViewController" customModule="project" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G01F00S03VC" id="cRu-ZW-iU3" customClass="G01F00S03VC" customModule="project" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0kJ-e1-ocG"/>
                         <viewControllerLayoutGuide type="bottom" id="mIC-qU-hJY"/>
@@ -2682,8 +2682,42 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="J8r-pF-Lh5"/>
+                    <navigationItem key="navigationItem" id="24c-1u-Yym">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="rFf-eM-6js">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UX0-I5-Svp">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="GMi-ls-9PT">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OcM-7V-SWQ">
+                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <segue destination="Hkg-gq-HrD" kind="popoverPresentation" identifier="popoverMenu" popoverAnchorView="OcM-7V-SWQ" id="4LR-4P-muQ">
+                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                        </segue>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="cL1-F3-045">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Iye-ix-5ks">
+                                    <rect key="frame" x="197" y="7" width="83" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="UX0-I5-Svp" id="s3x-4Z-wOg"/>
+                        <outlet property="menuButton" destination="OcM-7V-SWQ" id="Wyi-V7-Ddv"/>
+                        <outlet property="navigationBar" destination="24c-1u-Yym" id="IM0-sf-Dau"/>
+                        <outlet property="notificationButton" destination="Iye-ix-5ks" id="Jof-Y4-xFN"/>
                         <outlet property="scrollView" destination="A3z-Eb-Nsr" id="BG0-Qk-x94"/>
                     </connections>
                 </viewController>
@@ -2718,6 +2752,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OjN-CN-uTm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3660" y="2385.1574212893556"/>
+        </scene>
+        <!--MenuVC-->
+        <scene sceneID="Iyg-FX-Vxb">
+            <objects>
+                <viewController storyboardIdentifier="g01f00_s03_menu" id="Hkg-gq-HrD" customClass="G01F00S03MenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5j4-EG-CHm"/>
+                        <viewControllerLayoutGuide type="bottom" id="Nl9-K0-t1i"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="h7r-Wi-MXm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="320" height="200"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wiU-Rv-CFV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4498" y="1765"/>
         </scene>
         <!--Uphold Rating Step0 View Controller-->
         <scene sceneID="26M-WO-zIZ">

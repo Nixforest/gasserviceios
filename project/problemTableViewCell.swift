@@ -85,9 +85,9 @@ class problemTableViewCell: UITableViewCell {
         // Issue content
         lblIssue.translatesAutoresizingMaskIntoConstraints = true
         lblIssue.frame = CGRect(x: lblIssueL.frame.maxX,
-                                y: lblIssueL.frame.minY,
+                                y: lblName.frame.maxY,
                                 width: parentWidth - contentMarginX * 2 - GlobalConst.CELL_HEIGHT_SHOW / 2 - lblIssueL.frame.width,
-                                height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+                                height: lblIssueL.frame.height)
         problemView.addSubview(lblIssue)
         
         // Status label
@@ -102,9 +102,9 @@ class problemTableViewCell: UITableViewCell {
         // Status content
         lblStatus.translatesAutoresizingMaskIntoConstraints = true
         lblStatus.frame = CGRect(x: lblStatusL.frame.maxX,
-                                 y:  lblStatusL.frame.minY,
+                                 y:  lblIssueL.frame.maxY,
                                  width: parentWidth - GlobalConst.PARENT_BORDER_WIDTH * 4 - GlobalConst.CELL_HEIGHT_SHOW / 2 - lblStatusL.frame.width,
-                                 height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+                                 height: lblStatusL.frame.height)
         problemView.addSubview(lblStatus)
         
         // Finish mark
@@ -126,9 +126,9 @@ class problemTableViewCell: UITableViewCell {
         // Employee name
         lblEmployee.translatesAutoresizingMaskIntoConstraints = true
         lblEmployee.frame = CGRect(x: lblEmployeeL.frame.maxX,
-                                   y: lblEmployeeL.frame.minY,
+                                   y: lblStatusL.frame.maxY,
                                    width: parentWidth - contentMarginX * 2 - lblEmployeeL.frame.width - GlobalConst.CELL_HEIGHT_SHOW / 2,
-                                   height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+                                   height: lblEmployeeL.frame.height)
         problemView.addSubview(lblEmployee)
         
         // Time create label
@@ -144,7 +144,7 @@ class problemTableViewCell: UITableViewCell {
         lblTimeCreate.frame = CGRect(x: lblTimeCreateL.frame.maxX,
                                      y: lblTimeCreateL.frame.minY,
                                      width: parentWidth - contentMarginX * 2 - GlobalConst.CELL_HEIGHT_SHOW / 2 - lblTimeCreateL.frame.width,
-                                     height: GlobalConst.LABEL_IN_CELL_HEIGHT)
+                                     height: lblTimeCreateL.frame.height)
         problemView.addSubview(lblTimeCreate)
         
         

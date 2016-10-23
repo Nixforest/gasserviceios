@@ -474,7 +474,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
                 // Move to customer detail uphold G01F00S03
                 if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
                     Singleton.sharedInstance.sharedInt = indexPath.row
-                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.PERIOD_UPHOLDDETAIL_CUSTOMER_VIEW_CTRL)
+                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S03_VIEW_CTRL)
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
             } else {
@@ -491,7 +491,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
                 // Move to customer detail uphold G01F00S03
                 if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
                     Singleton.sharedInstance.sharedInt = indexPath.row
-                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.PROBLEM_UPHOLDDETAIL_CUSTOMER_VIEW_CTRL)
+                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S03_VIEW_CTRL)
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
 
