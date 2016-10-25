@@ -28,7 +28,7 @@ class menuHomeViewController: CommonMenuViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if Singleton.sharedInstance.checkIsLogin() == true {
+        if Singleton.sharedInstance.isLogin {
             setItem(listValues: [false, true, false, false, true, true])
         } else {
             setItem(listValues: [true, false, true, false, false, true])

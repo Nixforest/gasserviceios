@@ -149,7 +149,7 @@ class HomeTableViewController: UITableViewController, UIPopoverPresentationContr
     
      override func viewDidAppear(_ animated: Bool) {
         //notification button enable/disable
-        if Singleton.sharedInstance.checkIsLogin() == true {
+        if !Singleton.sharedInstance.isLogin {
             self.notificationButton.isEnabled = true
             self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         } else {
@@ -218,7 +218,7 @@ class HomeTableViewController: UITableViewController, UIPopoverPresentationContr
         default: break
         }
         //show cell
-        if Singleton.sharedInstance.checkIsLogin() == false {
+        if !Singleton.sharedInstance.isLogin {
             switch (indexPath as NSIndexPath).row {
                 case 2:
                     cell.isHidden = true

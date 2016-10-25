@@ -26,7 +26,7 @@ class UpholdDetailRequest: BaseRequest {
             }
             // Convert to string
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            //print(dataString)
+            print(dataString)
             // Convert to object
             let model: UpholdDetailRespModel = UpholdDetailRespModel(jsonString: dataString as! String)
             if model.status == "1" {

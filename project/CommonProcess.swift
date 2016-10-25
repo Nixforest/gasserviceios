@@ -121,7 +121,7 @@ class CommonProcess {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = UpholdDetailRequest(url: DomainConst.PATH_SITE_UPHOLD_VIEW, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
-        request.setData(upholdId: upholdId, replyId: upholdId)
+        request.setData(upholdId: upholdId, replyId: replyId)
         request.execute()
     }
     
@@ -134,5 +134,64 @@ class CommonProcess {
         view.layer.borderColor  = GlobalConst.BUTTON_COLOR_RED.cgColor
         view.clipsToBounds      = true
         view.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
+    }
+    
+    /**
+     * Alignment text vertical center on TextView.
+     * - parameter textView: TextView to set
+     */
+    static func alignTextVerticalInTextView(textView :UITextView) -> CGFloat {
+        //let size = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: CGFloat(MAXFLOAT)))
+        let size = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: textView.bounds.height))
+        var topoffset = (textView.bounds.size.height - size.height * textView.zoomScale) / 2.0
+        topoffset = topoffset < 0.0 ? 0.0 : topoffset
+        textView.contentOffset = CGPoint(x: 0, y: -topoffset)
+        return topoffset
+    }
+    
+    /**
+     * Set layout for left controls
+     * - parameter lbl:     Label control
+     * - parameter offset:  Y offset
+     * - parameter height:  Height of layout
+     * - parameter text:    Control's text
+     */
+    static func setLayoutLeft(lbl: UILabel, offset: CGFloat, height: CGFloat, text: String, isDrawTopBorder: Bool = true) {
+        lbl.translatesAutoresizingMaskIntoConstraints = true
+        lbl.frame = CGRect(x: GlobalConst.MARGIN_CELL_X, y: offset,
+                           width: (GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X * 2) * 2) / 3,
+                           height: height)
+        lbl.text = text
+        if isDrawTopBorder {
+            lbl.layer.addBorder(edge: UIRectEdge.top)
+        }
+        lbl.layer.addBorder(edge: UIRectEdge.right)
+    }
+    
+    /**
+     * Set layout for right controls
+     * - parameter lbl:     TextView control
+     * - parameter offset:  Y offset
+     * - parameter height:  Height of layout
+     * - parameter text:    Control's text
+     */
+    static func setLayoutRight(lbl: UITextView, offset: CGFloat, height: CGFloat, text: String, isDrawTopBorder: Bool = true) {
+        lbl.translatesAutoresizingMaskIntoConstraints = true
+        lbl.text = text
+        let topOffset =
+            CommonProcess.alignTextVerticalInTextView(textView: lbl)
+        lbl.frame = CGRect(x: GlobalConst.MARGIN_CELL_X + (GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X * 2) * 2) / 3,
+                           y: offset,
+                           width: (GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X * 2) * 2) * 2 / 3,
+                           height: height)
+        lbl.contentOffset = CGPoint(x: 0, y: -topOffset)
+        lbl.frame = CGRect(x: GlobalConst.MARGIN_CELL_X + (GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X * 2) * 2) / 3,
+                           y: offset,
+                           width: (GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X * 2) * 2) * 2 / 3,
+                           height: height)
+        if isDrawTopBorder {
+            lbl.layer.addBorder(edge: UIRectEdge.top)
+        }
+        lbl.isEditable = false
     }
 }

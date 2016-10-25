@@ -76,51 +76,6 @@ class UpholdDetailEmployeeHistoryTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }    
-    
-    /**
-     * Set layout for left controls
-     * - parameter lbl:     Label control
-     * - parameter offset:  Y offset
-     * - parameter height:  Height of layout
-     * - parameter text:    Control's text
-     */
-    func setLayoutLeft(lbl: UILabel, offset: CGFloat, height: CGFloat, text: String) {
-        lbl.translatesAutoresizingMaskIntoConstraints = true
-        lbl.frame = CGRect(x: marginX, y: offset, width: leftWidth, height: height)
-        lbl.text = text
-        lbl.layer.addBorder(edge: UIRectEdge.top)
-        lbl.layer.addBorder(edge: UIRectEdge.right)
-    }
-    
-    /**
-     * Set layout for right controls
-     * - parameter lbl:     TextView control
-     * - parameter offset:  Y offset
-     * - parameter height:  Height of layout
-     * - parameter text:    Control's text
-     */
-    func setLayoutRight(lbl: UITextView, offset: CGFloat, height: CGFloat, text: String) {
-        lbl.translatesAutoresizingMaskIntoConstraints = true
-        lbl.text = text
-        alignTextVerticalInTextView(textView: lbl)
-        lbl.frame = CGRect(x: marginX + leftWidth, y: offset, width: rightWidth, height: height)
-        lbl.layer.addBorder(edge: UIRectEdge.top)
-        lbl.isEditable = false
-    }
-    
-    /**
-     * Alignment text vertical.
-     * - parameter textView: Text view to align
-     */
-    func alignTextVerticalInTextView(textView :UITextView) {
-        
-        let size = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: CGFloat(MAXFLOAT)))
-        
-        var topoffset = (textView.bounds.size.height - size.height * textView.zoomScale) / 2.0
-        topoffset = topoffset < 0.0 ? 0.0 : topoffset
-        
-        textView.contentOffset = CGPoint(x: 0, y: -topoffset)
     }
     
     /**
@@ -145,45 +100,45 @@ class UpholdDetailEmployeeHistoryTableViewCell: UITableViewCell {
         }
         
         // Label Handle date
-        setLayoutLeft(lbl: lblHandleDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00150)
+        CommonProcess.setLayoutLeft(lbl: lblHandleDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00150)
         // Handle date value
-        setLayoutRight(lbl: tbxHandleDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00150)
+        CommonProcess.setLayoutRight(lbl: tbxHandleDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00150)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Creator
-        setLayoutLeft(lbl: lblCreator, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00095)
+        CommonProcess.setLayoutLeft(lbl: lblCreator, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00095)
         // Creator value
-        setLayoutRight(lbl: tbxCreator, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00095)
+        CommonProcess.setLayoutRight(lbl: tbxCreator, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00095)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Status
-        setLayoutLeft(lbl: lblStatus, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+        CommonProcess.setLayoutLeft(lbl: lblStatus, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
         // Status value
-        setLayoutRight(lbl: tbxStatus, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+        CommonProcess.setLayoutRight(lbl: tbxStatus, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Created day
-        setLayoutLeft(lbl: lblCreatedDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00096)
+        CommonProcess.setLayoutLeft(lbl: lblCreatedDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00096)
         // Created day value
-        setLayoutRight(lbl: tbxCreatedDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00096)
+        CommonProcess.setLayoutRight(lbl: tbxCreatedDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00096)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Note
-        setLayoutLeft(lbl: lblNote, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00081)
+        CommonProcess.setLayoutLeft(lbl: lblNote, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00081)
         // Note value
-        setLayoutRight(lbl: tbxNote, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00081)
+        CommonProcess.setLayoutRight(lbl: tbxNote, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00081)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Phone
-        setLayoutLeft(lbl: lblPhone, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00152)
+        CommonProcess.setLayoutLeft(lbl: lblPhone, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00152)
         // Phone value
-        setLayoutRight(lbl: tbxPhone, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00152)
+        CommonProcess.setLayoutRight(lbl: tbxPhone, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00152)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Intenal
-        setLayoutLeft(lbl: lblInternal, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00151)
+        CommonProcess.setLayoutLeft(lbl: lblInternal, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00151)
         // Intenal value
-        setLayoutRight(lbl: tbxInternal, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00151)
+        CommonProcess.setLayoutRight(lbl: tbxInternal, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00151)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Image

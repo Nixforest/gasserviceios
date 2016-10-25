@@ -62,6 +62,24 @@ class Singleton: NSObject {
     var currentUpholdDetail: UpholdBean = UpholdBean()
     
     // MARK - Methods
+    override init() {
+        super.init()
+        // Get login status
+        self.isLogin = false
+        if defaults.object(forKey: DomainConst.KEY_SETTING_IS_LOGGING) != nil {
+            self.isLogin = defaults.object(forKey: DomainConst.KEY_SETTING_IS_LOGGING) as! Bool
+        }
+        // Get user token value
+        self.userToken = ""
+        if defaults.object(forKey: DomainConst.KEY_SETTING_USER_TOKEN) != nil {
+            self.userToken = defaults.object(forKey: DomainConst.KEY_SETTING_USER_TOKEN) as! String
+        }
+        // Get training mode
+        self.isTrainningMode = false
+        if defaults.object(forKey: DomainConst.KEY_SETTING_TRAINING_MODE) != nil {
+            self.isTrainningMode = defaults.object(forKey: DomainConst.KEY_SETTING_TRAINING_MODE) as! Bool
+        }
+    }
     /**
      * Call When Login Success
      * - parameter token: User token
@@ -91,7 +109,7 @@ class Singleton: NSObject {
      * - returns: User token string
      */
     func getUserToken() -> String {
-        return userToken
+        return self.userToken
     }
     
     /**
@@ -99,11 +117,6 @@ class Singleton: NSObject {
      * - returns: True if login is success, False otherwise
      */
     func checkIsLogin() -> (Bool) {
-        self.isLogin = false
-        if defaults.object(forKey: DomainConst.KEY_SETTING_IS_LOGGING) != nil {
-            self.isLogin = defaults.object(forKey: DomainConst.KEY_SETTING_IS_LOGGING) as! Bool
-        }
-        
         return self.isLogin
     }
     
@@ -122,10 +135,6 @@ class Singleton: NSObject {
      * - returns: True if training mode is ON, False otherwise
      */
     func checkTrainningMode() -> (Bool) {
-        self.isTrainningMode = false
-        if defaults.object(forKey: DomainConst.KEY_SETTING_TRAINING_MODE) != nil {
-            self.isTrainningMode = defaults.object(forKey: DomainConst.KEY_SETTING_TRAINING_MODE) as! Bool
-        }
         return self.isTrainningMode
     }
     
