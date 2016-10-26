@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UpholdListViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, problemTableViewCellDelegate {
+class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, G01F00S01ProblemCellDelegate {
     // MARK: Properties
     /** Current view type */
     var currentViewType = DomainConst.TYPE_TROUBLE
@@ -121,7 +121,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
      */
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.gasServiceItemTapped), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(UpholdListViewController.issueItemTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.issueItemTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(super.configItemTap(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_UPHOLDLISTVIEW), object: nil)
     }
     
@@ -135,7 +135,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         // Menu item tap
         asignNotifyForMenuItem()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(UpholdListViewController.showSearchBarTableView(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.showSearchBarTableView(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW), object: nil)
         
         // Blur view when status list picker active
         view2.isHidden          = true
@@ -147,10 +147,10 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         view2.addSubview(blurEffectView)
         let marginX = GlobalConst.PARENT_BORDER_WIDTH
         // Cell
-        self.periodTableView.register(UINib(nibName: GlobalConst.PERIOD_TABLE_VIEW_CELL, bundle: nil),
-                                      forCellReuseIdentifier: GlobalConst.PERIOD_TABLE_VIEW_CELL)
-        self.problemTableView.register(UINib(nibName: GlobalConst.PROBLEM_TABLE_VIEW_CELL, bundle: nil),
-                                       forCellReuseIdentifier: GlobalConst.PROBLEM_TABLE_VIEW_CELL)
+        self.periodTableView.register(UINib(nibName: GlobalConst.G01_F00_S01_PERIOD_CELL, bundle: nil),
+                                      forCellReuseIdentifier: GlobalConst.G01_F00_S01_PERIOD_CELL)
+        self.problemTableView.register(UINib(nibName: GlobalConst.G01_F00_S01_PROBLEM_CELL, bundle: nil),
+                                       forCellReuseIdentifier: GlobalConst.G01_F00_S01_PROBLEM_CELL)
         self.searchBarTableView.register(UINib(nibName: GlobalConst.SEARCH_BAR_TABLE_VIEW_CELL, bundle: nil),
                                          forCellReuseIdentifier: GlobalConst.SEARCH_BAR_TABLE_VIEW_CELL)
         
@@ -195,7 +195,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         // Handle tap on status selector
         let gestureShowStatusList: UITapGestureRecognizer = UITapGestureRecognizer(
             target: self,
-            action: #selector(UpholdListViewController.showStatusListButtonTapped))
+            action: #selector(G01F00S01VC.showStatusListButtonTapped))
         gestureShowStatusList.numberOfTapsRequired = 1
         lblStatusList.addGestureRecognizer(gestureShowStatusList)
         
@@ -254,10 +254,10 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
         setupNavigationBar(title: GlobalConst.CONTENT00129, isNotifyEnable: true)
         
         // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(UpholdListViewController.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW), object: nil)
         
         // Do any additional setup after loading the view.
-        gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(UpholdListViewController.hideKeyboard))
+        gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(G01F00S01VC.hideKeyboard))
         //view.addGestureRecognizer(tap)
         CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
         // Set background color
@@ -410,8 +410,8 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
             var cellReturn = UITableViewCell()
             // Period view
             if tableView == periodTableView {
-                let cell:periodTableViewCell = tableView.dequeueReusableCell(
-                    withIdentifier: GlobalConst.PERIOD_TABLE_VIEW_CELL) as! periodTableViewCell
+                let cell:G01F00S01PeriodCell = tableView.dequeueReusableCell(
+                    withIdentifier: GlobalConst.G01_F00_S01_PERIOD_CELL) as! G01F00S01PeriodCell
                 if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
                     cell.setData(model: Singleton.sharedInstance.upholdList.record[indexPath.row])
                 }
@@ -420,8 +420,8 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
             
             // Problem view
             if tableView == problemTableView {
-                let cell:problemTableViewCell = tableView.dequeueReusableCell(
-                    withIdentifier: GlobalConst.PROBLEM_TABLE_VIEW_CELL) as! problemTableViewCell
+                let cell:G01F00S01ProblemCell = tableView.dequeueReusableCell(
+                    withIdentifier: GlobalConst.G01_F00_S01_PROBLEM_CELL) as! G01F00S01ProblemCell
                 if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
                     cell.setData(model: Singleton.sharedInstance.upholdList.record[indexPath.row])
                 }
@@ -481,7 +481,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
                 // Move to customer detail uphold G01F00S02
                 if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
                     Singleton.sharedInstance.sharedInt = indexPath.row
-                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL)
+                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S02_VIEW_CTRL)
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
             }
@@ -499,12 +499,12 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
                 // Move to customer detail uphold G01F00S02
                 if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
                     Singleton.sharedInstance.sharedInt = indexPath.row
-                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL)
+                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S02_VIEW_CTRL)
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
             }
-            let cell:problemTableViewCell = tableView.dequeueReusableCell(
-                withIdentifier: GlobalConst.PROBLEM_TABLE_VIEW_CELL) as! problemTableViewCell
+            let cell:G01F00S01ProblemCell = tableView.dequeueReusableCell(
+                withIdentifier: GlobalConst.G01_F00_S01_PROBLEM_CELL) as! G01F00S01ProblemCell
             cell.ratingButton.addTarget(self, action: #selector(toRatingVC), for: .touchUpInside)
         }
         
@@ -572,7 +572,7 @@ class UpholdListViewController: CommonViewController, UIPopoverPresentationContr
             searchActive = true
             // Start count
             timer.invalidate()
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(UpholdListViewController.beginSearching), userInfo: nil, repeats: false)
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(G01F00S01VC.beginSearching), userInfo: nil, repeats: false)
             
         } else {
             beginSearch = false

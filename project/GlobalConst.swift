@@ -238,18 +238,18 @@ class GlobalConst {
     static let CONFIGURATION_VIEW_CTRL = "ConfigurationViewController"
     /** Name of AccountViewController */
     static let ACCOUNT_VIEW_CTRL = "AccountViewController"
-    /** Name of UpholdListViewController */
-    static let UPHOLDLIST_VIEW_CTRL = "UpholdListViewController"
-    /** Name of UpholdListViewController */
-    static let UPHOLDDETAIL_EMPLOYEE_VIEW_CTRL = "UpholdDetailEmployeeViewController"
-    /** Name of G01F00S03VC */
+    /** Name of Uphold List View Controller */
+    static let G01_F00_S01_VIEW_CTRL = "G01F00S01VC"
+    /** Name of Uphold detail employee view controller */
+    static let G01_F00_S02_VIEW_CTRL = "G01F00S02VC"
+    /** Name of Uphold detail customer view controller */
     static let G01_F00_S03_VIEW_CTRL = "G01F00S03VC"
     /** Name of UpholdListViewController */
     static let PERIOD_UPHOLDDETAIL_CUSTOMER_VIEW_CTRL = "PeriodUpholdDetailCustomerViewController"
     /** Name of ReplyUpholdViewController */
     static let REPLY_UPHOLD_VIEW_CTRL = "ReplyUpholdViewController"
-    /** Name of UpholdDetailEmployeeInfoView */
-    static let UPHOLD_DETAIL_EMPLOYEE_VIEW_CTRL = "UpholdDetailEmployeeInfoView"
+    /** Name of Uphold detail employee information view */
+    static let G01_F00_S02_INFO_VIEW = "G01F00S02InfoView"
     
     /** Name of UpholdListViewController */
     static let UPHOLD_RATING_VIEW_CTRL = "UpholdRatingViewController"
@@ -259,13 +259,13 @@ class GlobalConst {
     /** Name of G01F01VC */
     static let G01_F01_VIEW_CTRL = "G01F01VC"
     /** Period table view cell */
-    static let PERIOD_TABLE_VIEW_CELL = "periodTableViewCell"
+    static let G01_F00_S01_PERIOD_CELL = "G01F00S01PeriodCell"
     /** Problem table view cell */
-    static let PROBLEM_TABLE_VIEW_CELL = "problemTableViewCell"
+    static let G01_F00_S01_PROBLEM_CELL = "G01F00S01ProblemCell"
     /** Search bar table view cell */
     static let SEARCH_BAR_TABLE_VIEW_CELL = "searchBarTableViewCell"
     /** Uphold detail employee history table view cell */
-    static let UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL = "UpholdDetailEmployeeHistoryTableViewCell"
+    static let UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL = "G01F00S02HistoryCell"
     /** Pop overmenu identifier */
     static let POPOVER_MENU_IDENTIFIER = "popOverMenu"
     
@@ -282,8 +282,8 @@ class GlobalConst {
     static let NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW    = "configItemTappedChangePassView"
     static let NOTIFY_NAME_COFIG_ITEM_HOMEVIEW          = "configItemTappedHomeView"
     static let NOTIFY_NAME_SET_DATA_ACCOUNTVIEW         = "AccountViewController.setData"
-    static let NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW     = "UpholdListViewController.setData"
-    static let NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW     = "UpholdListViewController.showSearchBarTableView"
+    static let NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW     = "G01F00S01VC.setData"
+    static let NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW     = "G01F00S01VC.showSearchBarTableView"
     static let NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW  = "UpholdDetailViewController.setData"
     
     // MARK: Domain constants

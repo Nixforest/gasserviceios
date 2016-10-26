@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UpholdDetailEmployeeHistoryTableViewCell: UITableViewCell {
+class G01F00S02HistoryCell: UITableViewCell {
     // MARK: Properties
     /** Label handle day */
     @IBOutlet weak var lblHandleDay: UILabel!
@@ -173,7 +173,7 @@ class UpholdDetailEmployeeHistoryTableViewCell: UITableViewCell {
         } else {
             offset += marginY
         }
-        UpholdDetailEmployeeHistoryTableViewCell.VIEW_HEIGHT = offset + marginY
+        G01F00S02HistoryCell.VIEW_HEIGHT = offset + marginY
         // Parent view
         parentView.translatesAutoresizingMaskIntoConstraints = true
         parentView.frame = CGRect(x: marginX, y: marginY,

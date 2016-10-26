@@ -587,10 +587,10 @@
             </objects>
             <point key="canvasLocation" x="2278" y="-637"/>
         </scene>
-        <!--Uphold Detail Employee View Controller-->
+        <!--G01F00S02VC-->
         <scene sceneID="k5U-i0-Lf5">
             <objects>
-                <viewController storyboardIdentifier="UpholdDetailEmployeeViewController" id="NrZ-sm-3YH" customClass="UpholdDetailEmployeeViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G01F00S02VC" id="NrZ-sm-3YH" customClass="G01F00S02VC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="g25-d9-W3c"/>
                         <viewControllerLayoutGuide type="bottom" id="Fit-dO-37o"/>
@@ -1038,10 +1038,10 @@
             </objects>
             <point key="canvasLocation" x="-376" y="-1181"/>
         </scene>
-        <!--Uphold List View Controller-->
+        <!--G01F00S01VC-->
         <scene sceneID="7P5-hm-1yQ">
             <objects>
-                <viewController storyboardIdentifier="UpholdListViewController" id="oYw-eb-ON9" customClass="UpholdListViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G01F00S01VC" id="oYw-eb-ON9" customClass="G01F00S01VC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ze0-ni-B12"/>
                         <viewControllerLayoutGuide type="bottom" id="fg3-7I-8Oe"/>
@@ -1167,10 +1167,10 @@
             </objects>
             <point key="canvasLocation" x="-491" y="-1938"/>
         </scene>
-        <!--Menu Uphold List View Controller-->
+        <!--MenuVC-->
         <scene sceneID="M7v-e0-gvf">
             <objects>
-                <viewController storyboardIdentifier="menuUpholdListViewController" id="gpH-Q6-KIn" customClass="menuUpholdListViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G01F00S01MenuVC" id="gpH-Q6-KIn" customClass="G01F00S01MenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8E6-C5-7v8"/>
                         <viewControllerLayoutGuide type="bottom" id="I72-tH-med"/>

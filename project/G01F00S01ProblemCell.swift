@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol problemTableViewCellDelegate {
+protocol G01F00S01ProblemCellDelegate {
     func toRatingVC()
 }
 
-class problemTableViewCell: UITableViewCell {
+class G01F00S01ProblemCell: UITableViewCell {
     // MARK: Properties
-    var delegate :problemTableViewCellDelegate?
+    var delegate :G01F00S01ProblemCellDelegate?
     /** Item view */
     @IBOutlet weak var problemView: UIView!
     /** Name */

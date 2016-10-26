@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UpholdDetailEmployeeInfoView: UIView, UITextFieldDelegate {
+class G01F00S02InfoView: UIView, UITextFieldDelegate {
     /** Label Status */
     @IBOutlet weak var lblStatus: UILabel!
     /** Label Customer name */

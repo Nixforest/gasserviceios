@@ -1,5 +1,5 @@
 //
-//  UpholdDetailEmployeeViewController.swift
+//  G01F00S02VC.swift
 //  project
 //
 //  Created by Lâm Phạm on 9/22/16.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
+class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
     // MARK: Properties
     /** Segment ScrollView Control */
     @IBOutlet weak var sgmScrollViewChange: UISegmentedControl!
     /** Information ScrollView */
     @IBOutlet weak var scrViewInformation: UIScrollView!
     /** View informatino */
-    @IBOutlet var viewInformation: UpholdDetailEmployeeInfoView!
+    @IBOutlet var viewInformation: G01F00S02InfoView!
     /** Uphold History TableView */
     @IBOutlet weak var tblViewHistory: UITableView!
     /** Create reply button */
@@ -113,7 +113,7 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
         CommonProcess.setBorder(view: scrViewInformation)
         scrViewInformation.delegate = self
         // Load content
-        Bundle.main.loadNibNamed(GlobalConst.UPHOLD_DETAIL_EMPLOYEE_VIEW_CTRL, owner: self, options: nil)
+        Bundle.main.loadNibNamed(GlobalConst.G01_F00_S02_INFO_VIEW, owner: self, options: nil)
         scrViewInformation.addSubview(viewInformation)
 
         // Create reply button
@@ -149,7 +149,7 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
         setupNavigationBar(title: GlobalConst.CONTENT00143, isNotifyEnable: true)
         
         // MARK: - Notification Center
-        NotificationCenter.default.addObserver(self, selector: #selector(UpholdDetailEmployeeViewController.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S02VC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
         // Set data
         if Singleton.sharedInstance.sharedInt != -1 {
             // Check data is existed
@@ -178,7 +178,7 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
             x: GlobalConst.MARGIN_CELL_X,
             y: GlobalConst.MARGIN_CELL_Y,
             width: scrViewInformation.frame.size.width - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X) * 2,
-            height: UpholdDetailEmployeeInfoView.VIEW_HEIGHT)
+            height: G01F00S02InfoView.VIEW_HEIGHT)
         // Set size of content
         scrViewInformation.contentSize = CGSize(
             width: viewInformation.frame.size.width,
@@ -203,14 +203,14 @@ class UpholdDetailEmployeeViewController: CommonViewController, UIPopoverPresent
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
         UITableViewCell {
-            let cell:UpholdDetailEmployeeHistoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL) as! UpholdDetailEmployeeHistoryTableViewCell
+            let cell:G01F00S02HistoryCell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL) as! G01F00S02HistoryCell
             if Singleton.sharedInstance.currentUpholdDetail.reply_item.count > indexPath.row {
                 cell.setData(model: Singleton.sharedInstance.currentUpholdDetail.reply_item[indexPath.row])
             }
             return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let height:CGFloat = UpholdDetailEmployeeHistoryTableViewCell.VIEW_HEIGHT
+        let height:CGFloat = G01F00S02HistoryCell.VIEW_HEIGHT
         return height
     }
 

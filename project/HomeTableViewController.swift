@@ -265,7 +265,7 @@ class HomeTableViewController: UITableViewController, UIPopoverPresentationContr
             self.navigationController?.pushViewController(upholdListVC, animated: true)
         case 2:
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: "UpholdListViewController")
+            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S01_VIEW_CTRL)
             self.navigationController?.pushViewController(upholdListVC, animated: true)
 
         case 4:

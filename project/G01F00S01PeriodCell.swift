@@ -1,5 +1,5 @@
 //
-//  periodTableViewCell.swift
+//  G01F00S01PeriodCell.swift
 //  project
 //
 //  Created by Lâm Phạm on 9/18/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class periodTableViewCell: UITableViewCell {
+class G01F00S01PeriodCell: UITableViewCell {
     /** Item view */
     @IBOutlet weak var periodView: UIView!
     /** Customer name */

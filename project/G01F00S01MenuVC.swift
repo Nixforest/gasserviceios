@@ -8,7 +8,7 @@
 
 import UIKit
 
-class menuUpholdListViewController: CommonMenuViewController {
+class G01F00S01MenuVC: CommonMenuViewController {
     /**
      * Override
      */
