@@ -38,7 +38,7 @@ class ScrollButtonList: UIScrollView {
         print("My Custom Init");
         return;
     }
-    func setup(height: CGFloat) {
+    func setup() {
         // List buttons
         for i in 0..._numberOfBtn {
             _arrayStatus.append(false)
@@ -46,7 +46,7 @@ class ScrollButtonList: UIScrollView {
             button.translatesAutoresizingMaskIntoConstraints = true
             button.frame = CGRect(
                 x: (self.frame.width - GlobalConst.SCROLL_BUTTON_LIST_HEIGHT) / 2 + (CGFloat)(i) * GlobalConst.SCROLL_BUTTON_LIST_HEIGHT,
-                y: 0 - height,
+                y: 0,
                 width: GlobalConst.SCROLL_BUTTON_LIST_HEIGHT,
                 height: GlobalConst.SCROLL_BUTTON_LIST_HEIGHT)
             button.tag = i
@@ -56,29 +56,16 @@ class ScrollButtonList: UIScrollView {
             button.backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_DISABLE
             button.addTarget(self, action: #selector(getter: btnTapped), for: .touchUpInside)
             button.isEnabled = false
-            //_scrollView.addSubview(button)
             self.addSubview(button)
             _arrayBtn.append(button)
         }
-        // Scroll view
-//        _scrollView.translatesAutoresizingMaskIntoConstraints = true
-//        _scrollView.frame = CGRect(
-//            x: 0,
-//            y: 0,
-//            width: self.frame.width,
-//            height: self.frame.height)
-//        _scrollView.contentSize = CGSize(
-//            width: self.frame.width + (CGFloat)(self._numberOfBtn - 1) * GlobalConst.SCROLL_BUTTON_LIST_HEIGHT,
-//            height: self.frame.height)
-//        //_scrollView.backgroundColor = GlobalConst.SCROLLBUTTONLIST_BKG_COLOR
-//        _scrollView.backgroundColor = UIColor.red
-//        self.addSubview(_scrollView)
-        self.translatesAutoresizingMaskIntoConstraints = true
         self.contentSize = CGSize(
             width: self.frame.width + (CGFloat)(self._numberOfBtn - 1) * GlobalConst.SCROLL_BUTTON_LIST_HEIGHT,
             height: self.frame.height)
         self.backgroundColor = GlobalConst.SCROLLBUTTONLIST_BKG_COLOR
-        //self.isScrollEnabled
+        self.contentOffset = CGPoint(x: 0, y: 0)
+        self.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        self.bounces = true
     }
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -116,7 +103,7 @@ class ScrollButtonList: UIScrollView {
         } else {
             _arrayBtn[_currentActive].backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_SELECTING
         }
-        self.scrollRectToVisible(CGRect(x: GlobalConst.SCROLL_BUTTON_LIST_HEIGHT * (CGFloat)(_currentActive), y: 0 - self.frame.height, width: self.frame.width, height: self.frame.height),
+        self.scrollRectToVisible(CGRect(x: GlobalConst.SCROLL_BUTTON_LIST_HEIGHT * (CGFloat)(_currentActive), y: 0, width: self.frame.width, height: self.frame.height),
                                         animated: true)
     }
 }

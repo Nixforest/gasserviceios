@@ -39,10 +39,10 @@ class StepVC: CommonViewController, UIScrollViewDelegate {
         _listButton.translatesAutoresizingMaskIntoConstraints = true
         _listButton.frame = CGRect(
             x: 0,
-            y: 300,
+            y: self.view.frame.height - GlobalConst.SCROLL_BUTTON_LIST_HEIGHT,
             width: self.view.frame.width,
             height: GlobalConst.SCROLL_BUTTON_LIST_HEIGHT)
-        _listButton.setup(height: self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height)
+        _listButton.setup()
         _listButton.moveNext()
     }
     func btnReplyUpholdTapped(_ sender: AnyObject) {
