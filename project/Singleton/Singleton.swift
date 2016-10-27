@@ -30,8 +30,10 @@ class Singleton: NSObject {
     var data_uphold: [ConfigBean] = [ConfigBean]()
     /** Max upload */
     var max_upload: String = ""
-    /** List data issue */
+    /** List uphold status */
     var listUpholdStatus: [ConfigBean] = [ConfigBean]()
+    /** List uphold type */
+    var listUpholdType: [ConfigBean] = [ConfigBean]()
     /** Id of role */
     var role_id: String = ""
     /** List user info */
@@ -174,11 +176,18 @@ class Singleton: NSObject {
      * - parameter loginModel: LoginRespModel
      */
     func saveTempData(loginModel: LoginRespModel) {
-        // Uphold status data
         for item in loginModel.data_uphold {
+            // Uphold status data
             if item.id == DomainConst.KEY_STATUS {
                 for status in item.data {
                     self.listUpholdStatus.append(status)
+                }
+            }
+            
+            // List uphold type
+            if item.id == DomainConst.KEY_UPHOLD_TYPE {
+                for type in item.data {
+                    self.listUpholdType.append(type)
                 }
             }
         }

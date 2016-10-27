@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReplyUpholdViewController: UIViewController {
+class ReplyUpholdViewController: UIViewController, UIScrollViewDelegate {
     
     static let sharedInstance: ReplyUpholdViewController = {
         let instance = ReplyUpholdViewController()
@@ -51,7 +51,8 @@ class ReplyUpholdViewController: UIViewController {
     
     
     
-    @IBOutlet weak var scrViewButton: UIView!
+    
+    @IBOutlet weak var scrViewButton: UIScrollView!
     
     @IBOutlet weak var btnReplyUpholdStep0: UIButton!
     @IBOutlet weak var btnReplyUpholdStep1: UIButton!
@@ -119,7 +120,8 @@ class ReplyUpholdViewController: UIViewController {
     /**
      * Step Button Tapped
      */
-    @IBAction func btnReplyUpholdStep0Tapped(_ sender: AnyObject) {
+    
+    @IBAction func btnReplyUpholdTapped(_ sender: AnyObject) {
         switch sender.tag {
         case 0:
                 self.showContainerView(aCtnView: self.ctnviewReplyUpholdStep0)
@@ -314,24 +316,8 @@ class ReplyUpholdViewController: UIViewController {
     }
     
     func moveButtonToMiddle(aButton:UIButton) {
-        switch aButton.tag {
-        case 0:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
-        case 1:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
-        case 2:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 2) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
-        case 3:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 3) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
-        case 4:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 4) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
-        case 5:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 5) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
-        case 6:
-            scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) - (GlobalConst.BUTTON_HEIGHT * 6) + GlobalConst.PARENT_BORDER_WIDTH, y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH, width:GlobalConst.BUTTON_HEIGHT * 7 , height: GlobalConst.BUTTON_HEIGHT)
-        default:
-            break
-        }
+        scrViewButton.scrollRectToVisible(CGRect(x: GlobalConst.BUTTON_HEIGHT * CGFloat(aButton.tag), y: 0, width:GlobalConst.SCREEN_WIDTH, height: GlobalConst.BUTTON_HEIGHT), animated: true)
+     
         aButton.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
     }
     
@@ -625,15 +611,16 @@ class ReplyUpholdViewController: UIViewController {
 
         // MARK: - Scroll Button
         scrViewButton.translatesAutoresizingMaskIntoConstraints = true
-        scrViewButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2) + GlobalConst.PARENT_BORDER_WIDTH,
+        scrViewButton.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
                                      y: viewBackground.frame.size.height - GlobalConst.BUTTON_HEIGHT - GlobalConst.PARENT_BORDER_WIDTH,
-                                     width:GlobalConst.BUTTON_HEIGHT * 7 ,
+                                     width:GlobalConst.SCREEN_WIDTH,
                                      height: GlobalConst.BUTTON_HEIGHT)
-        scrViewButton.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
+        scrViewButton.contentSize = CGSize(width: GlobalConst.SCREEN_WIDTH + (GlobalConst.BUTTON_HEIGHT * 7), height: GlobalConst.BUTTON_HEIGHT)
+        scrViewButton.backgroundColor = GlobalConst.BUTTON_COLOR_GRAY
         
         // Btn 0
         btnReplyUpholdStep0.translatesAutoresizingMaskIntoConstraints = true
-        btnReplyUpholdStep0.frame = CGRect(x: 0, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
+        btnReplyUpholdStep0.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH / 2) - (GlobalConst.BUTTON_HEIGHT / 2), y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
         scrViewButton.addSubview(btnReplyUpholdStep0)
         btnReplyUpholdStep0.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep0.setTitle("1", for: .normal)
@@ -642,7 +629,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep0.tag = 0
         // Btn 1
         btnReplyUpholdStep1.translatesAutoresizingMaskIntoConstraints = true
-        btnReplyUpholdStep1.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
+        btnReplyUpholdStep1.frame = CGRect(x: btnReplyUpholdStep0.frame.maxX, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
         btnReplyUpholdStep1.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep1.setTitle("2", for: .normal)
         btnReplyUpholdStep1.setTitleColor(UIColor.white , for: .normal)
@@ -650,7 +637,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep1.tag = 1
         // Btn 2
         btnReplyUpholdStep2.translatesAutoresizingMaskIntoConstraints = true
-        btnReplyUpholdStep2.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT * 2, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
+        btnReplyUpholdStep2.frame = CGRect(x: btnReplyUpholdStep1.frame.maxX, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
         btnReplyUpholdStep2.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep2.setTitle("3", for: .normal)
         btnReplyUpholdStep2.setTitleColor(UIColor.white , for: .normal)
@@ -658,7 +645,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep2.tag = 2
         // Btn 3
         btnReplyUpholdStep3.translatesAutoresizingMaskIntoConstraints = true
-        btnReplyUpholdStep3.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT * 3, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
+        btnReplyUpholdStep3.frame = CGRect(x: btnReplyUpholdStep2.frame.maxX, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
         btnReplyUpholdStep3.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep3.setTitle("4", for: .normal)
         btnReplyUpholdStep3.setTitleColor(UIColor.white , for: .normal)
@@ -666,7 +653,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep3.tag = 3
         // Btn 4
         btnReplyUpholdStep4.translatesAutoresizingMaskIntoConstraints = true
-        btnReplyUpholdStep4.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT * 4, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
+        btnReplyUpholdStep4.frame = CGRect(x: btnReplyUpholdStep3.frame.maxX, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
         btnReplyUpholdStep4.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep4.setTitle("5", for: .normal)
         btnReplyUpholdStep4.setTitleColor(UIColor.white , for: .normal)
@@ -674,7 +661,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep4.tag = 4
         // Btn 5
         btnReplyUpholdStep5.translatesAutoresizingMaskIntoConstraints = true
-        btnReplyUpholdStep5.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT * 5, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
+        btnReplyUpholdStep5.frame = CGRect(x: btnReplyUpholdStep4.frame.maxX, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
         btnReplyUpholdStep5.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep5.setTitle("6", for: .normal)
         btnReplyUpholdStep5.setTitleColor(UIColor.white , for: .normal)
@@ -682,7 +669,7 @@ class ReplyUpholdViewController: UIViewController {
         btnReplyUpholdStep5.tag = 5
         // Btn 6
         btnReplyUpholdStep6.translatesAutoresizingMaskIntoConstraints = true
-        btnReplyUpholdStep6.frame = CGRect(x: GlobalConst.BUTTON_HEIGHT * 6, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
+        btnReplyUpholdStep6.frame = CGRect(x: btnReplyUpholdStep5.frame.maxX, y: 0, width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
         btnReplyUpholdStep6.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep6.setTitle("7", for: .normal)
         btnReplyUpholdStep6.setTitleColor(UIColor.white , for: .normal)

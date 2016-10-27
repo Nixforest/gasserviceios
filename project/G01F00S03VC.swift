@@ -84,7 +84,7 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(super.configItemTap(_:)),
-            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
+            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_CREATE_UPHOLD),
             object: nil)
     }
     

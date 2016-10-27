@@ -763,69 +763,6 @@
                                             <segue destination="XCX-ih-59I" kind="embed" id="Yag-mk-a5M"/>
                                         </connections>
                                     </containerView>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16b-fG-dSi">
-                                        <frame key="frameInset" minY="549" width="375" height="54"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e70-Qt-skb">
-                                                <frame key="frameInset" minY="12" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnReplyUpholdStep0Tapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="e2c-A6-2Wv"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gi1-XR-rl0">
-                                                <frame key="frameInset" minX="54" minY="12" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnReplyUpholdStep0Tapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="7kN-LB-bSb"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="78M-pc-RQ3">
-                                                <frame key="frameInset" minX="108" minY="12" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnReplyUpholdStep0Tapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="Qua-SG-vLY"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1DQ-Oo-ej0">
-                                                <frame key="frameInset" minX="162" minY="12" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnReplyUpholdStep0Tapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="73o-iq-IKv"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULu-hQ-vOz">
-                                                <frame key="frameInset" minX="216" minY="12" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnReplyUpholdStep0Tapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="DW7-YA-Q2K"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Khx-lf-A1L">
-                                                <frame key="frameInset" minX="270" minY="12" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnReplyUpholdStep0Tapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="hdm-sV-lu3"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVX-G0-TsJ">
-                                                <frame key="frameInset" minX="329" minY="11" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnReplyUpholdStep0Tapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="V5e-i9-yTG"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.99693557639999997" green="1" blue="0.77188911979999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
                                     <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a6w-FG-Sg5">
                                         <frame key="frameInset" height="71" maxX="209" maxY="466"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -849,6 +786,69 @@
                                             <action selector="btnNextTapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="OiE-yu-UqR"/>
                                         </connections>
                                     </button>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZwC-Im-ez8">
+                                        <frame key="frameInset" minY="539" width="375" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="can-IM-Nvc">
+                                                <rect key="frame" x="2" y="17" width="46" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnReplyUpholdTapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="DOF-k6-QJ4"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Otk-Lo-Uhk">
+                                                <rect key="frame" x="56" y="17" width="46" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnReplyUpholdTapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="gQh-vX-lFw"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="64c-6u-s17">
+                                                <rect key="frame" x="110" y="17" width="46" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnReplyUpholdTapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="H86-eG-gBH"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8D-Kh-OPm">
+                                                <rect key="frame" x="164" y="17" width="46" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnReplyUpholdTapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="PZH-8j-Cp2"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcI-8n-Ges">
+                                                <rect key="frame" x="218" y="17" width="46" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnReplyUpholdTapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="j1I-i6-zYH"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LyH-gm-tIe">
+                                                <rect key="frame" x="272" y="17" width="46" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnReplyUpholdTapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="fsM-y9-8ex"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fPa-PG-INw">
+                                                <rect key="frame" x="326" y="17" width="46" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="btnReplyUpholdTapped:" destination="uCm-jZ-M3V" eventType="touchUpInside" id="AWb-kf-fcW"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.99693557639999997" green="1" blue="0.77188911979999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.68965432429999995" green="1" blue="0.39118130029999998" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -859,13 +859,13 @@
                     <connections>
                         <outlet property="btnBack" destination="Ij6-51-bAx" id="Pa2-IM-qOi"/>
                         <outlet property="btnNext" destination="Umq-RF-Oxa" id="YWl-Lg-Z39"/>
-                        <outlet property="btnReplyUpholdStep0" destination="e70-Qt-skb" id="BIw-NV-ddk"/>
-                        <outlet property="btnReplyUpholdStep1" destination="Gi1-XR-rl0" id="IEF-FF-HEA"/>
-                        <outlet property="btnReplyUpholdStep2" destination="78M-pc-RQ3" id="UcB-Cb-HDO"/>
-                        <outlet property="btnReplyUpholdStep3" destination="1DQ-Oo-ej0" id="I36-uK-Vuq"/>
-                        <outlet property="btnReplyUpholdStep4" destination="ULu-hQ-vOz" id="ndY-6f-pGd"/>
-                        <outlet property="btnReplyUpholdStep5" destination="Khx-lf-A1L" id="H7o-e0-qd2"/>
-                        <outlet property="btnReplyUpholdStep6" destination="ZVX-G0-TsJ" id="BGZ-bY-HFS"/>
+                        <outlet property="btnReplyUpholdStep0" destination="can-IM-Nvc" id="KPz-nS-TXb"/>
+                        <outlet property="btnReplyUpholdStep1" destination="Otk-Lo-Uhk" id="i9z-rw-bti"/>
+                        <outlet property="btnReplyUpholdStep2" destination="64c-6u-s17" id="Ued-q8-prF"/>
+                        <outlet property="btnReplyUpholdStep3" destination="g8D-Kh-OPm" id="hOE-nI-fsh"/>
+                        <outlet property="btnReplyUpholdStep4" destination="VcI-8n-Ges" id="IpO-wZ-Tfj"/>
+                        <outlet property="btnReplyUpholdStep5" destination="LyH-gm-tIe" id="fTz-nh-CpS"/>
+                        <outlet property="btnReplyUpholdStep6" destination="fPa-PG-INw" id="IGQ-fz-0iH"/>
                         <outlet property="ctnviewReplyUpholdStep0" destination="5ru-Hn-cd4" id="DWg-5p-dAU"/>
                         <outlet property="ctnviewReplyUpholdStep1" destination="a6w-FG-Sg5" id="V7Q-c2-Vxi"/>
                         <outlet property="ctnviewReplyUpholdStep2" destination="BkZ-Tv-FNe" id="sjz-Ny-P1L"/>
@@ -873,7 +873,7 @@
                         <outlet property="ctnviewReplyUpholdStep4" destination="iMX-Cc-7gt" id="IOh-dY-04r"/>
                         <outlet property="ctnviewReplyUpholdStep5" destination="1xg-VR-lf6" id="fRl-rD-6gY"/>
                         <outlet property="ctnviewReplyUpholdStep6" destination="EQH-qs-WfI" id="Eee-U4-DML"/>
-                        <outlet property="scrViewButton" destination="16b-fG-dSi" id="dql-4Z-mRq"/>
+                        <outlet property="scrViewButton" destination="ZwC-Im-ez8" id="xPC-xD-Zb6"/>
                         <outlet property="viewBackground" destination="CCp-dm-qca" id="OcX-s4-B31"/>
                     </connections>
                 </viewController>
@@ -978,7 +978,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="GG7-Ko-7Om">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kBC-MC-yKf">
-                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
@@ -990,7 +990,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="8EZ-GP-UDV">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Nbr-PM-WUW">
-                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>
@@ -1286,14 +1286,48 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wvg-G7-vDS"/>
+                    <navigationItem key="navigationItem" id="wvg-G7-vDS">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="7kU-c7-o12">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jET-VC-qiO">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="EHK-a6-YeJ">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="192-vg-vIl">
+                                    <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <segue destination="I2S-u0-FLa" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="192-vg-vIl" id="5ID-yI-Wkd">
+                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                        </segue>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="Fpf-k2-LIc">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Dg9-m6-pkA">
+                                    <rect key="frame" x="185" y="7" width="83" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="jET-VC-qiO" id="rwm-si-BJZ"/>
                         <outlet property="btnCreateUpholdStep1" destination="avQ-W6-2fc" id="pKZ-9N-Z2Q"/>
                         <outlet property="btnCreateUpholdStep2" destination="Dbc-vN-Agh" id="a0s-Fb-PCA"/>
                         <outlet property="btnCreateUpholdStep3" destination="gBK-yA-Rub" id="Xzf-b1-gt6"/>
                         <outlet property="ctnViewCreateUpholdStep1" destination="c20-Vq-gEY" id="dUL-nq-RRM"/>
                         <outlet property="ctnViewCreateUpholdStep2" destination="dD0-xy-Q5O" id="bRI-ws-Zed"/>
                         <outlet property="ctnViewCreateUpholdStep3" destination="fvw-7P-2l4" id="zSf-Dn-4N6"/>
+                        <outlet property="menuButton" destination="192-vg-vIl" id="ydP-3D-KiN"/>
+                        <outlet property="navigationBar" destination="wvg-G7-vDS" id="bUQ-v8-24m"/>
+                        <outlet property="notificationButton" destination="Dg9-m6-pkA" id="2zB-MB-S8X"/>
                         <outlet property="viewBackground" destination="Adr-CN-M9t" id="Wyy-he-1DU"/>
                         <outlet property="viewScrollButton" destination="vRd-HR-Scp" id="h8B-2v-pg2"/>
                     </connections>
@@ -1508,7 +1542,94 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dpq-Zz-GD0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1044" y="-404"/>
+            <point key="canvasLocation" x="1983.2" y="-404.34782608695656"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="gZL-ti-ImA">
+            <objects>
+                <viewController storyboardIdentifier="HomeViewController" id="SmX-v3-2V8" customClass="HomeViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kkl-uQ-EbU"/>
+                        <viewControllerLayoutGuide type="bottom" id="X6R-3s-Tb7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="poT-hR-2QG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s6h-fG-xxf">
+                                <frame key="frameInset" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="SmX-v3-2V8" id="foB-XL-mdP"/>
+                                    <outlet property="delegate" destination="SmX-v3-2V8" id="0AM-km-qxT"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mgN-eU-Cco">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="bEn-2B-t9W">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="i6O-WQ-3a5">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="5H3-wP-BaI">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pVV-PX-X2F">
+                                    <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <segue destination="uIi-Fh-Mrz" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="pVV-PX-X2F" id="j0U-cz-MFI">
+                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                        </segue>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="aoX-Qm-fNK">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="euP-sA-vBh">
+                                    <rect key="frame" x="185" y="7" width="83" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="backButton" destination="i6O-WQ-3a5" id="VRA-87-LBb"/>
+                        <outlet property="homeTableView" destination="s6h-fG-xxf" id="k4v-Z8-0CH"/>
+                        <outlet property="menuButton" destination="pVV-PX-X2F" id="FJb-1Q-ybJ"/>
+                        <outlet property="navigationBar" destination="mgN-eU-Cco" id="5HA-eI-3cm"/>
+                        <outlet property="notificationButton" destination="euP-sA-vBh" id="Meq-Br-4dT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mys-UY-nex" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2844" y="-924.28785607196414"/>
+        </scene>
+        <!--Home Menu View Controller-->
+        <scene sceneID="6r2-TL-yWA">
+            <objects>
+                <viewController storyboardIdentifier="homeMenuViewController" id="uIi-Fh-Mrz" customClass="homeMenuViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="laA-GB-lei"/>
+                        <viewControllerLayoutGuide type="bottom" id="IHR-Pv-XQL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a1e-6c-IPk">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="200" height="150"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="200" height="150"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PHU-OU-Sd6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2146" y="-1189"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JoG-DT-zQt">
@@ -1527,7 +1648,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSw-eL-fzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1705" y="-948"/>
+            <point key="canvasLocation" x="-767.20000000000005" y="-948.57571214392806"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nbJ-0z-F6r">
@@ -1705,6 +1826,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RqD-N2-GwR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4765.6000000000004" y="-3212.2938530734637"/>
+        </scene>
+        <!--MenuVC-->
+        <scene sceneID="0BK-4a-GDd">
+            <objects>
+                <viewController storyboardIdentifier="G01F01MenuVC" id="I2S-u0-FLa" customClass="G01F01MenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aFl-Of-0pT"/>
+                        <viewControllerLayoutGuide type="bottom" id="fWp-Zz-mFM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EDW-6P-lxj">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="200" height="150"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="200" height="150"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Yy-be-4tc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5431" y="-3274"/>
         </scene>
         <!--G01F01S02VC-->
         <scene sceneID="4of-ro-QQ9">
@@ -2020,7 +2162,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hRX-xj-XfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4874" y="73"/>
+            <point key="canvasLocation" x="4575" y="36"/>
         </scene>
         <!--Reply Uphold Step0 View Controller-->
         <scene sceneID="ysl-yl-Oya">
@@ -2118,7 +2260,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ep7-NK-NtG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4937" y="-515"/>
+            <point key="canvasLocation" x="5876" y="-515.44227886056979"/>
         </scene>
         <!--Reply Uphold Step1 View Controller-->
         <scene sceneID="npN-VO-2bB">
@@ -2156,7 +2298,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="av9-ot-jX2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5680.8000000000002" y="-660.2698650674663"/>
+            <point key="canvasLocation" x="6620" y="-660.2698650674663"/>
         </scene>
         <!--Reply Uphold Step2 View Controller-->
         <scene sceneID="QwD-d2-X5j">
@@ -2868,6 +3010,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dmd-59-4qE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2721" y="2386"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="abG-C3-93E">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="znD-RF-xzp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="G1Z-Ad-pGB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="SmX-v3-2V8" kind="relationship" relationship="rootViewController" id="t1h-Pm-vy5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vBi-md-pew" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3530.4000000000001" y="-924.28785607196414"/>
         </scene>
     </scenes>
     <resources>

@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: "HomeTableViewController")
+        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: "HomeViewController")
         rootNav = UINavigationController(rootViewController: firstVC)
         rootNav.isNavigationBarHidden = false
         

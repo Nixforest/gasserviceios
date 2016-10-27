@@ -1,14 +1,16 @@
 //
-//  homeTableViewCell.swift
+//  HomeTableViewCell.swift
 //  project
 //
-//  Created by Lâm Phạm on 10/20/16.
+//  Created by Lâm Phạm on 10/26/16.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
 import UIKit
 
-class homeTableViewCell: UITableViewCell {
+class HomeTableViewCell: UITableViewCell {
+    @IBOutlet weak var homeCellImageView: UIImageView!
+    @IBOutlet weak var titleLbl: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

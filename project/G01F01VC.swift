@@ -8,8 +8,10 @@
 
 import UIKit
 
-class G01F01VC: UIViewController {
-    
+class G01F01VC: CommonViewController, UIPopoverPresentationControllerDelegate {
+    /**
+     * Singleton instance.
+     */
     static let sharedInstance: G01F01VC = {
         let instance = G01F01VC()
         return instance
@@ -54,6 +56,38 @@ class G01F01VC: UIViewController {
         ctnViewCreateUpholdStep2.isHidden = true
         ctnViewCreateUpholdStep3.isHidden = false
         NotificationCenter.default.post(name: Notification.Name(rawValue: "moveButtonStep3"), object: nil)
+    }
+    
+    /**
+     * Handle when tap on Issue menu item
+     */
+    func issueButtonInAccountVCTapped(_ notification: Notification) {
+        /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
+         self.navigationController?.pushViewController(configVC, animated: true)
+         */
+        print("issue button tapped")
+    }
+    
+    /**
+     * Handle when tap menu item
+     */
+    func asignNotifyForMenuItem() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.gasServiceItemTapped(_:)),
+            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.issueButtonInAccountVCTapped(_:)),
+            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(super.configItemTap(_:)),
+            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_CREATE_UPHOLD),
+            object: nil)
     }
     
     /**
@@ -115,6 +149,8 @@ class G01F01VC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Menu item tap
+        asignNotifyForMenuItem()
         
         viewBackground.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         viewBackground.translatesAutoresizingMaskIntoConstraints = true
@@ -183,6 +219,8 @@ class G01F01VC: UIViewController {
         btnCreateUpholdStep3.isEnabled = isStep3Done
         
         
+        // MARK: - NavBar
+        setupNavigationBar(title: GlobalConst.CONTENT00178, isNotifyEnable: Singleton.sharedInstance.checkIsLogin())
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(G01F01VC.step1Done(_:)), name:NSNotification.Name(rawValue: "step1Done"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(G01F01VC.step2Done(_:)), name:NSNotification.Name(rawValue: "step2Done"), object: nil)
@@ -195,6 +233,23 @@ class G01F01VC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    /**
+     * Override: show menu controller
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
+            let popoverVC = segue.destination
+            popoverVC.popoverPresentationController?.delegate = self
+        }
+    }
+    
+    /**
+     * ...
+     */
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
     
 

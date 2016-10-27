@@ -169,6 +169,7 @@ class GlobalConst {
     static let CONTENT00161 = "Lịch bảo trì"
     static let CONTENT00162 = "Thông báo"
     static let CONTENT00177 = "Loại định kỳ"
+    static let CONTENT00178 = "Yêu cầu bảo trì"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
@@ -278,6 +279,7 @@ class GlobalConst {
     static let NOTIFY_NAME_COFIG_ITEM                   = "configItemTapped"
     static let NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW       = "configItemTappedAccountView"
     static let NOTIFY_NAME_COFIG_ITEM_UPHOLDLISTVIEW    = "configItemTappedUpholdListView"
+    static let NOTIFY_NAME_COFIG_ITEM_CREATE_UPHOLD     = "configItemTappedCreateUphold"
     static let NOTIFY_NAME_COFIG_ITEM_UPHOLDDETAILVIEW    = "configItemTappedUpholdDetailView"
     static let NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW    = "configItemTappedChangePassView"
     static let NOTIFY_NAME_COFIG_ITEM_HOMEVIEW          = "configItemTappedHomeView"
