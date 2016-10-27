@@ -216,6 +216,7 @@ class GlobalConst {
     static let ACCOUNT_AVATAR_W : CGFloat = 140
     static let ACCOUNT_AVATAR_H : CGFloat = 140
     static let ACCOUNT_ICON_SIZE : CGFloat = 40
+    static let SCROLL_BUTTON_LIST_HEIGHT : CGFloat = BUTTON_HEIGHT
     
     // ----- Color defines -----
     static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.MARGIN_CELL_Y * 2) / 5
@@ -227,6 +228,10 @@ class GlobalConst {
     static let PARENT_BORDER_COLOR_GRAY:UIColor = UIColor.gray
     static let PARENT_BORDER_COLOR_YELLOW:UIColor = UIColor.yellow
     static let BACKGROUND_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xECECEC)
+    static let SCROLLBUTTONLIST_BKG_COLOR:UIColor = BUTTON_COLOR_GRAY
+    static let SCROLLBUTTONLIST_BTN_BKG_COLOR_DISABLE:UIColor = BUTTON_COLOR_DISABLE
+    static let SCROLLBUTTONLIST_BTN_BKG_COLOR_SELECTING:UIColor = BUTTON_COLOR_SELECTING
+    static let SCROLLBUTTONLIST_BTN_BKG_COLOR_ENABLE:UIColor = BUTTON_COLOR_RED
     
     
     static var TRAINING_MODE_FLAG:Bool = false

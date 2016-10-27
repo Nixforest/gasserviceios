@@ -616,6 +616,7 @@ class ReplyUpholdViewController: UIViewController, UIScrollViewDelegate {
                                      width:GlobalConst.SCREEN_WIDTH,
                                      height: GlobalConst.BUTTON_HEIGHT)
         scrViewButton.contentSize = CGSize(width: GlobalConst.SCREEN_WIDTH + (GlobalConst.BUTTON_HEIGHT * 7), height: GlobalConst.BUTTON_HEIGHT)
+        //scrViewButton.btnTapped = abc()
         scrViewButton.backgroundColor = GlobalConst.BUTTON_COLOR_GRAY
         
         // Btn 0

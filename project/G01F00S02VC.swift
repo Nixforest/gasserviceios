@@ -46,7 +46,7 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
      * Handle tap create uphold reply button.
      */
     @IBAction func btnCreateUpholdReplyTapped(_ sender: AnyObject) {
-        let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REPLY_UPHOLD_VIEW_CTRL)
+        let configVC = mainStoryboard.instantiateViewController(withIdentifier: "G01F02VC")
         self.navigationController?.pushViewController(configVC, animated: true)
     }
     
