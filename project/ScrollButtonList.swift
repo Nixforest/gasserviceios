@@ -40,7 +40,7 @@ class ScrollButtonList: UIScrollView {
     }
     func setup() {
         // List buttons
-        for i in 0..._numberOfBtn {
+        for i in 0..<_numberOfBtn {
             _arrayStatus.append(false)
             let button = UIButton()
             button.translatesAutoresizingMaskIntoConstraints = true
@@ -54,7 +54,7 @@ class ScrollButtonList: UIScrollView {
             button.setTitle(String(i + 1), for: .normal)
             button.setTitleColor(UIColor.white , for: .normal)
             button.backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_DISABLE
-            button.addTarget(self, action: #selector(getter: btnTapped), for: .touchUpInside)
+            button.addTarget(self, action: #selector(setter: btnTapped), for: .touchUpInside)
             button.isEnabled = false
             self.addSubview(button)
             _arrayBtn.append(button)
@@ -91,6 +91,7 @@ class ScrollButtonList: UIScrollView {
     func moveBack() {
         if _currentActive > 0 {
             // Move back
+            _arrayBtn[_currentActive].backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_ENABLE
             _currentActive -= 1
             update()
         }
@@ -100,9 +101,8 @@ class ScrollButtonList: UIScrollView {
             _arrayStatus[_currentActive - 1] = true
             _arrayBtn[_currentActive - 1].backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_ENABLE
             _arrayBtn[_currentActive - 1].isEnabled = true
-        } else {
-            _arrayBtn[_currentActive].backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_SELECTING
         }
+        _arrayBtn[_currentActive].backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_SELECTING
         self.scrollRectToVisible(CGRect(x: GlobalConst.SCROLL_BUTTON_LIST_HEIGHT * (CGFloat)(_currentActive), y: 0, width: self.frame.width, height: self.frame.height),
                                         animated: true)
     }

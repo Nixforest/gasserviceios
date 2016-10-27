@@ -11,7 +11,7 @@ import UIKit
 class G01F02VC: StepVC {
 
     override func viewDidLoad() {
-        self._numberStep = 4
+        self._numberStep = 15
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
