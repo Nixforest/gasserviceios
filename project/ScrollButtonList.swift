@@ -38,7 +38,8 @@ class ScrollButtonList: UIScrollView {
     override func draw(_ rect: CGRect) {
         // Drawing code
     }
-    */
+     */
+    // MARK: Methods
     /**
      * Default initializer.
      */

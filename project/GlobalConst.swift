@@ -170,6 +170,8 @@ class GlobalConst {
     static let CONTENT00162 = "Thông báo"
     static let CONTENT00177 = "Loại định kỳ"
     static let CONTENT00178 = "Yêu cầu bảo trì"
+    static let CONTENT00180 = "Gửi"
+    static let CONTENT00181 = "Xin vui lòng chọn Trạng thái sự cố"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width

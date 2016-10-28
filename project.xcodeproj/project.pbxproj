@@ -109,6 +109,7 @@
 		9281C3B21DB94B4700BA17D7 /* UpholdReplyBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281C3B11DB94B4700BA17D7 /* UpholdReplyBean.swift */; };
 		9281C3B41DB9527400BA17D7 /* UpholdDetailRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281C3B31DB9527400BA17D7 /* UpholdDetailRespModel.swift */; };
 		928D3AAA1DB60F31001E5E76 /* gasservice.png in Resources */ = {isa = PBXBuildFile; fileRef = 928D3AA91DB60F31001E5E76 /* gasservice.png */; };
+		92B021AF1DC333EB00BE8AD7 /* G01F02S01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B021AE1DC333EB00BE8AD7 /* G01F02S01.swift */; };
 		92B39DC11DAA0F22007DDB4C /* ChangePassRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */; };
 		92B6A80F1DB1DA98001B0E69 /* UpholdListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */; };
 		92B6A8111DB1DB3D001B0E69 /* UpholdBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6A8101DB1DB3D001B0E69 /* UpholdBean.swift */; };
@@ -260,6 +261,7 @@
 		9281C3B11DB94B4700BA17D7 /* UpholdReplyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdReplyBean.swift; sourceTree = "<group>"; };
 		9281C3B31DB9527400BA17D7 /* UpholdDetailRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailRespModel.swift; sourceTree = "<group>"; };
 		928D3AA91DB60F31001E5E76 /* gasservice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gasservice.png; sourceTree = "<group>"; };
+		92B021AE1DC333EB00BE8AD7 /* G01F02S01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S01.swift; sourceTree = "<group>"; };
 		92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassRequest.swift; sourceTree = "<group>"; };
 		92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdListRespModel.swift; sourceTree = "<group>"; };
 		92B6A8101DB1DB3D001B0E69 /* UpholdBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdBean.swift; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 			isa = PBXGroup;
 			children = (
 				92BF0C211DC1B51C009B1DA4 /* G01F02VC.swift */,
+				92B021AE1DC333EB00BE8AD7 /* G01F02S01.swift */,
 			);
 			name = F02;
 			sourceTree = "<group>";
@@ -816,6 +819,7 @@
 				8448883C1DB1D37C0010130A /* UpholdRatingViewController.swift in Sources */,
 				84459EE61D9649450087F986 /* G01F01VC.swift in Sources */,
 				92458D821D9647F500AB16DE /* UserProfileRespModel.swift in Sources */,
+				92B021AF1DC333EB00BE8AD7 /* G01F02S01.swift in Sources */,
 				842CA8E71D89045E003D9EFF /* menuAccountViewController.swift in Sources */,
 				842277C91D421E7E00611439 /* CheckBox.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
