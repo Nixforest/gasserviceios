@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class StepVC: CommonViewController, UIScrollViewDelegate {
+class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelegate {
     /** Step number */
     var _numberStep = 0
     /** Content */
@@ -36,7 +36,6 @@ class StepVC: CommonViewController, UIScrollViewDelegate {
         // Setup button Send
         self.view.addSubview(_btnSend)
         // Setup list step button
-        _listButton.btnTapped = btnReplyUpholdTapped
         self.view.addSubview(_listButton)
     }
     override func viewDidLayoutSubviews() {
@@ -85,12 +84,12 @@ class StepVC: CommonViewController, UIScrollViewDelegate {
             width: self.view.frame.width,
             height: GlobalConst.SCROLL_BUTTON_LIST_HEIGHT)
         _listButton.setup()
-        _listButton.moveNext()
+        _listButton.btnTapDelegate = self
     }
     func btnNextTapper() {
         _listButton.moveNext()
     }
-    func btnReplyUpholdTapped(_ sender: AnyObject) {
+    func selectButton(_ sender: AnyObject) {
         switch sender.tag {
         case 0:
             break

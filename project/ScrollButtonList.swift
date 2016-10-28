@@ -7,21 +7,30 @@
 //
 
 import UIKit
+/**
+ * Protocol to define delegate with match select button event.
+ */
+protocol ScrollButtonListDelegate {
+    /**
+     * Handle select button event.
+     * - parameter sender: Button object
+     */
+    func selectButton(_ sender: AnyObject)
+}
 
+/**
+ * Scrollable button list.
+ */
 class ScrollButtonList: UIScrollView {
     // MARK: Properties
-    /** Scroll view */
-    //var _scrollView = UIScrollView()
+    /** Button tap delegate */
+    var btnTapDelegate: ScrollButtonListDelegate?
     /** Number of buttons */
-    var _numberOfBtn = 0
+    var _numberOfBtn    = 0
     /** List buttons */
-    var _arrayBtn = [UIButton]()
-    /** List status */
-    var _arrayStatus = [Bool]()
-    /** Button tapped handler */
-    var btnTapped: ((AnyObject) -> ())?
+    var _arrayBtn       = [UIButton]()
     /** Current active */
-    var _currentActive = -1
+    var _currentActive  = -1
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -30,18 +39,20 @@ class ScrollButtonList: UIScrollView {
         // Drawing code
     }
     */
+    /**
+     * Default initializer.
+     */
     init() {
         super.init(frame: UIScreen.main.bounds);
-        
-        //for debug validation
-        self.backgroundColor = UIColor.blue;
-        print("My Custom Init");
         return;
     }
+    
+    /**
+     * Setup layout for this control
+     */
     func setup() {
         // List buttons
         for i in 0..<_numberOfBtn {
-            _arrayStatus.append(false)
             let button = UIButton()
             button.translatesAutoresizingMaskIntoConstraints = true
             button.frame = CGRect(
@@ -54,56 +65,103 @@ class ScrollButtonList: UIScrollView {
             button.setTitle(String(i + 1), for: .normal)
             button.setTitleColor(UIColor.white , for: .normal)
             button.backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_DISABLE
-            button.addTarget(self, action: #selector(setter: btnTapped), for: .touchUpInside)
+            button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
             button.isEnabled = false
             self.addSubview(button)
             _arrayBtn.append(button)
         }
-        self.contentSize = CGSize(
+        
+        // Layout for this control
+        self.contentSize        = CGSize(
             width: self.frame.width + (CGFloat)(self._numberOfBtn - 1) * GlobalConst.SCROLL_BUTTON_LIST_HEIGHT,
             height: self.frame.height)
-        self.backgroundColor = GlobalConst.SCROLLBUTTONLIST_BKG_COLOR
-        self.contentOffset = CGPoint(x: 0, y: 0)
-        self.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
-        self.bounces = true
+        self.backgroundColor    = GlobalConst.SCROLLBUTTONLIST_BKG_COLOR
+        self.contentOffset      = CGPoint(x: 0, y: 0)
+        self.contentInset       = UIEdgeInsetsMake(0, 0, 0, 0)
+        self.bounces            = true
+        self.moveNext()
     }
+    
+    /**
+     * Handle select button event.
+     * - parameter sender: Button object
+     */
+    func btnTapped(_ sender: AnyObject) {
+        btnTapDelegate?.selectButton(sender)
+    }
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
+    
+    /**
+     * Force move to specific button.
+     * - parameter current: Button index
+     */
     func moveTo(current: Int) {
-        if current < _numberOfBtn && current >= 0 {
+        // Check if button index is valid (0 -> _numberOfBtn - 1)
+        if ((current < _numberOfBtn) && (current >= 0)) {
+            // Set current button to enable status
+            _arrayBtn[_currentActive].backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_ENABLE
+            // Assign value of current button index
             self._currentActive = current
+            // Update layout
             update()
         }
     }
+    
+    /**
+     * Move to next button
+     * Call this method after finish setup layout
+     */
     func moveNext() {
+        // First time call -> Set first button is selecting
         if _currentActive == -1 {
             _currentActive += 1
             if _numberOfBtn > 0 {
                 _arrayBtn[_currentActive].backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_SELECTING
             }
-        } else if _currentActive < (_numberOfBtn - 1) {
-            // Move next
+        } else if (_currentActive < (_numberOfBtn - 1)) {
+            // Assign value of current button index
             _currentActive += 1
             update(isMoveNext: true)
+            // Update layout
         }
     }
+    
+    /**
+     * Move to previous button
+     */
     func moveBack() {
         if _currentActive > 0 {
-            // Move back
+            // Set current button to enable status
             _arrayBtn[_currentActive].backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_ENABLE
+            // Assign value of current button index
             _currentActive -= 1
+            // Update layout
             update()
         }
     }
+    
+    /**
+     * Update layout
+     * - parameter isMoveNext: Flag specific move next handle
+     */
     func update(isMoveNext: Bool = false) {
         if isMoveNext {
-            _arrayStatus[_currentActive - 1] = true
-            _arrayBtn[_currentActive - 1].backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_ENABLE
-            _arrayBtn[_currentActive - 1].isEnabled = true
+            _arrayBtn[_currentActive - 1].backgroundColor   = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_ENABLE
+            _arrayBtn[_currentActive - 1].isEnabled         = true
+            _arrayBtn[_currentActive].isEnabled             = true
         }
+        // Set current button to selecting status
         _arrayBtn[_currentActive].backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_SELECTING
-        self.scrollRectToVisible(CGRect(x: GlobalConst.SCROLL_BUTTON_LIST_HEIGHT * (CGFloat)(_currentActive), y: 0, width: self.frame.width, height: self.frame.height),
-                                        animated: true)
+        // Scroll to middle button
+        self.scrollRectToVisible(
+            CGRect(
+                x: GlobalConst.SCROLL_BUTTON_LIST_HEIGHT * (CGFloat)(_currentActive),
+                y: 0,
+                width: self.frame.width,
+                height: self.frame.height),
+            animated: true)
     }
 }
