@@ -105,7 +105,7 @@ class CommonViewController : UIViewController {
      * - parameter title: Title of view
      * - parameter isNotifyEnable: True is enable notify button, False otherwise
      */
-    func setupNavigationBar(title: String, isNotifyEnable: Bool) {
+    func setupNavigationBar(title: String, isNotifyEnable: Bool, isHiddenBackBtn: Bool = false) {
         // Set title
         self.navigationBar.title = title
         // Set color text
@@ -160,6 +160,7 @@ class CommonViewController : UIViewController {
         backNavBar.customView = backButton
         backNavBar.isEnabled = true
         navigationBar.setLeftBarButton(backNavBar, animated: false)
+        backButton.isHidden = isHiddenBackBtn
     }
     
     /**

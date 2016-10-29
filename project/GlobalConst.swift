@@ -176,6 +176,9 @@ class GlobalConst {
     static let CONTENT00183 = "Xin vui lòng đánh giá thông tin KH"
     static let CONTENT00184 = "Khách hàng báo ĐÚNG sự cố"
     static let CONTENT00185 = "Khách hàng báo SAI sự cố"
+    static let CONTENT00186 = "Trả lời bảo trì"
+    static let CONTENT00187 = "Xin nhập thông tin Người nghiệm thu"
+    static let CONTENT00188 = "Xin nhập thông tin Ghi chú nội bộ"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
@@ -223,6 +226,8 @@ class GlobalConst {
     static let ACCOUNT_AVATAR_H : CGFloat = 140
     static let ACCOUNT_ICON_SIZE : CGFloat = 40
     static let SCROLL_BUTTON_LIST_HEIGHT : CGFloat = BUTTON_HEIGHT
+    static let NORMAL_FONT_SIZE: CGFloat = 15.0
+    static let TEXTFIELD_FONT_SIZE: CGFloat = 14.0
     
     // ----- Color defines -----
     static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.MARGIN_CELL_Y * 2) / 5
@@ -298,6 +303,7 @@ class GlobalConst {
     static let NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW     = "G01F00S01VC.setData"
     static let NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW     = "G01F00S01VC.showSearchBarTableView"
     static let NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW  = "UpholdDetailViewController.setData"
+    static let NOTIFY_NAME_COFIG_ITEM_G01F02  = "G01F2VC.configItemTapped"
     
     // MARK: Domain constants
     /** Logo image name */

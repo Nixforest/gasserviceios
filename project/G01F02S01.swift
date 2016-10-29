@@ -33,12 +33,12 @@ class G01F02S01: StepContent {
         
         // Add button
         if Singleton.sharedInstance.listUpholdType.count > 0 {
-            for i in 0..<Singleton.sharedInstance.listUpholdStatus.count {
+            for i in 1..<Singleton.sharedInstance.listUpholdStatus.count {
                 let button = UIButton()
                 button.translatesAutoresizingMaskIntoConstraints = true
                 button.frame = CGRect(
                     x: (w - GlobalConst.BUTTON_W) / 2,
-                    y: GlobalConst.MARGIN + (CGFloat)(i) * (GlobalConst.BUTTON_H + GlobalConst.MARGIN),
+                    y: GlobalConst.MARGIN + (CGFloat)(i - 1) * (GlobalConst.BUTTON_H + GlobalConst.MARGIN),
                     width: GlobalConst.BUTTON_W,
                     height: GlobalConst.BUTTON_H)
                 button.tag = i

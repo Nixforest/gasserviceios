@@ -59,7 +59,7 @@ class HomeViewController: CommonViewController, UIPopoverPresentationControllerD
         homeTableView.backgroundColor = GlobalConst.PARENT_BORDER_COLOR_GRAY
         homeTableView.separatorStyle = .none
         //MARK: NavBar setup
-        setupNavigationBar(title: GlobalConst.CONTENT00108, isNotifyEnable: false)
+        setupNavigationBar(title: GlobalConst.CONTENT00108, isNotifyEnable: false, isHiddenBackBtn: true)
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.pushToLoginVC(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.pushToRegisterVC(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_REGISTER_ITEM), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.configButtonTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)

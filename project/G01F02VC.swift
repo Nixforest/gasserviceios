@@ -19,6 +19,10 @@ class G01F02VC: StepVC, StepDoneDelegate {
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT))
         var step3 = G01F02S03(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT))
+        var step4 = G01F02S04(w: GlobalConst.SCREEN_WIDTH,
+                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT))
+        var step5 = G01F02S05(w: GlobalConst.SCREEN_WIDTH,
+                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT))
         var summary = G01F02S07(w: GlobalConst.SCREEN_WIDTH,
                                 h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT))
         
@@ -31,6 +35,12 @@ class G01F02VC: StepVC, StepDoneDelegate {
         step3.stepDoneDelegate = self
         self.appendContent(stepContent: step3)
         listContent.append(step3)
+        step4.stepDoneDelegate = self
+        self.appendContent(stepContent: step4)
+        listContent.append(step4)
+        step5.stepDoneDelegate = self
+        self.appendContent(stepContent: step5)
+        listContent.append(step5)
         self._numberStep = listContent.count + 1
         super.setListContents(listContent: listContent)
         appendSummary(summary: summary)

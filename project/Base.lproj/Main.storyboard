@@ -368,7 +368,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="Emh-Nu-nF0">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gD4-20-kqM">
-                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
@@ -380,7 +380,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="CpC-w8-OAz">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Tha-Mu-96f">
-                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>
@@ -528,7 +528,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="5n4-M0-Yro">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FR9-Vx-Zff">
-                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
@@ -540,7 +540,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="Yic-LV-NZE">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LxY-V4-1QP">
-                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>
@@ -964,10 +964,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="uY3-1u-jTc">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="E7G-17-Iox">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gXS-Qg-UWe">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="LyN-mS-GqN">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="69e-OZ-suA">
+                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <segue destination="az1-Ig-NFE" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="69e-OZ-suA" id="50g-Lf-lAL">
+                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                        </segue>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="sMg-aX-5G0">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iTb-Ue-2fG">
+                                    <rect key="frame" x="197" y="7" width="83" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="backButton" destination="gXS-Qg-UWe" id="HXy-jI-u4v"/>
+                        <outlet property="menuButton" destination="69e-OZ-suA" id="jMg-Uf-gGQ"/>
+                        <outlet property="navigationBar" destination="uY3-1u-jTc" id="SCQ-ic-qvr"/>
+                        <outlet property="notificationButton" destination="iTb-Ue-2fG" id="Qrt-Se-pu2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VBj-QO-0Qo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1687" y="-849"/>
+            <point key="canvasLocation" x="-1978" y="-713"/>
         </scene>
         <!--Home Table View Controller-->
         <scene sceneID="GAq-fy-JtR">
@@ -982,7 +1019,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UGx-Tl-9Ff" id="Qvq-DZ-IaK">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -1385,7 +1422,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uHs-Pb-9Kl" id="ufp-uI-QHq">
-                                                    <frame key="frameInset" width="320" height="44"/>
+                                                    <frame key="frameInset" width="320" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-rT-a5I">
@@ -1611,6 +1648,7 @@
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="euP-sA-vBh">
                                     <rect key="frame" x="185" y="7" width="83" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>
                                 </button>
                             </barButtonItem>
@@ -1648,6 +1686,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PHU-OU-Sd6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2146" y="-1189"/>
+        </scene>
+        <!--MenuVC-->
+        <scene sceneID="MnU-1U-HtQ">
+            <objects>
+                <viewController storyboardIdentifier="G01F02MenuVC" id="az1-Ig-NFE" customClass="G01F02MenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tv6-d0-xaw"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vb7-MQ-4lY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dxt-6j-SlW">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="200" height="150"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cSn-Kn-fQ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1678" y="-1413"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JoG-DT-zQt">

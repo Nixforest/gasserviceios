@@ -12,9 +12,9 @@ class G01F02S03: StepContent {
     /** Selected value */
     static var _selectedValue: Bool = true
     /** Right button */
-    var rightButton = UIButton()
+    var _rightButton = UIButton()
     /** Wrong button */
-    var wrongButton = UIButton()
+    var _wrongButton = UIButton()
     
     /*
      // Only override draw() if you perform custom drawing.
@@ -34,34 +34,36 @@ class G01F02S03: StepContent {
         //contentView.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         // Right button
-        rightButton.translatesAutoresizingMaskIntoConstraints = true
-        rightButton.frame = CGRect(
+        _rightButton.translatesAutoresizingMaskIntoConstraints = true
+        _rightButton.frame = CGRect(
             x: (w - GlobalConst.BUTTON_W) / 2,
             y: GlobalConst.MARGIN,
             width: GlobalConst.BUTTON_W,
             height: GlobalConst.BUTTON_H)
-        rightButton.setTitle(GlobalConst.CONTENT00184, for: .normal)
-        rightButton.setTitleColor(UIColor.white , for: .normal)
-        rightButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        rightButton.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
-        rightButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        _rightButton.setTitle(GlobalConst.CONTENT00184, for: .normal)
+        _rightButton.setTitleColor(UIColor.white , for: .normal)
+        _rightButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        _rightButton.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
+        _rightButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        _rightButton.tag = 1
         offset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
-        contentView.addSubview(rightButton)
+        contentView.addSubview(_rightButton)
         
         // Wrong button
-        wrongButton.translatesAutoresizingMaskIntoConstraints = true
-        wrongButton.frame = CGRect(
+        _wrongButton.translatesAutoresizingMaskIntoConstraints = true
+        _wrongButton.frame = CGRect(
             x: (w - GlobalConst.BUTTON_W) / 2,
             y: GlobalConst.MARGIN + offset,
             width: GlobalConst.BUTTON_W,
             height: GlobalConst.BUTTON_H)
-        wrongButton.setTitle(GlobalConst.CONTENT00185, for: .normal)
-        wrongButton.setTitleColor(UIColor.white , for: .normal)
-        wrongButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        wrongButton.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
-        wrongButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        _wrongButton.setTitle(GlobalConst.CONTENT00185, for: .normal)
+        _wrongButton.setTitleColor(UIColor.white , for: .normal)
+        _wrongButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        _wrongButton.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
+        _wrongButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         offset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
-        contentView.addSubview(wrongButton)
+        _wrongButton.tag = 0
+        contentView.addSubview(_wrongButton)
         
         self.setup(mainView: contentView, title: GlobalConst.CONTENT00183,
                    contentHeight: offset,
@@ -78,7 +80,7 @@ class G01F02S03: StepContent {
      * Mark step done.
      */
     func btnTapped(_ sender: AnyObject) {
-        G01F02S01._selectedValue = Singleton.sharedInstance.listUpholdStatus[sender.tag]
+        G01F02S03._selectedValue = sender.tag == 1 ? true : false
         self.stepDoneDelegate?.stepDone()
     }
 }

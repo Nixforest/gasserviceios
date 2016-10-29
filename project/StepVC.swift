@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelegate {
+class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelegate, UIPopoverPresentationControllerDelegate {
     // MARK: Properties
     /** Step number */
     var _numberStep: Int                = 0
@@ -40,6 +40,9 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         // Setup list step button
         self.view.addSubview(_listButton)
         self.moveNext()
+        
+        // Setup navigation bar
+        setupNavigationBar(title: GlobalConst.CONTENT00186, isNotifyEnable: Singleton.sharedInstance.checkIsLogin())
     }
     
     override func viewDidLayoutSubviews() {
@@ -255,5 +258,22 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         summary.isHidden = true
         self._summary = summary
         self.view.addSubview(summary)
+    }
+    
+    /**
+     * Override: show menu controller
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
+            let popoverVC = segue.destination
+            popoverVC.popoverPresentationController?.delegate = self
+        }
+    }
+    
+    /**
+     * ...
+     */
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
 }
