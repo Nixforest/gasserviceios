@@ -131,6 +131,9 @@
 		92D92A141DA94E9B00CD9BBD /* LogoutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D92A131DA94E9B00CD9BBD /* LogoutRequest.swift */; };
 		92D92A161DA955CB00CD9BBD /* DomainConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D92A151DA955CB00CD9BBD /* DomainConst.swift */; };
 		92F337451D96DCC500FDACBF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F337441D96DCC500FDACBF /* LoadingView.swift */; };
+		92FC1A491DC3551000815EB9 /* G01F02S03.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A481DC3551000815EB9 /* G01F02S03.swift */; };
+		92FC1A4B1DC3CAC000815EB9 /* G01F02S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A4A1DC3CAC000815EB9 /* G01F02S02.swift */; };
+		92FC1A4D1DC3D3E800815EB9 /* G01F02S07.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -283,6 +286,9 @@
 		92D92A131DA94E9B00CD9BBD /* LogoutRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutRequest.swift; sourceTree = "<group>"; };
 		92D92A151DA955CB00CD9BBD /* DomainConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DomainConst.swift; sourceTree = "<group>"; };
 		92F337441D96DCC500FDACBF /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		92FC1A481DC3551000815EB9 /* G01F02S03.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S03.swift; sourceTree = "<group>"; };
+		92FC1A4A1DC3CAC000815EB9 /* G01F02S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S02.swift; sourceTree = "<group>"; };
+		92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S07.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -545,6 +551,9 @@
 			children = (
 				92BF0C211DC1B51C009B1DA4 /* G01F02VC.swift */,
 				92B021AE1DC333EB00BE8AD7 /* G01F02S01.swift */,
+				92FC1A4A1DC3CAC000815EB9 /* G01F02S02.swift */,
+				92FC1A481DC3551000815EB9 /* G01F02S03.swift */,
+				92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */,
 			);
 			name = F02;
 			sourceTree = "<group>";
@@ -768,6 +777,7 @@
 				92458D7F1D963EE900AB16DE /* UserProfileRequest.swift in Sources */,
 				84459EEC1D964BA10087F986 /* G01F01S03VC.swift in Sources */,
 				84EF50801D9437C200EE41B4 /* G01F00S02InfoView.swift in Sources */,
+				92FC1A491DC3551000815EB9 /* G01F02S03.swift in Sources */,
 				84EB7C931DAEA38800047DB7 /* CollectionViewCell1.swift in Sources */,
 				841273091D829E3A00BCC56D /* G01F00S01VC.swift in Sources */,
 				92D92A161DA955CB00CD9BBD /* DomainConst.swift in Sources */,
@@ -783,6 +793,7 @@
 				84EF507A1D94352600EE41B4 /* G01F00S02VC.swift in Sources */,
 				84F246861D93DDB300259C35 /* SearchBarTableViewCell.swift in Sources */,
 				84EF9C5F1D93C7680008B30F /* Singleton.swift in Sources */,
+				92FC1A4D1DC3D3E800815EB9 /* G01F02S07.swift in Sources */,
 				92B6A8111DB1DB3D001B0E69 /* UpholdBean.swift in Sources */,
 				9281C3B21DB94B4700BA17D7 /* UpholdReplyBean.swift in Sources */,
 				9281C3B01DB93EE600BA17D7 /* UpholdDetailRequest.swift in Sources */,
@@ -802,6 +813,7 @@
 				92B6DBAF1DACAC640017C70F /* MenuItemEnum.swift in Sources */,
 				927573241DC0F1CC000289BA /* G01F01MenuVC.swift in Sources */,
 				84459EEA1D964B930087F986 /* G01F01S02VC.swift in Sources */,
+				92FC1A4B1DC3CAC000815EB9 /* G01F02S02.swift in Sources */,
 				84DFE0091DA23AFD00A48B35 /* ReplyUpholdStep5ViewController.swift in Sources */,
 				84DFE0031DA23ADA00A48B35 /* ReplyUpholdStep2ViewController.swift in Sources */,
 				84EBBD251D8F8E7300FB4D25 /* InfomationViewController.swift in Sources */,

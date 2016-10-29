@@ -209,7 +209,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         
         // Fill data in training mode
         if Singleton.sharedInstance.checkTrainningMode() {
-            txtAccount.text = "sj1929"
+            txtAccount.text = "truongnd"
             txtPassword.text = "123123"
         }
     }

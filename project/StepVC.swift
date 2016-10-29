@@ -16,7 +16,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
     /** Summary */
     var _summary: StepSummary           = StepSummary()
     /** Current step */
-    var _currentStep: Int               = 0
+    var _currentStep: Int               = -1
     /** Back step button */
     var _btnBack: UIButton              = UIButton()
     /** Next step button */
@@ -39,6 +39,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         self.view.addSubview(_btnSend)
         // Setup list step button
         self.view.addSubview(_listButton)
+        self.moveNext()
     }
     
     override func viewDidLayoutSubviews() {
@@ -48,7 +49,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         setupListButton()
         
         // Setup step contents
-        for i in 0..<(_numberStep - 1) {
+        for i in 0..<(_numberStep - 2) {
             self.view.addSubview(self._arrayContent[i])
         }
     }
@@ -58,9 +59,10 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
      * - parameter listContent: List of content views
      */
     func setListContents(listContent: [StepContent]) {
-        if listContent.count == _numberStep {
+        if listContent.count == (_numberStep - 1) {
             for item in listContent {
                 self._arrayContent.append(item)
+                item.isHidden = true
             }
         }
     }
@@ -77,7 +79,8 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
             width: self.view.frame.width,
             height: GlobalConst.SCROLL_BUTTON_LIST_HEIGHT)
         _listButton.setup()
-        _listButton.btnTapDelegate = self    }
+        _listButton.btnTapDelegate = self
+    }
     
     /**
      * Set up buttons: Back, Next, Send
@@ -94,6 +97,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         _btnBack.backgroundColor    = GlobalConst.BUTTON_COLOR_RED
         _btnBack.tintColor          = UIColor.white
         _btnBack.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
+        //_btnBack.isHidden           = true
         
         // Set up button Next
         _btnNext.translatesAutoresizingMaskIntoConstraints = true
@@ -107,6 +111,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         _btnNext.backgroundColor    = GlobalConst.BUTTON_COLOR_RED
         _btnNext.tintColor          = UIColor.white
         _btnNext.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
+        //_btnNext.isHidden           = true
         
         // Setup button Send
         _btnSend.translatesAutoresizingMaskIntoConstraints = true
@@ -119,6 +124,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         _btnSend.backgroundColor    = GlobalConst.BUTTON_COLOR_RED
         _btnSend.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         _btnSend.tintColor          = UIColor.white
+        _btnSend.isHidden           = true
     }
     
     /**
@@ -147,14 +153,42 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
      * Move next screen
      */
     func moveNext() {
-        _listButton.moveNext()
+        if _currentStep == -1 {
+            _currentStep += 1
+            if _numberStep > 0 {
+                _arrayContent[_currentStep].isHidden = false
+            }
+        } else if (_currentStep < (_numberStep - 2)) {
+            _arrayContent[_currentStep].isHidden = true
+            _currentStep += 1
+            _listButton.moveNext()
+            _arrayContent[_currentStep].isHidden = false
+        } else if _currentStep == (_numberStep - 2) {
+            _currentStep += 1
+            _listButton.moveNext()
+            _summary.isHidden = false
+        }
+        updateButton()
     }
     
     /**
      * Move previous screen
      */
     func moveBack() {
-        _listButton.moveBack()
+        if _currentStep > 0 {
+            if _currentStep == (_numberStep - 1) {
+                _summary.isHidden = true
+                _currentStep -= 1
+                _arrayContent[_currentStep].isHidden = false
+                _listButton.moveBack()
+            } else {
+                _arrayContent[_currentStep].isHidden = true
+                _currentStep -= 1
+                _arrayContent[_currentStep].isHidden = false
+                _listButton.moveBack()
+            }
+        }
+        updateButton()
     }
     
     /**
@@ -162,6 +196,64 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
      * - parameter current: Screen index
      */
     func moveTo(current: Int) {
-        _listButton.moveTo(current: current)
+        if ((_currentStep < _numberStep) && (_currentStep >= 0)) {
+            // Current screen is summary screen
+            if _currentStep == (_numberStep - 1) {
+                _summary.isHidden = true
+                _currentStep = current
+                _arrayContent[_currentStep].isHidden = false
+            } else if current == (_numberStep - 1) {
+                _arrayContent[_currentStep].isHidden = true
+                _currentStep = current
+                _summary.isHidden = false
+            } else {
+                _arrayContent[_currentStep].isHidden = true
+                _currentStep = current
+                _arrayContent[_currentStep].isHidden = false
+            }
+            _listButton.moveTo(current: current)
+        }
+        updateButton()
+    }
+    
+    /**
+     * Update show/hide status of back-next-send button
+     */
+    func updateButton() {
+        if _currentStep == 0 {
+            _btnBack.isHidden = true
+        }
+        if _currentStep == (_numberStep - 1) {
+            _btnNext.isHidden = true
+            _btnSend.isHidden = false
+        }
+        if _currentStep < (_numberStep - 1) {
+            _btnNext.isHidden = false
+        }
+        if _currentStep > 0 {
+            _btnBack.isHidden = false
+        }
+    }
+    func appendContent(stepContent: StepContent) {
+        let height = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        stepContent.translatesAutoresizingMaskIntoConstraints = true
+        stepContent.frame = CGRect(
+            x: 0,
+            y: height,
+            width: GlobalConst.SCREEN_WIDTH,
+            height: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT))
+        self.view.addSubview(stepContent)
+    }
+    func appendSummary(summary: StepSummary) {
+        let height = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        summary.translatesAutoresizingMaskIntoConstraints = true
+        summary.frame = CGRect(
+            x: 0,
+            y: height,
+            width: GlobalConst.SCREEN_WIDTH,
+            height: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT))
+        summary.isHidden = true
+        self._summary = summary
+        self.view.addSubview(summary)
     }
 }

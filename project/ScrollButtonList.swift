@@ -8,17 +8,6 @@
 
 import UIKit
 /**
- * Protocol to define delegate with match select button event.
- */
-protocol ScrollButtonListDelegate {
-    /**
-     * Handle select button event.
-     * - parameter sender: Button object
-     */
-    func selectButton(_ sender: AnyObject)
-}
-
-/**
  * Scrollable button list.
  */
 class ScrollButtonList: UIScrollView {
@@ -77,6 +66,7 @@ class ScrollButtonList: UIScrollView {
             width: self.frame.width + (CGFloat)(self._numberOfBtn - 1) * GlobalConst.SCROLL_BUTTON_LIST_HEIGHT,
             height: self.frame.height)
         self.backgroundColor    = GlobalConst.SCROLLBUTTONLIST_BKG_COLOR
+        self.layer.borderWidth  = GlobalConst.BUTTON_BORDER_WIDTH
         self.contentOffset      = CGPoint(x: 0, y: 0)
         self.contentInset       = UIEdgeInsetsMake(0, 0, 0, 0)
         self.bounces            = true

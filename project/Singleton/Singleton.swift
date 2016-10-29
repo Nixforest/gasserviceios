@@ -34,6 +34,8 @@ class Singleton: NSObject {
     var listUpholdStatus: [ConfigBean] = [ConfigBean]()
     /** List uphold type */
     var listUpholdType: [ConfigBean] = [ConfigBean]()
+    /** List hour handle */
+    var listHourHandle: [ConfigBean] = [ConfigBean]()
     /** Id of role */
     var role_id: String = ""
     /** List user info */
@@ -179,6 +181,7 @@ class Singleton: NSObject {
         for item in loginModel.data_uphold {
             // Uphold status data
             if item.id == DomainConst.KEY_STATUS {
+                self.listUpholdStatus.removeAll()
                 for status in item.data {
                     self.listUpholdStatus.append(status)
                 }
@@ -186,8 +189,16 @@ class Singleton: NSObject {
             
             // List uphold type
             if item.id == DomainConst.KEY_UPHOLD_TYPE {
+                self.listUpholdType.removeAll()
                 for type in item.data {
                     self.listUpholdType.append(type)
+                }
+            }
+            // List hour handle
+            if item.id == DomainConst.KEY_HOURS_HANDLE {
+                self.listHourHandle.removeAll()
+                for hour in item.data {
+                    self.listHourHandle.append(hour)
                 }
             }
         }

@@ -10,12 +10,14 @@ import UIKit
 
 class StepContent: UIView {
     // MARK: Properties
+    /** Step done delegate */
+    var stepDoneDelegate: StepDoneDelegate?
     /** Title */
-    var _lblTitle: UILabel           = UILabel()
+    var _lblTitle: UILabel          = UILabel()
     /** Scroll view */
-    var _scrollView: UIScrollView    = UIScrollView()
+    var _scrollView: UIScrollView   = UIScrollView()
     /** Main view */
-    var _mainView: UIView?//            = UIView()
+    var _mainView: UIView?
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -37,7 +39,16 @@ class StepContent: UIView {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
-    func setup(mainView: UIView) {
+    
+    /**
+     * Setup layout for content view
+     * - parameter mainView: Main view
+     */
+    func setup(mainView: UIView, title: String, contentHeight: CGFloat,
+               width: CGFloat, height: CGFloat) {
+        self.frame = CGRect(
+            x: 0, y: 0,
+            width: width, height: height)
         // Label title
         _lblTitle.translatesAutoresizingMaskIntoConstraints = true
         _lblTitle.frame = CGRect(
@@ -45,20 +56,24 @@ class StepContent: UIView {
             y: 0,
             width: self.frame.width,
             height: GlobalConst.LABEL_HEIGHT)
-        //_lblTitle.text               = GlobalConst.CONTENT00181
+        _lblTitle.text               = title
         _lblTitle.textAlignment      = NSTextAlignment.center
         _lblTitle.font               = UIFont.boldSystemFont(ofSize: 15.0)
-        _lblTitle.backgroundColor    = GlobalConst.BACKGROUND_COLOR_GRAY
         self.addSubview(_lblTitle)
         
         // Main view
+        var mainViewHeight: CGFloat = 0
+        if contentHeight < (self.frame.height - _lblTitle.frame.height) {
+            mainViewHeight = self.frame.height - _lblTitle.frame.height
+        } else {
+            mainViewHeight = contentHeight
+        }
         _mainView = mainView
         _mainView?.translatesAutoresizingMaskIntoConstraints = true
         _mainView?.frame = CGRect(
             x: 0, y: 0,
             width: self.frame.width,
-            height: 800)
-        //self.addSubview(_mainView!)
+            height: mainViewHeight)
         
         // Scrollview
         _scrollView.translatesAutoresizingMaskIntoConstraints = true
@@ -71,7 +86,7 @@ class StepContent: UIView {
             width: (_mainView?.frame.width)!,
             height: (_mainView?.frame.height)!)
         _scrollView.addSubview(_mainView!)
-        CommonProcess.setBorder(view: _scrollView)
+        
         self.addSubview(_scrollView)
     }
 }

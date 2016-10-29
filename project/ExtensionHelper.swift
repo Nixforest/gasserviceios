@@ -89,3 +89,22 @@ extension CALayer {
         addBorder(edge: edge, color: GlobalConst.BACKGROUND_COLOR_GRAY, thickness: 1)
     }
 }
+/**
+ * Protocol to define delegate with match select button event.
+ */
+protocol ScrollButtonListDelegate {
+    /**
+     * Handle select button event.
+     * - parameter sender: Button object
+     */
+    func selectButton(_ sender: AnyObject)
+}
+/**
+ * Protocol to define delegate with match step done event.
+ */
+protocol StepDoneDelegate {
+    /**
+     * Handle step done event.
+     */
+    func stepDone()
+}
