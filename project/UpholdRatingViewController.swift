@@ -319,7 +319,7 @@ class UpholdRatingViewController: CommonViewController {
         btnStep0.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnStep0.setTitle("1", for: .normal)
         btnStep0.setTitleColor(UIColor.white , for: .normal)
-        btnStep0.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+        btnStep0.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
         btnStep0.tag = 0
         viewBtn.addSubview(btnStep0)
         // Btn 1

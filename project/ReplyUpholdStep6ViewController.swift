@@ -179,7 +179,8 @@ class ReplyUpholdStep6ViewController: UIViewController, UICollectionViewDataSour
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        return CGSize(width: viewContent.frame.size.height - (GlobalConst.LABEL_HEIGHT * 5) - (GlobalConst.PARENT_BORDER_WIDTH * 3), height: viewContent.frame.size.height - (GlobalConst.LABEL_HEIGHT * 5) - (GlobalConst.PARENT_BORDER_WIDTH * 3))
+        return CGSize(width: viewContent.frame.size.height - (GlobalConst.LABEL_HEIGHT * 5) - (GlobalConst.PARENT_BORDER_WIDTH * 3),
+                      height: viewContent.frame.size.height - (GlobalConst.LABEL_HEIGHT * 5) - (GlobalConst.PARENT_BORDER_WIDTH * 3))
     }
 
     

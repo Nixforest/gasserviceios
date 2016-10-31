@@ -70,20 +70,37 @@ class StepSummary: UIView {
         _mainView?.translatesAutoresizingMaskIntoConstraints = true
         _mainView?.frame = CGRect(
             x: 0, y: 0,
-            width: self.frame.width,
+            width: self.frame.width - GlobalConst.MARGIN_CELL_X * 2,
             height: mainViewHeight)
+        _mainView?.backgroundColor = UIColor.white
         
         // Scrollview
         _scrollView.translatesAutoresizingMaskIntoConstraints = true
         _scrollView.frame = CGRect(
-            x: 0,
+            x: GlobalConst.MARGIN_CELL_X,
             y: _tbxTitle.frame.maxY,
-            width: self.frame.width,
+            width: self.frame.width - GlobalConst.MARGIN_CELL_X * 2,
             height: self.frame.height - _tbxTitle.frame.height)
         _scrollView.contentSize = CGSize(
             width: (_mainView?.frame.width)!,
             height: (_mainView?.frame.height)!)
+        CommonProcess.setBorder(view: _scrollView)
         _scrollView.addSubview(_mainView!)
         self.addSubview(_scrollView)
+    }
+    func updateLayout(contentHeight: CGFloat) {
+        var mainViewHeight: CGFloat = 0
+        if contentHeight < (self.frame.height - _tbxTitle.frame.height) {
+            mainViewHeight = self.frame.height - _tbxTitle.frame.height
+        } else {
+            mainViewHeight = contentHeight
+        }
+        _mainView?.frame = CGRect(
+            x: 0, y: 0,
+            width: (_mainView?.frame.width)!,
+            height: mainViewHeight)
+        _scrollView.contentSize = CGSize(
+            width: (_mainView?.frame.width)!,
+            height: (_mainView?.frame.height)!)
     }
 }

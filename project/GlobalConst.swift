@@ -179,6 +179,11 @@ class GlobalConst {
     static let CONTENT00186 = "Trả lời bảo trì"
     static let CONTENT00187 = "Xin nhập thông tin Người nghiệm thu"
     static let CONTENT00188 = "Xin nhập thông tin Ghi chú nội bộ"
+    static let CONTENT00189 = "Xin bổ sung Hình ảnh liên quan"
+    static let CONTENT00190 = "Bạn đang gửi thông tin trả lời như bên dưới cho chúng tôi. Xin hãy kiểm tra lại các thông tin cho thật chính xác và nhấn nút Gửi nếu bạn đồng ý."
+    static let CONTENT00191 = "Khách hàng báo sai sự cố"
+    static let CONTENT00192 = "Thời gian"
+    static let CONTENT00193 = "Nghiệm thu"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
@@ -228,6 +233,7 @@ class GlobalConst {
     static let SCROLL_BUTTON_LIST_HEIGHT : CGFloat = BUTTON_HEIGHT
     static let NORMAL_FONT_SIZE: CGFloat = 15.0
     static let TEXTFIELD_FONT_SIZE: CGFloat = 14.0
+    static let BUTTON_FONT_SIZE: CGFloat = NORMAL_FONT_SIZE
     
     // ----- Color defines -----
     static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.MARGIN_CELL_Y * 2) / 5
@@ -235,13 +241,13 @@ class GlobalConst {
     static let BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
     static let BUTTON_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
     static let BUTTON_COLOR_DISABLE:UIColor = ColorFromRGB().getColorFromRGB(0xEA9E00)
-    static let BUTTON_COLOR_SELECTING:UIColor = ColorFromRGB().getColorFromRGB(0x08C011)
+    static let COLOR_SELECTING_GREEN:UIColor = ColorFromRGB().getColorFromRGB(0x08C011)
     static let PARENT_BORDER_COLOR_GRAY:UIColor = UIColor.gray
     static let PARENT_BORDER_COLOR_YELLOW:UIColor = UIColor.yellow
     static let BACKGROUND_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xECECEC)
     static let SCROLLBUTTONLIST_BKG_COLOR:UIColor = BUTTON_COLOR_GRAY
     static let SCROLLBUTTONLIST_BTN_BKG_COLOR_DISABLE:UIColor = BUTTON_COLOR_DISABLE
-    static let SCROLLBUTTONLIST_BTN_BKG_COLOR_SELECTING:UIColor = BUTTON_COLOR_SELECTING
+    static let SCROLLBUTTONLIST_BTN_BKG_COLOR_SELECTING:UIColor = COLOR_SELECTING_GREEN
     static let SCROLLBUTTONLIST_BTN_BKG_COLOR_ENABLE:UIColor = BUTTON_COLOR_RED
     
     
@@ -285,6 +291,8 @@ class GlobalConst {
     static let UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL = "G01F00S02HistoryCell"
     /** Pop overmenu identifier */
     static let POPOVER_MENU_IDENTIFIER = "popOverMenu"
+    /** G01F02S06 table view cell */
+    static let G01_F02_S06_CELL = "step5TableViewCell"
     
     // MARK: Notification name
     static let NOTIFY_NAME_LOGIN_ITEM                   = "loginItemTapped"
@@ -303,7 +311,8 @@ class GlobalConst {
     static let NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW     = "G01F00S01VC.setData"
     static let NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW     = "G01F00S01VC.showSearchBarTableView"
     static let NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW  = "UpholdDetailViewController.setData"
-    static let NOTIFY_NAME_COFIG_ITEM_G01F02  = "G01F2VC.configItemTapped"
+    static let NOTIFY_NAME_COFIG_ITEM_G01F02            = "G01F2VC.configItemTapped"
+    static let NOTIFY_NAME_SET_DATA_G02F02              = "G01F2VC.setData"
     
     // MARK: Domain constants
     /** Logo image name */

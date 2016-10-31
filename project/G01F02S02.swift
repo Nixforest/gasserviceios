@@ -24,7 +24,7 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
     /**
      * Default initializer.
      */
-    init(w: CGFloat, h: CGFloat) {
+    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
         super.init()
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = true
@@ -43,6 +43,8 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
         _pkView.delegate = self
         contentView.addSubview(_pkView)
         
+        // Set parent
+        self._parent = parent
         self.setup(mainView: contentView, title: GlobalConst.CONTENT00182, contentHeight: GlobalConst.SCREEN_HEIGHT / 3,
                    width: w, height: h)
         return
@@ -50,15 +52,6 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    /**
-     * Handle save selected data.
-     * Mark step done.
-     */
-    func btnTapped(_ sender: AnyObject) {
-        G01F02S01._selectedValue = Singleton.sharedInstance.listUpholdStatus[sender.tag]
-        self.stepDoneDelegate?.stepDone()
     }
     
     // MARK: - Picker Delegate
@@ -69,10 +62,14 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
         return GlobalConst.LABEL_HEIGHT
     }
     public func pickerView(_ pkviewStep1: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if G01F02S02._selectedValue.id == Singleton.sharedInstance.listHourHandle[row].id {
+            _pkView.selectedRow(inComponent: row)
+        }
         return Singleton.sharedInstance.listHourHandle[row].name
     }
     public func pickerView(_ pkviewStep1: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         G01F02S02._selectedValue = Singleton.sharedInstance.listHourHandle[row]
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
     }
     func pickerView(_ pkviewStep1: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let attributedString = NSAttributedString(string: Singleton.sharedInstance.listHourHandle[row].name, attributes: [NSForegroundColorAttributeName : UIColor.white])
@@ -85,6 +82,15 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     func pickerView(_ pkviewStep1: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return Singleton.sharedInstance.listHourHandle.count
+    }
+    
+    override func checkDone() -> Bool {
+        if G01F02S02._selectedValue.id.isEmpty {
+            self._parent?.showAlert(message: GlobalConst.CONTENT00182)
+            return false
+        } else {
+            return true
+        }
     }
 }
 

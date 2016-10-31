@@ -57,35 +57,35 @@ class ReplyUpholdStep0ViewController: UIViewController {
     func buttonChosen(aButton: UIButton) {
         switch aButton.tag {
         case 0:
-            btnProblem0.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+            btnProblem0.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
             btnProblem1.backgroundColor = GlobalConst.BUTTON_COLOR_RED
             btnProblem2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
             btnProblem3.backgroundColor = GlobalConst.BUTTON_COLOR_RED
             btnProblem4.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         case 1:
             btnProblem0.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-            btnProblem1.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+            btnProblem1.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
             btnProblem2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
             btnProblem3.backgroundColor = GlobalConst.BUTTON_COLOR_RED
             btnProblem4.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         case 2:
             btnProblem0.backgroundColor = GlobalConst.BUTTON_COLOR_RED
             btnProblem1.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-            btnProblem2.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+            btnProblem2.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
             btnProblem3.backgroundColor = GlobalConst.BUTTON_COLOR_RED
             btnProblem4.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         case 3:
             btnProblem0.backgroundColor = GlobalConst.BUTTON_COLOR_RED
             btnProblem1.backgroundColor = GlobalConst.BUTTON_COLOR_RED
             btnProblem2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-            btnProblem3.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+            btnProblem3.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
             btnProblem4.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         case 4:
             btnProblem0.backgroundColor = GlobalConst.BUTTON_COLOR_RED
             btnProblem1.backgroundColor = GlobalConst.BUTTON_COLOR_RED
             btnProblem2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
             btnProblem3.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-            btnProblem4.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+            btnProblem4.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
         default:
             break
         }

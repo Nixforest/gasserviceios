@@ -11,8 +11,8 @@ import UIKit
 class G01F02S05: StepContent, UITextViewDelegate {
     /** Selected value */
     static var _selectedValue: String = ""
-    /** Name textfield */
-    var _tbxName = UITextView()
+    /** Note textfield */
+    var _tbxNote = UITextView()
     /** Flag show keyboard */
     var _isKeyboardShow: Bool = false
     
@@ -26,7 +26,7 @@ class G01F02S05: StepContent, UITextViewDelegate {
     /**
      * Default initializer.
      */
-    init(w: CGFloat, h: CGFloat) {
+    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
         super.init()
         var offset: CGFloat = 0
         let contentView = UIView()
@@ -34,32 +34,34 @@ class G01F02S05: StepContent, UITextViewDelegate {
         //contentView.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         // Name textfield
-        _tbxName.frame = CGRect(
+        _tbxNote.frame = CGRect(
             x: (w - GlobalConst.EDITTEXT_W) / 2,
             y: GlobalConst.MARGIN,
             width: GlobalConst.EDITTEXT_W,
             height: GlobalConst.EDITTEXT_H * 5)
-        _tbxName.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
-        _tbxName.backgroundColor = UIColor.lightGray
-        _tbxName.autocorrectionType = .no
-        _tbxName.translatesAutoresizingMaskIntoConstraints = true
-        _tbxName.returnKeyType = .done
-        _tbxName.tag = 0
-        _tbxName.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        //_tbxName.mul
+        _tbxNote.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+        _tbxNote.backgroundColor = UIColor.white
+        _tbxNote.autocorrectionType = .no
+        _tbxNote.translatesAutoresizingMaskIntoConstraints = true
+        _tbxNote.returnKeyType = .done
+        _tbxNote.tag = 0
+        _tbxNote.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        //_tbxNote.becomeFirstResponder()
         offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
-        contentView.addSubview(_tbxName)
+        contentView.addSubview(_tbxNote)
         
+        // Set parent
+        self._parent = parent
         self.setup(mainView: contentView, title: GlobalConst.CONTENT00188,
                    contentHeight: offset,
                    width: w, height: h)
         // Set data
         if !G01F02S05._selectedValue.isEmpty {
-            _tbxName.text = G01F02S04._selectedValue.name
+            _tbxNote.text = G01F02S04._selectedValue.name
         }
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         self.addGestureRecognizer(gesture)
-        _tbxName.delegate = self
+        _tbxNote.delegate = self
         return
     }
     
@@ -69,6 +71,7 @@ class G01F02S05: StepContent, UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         G01F02S05._selectedValue = textView.text
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
     }
     
     /**
@@ -100,5 +103,14 @@ class G01F02S05: StepContent, UITextViewDelegate {
      */
     func hideKeyboard(_ sender:UITapGestureRecognizer){
         hideKeyboard()
+    }
+    
+    override func checkDone() -> Bool {
+        if G01F02S05._selectedValue.isEmpty {
+            self._parent?.showAlert(message: GlobalConst.CONTENT00188)
+            return false
+        } else {
+            return true
+        }
     }
 }

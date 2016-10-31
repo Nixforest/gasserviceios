@@ -318,7 +318,7 @@ class ReplyUpholdViewController: UIViewController, UIScrollViewDelegate {
     func moveButtonToMiddle(aButton:UIButton) {
         scrViewButton.scrollRectToVisible(CGRect(x: GlobalConst.BUTTON_HEIGHT * CGFloat(aButton.tag), y: 0, width:GlobalConst.SCREEN_WIDTH, height: GlobalConst.BUTTON_HEIGHT), animated: true)
      
-        aButton.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+        aButton.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
     }
     
     // MARK: - Set button color
@@ -626,7 +626,7 @@ class ReplyUpholdViewController: UIViewController, UIScrollViewDelegate {
         btnReplyUpholdStep0.layer.cornerRadius = 0.5 * GlobalConst.BUTTON_HEIGHT
         btnReplyUpholdStep0.setTitle("1", for: .normal)
         btnReplyUpholdStep0.setTitleColor(UIColor.white , for: .normal)
-        btnReplyUpholdStep0.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+        btnReplyUpholdStep0.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
         btnReplyUpholdStep0.tag = 0
         // Btn 1
         btnReplyUpholdStep1.translatesAutoresizingMaskIntoConstraints = true

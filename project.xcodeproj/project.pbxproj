@@ -110,6 +110,7 @@
 		9281C3B21DB94B4700BA17D7 /* UpholdReplyBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281C3B11DB94B4700BA17D7 /* UpholdReplyBean.swift */; };
 		9281C3B41DB9527400BA17D7 /* UpholdDetailRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281C3B31DB9527400BA17D7 /* UpholdDetailRespModel.swift */; };
 		928D3AAA1DB60F31001E5E76 /* gasservice.png in Resources */ = {isa = PBXBuildFile; fileRef = 928D3AA91DB60F31001E5E76 /* gasservice.png */; };
+		92ADD3FE1DC655F000070FAA /* G01F02S06.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADD3FD1DC655F000070FAA /* G01F02S06.swift */; };
 		92B021AF1DC333EB00BE8AD7 /* G01F02S01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B021AE1DC333EB00BE8AD7 /* G01F02S01.swift */; };
 		92B39DC11DAA0F22007DDB4C /* ChangePassRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */; };
 		92B6A80F1DB1DA98001B0E69 /* UpholdListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */; };
@@ -268,6 +269,7 @@
 		9281C3B11DB94B4700BA17D7 /* UpholdReplyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdReplyBean.swift; sourceTree = "<group>"; };
 		9281C3B31DB9527400BA17D7 /* UpholdDetailRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailRespModel.swift; sourceTree = "<group>"; };
 		928D3AA91DB60F31001E5E76 /* gasservice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gasservice.png; sourceTree = "<group>"; };
+		92ADD3FD1DC655F000070FAA /* G01F02S06.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S06.swift; sourceTree = "<group>"; };
 		92B021AE1DC333EB00BE8AD7 /* G01F02S01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S01.swift; sourceTree = "<group>"; };
 		92B39DC01DAA0F22007DDB4C /* ChangePassRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassRequest.swift; sourceTree = "<group>"; };
 		92B6A80E1DB1DA98001B0E69 /* UpholdListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdListRespModel.swift; sourceTree = "<group>"; };
@@ -561,6 +563,7 @@
 				92FC1A481DC3551000815EB9 /* G01F02S03.swift */,
 				92C674BF1DC526D200E8BFEA /* G01F02S04.swift */,
 				92C674C11DC53B8400E8BFEA /* G01F02S05.swift */,
+				92ADD3FD1DC655F000070FAA /* G01F02S06.swift */,
 				92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */,
 				926346411DC45263007CEBC6 /* G01F02MenuVC.swift */,
 			);
@@ -781,6 +784,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				844888431DB1E2930010130A /* UpholdRatingStep2ViewController.swift in Sources */,
+				92ADD3FE1DC655F000070FAA /* G01F02S06.swift in Sources */,
 				8448883F1DB1E2760010130A /* UpholdRatingStep0ViewController.swift in Sources */,
 				92C674C21DC53B8400E8BFEA /* G01F02S05.swift in Sources */,
 				92458D761D961B3C00AB16DE /* ConfigBean.swift in Sources */,

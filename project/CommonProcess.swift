@@ -169,6 +169,26 @@ class CommonProcess {
     }
     
     /**
+     * Set layout for left controls
+     * - parameter lbl:     Label control
+     * - parameter offset:  Y offset
+     * - parameter width:   Width of layout
+     * - parameter height:  Height of layout
+     * - parameter text:    Control's text
+     */
+    static func setLayoutLeft(lbl: UILabel, offset: CGFloat, width: CGFloat, height: CGFloat, text: String, isDrawTopBorder: Bool = true) {
+        lbl.translatesAutoresizingMaskIntoConstraints = true
+        lbl.frame = CGRect(x: GlobalConst.MARGIN_CELL_X, y: offset,
+                           width: width,
+                           height: height)
+        lbl.text = text
+        if isDrawTopBorder {
+            lbl.layer.addBorder(edge: UIRectEdge.top)
+        }
+        lbl.layer.addBorder(edge: UIRectEdge.right)
+    }
+    
+    /**
      * Set layout for right controls
      * - parameter lbl:     TextView control
      * - parameter offset:  Y offset
@@ -193,5 +213,71 @@ class CommonProcess {
             lbl.layer.addBorder(edge: UIRectEdge.top)
         }
         lbl.isEditable = false
+    }
+    
+    /**
+     * Set layout for right controls
+     * - parameter lbl:     TextView control
+     * - parameter x:       X offset
+     * - parameter y:       Y offset
+     * - parameter width:   Width of layout
+     * - parameter height:  Height of layout
+     * - parameter text:    Control's text
+     */
+    static func setLayoutRight(lbl: UITextView, x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, text: String, isDrawTopBorder: Bool = true) {
+        lbl.translatesAutoresizingMaskIntoConstraints = true
+        lbl.text = text
+        let topOffset =
+            CommonProcess.alignTextVerticalInTextView(textView: lbl)
+        lbl.frame = CGRect(x: x,
+                           y: y,
+                           width: width,
+                           height: height)
+        lbl.contentOffset = CGPoint(x: 0, y: -topOffset)
+        lbl.frame = CGRect(x: x,
+                           y: y,
+                           width: width,
+                           height: height)
+        if isDrawTopBorder {
+            lbl.layer.addBorder(edge: UIRectEdge.top)
+        }
+        lbl.isEditable = false
+    }
+    
+    /**
+     * Mark button is selected
+     * - parameter button: Buton to mark
+     */
+    static func markButton(button: UIButton) {
+        button.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
+    }
+    
+    /**
+     * Mark button is deselected
+     * - parameter button: Buton to mark
+     */
+    static func unMarkButton(button: UIButton) {
+        button.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+    }
+    
+    /**
+     * Create layout for normal button
+     * - parameter btn:     Button to create layout
+     * - parameter x:       X position
+     * - parameter y:       Y position
+     * - parameter text:    Button's title
+     */
+    static func createButtonLayout(btn: UIButton, x: CGFloat, y: CGFloat,
+                             text: String) {
+        
+        btn.translatesAutoresizingMaskIntoConstraints = true
+        btn.frame = CGRect(x: x, y: y,
+                           width: GlobalConst.BUTTON_W,
+                           height: GlobalConst.BUTTON_H)
+        btn.setTitle(text, for: .normal)
+        btn.setTitleColor(UIColor.white , for: .normal)
+        btn.titleLabel?.font    = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+        btn.backgroundColor     = GlobalConst.BUTTON_COLOR_RED
+        btn.layer.cornerRadius  = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
     }
 }

@@ -40,6 +40,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         // Setup list step button
         self.view.addSubview(_listButton)
         self.moveNext()
+        self.view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         // Setup navigation bar
         setupNavigationBar(title: GlobalConst.CONTENT00186, isNotifyEnable: Singleton.sharedInstance.checkIsLogin())
@@ -135,21 +136,39 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
      * - parameter sender: Button is tapped
      */
     func selectButton(_ sender: AnyObject) {
-        moveTo(current: sender.tag)
+        // Current is summary
+        if self._currentStep == (self._numberStep - 1) {
+            moveTo(current: sender.tag)
+        } else if (self._currentStep >= 0) {
+            if self._arrayContent[self._currentStep].checkDone() {
+                moveTo(current: sender.tag)
+            }
+        }
     }
     
     /**
      * Handle next tap button
      */
     func btnNextTapper() {
-        moveNext()
+        if self._currentStep < (self._numberStep - 1) {
+            if self._arrayContent[self._currentStep].checkDone() {
+                moveNext()
+            }
+        }
     }
     
     /**
      * Handle back tap button
      */
     func btnBackTapper() {
-        moveBack()
+        // Current is summary
+        if self._currentStep == (self._numberStep - 1) {
+            moveBack()
+        } else if (self._currentStep > 0) {
+            if self._arrayContent[self._currentStep].checkDone() {
+                moveBack()
+            }
+        }
     }
     
     /**
@@ -199,7 +218,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
      * - parameter current: Screen index
      */
     func moveTo(current: Int) {
-        if ((_currentStep < _numberStep) && (_currentStep >= 0)) {
+        if ((current < _numberStep) && (current >= 0) && (current != _currentStep)) {
             // Current screen is summary screen
             if _currentStep == (_numberStep - 1) {
                 _summary.isHidden = true

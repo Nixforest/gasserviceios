@@ -28,7 +28,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
     /**
      * Default initializer.
      */
-    init(w: CGFloat, h: CGFloat) {
+    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
         super.init()
         var offset: CGFloat = 0
         let contentView = UIView()
@@ -52,6 +52,10 @@ class G01F02S04: StepContent, UITextFieldDelegate {
         _tbxName.returnKeyType = .next
         _tbxName.tag = 0
         _tbxName.autocapitalizationType = .words
+        if !G01F02S04._selectedValue.name.isEmpty {
+            _tbxName.text = G01F02S04._selectedValue.name
+        }
+        //_tbxName.becomeFirstResponder()
         offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
         contentView.addSubview(_tbxName)
         
@@ -63,6 +67,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
             height: GlobalConst.EDITTEXT_H)
         _tbxPhone.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
         _tbxPhone.borderStyle = .roundedRect
+        _tbxPhone.keyboardType = .phonePad
         _tbxPhone.autocorrectionType = .no
         _tbxPhone.clearButtonMode = .whileEditing
         _tbxPhone.placeholder = GlobalConst.CONTENT00054
@@ -70,9 +75,14 @@ class G01F02S04: StepContent, UITextFieldDelegate {
         _tbxPhone.addTarget(self, action: #selector(textFieldPhoneDidChange(_:)), for: .editingChanged)
         _tbxPhone.returnKeyType = .done
         _tbxPhone.tag = 1
+        if !G01F02S04._selectedValue.phone.isEmpty {
+            _tbxPhone.text = G01F02S04._selectedValue.phone
+        }
         offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
         contentView.addSubview(_tbxPhone)
         
+        // Set parent
+        self._parent = parent
         self.setup(mainView: contentView, title: GlobalConst.CONTENT00187,
                    contentHeight: offset,
                    width: w, height: h)
@@ -100,6 +110,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
      */
     func textFieldNameDidChange(_ textField: UITextField) {
         G01F02S04._selectedValue.name = _tbxName.text!
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
     }
     /**
      * Handle text field phone did change event
@@ -107,6 +118,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
      */
     func textFieldPhoneDidChange(_ textField: UITextField) {
         G01F02S04._selectedValue.phone = _tbxPhone.text!
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
     }
     
     /**
@@ -158,5 +170,14 @@ class G01F02S04: StepContent, UITextFieldDelegate {
      */
     func hideKeyboard(_ sender:UITapGestureRecognizer){
         hideKeyboard()
+    }
+    
+    override func checkDone() -> Bool {
+        if G01F02S04._selectedValue.name.isEmpty || G01F02S04._selectedValue.phone.isEmpty {
+            self._parent?.showAlert(message: GlobalConst.CONTENT00187)
+            return false
+        } else {
+            return true
+        }
     }
 }

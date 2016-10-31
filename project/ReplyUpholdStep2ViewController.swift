@@ -32,11 +32,11 @@ class ReplyUpholdStep2ViewController: UIViewController {
     func buttonChosen(aButton: UIButton) {
         switch aButton.tag {
         case 0:
-            btn1Step2.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+            btn1Step2.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
             btn2Step2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         case 1:
             btn1Step2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-            btn2Step2.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+            btn2Step2.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
         default:
             break
         }

@@ -18,6 +18,8 @@ class StepContent: UIView {
     var _scrollView: UIScrollView   = UIScrollView()
     /** Main view */
     var _mainView: UIView?
+    /** Parent */
+    var _parent: CommonViewController?
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -88,5 +90,13 @@ class StepContent: UIView {
         _scrollView.addSubview(_mainView!)
         
         self.addSubview(_scrollView)
+    }
+    
+    /**
+     * Check if input data on this step is Done
+     * - returns: True if inputted data, False otherwise
+     */
+    func checkDone() -> Bool {
+        return false
     }
 }

@@ -42,11 +42,11 @@ class UpholdRatingStep0ViewController: UIViewController {
         btnOption2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         switch aButton.tag {
         case 0:
-            btnOption0.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+            btnOption0.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
         case 1:
-            btnOption1.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+            btnOption1.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
         case 2:
-            btnOption2.backgroundColor = GlobalConst.BUTTON_COLOR_SELECTING
+            btnOption2.backgroundColor = GlobalConst.COLOR_SELECTING_GREEN
         default:
             break
         }
