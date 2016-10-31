@@ -41,12 +41,14 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
     /**
      * Default initializer.
      */
-    init(w: CGFloat, h: CGFloat) {
+    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
         super.init()
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = true
         // Update layout of content view
         let offset: CGFloat = updateLayout(w: w, h: h)
+        // Set parent
+        self._parent = parent
         
         // List image
         /**
@@ -68,6 +70,9 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         cltviewStep5.delegate = self
         cltviewStep5.alwaysBounceHorizontal = true
         cltviewStep5.bounces = true
+        if let layout = cltviewStep5.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
         
         contentView.addSubview(lblReportWrong)
         contentView.addSubview(lblStatus)
@@ -117,7 +122,11 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
-        
+        /** push to zoomIMGVC */
+        zoomIMGViewController.imgPicked = G01F02S06._selectedValue[indexPath.row]
+        let IMGVC = self._parent?.mainStoryboard.instantiateViewController(withIdentifier: "zoomIMGViewController")
+        self._parent?.navigationController?.pushViewController(IMGVC!, animated: true)
+
     }
     func updateData() {
         tbxStatus.text = G01F02S01._selectedValue.name
@@ -151,7 +160,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         cltviewStep5.translatesAutoresizingMaskIntoConstraints = true
         cltviewStep5.frame = CGRect(x: 0,
                                     y: offset,
-                                    width: self.frame.width * 2,
+                                    width: self.frame.width,
                                     height: GlobalConst.ACCOUNT_AVATAR_H)
         cltviewStep5.backgroundColor = UIColor.white
         cltviewStep5.contentSize = CGSize(

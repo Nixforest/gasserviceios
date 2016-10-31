@@ -327,5 +327,7 @@ class GlobalConst {
     static let MENU_IMG_NAME = "menu.png"
     /** Back image name */
     static let BACK_IMG_NAME = "back.png"
+    /** Back image name */
+    static let DELETE_IMG_NAME = "delete.png"
     static let HTTP_POST_REQUEST = "POST"
 }

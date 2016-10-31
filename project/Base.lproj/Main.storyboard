@@ -1991,6 +1991,25 @@
             </objects>
             <point key="canvasLocation" x="5497" y="-2874"/>
         </scene>
+        <!--ZoomIMG View Controller-->
+        <scene sceneID="CRr-C8-Kdb">
+            <objects>
+                <viewController storyboardIdentifier="zoomIMGViewController" id="krC-7y-YgP" customClass="zoomIMGViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CKQ-eD-DBG"/>
+                        <viewControllerLayoutGuide type="bottom" id="X4t-Zd-GHp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Tpr-NZ-xoy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ByT-pB-02d"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FQT-Pm-gzz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7544.8000000000002" y="-2628.0359820089957"/>
+        </scene>
         <!--G01F01S03VC-->
         <scene sceneID="SLY-1L-TBS">
             <objects>
@@ -3103,6 +3122,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vBi-md-pew" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3530.4000000000001" y="-924.28785607196414"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Baf-uT-9Q3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xM5-pI-qGs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BKN-6b-Cp1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="krC-7y-YgP" kind="relationship" relationship="rootViewController" id="O1B-jD-pzk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5eC-Lb-2Wk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6605.6000000000004" y="-2628.0359820089957"/>
         </scene>
     </scenes>
     <resources>

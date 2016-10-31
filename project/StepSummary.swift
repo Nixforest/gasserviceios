@@ -16,6 +16,8 @@ class StepSummary: UIView {
     var _scrollView: UIScrollView   = UIScrollView()
     /** Main view */
     var _mainView: UIView?
+    /** Parent */
+    var _parent: CommonViewController?
     
     /*
      // Only override draw() if you perform custom drawing.

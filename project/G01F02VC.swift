@@ -26,7 +26,7 @@ class G01F02VC: StepVC, StepDoneDelegate {
         var step6 = G01F02S06(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         var summary = G01F02S07(w: GlobalConst.SCREEN_WIDTH,
-                                h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT))
+                                h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         
         step1.stepDoneDelegate = self
         self.appendContent(stepContent: step1)
