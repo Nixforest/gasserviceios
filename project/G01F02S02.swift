@@ -36,8 +36,7 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
                                y: 0,
                                width: w,
                                height: GlobalConst.SCREEN_HEIGHT / 3)
-        _pkView.backgroundColor = UIColor.black
-        
+        _pkView.backgroundColor = UIColor.white        
         
         _pkView.dataSource = self
         _pkView.delegate = self
@@ -72,7 +71,7 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
         NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
     }
     func pickerView(_ pkviewStep1: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let attributedString = NSAttributedString(string: Singleton.sharedInstance.listHourHandle[row].name, attributes: [NSForegroundColorAttributeName : UIColor.white])
+        let attributedString = NSAttributedString(string: Singleton.sharedInstance.listHourHandle[row].name, attributes: [NSForegroundColorAttributeName : UIColor.black])
         return attributedString
     }
     

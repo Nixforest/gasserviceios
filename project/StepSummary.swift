@@ -72,7 +72,6 @@ class StepSummary: UIView {
             x: 0, y: 0,
             width: self.frame.width - GlobalConst.MARGIN_CELL_X * 2,
             height: mainViewHeight)
-        _mainView?.backgroundColor = UIColor.white
         
         // Scrollview
         _scrollView.translatesAutoresizingMaskIntoConstraints = true
@@ -85,6 +84,7 @@ class StepSummary: UIView {
             width: (_mainView?.frame.width)!,
             height: (_mainView?.frame.height)!)
         CommonProcess.setBorder(view: _scrollView)
+        _scrollView.backgroundColor = UIColor.white
         _scrollView.addSubview(_mainView!)
         self.addSubview(_scrollView)
     }
