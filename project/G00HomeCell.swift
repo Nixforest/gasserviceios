@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeTableViewCell: UITableViewCell {
+class G00HomeCell: UITableViewCell {
     @IBOutlet weak var homeCellImageView: UIImageView!
     @IBOutlet weak var titleLbl: UILabel!
 

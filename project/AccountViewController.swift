@@ -102,26 +102,15 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
     }
     
     /**
-     * Handle when tap on Issue menu item
-     */
-    func issueButtonInAccountVCTapped(_ notification: Notification) {
-        /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
-         self.navigationController?.pushViewController(configVC, animated: true)
-         */
-        print("issue button tapped")
-    }
-    
-    /**
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.gasServiceItemTapped(_:)),
+                                               selector: #selector(super.gasServiceItemTapped(_:)),
                                                name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)),
+                                               selector: #selector(super.issueItemTapped(_:)),
                                                name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
@@ -355,18 +344,4 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         }
         return true
     }
-//    func imagePickerController(_ picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
-//        self.dismiss(animated: true, completion: { () -> Void in
-//        })
-//        imgAvatar.image = image
-//    }
-//    func avatarPicker(){
-//        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
-//            print("pick avatar")
-//            userAvatarPicker.delegate = self
-//            userAvatarPicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum
-//            userAvatarPicker.allowsEditing = false
-//            self.present(userAvatarPicker, animated: true, completion: nil)
-//        }
-//    }
 }

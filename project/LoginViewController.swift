@@ -61,7 +61,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
 //        let registerVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REGISTER_VIEW_CTRL)
 //        
 //        self.navigationController?.pushViewController(registerVC, animated: true)
-        showAlert(message: "Chức năng đã bị khoá, vui lòng thử lại sau!")
+        showAlert(message: GlobalConst.CONTENT00197)
     }
     
     //MARK: Methods
@@ -82,15 +82,6 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
             self.navigationController?.pushViewController(configVC, animated: true)
         }
     }
-    
-//    /**
-//     * Handle tap on Configuration menu item
-//     * - parameter notification: Notification
-//     */
-//    func configButtonInLoginTapped(_ notification: Notification) {
-//        let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CONFIGURATION_VIEW_CTRL)
-//        self.navigationController?.pushViewController(configVC, animated: true)
-//    }
     
     /**
      * Handle when tap menu item

@@ -304,6 +304,18 @@ class DomainConst {
     static let KEY_IMG_LARGE = "large"
     /** Image list */
     static let KEY_IMAGES = "images"
+    /** Latitude */
+    static let KEY_LATITUDE = "latitude"
+    /** Version code */
+    static let KEY_VERSION_CODE = "version_code"
+    /** Longitude */
+    static let KEY_LONGITUDE = "longitude"
+    /** Uphold list */
+    static let KEY_UPHOLD_LIST = "uphold_list"
+    /** Uphold rating */
+    static let KEY_UPHOLD_RATING = "uphold_rating"
+    /** Version code */
+    static let KEY_APP_VERSION_CODE = "app_version_code"
     
     /** -----Specified constant----- */
     /** File parameter: file_name[ + ] */

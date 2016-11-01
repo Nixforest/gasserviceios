@@ -64,11 +64,11 @@ class BaseRequest {
             data, response, error) in
             // Check error
             guard error == nil else {
-                self.view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                self.view.showAlert(message: GlobalConst.CONTENT00196)
                 return
             }
             guard data == nil else {
-                self.view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                self.view.showAlert(message: GlobalConst.CONTENT00196)
                 return
             }
         })

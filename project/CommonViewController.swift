@@ -168,7 +168,7 @@ class CommonViewController : UIViewController {
      * - parameter sender: AnyObject
      */
     func notificationButtonTapped(_ sender: AnyObject) {
-        showAlert(message: "Bạn có tin nhắn mới")
+        showAlert(message: Singleton.sharedInstance.notifyCountText)
     }
     
     /**
@@ -196,9 +196,42 @@ class CommonViewController : UIViewController {
     }
     
     /**
+     * Handle when tap on Home menu item
+     */
+    func issueItemTapped(_ notification: Notification) {
+        showAlert(message: "issueItemTapped")
+    }
+    
+    /**
+     * Handle when tap on Log out menu item
+     */
+    func logoutItemTapped(_ notification: Notification) {
+        CommonProcess.requestLogout(view: self)
+    }
+    
+    /**
      * Clear data on current view.
      */
     func clearData() {
         
+    }
+    
+    /**
+     * Update notification button status
+     */
+    func updateNotificationStatus() {
+        self.notificationButton.isEnabled = !Singleton.sharedInstance.notifyCountText.isEmpty
+        if !Singleton.sharedInstance.notifyCountText.isEmpty {
+            self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        } else {
+            self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_GRAY
+        }
+    }
+    
+    /**
+     * Update notification button status
+     */
+    func updateNotificationStatus(_ notification: Notification) {
+        updateNotificationStatus()
     }
 }

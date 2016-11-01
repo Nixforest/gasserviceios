@@ -110,19 +110,12 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
     }
     
     /**
-     * Handle when tap on Issue menu item
-     */
-    func issueItemTapped(_ notification: Notification) {
-        showAlert(message: "issueItemTapped")
-    }
-    
-    /**
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.gasServiceItemTapped), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.issueItemTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(super.configItemTap(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_UPHOLDLISTVIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(gasServiceItemTapped), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(configItemTap(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_UPHOLDLISTVIEW), object: nil)
     }
     
     /**

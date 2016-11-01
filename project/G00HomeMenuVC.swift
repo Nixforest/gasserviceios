@@ -8,7 +8,7 @@
 
 import UIKit
 
-class homeMenuViewController: CommonMenuViewController {
+class G00HomeMenuVC: CommonMenuViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

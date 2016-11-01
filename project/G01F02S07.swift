@@ -211,7 +211,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // Label Time
         CommonProcess.setLayoutLeft(lbl: lblTime, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00192)
+                                    height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00194)
         lblTime.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         // Time value
         CommonProcess.setLayoutRight(lbl: tbxTime, x: lblTime.frame.maxX, y: offset,
@@ -223,7 +223,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // Label Reviewer
         CommonProcess.setLayoutLeft(lbl: lblReviewer, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT * 1.5, text: GlobalConst.CONTENT00193)
+                                    height: GlobalConst.LABEL_HEIGHT * 1.5, text: GlobalConst.CONTENT00195)
         lblReviewer.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         // Reviewer value
         CommonProcess.setLayoutRight(lbl: tbxReviewer, x: lblReviewer.frame.maxX, y: offset,

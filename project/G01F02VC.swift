@@ -12,7 +12,6 @@ class G01F02VC: StepVC, StepDoneDelegate {
     
     override func viewDidLoad() {
         let height = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
-        var listContent = [StepContent]()
         let step1 = G01F02S01(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         var step2 = G01F02S02(w: GlobalConst.SCREEN_WIDTH,
@@ -30,24 +29,19 @@ class G01F02VC: StepVC, StepDoneDelegate {
         
         step1.stepDoneDelegate = self
         self.appendContent(stepContent: step1)
-        listContent.append(step1)
+        if Singleton.sharedInstance.currentUpholdDetail.uphold_type != DomainConst.UPHOLD_TYPE_PERIODICALLY {
         step2.stepDoneDelegate = self
         self.appendContent(stepContent: step2)
-        listContent.append(step2)
+        }
         step3.stepDoneDelegate = self
         self.appendContent(stepContent: step3)
-        listContent.append(step3)
         step4.stepDoneDelegate = self
         self.appendContent(stepContent: step4)
-        listContent.append(step4)
         step5.stepDoneDelegate = self
         self.appendContent(stepContent: step5)
-        listContent.append(step5)
         step6.stepDoneDelegate = self
         self.appendContent(stepContent: step6)
-        listContent.append(step6)
-        self._numberStep = listContent.count + 1
-        super.setListContents(listContent: listContent)
+        self._numberStep = self._arrayContent.count + 1
         appendSummary(summary: summary)
         super.viewDidLoad()
 
@@ -66,6 +60,19 @@ class G01F02VC: StepVC, StepDoneDelegate {
         G01F02S04._selectedValue = (name: "", phone: "")
         G01F02S05._selectedValue = ""
         G01F02S06._selectedValue.removeAll()
+    }
+    override func btnSendTapped() {
+        CommonProcess.requestCreateUpholdReply(
+            upholdId: Singleton.sharedInstance.currentUpholdDetail.id,
+            status: G01F02S01._selectedValue.id,
+            hoursHandle: G01F02S02._selectedValue.id,
+            note: G01F02S04._selectedValue.name,
+            contact_phone: G01F02S04._selectedValue.phone,
+            reportWrong: (G01F02S03._selectedValue)! ? "0" : "1",
+            listPostReplyImage: G01F02S06._selectedValue,
+            customerId: Singleton.sharedInstance.currentUpholdDetail.customer_id,
+            noteInternal: G01F02S05._selectedValue,
+            view: self)
     }
     
     func stepDone() {

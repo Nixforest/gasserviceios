@@ -14,12 +14,12 @@ class ChangePassRequest: BaseRequest {
             data, response, error) in
             // Check error
             guard error == nil else {
-                self.view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                self.view.showAlert(message: GlobalConst.CONTENT00196)
                 LoadingView.shared.hideOverlayView()
                 return
             }
             guard let data = data else {
-                self.view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                self.view.showAlert(message: GlobalConst.CONTENT00196)
                 LoadingView.shared.hideOverlayView()
                 return
             }

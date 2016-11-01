@@ -113,8 +113,8 @@ class CommonProcess {
     /**
      * Request uphold detail data
      * - parameter upholdId:    Id of uphold
-     * - parameter replyId:     Id of uphold
-     * - parameter view:    View controller
+     * - parameter replyId:     Id of reply
+     * - parameter view:        View controller
      */
     static func requestUpholdDetail(upholdId: String, replyId: String,
                                     view: CommonViewController) {
@@ -122,6 +122,64 @@ class CommonProcess {
         LoadingView.shared.showOverlay(view: view.view)
         let request = UpholdDetailRequest(url: DomainConst.PATH_SITE_UPHOLD_VIEW, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
         request.setData(upholdId: upholdId, replyId: replyId)
+        request.execute()
+    }
+    
+    /**
+     * Request create uphold reply
+     * - parameter upholdId:            Id of uphold item
+     * - parameter status:              Status of uphold
+     * - parameter hoursHandle:         Hours handle
+     * - parameter note:                Name of reviewer
+     * - parameter contact_phone:       Phone of reviewer
+     * - parameter reportWrong:         Report wrong
+     * - parameter listPostReplyImage:  List images
+     * - parameter customerId:          Id of customer
+     * - parameter noteInternal:        Note internal
+     * - parameter view:                View controller
+     */
+    static func requestCreateUpholdReply(upholdId: String,
+                                         status: String, hoursHandle: String,
+                                         note: String, contact_phone: String,
+                                         reportWrong: String,
+                                         listPostReplyImage: [UIImage],
+                                         customerId: String,
+                                         noteInternal: String,
+                                         view: CommonViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = CreateUpholdReplyRequest(url: DomainConst.PATH_SITE_UPHOLD_REPLY, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        request.setData(upholdId: upholdId,
+                        status: status, hoursHandle: hoursHandle,
+                        note: note, contact_phone: contact_phone,
+                        reportWrong: reportWrong,
+                        listPostReplyImage: listPostReplyImage,
+                        customerId: customerId,
+                        noteInternal: noteInternal)
+        request.execute()
+    }
+    
+    /**
+     * Request uphold configuration
+     * - parameter view: View controller
+     */
+    static func requestUpdateConfiguration(view: CommonViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = UpdateConfigurationRequest(url: DomainConst.PATH_SITE_UPDATE_CONFIG, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        request.setData()
+        request.execute()
+    }
+    
+    /**
+     * Request count of notification
+     * - parameter view: View controller
+     */
+    static func requestNotificationCount(view: CommonViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = NotificationCountRequest(url: DomainConst.PATH_SITE_NOTIFY_COUNT, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        request.setData()
         request.execute()
     }
     

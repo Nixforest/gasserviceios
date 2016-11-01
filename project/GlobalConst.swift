@@ -182,8 +182,10 @@ class GlobalConst {
     static let CONTENT00189 = "Xin bổ sung Hình ảnh liên quan"
     static let CONTENT00190 = "Bạn đang gửi thông tin trả lời như bên dưới cho chúng tôi. Xin hãy kiểm tra lại các thông tin cho thật chính xác và nhấn nút Gửi nếu bạn đồng ý."
     static let CONTENT00191 = "Khách hàng báo sai sự cố"
-    static let CONTENT00192 = "Thời gian"
-    static let CONTENT00193 = "Nghiệm thu"
+    static let CONTENT00194 = "Thời gian"
+    static let CONTENT00195 = "Nghiệm thu"
+    static let CONTENT00196 = "Lỗi kết nối đến máy chủ"
+    static let CONTENT00197 = "Chức năng đã bị khoá, vui lòng thử lại sau!"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
@@ -257,6 +259,8 @@ class GlobalConst {
     // MARK: Controller names
     /** Name of RegisterViewController */
     static let REGISTER_VIEW_CTRL = "RegisterViewController"
+    /** Name of G00 home view controller */
+    static let G00_HOME_VIEW_CTRL = "G00HomeVC"
     /** Name of ConfigurationViewController */
     static let CONFIGURATION_VIEW_CTRL = "ConfigurationViewController"
     /** Name of AccountViewController */
@@ -281,6 +285,8 @@ class GlobalConst {
     static let CHANGE_PASSWORD_VIEW_CTRL = "ChangePasswordViewController"
     /** Name of G01F01VC */
     static let G01_F01_VIEW_CTRL = "G01F01VC"
+    /** Home table view cell */
+    static let G00_HOME_CELL = "G00HomeCell"
     /** Period table view cell */
     static let G01_F00_S01_PERIOD_CELL = "G01F00S01PeriodCell"
     /** Problem table view cell */
@@ -306,13 +312,16 @@ class GlobalConst {
     static let NOTIFY_NAME_COFIG_ITEM_CREATE_UPHOLD     = "configItemTappedCreateUphold"
     static let NOTIFY_NAME_COFIG_ITEM_UPHOLDDETAILVIEW    = "configItemTappedUpholdDetailView"
     static let NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW    = "configItemTappedChangePassView"
-    static let NOTIFY_NAME_COFIG_ITEM_HOMEVIEW          = "configItemTappedHomeView"
     static let NOTIFY_NAME_SET_DATA_ACCOUNTVIEW         = "AccountViewController.setData"
     static let NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW     = "G01F00S01VC.setData"
     static let NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW     = "G01F00S01VC.showSearchBarTableView"
     static let NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW  = "UpholdDetailViewController.setData"
     static let NOTIFY_NAME_COFIG_ITEM_G01F02            = "G01F2VC.configItemTapped"
     static let NOTIFY_NAME_SET_DATA_G02F02              = "G01F2VC.setData"
+    static let NOTIFY_NAME_SET_DATA_HOMEVIEW            = "G00HomeVC.setData"
+    static let NOTIFY_NAME_COFIG_ITEM_HOMEVIEW          = "G00HomeVC.configItemTapped"
+    static let NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW       = "G00HomeVC.updateNotify"
+    static let NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW  = "G01F00S02.reloadData"
     
     // MARK: Domain constants
     /** Logo image name */
@@ -330,4 +339,7 @@ class GlobalConst {
     /** Back image name */
     static let DELETE_IMG_NAME = "delete.png"
     static let HTTP_POST_REQUEST = "POST"
+    
+    /** Version code */
+    static let VERSION_CODE = "111"
 }

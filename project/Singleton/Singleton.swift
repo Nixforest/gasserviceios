@@ -36,6 +36,8 @@ class Singleton: NSObject {
     var listUpholdType: [ConfigBean] = [ConfigBean]()
     /** List hour handle */
     var listHourHandle: [ConfigBean] = [ConfigBean]()
+    /** List menu permission */
+    var listMenuPermission: [ConfigBean] = [ConfigBean]()
     /** Id of role */
     var role_id: String = ""
     /** List user info */
@@ -64,6 +66,8 @@ class Singleton: NSObject {
     var sharedInt = -1
     /** Current uphold detail */
     var currentUpholdDetail: UpholdBean = UpholdBean()
+    /** Notification count text */
+    var notifyCountText: String = ""
     
     // MARK - Methods
     override init() {
@@ -100,12 +104,20 @@ class Singleton: NSObject {
      * Call When Logout Success
      */
     func logoutSuccess()  {
-        isLogin = false
-        userToken = ""
-        self.user_info = nil
+        resetData()
         defaults.set(isLogin, forKey: DomainConst.KEY_SETTING_IS_LOGGING)
         defaults.set(userToken, forKey: DomainConst.KEY_SETTING_USER_TOKEN)
         defaults.synchronize()
+    }
+    
+    /**
+     * Reset data
+     */
+    func resetData() {
+        isLogin = false
+        userToken = ""
+        self.user_info = nil
+        self.notifyCountText = ""
     }
     
     /**
@@ -207,6 +219,9 @@ class Singleton: NSObject {
         
         // Role name
         self.role_name = loginModel.role_name
+        
+        // Check menu permission
+        self.listMenuPermission = loginModel.check_menu
     }
     
     /**
@@ -250,5 +265,29 @@ class Singleton: NSObject {
      */
     func saveCurrentUpholdDetail(model: UpholdBean) {
         self.currentUpholdDetail = model
+    }
+    
+    /**
+     * Check user has permission to access menu
+     * - parameter key: Key of menu
+     */
+    func checkAllowAccess(key: String) -> Bool {
+        for item in self.listMenuPermission {
+            if item.id == key {
+                if item.name == "1" {
+                    return true
+                }
+                break;
+            }
+        }
+        return false
+    }
+    
+    /**
+     * Set notification count text
+     * - parameter text: Text to set
+     */
+    func setNotificationCountText(text: String) {
+        self.notifyCountText = text
     }
 }

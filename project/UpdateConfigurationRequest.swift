@@ -1,13 +1,13 @@
 //
-//  LogoutRequest.swift
+//  UpdateConfigurationRequest.swift
 //  project
 //
-//  Created by Nixforest on 10/8/16.
+//  Created by Nixforest on 11/1/16.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
 import Foundation
-class LogoutRequest: BaseRequest {
+class UpdateConfigurationRequest: BaseRequest {
     override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
         let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
             (
@@ -25,47 +25,41 @@ class LogoutRequest: BaseRequest {
             }
             // Convert to string
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+            print(dataString)
             // Convert to object
-            let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
+            let model: LoginRespModel = LoginRespModel(jsonString: dataString as! String)
             if model.status == "1" {
-                // Handle logout is success
-                Singleton.sharedInstance.logoutSuccess()
+                Singleton.sharedInstance.saveTempData(loginModel: model)
             } else {
                 self.showAlert(message: model.message)
                 return
             }
             // Hide overlay
             LoadingView.shared.hideOverlayView()
-            // Back to home page (cross-thread)
             DispatchQueue.main.async {
-                _ = self.view.navigationController?.popToRootViewController(animated: true)
                 NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: model)
             }
         })
         return task
     }
+    
     /**
      * Initializer
      * - parameter url: URL
-     * - parameter reqMethod: Request method Get/Post
-     * - parameter view: current view
+     * - parameter reqMethod: Request method
+     * - parameter view: Root view
      */
     override init(url: String, reqMethod: String, view: CommonViewController) {
         super.init(url: url, reqMethod: reqMethod, view: view)
     }
-    /**
-     * Initializer
-     * - parameter url: URL
-     * - parameter reqMethod: Request method Get/Post
-     *
-     */
-    override init(url: String, reqMethod: String) {
-        super.init(url: url, reqMethod: reqMethod)
-    }
+    
     /**
      * Set data content
      */
     func setData() {
-        self.data = "q=" + String.init(format: "{\"token\":\"%@\"}", Singleton.sharedInstance.getUserToken())
+        self.data = "q=" + String.init(
+            format: "{\"%@\":\"%@\"}",
+            DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken()
+        )
     }
 }

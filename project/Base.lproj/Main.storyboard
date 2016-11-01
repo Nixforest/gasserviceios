@@ -1019,7 +1019,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UGx-Tl-9Ff" id="Qvq-DZ-IaK">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -1422,7 +1422,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uHs-Pb-9Kl" id="ufp-uI-QHq">
-                                                    <frame key="frameInset" width="320" height="43"/>
+                                                    <frame key="frameInset" width="320" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-rT-a5I">
@@ -1599,10 +1599,10 @@
             </objects>
             <point key="canvasLocation" x="1983.2" y="-404.34782608695656"/>
         </scene>
-        <!--Home View Controller-->
+        <!--HomeVC-->
         <scene sceneID="gZL-ti-ImA">
             <objects>
-                <viewController storyboardIdentifier="HomeViewController" id="SmX-v3-2V8" customClass="HomeViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G00HomeVC" id="SmX-v3-2V8" customClass="G00HomeVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kkl-uQ-EbU"/>
                         <viewControllerLayoutGuide type="bottom" id="X6R-3s-Tb7"/>
@@ -1666,10 +1666,10 @@
             </objects>
             <point key="canvasLocation" x="-2844" y="-924.28785607196414"/>
         </scene>
-        <!--Home Menu View Controller-->
+        <!--Home MenuVC-->
         <scene sceneID="6r2-TL-yWA">
             <objects>
-                <viewController storyboardIdentifier="homeMenuViewController" id="uIi-Fh-Mrz" customClass="homeMenuViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G00HomeMenuVC" id="uIi-Fh-Mrz" customClass="G00HomeMenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="laA-GB-lei"/>
                         <viewControllerLayoutGuide type="bottom" id="IHR-Pv-XQL"/>

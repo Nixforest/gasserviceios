@@ -73,7 +73,7 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
             object: nil)
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(AccountViewController.issueButtonInAccountVCTapped(_:)),
+            selector: #selector(super.issueItemTapped(_:)),
             name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
             object: nil)
         NotificationCenter.default.addObserver(
@@ -150,11 +150,21 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
         
         // MARK: - Notification Center
         NotificationCenter.default.addObserver(self, selector: #selector(G01F00S02VC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S02VC.reloadData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: nil)
         // Set data
         if Singleton.sharedInstance.sharedInt != -1 {
             // Check data is existed
             if Singleton.sharedInstance.upholdList.record.count > Singleton.sharedInstance.sharedInt {
-                
+                CommonProcess.requestUpholdDetail(upholdId: Singleton.sharedInstance.upholdList.record[Singleton.sharedInstance.sharedInt].id, replyId: Singleton.sharedInstance.upholdList.record[Singleton.sharedInstance.sharedInt].reply_id, view: self)
+            }
+        }
+    }
+    
+    func reloadData(_ notification: Notification) {
+        // Set data
+        if Singleton.sharedInstance.sharedInt != -1 {
+            // Check data is existed
+            if Singleton.sharedInstance.upholdList.record.count > Singleton.sharedInstance.sharedInt {
                 CommonProcess.requestUpholdDetail(upholdId: Singleton.sharedInstance.upholdList.record[Singleton.sharedInstance.sharedInt].id, replyId: Singleton.sharedInstance.upholdList.record[Singleton.sharedInstance.sharedInt].reply_id, view: self)
             }
         }

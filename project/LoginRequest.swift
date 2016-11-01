@@ -15,18 +15,18 @@ class LoginRequest: BaseRequest {
             data, response, error) in
             // Check error
             guard error == nil else {
-                self.view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                self.view.showAlert(message: GlobalConst.CONTENT00196)
                 LoadingView.shared.hideOverlayView()
                 return
             }
             guard let data = data else {
-                self.view.showAlert(message: "Lỗi kết nối đến máy chủ")
+                self.view.showAlert(message: GlobalConst.CONTENT00196)
                 LoadingView.shared.hideOverlayView()
                 return
             }
             // Convert to string
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            
+            print(dataString)
             // Convert to object
             let model: LoginRespModel = LoginRespModel(jsonString: dataString as! String)
             if model.status == "1" {

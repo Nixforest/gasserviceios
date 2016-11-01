@@ -37,6 +37,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         _btnNext.addTarget(self, action: #selector(btnNextTapper), for: .touchUpInside)
         // Setup button Send
         self.view.addSubview(_btnSend)
+        _btnSend.addTarget(self, action: #selector(btnSendTapped), for: .touchUpInside)
         // Setup list step button
         self.view.addSubview(_listButton)
         self.moveNext()
@@ -171,6 +172,10 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         }
     }
     
+    func btnSendTapped() {
+        
+    }
+    
     /**
      * Move next screen
      */
@@ -186,6 +191,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
             _listButton.moveNext()
             _arrayContent[_currentStep].isHidden = false
         } else if _currentStep == (_numberStep - 2) {
+            _arrayContent[_currentStep].isHidden = true
             _currentStep += 1
             _listButton.moveNext()
             _summary.isHidden = false
@@ -264,6 +270,8 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
             y: height,
             width: GlobalConst.SCREEN_WIDTH,
             height: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT))
+        stepContent.isHidden = true
+        self._arrayContent.append(stepContent)
         self.view.addSubview(stepContent)
     }
     func appendSummary(summary: StepSummary) {
