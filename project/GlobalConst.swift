@@ -187,6 +187,8 @@ class GlobalConst {
     static let CONTENT00196 = "Lỗi kết nối đến máy chủ"
     static let CONTENT00197 = "Chức năng đã bị khoá, vui lòng thử lại sau!"
     static let CONTENT00198 = "Thông tin phiên bản"
+    static let CONTENT00199 = "Email góp ý"
+    static let CONTENT00200 = "Trang chủ"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
@@ -350,4 +352,7 @@ class GlobalConst {
     
     /** Version code */
     static let VERSION_CODE = "111"
+    static let VERSION_CODE_NAME = "Gas Service 1.1.1 @2016 Southern Petroleum"
+    static let EMAIL = "it@spj.vn"
+    static let WEBSITE = "http://daukhimiennam.com"
 }
