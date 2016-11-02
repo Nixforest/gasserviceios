@@ -33,7 +33,7 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
      * - parameter sender:AnyObject
      */
     func pushToLoginVC(_ notification: Notification){
-        let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController")
+        let loginVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_LOGIN_VIEW_CTRL)
         self.navigationController?.pushViewController(loginVC, animated: true)
         
     }
@@ -245,7 +245,7 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
             self.navigationController?.pushViewController(upholdListVC, animated: true)
         case 4:
             //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let accountVC = mainStoryboard.instantiateViewController(withIdentifier: "AccountViewController")
+            let accountVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_ACCOUNT_VIEW_CTRL)
             self.navigationController?.pushViewController(accountVC, animated: true)
         default:
             break

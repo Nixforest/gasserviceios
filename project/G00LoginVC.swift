@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
+class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
     // MARK: Properties
     var bShowPassword:Bool!
     /** Logo image */
@@ -78,7 +78,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
             imgLogoTappedCounter = 0
             print(imgLogoTappedCounter)
             //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CONFIGURATION_VIEW_CTRL)
+            let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_CONFIGURATION_VIEW_CTRL)
             self.navigationController?.pushViewController(configVC, animated: true)
         }
     }
@@ -117,7 +117,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         imgLogo.isUserInteractionEnabled = true
         // now you need a tap gesture recognizer
         // note that target and action point to what happens when the action is recognized.
-        let imgLogoTappedRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.imgLogoTapped(_:)))
+        let imgLogoTappedRecognizer = UITapGestureRecognizer(target: self, action: #selector(G00LoginVC.imgLogoTapped(_:)))
         //Add the recognizer to your view.
         imgLogo.addGestureRecognizer(imgLogoTappedRecognizer)
         
@@ -192,7 +192,7 @@ class LoginViewController: CommonViewController, UIPopoverPresentationController
         txtAccount.delegate = self
         txtPassword.delegate = self
         
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.hideKeyboard(_:)))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(G00LoginVC.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
         
         // Set background color

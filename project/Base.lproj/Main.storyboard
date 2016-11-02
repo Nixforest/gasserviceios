@@ -27,7 +27,7 @@
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" title="Login" id="BYZ-38-t0r" customClass="LoginViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G00LoginVC" title="Login" id="BYZ-38-t0r" customClass="G00LoginVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -141,10 +141,10 @@
             </objects>
             <point key="canvasLocation" x="-374" y="5"/>
         </scene>
-        <!--Menu Login View Controller-->
+        <!--Login MenuVC-->
         <scene sceneID="MpN-7l-3nS">
             <objects>
-                <viewController id="nSy-q2-fao" customClass="menuLoginViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G00LoginMenuVC" id="nSy-q2-fao" customClass="G00LoginMenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5zM-eo-HPv"/>
                         <viewControllerLayoutGuide type="bottom" id="L6p-Hk-mJj"/>
@@ -280,10 +280,10 @@
             </objects>
             <point key="canvasLocation" x="-766" y="1179"/>
         </scene>
-        <!--Account View Controller-->
+        <!--AccountVC-->
         <scene sceneID="PCb-XX-pyP">
             <objects>
-                <viewController storyboardIdentifier="AccountViewController" id="Y2S-kF-PYU" customClass="AccountViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G00AccountVC" id="Y2S-kF-PYU" customClass="G00AccountVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WKp-4c-au0"/>
                         <viewControllerLayoutGuide type="bottom" id="88q-AA-GzH"/>
@@ -372,7 +372,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
-                                        <segue destination="r84-IB-4V0" kind="popoverPresentation" identifier="popoverMenu" popoverAnchorView="gD4-20-kqM" id="HQC-Gx-KDE">
+                                        <segue destination="r84-IB-4V0" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="gD4-20-kqM" id="HQC-Gx-KDE">
                                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                         </segue>
                                     </connections>
@@ -414,10 +414,10 @@
             </objects>
             <point key="canvasLocation" x="1190" y="-1234"/>
         </scene>
-        <!--Change Password View Controller-->
+        <!--Change PassVC-->
         <scene sceneID="w3S-5v-Rmt">
             <objects>
-                <viewController storyboardIdentifier="ChangePasswordViewController" id="fVY-z1-iQG" customClass="ChangePasswordViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G00ChangePassVC" id="fVY-z1-iQG" customClass="G00ChangePassVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="X4M-Vp-wxD"/>
                         <viewControllerLayoutGuide type="bottom" id="jxS-eD-NEy"/>
@@ -532,7 +532,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
-                                        <segue destination="m4U-hC-h7T" kind="popoverPresentation" identifier="popoverMenu" popoverAnchorView="FR9-Vx-Zff" id="hXa-m3-i5v">
+                                        <segue destination="m4U-hC-h7T" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="FR9-Vx-Zff" id="hXa-m3-i5v">
                                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                         </segue>
                                     </connections>
@@ -566,10 +566,10 @@
             </objects>
             <point key="canvasLocation" x="1753" y="-404"/>
         </scene>
-        <!--Menu Change Password View Controller-->
+        <!--Change Pass MenuVC-->
         <scene sceneID="ms6-4L-bBX">
             <objects>
-                <viewController storyboardIdentifier="menuChangePasswordViewController" id="m4U-hC-h7T" customClass="menuChangePasswordViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G00ChangePassMenuVC" id="m4U-hC-h7T" customClass="G00ChangePassMenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pH0-rf-GQ4"/>
                         <viewControllerLayoutGuide type="bottom" id="duS-5b-aEh"/>
@@ -881,10 +881,10 @@
             </objects>
             <point key="canvasLocation" x="5320.8000000000002" y="44.527736131934034"/>
         </scene>
-        <!--Menu Account View Controller-->
+        <!--Account MenuVC-->
         <scene sceneID="zdA-Q1-Mns">
             <objects>
-                <viewController storyboardIdentifier="menuAccountViewController" id="r84-IB-4V0" customClass="menuAccountViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G00AccountMenuVC" id="r84-IB-4V0" customClass="G00AccountMenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="E2H-sF-ZYm"/>
                         <viewControllerLayoutGuide type="bottom" id="4kf-QH-DrM"/>
@@ -1005,93 +1005,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VBj-QO-0Qo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1978" y="-713"/>
-        </scene>
-        <!--Home Table View Controller-->
-        <scene sceneID="GAq-fy-JtR">
-            <objects>
-                <tableViewController storyboardIdentifier="HomeTableViewController" id="aj3-26-YhU" customClass="HomeTableViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Poh-q7-wxw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="homeCell" id="UGx-Tl-9Ff">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UGx-Tl-9Ff" id="Qvq-DZ-IaK">
-                                    <frame key="frameInset" width="375" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="aj3-26-YhU" id="dO1-Gw-0WF"/>
-                            <outlet property="delegate" destination="aj3-26-YhU" id="xFa-bV-kyR"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="kFr-hm-2Ex">
-                        <rightBarButtonItems>
-                            <barButtonItem style="plain" id="GG7-Ko-7Om">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kBC-MC-yKf">
-                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <segue destination="HFH-Pu-JEi" kind="popoverPresentation" identifier="popoverMenu" popoverAnchorView="kBC-MC-yKf" id="CTm-5f-9N6">
-                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                        </segue>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem style="plain" id="8EZ-GP-UDV">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Nbr-PM-WUW">
-                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <action selector="notificationButtonTapped:" destination="aj3-26-YhU" eventType="touchUpInside" id="CSa-gk-Nnq"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="homeNavBar" destination="kFr-hm-2Ex" id="qsZ-cO-Yau"/>
-                        <outlet property="menuButton" destination="kBC-MC-yKf" id="qm3-6f-S6x"/>
-                        <outlet property="notificationButton" destination="Nbr-PM-WUW" id="eq4-Bu-fWW"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Te5-GZ-X6T" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="vja-1F-RoQ">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                </view>
-            </objects>
-            <point key="canvasLocation" x="-1015" y="-946"/>
-        </scene>
-        <!--Menu Home View Controller-->
-        <scene sceneID="Qcu-eL-arH">
-            <objects>
-                <viewController id="HFH-Pu-JEi" customClass="menuHomeViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="OaZ-iR-Tbm"/>
-                        <viewControllerLayoutGuide type="bottom" id="n72-a6-3aG"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vJl-4U-5Pb">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="daR-Zf-zq3"/>
-                    <value key="contentSizeForViewInPopover" type="size" width="200" height="150"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="200" height="150"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="13r-gF-SLO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-376" y="-1181"/>
         </scene>
         <!--G01F00S01VC-->
         <scene sceneID="7P5-hm-1yQ">
@@ -1391,10 +1304,10 @@
             </objects>
             <point key="canvasLocation" x="4692" y="-2540.7796101949029"/>
         </scene>
-        <!--Configuration View Controller-->
+        <!--ConfigurationVC-->
         <scene sceneID="4Ik-1w-rOI">
             <objects>
-                <viewController storyboardIdentifier="ConfigurationViewController" id="Ng3-Ob-cQr" customClass="ConfigurationViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G00ConfigurationVC" id="Ng3-Ob-cQr" customClass="G00ConfigurationVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="D4V-NH-Z9z"/>
                         <viewControllerLayoutGuide type="bottom" id="ACm-bc-KEW"/>
@@ -1418,7 +1331,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="sectionIndexBackgroundColor" red="1" green="0.054796324879999997" blue="0.09030248867" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ConfigurationTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConfigurationTableViewCell" id="uHs-Pb-9Kl" customClass="ConfigurationTableViewCell" customModule="project" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="G00ConfigurationCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="G00ConfigurationCell" id="uHs-Pb-9Kl" customClass="G00ConfigurationCell" customModule="project" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uHs-Pb-9Kl" id="ufp-uI-QHq">
@@ -1481,11 +1394,11 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="Who-Su-Imd">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0hR-P1-CtS">
-                                    <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
-                                        <segue destination="e0D-Al-xL1" kind="popoverPresentation" identifier="popoverMenu" popoverAnchorView="0hR-P1-CtS" id="OF1-Vy-hhI">
+                                        <segue destination="e0D-Al-xL1" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="0hR-P1-CtS" id="OF1-Vy-hhI">
                                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                         </segue>
                                     </connections>
@@ -1493,7 +1406,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="G5w-Oy-kZA">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mjh-gB-ZS7">
-                                    <rect key="frame" x="154" y="7" width="71" height="30"/>
+                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                     <state key="normal" title="Button"/>
@@ -1518,10 +1431,10 @@
             </objects>
             <point key="canvasLocation" x="1495" y="-2140"/>
         </scene>
-        <!--Infomation View Controller-->
+        <!--InfomationVC-->
         <scene sceneID="tg3-VL-tIp">
             <objects>
-                <viewController storyboardIdentifier="InfomationViewController" id="i7m-T1-FSf" customClass="InfomationViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G00InfomationVC" id="i7m-T1-FSf" customClass="G00InfomationVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WWX-CI-lTX"/>
                         <viewControllerLayoutGuide type="bottom" id="hsJ-yl-XbU"/>
@@ -1529,16 +1442,6 @@
                     <view key="view" contentMode="scaleToFill" id="vPc-S3-GKK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PtZ-2J-D3N">
-                                <frame key="frameInset" minY="64" width="320" height="504"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="KWx-RP-EzU">
@@ -1555,7 +1458,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="fnj-Rz-E69" id="Aun-aF-Ihr"/>
-                        <outlet property="infoTextView" destination="PtZ-2J-D3N" id="dkx-nD-jiY"/>
                         <outlet property="infomationNavBar" destination="KWx-RP-EzU" id="7tK-SN-55H"/>
                     </connections>
                 </viewController>
@@ -1717,9 +1619,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="aj3-26-YhU" kind="relationship" relationship="rootViewController" id="x15-iV-Kq3"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSw-eL-fzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class menuChangePasswordViewController: CommonMenuViewController {
+class G00ChangePassMenuVC: CommonMenuViewController {
     /**
      * Override
      */

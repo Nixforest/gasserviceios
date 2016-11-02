@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     // MARK: Properties
     /** Save button */
     @IBOutlet weak var saveButton: UIButton!
@@ -82,7 +82,7 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
      * - parameter sender:AnyObject
      */
     @IBAction func changePasswordTapped(_ sender: AnyObject) {
-        let changePasswordVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CHANGE_PASSWORD_VIEW_CTRL)
+        let changePasswordVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_CHANGE_PASS_VIEW_CTRL)
         self.navigationController?.pushViewController(changePasswordVC, animated: true)
     }
     
@@ -142,11 +142,6 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         imgAvatar.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
         imgAvatar.translatesAutoresizingMaskIntoConstraints = true
         imgAvatar.isUserInteractionEnabled = true
-        // Handle tap on avatar
-//        let avatarTap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AccountViewController.avatarPicker))
-//        avatarTap.numberOfTapsRequired = 1
-//        imgAvatar.addGestureRecognizer(avatarTap)
-//        self.view.addSubview(avatarTap)
         
         // Image name
         imgName.frame = CGRect(x: GlobalConst.MARGIN,
@@ -237,11 +232,11 @@ class AccountViewController: CommonViewController, UIPopoverPresentationControll
         setupNavigationBar(title: GlobalConst.CONTENT00100, isNotifyEnable: true)
 
         // Do any additional setup after loading the view.
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(AccountViewController.hideKeyboard(_:)))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(G00AccountVC.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
         
         // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(AccountViewController.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G00AccountVC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)
         
         // Set background color
         changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())

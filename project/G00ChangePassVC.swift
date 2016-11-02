@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChangePasswordViewController: CommonViewController, UIPopoverPresentationControllerDelegate,UITextFieldDelegate {
+class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDelegate,UITextFieldDelegate {
     // MARK: Properties
     /** Flag show password */
     var bShowPassword:Bool!
@@ -93,7 +93,7 @@ class ChangePasswordViewController: CommonViewController, UIPopoverPresentationC
                                                name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(ChangePasswordViewController.issueButtonInChangePassVCTapped(_:)),
+                                               selector: #selector(G00ChangePassVC.issueButtonInChangePassVCTapped(_:)),
                                                name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,

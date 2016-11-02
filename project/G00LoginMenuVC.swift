@@ -8,7 +8,7 @@
 
 import UIKit
 
-class menuLoginViewController: CommonMenuViewController {
+class G00LoginMenuVC: CommonMenuViewController {
     /**
      * View did load.
      */

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class menuAccountViewController: CommonMenuViewController {
+class G00AccountMenuVC: CommonMenuViewController {
     /**
      * Override
      */

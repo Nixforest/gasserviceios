@@ -184,7 +184,7 @@ class CommonViewController : UIViewController {
      * Handle when tap on Config menu item
      */
     func configItemTap(_ notification: Notification) {
-        let config = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.CONFIGURATION_VIEW_CTRL)
+        let config = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_CONFIGURATION_VIEW_CTRL)
         self.navigationController?.pushViewController(config, animated: true)
     }
     

@@ -186,6 +186,7 @@ class GlobalConst {
     static let CONTENT00195 = "Nghiệm thu"
     static let CONTENT00196 = "Lỗi kết nối đến máy chủ"
     static let CONTENT00197 = "Chức năng đã bị khoá, vui lòng thử lại sau!"
+    static let CONTENT00198 = "Thông tin phiên bản"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
@@ -251,6 +252,7 @@ class GlobalConst {
     static let SCROLLBUTTONLIST_BTN_BKG_COLOR_DISABLE:UIColor = BUTTON_COLOR_DISABLE
     static let SCROLLBUTTONLIST_BTN_BKG_COLOR_SELECTING:UIColor = COLOR_SELECTING_GREEN
     static let SCROLLBUTTONLIST_BTN_BKG_COLOR_ENABLE:UIColor = BUTTON_COLOR_RED
+    static let INFOR_TITLE_COLOR:UIColor = ColorFromRGB().getColorFromRGB(0x1899E5)
     
     
     static var TRAINING_MODE_FLAG:Bool = false
@@ -261,10 +263,14 @@ class GlobalConst {
     static let REGISTER_VIEW_CTRL = "RegisterViewController"
     /** Name of G00 home view controller */
     static let G00_HOME_VIEW_CTRL = "G00HomeVC"
+    /** Name of G00 login view controller */
+    static let G00_LOGIN_VIEW_CTRL = "G00LoginVC"
     /** Name of ConfigurationViewController */
-    static let CONFIGURATION_VIEW_CTRL = "ConfigurationViewController"
+    static let G00_CONFIGURATION_VIEW_CTRL = "G00ConfigurationVC"
+    /** Name of G00 information view controller */
+    static let G00_INFORMATION_VIEW_CTRL = "G00InfomationVC"
     /** Name of AccountViewController */
-    static let ACCOUNT_VIEW_CTRL = "AccountViewController"
+    static let G00_ACCOUNT_VIEW_CTRL = "G00AccountVC"
     /** Name of Uphold List View Controller */
     static let G01_F00_S01_VIEW_CTRL = "G01F00S01VC"
     /** Name of Uphold detail employee view controller */
@@ -282,7 +288,7 @@ class GlobalConst {
     static let UPHOLD_RATING_VIEW_CTRL = "UpholdRatingViewController"
     
     /** Name of ChangePasswordViewController */
-    static let CHANGE_PASSWORD_VIEW_CTRL = "ChangePasswordViewController"
+    static let G00_CHANGE_PASS_VIEW_CTRL = "G00ChangePassVC"
     /** Name of G01F01VC */
     static let G01_F01_VIEW_CTRL = "G01F01VC"
     /** Home table view cell */
@@ -293,6 +299,8 @@ class GlobalConst {
     static let G01_F00_S01_PROBLEM_CELL = "G01F00S01ProblemCell"
     /** Search bar table view cell */
     static let SEARCH_BAR_TABLE_VIEW_CELL = "searchBarTableViewCell"
+    /** Configuration table view cell */
+    static let G00_CONFIGURATION_TABLE_VIEW_CELL = "G00ConfigurationCell"
     /** Uphold detail employee history table view cell */
     static let UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL = "G01F00S02HistoryCell"
     /** Pop overmenu identifier */
@@ -312,7 +320,7 @@ class GlobalConst {
     static let NOTIFY_NAME_COFIG_ITEM_CREATE_UPHOLD     = "configItemTappedCreateUphold"
     static let NOTIFY_NAME_COFIG_ITEM_UPHOLDDETAILVIEW    = "configItemTappedUpholdDetailView"
     static let NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW    = "configItemTappedChangePassView"
-    static let NOTIFY_NAME_SET_DATA_ACCOUNTVIEW         = "AccountViewController.setData"
+    static let NOTIFY_NAME_SET_DATA_ACCOUNTVIEW         = "G00AccountVC.setData"
     static let NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW     = "G01F00S01VC.setData"
     static let NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW     = "G01F00S01VC.showSearchBarTableView"
     static let NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW  = "UpholdDetailViewController.setData"

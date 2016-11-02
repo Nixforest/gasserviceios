@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConfigurationTableViewCell: UITableViewCell {
+class G00ConfigurationCell: UITableViewCell {
     
     @IBOutlet weak var leftImg: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
