@@ -7,202 +7,175 @@
 //
 
 import UIKit
-
-class G01F01S01VC: UIViewController {
+class G01F01S01: StepContent {
+    // MARK: Properties
+    /** Selected value */
+    static var _selectedValue: ConfigBean = ConfigBean(id: "", name: "")
+    /** Other problem content */
+    static var _otherProblem: String = ""
+    /** List of selection */
+    var _listButton = [UIButton]()
+    /** Label othe problem */
+    var _lblOtherProblem: UITextView = UITextView()
     
-        
-
-    @IBOutlet weak var lblChooseProblem: UILabel!
-    
-    @IBOutlet weak var btnProblem1: UIButton!
-    @IBOutlet weak var btnProblem2: UIButton!
-    @IBOutlet weak var btnProblem3: UIButton!
-    @IBOutlet weak var btnProblem4: UIButton!
-    @IBOutlet weak var btnProblem5: UIButton!
-    @IBOutlet weak var btnProblem6: UIButton!
-    
-    
-    @IBAction func toNext(_ sender: AnyObject) {
-        
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-    }
-    
-    /**
-     * problem 1 choosen
-     */
-    @IBAction func btnProblem1Tapped(_ sender: AnyObject) {
-        G01F01VC.sharedInstance.problemType = (btnProblem1.titleLabel?.text)!
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-        print(G01F01VC.sharedInstance.problemType)
-    }
-    /**
-     * problem 2 choosen
-     */
-    @IBAction func btnProblem2Tapped(_ sender: AnyObject) {
-        G01F01VC.sharedInstance.problemType = (btnProblem2.titleLabel?.text)!
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-        print(G01F01VC.sharedInstance.problemType)
-    }
-    /**
-     * problem 3 choosen
-     */
-    @IBAction func btnProblem3Tapped(_ sender: AnyObject) {
-        G01F01VC.sharedInstance.problemType = (btnProblem3.titleLabel?.text)!
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-        print(G01F01VC.sharedInstance.problemType)
-    }
-    /**
-     * problem 4 choosen
-     */
-    @IBAction func btnProblem4Tapped(_ sender: AnyObject) {
-        G01F01VC.sharedInstance.problemType = (btnProblem4.titleLabel?.text)!
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-        print(G01F01VC.sharedInstance.problemType)
-    }
-    /**
-     * problem 5 choosen
-     */
-    @IBAction func btnProblem5Tapped(_ sender: AnyObject) {
-        G01F01VC.sharedInstance.problemType = (btnProblem5.titleLabel?.text)!
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-        print(G01F01VC.sharedInstance.problemType)
-    }
-    /**
-     * problem 6 choosen
-     */
-    @IBAction func btnProblem6Tapped(_ sender: AnyObject) {
-        
-        var inputTextField: UITextField?
-        inputTextField?.placeholder = "Nội dung"
-        
-        //Create the AlertController
-        let actionSheetController: UIAlertController = UIAlertController(title: "Sự cố khác", message: "", preferredStyle: .alert)
-        //Add a text field
-        actionSheetController.addTextField { textField -> Void in
-            // you can use this text field
-            inputTextField = textField
-            //Create and add the Cancel action
-            let cancelAction: UIAlertAction = UIAlertAction(title: "Huỷ", style: .cancel) { action -> Void in
-                //Do some stuff
-            }
-            actionSheetController.addAction(cancelAction)
-            //Create and an option action
-            let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default) { action -> Void in
-                G01F01VC.sharedInstance.anotherProblemType = (inputTextField?.text)!
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "step1Done"), object: nil)
-                print(G01F01VC.sharedInstance.problemType)
-
-            }
-            actionSheetController.addAction(okAction)
-            }
-        
-        self.present(actionSheetController, animated: true, completion: nil)
-
-        
-    }
-    
-    /**
-     *
-     */
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
-        /**
-         * Label
-         */
-        lblChooseProblem.translatesAutoresizingMaskIntoConstraints = true
-        lblChooseProblem.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH, height: GlobalConst.LABEL_HEIGHT)
-        lblChooseProblem.text = "Xin vui lòng chọn loại sự cố"
-        lblChooseProblem.textAlignment = NSTextAlignment.center
-        lblChooseProblem.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
-
-        /**
-         * Choose Problem Button 1
-         */
-        btnProblem1.translatesAutoresizingMaskIntoConstraints = true
-        btnProblem1.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT, width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        //btnProblem1.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnProblem1.layer.borderColor = UIColor.green.cgColor
-        btnProblem1.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        btnProblem1.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnProblem1.setTitle("Xì gas", for: .normal)
-        btnProblem1.setTitleColor(UIColor.white, for: .normal)
-        /**
-         * Choose Problem Button 2
-         */
-        btnProblem2.translatesAutoresizingMaskIntoConstraints = true
-        btnProblem2.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3)), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        //btnProblem2.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnProblem2.layer.borderColor = UIColor.green.cgColor
-        btnProblem2.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        btnProblem2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnProblem2.setTitle("Bảo trì bếp", for: .normal)
-        btnProblem2.setTitleColor(UIColor.white, for: .normal)
-        /**
-         * Choose Problem Button 3
-         */
-        btnProblem3.translatesAutoresizingMaskIntoConstraints = true
-        btnProblem3.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 2), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        //btnProblem3.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-       // btnProblem3.layer.borderColor = UIColor.green.cgColor
-        btnProblem3.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        btnProblem3.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnProblem3.setTitle("Kiểm tra hệ thống", for: .normal)
-        btnProblem3.setTitleColor(UIColor.white, for: .normal)
-        /**
-         * Choose Problem Button 4
-         */
-        btnProblem4.translatesAutoresizingMaskIntoConstraints = true
-        btnProblem4.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 3), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        //btnProblem4.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnProblem4.layer.borderColor = UIColor.green.cgColor
-        btnProblem4.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        btnProblem4.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnProblem4.setTitle("Hư bếp", for: .normal)
-        btnProblem4.setTitleColor(UIColor.white, for: .normal)
-        /**
-         * Choose Problem Button 5
-         */
-        btnProblem5.translatesAutoresizingMaskIntoConstraints = true
-        btnProblem5.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 4), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        //btnProblem5.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnProblem5.layer.borderColor = UIColor.green.cgColor
-        btnProblem5.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        btnProblem5.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnProblem5.setTitle("Đi lại đường ống", for: .normal)
-        btnProblem5.setTitleColor(UIColor.white, for: .normal)
-        /**
-         * Choose Problem Button 6
-         */
-        btnProblem6.translatesAutoresizingMaskIntoConstraints = true
-        btnProblem6.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 5), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        //btnProblem6.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnProblem6.layer.borderColor = UIColor.green.cgColor
-        btnProblem6.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        btnProblem6.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnProblem6.setTitle("Khác", for: .normal)
-        btnProblem6.setTitleColor(UIColor.white, for: .normal)
-        
-        
-        // Do any additional setup after loading the view.
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
+    /**
+     * Default initializer.
+     */
+    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
+        super.init()
+        var offset: CGFloat = GlobalConst.MARGIN
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = true
+        
+        // Add button
+        if Singleton.sharedInstance.listUpholdType.count > 0 {
+            for i in 0..<Singleton.sharedInstance.listUpholdType.count {
+                let button = UIButton()
+                button.translatesAutoresizingMaskIntoConstraints = true
+                button.frame = CGRect(
+                    x: (w - GlobalConst.BUTTON_W) / 2,
+                    y: GlobalConst.MARGIN + (CGFloat)(i) * (GlobalConst.BUTTON_H + GlobalConst.MARGIN),
+                    width: GlobalConst.BUTTON_W,
+                    height: GlobalConst.BUTTON_H)
+                button.tag = i
+                button.setTitle(Singleton.sharedInstance.listUpholdType[i].name, for: .normal)
+                button.setTitleColor(UIColor.white , for: .normal)
+                button.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+                button.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+                button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
+                button.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+                // Mark button
+                if G01F01S01._selectedValue.id == Singleton.sharedInstance.listUpholdType[i].id {
+                    CommonProcess.markButton(button: button)
+                }
+                _listButton.append(button)
+                contentView.addSubview(button)
+                offset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
+            }
+            // Label title
+            _lblOtherProblem.translatesAutoresizingMaskIntoConstraints = true
+            _lblOtherProblem.frame = CGRect(
+                x: (w - GlobalConst.BUTTON_W) / 2,
+                y: offset,
+                width: GlobalConst.BUTTON_W,
+                height: GlobalConst.LABEL_HEIGHT * 3)
+            _lblOtherProblem.text               = G01F01S01._otherProblem
+            _lblOtherProblem.font               = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+            _lblOtherProblem.isHidden           = (G01F01S01._otherProblem == "")
+            
+            //_lblOtherProblem.lineBreakMode   = .byWordWrapping
+            //_lblOtherProblem.numberOfLines   = 0
+            _lblOtherProblem.isEditable = false
+            _lblOtherProblem.backgroundColor = UIColor.white
+            CommonProcess.setBorder(view: _lblOtherProblem)
+            offset += GlobalConst.LABEL_HEIGHT * 3 + GlobalConst.MARGIN
+            contentView.addSubview(_lblOtherProblem)
+        }
+        // Set parent
+        self._parent = parent
+        
+        self.setup(mainView: contentView, title: GlobalConst.CONTENT00201,
+                   contentHeight: offset,
+                   width: w, height: h)
+        return
     }
-    */
-
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    /**
+     * Handle save selected data.
+     * Mark step done.
+     */
+    func btnTapped(_ sender: AnyObject) {
+        // Un-mark selecting button
+        if !G01F01S01._selectedValue.id.isEmpty {
+            for button in self._listButton {
+                if Singleton.sharedInstance.listUpholdType[button.tag].id == G01F01S01._selectedValue.id {
+                    CommonProcess.unMarkButton(button: button)
+                    break
+                }
+            }
+        }
+        
+        // Set new selected value
+        G01F01S01._selectedValue = Singleton.sharedInstance.listUpholdType[sender.tag]
+        // Mark selecting button
+        CommonProcess.markButton(button: sender as! UIButton)
+        if G01F01S01._selectedValue.name == DomainConst.OPTION_OTHER {
+            createAlert()
+        } else {
+            _lblOtherProblem.isHidden           = true
+            G01F01S01._otherProblem = ""
+            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F01), object: nil)
+            self.stepDoneDelegate?.stepDone()
+        }
+    }
+    
+    func createAlert() {
+        if G01F01S01._selectedValue.name == DomainConst.OPTION_OTHER {
+            var inputTextField: UITextField?
+            // Create alert
+            let alert = UIAlertController(title: GlobalConst.CONTENT00203, message: "", preferredStyle: .alert)
+            
+            // Add textfield to alert
+//            alert.addTextField(configurationHandler: { (<#UITextField#>) in
+//                sfd
+//            })
+            alert.addTextField(configurationHandler: { textField -> Void in
+                inputTextField = textField
+//                inputTextField?.translatesAutoresizingMaskIntoConstraints = true
+//                inputTextField?.frame = CGRect(x: GlobalConst.MARGIN, y: 0,
+//                                               width: GlobalConst.EDITTEXT_W - GlobalConst.MARGIN * 2,
+//                                               height: GlobalConst.EDITTEXT_H * 3)
+                inputTextField?.placeholder         = GlobalConst.CONTENT00063
+                inputTextField?.clearButtonMode     = .whileEditing
+                inputTextField?.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+            })
+            // Add cancel action
+            let cancel = UIAlertAction(title: GlobalConst.CONTENT00202, style: .cancel, handler: nil)
+            
+            // Add ok action
+            let ok = UIAlertAction(title: GlobalConst.CONTENT00008, style: .default) { action -> Void in
+                if !(inputTextField?.text?.isEmpty)! {
+                    G01F01S01._otherProblem     = (inputTextField?.text)!
+                    self._lblOtherProblem.text  = G01F01S01._otherProblem
+                    self._lblOtherProblem.isHidden   = (G01F01S01._otherProblem == "")
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F01), object: nil)
+                    self.stepDoneDelegate?.stepDone()
+                } else {
+                    self.createAlert()
+                }
+            }
+            
+            alert.addAction(cancel)
+            alert.addAction(ok)
+            self._parent?.present(alert, animated: true, completion: { () -> Void in
+                self.layoutIfNeeded()
+            })
+        }
+    }
+    
+    override func checkDone() -> Bool {
+        if G01F01S01._selectedValue.id.isEmpty {
+            self._parent?.showAlert(message: GlobalConst.CONTENT00201)
+            return false
+        } else {
+            if ((G01F01S01._selectedValue.name == DomainConst.OPTION_OTHER)
+                && (G01F01S01._otherProblem.isEmpty)) {
+                self._parent?.showAlert(message: GlobalConst.CONTENT00201)
+                return false
+            } else {
+                return true
+            }
+        }
+    }
 }

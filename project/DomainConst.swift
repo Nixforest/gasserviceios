@@ -435,6 +435,8 @@ class DomainConst {
     static let NOTIFY_ISSUE_TICKET = "3"
     /** Notify type: Uphold create */
     static let NOTIFY_UPHOLD_CREATE = "4"
+    /** The other option */
+    static let OPTION_OTHER = "Khác"
     
     /** -----Log message----- */
     /** Log tag: error. */

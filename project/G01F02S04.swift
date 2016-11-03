@@ -110,7 +110,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
      */
     func textFieldNameDidChange(_ textField: UITextField) {
         G01F02S04._selectedValue.name = _tbxName.text!
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
     }
     /**
      * Handle text field phone did change event
@@ -118,7 +118,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
      */
     func textFieldPhoneDidChange(_ textField: UITextField) {
         G01F02S04._selectedValue.phone = _tbxPhone.text!
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
     }
     
     /**

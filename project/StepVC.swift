@@ -25,6 +25,8 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
     var _btnSend: UIButton              = UIButton()
     /** Scrollbutton list */
     var _listButton: ScrollButtonList   = ScrollButtonList()
+    /** Screen title */
+    var _title: String                  = ""
     
     // MARK: Methods
     override func viewDidLoad() {
@@ -44,7 +46,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         self.view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         // Setup navigation bar
-        setupNavigationBar(title: GlobalConst.CONTENT00186, isNotifyEnable: Singleton.sharedInstance.checkIsLogin())
+        setupNavigationBar(title: _title, isNotifyEnable: Singleton.sharedInstance.checkIsLogin())
     }
     
     override func viewDidLayoutSubviews() {

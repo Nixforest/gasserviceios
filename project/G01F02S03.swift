@@ -106,7 +106,7 @@ class G01F02S03: StepContent {
         // Set new selected value
         G01F02S03._selectedValue = sender.tag == 1 ? true : false
         CommonProcess.markButton(button: sender as! UIButton)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
         self.stepDoneDelegate?.stepDone()
     }
     

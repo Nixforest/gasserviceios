@@ -48,7 +48,8 @@ class StepSummary: UIView {
         _tbxTitle.translatesAutoresizingMaskIntoConstraints = true
         _tbxTitle.text               = title
         //_tbxTitle.textAlignment      = NSTextAlignment.center
-        _tbxTitle.font               = UIFont.boldSystemFont(ofSize: 15.0)
+        //_tbxTitle.font               = UIFont.boldSystemFont(ofSize: 15.0)
+        _tbxTitle.font               = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         _tbxTitle.frame = CGRect(
             x: 0,
             y: 0,

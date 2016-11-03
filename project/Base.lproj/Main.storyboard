@@ -1188,70 +1188,6 @@
                     <view key="view" contentMode="scaleToFill" id="PYu-0F-y63">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Adr-CN-M9t">
-                                <frame key="frameInset" minY="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c20-Vq-gEY">
-                                        <frame key="frameInset" height="167" maxY="225"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <connections>
-                                            <segue destination="n5y-PN-Cao" kind="embed" id="9Pd-Mu-9Y0"/>
-                                        </connections>
-                                    </containerView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dD0-xy-Q5O">
-                                        <frame key="frameInset" height="153" maxY="57"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <connections>
-                                            <segue destination="Qnv-iA-Hds" kind="embed" id="nJA-Wn-HSB"/>
-                                        </connections>
-                                    </containerView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fvw-7P-2l4">
-                                        <frame key="frameInset" height="179" maxY="400"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <connections>
-                                            <segue destination="Kov-YJ-0uK" kind="embed" id="owB-Wb-IEX"/>
-                                        </connections>
-                                    </containerView>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vRd-HR-Scp">
-                                        <frame key="frameInset" minX="67" minY="400" width="240" height="195"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avQ-W6-2fc">
-                                                <frame key="frameInset" minX="179" minY="85" width="53" height="43"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="1" green="0.054796324879999997" blue="0.09030248867" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnCreateUpholdStep1Tapped:" destination="CAs-Lu-LYV" eventType="touchUpInside" id="qob-Hn-kWZ"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dbc-vN-Agh">
-                                                <frame key="frameInset" minX="94" minY="85" width="53" height="43"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="1" green="0.054796324879999997" blue="0.09030248867" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnCreateUpholdStep2Tapped:" destination="CAs-Lu-LYV" eventType="touchUpInside" id="5m5-bN-5N5"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gBK-yA-Rub">
-                                                <frame key="frameInset" minY="77" width="52" height="43"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="1" green="0.054796324879999997" blue="0.09030248867" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnCreateUpholdStep3Tapped:" destination="CAs-Lu-LYV" eventType="touchUpInside" id="QQm-WH-igg"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" red="0.99693557639999997" green="1" blue="0.77188911979999997" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="wvg-G7-vDS">
@@ -1287,17 +1223,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="jET-VC-qiO" id="rwm-si-BJZ"/>
-                        <outlet property="btnCreateUpholdStep1" destination="avQ-W6-2fc" id="pKZ-9N-Z2Q"/>
-                        <outlet property="btnCreateUpholdStep2" destination="Dbc-vN-Agh" id="a0s-Fb-PCA"/>
-                        <outlet property="btnCreateUpholdStep3" destination="gBK-yA-Rub" id="Xzf-b1-gt6"/>
-                        <outlet property="ctnViewCreateUpholdStep1" destination="c20-Vq-gEY" id="dUL-nq-RRM"/>
-                        <outlet property="ctnViewCreateUpholdStep2" destination="dD0-xy-Q5O" id="bRI-ws-Zed"/>
-                        <outlet property="ctnViewCreateUpholdStep3" destination="fvw-7P-2l4" id="zSf-Dn-4N6"/>
                         <outlet property="menuButton" destination="192-vg-vIl" id="ydP-3D-KiN"/>
                         <outlet property="navigationBar" destination="wvg-G7-vDS" id="bUQ-v8-24m"/>
                         <outlet property="notificationButton" destination="Dg9-m6-pkA" id="2zB-MB-S8X"/>
-                        <outlet property="viewBackground" destination="Adr-CN-M9t" id="Wyy-he-1DU"/>
-                        <outlet property="viewScrollButton" destination="vRd-HR-Scp" id="h8B-2v-pg2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yLp-n9-DYK" userLabel="First Responder" sceneMemberID="firstResponder"/>

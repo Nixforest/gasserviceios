@@ -131,7 +131,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             G01F02S06._selectedValue.append(image)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
         }
         self._tblListImg.reloadData()
         self._parent?.dismiss(animated: true, completion: nil)
@@ -142,6 +142,6 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
         print("remove row ",row)
         G01F02S06._selectedValue.remove(at: row)
         self._tblListImg.reloadData()
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
     }
 }

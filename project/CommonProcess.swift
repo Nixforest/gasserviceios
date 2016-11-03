@@ -184,6 +184,32 @@ class CommonProcess {
     }
     
     /**
+     * Request create uphold reply
+     * - parameter upholdId:            Id of uphold item
+     * - parameter status:              Status of uphold
+     * - parameter hoursHandle:         Hours handle
+     * - parameter note:                Name of reviewer
+     * - parameter contact_phone:       Phone of reviewer
+     * - parameter reportWrong:         Report wrong
+     * - parameter listPostReplyImage:  List images
+     * - parameter customerId:          Id of customer
+     * - parameter noteInternal:        Note internal
+     * - parameter view:                View controller
+     */
+    static func requestCreateUphold(customerId: String, employeeId: String,
+                                    typeUphold: String, content: String, contactPerson: String,
+                                    contactTel: String, requestBy: String,
+                                         view: CommonViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = CreateUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CREATE, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        request.setData(customerId: customerId, employeeId: employeeId,
+                        typeUphold: typeUphold, content: content, contactPerson: contactPerson,
+                        contactTel: contactTel, requestBy: requestBy)
+        request.execute()
+    }
+    
+    /**
      * Set border for control.
      * - parameter view: Control to set border
      */
@@ -239,7 +265,9 @@ class CommonProcess {
         lbl.frame = CGRect(x: GlobalConst.MARGIN_CELL_X, y: offset,
                            width: width,
                            height: height)
-        lbl.text = text
+        lbl.text            = text
+        lbl.lineBreakMode   = .byWordWrapping
+        lbl.numberOfLines   = 0
         if isDrawTopBorder {
             lbl.layer.addBorder(edge: UIRectEdge.top)
         }

@@ -7,150 +7,193 @@
 //
 
 import UIKit
-
-class G01F01S02VC: UIViewController {
+class G01F01S02: StepContent {
+    // MARK: Properties
+    /** Selected value */
+    static var _selectedValue: ConfigBean = ConfigBean(id: "", name: "")
+    /** Name */
+    static var _name: String = ""
+    /** Phone */
+    static var _phone: String = ""
+    /** List of selection */
+    var _listButton = [UIButton]()
+    /** Name textfield */
+    var _tbxName = UITextView()
+    /** Phone textfield */
+    var _tbxPhone = UITextView()
     
-    @IBOutlet weak var lblChooseContact: UILabel!
-    
-    @IBOutlet weak var btnContactType1: UIButton!
-    @IBOutlet weak var btnContactType2: UIButton!
-    @IBOutlet weak var btnContactType3: UIButton!
-    @IBOutlet weak var btnContactType4: UIButton!
-
-    
-    @IBAction func btnContactType1Tapped(_ sender: AnyObject) {
-        G01F01VC.sharedInstance.contactType = (btnContactType1.titleLabel?.text)!
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "step2Done"), object: nil)
-        print(G01F01VC.sharedInstance.contactType)
-        
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "showDetail"), object: nil)
-    }
-    @IBAction func btnContactType2Tapped(_ sender: AnyObject) {
-        G01F01VC.sharedInstance.contactType = (btnContactType2.titleLabel?.text)!
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "step2Done"), object: nil)
-        print(G01F01VC.sharedInstance.contactType)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "showDetail"), object: nil)
-    }
-    @IBAction func btnContactType3Tapped(_ sender: AnyObject) {
-        G01F01VC.sharedInstance.contactType = (btnContactType3.titleLabel?.text)!
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "step2Done"), object: nil)
-        print(G01F01VC.sharedInstance.contactType)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "showDetail"), object: nil)
-    }
-    @IBAction func btnContactType4Tapped(_ sender: AnyObject) {
-        var inputTextFieldName:UITextField?
-        var inputTextFieldPhone:UITextField?
-        
-        //Create the AlertController
-        let actionSheetController: UIAlertController = UIAlertController(title: "Sự cố khác", message: "", preferredStyle: .alert)
-            //Add a text field
-            actionSheetController.addTextField {
-                (textFieldName: UITextField!) in
-                textFieldName.placeholder = "Nhập họ tên"
-                inputTextFieldName = textFieldName
-            }
-            actionSheetController.addTextField {
-                    (textFieldPhone: UITextField!) in
-                    textFieldPhone.placeholder = "Nhập số điện thoại"
-                inputTextFieldPhone = textFieldPhone
-                
-            }
-        
-            //Create and add the Cancel action
-            let cancelAction: UIAlertAction = UIAlertAction(title: "Huỷ", style: .cancel) { action -> Void in
-                //Do some stuff
-            }
-            actionSheetController.addAction(cancelAction)
-            //Create and an option action
-            let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default) { action -> Void in
-                G01F01VC.sharedInstance.contactType = (inputTextFieldName?.text)! + " - " + (inputTextFieldPhone?.text)!
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "step2Done"), object: nil)
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "showDetail"), object: nil)
-                print(G01F01VC.sharedInstance.contactType)
-            }
-            actionSheetController.addAction(okAction)
-        self.present(actionSheetController, animated: true, completion: nil)
-    }
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        /**
-         * Background
-         */
-        self.view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
-        /**
-         * Label Choose Contact Type
-         */
-        lblChooseContact.translatesAutoresizingMaskIntoConstraints = true
-        lblChooseContact.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH, width: GlobalConst.SCREEN_WIDTH, height: GlobalConst.LABEL_HEIGHT)
-        lblChooseContact.text = "Xin vui lòng chọn Người liên hệ"
-        lblChooseContact.textAlignment = NSTextAlignment.center
-        lblChooseContact.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
-        /**
-         * Choose Problem Button 1
-         */
-        btnContactType1.translatesAutoresizingMaskIntoConstraints = true
-        btnContactType1.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT, width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        //btnContactType1.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnContactType1.layer.borderColor = UIColor.green.cgColor
-        btnContactType1.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        btnContactType1.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnContactType1.setTitle("Chủ quán", for: .normal)
-        btnContactType1.setTitleColor(UIColor.white, for: .normal)
-        /**
-         * Choose Problem Button 2
-         */
-        btnContactType2.translatesAutoresizingMaskIntoConstraints = true
-        btnContactType2.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3)), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        //btnContactType2.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnContactType2.layer.borderColor = UIColor.green.cgColor
-        btnContactType2.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        btnContactType2.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnContactType2.setTitle("Người quản lý", for: .normal)
-        btnContactType2.setTitleColor(UIColor.white, for: .normal)
-        /**
-         * Choose Problem Button 3
-         */
-        btnContactType3.translatesAutoresizingMaskIntoConstraints = true
-        btnContactType3.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 2), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        //btnContactType3.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnContactType3.layer.borderColor = UIColor.green.cgColor
-        btnContactType3.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        btnContactType3.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnContactType3.setTitle("Nhân viên kỹ thuật", for: .normal)
-        btnContactType3.setTitleColor(UIColor.white, for: .normal)
-        /**
-         * Choose Problem Button 4
-         */
-        btnContactType4.translatesAutoresizingMaskIntoConstraints = true
-        btnContactType4.frame = CGRect(x: 0, y: GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.LABEL_HEIGHT + ((GlobalConst.BUTTON_HEIGHT * 2/3) * 3), width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 2), height: GlobalConst.BUTTON_HEIGHT * 2/3)
-        //btnContactType4.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        //btnContactType4.layer.borderColor = UIColor.green.cgColor
-        btnContactType4.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        btnContactType4.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnContactType4.setTitle("Khác", for: .normal)
-        btnContactType4.setTitleColor(UIColor.white, for: .normal)
-
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
+    /**
+     * Default initializer.
+     */
+    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
+        super.init()
+        var offset: CGFloat = GlobalConst.MARGIN
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = true
+        
+        // Add button
+        if Singleton.sharedInstance.listContactType.count > 0 {
+            for i in 0..<Singleton.sharedInstance.listContactType.count {
+                let button = UIButton()
+                button.translatesAutoresizingMaskIntoConstraints = true
+                button.frame = CGRect(
+                    x: (w - GlobalConst.BUTTON_W) / 2,
+                    y: GlobalConst.MARGIN + (CGFloat)(i) * (GlobalConst.BUTTON_H + GlobalConst.MARGIN),
+                    width: GlobalConst.BUTTON_W,
+                    height: GlobalConst.BUTTON_H)
+                button.tag = i
+                button.setTitle(Singleton.sharedInstance.listContactType[i].name, for: .normal)
+                button.setTitleColor(UIColor.white , for: .normal)
+                button.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+                button.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+                button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
+                button.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+                // Mark button
+                if G01F01S02._selectedValue.id == Singleton.sharedInstance.listContactType[i].id {
+                    CommonProcess.markButton(button: button)
+                }
+                _listButton.append(button)
+                contentView.addSubview(button)
+                offset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
+            }
+            // Name textfield
+            _tbxName.frame = CGRect(
+                x: (w - GlobalConst.EDITTEXT_W) / 2,
+                y: offset,
+                width: GlobalConst.EDITTEXT_W,
+                height: GlobalConst.EDITTEXT_H)
+            _tbxName.translatesAutoresizingMaskIntoConstraints = true
+            _tbxName.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+            _tbxName.isEditable = false
+            if !G01F01S02._name.isEmpty {
+                _tbxName.text = G01F01S02._name
+            }
+            CommonProcess.setBorder(view: _tbxName)
+            offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
+            contentView.addSubview(_tbxName)
+            // Phone textfield
+            _tbxPhone.frame = CGRect(
+                x: (w - GlobalConst.EDITTEXT_W) / 2,
+                y: offset,
+                width: GlobalConst.EDITTEXT_W,
+                height: GlobalConst.EDITTEXT_H)
+            _tbxPhone.translatesAutoresizingMaskIntoConstraints = true
+            _tbxPhone.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+            _tbxPhone.isEditable = false
+            if !G01F01S02._phone.isEmpty {
+                _tbxName.text = G01F01S02._phone
+            }
+            CommonProcess.setBorder(view: _tbxPhone)
+            offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
+            contentView.addSubview(_tbxPhone)
+        }
+        // Set parent
+        self._parent = parent
+        
+        self.setup(mainView: contentView, title: GlobalConst.CONTENT00204,
+                   contentHeight: offset,
+                   width: w, height: h)
+        return
     }
-    */
-
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    /**
+     * Handle save selected data.
+     * Mark step done.
+     */
+    func btnTapped(_ sender: AnyObject) {
+        // Un-mark selecting button
+        if !G01F01S02._selectedValue.id.isEmpty {
+            for button in self._listButton {
+                if Singleton.sharedInstance.listContactType[button.tag].id == G01F01S02._selectedValue.id {
+                    CommonProcess.unMarkButton(button: button)
+                    break
+                }
+            }
+        }
+        
+        // Set new selected value
+        G01F01S02._selectedValue = Singleton.sharedInstance.listContactType[sender.tag]
+        // Mark selecting button
+        CommonProcess.markButton(button: sender as! UIButton)
+        createAlert()
+    }
+    
+    func createAlert() {
+        var tbxName: UITextField?
+        var tbxPhone: UITextField?
+        // Create alert
+        let alert = UIAlertController(title: GlobalConst.CONTENT00076, message: "", preferredStyle: .alert)
+        // Add textfield name
+        alert.addTextField(configurationHandler: { textField -> Void in
+            tbxName = textField
+            //tbxName?.translatesAutoresizingMaskIntoConstraints = true
+            tbxName?.placeholder        = GlobalConst.CONTENT00055
+            tbxName?.clearButtonMode    = .whileEditing
+            tbxName?.frame.size.height  = GlobalConst.EDITTEXT_H
+            //tbxName?.borderStyle        = .roundedRect
+            tbxName?.returnKeyType      = .next
+            tbxName?.autocapitalizationType = .words
+            tbxName?.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+            tbxName?.text               = G01F01S02._name
+        })
+        // Add textfield phone
+        alert.addTextField(configurationHandler: { textField -> Void in
+            tbxPhone = textField
+            //tbxPhone?.translatesAutoresizingMaskIntoConstraints = true
+            tbxPhone?.placeholder       = GlobalConst.CONTENT00054
+            tbxPhone?.clearButtonMode   = .whileEditing
+            tbxPhone?.keyboardType      = .phonePad
+            tbxPhone?.frame.size.height = GlobalConst.EDITTEXT_H
+            //tbxPhone?.borderStyle       = .roundedRect
+            tbxPhone?.text              = G01F01S02._phone
+            tbxPhone?.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+        })
+        // Add cancel action
+        let cancel = UIAlertAction(title: GlobalConst.CONTENT00202, style: .cancel, handler: nil)
+        
+        // Add ok action
+        let ok = UIAlertAction(title: GlobalConst.CONTENT00008, style: .default) { action -> Void in
+            if !(tbxName?.text?.isEmpty)! && !(tbxPhone?.text?.isEmpty)! {
+                G01F01S02._name     = (tbxName?.text)!
+                self._tbxName.text  = G01F01S02._name
+                G01F01S02._phone     = (tbxPhone?.text)!
+                self._tbxPhone.text  = G01F01S02._phone
+                NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F01), object: nil)
+                self.stepDoneDelegate?.stepDone()
+            } else {
+                self.createAlert()
+            }
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self._parent?.present(alert, animated: true, completion: { () -> Void in
+            self.layoutIfNeeded()
+        })
+    }
+    
+    override func checkDone() -> Bool {
+        if G01F01S02._selectedValue.id.isEmpty {
+            self._parent?.showAlert(message: GlobalConst.CONTENT00204)
+            return false
+        } else {
+            if (G01F01S02._name.isEmpty || G01F01S02._phone.isEmpty) {
+                self._parent?.showAlert(message: GlobalConst.CONTENT00204)
+                return false
+            } else {
+                return true
+            }
+        }
+    }
 }

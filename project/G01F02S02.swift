@@ -68,7 +68,7 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     public func pickerView(_ pkviewStep1: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         G01F02S02._selectedValue = Singleton.sharedInstance.listHourHandle[row]
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
     }
     func pickerView(_ pkviewStep1: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let attributedString = NSAttributedString(string: Singleton.sharedInstance.listHourHandle[row].name, attributes: [NSForegroundColorAttributeName : UIColor.black])

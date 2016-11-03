@@ -34,6 +34,8 @@ class Singleton: NSObject {
     var listUpholdStatus: [ConfigBean] = [ConfigBean]()
     /** List uphold type */
     var listUpholdType: [ConfigBean] = [ConfigBean]()
+    /** List contact type */
+    var listContactType: [ConfigBean] = [ConfigBean]()
     /** List hour handle */
     var listHourHandle: [ConfigBean] = [ConfigBean]()
     /** List menu permission */
@@ -68,6 +70,8 @@ class Singleton: NSObject {
     var currentUpholdDetail: UpholdBean = UpholdBean()
     /** Notification count text */
     var notifyCountText: String = ""
+    /** Id of user */
+    var user_id: String = ""
     
     // MARK - Methods
     override init() {
@@ -213,6 +217,13 @@ class Singleton: NSObject {
                     self.listHourHandle.append(hour)
                 }
             }
+            // List contact type
+            if item.id == DomainConst.KEY_REQUEST_TYPE {
+                self.listContactType.removeAll()
+                for type in item.data {
+                    self.listContactType.append(type)
+                }
+            }
         }
         // Role id
         self.role_id = loginModel.role_id
@@ -222,6 +233,9 @@ class Singleton: NSObject {
         
         // Check menu permission
         self.listMenuPermission = loginModel.check_menu
+        
+        // User id
+        self.user_id = loginModel.user_id
     }
     
     /**

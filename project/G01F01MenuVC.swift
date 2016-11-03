@@ -13,7 +13,7 @@ class G01F01MenuVC: CommonMenuViewController {
      */
     override func configItemTapped(_ sender: AnyObject) {
         self.dismiss(animated: false) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_CREATE_UPHOLD), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)
         }
     }
     

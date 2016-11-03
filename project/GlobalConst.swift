@@ -169,7 +169,7 @@ class GlobalConst {
     static let CONTENT00161 = "Lịch bảo trì"
     static let CONTENT00162 = "Thông báo"
     static let CONTENT00177 = "Loại định kỳ"
-    static let CONTENT00178 = "Yêu cầu bảo trì"
+    static let CONTENT00178 = "Tạo mới bảo trì"
     static let CONTENT00180 = "Gửi"
     static let CONTENT00181 = "Xin vui lòng chọn Trạng thái sự cố"
     static let CONTENT00182 = "Xin vui lòng chọn Thời lượng xử lý"
@@ -189,6 +189,11 @@ class GlobalConst {
     static let CONTENT00198 = "Thông tin phiên bản"
     static let CONTENT00199 = "Email góp ý"
     static let CONTENT00200 = "Trang chủ"
+    static let CONTENT00201 = "Xin vui lòng chọn Loại sự cố"
+    static let CONTENT00202 = "Huỷ"
+    static let CONTENT00203 = "Sự cố khác"
+    static let CONTENT00204 = "Xin vui lòng chọn Người liên hệ"
+    static let CONTENT00205 = "Bạn đang gửi thông tin sự cố như bên dưới cho chúng tôi. Xin hãy kiểm tra lại các thông tin cho thật chính xác và nhấn nút Gửi nếu bạn đồng ý."
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
@@ -327,7 +332,8 @@ class GlobalConst {
     static let NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW     = "G01F00S01VC.showSearchBarTableView"
     static let NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW  = "UpholdDetailViewController.setData"
     static let NOTIFY_NAME_COFIG_ITEM_G01F02            = "G01F2VC.configItemTapped"
-    static let NOTIFY_NAME_SET_DATA_G02F02              = "G01F2VC.setData"
+    static let NOTIFY_NAME_SET_DATA_G01F02              = "G01F2VC.setData"
+    static let NOTIFY_NAME_SET_DATA_G01F01              = "G01F1VC.setData"
     static let NOTIFY_NAME_SET_DATA_HOMEVIEW            = "G00HomeVC.setData"
     static let NOTIFY_NAME_COFIG_ITEM_HOMEVIEW          = "G00HomeVC.configItemTapped"
     static let NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW       = "G00HomeVC.updateNotify"

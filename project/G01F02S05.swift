@@ -46,6 +46,7 @@ class G01F02S05: StepContent, UITextViewDelegate {
         _tbxNote.returnKeyType = .done
         _tbxNote.tag = 0
         _tbxNote.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        CommonProcess.setBorder(view: _tbxNote)
         //_tbxNote.becomeFirstResponder()
         offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
         contentView.addSubview(_tbxNote)
@@ -71,7 +72,7 @@ class G01F02S05: StepContent, UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         G01F02S05._selectedValue = textView.text
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
     }
     
     /**

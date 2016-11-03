@@ -189,9 +189,9 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
             }
         } else {    // Not login
             switch (indexPath as NSIndexPath).row {
-            case 0, 1:      // Order gas + Create uphold -> Always show
+            case 0:      // Order gas + Create uphold -> Always show
                 cell.isHidden = false
-            case 2, 3, 4:   // Uphold list + Uphold rating + Account -> Always hide
+            case 1, 2, 3, 4:   // Uphold list + Uphold rating + Account -> Always hide
                 cell.isHidden = true
             default: break
             }
@@ -224,9 +224,9 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
             }
         } else {    // Not login
             switch (indexPath as NSIndexPath).row {
-            case 0, 1:      // Order gas + Create uphold -> Always show
+            case 0:      // Order gas + Create uphold -> Always show
                 rowHeight = GlobalConst.CELL_HEIGHT_SHOW
-            case 2, 3, 4:   // Uphold list + Uphold rating + Account -> Always hide
+            case 1, 2, 3, 4:   // Uphold list + Uphold rating + Account -> Always hide
                 rowHeight = GlobalConst.CELL_HEIGHT_HIDE
             default: break
             }

@@ -60,7 +60,8 @@ class StepContent: UIView {
             height: GlobalConst.LABEL_HEIGHT)
         _lblTitle.text               = title
         _lblTitle.textAlignment      = NSTextAlignment.center
-        _lblTitle.font               = UIFont.boldSystemFont(ofSize: 15.0)
+        //_lblTitle.font               = UIFont.boldSystemFont(ofSize: 15.0)
+        _lblTitle.font               = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         self.addSubview(_lblTitle)
         
         // Main view

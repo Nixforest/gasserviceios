@@ -88,7 +88,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
                    width: w, height: h)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateData),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02),
+                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02),
                                                object: nil)
         return
     }

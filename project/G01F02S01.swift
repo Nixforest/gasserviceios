@@ -89,7 +89,7 @@ class G01F02S01: StepContent {
         G01F02S01._selectedValue = Singleton.sharedInstance.listUpholdStatus[sender.tag]
         // Mark selecting button
         CommonProcess.markButton(button: sender as! UIButton)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G02F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
         self.stepDoneDelegate?.stepDone()
     }
     

@@ -91,6 +91,21 @@ class CommonViewController : UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    /**
+     * Handle show alert message
+     * - parameter message: Message content
+     * - parameter okHandler: Handler when tap OK button
+     * - parameter cancelHandler: Handler when tap Cancel button
+     */
+    func showAlert(message: String, okHandler: @escaping (UIAlertAction) -> Swift.Void, cancelHandler: @escaping (UIAlertAction) -> Swift.Void) -> Void {
+        
+        let alert = UIAlertController(title: GlobalConst.CONTENT00162, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: GlobalConst.CONTENT00008, style: .default, handler: okHandler)
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: GlobalConst.CONTENT00202, style: .cancel, handler: cancelHandler)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+    }
     
     /**
      * Asign notify for training mode change

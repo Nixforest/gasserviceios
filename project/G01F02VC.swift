@@ -14,17 +14,17 @@ class G01F02VC: StepVC, StepDoneDelegate {
         let height = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
         let step1 = G01F02S01(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
-        var step2 = G01F02S02(w: GlobalConst.SCREEN_WIDTH,
+        let step2 = G01F02S02(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
-        var step3 = G01F02S03(w: GlobalConst.SCREEN_WIDTH,
+        let step3 = G01F02S03(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
-        var step4 = G01F02S04(w: GlobalConst.SCREEN_WIDTH,
+        let step4 = G01F02S04(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
-        var step5 = G01F02S05(w: GlobalConst.SCREEN_WIDTH,
+        let step5 = G01F02S05(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
-        var step6 = G01F02S06(w: GlobalConst.SCREEN_WIDTH,
+        let step6 = G01F02S06(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
-        var summary = G01F02S07(w: GlobalConst.SCREEN_WIDTH,
+        let summary = G01F02S07(w: GlobalConst.SCREEN_WIDTH,
                                 h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         
         step1.stepDoneDelegate = self
@@ -43,6 +43,8 @@ class G01F02VC: StepVC, StepDoneDelegate {
         self.appendContent(stepContent: step6)
         self._numberStep = self._arrayContent.count + 1
         appendSummary(summary: summary)
+        // Set title
+        self._title = GlobalConst.CONTENT00186
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
