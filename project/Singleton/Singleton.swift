@@ -40,6 +40,10 @@ class Singleton: NSObject {
     var listHourHandle: [ConfigBean] = [ConfigBean]()
     /** List menu permission */
     var listMenuPermission: [ConfigBean] = [ConfigBean]()
+    /** List rating status */
+    var listRatingStatus: [ConfigBean] = [ConfigBean]()
+    /** List rating type */
+    var listRatingType: [ConfigBean] = [ConfigBean]()
     /** Id of role */
     var role_id: String = ""
     /** List user info */
@@ -222,6 +226,20 @@ class Singleton: NSObject {
                 self.listContactType.removeAll()
                 for type in item.data {
                     self.listContactType.append(type)
+                }
+            }
+            // List rating status
+            if item.id == DomainConst.KEY_RATING_STATUS {
+                self.listRatingStatus.removeAll()
+                for status in item.data {
+                    self.listRatingStatus.append(status)
+                }
+            }
+            // List rating type
+            if item.id == DomainConst.KEY_RATING_TYPE {
+                self.listRatingType.removeAll()
+                for type in item.data {
+                    self.listRatingType.append(type)
                 }
             }
         }

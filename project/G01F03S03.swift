@@ -1,14 +1,13 @@
 //
-//  G01F02S05.swift
+//  G01F03S03.swift
 //  project
 //
-//  Created by Nixforest on 10/29/16.
+//  Created by Nixforest on 11/3/16.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
-import UIKit
-
-class G01F02S05: StepContent, UITextViewDelegate {
+import Foundation
+class G01F03S03: StepContent, UITextViewDelegate {
     /** Selected value */
     static var _selectedValue: String = ""
     /** Note textfield */
@@ -53,12 +52,12 @@ class G01F02S05: StepContent, UITextViewDelegate {
         
         // Set parent
         self._parent = parent
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00188,
+        self.setup(mainView: contentView, title: GlobalConst.CONTENT00103,
                    contentHeight: offset,
                    width: w, height: h)
         // Set data
-        if !G01F02S05._selectedValue.isEmpty {
-            _tbxNote.text = G01F02S05._selectedValue
+        if !G01F03S03._selectedValue.isEmpty {
+            _tbxNote.text = G01F03S03._selectedValue
         }
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         self.addGestureRecognizer(gesture)
@@ -71,8 +70,8 @@ class G01F02S05: StepContent, UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        G01F02S05._selectedValue = textView.text
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
+        G01F03S03._selectedValue = textView.text
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F03), object: nil)
     }
     
     /**
@@ -107,8 +106,8 @@ class G01F02S05: StepContent, UITextViewDelegate {
     }
     
     override func checkDone() -> Bool {
-        if G01F02S05._selectedValue.isEmpty {
-            self._parent?.showAlert(message: GlobalConst.CONTENT00188)
+        if G01F03S03._selectedValue.isEmpty {
+            self._parent?.showAlert(message: GlobalConst.CONTENT00103)
             return false
         } else {
             return true

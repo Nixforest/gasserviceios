@@ -161,6 +161,9 @@ class GlobalConst {
     static let CONTENT00150 = "Ngày xử lý"
     static let CONTENT00151 = "Nội bộ"
     static let CONTENT00152 = "Điện thoại"
+    static let CONTENT00153 = "Đánh giá nhân viên bảo trì"
+    static let CONTENT00154 = "Cập nhật khách hàng"
+    static let CONTENT00155 = "Góp ý"
     static let CONTENT00156 = "Nhân viên bảo trì"
     static let CONTENT00157 = "Tgian xử lý"
     static let CONTENT00158 = "Kết quả"
@@ -194,6 +197,8 @@ class GlobalConst {
     static let CONTENT00203 = "Sự cố khác"
     static let CONTENT00204 = "Xin vui lòng chọn Người liên hệ"
     static let CONTENT00205 = "Bạn đang gửi thông tin sự cố như bên dưới cho chúng tôi. Xin hãy kiểm tra lại các thông tin cho thật chính xác và nhấn nút Gửi nếu bạn đồng ý."
+    static let CONTENT00206 = "Xin vui lòng đánh giá Mức độ hài lòng"
+    static let CONTENT00207 = "Xin vui lòng đánh giá Nhân viên bảo trì"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
@@ -292,7 +297,7 @@ class GlobalConst {
     static let G01_F00_S02_INFO_VIEW = "G01F00S02InfoView"
     
     /** Name of UpholdListViewController */
-    static let UPHOLD_RATING_VIEW_CTRL = "UpholdRatingViewController"
+    static let G01_F03_VIEW_CTRL = "G01F03VC"
     
     /** Name of ChangePasswordViewController */
     static let G00_CHANGE_PASS_VIEW_CTRL = "G00ChangePassVC"
@@ -332,8 +337,9 @@ class GlobalConst {
     static let NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW     = "G01F00S01VC.showSearchBarTableView"
     static let NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW  = "UpholdDetailViewController.setData"
     static let NOTIFY_NAME_COFIG_ITEM_G01F02            = "G01F2VC.configItemTapped"
-    static let NOTIFY_NAME_SET_DATA_G01F02              = "G01F2VC.setData"
     static let NOTIFY_NAME_SET_DATA_G01F01              = "G01F1VC.setData"
+    static let NOTIFY_NAME_SET_DATA_G01F02              = "G01F2VC.setData"
+    static let NOTIFY_NAME_SET_DATA_G01F03              = "G01F3VC.setData"
     static let NOTIFY_NAME_SET_DATA_HOMEVIEW            = "G00HomeVC.setData"
     static let NOTIFY_NAME_COFIG_ITEM_HOMEVIEW          = "G00HomeVC.configItemTapped"
     static let NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW       = "G00HomeVC.updateNotify"

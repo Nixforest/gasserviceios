@@ -1950,10 +1950,10 @@
             </objects>
             <point key="canvasLocation" x="5496.8000000000002" y="-2277.6611694152925"/>
         </scene>
-        <!--Uphold Rating View Controller-->
+        <!--G01F03VC-->
         <scene sceneID="J1i-bf-Z7P">
             <objects>
-                <viewController storyboardIdentifier="UpholdRatingViewController" id="Npp-mG-tqL" customClass="UpholdRatingViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G01F03VC" id="Npp-mG-tqL" customClass="G01F03VC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="X1w-kb-oSS"/>
                         <viewControllerLayoutGuide type="bottom" id="QLl-3B-8Db"/>
@@ -1961,106 +1961,39 @@
                     <view key="view" contentMode="scaleToFill" id="SBd-ci-dAe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Ez-9d-EG6">
-                                <frame key="frameInset" minY="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="crB-d1-2Cy">
-                                        <frame key="frameInset" minX="67" height="128" maxX="68" maxY="436"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <connections>
-                                            <segue destination="yqF-ob-UTC" kind="embed" id="wfM-I8-3Y1"/>
-                                        </connections>
-                                    </containerView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="txY-3f-5F4">
-                                        <frame key="frameInset" minX="67" height="128" maxX="68" maxY="297"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <connections>
-                                            <segue destination="j0y-Mm-2Ca" kind="embed" id="JXC-Mt-Rbb"/>
-                                        </connections>
-                                    </containerView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nq7-tm-rbx">
-                                        <frame key="frameInset" minX="67" height="128" maxX="68" maxY="161"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <connections>
-                                            <segue destination="Cyw-vz-8Bs" kind="embed" id="R2M-uR-mRp"/>
-                                        </connections>
-                                    </containerView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eJp-zL-R2t">
-                                        <frame key="frameInset" minX="8" minY="460" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="btnBackTapped:" destination="Npp-mG-tqL" eventType="touchUpInside" id="UFg-tE-ijX"/>
-                                        </connections>
-                                    </button>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d16-Bd-9bz">
-                                        <frame key="frameInset" minX="27" minY="537" width="320" height="66"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Feb-zv-fkm">
-                                                <frame key="frameInset" minX="37" minY="18" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnStepTapped:" destination="Npp-mG-tqL" eventType="touchUpInside" id="qB4-vP-Aab"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRy-iD-So7">
-                                                <frame key="frameInset" minX="137" minY="18" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnStepTapped:" destination="Npp-mG-tqL" eventType="touchUpInside" id="zv4-G2-E3Y"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnL-zE-lWq">
-                                                <frame key="frameInset" minX="250" minY="18" width="46" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="btnStepTapped:" destination="Npp-mG-tqL" eventType="touchUpInside" id="Z2g-7K-7No"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.68965432429999995" green="1" blue="0.39118130029999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t1p-Ol-dTr">
-                                        <frame key="frameInset" minX="164" minY="499" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="btnSendTapped:" destination="Npp-mG-tqL" eventType="touchUpInside" id="TbC-yQ-DMc"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWf-oe-h22">
-                                        <frame key="frameInset" minX="321" minY="460" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="btnNextTapped:" destination="Npp-mG-tqL" eventType="touchUpInside" id="mjw-By-Wz3"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.99693557639999997" green="1" blue="0.77188911979999997" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Qqc-wC-dO6"/>
+                    <navigationItem key="navigationItem" id="Qqc-wC-dO6">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="6XX-WM-Dyc">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="13g-jg-Pgd">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="QWC-Cx-AQN">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JDa-UA-uVn">
+                                    <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="RkK-g3-z7r">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dU8-gx-4pf">
+                                    <rect key="frame" x="185" y="7" width="83" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
-                        <outlet property="btnBack" destination="eJp-zL-R2t" id="J9g-5i-pAl"/>
-                        <outlet property="btnNext" destination="ZWf-oe-h22" id="fYh-yF-KOX"/>
-                        <outlet property="btnSend" destination="t1p-Ol-dTr" id="Wif-K0-ewo"/>
-                        <outlet property="btnStep0" destination="Feb-zv-fkm" id="V24-cH-Kcm"/>
-                        <outlet property="btnStep1" destination="KRy-iD-So7" id="Vcl-Pu-18I"/>
-                        <outlet property="btnStep2" destination="hnL-zE-lWq" id="RS9-H9-5SU"/>
-                        <outlet property="ctnviewRatingStep0" destination="crB-d1-2Cy" id="TM8-3Y-amM"/>
-                        <outlet property="ctnviewRatingStep1" destination="txY-3f-5F4" id="n4f-b6-8v5"/>
-                        <outlet property="ctnviewRatingStep2" destination="Nq7-tm-rbx" id="sLa-Qe-sg2"/>
-                        <outlet property="viewBackground" destination="0Ez-9d-EG6" id="qtI-FW-IY7"/>
-                        <outlet property="viewBtn" destination="d16-Bd-9bz" id="Ora-KE-Qzb"/>
+                        <outlet property="backButton" destination="13g-jg-Pgd" id="KHa-Rm-KU4"/>
+                        <outlet property="menuButton" destination="JDa-UA-uVn" id="lZn-ji-ctY"/>
+                        <outlet property="navigationBar" destination="Qqc-wC-dO6" id="XhU-vC-bHe"/>
+                        <outlet property="notificationButton" destination="dU8-gx-4pf" id="da6-ou-q3D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kDS-Sm-vMB" userLabel="First Responder" sceneMemberID="firstResponder"/>
