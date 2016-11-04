@@ -10,11 +10,9 @@ import Foundation
 class G01F03S02: StepContent {
     // MARK: Properties
     /** Selected value */
-    static var _selectedValue: [Double] = [Double]()
+    static var _selectedValue: [Int] = [Int]()
     /** List of selection */
-    var _listRating = [CosmosView]()
-    /** List of label */
-    var _listLabel = [UILabel]()
+    var _listRating = [RatingBar]()
     
     /*
      // Only override draw() if you perform custom drawing.
@@ -39,35 +37,38 @@ class G01F03S02: StepContent {
                 let label = UILabel()
                 label.translatesAutoresizingMaskIntoConstraints = true
                 label.frame = CGRect(
-                    x: 0,
+                    x: GlobalConst.MARGIN,
                     y: offset,
                     width: self.frame.width,
                     height: GlobalConst.LABEL_HEIGHT)
                 label.text               = Singleton.sharedInstance.listRatingType[i].name
-                label.textAlignment      = NSTextAlignment.center
+                //label.textAlignment      = NSTextAlignment.center
                 label.font               = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
                 contentView.addSubview(label)
                 offset += GlobalConst.LABEL_HEIGHT
                 
                 // Rating bar
-                let ratingBar = CosmosView()
+                let ratingBar = RatingBar()
                 ratingBar.translatesAutoresizingMaskIntoConstraints = true
+                let size = GlobalConst.LABEL_HEIGHT * 1.5
+                let width = size * (CGFloat)(ratingBar._starCount) + (ratingBar._spacing * (CGFloat)(ratingBar._starCount - 1))
                 ratingBar.frame = CGRect(
-                    x: 0,
+                    x: (self.frame.width - width) / 2,
                     y: offset,
-                    width: self.frame.width,
-                    height: GlobalConst.LABEL_HEIGHT * 2)
-                ratingBar.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
-                if G01F03S02._selectedValue.count > (i + 1) {
-                    ratingBar.rating = G01F03S02._selectedValue[i]
+                    width: width,
+                    height: size)
+                //ratingBar.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
+                ratingBar.setBackgroundColor(color: GlobalConst.BACKGROUND_COLOR_GRAY)
+                if G01F03S02._selectedValue.count > i {
+                    ratingBar.setRatingValue(value: G01F03S02._selectedValue[i])
                 } else {
-                    ratingBar.rating = 0.0
+                    G01F03S02._selectedValue.append(0)
                 }
+                
                 
                 _listRating.append(ratingBar)
                 contentView.addSubview(ratingBar)
-                offset += GlobalConst.LABEL_HEIGHT
-                G01F03S02._selectedValue.append(0.0)
+                offset += size
             }
         }
         // Set parent
@@ -83,16 +84,11 @@ class G01F03S02: StepContent {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        if Singleton.sharedInstance.listRatingType.count > 0 {
-            for i in 0..<Singleton.sharedInstance.listRatingType.count {
-                G01F03S02._selectedValue[i] = self._listRating[i].rating
-            }
-        }
-    }
-    
     override func checkDone() -> Bool {
+        for i in 0..<Singleton.sharedInstance.listRatingType.count {
+            G01F03S02._selectedValue[i] = self._listRating[i]._rating
+        }
+        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F03), object: nil)
         if G01F03S02._selectedValue.count == 0 {
             self._parent?.showAlert(message: GlobalConst.CONTENT00207)
             return false

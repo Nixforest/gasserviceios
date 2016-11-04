@@ -28,10 +28,10 @@ class G01F03VC: StepVC, StepDoneDelegate {
         let summary = G01F03S04(w: GlobalConst.SCREEN_WIDTH,
                                 h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         
-        step1.stepDoneDelegate = self
-        self.appendContent(stepContent: step1)
         step2.stepDoneDelegate = self
         self.appendContent(stepContent: step2)
+        step1.stepDoneDelegate = self
+        self.appendContent(stepContent: step1)
         step3.stepDoneDelegate = self
         self.appendContent(stepContent: step3)
         self._numberStep = self._arrayContent.count + 1
@@ -51,13 +51,15 @@ class G01F03VC: StepVC, StepDoneDelegate {
     }
     
     override func clearData() {
-//        G01F01S01._selectedValue = ConfigBean(id: "", name: "")
-//        G01F01S01._otherProblem = ""
-//        G01F01S02._selectedValue = ConfigBean(id: "", name: "")
-//        G01F01S02._name = ""
-//        G01F01S02._phone = ""
+        G01F03S01._selectedValue = ConfigBean(id: "", name: "")
+        G01F03S02._selectedValue = [Int]()
+        G01F03S03._selectedValue = ""
     }
     override func btnSendTapped() {
+        CommonProcess.requestRatingUphold(id: Singleton.sharedInstance.sharedString,
+                                          ratingStatusId: G01F03S01._selectedValue.id,
+                                          listRating: G01F03S02._selectedValue,
+                                          content: G01F03S03._selectedValue, view: self)
 //        CommonProcess.requestCreateUphold(
 //            customerId: Singleton.sharedInstance.user_id,
 //            employeeId: "",

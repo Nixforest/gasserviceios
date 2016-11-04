@@ -55,6 +55,7 @@ class StepSummary: UIView {
             y: 0,
             width: self.frame.width,
             height: GlobalConst.LABEL_HEIGHT)
+        _tbxTitle.isUserInteractionEnabled = false
         let contentSize             = _tbxTitle.sizeThatFits(_tbxTitle.bounds.size)
         var frame                   = _tbxTitle.frame
         frame.size.height           = contentSize.height

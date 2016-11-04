@@ -199,6 +199,9 @@ class GlobalConst {
     static let CONTENT00205 = "Bạn đang gửi thông tin sự cố như bên dưới cho chúng tôi. Xin hãy kiểm tra lại các thông tin cho thật chính xác và nhấn nút Gửi nếu bạn đồng ý."
     static let CONTENT00206 = "Xin vui lòng đánh giá Mức độ hài lòng"
     static let CONTENT00207 = "Xin vui lòng đánh giá Nhân viên bảo trì"
+    static let CONTENT00208 = "Nội dung cần đánh giá và góp ý"
+    static let CONTENT00209 = "Xin cảm ơn quý khách hàng đã đánh giá dịch vụ của chúng tôi. Xin hãy kiểm tra lại các thông tin cho thật chính xác và nhấn nút Gửi nếu quý khách hàng đồng ý."
+    static let CONTENT00210 = "Mức hài lòng"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width

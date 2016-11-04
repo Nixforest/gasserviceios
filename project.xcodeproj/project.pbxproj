@@ -86,8 +86,6 @@
 		84F481971D67040E0072DC7A /* UpHoldList.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84F481931D67040E0072DC7A /* UpHoldList.jpeg */; };
 		84F481981D67040E0072DC7A /* CreateUpHold.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84F481941D67040E0072DC7A /* CreateUpHold.jpeg */; };
 		84F481991D67040E0072DC7A /* ServiceRating.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 84F481951D67040E0072DC7A /* ServiceRating.jpeg */; };
-		84F809AE1DB2141F0035AE36 /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F809AC1DB2141F0035AE36 /* emptyStar.png */; };
-		84F809AF1DB2141F0035AE36 /* filledStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F809AD1DB2141F0035AE36 /* filledStar.png */; };
 		84F809B11DB2192B0035AE36 /* CosmosDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F809B01DB2192B0035AE36 /* CosmosDistrib.swift */; };
 		92026C471D7E843D004232CA /* GlobalConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92026C461D7E843D004232CA /* GlobalConst.swift */; };
 		920555081DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920555071DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift */; };
@@ -100,6 +98,9 @@
 		92458D821D9647F500AB16DE /* UserProfileRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92458D811D9647F500AB16DE /* UserProfileRespModel.swift */; };
 		9246E3D71D9D9E3A00312DEA /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9246E3D61D9D9E3A00312DEA /* LoginRequest.swift */; };
 		926346421DC45263007CEBC6 /* G01F02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926346411DC45263007CEBC6 /* G01F02MenuVC.swift */; };
+		926638561DCC2777001A36BF /* RatingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926638551DCC2777001A36BF /* RatingBar.swift */; };
+		9266385C1DCC43F1001A36BF /* rating_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 9266385B1DCC43F1001A36BF /* rating_empty.png */; };
+		9266385E1DCC72D7001A36BF /* RatingUpholdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266385D1DCC72D7001A36BF /* RatingUpholdRequest.swift */; };
 		926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F31D9276B5000D2DED /* CommonProcess.swift */; };
 		926670F71D927BE0000D2DED /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926670F61D927BE0000D2DED /* CommonViewController.swift */; };
 		927573241DC0F1CC000289BA /* G01F01MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927573231DC0F1CC000289BA /* G01F01MenuVC.swift */; };
@@ -255,8 +256,6 @@
 		84F481931D67040E0072DC7A /* UpHoldList.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = UpHoldList.jpeg; sourceTree = "<group>"; };
 		84F481941D67040E0072DC7A /* CreateUpHold.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CreateUpHold.jpeg; sourceTree = "<group>"; };
 		84F481951D67040E0072DC7A /* ServiceRating.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ServiceRating.jpeg; sourceTree = "<group>"; };
-		84F809AC1DB2141F0035AE36 /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
-		84F809AD1DB2141F0035AE36 /* filledStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledStar.png; sourceTree = "<group>"; };
 		84F809B01DB2192B0035AE36 /* CosmosDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosDistrib.swift; sourceTree = "<group>"; };
 		92026C461D7E843D004232CA /* GlobalConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConst.swift; sourceTree = "<group>"; };
 		920555071DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00ConfigurationMenuVC.swift; sourceTree = "<group>"; };
@@ -269,6 +268,9 @@
 		92458D811D9647F500AB16DE /* UserProfileRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileRespModel.swift; sourceTree = "<group>"; };
 		9246E3D61D9D9E3A00312DEA /* LoginRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		926346411DC45263007CEBC6 /* G01F02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02MenuVC.swift; sourceTree = "<group>"; };
+		926638551DCC2777001A36BF /* RatingBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingBar.swift; sourceTree = "<group>"; };
+		9266385B1DCC43F1001A36BF /* rating_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rating_empty.png; sourceTree = "<group>"; };
+		9266385D1DCC72D7001A36BF /* RatingUpholdRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingUpholdRequest.swift; sourceTree = "<group>"; };
 		926670F31D9276B5000D2DED /* CommonProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonProcess.swift; sourceTree = "<group>"; };
 		926670F61D927BE0000D2DED /* CommonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
 		927573231DC0F1CC000289BA /* G01F01MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F01MenuVC.swift; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 				92BF0C231DC1B761009B1DA4 /* StepContent.swift */,
 				92BF0C251DC1B776009B1DA4 /* StepSummary.swift */,
 				92BF0C271DC1BA11009B1DA4 /* ScrollButtonList.swift */,
+				926638551DCC2777001A36BF /* RatingBar.swift */,
 			);
 			name = Component;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 		8448883D1DB1E25A0010130A /* UpholdRating */ = {
 			isa = PBXGroup;
 			children = (
+				84F809B01DB2192B0035AE36 /* CosmosDistrib.swift */,
 				8448883B1DB1D37C0010130A /* UpholdRatingViewController.swift */,
 				8448883E1DB1E2760010130A /* UpholdRatingStep0ViewController.swift */,
 				844888401DB1E28A0010130A /* UpholdRatingStep1ViewController.swift */,
@@ -452,13 +456,12 @@
 		84DC0D7C1D494B3000E52249 /* IMG */ = {
 			isa = PBXGroup;
 			children = (
+				9266385B1DCC43F1001A36BF /* rating_empty.png */,
 				928D3AA91DB60F31001E5E76 /* gasservice.png */,
 				92B6DBCC1DACCCE10017C70F /* regMenu.png */,
 				92B6DBCA1DACCC7A0017C70F /* loginMenu.png */,
 				92B6DBC81DACCBD60017C70F /* issueMenu.png */,
 				92B6DBC61DACCB0D0017C70F /* logout.png */,
-				84F809AC1DB2141F0035AE36 /* emptyStar.png */,
-				84F809AD1DB2141F0035AE36 /* filledStar.png */,
 				84E000B71DAFA05800FEE1D7 /* delete.png */,
 				84E83D521D87C171007C7A90 /* InfoIcon.png */,
 				84E83D531D87C171007C7A90 /* TrainingModeIcon.png */,
@@ -519,6 +522,7 @@
 				92BF34CF1DC8E3BD00DD3487 /* UpdateConfigurationRequest.swift */,
 				92BF34D11DC9139D00DD3487 /* NotificationCountRequest.swift */,
 				92A5C7D21DCB4B3C00D6572F /* CreateUpholdRequest.swift */,
+				9266385D1DCC72D7001A36BF /* RatingUpholdRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -562,7 +566,6 @@
 				92A5C7D71DCB792900D6572F /* G01F03S01.swift */,
 				92A5C7DB1DCB7C8B00D6572F /* G01F03S02.swift */,
 				92A5C7DD1DCB82AC00D6572F /* G01F03S03.swift */,
-				84F809B01DB2192B0035AE36 /* CosmosDistrib.swift */,
 				92A5C7DF1DCB83A900D6572F /* G01F03S04.swift */,
 			);
 			name = F03;
@@ -765,7 +768,6 @@
 				84E83D541D87C171007C7A90 /* InfoIcon.png in Resources */,
 				84A4C0651D63117000C0B84C /* checkbox-unchecked.png in Resources */,
 				92B6DBCB1DACCC7A0017C70F /* loginMenu.png in Resources */,
-				84F809AE1DB2141F0035AE36 /* emptyStar.png in Resources */,
 				84331BEB1D771B560089B0FA /* contact.png in Resources */,
 				84EB7C941DAEA38800047DB7 /* CollectionViewCell1.xib in Resources */,
 				842BA35D1D8EA81B004ECBFF /* G01F00S01ProblemCell.xib in Resources */,
@@ -777,7 +779,6 @@
 				84284E1C1D40DF050079DEBC /* LaunchScreen.storyboard in Resources */,
 				84A4C0641D63117000C0B84C /* checkbox-checked.png in Resources */,
 				84331BEC1D771B560089B0FA /* mobile.png in Resources */,
-				84F809AF1DB2141F0035AE36 /* filledStar.png in Resources */,
 				84F481981D67040E0072DC7A /* CreateUpHold.jpeg in Resources */,
 				84E863561DC0E8BA00F18AA5 /* G00HomeCell.xib in Resources */,
 				84EFFBE91D7D912500900578 /* config.png in Resources */,
@@ -791,6 +792,7 @@
 				84F481971D67040E0072DC7A /* UpHoldList.jpeg in Resources */,
 				84E000B81DAFA05800FEE1D7 /* delete.png in Resources */,
 				84E041B11D668DFD00A89608 /* back.png in Resources */,
+				9266385C1DCC43F1001A36BF /* rating_empty.png in Resources */,
 				92B6DBC91DACCBD60017C70F /* issueMenu.png in Resources */,
 				84F481991D67040E0072DC7A /* ServiceRating.jpeg in Resources */,
 				84284E171D40DF050079DEBC /* Main.storyboard in Resources */,
@@ -875,6 +877,7 @@
 				926346421DC45263007CEBC6 /* G01F02MenuVC.swift in Sources */,
 				84DFE0091DA23AFD00A48B35 /* ReplyUpholdStep5ViewController.swift in Sources */,
 				84DFE0031DA23ADA00A48B35 /* ReplyUpholdStep2ViewController.swift in Sources */,
+				9266385E1DCC72D7001A36BF /* RatingUpholdRequest.swift in Sources */,
 				92A5C7DC1DCB7C8B00D6572F /* G01F03S02.swift in Sources */,
 				84EBBD251D8F8E7300FB4D25 /* G00InfomationVC.swift in Sources */,
 				84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */,
@@ -917,6 +920,7 @@
 				92458D781D96216A00AB16DE /* LoginRespModel.swift in Sources */,
 				92026C471D7E843D004232CA /* GlobalConst.swift in Sources */,
 				843B11571DA0E56F002B3A5A /* ReplyUpholdStep1ViewController.swift in Sources */,
+				926638561DCC2777001A36BF /* RatingBar.swift in Sources */,
 				92F337451D96DCC500FDACBF /* LoadingView.swift in Sources */,
 				92BF0C241DC1B761009B1DA4 /* StepContent.swift in Sources */,
 				8435C24E1D8ABED100F9903D /* G01F00S01MenuVC.swift in Sources */,

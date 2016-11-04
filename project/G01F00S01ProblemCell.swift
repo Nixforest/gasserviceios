@@ -9,7 +9,7 @@
 import UIKit
 
 protocol G01F00S01ProblemCellDelegate {
-    func toRatingVC()
+    func toRatingVC(id: String)
 }
 
 class G01F00S01ProblemCell: UITableViewCell {
@@ -39,9 +39,10 @@ class G01F00S01ProblemCell: UITableViewCell {
     @IBOutlet weak var lblEmployee: UILabel!
     /** Finish mark */
     @IBOutlet weak var finishMarkImg: UIImageView!
+    var _id: String = ""
     
     @IBAction func btnRatingTapped(_ sender: AnyObject) {
-        delegate?.toRatingVC()
+        delegate?.toRatingVC(id: self._id)
     }
     
     // MARK: Methods
@@ -183,6 +184,7 @@ class G01F00S01ProblemCell: UITableViewCell {
      * - parameter model: UpholdBean model
      */
     func setData(model: UpholdBean) {
+        self._id            = model.id
         lblName.text        = model.customer_name
         lblIssue.text       = model.type_uphold
         lblStatus.text      = model.status

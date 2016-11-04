@@ -517,7 +517,8 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
     /**
      * Handle when tap on Rating button.
      */
-    func toRatingVC() {
+    func toRatingVC(id: String) {
+        Singleton.sharedInstance.sharedString = id
         let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F03_VIEW_CTRL)
         self.navigationController?.pushViewController(ratingVC, animated: true)
     }

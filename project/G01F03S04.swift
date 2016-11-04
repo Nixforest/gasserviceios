@@ -9,18 +9,18 @@
 import Foundation
 class G01F03S04: StepSummary {
     // MARK: Properties
-    /** Label status */
-    var lblProblem: UILabel = UILabel()
+    /** Label Feeling */
+    var lblFeeling: UILabel = UILabel()
     /** Status value */
-    var tbxProblem: UITextView = UITextView()
+    var tbxFeeling: UITextView = UITextView()
+    /** List of selection */
+    var _listRating = [RatingBar]()
+    /** List of label */
+    var _listLabel = [UILabel]()
     /** Label Time */
     var lblContent: UILabel = UILabel()
     /** Time value */
     var tbxContent: UITextView = UITextView()
-    /** Label Reviewer */
-    var lblContact: UILabel = UILabel()
-    /** Reviewer value */
-    var tbxContact: UITextView = UITextView()
     
     /*
      // Only override draw() if you perform custom drawing.
@@ -42,18 +42,22 @@ class G01F03S04: StepSummary {
         // Set parent
         self._parent = parent
         
-        contentView.addSubview(lblProblem)
-        contentView.addSubview(tbxProblem)
+        contentView.addSubview(lblFeeling)
+        contentView.addSubview(tbxFeeling)
+        for item in self._listLabel {
+            contentView.addSubview(item)
+        }
+        for item in self._listRating {
+            contentView.addSubview(item)
+        }
         contentView.addSubview(lblContent)
         contentView.addSubview(tbxContent)
-        contentView.addSubview(lblContact)
-        contentView.addSubview(tbxContact)
         
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00205, contentHeight: offset,
+        self.setup(mainView: contentView, title: GlobalConst.CONTENT00209, contentHeight: offset,
                    width: w, height: h)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateData),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F01),
+                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F03),
                                                object: nil)
         return
     }
@@ -63,21 +67,12 @@ class G01F03S04: StepSummary {
     }
     
     func updateData() {
-        tbxProblem.text = G01F01S01._selectedValue.name
-        tbxContent.text = G01F01S01._otherProblem
-        tbxContact.text = G01F01S02._name + "\n" + G01F01S02._phone
-        var offset: CGFloat = GlobalConst.LABEL_HEIGHT
-        lblContent.isHidden = true
-        tbxContent.isHidden = true
-        if G01F01S01._selectedValue.name == DomainConst.OPTION_OTHER {
-            lblContent.isHidden = false
-            tbxContent.isHidden = false
-            offset += GlobalConst.LABEL_HEIGHT
+        tbxFeeling.text = G01F03S01._selectedValue.name
+        tbxContent.text = G01F03S03._selectedValue
+        //self.updateLayout(contentHeight: offset)
+        for i in 0..<G01F03S02._selectedValue.count {
+            self._listRating[i]._rating = G01F03S02._selectedValue[i]
         }
-        updateLayout(view: lblContact, offset: offset)
-        updateLayout(view: tbxContact, offset: offset)
-        offset += GlobalConst.LABEL_HEIGHT * 1.5
-        self.updateLayout(contentHeight: offset)
     }
     
     func updateLayout(view: UIView, offset: CGFloat) {
@@ -89,42 +84,69 @@ class G01F03S04: StepSummary {
     func updateLayout(w: CGFloat, h: CGFloat) -> CGFloat {
         var offset: CGFloat = 0
         
-        // Label Problem
-        CommonProcess.setLayoutLeft(lbl: lblProblem, offset: offset,
+        // Add controls
+        if Singleton.sharedInstance.listRatingType.count > 0 {
+            for i in 0..<Singleton.sharedInstance.listRatingType.count {
+                // Label title
+                let label = UILabel()
+                label.translatesAutoresizingMaskIntoConstraints = true
+                label.frame = CGRect(
+                    x: GlobalConst.MARGIN_CELL_X,
+                    y: offset,
+                    width: self.frame.width,
+                    height: GlobalConst.LABEL_HEIGHT)
+                label.text               = Singleton.sharedInstance.listRatingType[i].name
+                //label.textAlignment      = NSTextAlignment.center
+                label.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+                self._listLabel.append(label)
+                offset += GlobalConst.LABEL_HEIGHT
+                
+                // Rating bar
+                let ratingBar = RatingBar()
+                ratingBar.translatesAutoresizingMaskIntoConstraints = true
+                let size = GlobalConst.LABEL_HEIGHT
+                let width = size * (CGFloat)(ratingBar._starCount) + (ratingBar._spacing * (CGFloat)(ratingBar._starCount - 1))
+                ratingBar.frame = CGRect(
+                    x: (self.frame.width - width) / 2,
+                    y: offset,
+                    width: width,
+                    height: size)
+                //ratingBar.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
+                ratingBar.setBackgroundColor(color: UIColor.white)
+                ratingBar.setEnabled(isEnabled: true)
+                ratingBar.isUserInteractionEnabled = false
+                if G01F03S02._selectedValue.count > i {
+                    ratingBar.setRatingValue(value: G01F03S02._selectedValue[i])
+                }
+                
+                _listRating.append(ratingBar)
+                offset += size
+            }
+        }
+        
+        // Label Feeling
+        CommonProcess.setLayoutLeft(lbl: lblFeeling, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00147)
-        lblProblem.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-        // Problem value
-        CommonProcess.setLayoutRight(lbl: tbxProblem, x: lblProblem.frame.maxX, y: offset,
+                                    height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00210)
+        lblFeeling.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+        // Feeling value
+        CommonProcess.setLayoutRight(lbl: tbxFeeling, x: lblFeeling.frame.maxX, y: offset,
                                      width: (w - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
-                                     height: GlobalConst.LABEL_HEIGHT, text: G01F01S01._selectedValue.name)
-        tbxProblem.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+                                     height: GlobalConst.LABEL_HEIGHT, text: G01F03S01._selectedValue.name)
+        tbxFeeling.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Content
         CommonProcess.setLayoutLeft(lbl: lblContent, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00063)
+                                    height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00063)
         lblContent.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         // Content value
         CommonProcess.setLayoutRight(lbl: tbxContent, x: lblContent.frame.maxX, y: offset,
                                      width: (w - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
-                                     height: GlobalConst.LABEL_HEIGHT, text: G01F01S01._otherProblem)
+                                     height: GlobalConst.LABEL_HEIGHT * 2, text: G01F03S03._selectedValue)
         tbxContent.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-        offset += GlobalConst.LABEL_HEIGHT
-        
-        // Label Contact
-        CommonProcess.setLayoutLeft(lbl: lblContact, offset: offset,
-                                    width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT * 1.5, text: GlobalConst.CONTENT00146)
-        lblContact.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-        // Contact value
-        CommonProcess.setLayoutRight(lbl: tbxContact, x: lblContact.frame.maxX, y: offset,
-                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
-                                     height: GlobalConst.LABEL_HEIGHT * 1.5,
-                                     text: G01F02S04._selectedValue.name + "\n" + G01F02S04._selectedValue.phone)
-        tbxContact.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-        offset += GlobalConst.LABEL_HEIGHT * 1.5
+        offset += GlobalConst.LABEL_HEIGHT * 2
         
         return offset
     }

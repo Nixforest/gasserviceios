@@ -210,6 +210,25 @@ class CommonProcess {
     }
     
     /**
+     * Request create uphold reply
+     * - parameter id:              Id of uphold item
+     * - parameter ratingStatusId:  Id of rating status
+     * - parameter listRating:      List rating type
+     * - parameter content:         Content
+     * - parameter view:            View controller
+     */
+    static func requestRatingUphold(id: String, ratingStatusId: String,
+                                    listRating: [Int], content: String,
+                                    view: CommonViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = RatingUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CUSTOMER_RATING, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        request.setData(id: id, ratingStatusId: ratingStatusId, listRating: listRating, content: content)
+        request.execute()
+        
+    }
+    
+    /**
      * Set border for control.
      * - parameter view: Control to set border
      */

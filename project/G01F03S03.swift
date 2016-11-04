@@ -52,7 +52,7 @@ class G01F03S03: StepContent, UITextViewDelegate {
         
         // Set parent
         self._parent = parent
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00103,
+        self.setup(mainView: contentView, title: GlobalConst.CONTENT00208,
                    contentHeight: offset,
                    width: w, height: h)
         // Set data
@@ -106,11 +106,6 @@ class G01F03S03: StepContent, UITextViewDelegate {
     }
     
     override func checkDone() -> Bool {
-        if G01F03S03._selectedValue.isEmpty {
-            self._parent?.showAlert(message: GlobalConst.CONTENT00103)
-            return false
-        } else {
-            return true
-        }
+        return true
     }
 }
