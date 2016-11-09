@@ -126,6 +126,13 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         zoomIMGViewController.imgPicked = G01F02S06._selectedValue[indexPath.row]
         let IMGVC = self._parent?.mainStoryboard.instantiateViewController(withIdentifier: "zoomIMGViewController")
         self._parent?.navigationController?.pushViewController(IMGVC!, animated: true)
+//        ImageView.imgPicked = G01F02S06._selectedValue[indexPath.row]
+//        var imageView: ImageView = ImageView()
+//        imageView.frame = CGRect(x: 0, y: 0,
+//                                 width: GlobalConst.SCREEN_WIDTH,
+//                                 height: GlobalConst.SCREEN_HEIGHT)
+//        imageView.setup()
+//        self._parent?.view.addSubview(imageView)
 
     }
     func updateData() {
@@ -166,7 +173,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         cltviewStep5.contentSize = CGSize(
             width: GlobalConst.ACCOUNT_AVATAR_H * (CGFloat)(G01F02S06._selectedValue.count),
             height: GlobalConst.ACCOUNT_AVATAR_H)
-        cltviewStep5.bounds = cltviewStep5.frame
+        //cltviewStep5.bounds = cltviewStep5.frame
         offset += GlobalConst.ACCOUNT_AVATAR_H
         self.updateLayout(contentHeight: offset)
     }

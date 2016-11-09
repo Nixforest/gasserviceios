@@ -28,7 +28,8 @@ class CommonViewController : UIViewController {
      */
     func trainingModeOn(_ notification: Notification) {
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
-        GlobalConst.PARENT_BORDER_WIDTH = 5
+        GlobalConst.PARENT_BORDER_WIDTH = 0
+        GlobalConst.BUTTON_COLOR_RED = ColorFromRGB().getColorFromRGB(0x38761D)
     }
     
     /**
@@ -37,6 +38,7 @@ class CommonViewController : UIViewController {
     func trainingModeOff(_ notification: Notification) {
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
         GlobalConst.PARENT_BORDER_WIDTH = 0
+        GlobalConst.BUTTON_COLOR_RED = ColorFromRGB().getColorFromRGB(0xF00020)
     }
     
     /**

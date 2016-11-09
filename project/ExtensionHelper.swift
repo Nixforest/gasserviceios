@@ -89,6 +89,13 @@ extension CALayer {
         addBorder(edge: edge, color: GlobalConst.BACKGROUND_COLOR_GRAY, thickness: 1)
     }
 }
+
+extension NSMutableData {
+    func appendString(string: String) {
+        let data = string.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        append(data!)
+    }
+}
 /**
  * Protocol to define delegate with match select button event.
  */

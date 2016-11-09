@@ -12,6 +12,8 @@ class BaseRequest {
     var url: String = ""
     /** Data of request */
     var data: String = ""
+    /** Data of request (upload file) */
+    var param: [String: String] = [String: String]()
     /** Request method: GET/POST */
     var reqMethod: String = ""
     /** Session */
@@ -53,6 +55,92 @@ class BaseRequest {
         request.httpBody = self.data.data(using: String.Encoding.utf8)
         let task = completetionHandler(request: request)
         task.resume()
+    }
+    
+    func executeUploadFile(listImages: [UIImage]) {
+        let serverUrl: URL = URL(string: Singleton.sharedInstance.getServerURL() + self.url)!
+        let request = NSMutableURLRequest(url: serverUrl)
+        request.httpMethod = self.reqMethod
+        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
+        let boundary = generateBoundaryString()
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+//        let imgData = UIImageJPEGRepresentation(listImages[0], 1)
+//        if imgData == nil {
+//            return
+//        }
+//        request.httpBody = createBodyWithParameter(parameters: self.param, filePathKey: "file_name[0]",
+//                                                   imageDataKey: imgData! as NSData, boundary: boundary) as Data
+        var imgDataList: [Data] = [Data]()
+        var filePathKey: [String] = [String]()
+        for i in 0..<listImages.count {
+            let imgData = UIImageJPEGRepresentation(listImages[i], 1)
+            if imgData == nil {
+                return
+            }
+            imgDataList.append(imgData!)
+            filePathKey.append(String.init(format: "file_name[%d]", i))
+        }
+        request.httpBody = createBodyWithParameter(parameters: self.param, filePathKey: filePathKey,
+                                                   imageDataKey: imgDataList, boundary: boundary) as Data
+        
+        let task = completetionHandler(request: request)
+        task.resume()
+    }
+    
+    /// Create boundary string for multipart/form-data request
+    ///
+    /// - returns:            The boundary string that consists of "Boundary-" followed by a UUID string.
+    
+    func generateBoundaryString() -> String {
+        return "Boundary-\(NSUUID().uuidString)"
+    }
+    
+    func createBodyWithParameter(parameters: [String: String]?, filePathKey: String?,
+                                 imageDataKey: NSData, boundary: String) -> NSData {
+        let body = NSMutableData()
+        if parameters != nil {
+            for (key, value) in parameters! {
+                body.appendString(string: "--\(boundary)\r\n")
+                body.appendString(string: "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+                body.appendString(string: "\(value)\r\n")
+            }
+        }
+        let filename = "abcdef.jpg"
+        let mimetype = "image/jpg"
+        
+        body.appendString(string: "--\(boundary)\r\n")
+        body.appendString(string: "Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(filename)\"\r\n")
+        body.appendString(string: "Content-Type: \(mimetype)\r\n\r\n")
+        body.append(imageDataKey as Data)
+        body.appendString(string: "\r\n")
+        body.appendString(string: "--\(boundary)--\r\n")
+        
+        return body
+    }
+    
+    func createBodyWithParameter(parameters: [String: String]?, filePathKey: [String],
+                                 imageDataKey: [Data], boundary: String) -> NSData {
+        let body = NSMutableData()
+        if parameters != nil {
+            for (key, value) in parameters! {
+                body.appendString(string: "--\(boundary)\r\n")
+                body.appendString(string: "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+                body.appendString(string: "\(value)\r\n")
+            }
+        }
+        let filename = "abcdef.jpg"
+        let mimetype = "image/jpg"
+        for i in 0..<filePathKey.count {
+            body.appendString(string: "--\(boundary)\r\n")
+            body.appendString(string: "Content-Disposition: form-data; name=\"\(filePathKey[i])\"; filename=\"\(filename)\"\r\n")
+            body.appendString(string: "Content-Type: \(mimetype)\r\n\r\n")
+            body.append(imageDataKey[i])
+            body.appendString(string: "\r\n")
+            body.appendString(string: "--\(boundary)--\r\n")
+        }
+        
+        return body
     }
     
     /**

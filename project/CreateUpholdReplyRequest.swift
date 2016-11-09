@@ -87,5 +87,34 @@ class CreateUpholdReplyRequest: BaseRequest {
             DomainConst.KEY_LONGITUDE, 0.0,
             DomainConst.KEY_VERSION_CODE, GlobalConst.VERSION_CODE
         )
+        self.param = [
+//            DomainConst.KEY_TOKEN           : Singleton.sharedInstance.getUserToken(),
+//            DomainConst.KEY_UPHOLD_ID       :   upholdId,
+//            DomainConst.KEY_STATUS          : status,
+//            DomainConst.KEY_HOURS_HANDLE    : hoursHandle,
+//            DomainConst.KEY_NOTE            : note,
+//            DomainConst.KEY_CONTACT_PHONE   : contact_phone,
+//            DomainConst.KEY_REPORT_WRONG    : reportWrong,
+//            DomainConst.KEY_CUSTOMER_ID     : customerId,
+//            DomainConst.KEY_NOTE_INTERNAL   : noteInternal,
+//            DomainConst.KEY_LATITUDE        : String(0.0),
+//            DomainConst.KEY_LONGITUDE       : String(0.0),
+//            DomainConst.KEY_VERSION_CODE    : GlobalConst.VERSION_CODE
+            "q" : String.init(
+                format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":\"%@\"}",
+                DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken(),
+                DomainConst.KEY_UPHOLD_ID, upholdId,
+                DomainConst.KEY_STATUS, status,
+                DomainConst.KEY_HOURS_HANDLE, hoursHandle,
+                DomainConst.KEY_NOTE, note,
+                DomainConst.KEY_CONTACT_PHONE, contact_phone,
+                DomainConst.KEY_REPORT_WRONG, reportWrong,
+                DomainConst.KEY_CUSTOMER_ID, customerId,
+                DomainConst.KEY_NOTE_INTERNAL, noteInternal,
+                DomainConst.KEY_LATITUDE, 0.0,
+                DomainConst.KEY_LONGITUDE, 0.0,
+                DomainConst.KEY_VERSION_CODE, GlobalConst.VERSION_CODE
+            )
+        ]
     }
 }

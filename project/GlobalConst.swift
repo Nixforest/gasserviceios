@@ -202,6 +202,7 @@ class GlobalConst {
     static let CONTENT00208 = "Nội dung cần đánh giá và góp ý"
     static let CONTENT00209 = "Xin cảm ơn quý khách hàng đã đánh giá dịch vụ của chúng tôi. Xin hãy kiểm tra lại các thông tin cho thật chính xác và nhấn nút Gửi nếu quý khách hàng đồng ý."
     static let CONTENT00210 = "Mức hài lòng"
+    static let CONTENT00212 = "Xem ảnh"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
@@ -256,7 +257,7 @@ class GlobalConst {
     // ----- Color defines -----
     static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.MARGIN_CELL_Y * 2) / 5
     static let CELL_BORDER_COLOR:UIColor = UIColor.white
-    static let BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
+    static var BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
     static let BUTTON_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
     static let BUTTON_COLOR_DISABLE:UIColor = ColorFromRGB().getColorFromRGB(0xEA9E00)
     static let COLOR_SELECTING_GREEN:UIColor = ColorFromRGB().getColorFromRGB(0x08C011)

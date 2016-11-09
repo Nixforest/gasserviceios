@@ -156,7 +156,8 @@ class CommonProcess {
                         listPostReplyImage: listPostReplyImage,
                         customerId: customerId,
                         noteInternal: noteInternal)
-        request.execute()
+        //request.execute()
+        request.executeUploadFile(listImages: listPostReplyImage)
     }
     
     /**
