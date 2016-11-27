@@ -28,7 +28,7 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
     /** Tap counter on logo */
     var imgLogoTappedCounter:Int = 0
     
-    // MARK: Actions    
+    // MARK: Actions
     /**
      * Handle check/uncheck on Show password checkbox
      * - parameter sender:AnyObject

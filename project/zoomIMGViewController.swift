@@ -17,7 +17,7 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
     // ScrollView
     var scrollView = UIScrollView()
     //ImageView
-    var imageView = UIImageView()
+    static var imageView = UIImageView()
     //ButtonExit
 //    let btnExit = UIButton()
     //IMG Picked
@@ -50,7 +50,6 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
         backNavBar.customView = backButton
         infomationNavBar.setLeftBarButton(backNavBar, animated: false)
         let height = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
-        var offset: CGFloat = height + GlobalConst.MARGIN
         
         //ScrollView SetUp
         scrollView.translatesAutoresizingMaskIntoConstraints = true
@@ -66,12 +65,12 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
         self.scrollView.maximumZoomScale = 6.0
 
         //ImageView SetUp
-        imageView.translatesAutoresizingMaskIntoConstraints = true
-        imageView.frame = scrollView.frame
-        imageView.image = zoomIMGViewController.imgPicked
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = UIColor.white
-        scrollView.addSubview(imageView)
+        zoomIMGViewController.imageView.translatesAutoresizingMaskIntoConstraints = true
+        zoomIMGViewController.imageView.frame = scrollView.frame
+        zoomIMGViewController.imageView.image = zoomIMGViewController.imgPicked
+        zoomIMGViewController.imageView.contentMode = .scaleAspectFit
+        zoomIMGViewController.imageView.backgroundColor = UIColor.white
+        scrollView.addSubview(zoomIMGViewController.imageView)
         
         //BtnExit Setup
 //        btnExit.translatesAutoresizingMaskIntoConstraints = true
@@ -98,7 +97,7 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
     //MARK: - UIScrollViewDelegate
     func viewForZooming(in scrollView: UIScrollView) -> UIView?
     {
-        return self.imageView
+        return zoomIMGViewController.imageView
     }
 
     /*

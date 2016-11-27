@@ -178,6 +178,10 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
         
         tblViewHistory.reloadData()
     }
+    override func clearData() {
+        Singleton.sharedInstance.currentUpholdDetail.reply_item.removeAll()
+        tblViewHistory.reloadData()
+    }
 
     /**
      * Display sub view.
@@ -217,12 +221,29 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
             if Singleton.sharedInstance.currentUpholdDetail.reply_item.count > indexPath.row {
                 cell.setData(model: Singleton.sharedInstance.currentUpholdDetail.reply_item[indexPath.row])
             }
+            if Singleton.sharedInstance.currentUpholdDetail.reply_item.count > indexPath.row {
+                if (Singleton.sharedInstance.currentUpholdDetail.reply_item[indexPath.row].images.count > 0) {
+                    cell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
+                }
+            }
             return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let height:CGFloat = G01F00S02HistoryCell.VIEW_HEIGHT
+        //return G01F00S02HistoryCell.getTableCellHeight(model: Singleton.sharedInstance.currentUpholdDetail.reply_item[indexPath.row])
         return height
     }
+    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        guard let tableViewCell = cell as? G01F00S02HistoryCell else {
+//            return
+//        }
+//        if Singleton.sharedInstance.currentUpholdDetail.reply_item.count > indexPath.row {
+//            if (Singleton.sharedInstance.currentUpholdDetail.reply_item[indexPath.row].images.count > 0) {
+//                tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
+//            }
+//        }
+//    }
 
     /*
     // MARK: - Navigation
@@ -250,5 +271,25 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
     }
-
 }
+
+extension G01F00S02VC: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return Singleton.sharedInstance.currentUpholdDetail.reply_item[collectionView.tag].images.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
+        cell.imageView1.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+        cell.imageView1.getImgFromUrl(link: Singleton.sharedInstance.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].thumb, contentMode: cell.imageView1.contentMode)
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
+        /** push to zoomIMGVC */
+        zoomIMGViewController.imgPicked = cell.imageView1.image
+        zoomIMGViewController.imageView.getImgFromUrl(link: Singleton.sharedInstance.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].large, contentMode: cell.imageView1.contentMode)
+        let IMGVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.ZOOM_IMAGE_VIEW_CTRL)
+        self.navigationController?.pushViewController(IMGVC, animated: true)
+    }
+}
+

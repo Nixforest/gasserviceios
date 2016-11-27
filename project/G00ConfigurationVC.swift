@@ -9,22 +9,19 @@
 import UIKit
 
 class G00ConfigurationVC: CommonViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
+    // MARK: Properties
+    /** Search bar */
     @IBOutlet weak var searchBar: UISearchBar!
-    
+    /** Config view */
     @IBOutlet weak var configView: UIView!
+    /** Config table view */
     @IBOutlet weak var configTableView: UITableView!
     
+    // MARK: Actions
     /**
      * View did appear
      */
     override func viewDidAppear(_ animated: Bool) {
-        //training mode enable/disable
-        if Singleton.sharedInstance.checkTrainningMode() {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
-        } else {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-        }
-        
         //notification button enable/disable
         self.updateNotificationStatus()
     }
@@ -49,20 +46,33 @@ class G00ConfigurationVC: CommonViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         asignNotifyForMenuItem()
-        
-        configView.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-        configView.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
-        
+        // Config view
         configView.translatesAutoresizingMaskIntoConstraints = true
+        configView.frame = CGRect(
+            x: 0,
+            y: configView.frame.minY,
+            width: self.view.frame.size.width,
+            height: self.view.frame.size.height)
         
+        // Config table view
         configTableView.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         configTableView.frame = CGRect(
-            x: GlobalConst.PARENT_BORDER_WIDTH,
-            y: GlobalConst.PARENT_BORDER_WIDTH,
-            width: configView.frame.size.width,
-            height: configView.frame.size.height - GlobalConst.PARENT_BORDER_WIDTH)
+            x: 0,
+            y: 0,
+            width: self.view.frame.size.width,
+            height: self.view.frame.size.height)
         configTableView.translatesAutoresizingMaskIntoConstraints = true
         searchBar.placeholder = GlobalConst.CONTENT00128
+        
+        // Search bar
+        searchBar.translatesAutoresizingMaskIntoConstraints = true
+        searchBar.frame = CGRect(
+            x: 0,
+            y: searchBar.frame.minY,
+            width: self.view.frame.size.width,
+            height: searchBar.frame.size.height)
+        
+        // Setup navigation
         setupNavigationBar(title: GlobalConst.CONTENT00128, isNotifyEnable: true)
     }
 
@@ -73,6 +83,7 @@ class G00ConfigurationVC: CommonViewController, UITableViewDelegate, UITableView
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -89,7 +100,7 @@ class G00ConfigurationVC: CommonViewController, UITableViewDelegate, UITableView
      */
     func cellAction(_ sender: UIButton) {
         switch sender.tag {
-            case 1:     // Information view
+            case 0:     // Information view
                 let InfoVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_INFORMATION_VIEW_CTRL)
                 self.navigationController?.pushViewController(InfoVC, animated: true)
             default:
@@ -100,20 +111,24 @@ class G00ConfigurationVC: CommonViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.G00_CONFIGURATION_TABLE_VIEW_CELL, for: indexPath) as! G00ConfigurationCell
         
-        //custom cell
+        // Custom cell
         switch (indexPath as NSIndexPath).row {
-            case 0:
+            case 1:             // Training mode
                 cell.rightImg.isHidden  = true
                 cell.mySw.isHidden      = false
-                cell.leftImg.image      = UIImage(named: "TrainingModeIcon.png")
+                cell.leftImg.image      = UIImage(named: "trainingMode.png")
                 cell.nameLbl.text       = GlobalConst.CONTENT00138
-            case 1:
+            case 0:             // Information
                 cell.rightImg.isHidden  = false
                 cell.mySw.isHidden      = true
-                cell.leftImg.image      = UIImage(named: "InfoIcon.png")
+                cell.leftImg.image      = UIImage(named: "information")
                 cell.rightImg.image     = UIImage(named: "back.png")
                 cell.rightImg.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(M_PI)) / 180.0)
                 cell.nameLbl.text       = GlobalConst.CONTENT00139
+//                let back = UIImage(named: GlobalConst.BACK_IMG_NAME)
+//                let tintedBack = back?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+//                cell.rightImg.image = tintedBack
+//                cell.rightImg.tintColor = UIColor.black
                 let cellButton:UIButton = UIButton()
                 cellButton.frame        = CGRect(
                     x: 0, y: 0,
@@ -131,7 +146,6 @@ class G00ConfigurationVC: CommonViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         
     }
     

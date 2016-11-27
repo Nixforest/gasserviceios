@@ -13,7 +13,7 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
     /** List text content */
     var aList:[String] = [GlobalConst.CONTENT00130, GlobalConst.CONTENT00041, GlobalConst.CONTENT00099, GlobalConst.CONTENT00098, GlobalConst.CONTENT00100]
     /** List icon image */
-    var aListIcon:[String] = ["ordergas.png","CreateUpHold.jpeg", "UpHoldList.jpeg", "ServiceRating.jpeg", "Account.jpeg"]
+    var aListIcon:[String] = ["ordergas.png","upholdRequest.png", "UpHoldList.jpeg", "ServiceRating.jpeg", "Account.jpeg"]
     /** Table view */
     @IBOutlet weak var homeTableView: UITableView!
     
@@ -176,7 +176,8 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         if Singleton.sharedInstance.checkIsLogin() {
             switch (indexPath as NSIndexPath).row {
             case 0:         // Order gas
-                cell.isHidden = !Singleton.sharedInstance.isCustomerUser()
+                //cell.isHidden = !Singleton.sharedInstance.isCustomerUser()
+                cell.isHidden = true
             case 1:         // Create uphold
                 cell.isHidden = !Singleton.sharedInstance.checkAllowAccess(key: DomainConst.KEY_UPHOLD_CREATE)
             case 2:         // Uphold list
@@ -190,7 +191,8 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         } else {    // Not login
             switch (indexPath as NSIndexPath).row {
             case 0:      // Order gas + Create uphold -> Always show
-                cell.isHidden = false
+                //cell.isHidden = false
+                cell.isHidden = true
             case 1, 2, 3, 4:   // Uphold list + Uphold rating + Account -> Always hide
                 cell.isHidden = true
             default: break
@@ -211,7 +213,8 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         if Singleton.sharedInstance.checkIsLogin() {
             switch (indexPath as NSIndexPath).row {
             case 0:         // Order gas
-                rowHeight = Singleton.sharedInstance.isCustomerUser() ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
+                //rowHeight = Singleton.sharedInstance.isCustomerUser() ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
+                rowHeight = 0
             case 1:         // Create uphold
                 rowHeight = Singleton.sharedInstance.checkAllowAccess(key: DomainConst.KEY_UPHOLD_CREATE) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
             case 2:         // Uphold list
@@ -225,7 +228,8 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         } else {    // Not login
             switch (indexPath as NSIndexPath).row {
             case 0:      // Order gas + Create uphold -> Always show
-                rowHeight = GlobalConst.CELL_HEIGHT_SHOW
+                //rowHeight = GlobalConst.CELL_HEIGHT_SHOW
+                rowHeight = 0
             case 1, 2, 3, 4:   // Uphold list + Uphold rating + Account -> Always hide
                 rowHeight = GlobalConst.CELL_HEIGHT_HIDE
             default: break

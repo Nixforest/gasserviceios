@@ -65,7 +65,8 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
             right: 0)
         layout.itemSize = CGSize(width: GlobalConst.ACCOUNT_AVATAR_W / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
         self.cltviewStep5 = UICollectionView(frame: self.frame, collectionViewLayout: layout)
-        self.cltviewStep5.register(UINib(nibName: "CollectionViewCell1", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell1")
+        self.cltviewStep5.register(UINib(nibName: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, bundle: nil),
+                                   forCellWithReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL)
         cltviewStep5.dataSource = self
         cltviewStep5.delegate = self
         cltviewStep5.alwaysBounceHorizontal = true
@@ -105,7 +106,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
     }
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell1", for: indexPath) as! CollectionViewCell1
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         cell.imageView1.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H, height: GlobalConst.ACCOUNT_AVATAR_H)
         cell.imageView1.image = G01F02S06._selectedValue[indexPath.row]
         return cell
@@ -124,7 +125,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // handle tap events
         /** push to zoomIMGVC */
         zoomIMGViewController.imgPicked = G01F02S06._selectedValue[indexPath.row]
-        let IMGVC = self._parent?.mainStoryboard.instantiateViewController(withIdentifier: "zoomIMGViewController")
+        let IMGVC = self._parent?.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.ZOOM_IMAGE_VIEW_CTRL)
         self._parent?.navigationController?.pushViewController(IMGVC!, animated: true)
 //        ImageView.imgPicked = G01F02S06._selectedValue[indexPath.row]
 //        var imageView: ImageView = ImageView()

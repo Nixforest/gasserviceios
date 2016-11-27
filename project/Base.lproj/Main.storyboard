@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tPN-mi-8dp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="TrL-Mo-e0y">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -92,7 +92,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="6NS-2E-c3P">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="5wj-Sa-x05">
+                        <barButtonItem key="leftBarButtonItem" id="5wj-Sa-x05">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oju-tH-mvJ">
                                 <rect key="frame" x="16" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -100,7 +100,7 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="z6X-UN-0ax">
+                            <barButtonItem id="z6X-UN-0ax">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="J9R-Jj-xBE">
                                     <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -112,7 +112,7 @@
                                     </connections>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="Hb1-Cm-dFn">
+                            <barButtonItem id="Hb1-Cm-dFn">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Cy7-Jp-rYU">
                                     <rect key="frame" x="209" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -230,7 +230,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="T3Y-cB-U1w">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="Obl-WW-4H9">
+                        <barButtonItem key="leftBarButtonItem" id="Obl-WW-4H9">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="a2M-Ls-2Fj">
                                 <rect key="frame" x="16" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -238,7 +238,7 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="Rke-Cm-Pnl">
+                            <barButtonItem id="Rke-Cm-Pnl">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zhX-ik-1Wi">
                                     <rect key="frame" x="233" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -251,7 +251,7 @@
                                     </connections>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="4lL-gV-5t3">
+                            <barButtonItem id="4lL-gV-5t3">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="o1H-gH-Gbh">
                                     <rect key="frame" x="154" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -358,7 +358,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="TBh-2w-e41">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="xXq-fg-0pP">
+                        <barButtonItem key="leftBarButtonItem" id="xXq-fg-0pP">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DH1-Nc-mVR">
                                 <rect key="frame" x="16" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -366,7 +366,7 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="Emh-Nu-nF0">
+                            <barButtonItem id="Emh-Nu-nF0">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gD4-20-kqM">
                                     <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -378,7 +378,7 @@
                                     </connections>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="CpC-w8-OAz">
+                            <barButtonItem id="CpC-w8-OAz">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Tha-Mu-96f">
                                     <rect key="frame" x="209" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -431,7 +431,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Title" id="RMl-xk-7L6">
-                                        <barButtonItem key="leftBarButtonItem" style="plain" id="0Cz-VQ-CS2">
+                                        <barButtonItem key="leftBarButtonItem" id="0Cz-VQ-CS2">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4va-Aq-Xka">
                                                 <rect key="frame" x="16" y="7" width="71" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -442,14 +442,14 @@
                                             </button>
                                         </barButtonItem>
                                         <rightBarButtonItems>
-                                            <barButtonItem style="plain" id="UKg-2C-pYU">
+                                            <barButtonItem id="UKg-2C-pYU">
                                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Uo6-Da-Kuv">
                                                     <rect key="frame" x="233" y="7" width="71" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
                                                 </button>
                                             </barButtonItem>
-                                            <barButtonItem style="plain" id="WNw-7u-DgD">
+                                            <barButtonItem id="WNw-7u-DgD">
                                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xXh-44-sK0">
                                                     <rect key="frame" x="154" y="7" width="71" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -518,7 +518,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ga8-8r-p2T">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="AJT-RT-Fb2">
+                        <barButtonItem key="leftBarButtonItem" id="AJT-RT-Fb2">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="55d-Ed-IRE">
                                 <rect key="frame" x="16" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -526,7 +526,7 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="5n4-M0-Yro">
+                            <barButtonItem id="5n4-M0-Yro">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FR9-Vx-Zff">
                                     <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -538,7 +538,7 @@
                                     </connections>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="Yic-LV-NZE">
+                            <barButtonItem id="Yic-LV-NZE">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LxY-V4-1QP">
                                     <rect key="frame" x="209" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -639,7 +639,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="NyK-87-PNK">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="nyM-b2-MAr">
+                        <barButtonItem key="leftBarButtonItem" id="nyM-b2-MAr">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vdS-4K-Dza">
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -647,7 +647,7 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="NnR-eK-uD6">
+                            <barButtonItem id="NnR-eK-uD6">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lnl-QN-Lej">
                                     <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -659,7 +659,7 @@
                                     </connections>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="4Sj-9F-QZK">
+                            <barButtonItem id="4Sj-9F-QZK">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hDH-vb-HeA">
                                     <rect key="frame" x="197" y="7" width="83" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -936,7 +936,7 @@
         <!--Navigation Controller-->
         <scene sceneID="v9T-u5-Xsu">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TrL-Mo-e0y" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RegisterView" automaticallyAdjustsScrollViewInsets="NO" id="TrL-Mo-e0y" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iTG-WP-Wbu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -949,7 +949,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XCm-RV-DPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1216" y="1184"/>
+            <point key="canvasLocation" x="-1610" y="1190"/>
         </scene>
         <!--G01F02VC-->
         <scene sceneID="zTO-L9-0Jt">
@@ -965,7 +965,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="uY3-1u-jTc">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="E7G-17-Iox">
+                        <barButtonItem key="leftBarButtonItem" id="E7G-17-Iox">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gXS-Qg-UWe">
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -973,7 +973,7 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="LyN-mS-GqN">
+                            <barButtonItem id="LyN-mS-GqN">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="69e-OZ-suA">
                                     <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -985,7 +985,7 @@
                                     </connections>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="sMg-aX-5G0">
+                            <barButtonItem id="sMg-aX-5G0">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iTb-Ue-2fG">
                                     <rect key="frame" x="197" y="7" width="83" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1080,7 +1080,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Rhb-f0-pJI">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="MGV-C6-ORJ">
+                        <barButtonItem key="leftBarButtonItem" id="MGV-C6-ORJ">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="w3e-qE-YzU">
                                 <rect key="frame" x="16" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1091,7 +1091,7 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="K4Q-6W-KM9">
+                            <barButtonItem id="K4Q-6W-KM9">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xc3-Ys-aJQ">
                                     <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1103,7 +1103,7 @@
                                     </connections>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="5sJ-EI-8XF">
+                            <barButtonItem id="5sJ-EI-8XF">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PJx-qE-UkD">
                                     <rect key="frame" x="209" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1191,7 +1191,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="wvg-G7-vDS">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="7kU-c7-o12">
+                        <barButtonItem key="leftBarButtonItem" id="7kU-c7-o12">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jET-VC-qiO">
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1199,7 +1199,7 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="EHK-a6-YeJ">
+                            <barButtonItem id="EHK-a6-YeJ">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="192-vg-vIl">
                                     <rect key="frame" x="276" y="7" width="83" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1211,7 +1211,7 @@
                                     </connections>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="Fpf-k2-LIc">
+                            <barButtonItem id="Fpf-k2-LIc">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Dg9-m6-pkA">
                                     <rect key="frame" x="185" y="7" width="83" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1273,11 +1273,11 @@
                                                                 <action selector="changeValue:" destination="uHs-Pb-9Kl" eventType="valueChanged" id="zVy-L6-38a"/>
                                                             </connections>
                                                         </switch>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="done.png" translatesAutoresizingMaskIntoConstraints="NO" id="hc6-gm-xVf">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="done.png" translatesAutoresizingMaskIntoConstraints="NO" id="hc6-gm-xVf">
                                                             <frame key="frameInset" minX="8" minY="4" width="34" height="31"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="done.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZLW-Xl-trf">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="done.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZLW-Xl-trf">
                                                             <frame key="frameInset" minX="261" minY="4" width="34" height="31"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
@@ -1309,7 +1309,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="9Z2-Kv-WlZ">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="2bq-iE-SFE">
+                        <barButtonItem key="leftBarButtonItem" id="2bq-iE-SFE">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ALm-Xh-TXl">
                                 <rect key="frame" x="16" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1320,7 +1320,7 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="Who-Su-Imd">
+                            <barButtonItem id="Who-Su-Imd">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0hR-P1-CtS">
                                     <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1332,7 +1332,7 @@
                                     </connections>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="G5w-Oy-kZA">
+                            <barButtonItem id="G5w-Oy-kZA">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mjh-gB-ZS7">
                                     <rect key="frame" x="209" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1373,7 +1373,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="KWx-RP-EzU">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="jug-MR-E6o">
+                        <barButtonItem key="leftBarButtonItem" id="jug-MR-E6o">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fnj-Rz-E69">
                                 <rect key="frame" x="16" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1396,7 +1396,7 @@
         <!--Navigation Controller-->
         <scene sceneID="aeD-cX-jdc">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ane-Qi-P6z" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="G00Account" automaticallyAdjustsScrollViewInsets="NO" id="ane-Qi-P6z" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="o05-76-YMR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1414,7 +1414,7 @@
         <!--Navigation Controller-->
         <scene sceneID="LfG-TP-xxb">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Aja-fU-N1M" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ChangePassView" automaticallyAdjustsScrollViewInsets="NO" id="Aja-fU-N1M" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zJ7-0h-zjj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1427,7 +1427,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dpq-Zz-GD0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1983.2" y="-404.34782608695656"/>
+            <point key="canvasLocation" x="967" y="-388"/>
         </scene>
         <!--HomeVC-->
         <scene sceneID="gZL-ti-ImA">
@@ -1454,7 +1454,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="mgN-eU-Cco">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="bEn-2B-t9W">
+                        <barButtonItem key="leftBarButtonItem" id="bEn-2B-t9W">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="i6O-WQ-3a5">
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1462,7 +1462,7 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="5H3-wP-BaI">
+                            <barButtonItem id="5H3-wP-BaI">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pVV-PX-X2F">
                                     <rect key="frame" x="276" y="7" width="83" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1474,7 +1474,7 @@
                                     </connections>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="aoX-Qm-fNK">
+                            <barButtonItem id="aoX-Qm-fNK">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="euP-sA-vBh">
                                     <rect key="frame" x="185" y="7" width="83" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1537,25 +1537,9 @@
             <point key="canvasLocation" x="-1678" y="-1413"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="JoG-DT-zQt">
-            <objects>
-                <navigationController storyboardIdentifier="HomeNavBarController" automaticallyAdjustsScrollViewInsets="NO" id="tPN-mi-8dp" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="uIi-ed-bXy"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jq9-ll-Ikr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cSw-eL-fzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-767.20000000000005" y="-948.57571214392806"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="nbJ-0z-F6r">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZMu-Tj-ELp" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="G01F00S01" automaticallyAdjustsScrollViewInsets="NO" id="ZMu-Tj-ELp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="CKK-O4-JWB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1573,7 +1557,7 @@
         <!--Navigation Controller-->
         <scene sceneID="fUy-f2-pRK">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bKn-Rs-Bj7" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="G00ConfigurationView" automaticallyAdjustsScrollViewInsets="NO" id="bKn-Rs-Bj7" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DAi-5t-vKO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1591,7 +1575,7 @@
         <!--Navigation Controller-->
         <scene sceneID="ISa-HO-rAv">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2qR-cd-Huk" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="G00Information" automaticallyAdjustsScrollViewInsets="NO" id="2qR-cd-Huk" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YZu-qP-1Rj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1609,7 +1593,7 @@
         <!--Navigation Controller-->
         <scene sceneID="UvR-kK-U75">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5si-7w-RFU" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="G01F00S02" automaticallyAdjustsScrollViewInsets="NO" id="5si-7w-RFU" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="v3F-Ni-hNK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1627,7 +1611,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Z8n-Ro-PLT">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="P8R-4d-Rph" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="G01F01" automaticallyAdjustsScrollViewInsets="NO" id="P8R-4d-Rph" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2wo-8X-ORb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1832,7 +1816,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ByT-pB-02d">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="KoX-A1-cJs">
+                        <barButtonItem key="leftBarButtonItem" id="KoX-A1-cJs">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8yi-1u-I2m">
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1976,7 +1960,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Qqc-wC-dO6">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="6XX-WM-Dyc">
+                        <barButtonItem key="leftBarButtonItem" id="6XX-WM-Dyc">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="13g-jg-Pgd">
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1984,14 +1968,14 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="QWC-Cx-AQN">
+                            <barButtonItem id="QWC-Cx-AQN">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JDa-UA-uVn">
                                     <rect key="frame" x="276" y="7" width="83" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="RkK-g3-z7r">
+                            <barButtonItem id="RkK-g3-z7r">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dU8-gx-4pf">
                                     <rect key="frame" x="185" y="7" width="83" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2015,7 +1999,7 @@
         <!--Navigation Controller-->
         <scene sceneID="SCD-41-yT5">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3ao-6U-3ik" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ReplyUphold" automaticallyAdjustsScrollViewInsets="NO" id="3ao-6U-3ik" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LLA-XI-v2f">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -2524,7 +2508,7 @@
         <!--Navigation Controller-->
         <scene sceneID="7Ag-br-pga">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eJO-bu-CAo" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="G01F03" automaticallyAdjustsScrollViewInsets="NO" id="eJO-bu-CAo" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rWa-XI-QU5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -2691,7 +2675,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="24c-1u-Yym">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="rFf-eM-6js">
+                        <barButtonItem key="leftBarButtonItem" id="rFf-eM-6js">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UX0-I5-Svp">
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2699,7 +2683,7 @@
                             </button>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" id="GMi-ls-9PT">
+                            <barButtonItem id="GMi-ls-9PT">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OcM-7V-SWQ">
                                     <rect key="frame" x="288" y="7" width="71" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2711,7 +2695,7 @@
                                     </connections>
                                 </button>
                             </barButtonItem>
-                            <barButtonItem style="plain" id="cL1-F3-045">
+                            <barButtonItem id="cL1-F3-045">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Iye-ix-5ks">
                                     <rect key="frame" x="197" y="7" width="83" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2844,7 +2828,7 @@
         <!--Navigation Controller-->
         <scene sceneID="CBk-HV-0SC">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ODc-6f-NW6" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="G01F00S03" automaticallyAdjustsScrollViewInsets="NO" id="ODc-6f-NW6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Tg-Vx-suc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -2862,7 +2846,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Pyr-jA-Yph">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dhS-aQ-Ihg" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="PeriodUpholdDetail" automaticallyAdjustsScrollViewInsets="NO" id="dhS-aQ-Ihg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Wa-iP-zHj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -2880,7 +2864,7 @@
         <!--Navigation Controller-->
         <scene sceneID="abG-C3-93E">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="znD-RF-xzp" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="G00Home" automaticallyAdjustsScrollViewInsets="NO" id="znD-RF-xzp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="G1Z-Ad-pGB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -2898,7 +2882,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Baf-uT-9Q3">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xM5-pI-qGs" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ZoomImage" automaticallyAdjustsScrollViewInsets="NO" id="xM5-pI-qGs" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BKN-6b-Cp1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

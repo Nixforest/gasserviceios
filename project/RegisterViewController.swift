@@ -59,7 +59,7 @@ class RegisterViewController: CommonViewController, UIPopoverPresentationControl
         }
     }
     @IBAction func cancelButtonTapped(_ sender: AnyObject) {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     //training mode
     override func viewDidAppear(_ animated: Bool) {

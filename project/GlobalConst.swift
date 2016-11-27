@@ -259,7 +259,7 @@ class GlobalConst {
     static let CELL_BORDER_COLOR:UIColor = UIColor.white
     static var BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
     static let BUTTON_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
-    static let BUTTON_COLOR_DISABLE:UIColor = ColorFromRGB().getColorFromRGB(0xEA9E00)
+    static let BUTTON_COLOR_DISABLE:UIColor = ColorFromRGB().getColorFromRGB(0x535353)
     static let COLOR_SELECTING_GREEN:UIColor = ColorFromRGB().getColorFromRGB(0x08C011)
     static let PARENT_BORDER_COLOR_GRAY:UIColor = UIColor.gray
     static let PARENT_BORDER_COLOR_YELLOW:UIColor = UIColor.yellow
@@ -307,6 +307,8 @@ class GlobalConst {
     static let G00_CHANGE_PASS_VIEW_CTRL = "G00ChangePassVC"
     /** Name of G01F01VC */
     static let G01_F01_VIEW_CTRL = "G01F01VC"
+    /** Name of zoomIMGViewController */
+    static let ZOOM_IMAGE_VIEW_CTRL = "zoomIMGViewController"
     /** Home table view cell */
     static let G00_HOME_CELL = "G00HomeCell"
     /** Period table view cell */
@@ -319,6 +321,9 @@ class GlobalConst {
     static let G00_CONFIGURATION_TABLE_VIEW_CELL = "G00ConfigurationCell"
     /** Uphold detail employee history table view cell */
     static let UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL = "G01F00S02HistoryCell"
+    /** Collection Image view cell */
+    static let COLLECTION_IMAGE_VIEW_CELL = "CollectionImageViewCell"
+    
     /** Pop overmenu identifier */
     static let POPOVER_MENU_IDENTIFIER = "popOverMenu"
     /** G01F02S06 table view cell */

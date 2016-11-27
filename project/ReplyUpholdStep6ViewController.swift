@@ -150,7 +150,8 @@ class ReplyUpholdStep6ViewController: UIViewController, UICollectionViewDataSour
          * add xib file to CollectionView Cell
          */
         //self.cltviewStep5.register(UINib(nibName: "your_xib_name", bundle: nil), forCellWithReuseIdentifier: "your_reusable_identifier")
-        self.cltviewStep5!.register(UINib(nibName: "CollectionViewCell1", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell1")
+        self.cltviewStep5!.register(UINib(nibName: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, bundle: nil),
+                                    forCellWithReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL)
     }
 
     override func didReceiveMemoryWarning() {
@@ -173,7 +174,7 @@ class ReplyUpholdStep6ViewController: UIViewController, UICollectionViewDataSour
         cell.frame = CGRect(x: cltviewStep5.frame.size.height * CGFloat(indexPath.row), y: cell.frame.origin.y, width: cltviewStep5.frame.size.height, height: cltviewStep5.frame.size.height)
         cell.backgroundColor = UIColor.black
         return cell*/
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell1", for: indexPath) as! CollectionViewCell1
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         cell.imageView1.frame  = CGRect(x: 0,  y: 0,  width: viewContent.frame.size.height - (GlobalConst.LABEL_HEIGHT * 5) - (GlobalConst.PARENT_BORDER_WIDTH * 3), height: viewContent.frame.size.height - (GlobalConst.LABEL_HEIGHT * 5) - (GlobalConst.PARENT_BORDER_WIDTH * 3))
         cell.imageView1.image = ReplyUpholdViewController.valStep5[indexPath.row]
         return cell

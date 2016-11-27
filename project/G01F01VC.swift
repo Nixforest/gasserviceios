@@ -20,19 +20,23 @@ class G01F01VC: StepVC, StepDoneDelegate {
         let height = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
         let step1 = G01F01S01(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
-        let step2 = G01F01S02(w: GlobalConst.SCREEN_WIDTH,
-                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+//        let step2 = G01F01S02(w: GlobalConst.SCREEN_WIDTH,
+//                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         let summary = G01F01S03(w: GlobalConst.SCREEN_WIDTH,
                                 h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         
         step1.stepDoneDelegate = self
         self.appendContent(stepContent: step1)
-        step2.stepDoneDelegate = self
-        self.appendContent(stepContent: step2)
+        //step2.stepDoneDelegate = self
+        //self.appendContent(stepContent: step2)
         self._numberStep = self._arrayContent.count + 1
         appendSummary(summary: summary)
         // Set title
         self._title = GlobalConst.CONTENT00178
+        var listIcon = [String]()
+        listIcon.append("problemType")
+        listIcon.append("informationSum")
+        super.setListIcon(listIcon: listIcon)
         super.viewDidLoad()
         // Menu item tap
         asignNotifyForMenuItem()

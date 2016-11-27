@@ -141,24 +141,24 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
                        isDrawTopBorder: false)
         offset = lblCreateDate.frame.maxY
         
-        // Customer name
-        setLayoutLeft(lbl: lblCustomerName, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00079)
-        setLayoutRight(lbl: lblCustomerNameValue, offset: offset,
-                       height: GlobalConst.LABEL_HEIGHT * 2, text: "")
-        offset = lblCustomerName.frame.maxY
-        
-        // Label Address and AddressValue
-        setLayoutLeft(lbl: lblAddress, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00088)
-        setLayoutRight(lbl: lblAddressValue, offset: offset,
-                       height: GlobalConst.LABEL_HEIGHT * 2, text: "")
-        offset = lblAddress.frame.maxY
+//        // Customer name
+//        setLayoutLeft(lbl: lblCustomerName, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00079)
+//        setLayoutRight(lbl: lblCustomerNameValue, offset: offset,
+//                       height: GlobalConst.LABEL_HEIGHT * 2, text: "")
+//        offset = lblCustomerName.frame.maxY
+//        
+//        // Label Address and AddressValue
+//        setLayoutLeft(lbl: lblAddress, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00088)
+//        setLayoutRight(lbl: lblAddressValue, offset: offset,
+//                       height: GlobalConst.LABEL_HEIGHT * 2, text: "")
+//        offset = lblAddress.frame.maxY
         
         // Label Contact and ContactValue
         if Singleton.sharedInstance.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
-            setLayoutLeft(lbl: lblContact, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00146)
-            setLayoutRight(lbl: lblContactValue, offset: offset,
-                           height: GlobalConst.LABEL_HEIGHT * 2, text: "")
-            offset = lblContact.frame.maxY
+//            setLayoutLeft(lbl: lblContact, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00146)
+//            setLayoutRight(lbl: lblContactValue, offset: offset,
+//                           height: GlobalConst.LABEL_HEIGHT * 2, text: "")
+//            offset = lblContact.frame.maxY
             
             // Label Issue and IssueValue
             setLayoutLeft(lbl: lblIssue, offset: offset,
@@ -168,7 +168,7 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
             offset = lblIssue.frame.maxY
             
             // Label Content and ContentValue
-            setLayoutLeft(lbl: lblContent, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00063)
+            setLayoutLeft(lbl: lblContent, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00081)
             setLayoutRight(lbl: lblContentValue, offset: offset,
                            height: GlobalConst.LABEL_HEIGHT * 2, text: "")
             offset = lblContent.frame.maxY + GlobalConst.MARGIN_CELL_Y

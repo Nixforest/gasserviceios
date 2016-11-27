@@ -45,6 +45,15 @@ class G01F02VC: StepVC, StepDoneDelegate {
         appendSummary(summary: summary)
         // Set title
         self._title = GlobalConst.CONTENT00186
+        var listIcon = [String]()
+        listIcon.append("trainingMode.png")
+        listIcon.append("trainingMode.png")
+        listIcon.append("trainingMode.png")
+        listIcon.append("trainingMode.png")
+        listIcon.append("trainingMode.png")
+        listIcon.append("trainingMode.png")
+        listIcon.append("informationSum")
+        //super.setListIcon(listIcon: listIcon)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.

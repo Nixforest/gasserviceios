@@ -94,13 +94,15 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
      */
     func setupButtons() {
         // Set up button Back
+        let back = UIImage(named: GlobalConst.BACK_IMG_NAME)
+        let tintedBack = back?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         _btnBack.translatesAutoresizingMaskIntoConstraints = true
         _btnBack.frame = CGRect(
             x: 0,
             y: self.view.frame.height - GlobalConst.SCROLL_BUTTON_LIST_HEIGHT - GlobalConst.BUTTON_H,
             width: GlobalConst.BUTTON_H,
             height: GlobalConst.BUTTON_H)
-        _btnBack.setImage(UIImage(named: "back.png"), for: UIControlState())
+        _btnBack.setImage(tintedBack, for: UIControlState())
         _btnBack.backgroundColor    = GlobalConst.BUTTON_COLOR_RED
         _btnBack.tintColor          = UIColor.white
         _btnBack.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
@@ -113,7 +115,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
             y: self.view.frame.height - GlobalConst.SCROLL_BUTTON_LIST_HEIGHT - GlobalConst.BUTTON_H,
             width: GlobalConst.BUTTON_H,
             height: GlobalConst.BUTTON_H)
-        _btnNext.setImage(UIImage(named: "back.png"), for: UIControlState())
+        _btnNext.setImage(tintedBack, for: UIControlState())
         _btnNext.transform          = CGAffineTransform(rotationAngle: (180.0 * CGFloat(M_PI)) / 180.0)
         _btnNext.backgroundColor    = GlobalConst.BUTTON_COLOR_RED
         _btnNext.tintColor          = UIColor.white
@@ -304,5 +306,9 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
      */
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
+    }
+    
+    func setListIcon(listIcon: [String]) {
+        self._listButton._listIcons = listIcon
     }
 }

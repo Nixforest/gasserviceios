@@ -20,6 +20,8 @@ class ScrollButtonList: UIScrollView {
     var _arrayBtn       = [UIButton]()
     /** Current active */
     var _currentActive  = -1
+    /** List icon */
+    var _listIcons = [String]()
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -44,6 +46,20 @@ class ScrollButtonList: UIScrollView {
         // List buttons
         for i in 0..<_numberOfBtn {
             let button = UIButton()
+            if self._listIcons.count > i {
+//                if i < (self._listIcons.count - 1) {
+//                    let img = UIImage(named: self._listIcons[i])
+//                    let tinted = img?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+//                    button.setImage(tinted, for: UIControlState())
+//                    button.tintColor = UIColor.white
+//                } else {
+//                    button.setImage(UIImage(named: self._listIcons[i]), for: UIControlState())
+//                }
+                button.setImage(UIImage(named: self._listIcons[i]), for: UIControlState())
+            } else {
+                button.setTitle(String(i + 1), for: .normal)
+                button.setTitleColor(UIColor.white , for: .normal)
+            }
             button.translatesAutoresizingMaskIntoConstraints = true
             button.frame = CGRect(
                 x: (self.frame.width - GlobalConst.SCROLL_BUTTON_LIST_HEIGHT) / 2 + (CGFloat)(i) * GlobalConst.SCROLL_BUTTON_LIST_HEIGHT,
@@ -52,8 +68,6 @@ class ScrollButtonList: UIScrollView {
                 height: GlobalConst.SCROLL_BUTTON_LIST_HEIGHT)
             button.tag = i
             button.layer.cornerRadius = 0.5 * GlobalConst.SCROLL_BUTTON_LIST_HEIGHT
-            button.setTitle(String(i + 1), for: .normal)
-            button.setTitleColor(UIColor.white , for: .normal)
             button.backgroundColor = GlobalConst.SCROLLBUTTONLIST_BTN_BKG_COLOR_DISABLE
             button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
             button.isEnabled = false
