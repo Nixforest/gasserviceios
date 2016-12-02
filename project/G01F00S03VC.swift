@@ -389,4 +389,11 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
         lbl.font = UIFont.systemFont(ofSize: 15.0)
         scrollView.addSubview(lbl)
     }
+    
+    override func clearData() {
+        // Notification
+        if Singleton.sharedInstance.checkNotificationExist() {
+            Singleton.sharedInstance.clearNotificationData()
+        }
+    }
 }

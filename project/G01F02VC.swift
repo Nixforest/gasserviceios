@@ -75,7 +75,7 @@ class G01F02VC: StepVC, StepDoneDelegate {
     override func btnSendTapped() {
         CommonProcess.requestCreateUpholdReply(
             upholdId: Singleton.sharedInstance.currentUpholdDetail.id,
-            status: G01F02S01._selectedValue.id,
+            status: G01F02S01._selectedValue.id, statusText: G01F02S01._selectedValue.name,
             hoursHandle: G01F02S02._selectedValue.id,
             note: G01F02S04._selectedValue.name,
             contact_phone: G01F02S04._selectedValue.phone,

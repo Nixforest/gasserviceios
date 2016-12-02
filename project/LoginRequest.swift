@@ -64,8 +64,10 @@ class LoginRequest: BaseRequest {
      */
     func setData(username: String, password: String) {
         self.data = "q=" + String.init(
-            format: "{\"username\":\"%@\",\"password\":\"%@\",\"gcm_device_token\":\"1\",\"apns_device_token\":\"1\",\"type\":\"3\"}",
+            format: "{\"username\":\"%@\",\"password\":\"%@\",\"gcm_device_token\":\"\",\"apns_device_token\":\"%@\",\"type\":\"3\"}",
             //format: "{\"username\":\"%@\",\"password\":\"%@\",\"gcm_device_token\":\"1\",\"apns_device_token\":\"1\"}",
-                                       username, password)
+                                       username, password,
+                                       Singleton.sharedInstance.checkDeviceTokenExist() ? Singleton.sharedInstance.getDeviceToken() : ""
+        )
     }
 }

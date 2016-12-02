@@ -139,7 +139,8 @@ class CommonProcess {
      * - parameter view:                View controller
      */
     static func requestCreateUpholdReply(upholdId: String,
-                                         status: String, hoursHandle: String,
+                                         status: String, statusText: String,
+                                         hoursHandle: String,
                                          note: String, contact_phone: String,
                                          reportWrong: String,
                                          listPostReplyImage: [UIImage],
@@ -150,7 +151,7 @@ class CommonProcess {
         LoadingView.shared.showOverlay(view: view.view)
         let request = CreateUpholdReplyRequest(url: DomainConst.PATH_SITE_UPHOLD_REPLY, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
         request.setData(upholdId: upholdId,
-                        status: status, hoursHandle: hoursHandle,
+                        status: status, statusText: statusText, hoursHandle: hoursHandle,
                         note: note, contact_phone: contact_phone,
                         reportWrong: reportWrong,
                         listPostReplyImage: listPostReplyImage,
@@ -227,6 +228,19 @@ class CommonProcess {
         request.setData(id: id, ratingStatusId: ratingStatusId, listRating: listRating, content: content)
         request.execute()
         
+    }
+    
+    /**
+     * Request confirm notify.
+     * - parameter notifyId : Id of notify
+     * - parameter type     : Type of notify
+     * - parameter objId    : Id of object
+     */
+    static func requestConfirmNotify(notifyId: String, type: String, objId: String) {
+        let request = ConfirmNotifyRequest(url: DomainConst.PATH_SITE_CONFIRM_NOTIFY,
+                                   reqMethod: GlobalConst.HTTP_POST_REQUEST)
+        request.setData(notifyId: notifyId, type: type, objId: objId)
+        request.execute()
     }
     
     /**

@@ -186,6 +186,12 @@ class CommonViewController : UIViewController {
      */
     func notificationButtonTapped(_ sender: AnyObject) {
         showAlert(message: Singleton.sharedInstance.notifyCountText)
+//        showAlert(message: Singleton.sharedInstance.notify.id + " - "
+//            + Singleton.sharedInstance.notify.notify_id + " - "
+//            + Singleton.sharedInstance.notify.notify_type + " - "
+//            + Singleton.sharedInstance.notify.type + " - "
+//            + Singleton.sharedInstance.notify.reply_id + " - "
+//            + Singleton.sharedInstance.notify.message)
     }
     
     /**

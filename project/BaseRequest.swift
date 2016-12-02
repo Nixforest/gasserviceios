@@ -28,9 +28,9 @@ class BaseRequest {
      * - parameter view: current view
      */
     init(url: String, reqMethod: String, view: CommonViewController) {
-        self.url = url
-        self.reqMethod = reqMethod
-        self.view = view
+        self.url        = url
+        self.reqMethod  = reqMethod
+        self.view       = view
     }
     /**
      * Initializer
@@ -38,9 +38,9 @@ class BaseRequest {
      * - parameter reqMethod: Request method Get/Post
      */
     init(url: String, reqMethod: String) {
-        self.url = url
-        self.reqMethod = reqMethod
-        self.view = CommonViewController()
+        self.url        = url
+        self.reqMethod  = reqMethod
+        self.view       = CommonViewController()
     }
     
     /**
@@ -57,6 +57,10 @@ class BaseRequest {
         task.resume()
     }
     
+    /**
+     * Execute task and upload files
+     * - parameter listImages: List of images
+     */
     func executeUploadFile(listImages: [UIImage]) {
         let serverUrl: URL = URL(string: Singleton.sharedInstance.getServerURL() + self.url)!
         let request = NSMutableURLRequest(url: serverUrl)

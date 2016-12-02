@@ -225,6 +225,7 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
             // Not found, so remove keyboard
             textField.resignFirstResponder()
             hideKeyboard()
+            //Login(_)
         }
         return true
     }

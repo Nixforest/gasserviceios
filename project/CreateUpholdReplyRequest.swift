@@ -42,6 +42,7 @@ class CreateUpholdReplyRequest: BaseRequest {
                             _ = self.view.navigationController?.popViewController(animated: true)
                     })
                     NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: model)
+                    Singleton.sharedInstance.upholdList.record[Singleton.sharedInstance.sharedInt].status = self.status
                 }
             } else {
                 self.showAlert(message: model.message)
@@ -63,15 +64,18 @@ class CreateUpholdReplyRequest: BaseRequest {
         super.init(url: url, reqMethod: reqMethod, view: view)
     }
     
+    var status: String = String()
+    
     /**
      * Set data content
      * - parameter upholdId:    Id of uphold
      * - parameter replyId:     Id of uphold
      */
-    func setData(upholdId: String, status: String, hoursHandle: String,
+    func setData(upholdId: String, status: String, statusText: String,  hoursHandle: String,
                  note: String, contact_phone: String, reportWrong: String,
                  listPostReplyImage: [UIImage], customerId: String,
                  noteInternal: String) {
+        self.status = statusText
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":\"%@\"}",
             DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken(),
@@ -88,18 +92,6 @@ class CreateUpholdReplyRequest: BaseRequest {
             DomainConst.KEY_VERSION_CODE, GlobalConst.VERSION_CODE
         )
         self.param = [
-//            DomainConst.KEY_TOKEN           : Singleton.sharedInstance.getUserToken(),
-//            DomainConst.KEY_UPHOLD_ID       :   upholdId,
-//            DomainConst.KEY_STATUS          : status,
-//            DomainConst.KEY_HOURS_HANDLE    : hoursHandle,
-//            DomainConst.KEY_NOTE            : note,
-//            DomainConst.KEY_CONTACT_PHONE   : contact_phone,
-//            DomainConst.KEY_REPORT_WRONG    : reportWrong,
-//            DomainConst.KEY_CUSTOMER_ID     : customerId,
-//            DomainConst.KEY_NOTE_INTERNAL   : noteInternal,
-//            DomainConst.KEY_LATITUDE        : String(0.0),
-//            DomainConst.KEY_LONGITUDE       : String(0.0),
-//            DomainConst.KEY_VERSION_CODE    : GlobalConst.VERSION_CODE
             "q" : String.init(
                 format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":\"%@\"}",
                 DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken(),

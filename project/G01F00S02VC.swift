@@ -181,6 +181,10 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
     override func clearData() {
         Singleton.sharedInstance.currentUpholdDetail.reply_item.removeAll()
         tblViewHistory.reloadData()
+        // Notification
+        if Singleton.sharedInstance.checkNotificationExist() {
+            Singleton.sharedInstance.clearNotificationData()
+        }
     }
 
     /**

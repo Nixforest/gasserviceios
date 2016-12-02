@@ -33,9 +33,7 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
      * - parameter sender:AnyObject
      */
     func pushToLoginVC(_ notification: Notification){
-        let loginVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_LOGIN_VIEW_CTRL)
-        self.navigationController?.pushViewController(loginVC, animated: true)
-        
+        moveToLoginVC()
     }
     
     /**
@@ -276,5 +274,24 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         if Singleton.sharedInstance.checkIsLogin() {
             CommonProcess.requestNotificationCount(view: self)
         }
+        // Check open by notification
+        if Singleton.sharedInstance.checkNotificationExist() {
+            if Singleton.sharedInstance.checkIsLogin() {
+                if Singleton.sharedInstance.isUpholdNotification() {
+                    let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S01_VIEW_CTRL)
+                    self.navigationController?.pushViewController(upholdListVC, animated: true)
+                }
+            } else {
+                moveToLoginVC()
+            }
+        }
+    }
+    
+    /**
+     * Move to login view
+     */
+    func moveToLoginVC() {
+        let loginVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_LOGIN_VIEW_CTRL)
+        self.navigationController?.pushViewController(loginVC, animated: true)
     }
 }

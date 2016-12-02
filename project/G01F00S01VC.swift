@@ -94,6 +94,11 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
     }
     //training mode
     override func viewDidAppear(_ animated: Bool) {
+        if currentViewType == DomainConst.TYPE_TROUBLE {
+            problemTableView.reloadData()
+        } else {
+            periodTableView.reloadData()
+        }
     }
     
     /**
@@ -249,6 +254,8 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
         // Notify set data
         NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW), object: nil)
         
+//        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.reloadData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_RELOAD_DATA_UPHOLDLIST_VIEW), object: nil)
+        
         // Do any additional setup after loading the view.
         gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(G01F00S01VC.hideKeyboard))
         //view.addGestureRecognizer(tap)
@@ -256,6 +263,10 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
         // Set background color
         self.changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
     }
+    
+//    func reloadData(_ notification: Notification) {
+//        CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+//    }
     
     /**
      * Set data for controls
@@ -265,6 +276,23 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
             problemTableView.reloadData()
         } else {
             periodTableView.reloadData()
+        }
+        //        CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+        // Check open by notification
+        if Singleton.sharedInstance.checkNotificationExist() {
+            if Singleton.sharedInstance.checkIsLogin() {
+                if Singleton.sharedInstance.isUpholdNotification() {
+                    if Singleton.sharedInstance.isCustomerUser() {
+                        Singleton.sharedInstance.sharedInt = Singleton.sharedInstance.getUpholdIndexById(id: Singleton.sharedInstance.notify.id)
+                        let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S03_VIEW_CTRL)
+                        self.navigationController?.pushViewController(detail, animated: true)
+                    } else {
+                        Singleton.sharedInstance.sharedInt = Singleton.sharedInstance.getUpholdIndexById(id: Singleton.sharedInstance.notify.id)
+                        let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S02_VIEW_CTRL)
+                        self.navigationController?.pushViewController(detail, animated: true)
+                    }
+                }
+            }
         }
     }
     

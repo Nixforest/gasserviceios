@@ -23,7 +23,9 @@ class Singleton: NSObject {
     /** Flag training mode */
     var isTrainningMode = Bool()
     /** User token */
-    var userToken : String = ""
+    var userToken: String = ""
+    /** Device token */
+    var deviceToken: String = ""
     /** List menu */
     var menu: [ConfigBean] = [ConfigBean]()
     /** List data uphold */
@@ -76,6 +78,7 @@ class Singleton: NSObject {
     var notifyCountText: String = ""
     /** Id of user */
     var user_id: String = ""
+    var notify: NotificationBean = NotificationBean()
     
     // MARK - Methods
     override init() {
@@ -321,5 +324,92 @@ class Singleton: NSObject {
      */
     func setNotificationCountText(text: String) {
         self.notifyCountText = text
+    }
+
+    /**
+     * Save device token
+     * - parameter token: Token to saving
+     */
+    func setDeviceToken(token: String) {
+        self.deviceToken = token
+    }
+    
+    /**
+     * Get device token
+     * - returns: Device token string
+     */
+    func getDeviceToken() -> String {
+        return self.deviceToken
+    }
+    
+    /**
+     * Check if device token is exist
+     * - returns: True if device token is not empty, False otherwise
+     */
+    func checkDeviceTokenExist() -> Bool {
+        return !(self.deviceToken.isEmpty)
+    }
+    
+    /**
+     * Set notification data
+     * - parameter id:          Id
+     * - parameter notify_id:   Id of notify
+     * - parameter notify_type: Notify type
+     * - parameter type:        type
+     * - parameter reply_id:    Id of reply item
+     * - parameter message:     Message
+     */
+    func setNotificationData(id: String, notify_id: String,
+                             notify_type: String, type: String,
+                             reply_id: String, message: String) {
+        self.notify.id          = id
+        self.notify.notify_id   = notify_id
+        self.notify.notify_type = notify_type
+        self.notify.type        = type
+        self.notify.reply_id    = reply_id
+        self.notify.message     = message
+    }
+    
+    /**
+     * Clear notification data
+     */
+    func clearNotificationData() {
+        self.notify.id          = ""
+        self.notify.notify_id   = ""
+        self.notify.notify_type = ""
+        self.notify.type        = ""
+        self.notify.reply_id    = ""
+        self.notify.message     = ""
+    }
+    
+    /**
+     * Check if notification is exist
+     * - returns: True if id of notification is not empty, False otherwise
+     */
+    func checkNotificationExist() -> Bool {
+        return !(self.notify.id.isEmpty)
+    }
+    
+    /**
+     * Check if notification from uphold
+     * - returns: True if type is VIEW_UPHOLD, False otherwise
+     */
+    func isUpholdNotification() -> Bool {
+        return (self.notify.type == DomainConst.NOTIFY_VIEW_UPHOLD)
+    }
+    
+    /**
+     * Get index of uphold item from list uphold by uphold id
+     * - parameter id: Id of uphold item
+     * - returns: Index of uphold item from list uphold, if item not found, return -1
+     */
+    func getUpholdIndexById(id: String) -> Int {
+        var retVal: Int = -1
+        for i in 0..<self.upholdList.record.count {
+            if self.upholdList.record[i].id == id {
+                return i
+            }
+        }
+        return retVal
     }
 }

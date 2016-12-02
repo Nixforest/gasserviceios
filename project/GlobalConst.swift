@@ -343,6 +343,7 @@ class GlobalConst {
     static let NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW    = "configItemTappedChangePassView"
     static let NOTIFY_NAME_SET_DATA_ACCOUNTVIEW         = "G00AccountVC.setData"
     static let NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW     = "G01F00S01VC.setData"
+    static let NOTIFY_NAME_RELOAD_DATA_UPHOLDLIST_VIEW  = "G01F00S01VC.reloadData"
     static let NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW     = "G01F00S01VC.showSearchBarTableView"
     static let NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW  = "UpholdDetailViewController.setData"
     static let NOTIFY_NAME_COFIG_ITEM_G01F02            = "G01F2VC.configItemTapped"
