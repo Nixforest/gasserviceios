@@ -26,15 +26,10 @@ class CommonMenuViewController : UIViewController {
     /** Register item: icon */
     var iconReg = UIImageView()
     
-    /** Gas service item: button */
-    var gasServiceBtn = UIButton()
-    /** Gas service item: icon */
-    var iconGasService = UIImageView()
-    
     /** Issue item: button */
-    var issueBtn = UIButton()
+    var dynamicMenu = [UIButton]()
     /** Issue item: icon */
-    var iconIssue = UIImageView()
+    var iconDynamicMenu = [UIImageView]()
     
     /** Config item: button */
     var configBtn = UIButton()
@@ -82,16 +77,17 @@ class CommonMenuViewController : UIViewController {
             offset += GlobalConst.BUTTON_HEIGHT
         }
         
-        // Gas service menu
-        if listMenu[MenuItemEnum.GAS_SERVICE.hashValue] {
-            setItemContent(title: GlobalConst.CONTENT00127, iconPath: "gasservice.png", action: #selector(gasServiceItemTapped), button: gasServiceBtn, icon: iconGasService, offset: offset)
-            offset += GlobalConst.BUTTON_HEIGHT
-        }
-        
         // Issue menu
-        if listMenu[MenuItemEnum.ISSUE_MAN.hashValue] {
-            setItemContent(title: GlobalConst.CONTENT00131, iconPath: "issueMenu.png", action: #selector(issueItemTapped), button: issueBtn, icon: iconIssue, offset: offset)
-            offset += GlobalConst.BUTTON_HEIGHT
+        if listMenu[MenuItemEnum.DYNAMIC_MENU_LIST.hashValue] {
+//            setItemContent(title: GlobalConst.CONTENT00131, iconPath: "issueMenu.png", action: #selector(issueItemTapped), button: issueBtn, icon: iconIssue, offset: offset)
+//            offset += GlobalConst.BUTTON_HEIGHT
+            for item in Singleton.sharedInstance.menu {
+                let btn = UIButton()
+                let icon = UIImageView()
+                btn.accessibilityIdentifier = item.id
+                setItemContent(title: item.name, iconPath: "issueMenu.png", action: #selector(issueItemTapped), button: btn, icon: icon, offset: offset)
+                offset += GlobalConst.BUTTON_HEIGHT
+            }
         }
         
         // Configuration menu
@@ -171,22 +167,19 @@ class CommonMenuViewController : UIViewController {
     }
     
     /**
-     * Handle tap on gas service item.
-     * - parameter sender: AnyObject
-     */
-    func gasServiceItemTapped(_ sender: AnyObject) {
-        self.dismiss(animated: false) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
-        }
-    }
-    
-    /**
      * Handle tap on issue item.
      * - parameter sender: AnyObject
      */
     func issueItemTapped(_ sender: AnyObject) {
         self.dismiss(animated: false) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+//            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+            switch ((sender as! UIButton).accessibilityIdentifier) {
+            case DomainConst.?HOME:
+                self.win
+                break
+            default:
+                break
+            }
         }
     }
     

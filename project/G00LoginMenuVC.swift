@@ -14,7 +14,7 @@ class G00LoginMenuVC: CommonMenuViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        setItem(listValues: [false, false, false, false, false, true])
+        setItem(listValues: [false, false, false, false, true])
         setupMenuItem()
     }
     /**

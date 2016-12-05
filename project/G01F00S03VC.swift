@@ -14,6 +14,7 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
     let lblHeader0 = UILabel()
     let lblHeader1 = UILabel()
     let lblHeader2 = UILabel()
+    let lblHeader3 = UILabel()
     
     var lblCreateDate = UILabel()
     var lblCreateDateValue = UITextView()
@@ -276,6 +277,7 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
                 }
             }
         }
+        
         /**
          * scrollView
          */
@@ -284,9 +286,13 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
                                   y: height + GlobalConst.MARGIN_CELL_Y,
                                   width: GlobalConst.SCREEN_WIDTH - (marginX + GlobalConst.MARGIN_CELL_X) * 2,
                                   height: GlobalConst.SCREEN_HEIGHT - height - GlobalConst.MARGIN_CELL_Y * 2 - GlobalConst.PARENT_BORDER_WIDTH)
-        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: offset)
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: offset > scrollView.frame.height ? offset : scrollView.frame.height - height - GlobalConst.MARGIN_CELL_Y)
         scrollView.backgroundColor = UIColor.white
         CommonProcess.setBorder(view: scrollView)
+        
+        // Header 3
+        setHeader(header: lblHeader3, offset: scrollView.contentSize.height - GlobalConst.LABEL_HEIGHT - GlobalConst.MARGIN_CELL_Y, text: GlobalConst.CONTENT00225,
+                  bkgColor: ColorFromRGB().getColorFromRGB(0xFAB102))
         
         if Singleton.sharedInstance.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
             lblHeader0.text = GlobalConst.CONTENT00041.uppercased()
@@ -311,6 +317,7 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
         lblStatusValue.text         = Singleton.sharedInstance.currentUpholdDetail.status
         lblReportValue.text         = Singleton.sharedInstance.currentUpholdDetail.last_reply_message
         lblReportWrong.text         = Singleton.sharedInstance.currentUpholdDetail.report_wrong
+        self.updateNotificationStatus()
     }
 
     override func didReceiveMemoryWarning() {
@@ -345,7 +352,7 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
         // Pass the selected object to the new view controller.
     }
      */
-    func setHeader(header: UILabel, offset: CGFloat, text: String = GlobalConst.CONTENT00041) {
+    func setHeader(header: UILabel, offset: CGFloat, text: String = GlobalConst.CONTENT00041, bkgColor: UIColor = GlobalConst.BUTTON_COLOR_RED) {
         header.translatesAutoresizingMaskIntoConstraints = true
         header.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
                               y: offset,
@@ -353,7 +360,7 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
                               height: GlobalConst.LABEL_HEIGHT)
         header.layer.masksToBounds = true
         header.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        header.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        header.backgroundColor = bkgColor
         header.font = UIFont.boldSystemFont(ofSize: 15.0)
         header.text = text.uppercased()
         header.textColor = UIColor.white
@@ -395,5 +402,9 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
         if Singleton.sharedInstance.checkNotificationExist() {
             Singleton.sharedInstance.clearNotificationData()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.updateNotificationStatus()
     }
 }

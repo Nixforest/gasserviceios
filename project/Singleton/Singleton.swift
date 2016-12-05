@@ -78,7 +78,10 @@ class Singleton: NSObject {
     var notifyCountText: String = ""
     /** Id of user */
     var user_id: String = ""
+    /** Notification */
     var notify: NotificationBean = NotificationBean()
+    /** Last uphold id */
+    var lastUpholdId: String = ""
     
     // MARK - Methods
     override init() {
@@ -257,6 +260,9 @@ class Singleton: NSObject {
         
         // User id
         self.user_id = loginModel.user_id
+        
+        // Menu
+        self.menu = loginModel.menu
     }
     
     /**
@@ -368,6 +374,18 @@ class Singleton: NSObject {
         self.notify.type        = type
         self.notify.reply_id    = reply_id
         self.notify.message     = message
+    }
+    
+    /**
+     * Set other information
+     * - parameter data: List of config bean item
+     */
+    func setOtherInfo(data: [ConfigBean]) {
+        for item in data {
+            if item.id == DomainConst.KEY_UPHOLD_ID_LASTEST {
+                self.lastUpholdId = item.name
+            }
+        }
     }
     
     /**

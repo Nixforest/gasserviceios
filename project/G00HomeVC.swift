@@ -249,6 +249,12 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
             //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let accountVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_ACCOUNT_VIEW_CTRL)
             self.navigationController?.pushViewController(accountVC, animated: true)
+        case 3:
+            if !Singleton.sharedInstance.lastUpholdId.isEmpty {
+                Singleton.sharedInstance.sharedString = Singleton.sharedInstance.lastUpholdId
+                let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F03_VIEW_CTRL)
+                self.navigationController?.pushViewController(ratingVC, animated: true)
+            }
         default:
             break
         }

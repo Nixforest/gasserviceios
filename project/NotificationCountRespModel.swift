@@ -12,6 +12,9 @@ class NotificationCountRespModel: BaseRespModel {
     var NotifyCountText: String = ""
     /** Version code */
     var app_version_code = ""
+    /** Other information */
+    var otherInfo: [ConfigBean] = [ConfigBean]()
+    
     /**
      * Initializer
      */
@@ -29,6 +32,11 @@ class NotificationCountRespModel: BaseRespModel {
                 }
                 self.NotifyCountText = json[DomainConst.KEY_NOTIFY_COUNT_TEXT] as? String ?? ""
                 self.app_version_code = json[DomainConst.KEY_APP_VERSION_CODE] as? String ?? ""
+                // Other information
+                let otherInfo = json[DomainConst.KEY_OTHER_INFO] as? [[String: AnyObject]]
+                for info in otherInfo! {
+                    self.otherInfo.append(ConfigBean(jsonData: info))
+                }
             } catch let error as NSError {
                 print("Failed to load: \(error.localizedDescription)")
             }

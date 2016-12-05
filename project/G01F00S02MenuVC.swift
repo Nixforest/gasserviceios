@@ -24,7 +24,7 @@ class G01F00S02MenuVC: CommonMenuViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        setItem(listValues: [false, false, false, true, true, true])
+        setItem(listValues: [false, false, false, true, true])
         setupMenuItem()
     }
     

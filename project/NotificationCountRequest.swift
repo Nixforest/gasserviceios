@@ -30,6 +30,7 @@ class NotificationCountRequest: BaseRequest {
             let model: NotificationCountRespModel = NotificationCountRespModel(jsonString: dataString as! String)
             if model.status == "1" {
                 Singleton.sharedInstance.setNotificationCountText(text: model.NotifyCountText)
+                Singleton.sharedInstance.setOtherInfo(data: model.otherInfo)
             } else {
                 self.showAlert(message: model.message)
                 return
@@ -38,6 +39,7 @@ class NotificationCountRequest: BaseRequest {
             LoadingView.shared.hideOverlayView()
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: model)
+                self.view.updateNotificationStatus()
             }
         })
         return task

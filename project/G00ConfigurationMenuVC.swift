@@ -28,9 +28,9 @@ class G00ConfigurationMenuVC: CommonMenuViewController {
         super.viewDidLoad()
         
         if Singleton.sharedInstance.isLogin {
-            setItem(listValues: [false, true, false, true, true, false])
+            setItem(listValues: [false, true, false, true, false])
         } else {
-            setItem(listValues: [true, false, true, true, false, false])
+            setItem(listValues: [true, false, true, false, false])
         }
         setupMenuItem()
     }

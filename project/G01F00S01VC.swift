@@ -94,6 +94,8 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
     }
     //training mode
     override func viewDidAppear(_ animated: Bool) {
+        //notification button enable/disable
+        self.updateNotificationStatus()
         if currentViewType == DomainConst.TYPE_TROUBLE {
             problemTableView.reloadData()
         } else {
@@ -272,6 +274,7 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
+        self.updateNotificationStatus()
         if currentViewType == DomainConst.TYPE_TROUBLE {
             problemTableView.reloadData()
         } else {

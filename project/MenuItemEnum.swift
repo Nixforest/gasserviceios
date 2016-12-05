@@ -11,8 +11,7 @@ enum MenuItemEnum {
     case LOGIN
     case LOGOUT
     case REGISTER
-    case GAS_SERVICE
-    case ISSUE_MAN
+    case DYNAMIC_MENU_LIST
     case CONFIG
     case MENUITEM_NUM
 }

@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.rootViewController = rootNav
  
-        // Handle notification receive
+        //----- Handle notification receive -----
         if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [String: AnyObject] {
             handleNotification(data: notification)
         }
@@ -67,16 +67,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      * - parameter application: Application
      */
     func registerForPushNotifications(application: UIApplication) {
-        let notificationSettings = UIUserNotificationSettings(types: [.badge, .sound, .alert],
-                                                              categories: nil)
-        application.registerUserNotificationSettings(notificationSettings)
-    }
-    
-    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-        if notificationSettings.types != .none {
+        // iOS 10 support
+        if #available(iOS 10, *) {
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: [.badge, .alert, .sound],
+                completionHandler: { (granted, error) in })
             application.registerForRemoteNotifications()
         }
+            // iOS 9 support
+        else if #available(iOS 9, *) {
+            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .alert, .sound], categories: nil))
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+            // iOS 8 support
+        else if #available(iOS 8, *) {
+            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .alert, .sound], categories: nil))
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+            // iOS 7 support
+        else {
+            application.registerForRemoteNotifications(matching: [.badge, .alert, .sound])
+        }
     }
+    
+//    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+//        if notificationSettings.types != .none {
+//            application.registerForRemoteNotifications()
+//        }
+//    }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
@@ -119,27 +137,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Singleton.sharedInstance.setNotificationData(id: id, notify_id: notifyId, notify_type: notifyType, type: type, reply_id: replyId, message: message)
         
         // Create alert
-        // Create alert
         if isManual {
-//            let notification = UILocalNotification()
-//            notification.fireDate = NSDate(timeIntervalSinceNow: 5) as Date
-//            notification.alertBody = message
-//            notification.alertAction = "be awesome!"
-//            notification.soundName = UILocalNotificationDefaultSoundName
-//            notification.userInfo = data
-//            UIApplication.shared.scheduleLocalNotification(notification)
-            
-//            let notifiAlert = UIAlertView()
-//            notifiAlert.title = GlobalConst.CONTENT00044
-//            notifiAlert.message = message
-//            notifiAlert.addButton(withTitle: "OK")
-//            notifiAlert.addButton(withTitle: "Cancel")
-//            notifiAlert.dismiss(withClickedButtonIndex: 1, animated: true)
-//            //notifiAlert.
-//            notifiAlert.show()
             let alert = UIAlertController(title: GlobalConst.CONTENT00044, message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: GlobalConst.CONTENT00008, style: .default, handler: {
+            let okAction = UIAlertAction(title: GlobalConst.CONTENT00223, style: .default, handler: {
                 (alert: UIAlertAction!) in
+                CommonProcess.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
                 if let navigationController = self.window?.rootViewController as? UINavigationController {
                     if navigationController.visibleViewController is G00HomeVC {
                         navigationController.visibleViewController?.viewDidAppear(true)
@@ -147,27 +149,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         navigationController.popToRootViewController(animated: true)
                     }
                 }
-//                if let wd = self.window {
-//                    var vc = wd.rootViewController
-//                    if(vc is UINavigationController){
-//                        vc = (vc as! UINavigationController).visibleViewController
-//                    }
-//                    
-//                    if(vc is G00HomeVC){
-//                        //your code
-//                    } else {
-//                        vc.
-//                    }
-//                }
             })
             alert.addAction(okAction)
-            let cancelAction = UIAlertAction(title: GlobalConst.CONTENT00202, style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: GlobalConst.CONTENT00224, style: .cancel, handler: {
+                (alert: UIAlertAction!) in
+                if let navigationController = self.window?.rootViewController as? UINavigationController {
+                    CommonProcess.requestNotificationCount(view: (navigationController.visibleViewController as! CommonViewController))
+                }
+                Singleton.sharedInstance.clearNotificationData()
+            })
             alert.addAction(cancelAction)
             self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        } else {
+            // Reply confirm notify to server
+            CommonProcess.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
         }
-        
-        // Reply confirm notify to server
-        CommonProcess.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
         
         // Move to detail
         print(message)

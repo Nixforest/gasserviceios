@@ -177,6 +177,7 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
         viewInformation.setData(model: Singleton.sharedInstance.currentUpholdDetail)
         
         tblViewHistory.reloadData()
+        self.updateNotificationStatus()
     }
     override func clearData() {
         Singleton.sharedInstance.currentUpholdDetail.reply_item.removeAll()
@@ -294,6 +295,9 @@ extension G01F00S02VC: UICollectionViewDelegate, UICollectionViewDataSource {
         zoomIMGViewController.imageView.getImgFromUrl(link: Singleton.sharedInstance.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].large, contentMode: cell.imageView1.contentMode)
         let IMGVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.ZOOM_IMAGE_VIEW_CTRL)
         self.navigationController?.pushViewController(IMGVC, animated: true)
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        self.updateNotificationStatus()
     }
 }
 
