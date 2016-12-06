@@ -103,6 +103,7 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
         self.view.backgroundColor   = GlobalConst.BACKGROUND_COLOR_GRAY
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
+        
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
         imgLogo.image = UIImage(named: GlobalConst.LOGO_IMG_NAME)
@@ -112,12 +113,11 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
                                height: GlobalConst.LOGIN_LOGO_H)
         imgLogo.translatesAutoresizingMaskIntoConstraints = true
         imgLogo.isUserInteractionEnabled = true
-        // now you need a tap gesture recognizer
-        // note that target and action point to what happens when the action is recognized.
+        // Now you need a tap gesture recognizer
+        // Note that target and action point to what happens when the action is recognized.
         let imgLogoTappedRecognizer = UITapGestureRecognizer(target: self, action: #selector(G00LoginVC.imgLogoTapped(_:)))
-        //Add the recognizer to your view.
+        // Add the recognizer to your view.
         imgLogo.addGestureRecognizer(imgLogoTappedRecognizer)
-        
         
         // Username text field
         txtAccount.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
@@ -152,10 +152,8 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
                                        height: GlobalConst.LABEL_H)
         lblShowPassword.text = GlobalConst.CONTENT00102
         lblShowPassword.translatesAutoresizingMaskIntoConstraints = true
-        //check box status
+        // Check box status
         bShowPassword = false
-        
-        
         
         // Login button
         btnLogin.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
@@ -186,14 +184,11 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
         // Navigation bar
         setupNavigationBar(title: GlobalConst.CONTENT00051, isNotifyEnable: false)
         
-        txtAccount.delegate = self
-        txtPassword.delegate = self
+        txtAccount.delegate     = self
+        txtPassword.delegate    = self
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(G00LoginVC.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
-        
-        // Set background color
-        self.changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
         
         // Fill data in training mode
         if Singleton.sharedInstance.checkTrainningMode() {

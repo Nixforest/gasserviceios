@@ -9,14 +9,22 @@
 import UIKit
 
 class G00HomeCell: UITableViewCell {
+    /** Image view */
     @IBOutlet weak var homeCellImageView: UIImageView!
+    /** Title of cell */
     @IBOutlet weak var titleLbl: UILabel!
 
+    /**
+     * Awake from nib
+     */
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
+    /**
+     * Handle when select cell
+     */
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

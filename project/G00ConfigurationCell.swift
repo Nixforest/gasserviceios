@@ -9,14 +9,18 @@
 import UIKit
 
 class G00ConfigurationCell: UITableViewCell {
-    
+    /** Image in the left */
     @IBOutlet weak var leftImg: UIImageView!
+    /** Label name of item */
     @IBOutlet weak var nameLbl: UILabel!
-    
+    /** Switch control */
     @IBOutlet weak var mySw: UISwitch!
-    
+    /** Image in the right */
     @IBOutlet weak var rightImg: UIImageView!
     
+    /**
+     * Awake from nib
+     */
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,27 +28,24 @@ class G00ConfigurationCell: UITableViewCell {
         self.backgroundColor = UIColor.white
     }
 
+    /**
+     * Handle select item
+     */
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configurine the view for the selected state
+        // Configure the view for the selected state
     }
     
-    
+    /**
+     * Handle when change value of switch
+     * - parameter sender: Control sent event
+     */
     @IBAction func changeValue(_ sender: AnyObject) {
         if mySw.isOn {
-            GlobalConst.TRAINING_MODE_FLAG = true
-            print(GlobalConst.TRAINING_MODE_FLAG)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "TrainingModeOn"), object: nil)
             Singleton.sharedInstance.setTrainningMode(true)
         } else {
-            GlobalConst.TRAINING_MODE_FLAG = false
-            print(GlobalConst.TRAINING_MODE_FLAG)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "TrainingModeOff"), object: nil)
             Singleton.sharedInstance.setTrainningMode(false)
         }
-        
     }
-    
-
 }

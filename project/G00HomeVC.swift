@@ -59,20 +59,26 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
     }
     
     //MARK: ViewDidLoad
+    /**
+     * View did load
+     */
      override func viewDidLoad() {
         super.viewDidLoad()
         // Menu item tap
         asignNotifyForMenuItem()
+        
+        // Handle display color when training mode is on
         if Singleton.sharedInstance.checkTrainningMode() {
             GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
-        } else {
+        } else {    // Training mode off
             GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
         }
-        // MARK: Background
+        
+        // Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
         
-        // MARK: ViewBackgnd Frame
+        // ViewBackgnd Frame
         let marginX: CGFloat = 0.0
         let marginY: CGFloat = 0.0
         homeTableView.translatesAutoresizingMaskIntoConstraints = true
@@ -82,17 +88,17 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
                                      height: GlobalConst.SCREEN_HEIGHT - 2 * marginY)
         homeTableView.backgroundColor = GlobalConst.PARENT_BORDER_COLOR_GRAY
         homeTableView.separatorStyle = .none
-        //MARK: NavBar setup
+        
+        // NavBar setup
         setupNavigationBar(title: GlobalConst.CONTENT00108, isNotifyEnable: Singleton.sharedInstance.checkIsLogin(), isHiddenBackBtn: true)
         
-        /**
-         * Cell register
-         */
+        /** Cell register */
         self.homeTableView.register(UINib(nibName: GlobalConst.G00_HOME_CELL, bundle: nil), forCellReuseIdentifier: GlobalConst.G00_HOME_CELL)
         
         // Notify set data
         NotificationCenter.default.addObserver(self, selector: #selector(G00HomeVC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
+        
         // Get data from server
         if Singleton.sharedInstance.checkIsLogin() {
             CommonProcess.requestUpdateConfiguration(view: self)
@@ -105,16 +111,21 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
     override func setData(_ notification: Notification) {
         self.homeTableView.reloadData()
         self.updateNotificationStatus()
+        
         // Get notification count from server
         if Singleton.sharedInstance.checkIsLogin() {
             CommonProcess.requestNotificationCount(view: self)
         }
     }
 
+    /**
+     * Did receive memory warning
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     /**
      * Override: show menu controller
      */
@@ -132,6 +143,7 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         return UIModalPresentationStyle.none
     }
     
+    // MARK: Table view setup
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -265,26 +277,19 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    
+    /**
+     * View did appear
+     */
     override func viewDidAppear(_ animated: Bool) {
         //notification button enable/disable
         self.updateNotificationStatus()
         self.homeTableView.reloadData()
+        
         // Get notification count from server
         if Singleton.sharedInstance.checkIsLogin() {
             CommonProcess.requestNotificationCount(view: self)
         }
+        
         // Check open by notification
         if Singleton.sharedInstance.checkNotificationExist() {
             if Singleton.sharedInstance.checkIsLogin() {
@@ -295,6 +300,13 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
             } else {
                 moveToLoginVC()
             }
+        }
+        
+        // Handle display color when training mode is on
+        if Singleton.sharedInstance.checkTrainningMode() {
+            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+        } else {    // Training mode off
+            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
         }
     }
     

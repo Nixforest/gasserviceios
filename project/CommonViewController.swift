@@ -32,20 +32,6 @@ class CommonViewController : UIViewController {
     }
     
     /**
-     * TrainingMode on/off
-     * - parameter isTrainingMode: Training mode flag
-     */
-    func changeBackgroundColor(_ isTrainingMode :Bool)  {
-        if isTrainingMode {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
-            GlobalConst.PARENT_BORDER_WIDTH = 5
-        } else {
-            self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-            GlobalConst.PARENT_BORDER_WIDTH = 0
-        }
-    }
-    
-    /**
      * Set data
      */
     func setData(_ notification: Notification) {

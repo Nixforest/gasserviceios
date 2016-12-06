@@ -190,9 +190,6 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
         setupNavigationBar(title: GlobalConst.CONTENT00089, isNotifyEnable: true)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
-        
-        // Set background color
-        self.changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
     }
 
     override func didReceiveMemoryWarning() {

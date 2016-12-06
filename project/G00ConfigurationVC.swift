@@ -46,6 +46,7 @@ class G00ConfigurationVC: CommonViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         asignNotifyForMenuItem()
+        
         // Config view
         configView.translatesAutoresizingMaskIntoConstraints = true
         configView.frame = CGRect(
@@ -125,10 +126,6 @@ class G00ConfigurationVC: CommonViewController, UITableViewDelegate, UITableView
                 cell.rightImg.image     = UIImage(named: "back.png")
                 cell.rightImg.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(M_PI)) / 180.0)
                 cell.nameLbl.text       = GlobalConst.CONTENT00139
-//                let back = UIImage(named: GlobalConst.BACK_IMG_NAME)
-//                let tintedBack = back?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-//                cell.rightImg.image = tintedBack
-//                cell.rightImg.tintColor = UIColor.black
                 let cellButton:UIButton = UIButton()
                 cellButton.frame        = CGRect(
                     x: 0, y: 0,

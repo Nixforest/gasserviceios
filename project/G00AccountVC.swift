@@ -39,9 +39,9 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
      * - parameter sender: Tap gesture
      */
     @IBAction func selectImageFromLibrary(_ sender: UITapGestureRecognizer) {
-        let imgPickerController = UIImagePickerController()
-        imgPickerController.sourceType = .photoLibrary
-        imgPickerController.delegate = self
+        let imgPickerController         = UIImagePickerController()
+        imgPickerController.sourceType  = .photoLibrary
+        imgPickerController.delegate    = self
         present(imgPickerController, animated: true, completion: nil)
     }
     
@@ -95,8 +95,9 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
         _ = self.navigationController?.popViewController(animated: true)
     }
     
-    //MARK: Methods
-    //training mode
+    /**
+     * View did appear
+     */
     override func viewDidAppear(_ animated: Bool) {
         
     }
@@ -128,9 +129,10 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
         asignNotifyForMenuItem()
         
         // Background
-        self.view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
+        self.view.backgroundColor   = GlobalConst.BACKGROUND_COLOR_GRAY
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
+        
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
         imgAvatar.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.ACCOUNT_AVATAR_W) / 2,
@@ -199,7 +201,7 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
                                   width: GlobalConst.BUTTON_W,
                                   height: GlobalConst.BUTTON_H)
         saveButton.setTitle(GlobalConst.CONTENT00086, for: UIControlState())
-        saveButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        saveButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         saveButton.setTitleColor(UIColor.white, for: UIControlState())
         saveButton.translatesAutoresizingMaskIntoConstraints = true
         saveButton.layer.cornerRadius = 6
@@ -210,7 +212,7 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
                                             width: GlobalConst.BUTTON_W,
                                             height: GlobalConst.BUTTON_H)
         changePasswordButton.setTitle(GlobalConst.CONTENT00089, for: UIControlState())
-        changePasswordButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        changePasswordButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         changePasswordButton.setTitleColor(UIColor.white, for: UIControlState())
         changePasswordButton.layer.cornerRadius = 6
         changePasswordButton.translatesAutoresizingMaskIntoConstraints = true
@@ -221,7 +223,7 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
                                     width: GlobalConst.BUTTON_W,
                                     height: GlobalConst.BUTTON_H)
         logoutButton.setTitle(GlobalConst.CONTENT00090, for: UIControlState())
-        logoutButton.backgroundColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         logoutButton.setTitleColor(UIColor.white, for: UIControlState())
         logoutButton.layer.cornerRadius = 6
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
@@ -235,9 +237,6 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
         
         // Notify set data
         NotificationCenter.default.addObserver(self, selector: #selector(G00AccountVC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)
-        
-        // Set background color
-        changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
         
         // Load data from server?
         if Singleton.sharedInstance.user_info == nil {
@@ -260,9 +259,10 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
-        txtName.text = Singleton.sharedInstance.user_info?.first_name
-        txtPhone.text = Singleton.sharedInstance.user_info?.phone
+        txtName.text    = Singleton.sharedInstance.user_info?.first_name
+        txtPhone.text   = Singleton.sharedInstance.user_info?.phone
         txtAddress.text = Singleton.sharedInstance.user_info?.address
+        // Load image
         if let url = NSURL(string: String(Singleton.sharedInstance.getServerURL() + (Singleton.sharedInstance.user_info?.image_avatar)!)!) {
             if let data = NSData(contentsOf: url as URL) {
                 imgAvatar.image = UIImage(data: data as Data)
@@ -278,28 +278,27 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    //popover menu
+    /**
+     * Override: show menu controller
+     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
             let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
         }
     }
+    
+    /**
+     * ...
+     */
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
     }
-
+    
+    /**
+     * Handle when focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         if isKeyboardShow == false {
             UIView.animate(withDuration: 0.3, animations: {
@@ -309,6 +308,10 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
         }
         return true
     }
+    
+    /**
+     * Hide keyboard
+     */
     func hideKeyboard(_ sender:UITapGestureRecognizer){
         self.view.endEditing(true)
         UIView.animate(withDuration: 0.3, animations: {
@@ -316,6 +319,11 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
         }) 
         isKeyboardShow = false
     }
+    
+    /**
+     * Handle when leave focus edittext
+     * - parameter textField: Textfield is focusing
+     */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //hide keyboard
         //textField.resignFirstResponder()

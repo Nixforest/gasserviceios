@@ -261,8 +261,6 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
         gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(G01F00S01VC.hideKeyboard))
         //view.addGestureRecognizer(tap)
         CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
-        // Set background color
-        self.changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
     }
     
 //    func reloadData(_ notification: Notification) {

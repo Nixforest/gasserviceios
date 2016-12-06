@@ -7,10 +7,7 @@
 //
 
 import Foundation
-class G00ConfigurationMenuVC: CommonMenuViewController {
-    /** Login status */
-    var loginStatus:Bool = false
-    
+class G00ConfigurationMenuVC: CommonMenuViewController {    
     /**
      * Override
      */
