@@ -93,7 +93,8 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
         
         // Tab button
         let marginX = GlobalConst.PARENT_BORDER_WIDTH
-        let height = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        // Get height of status bar + navigation bar
+        let height = self.getTopHeight()
         sgmScrollViewChange.translatesAutoresizingMaskIntoConstraints = true
         sgmScrollViewChange.frame = CGRect(x: marginX, y: height,
             width: GlobalConst.SCREEN_WIDTH - marginX * 2,

@@ -256,11 +256,14 @@ class GlobalConst {
     static let NORMAL_FONT_SIZE: CGFloat = 15.0
     static let TEXTFIELD_FONT_SIZE: CGFloat = 14.0
     static let BUTTON_FONT_SIZE: CGFloat = NORMAL_FONT_SIZE
+    static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.MARGIN_CELL_Y * 2) / 5
+
     
     // ----- Color defines -----
-    static let LABEL_IN_CELL_HEIGHT:CGFloat = (GlobalConst.CELL_HEIGHT_SHOW - GlobalConst.MARGIN_CELL_Y * 2) / 5
-    static let CELL_BORDER_COLOR:UIColor = UIColor.white
-    static var BUTTON_COLOR_RED:UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
+    /** Application main color */
+    static let MAIN_COLOR:                  UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
+    static let TRAINING_COLOR:              UIColor = ColorFromRGB().getColorFromRGB(0x08C011)
+    static var BUTTON_COLOR_RED:            UIColor = MAIN_COLOR
     static let BUTTON_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
     static let BUTTON_COLOR_DISABLE:UIColor = ColorFromRGB().getColorFromRGB(0x535353)
     static let COLOR_SELECTING_GREEN:UIColor = ColorFromRGB().getColorFromRGB(0x08C011)

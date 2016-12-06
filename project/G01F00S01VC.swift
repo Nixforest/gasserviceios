@@ -130,8 +130,6 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Training mode
-        asignNotifyForTrainingModeChange()
         // Menu item tap
         asignNotifyForMenuItem()
         
@@ -157,7 +155,8 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         
         // Search bar
-        let heigh = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        // Get height of status bar + navigation bar
+        let heigh = self.getTopHeight()
         searchBox.placeholder = GlobalConst.CONTENT00060
         searchBox.translatesAutoresizingMaskIntoConstraints = true
         searchBox.frame = CGRect(x: marginX,

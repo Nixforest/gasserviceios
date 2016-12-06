@@ -107,8 +107,6 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Training mode
-        asignNotifyForTrainingModeChange()
         // Menu item tap
         asignNotifyForMenuItem()
         
@@ -118,7 +116,8 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
         
         // Textfield old password
-        let heigh = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        // Get height of status bar + navigation bar
+        let heigh = self.getTopHeight()
         txtOldPassword.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
                                       y: heigh + GlobalConst.MARGIN,
                                       width: GlobalConst.EDITTEXT_W,

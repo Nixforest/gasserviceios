@@ -124,8 +124,6 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Training mode
-        asignNotifyForTrainingModeChange()
         // Menu item tap
         asignNotifyForMenuItem()
         
@@ -133,8 +131,8 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
         self.view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-        // Avatar customize
-        let heigh = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        // Get height of status bar + navigation bar
+        let heigh = self.getTopHeight()
         imgAvatar.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.ACCOUNT_AVATAR_W) / 2,
                                  y: heigh + GlobalConst.MARGIN,
                                  width: GlobalConst.ACCOUNT_AVATAR_W,

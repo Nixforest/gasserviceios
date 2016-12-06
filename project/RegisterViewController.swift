@@ -65,12 +65,6 @@ class RegisterViewController: CommonViewController, UIPopoverPresentationControl
     override func viewDidAppear(_ animated: Bool) {
         
     }
-//    func trainingModeOn(_ notification: Notification) {
-//        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
-//    }
-//    func trainingModeOff(_ notification: Notification) {
-//        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-//    }
     
     
     override func viewDidLoad() {
@@ -85,8 +79,6 @@ class RegisterViewController: CommonViewController, UIPopoverPresentationControl
             notificationButton.enabled = false
         }*/
         //background
-        NotificationCenter.default.addObserver(self, selector: #selector(RegisterViewController.trainingModeOn(_:)), name:NSNotification.Name(rawValue: "TrainingModeOn"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(RegisterViewController.trainingModeOff(_:)), name:NSNotification.Name(rawValue: "TrainingModeOff"), object: nil)
         
         view.backgroundColor = ColorFromRGB().getColorFromRGB(0xECECEC)
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH

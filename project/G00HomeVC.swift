@@ -63,6 +63,11 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         super.viewDidLoad()
         // Menu item tap
         asignNotifyForMenuItem()
+        if Singleton.sharedInstance.checkTrainningMode() {
+            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+        } else {
+            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+        }
         // MARK: Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor

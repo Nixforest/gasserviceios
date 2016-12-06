@@ -173,13 +173,13 @@ class CommonMenuViewController : UIViewController {
     func issueItemTapped(_ sender: AnyObject) {
         self.dismiss(animated: false) {
 //            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
-            switch ((sender as! UIButton).accessibilityIdentifier) {
-            case DomainConst.?HOME:
-                self.win
-                break
-            default:
-                break
-            }
+//            switch ((sender as! UIButton).accessibilityIdentifier) {
+//            case DomainConst.?HOME:
+//                self.win
+//                break
+//            default:
+//                break
+//            }
         }
     }
     

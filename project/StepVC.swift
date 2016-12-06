@@ -267,7 +267,8 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         }
     }
     func appendContent(stepContent: StepContent) {
-        let height = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        // Get height of status bar + navigation bar
+        let height = self.getTopHeight()
         stepContent.translatesAutoresizingMaskIntoConstraints = true
         stepContent.frame = CGRect(
             x: 0,
@@ -279,7 +280,8 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         self.view.addSubview(stepContent)
     }
     func appendSummary(summary: StepSummary) {
-        let height = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        // Get height of status bar + navigation bar
+        let height = self.getTopHeight()
         summary.translatesAutoresizingMaskIntoConstraints = true
         summary.frame = CGRect(
             x: 0,

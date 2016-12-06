@@ -59,12 +59,11 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
      */
     @IBAction func Register(_ sender: AnyObject) {
 //        let registerVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REGISTER_VIEW_CTRL)
-//        
 //        self.navigationController?.pushViewController(registerVC, animated: true)
         showAlert(message: GlobalConst.CONTENT00197)
     }
     
-    //MARK: Methods
+    // MARK: Methods
     /**
      * Handle tap on Logo image
      * - parameter gestureRecognizer: UITapGestureRecognizer
@@ -77,7 +76,6 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
         if imgLogoTappedCounter == 7 {
             imgLogoTappedCounter = 0
             print(imgLogoTappedCounter)
-            //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_CONFIGURATION_VIEW_CTRL)
             self.navigationController?.pushViewController(configVC, animated: true)
         }
@@ -98,16 +96,15 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Training mode
-        asignNotifyForTrainingModeChange()
         // Menu item tap
         asignNotifyForMenuItem()
         
         // Background
-        self.view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
+        self.view.backgroundColor   = GlobalConst.BACKGROUND_COLOR_GRAY
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-        let heigh = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        // Get height of status bar + navigation bar
+        let heigh = self.getTopHeight()
         imgLogo.image = UIImage(named: GlobalConst.LOGO_IMG_NAME)
         imgLogo.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W) / 2,
                                y: heigh + GlobalConst.MARGIN,

@@ -22,25 +22,7 @@ class CommonViewController : UIViewController {
     /** Main story board */
     let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
     
-    // MARK: Methods
-    /**
-     * Notify turn on training mode
-     */
-    func trainingModeOn(_ notification: Notification) {
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_YELLOW.cgColor
-        GlobalConst.PARENT_BORDER_WIDTH = 0
-        GlobalConst.BUTTON_COLOR_RED = ColorFromRGB().getColorFromRGB(0x38761D)
-    }
-    
-    /**
-     * Notify turn off training mode
-     */
-    func trainingModeOff(_ notification: Notification) {
-        self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
-        GlobalConst.PARENT_BORDER_WIDTH = 0
-        GlobalConst.BUTTON_COLOR_RED = ColorFromRGB().getColorFromRGB(0xF00020)
-    }
-    
+    // MARK: Methods    
     /**
      * View did load
      */
@@ -107,14 +89,6 @@ class CommonViewController : UIViewController {
         let cancelAction = UIAlertAction(title: GlobalConst.CONTENT00202, style: .cancel, handler: cancelHandler)
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    /**
-     * Asign notify for training mode change
-     */
-    func asignNotifyForTrainingModeChange() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.trainingModeOn(_:)), name:NSNotification.Name(rawValue: "TrainingModeOn"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.trainingModeOff(_:)), name:NSNotification.Name(rawValue: "TrainingModeOff"), object: nil)
     }
     
     /**
@@ -256,5 +230,14 @@ class CommonViewController : UIViewController {
      */
     func updateNotificationStatus(_ notification: Notification) {
         updateNotificationStatus()
+    }
+    
+    /**
+     * Get height of status bar + navigation bar
+     * - returns: Height of status bar + navigation bar
+     */
+    func getTopHeight() -> CGFloat {
+        return (self.navigationController!.navigationBar.frame.size.height
+                + UIApplication.shared.statusBarFrame.size.height)
     }
 }

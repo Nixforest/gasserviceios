@@ -11,7 +11,8 @@ import UIKit
 class G01F02VC: StepVC, StepDoneDelegate {
     
     override func viewDidLoad() {
-        let height = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        // Get height of status bar + navigation bar
+        let height = self.getTopHeight()
         let step1 = G01F02S01(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         let step2 = G01F02S02(w: GlobalConst.SCREEN_WIDTH,

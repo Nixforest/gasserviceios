@@ -117,7 +117,8 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
      */
     override func setData(_ notification: Notification) {
         let marginX = GlobalConst.PARENT_BORDER_WIDTH
-        let height  = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
+        // Get height of status bar + navigation bar
+        let height = self.getTopHeight()
         var offset  = height + GlobalConst.MARGIN_CELL_Y
         
         // Do any additional setup after loading the view, typically from a nib.
