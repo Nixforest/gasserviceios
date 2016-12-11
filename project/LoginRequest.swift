@@ -67,7 +67,8 @@ class LoginRequest: BaseRequest {
             format: "{\"username\":\"%@\",\"password\":\"%@\",\"gcm_device_token\":\"\",\"apns_device_token\":\"%@\",\"type\":\"3\"}",
             //format: "{\"username\":\"%@\",\"password\":\"%@\",\"gcm_device_token\":\"1\",\"apns_device_token\":\"1\"}",
                                        username, password,
-                                       Singleton.shared.checkDeviceTokenExist() ? Singleton.shared.getDeviceToken() : ""
+                                       Singleton.shared.checkDeviceTokenExist() ? Singleton.shared.getDeviceToken() : "A7CA1E1F8434EE8D5E62264B22D29D64B7A3AC04E03899E6926503643FD07EC6"
+                                        //Singleton.shared.checkDeviceTokenExist() ? Singleton.shared.getDeviceToken() : ""
         )
     }
 }

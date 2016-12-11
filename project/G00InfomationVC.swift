@@ -47,7 +47,7 @@ class G00InfomationVC: UIViewController {
         let backOrigin = UIImage(named: GlobalConst.BACK_IMG_NAME)
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         backButton.setImage(tintedBackLogo, for: UIControlState())
-        backButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        backButton.tintColor = GlobalConst.BUTTON_COLOR_RED
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
         backButton.setTitle("", for: UIControlState())

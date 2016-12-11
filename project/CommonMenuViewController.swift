@@ -178,6 +178,34 @@ class CommonMenuViewController : UIViewController {
 //            default:
 //                break
 //            }
+            let currentView: CommonViewController = CommonProcess.getCurrentViewController()
+            switch ((sender as! UIButton).accessibilityIdentifier)! {
+            case DomainConst.HOME:
+                _ = currentView.navigationController?.popToRootViewController(animated: true)
+                break
+            case DomainConst.USER_PROFILE:
+                let accountVC = currentView.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_ACCOUNT_VIEW_CTRL)
+                currentView.navigationController?.pushViewController(accountVC, animated: true)
+                break
+            case DomainConst.UPHOLD_LIST:
+                let upholdListVC = currentView.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S01_VIEW_CTRL)
+                currentView.navigationController?.pushViewController(upholdListVC, animated: true)
+                break
+            case DomainConst.ISSUE_LIST:
+                currentView.showAlert(message: GlobalConst.CONTENT00197)
+                break
+            case DomainConst.MESSAGE:
+                currentView.showAlert(message: GlobalConst.CONTENT00197)
+                break
+            case DomainConst.CUSTOMER_LIST:
+                currentView.showAlert(message: GlobalConst.CONTENT00197)
+                break
+            case DomainConst.WORKING_REPORT:
+                currentView.showAlert(message: GlobalConst.CONTENT00197)
+                break
+            default:
+                break
+            }
         }
     }
     

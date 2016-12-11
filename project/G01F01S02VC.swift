@@ -39,8 +39,8 @@ class G01F01S02: StepContent {
         contentView.translatesAutoresizingMaskIntoConstraints = true
         
         // Add button
-        if Singleton.sharedInstance.listContactType.count > 0 {
-            for i in 0..<Singleton.sharedInstance.listContactType.count {
+        if Singleton.shared.listContactType.count > 0 {
+            for i in 0..<Singleton.shared.listContactType.count {
                 let button = UIButton()
                 button.translatesAutoresizingMaskIntoConstraints = true
                 button.frame = CGRect(
@@ -49,14 +49,14 @@ class G01F01S02: StepContent {
                     width: GlobalConst.BUTTON_W,
                     height: GlobalConst.BUTTON_H)
                 button.tag = i
-                button.setTitle(Singleton.sharedInstance.listContactType[i].name, for: .normal)
+                button.setTitle(Singleton.shared.listContactType[i].name, for: .normal)
                 button.setTitleColor(UIColor.white , for: .normal)
                 button.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
                 button.backgroundColor = GlobalConst.BUTTON_COLOR_RED
                 button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
                 button.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
                 // Mark button
-                if G01F01S02._selectedValue.id == Singleton.sharedInstance.listContactType[i].id {
+                if G01F01S02._selectedValue.id == Singleton.shared.listContactType[i].id {
                     CommonProcess.markButton(button: button)
                 }
                 _listButton.append(button)
@@ -115,7 +115,7 @@ class G01F01S02: StepContent {
         // Un-mark selecting button
         if !G01F01S02._selectedValue.id.isEmpty {
             for button in self._listButton {
-                if Singleton.sharedInstance.listContactType[button.tag].id == G01F01S02._selectedValue.id {
+                if Singleton.shared.listContactType[button.tag].id == G01F01S02._selectedValue.id {
                     CommonProcess.unMarkButton(button: button)
                     break
                 }
@@ -123,7 +123,7 @@ class G01F01S02: StepContent {
         }
         
         // Set new selected value
-        G01F01S02._selectedValue = Singleton.sharedInstance.listContactType[sender.tag]
+        G01F01S02._selectedValue = Singleton.shared.listContactType[sender.tag]
         // Mark selecting button
         CommonProcess.markButton(button: sender as! UIButton)
         createAlert()

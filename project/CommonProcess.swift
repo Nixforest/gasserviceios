@@ -400,4 +400,16 @@ class CommonProcess {
         btn.backgroundColor     = GlobalConst.BUTTON_COLOR_RED
         btn.layer.cornerRadius  = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
     }
+    
+    /**
+     * Get current view controller
+     * - returns: Current view controller
+     */
+    static func getCurrentViewController() -> CommonViewController {
+        var currentView: UIViewController? = nil
+        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
+            currentView = navigationController.visibleViewController
+        }
+        return currentView as! CommonViewController
+    }
 }

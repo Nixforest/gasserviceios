@@ -111,7 +111,11 @@ class G00ConfigurationVC: CommonViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.G00_CONFIGURATION_TABLE_VIEW_CELL, for: indexPath) as! G00ConfigurationCell
-        
+//        cell.frame = CGRect(
+//            x: cell.frame.x,
+//            y: cell.frame.y,
+//            width: self.view.frame.size.width,
+//            height: cell.frame.height)
         // Custom cell
         switch (indexPath as NSIndexPath).row {
             case 1:             // Training mode
@@ -125,6 +129,9 @@ class G00ConfigurationVC: CommonViewController, UITableViewDelegate, UITableView
                 cell.leftImg.image      = UIImage(named: GlobalConst.INFORMATION_IMG_NAME)
                 cell.rightImg.image     = UIImage(named: GlobalConst.BACK_IMG_NAME)
                 cell.rightImg.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(M_PI)) / 180.0)
+                cell.rightImg.frame = CGRect(x: UIScreen.main.bounds.width - cell.rightImg.frame.width - 25,
+                                             y: cell.rightImg.frame.minY,
+                                             width: cell.rightImg.frame.width, height: cell.rightImg.frame.height)
                 cell.nameLbl.text       = GlobalConst.CONTENT00139
                 let cellButton:UIButton = UIButton()
                 cellButton.frame        = CGRect(

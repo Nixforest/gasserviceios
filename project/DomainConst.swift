@@ -470,6 +470,8 @@ class DomainConst {
     static let HOME = "home"
     static let ISSUE_LIST = "issue_list"
     static let MESSAGE = "message"
+    static let CUSTOMER_LIST = "customer_list"
+    static let WORKING_REPORT = "working_report_list"
     static let ISSUE_VIEW = "Chi tiết phản ánh"
     static let NEWS_VIEW = "Chi tiết tin tức"
     static let UPHOLD_VIEW = "Chi tiết bảo trì"
