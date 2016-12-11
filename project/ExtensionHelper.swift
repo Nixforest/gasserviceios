@@ -8,6 +8,23 @@
 
 import Foundation
 /**
+ * Uphold image information item.
+ */
+class UpholdImageInfoItem: NSObject {
+    /** Thumbnail */
+    var thumb = ""
+    /** Large image */
+    var large = ""
+    /**
+     * Initializer
+     * - parameter jsonData: List of data
+     */
+    init(jsonData: [String: AnyObject]) {
+        self.thumb       = jsonData[DomainConst.KEY_IMG_THUMB] as? String ?? ""
+        self.large       = jsonData[DomainConst.KEY_IMG_LARGE] as? String ?? ""
+    }
+}
+/**
  * Download image async extension
  */
 extension UIImageView {
@@ -35,6 +52,7 @@ extension UIImageView {
             DispatchQueue.main.async {
                 self.image = image
             }
+            LoadingView.shared.hideOverlayView()
         }).resume()
     }
 }

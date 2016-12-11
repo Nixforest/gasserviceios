@@ -25,9 +25,11 @@ class CreateUpholdReplyRequest: BaseRequest {
             }
             // Convert to string
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            print(dataString)
+            print(dataString ?? "")
             // Convert to object
             let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
+            // Enable action handle notification from server
+            Singleton.shared.enableHandleNotificationFlag(isEnabled: true)
             if model.status == "1" {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
@@ -42,7 +44,7 @@ class CreateUpholdReplyRequest: BaseRequest {
                             _ = self.view.navigationController?.popViewController(animated: true)
                     })
                     NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: model)
-                    Singleton.sharedInstance.upholdList.record[Singleton.sharedInstance.sharedInt].status = self.status
+                    Singleton.shared.upholdList.record[Singleton.shared.sharedInt].status = self.status
                 }
             } else {
                 self.showAlert(message: model.message)
@@ -78,7 +80,7 @@ class CreateUpholdReplyRequest: BaseRequest {
         self.status = statusText
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken(),
+            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
             DomainConst.KEY_UPHOLD_ID, upholdId,
             DomainConst.KEY_STATUS, status,
             DomainConst.KEY_HOURS_HANDLE, hoursHandle,
@@ -94,7 +96,7 @@ class CreateUpholdReplyRequest: BaseRequest {
         self.param = [
             "q" : String.init(
                 format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":\"%@\"}",
-                DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken(),
+                DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
                 DomainConst.KEY_UPHOLD_ID, upholdId,
                 DomainConst.KEY_STATUS, status,
                 DomainConst.KEY_HOURS_HANDLE, hoursHandle,

@@ -12,7 +12,7 @@ class Singleton: NSObject {
     /**
      * Object instance
      */
-    static let sharedInstance: Singleton = {
+    static let shared: Singleton = {
         let instance = Singleton()
         return instance
     }()
@@ -82,6 +82,8 @@ class Singleton: NSObject {
     var notify: NotificationBean = NotificationBean()
     /** Last uphold id */
     var lastUpholdId: String = ""
+    /** Flag check can handle notification from server or not */
+    var canHandleNotificationFromServer: Bool = true
     
     // MARK - Methods
     override init() {
@@ -422,12 +424,27 @@ class Singleton: NSObject {
      * - returns: Index of uphold item from list uphold, if item not found, return -1
      */
     func getUpholdIndexById(id: String) -> Int {
-        var retVal: Int = -1
         for i in 0..<self.upholdList.record.count {
             if self.upholdList.record[i].id == id {
                 return i
             }
         }
-        return retVal
+        return -1
+    }
+    
+    /**
+     * Check application can handle notification from server or not
+     * - returns: Value of flag canHandleNotificationFromServer
+     */
+    public func canHandleNotification() -> Bool {
+        return self.canHandleNotificationFromServer
+    }
+    
+    /**
+     * Enable/Disable action handle notification from server
+     * - parameter isEnabled: Flag value
+     */
+    public func enableHandleNotificationFlag(isEnabled: Bool) {
+        self.canHandleNotificationFromServer = isEnabled
     }
 }

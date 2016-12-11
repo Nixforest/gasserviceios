@@ -24,7 +24,7 @@ class G00ConfigurationCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        mySw.setOn(Singleton.sharedInstance.checkTrainningMode(), animated:true)
+        mySw.setOn(Singleton.shared.checkTrainningMode(), animated:true)
         self.backgroundColor = UIColor.white
     }
 
@@ -43,9 +43,9 @@ class G00ConfigurationCell: UITableViewCell {
      */
     @IBAction func changeValue(_ sender: AnyObject) {
         if mySw.isOn {
-            Singleton.sharedInstance.setTrainningMode(true)
+            Singleton.shared.setTrainningMode(true)
         } else {
-            Singleton.sharedInstance.setTrainningMode(false)
+            Singleton.shared.setTrainningMode(false)
         }
     }
 }

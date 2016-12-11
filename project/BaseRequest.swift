@@ -47,7 +47,7 @@ class BaseRequest {
      * Execute task
      */
     func execute() {
-        let serverUrl: URL = URL(string: Singleton.sharedInstance.getServerURL() + self.url)!
+        let serverUrl: URL = URL(string: Singleton.shared.getServerURL() + self.url)!
         let request = NSMutableURLRequest(url: serverUrl)
         request.httpMethod = self.reqMethod
         request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
@@ -62,7 +62,7 @@ class BaseRequest {
      * - parameter listImages: List of images
      */
     func executeUploadFile(listImages: [UIImage]) {
-        let serverUrl: URL = URL(string: Singleton.sharedInstance.getServerURL() + self.url)!
+        let serverUrl: URL = URL(string: Singleton.shared.getServerURL() + self.url)!
         let request = NSMutableURLRequest(url: serverUrl)
         request.httpMethod = self.reqMethod
         request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData

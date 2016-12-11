@@ -71,10 +71,10 @@ class G01F00S02InfoView: UIView, UITextFieldDelegate {
     override func awakeFromNib() {
         
         // Set data
-        if Singleton.sharedInstance.sharedInt != -1 {
+        if Singleton.shared.sharedInt != -1 {
             // Check data is existed
-            if Singleton.sharedInstance.upholdList.record.count > Singleton.sharedInstance.sharedInt {
-                setData(model: Singleton.sharedInstance.upholdList.record[Singleton.sharedInstance.sharedInt])
+            if Singleton.shared.upholdList.record.count > Singleton.shared.sharedInt {
+                setData(model: Singleton.shared.upholdList.record[Singleton.shared.sharedInt])
             }
         }
     }

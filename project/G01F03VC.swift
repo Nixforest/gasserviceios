@@ -57,12 +57,12 @@ class G01F03VC: StepVC, StepDoneDelegate {
         G01F03S03._selectedValue = ""
     }
     override func btnSendTapped() {
-        CommonProcess.requestRatingUphold(id: Singleton.sharedInstance.sharedString,
+        CommonProcess.requestRatingUphold(id: Singleton.shared.sharedString,
                                           ratingStatusId: G01F03S01._selectedValue.id,
                                           listRating: G01F03S02._selectedValue,
                                           content: G01F03S03._selectedValue, view: self)
 //        CommonProcess.requestCreateUphold(
-//            customerId: Singleton.sharedInstance.user_id,
+//            customerId: Singleton.shared.user_id,
 //            employeeId: "",
 //            typeUphold: G01F01S01._selectedValue.id,
 //            content: G01F01S01._otherProblem,

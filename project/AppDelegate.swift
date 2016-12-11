@@ -98,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
-        Singleton.sharedInstance.setDeviceToken(token: tokenString)
+        Singleton.shared.setDeviceToken(token: tokenString)
         print(tokenString)
     }
     
@@ -134,10 +134,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let message     = data["spj_message"] as? String ?? ""
         
         // Save to setting
-        Singleton.sharedInstance.setNotificationData(id: id, notify_id: notifyId, notify_type: notifyType, type: type, reply_id: replyId, message: message)
+        Singleton.shared.setNotificationData(id: id, notify_id: notifyId, notify_type: notifyType, type: type, reply_id: replyId, message: message)
         
         // Create alert
-        if isManual {
+        if isManual && Singleton.shared.canHandleNotification() {
             let alert = UIAlertController(title: GlobalConst.CONTENT00044, message: message, preferredStyle: .alert)
             let okAction = UIAlertAction(title: GlobalConst.CONTENT00223, style: .default, handler: {
                 (alert: UIAlertAction!) in
@@ -156,7 +156,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let navigationController = self.window?.rootViewController as? UINavigationController {
                     CommonProcess.requestNotificationCount(view: (navigationController.visibleViewController as! CommonViewController))
                 }
-                Singleton.sharedInstance.clearNotificationData()
+                Singleton.shared.clearNotificationData()
             })
             alert.addAction(cancelAction)
             self.window?.rootViewController?.present(alert, animated: true, completion: nil)

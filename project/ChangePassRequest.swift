@@ -64,7 +64,7 @@ class ChangePassRequest: BaseRequest {
     func setData(oldPass: String, newPass: String) {
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken(),
+            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
             DomainConst.KEY_OLD_PASSWORD, oldPass,
             DomainConst.KEY_NEW_PASSWORD, newPass,
             DomainConst.KEY_NEW_PASSWORD_CONFIRM, newPass)

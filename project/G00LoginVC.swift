@@ -191,7 +191,7 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
         self.view.addGestureRecognizer(gesture)
         
         // Fill data in training mode
-        if Singleton.sharedInstance.checkTrainningMode() {
+        if Singleton.shared.checkTrainningMode() {
             txtAccount.text = "truongnd"
             txtPassword.text = "123123"
         }

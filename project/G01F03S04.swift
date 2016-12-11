@@ -85,8 +85,8 @@ class G01F03S04: StepSummary {
         var offset: CGFloat = 0
         
         // Add controls
-        if Singleton.sharedInstance.listRatingType.count > 0 {
-            for i in 0..<Singleton.sharedInstance.listRatingType.count {
+        if Singleton.shared.listRatingType.count > 0 {
+            for i in 0..<Singleton.shared.listRatingType.count {
                 // Label title
                 let label = UILabel()
                 label.translatesAutoresizingMaskIntoConstraints = true
@@ -95,7 +95,7 @@ class G01F03S04: StepSummary {
                     y: offset,
                     width: self.frame.width,
                     height: GlobalConst.LABEL_HEIGHT)
-                label.text               = Singleton.sharedInstance.listRatingType[i].name
+                label.text               = Singleton.shared.listRatingType[i].name
                 //label.textAlignment      = NSTextAlignment.center
                 label.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
                 self._listLabel.append(label)

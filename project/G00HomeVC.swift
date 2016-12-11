@@ -13,7 +13,13 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
     /** List text content */
     var aList:[String] = [GlobalConst.CONTENT00130, GlobalConst.CONTENT00041, GlobalConst.CONTENT00099, GlobalConst.CONTENT00098, GlobalConst.CONTENT00100]
     /** List icon image */
-    var aListIcon:[String] = ["ordergas.png","upholdRequest.png", "UpHoldList.jpeg", "ServiceRating.jpeg", "Account.jpeg"]
+    var aListIcon:[String] = [
+        GlobalConst.ORDER_GAS_IMG_NAME,
+        GlobalConst.UPHOLD_REQUEST_IMG_NAME,
+        GlobalConst.UPHOLD_LIST_IMG_NAME,
+        GlobalConst.SERVICE_RATING_IMG_NAME,
+        GlobalConst.ACCOUNT_IMG_NAME
+    ]
     /** Table view */
     @IBOutlet weak var homeTableView: UITableView!
     
@@ -68,7 +74,7 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         asignNotifyForMenuItem()
         
         // Handle display color when training mode is on
-        if Singleton.sharedInstance.checkTrainningMode() {
+        if Singleton.shared.checkTrainningMode() {
             GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
         } else {    // Training mode off
             GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
@@ -90,7 +96,7 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         homeTableView.separatorStyle = .none
         
         // NavBar setup
-        setupNavigationBar(title: GlobalConst.CONTENT00108, isNotifyEnable: Singleton.sharedInstance.checkIsLogin(), isHiddenBackBtn: true)
+        setupNavigationBar(title: GlobalConst.CONTENT00108, isNotifyEnable: Singleton.shared.checkIsLogin(), isHiddenBackBtn: true)
         
         /** Cell register */
         self.homeTableView.register(UINib(nibName: GlobalConst.G00_HOME_CELL, bundle: nil), forCellReuseIdentifier: GlobalConst.G00_HOME_CELL)
@@ -100,7 +106,7 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
         
         // Get data from server
-        if Singleton.sharedInstance.checkIsLogin() {
+        if Singleton.shared.checkIsLogin() {
             CommonProcess.requestUpdateConfiguration(view: self)
         }
     }
@@ -113,7 +119,7 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         self.updateNotificationStatus()
         
         // Get notification count from server
-        if Singleton.sharedInstance.checkIsLogin() {
+        if Singleton.shared.checkIsLogin() {
             CommonProcess.requestNotificationCount(view: self)
         }
     }
@@ -188,17 +194,17 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
      */
     func setShowHideItem(cell: G00HomeCell, indexPath: IndexPath) {
         // User is logging
-        if Singleton.sharedInstance.checkIsLogin() {
+        if Singleton.shared.checkIsLogin() {
             switch (indexPath as NSIndexPath).row {
             case 0:         // Order gas
-                //cell.isHidden = !Singleton.sharedInstance.isCustomerUser()
+                //cell.isHidden = !Singleton.shared.isCustomerUser()
                 cell.isHidden = true
             case 1:         // Create uphold
-                cell.isHidden = !Singleton.sharedInstance.checkAllowAccess(key: DomainConst.KEY_UPHOLD_CREATE)
+                cell.isHidden = !Singleton.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_CREATE)
             case 2:         // Uphold list
-                cell.isHidden = !Singleton.sharedInstance.checkAllowAccess(key: DomainConst.KEY_UPHOLD_LIST)
+                cell.isHidden = !Singleton.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_LIST)
             case 3:         // Uphold rating
-                cell.isHidden = !Singleton.sharedInstance.checkAllowAccess(key: DomainConst.KEY_UPHOLD_RATING)
+                cell.isHidden = !Singleton.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_RATING)
             case 4:         // Account -> Always show
                 cell.isHidden = false
             default: break
@@ -225,17 +231,17 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
      */
     func setCellHeight(indexPath: IndexPath) -> CGFloat {
         var rowHeight: CGFloat = 0.0
-        if Singleton.sharedInstance.checkIsLogin() {
+        if Singleton.shared.checkIsLogin() {
             switch (indexPath as NSIndexPath).row {
             case 0:         // Order gas
-                //rowHeight = Singleton.sharedInstance.isCustomerUser() ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
+                //rowHeight = Singleton.shared.isCustomerUser() ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
                 rowHeight = 0
             case 1:         // Create uphold
-                rowHeight = Singleton.sharedInstance.checkAllowAccess(key: DomainConst.KEY_UPHOLD_CREATE) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
+                rowHeight = Singleton.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_CREATE) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
             case 2:         // Uphold list
-                rowHeight = Singleton.sharedInstance.checkAllowAccess(key: DomainConst.KEY_UPHOLD_LIST) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
+                rowHeight = Singleton.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_LIST) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
             case 3:         // Uphold rating
-                rowHeight = Singleton.sharedInstance.checkAllowAccess(key: DomainConst.KEY_UPHOLD_RATING) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
+                rowHeight = Singleton.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_RATING) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
             case 4:         // Account -> Always show
                 rowHeight = GlobalConst.CELL_HEIGHT_SHOW
             default: break
@@ -267,8 +273,8 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
             let accountVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_ACCOUNT_VIEW_CTRL)
             self.navigationController?.pushViewController(accountVC, animated: true)
         case 3:
-            if !Singleton.sharedInstance.lastUpholdId.isEmpty {
-                Singleton.sharedInstance.sharedString = Singleton.sharedInstance.lastUpholdId
+            if !Singleton.shared.lastUpholdId.isEmpty {
+                Singleton.shared.sharedString = Singleton.shared.lastUpholdId
                 let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F03_VIEW_CTRL)
                 self.navigationController?.pushViewController(ratingVC, animated: true)
             }
@@ -286,14 +292,14 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         self.homeTableView.reloadData()
         
         // Get notification count from server
-        if Singleton.sharedInstance.checkIsLogin() {
+        if Singleton.shared.checkIsLogin() {
             CommonProcess.requestNotificationCount(view: self)
         }
         
         // Check open by notification
-        if Singleton.sharedInstance.checkNotificationExist() {
-            if Singleton.sharedInstance.checkIsLogin() {
-                if Singleton.sharedInstance.isUpholdNotification() {
+        if Singleton.shared.checkNotificationExist() {
+            if Singleton.shared.checkIsLogin() {
+                if Singleton.shared.isUpholdNotification() {
                     let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S01_VIEW_CTRL)
                     self.navigationController?.pushViewController(upholdListVC, animated: true)
                 }
@@ -303,7 +309,7 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         }
         
         // Handle display color when training mode is on
-        if Singleton.sharedInstance.checkTrainningMode() {
+        if Singleton.shared.checkTrainningMode() {
             GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
         } else {    // Training mode off
             GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR

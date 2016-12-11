@@ -31,8 +31,8 @@ class LoginRequest: BaseRequest {
             let model: LoginRespModel = LoginRespModel(jsonString: dataString as! String)
             if model.status == "1" {
                 // Handle login is success
-                Singleton.sharedInstance.loginSuccess(model.token)
-                Singleton.sharedInstance.saveTempData(loginModel: model)
+                Singleton.shared.loginSuccess(model.token)
+                Singleton.shared.saveTempData(loginModel: model)
             } else {
                 self.showAlert(message: model.message)
                 return
@@ -67,7 +67,7 @@ class LoginRequest: BaseRequest {
             format: "{\"username\":\"%@\",\"password\":\"%@\",\"gcm_device_token\":\"\",\"apns_device_token\":\"%@\",\"type\":\"3\"}",
             //format: "{\"username\":\"%@\",\"password\":\"%@\",\"gcm_device_token\":\"1\",\"apns_device_token\":\"1\"}",
                                        username, password,
-                                       Singleton.sharedInstance.checkDeviceTokenExist() ? Singleton.sharedInstance.getDeviceToken() : ""
+                                       Singleton.shared.checkDeviceTokenExist() ? Singleton.shared.getDeviceToken() : ""
         )
     }
 }

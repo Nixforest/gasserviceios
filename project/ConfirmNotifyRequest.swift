@@ -42,7 +42,7 @@ class ConfirmNotifyRequest: BaseRequest {
     func setData(notifyId: String, type: String, objId: String) {
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken(),
+            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
             DomainConst.KEY_NOTIFY_ID, notifyId,
             DomainConst.KEY_TYPE, type,
             DomainConst.KEY_OBJECT_ID, objId

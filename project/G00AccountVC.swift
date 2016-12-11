@@ -239,14 +239,14 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(G00AccountVC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)
         
         // Load data from server?
-        if Singleton.sharedInstance.user_info == nil {
+        if Singleton.shared.user_info == nil {
             // User information does not exist
             CommonProcess.requestUserProfile(view: self)
         } else {
-            txtName.text    = Singleton.sharedInstance.user_info?.first_name
-            txtPhone.text   = Singleton.sharedInstance.user_info?.phone
-            txtAddress.text = Singleton.sharedInstance.user_info?.address
-            if let url      = NSURL(string: String(Singleton.sharedInstance.getServerURL() + (Singleton.sharedInstance.user_info?.image_avatar)!)!) {
+            txtName.text    = Singleton.shared.user_info?.first_name
+            txtPhone.text   = Singleton.shared.user_info?.phone
+            txtAddress.text = Singleton.shared.user_info?.address
+            if let url      = NSURL(string: String(Singleton.shared.getServerURL() + (Singleton.shared.user_info?.image_avatar)!)!) {
                 if let data = NSData(contentsOf: url as URL) {
                     imgAvatar.image = UIImage(data: data as Data)
                 }
@@ -259,11 +259,11 @@ class G00AccountVC: CommonViewController, UIPopoverPresentationControllerDelegat
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
-        txtName.text    = Singleton.sharedInstance.user_info?.first_name
-        txtPhone.text   = Singleton.sharedInstance.user_info?.phone
-        txtAddress.text = Singleton.sharedInstance.user_info?.address
+        txtName.text    = Singleton.shared.user_info?.first_name
+        txtPhone.text   = Singleton.shared.user_info?.phone
+        txtAddress.text = Singleton.shared.user_info?.address
         // Load image
-        if let url = NSURL(string: String(Singleton.sharedInstance.getServerURL() + (Singleton.sharedInstance.user_info?.image_avatar)!)!) {
+        if let url = NSURL(string: String(Singleton.shared.getServerURL() + (Singleton.shared.user_info?.image_avatar)!)!) {
             if let data = NSData(contentsOf: url as URL) {
                 imgAvatar.image = UIImage(data: data as Data)
             }        

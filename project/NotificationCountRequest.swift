@@ -29,8 +29,8 @@ class NotificationCountRequest: BaseRequest {
             // Convert to object
             let model: NotificationCountRespModel = NotificationCountRespModel(jsonString: dataString as! String)
             if model.status == "1" {
-                Singleton.sharedInstance.setNotificationCountText(text: model.NotifyCountText)
-                Singleton.sharedInstance.setOtherInfo(data: model.otherInfo)
+                Singleton.shared.setNotificationCountText(text: model.NotifyCountText)
+                Singleton.shared.setOtherInfo(data: model.otherInfo)
             } else {
                 self.showAlert(message: model.message)
                 return
@@ -61,7 +61,7 @@ class NotificationCountRequest: BaseRequest {
     func setData() {
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken()
+            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken()
         )
     }
 }

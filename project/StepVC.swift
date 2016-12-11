@@ -46,7 +46,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         self.view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         // Setup navigation bar
-        setupNavigationBar(title: _title, isNotifyEnable: Singleton.sharedInstance.checkIsLogin())
+        setupNavigationBar(title: _title, isNotifyEnable: Singleton.shared.checkIsLogin())
     }
     
     override func viewDidLayoutSubviews() {

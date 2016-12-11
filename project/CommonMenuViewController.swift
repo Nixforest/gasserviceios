@@ -61,38 +61,36 @@ class CommonMenuViewController : UIViewController {
         
         // Login menu
         if listMenu[MenuItemEnum.LOGIN.hashValue] {
-            setItemContent(title: GlobalConst.CONTENT00051, iconPath: "loginMenu.png", action: #selector(loginItemTapped), button: loginBtn, icon: iconLogin, offset: offset)
+            setItemContent(title: GlobalConst.CONTENT00051, iconPath: GlobalConst.LOGIN_MENU_IMG_NAME, action: #selector(loginItemTapped), button: loginBtn, icon: iconLogin, offset: offset)
             offset += GlobalConst.BUTTON_HEIGHT
         }
         
         // Logout menu
         if listMenu[MenuItemEnum.LOGOUT.hashValue] {
-            setItemContent(title: GlobalConst.CONTENT00132, iconPath: "logout.png", action: #selector(logoutItemTapped), button: logoutBtn, icon: iconLogout, offset: offset)
+            setItemContent(title: GlobalConst.CONTENT00132, iconPath: GlobalConst.LOGOUT_MENU_IMG_NAME, action: #selector(logoutItemTapped), button: logoutBtn, icon: iconLogout, offset: offset)
             offset += GlobalConst.BUTTON_HEIGHT
         }
         
         // Register menu
         if listMenu[MenuItemEnum.REGISTER.hashValue] {
-            setItemContent(title: GlobalConst.CONTENT00052, iconPath: "regMenu.png", action: #selector(registerItemTapped), button: regBtn, icon: iconReg, offset: offset)
+            setItemContent(title: GlobalConst.CONTENT00052, iconPath: GlobalConst.REGISTER_MENU_IMG_NAME, action: #selector(registerItemTapped), button: regBtn, icon: iconReg, offset: offset)
             offset += GlobalConst.BUTTON_HEIGHT
         }
         
-        // Issue menu
+        // Dynamic menu
         if listMenu[MenuItemEnum.DYNAMIC_MENU_LIST.hashValue] {
-//            setItemContent(title: GlobalConst.CONTENT00131, iconPath: "issueMenu.png", action: #selector(issueItemTapped), button: issueBtn, icon: iconIssue, offset: offset)
-//            offset += GlobalConst.BUTTON_HEIGHT
-            for item in Singleton.sharedInstance.menu {
+            for item in Singleton.shared.menu {
                 let btn = UIButton()
                 let icon = UIImageView()
                 btn.accessibilityIdentifier = item.id
-                setItemContent(title: item.name, iconPath: "issueMenu.png", action: #selector(issueItemTapped), button: btn, icon: icon, offset: offset)
+                setItemContent(title: item.name, iconPath: GlobalConst.ISSUE_MENU_IMG_NAME, action: #selector(issueItemTapped), button: btn, icon: icon, offset: offset)
                 offset += GlobalConst.BUTTON_HEIGHT
             }
         }
         
         // Configuration menu
         if listMenu[MenuItemEnum.CONFIG.hashValue] {
-            setItemContent(title: GlobalConst.CONTENT00128, iconPath: "config.png", action: #selector(configItemTapped), button: configBtn, icon: iconConfig, offset: offset)
+            setItemContent(title: GlobalConst.CONTENT00128, iconPath: GlobalConst.CONFIG_MENU_IMG_NAME, action: #selector(configItemTapped), button: configBtn, icon: iconConfig, offset: offset)
             offset += GlobalConst.BUTTON_HEIGHT
         }
         self.preferredContentSize = CGSize(width: 170, height: offset)
@@ -150,7 +148,7 @@ class CommonMenuViewController : UIViewController {
      * - parameter sender: AnyObject
      */
     func logoutItemTapped(_ sender: AnyObject) {
-        Singleton.sharedInstance.logoutSuccess()
+        Singleton.shared.logoutSuccess()
         self.dismiss(animated: false) {
             NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_LOGOUT_ITEM), object: nil)
         }

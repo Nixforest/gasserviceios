@@ -30,7 +30,7 @@ class UserProfileRequest: BaseRequest {
             let model: UserProfileRespModel = UserProfileRespModel(jsonString: dataString as! String)
             if model.status == "1" {
                 // Update user information
-                Singleton.sharedInstance.setUserInfo(userInfo: model.record)
+                Singleton.shared.setUserInfo(userInfo: model.record)
                 // Notify update data on Account view (cross-thread)
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)

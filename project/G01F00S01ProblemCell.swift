@@ -114,7 +114,7 @@ class G01F00S01ProblemCell: UITableViewCell {
                                      y: lblStatusL.frame.minY,
                                      width: GlobalConst.LABEL_IN_CELL_HEIGHT,
                                      height: GlobalConst.LABEL_IN_CELL_HEIGHT)
-        finishMarkImg.image = UIImage(named: "done.png")
+        finishMarkImg.image = UIImage(named: GlobalConst.DONE_IMG_NAME)
         
         // Employee label
         lblEmployeeL.translatesAutoresizingMaskIntoConstraints = true
@@ -154,7 +154,7 @@ class G01F00S01ProblemCell: UITableViewCell {
         lblStatus.text = "Trang thai"
         lblTimeCreate.text = "Thoi gian tao"
 
-        let origImage = UIImage(named: "rating.png");
+        let origImage = UIImage(named: GlobalConst.RATING_IMG_NAME)
         let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
         ratingButton.translatesAutoresizingMaskIntoConstraints = true
         ratingButton.frame = CGRect(x: lblName.frame.maxX + contentMarginX,

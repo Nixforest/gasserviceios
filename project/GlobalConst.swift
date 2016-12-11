@@ -306,7 +306,9 @@ class GlobalConst {
     /** Name of Uphold detail employee information view */
     static let G01_F00_S02_INFO_VIEW = "G01F00S02InfoView"
     
-    /** Name of UpholdListViewController */
+    /** Name of G01F02 create uphold reply view controller */
+    static let G01_F02_VIEW_CTRL = "G01F02VC"
+    /** Name of G01F03 uphold rating view controller */
     static let G01_F03_VIEW_CTRL = "G01F03VC"
     
     /** Name of ChangePasswordViewController */
@@ -363,20 +365,55 @@ class GlobalConst {
     
     // MARK: Domain constants
     /** Logo image name */
-    static let LOGO_IMG_NAME = "gas_logo.png"
+    static let LOGO_IMG_NAME            = "gas_logo.png"
     /** Contact image name */
-    static let CONTACT_IMG_NAME = "contact.png"
+    static let CONTACT_IMG_NAME         = "contact.png"
     /** Phone image name */
-    static let PHONE_IMG_NAME = "mobile.png"
+    static let PHONE_IMG_NAME           = "mobile.png"
     /** Address image name */
-    static let ADDRESS_IMG_NAME = "address.png"
+    static let ADDRESS_IMG_NAME         = "address.png"
     /** Menu image name */
-    static let MENU_IMG_NAME = "menu.png"
+    static let MENU_IMG_NAME            = "menu.png"
     /** Back image name */
-    static let BACK_IMG_NAME = "back.png"
+    static let BACK_IMG_NAME            = "back.png"
     /** Back image name */
-    static let DELETE_IMG_NAME = "delete.png"
-    static let HTTP_POST_REQUEST = "POST"
+    static let DELETE_IMG_NAME          = "delete.png"
+    /** Uncheck image name */
+    static let UNCHECK_IMG_NAME         = "checkbox-unchecked.png"
+    /** Checked image name */
+    static let CHECKED_IMG_NAME         = "checkbox-checked.png"
+    /** Login image name */
+    static let LOGIN_MENU_IMG_NAME      = "loginMenu.png"
+    /** Logout image name */
+    static let LOGOUT_MENU_IMG_NAME     = "logout.png"
+    /** Register image name */
+    static let REGISTER_MENU_IMG_NAME   = "regMenu.png"
+    /** Issue image name */
+    static let ISSUE_MENU_IMG_NAME      = "issueMenu.png"
+    /** Config image name */
+    static let CONFIG_MENU_IMG_NAME     = "config.png"
+    /** Training mode image name */
+    static let TRAINING_MODE_IMG_NAME   = "trainingMode.png"
+    /** Information image name */
+    static let INFORMATION_IMG_NAME     = "information"
+    /** Order gas image name */
+    static let ORDER_GAS_IMG_NAME       = "ordergas.png"
+    /** Uphold request image name */
+    static let UPHOLD_REQUEST_IMG_NAME  = "upholdRequest.png"
+    /** Uphold list image name */
+    static let UPHOLD_LIST_IMG_NAME     = "UpHoldList.jpeg"
+    /** Service rating image name */
+    static let SERVICE_RATING_IMG_NAME  = "ServiceRating.jpeg"
+    /** Account image name */
+    static let ACCOUNT_IMG_NAME         = "Account.jpeg"
+    /** Done image name */
+    static let DONE_IMG_NAME            = "done.png"
+    /** Rating image name */
+    static let RATING_IMG_NAME          = "rating.png"
+    /** Rating empty image name */
+    static let RATING_EMPTY_IMG_NAME    = "rating_empty.png"
+    /** HTTP Post request method */
+    static let HTTP_POST_REQUEST        = "POST"
     
     /** Version code */
     static let VERSION_CODE = "111"

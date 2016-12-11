@@ -35,8 +35,8 @@ class G01F01S01: StepContent {
         contentView.translatesAutoresizingMaskIntoConstraints = true
         
         // Add button
-        if Singleton.sharedInstance.listUpholdType.count > 0 {
-            for i in 0..<Singleton.sharedInstance.listUpholdType.count {
+        if Singleton.shared.listUpholdType.count > 0 {
+            for i in 0..<Singleton.shared.listUpholdType.count {
                 let button = UIButton()
                 button.translatesAutoresizingMaskIntoConstraints = true
                 button.frame = CGRect(
@@ -45,14 +45,14 @@ class G01F01S01: StepContent {
                     width: GlobalConst.BUTTON_W,
                     height: GlobalConst.BUTTON_H)
                 button.tag = i
-                button.setTitle(Singleton.sharedInstance.listUpholdType[i].name, for: .normal)
+                button.setTitle(Singleton.shared.listUpholdType[i].name, for: .normal)
                 button.setTitleColor(UIColor.white , for: .normal)
                 button.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
                 button.backgroundColor = GlobalConst.BUTTON_COLOR_RED
                 button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
                 button.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
                 // Mark button
-                if G01F01S01._selectedValue.id == Singleton.sharedInstance.listUpholdType[i].id {
+                if G01F01S01._selectedValue.id == Singleton.shared.listUpholdType[i].id {
                     CommonProcess.markButton(button: button)
                 }
                 _listButton.append(button)
@@ -99,7 +99,7 @@ class G01F01S01: StepContent {
         // Un-mark selecting button
         if !G01F01S01._selectedValue.id.isEmpty {
             for button in self._listButton {
-                if Singleton.sharedInstance.listUpholdType[button.tag].id == G01F01S01._selectedValue.id {
+                if Singleton.shared.listUpholdType[button.tag].id == G01F01S01._selectedValue.id {
                     CommonProcess.unMarkButton(button: button)
                     break
                 }
@@ -107,7 +107,7 @@ class G01F01S01: StepContent {
         }
         
         // Set new selected value
-        G01F01S01._selectedValue = Singleton.sharedInstance.listUpholdType[sender.tag]
+        G01F01S01._selectedValue = Singleton.shared.listUpholdType[sender.tag]
         // Mark selecting button
         CommonProcess.markButton(button: sender as! UIButton)
         if G01F01S01._selectedValue.name == DomainConst.OPTION_OTHER {

@@ -107,11 +107,12 @@ class G01F02S05: StepContent, UITextViewDelegate {
     }
     
     override func checkDone() -> Bool {
-        if G01F02S05._selectedValue.isEmpty {
-            self._parent?.showAlert(message: GlobalConst.CONTENT00188)
-            return false
-        } else {
-            return true
-        }
+//        if G01F02S05._selectedValue.isEmpty {
+//            self._parent?.showAlert(message: GlobalConst.CONTENT00188)
+//            return false
+//        } else {
+//            return true
+//        }
+        return true
     }
 }

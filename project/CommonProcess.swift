@@ -60,7 +60,7 @@ class CommonProcess {
         LoadingView.shared.showOverlay(view: view.view)
         let userProfileReq = UserProfileRequest(url: DomainConst.PATH_USER_PROFILE,
                                                 reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
-        userProfileReq.setData(token: Singleton.sharedInstance.getUserToken())
+        userProfileReq.setData(token: Singleton.shared.getUserToken())
         userProfileReq.execute()
     }
     

@@ -11,8 +11,8 @@ import UIKit
 class CheckBox: UIButton {
 
     //Image
-    let imgUnchecked = UIImage(named: "checkbox-unchecked.png")
-    let imgChecked = UIImage(named: "checkbox-checked.png")
+    let imgUnchecked = UIImage(named: GlobalConst.UNCHECK_IMG_NAME)
+    let imgChecked = UIImage(named: GlobalConst.CHECKED_IMG_NAME)
     //Bool value to show Image
     var bChecked:Bool = false {
         didSet {

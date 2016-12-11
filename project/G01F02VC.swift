@@ -30,7 +30,7 @@ class G01F02VC: StepVC, StepDoneDelegate {
         
         step1.stepDoneDelegate = self
         self.appendContent(stepContent: step1)
-        if Singleton.sharedInstance.currentUpholdDetail.uphold_type != DomainConst.UPHOLD_TYPE_PERIODICALLY {
+        if Singleton.shared.currentUpholdDetail.uphold_type != DomainConst.UPHOLD_TYPE_PERIODICALLY {
         step2.stepDoneDelegate = self
         self.appendContent(stepContent: step2)
         }
@@ -74,15 +74,17 @@ class G01F02VC: StepVC, StepDoneDelegate {
         G01F02S06._selectedValue.removeAll()
     }
     override func btnSendTapped() {
+        // Disable action handle notification from server
+        Singleton.shared.enableHandleNotificationFlag(isEnabled: false)
         CommonProcess.requestCreateUpholdReply(
-            upholdId: Singleton.sharedInstance.currentUpholdDetail.id,
+            upholdId: Singleton.shared.currentUpholdDetail.id,
             status: G01F02S01._selectedValue.id, statusText: G01F02S01._selectedValue.name,
             hoursHandle: G01F02S02._selectedValue.id,
             note: G01F02S04._selectedValue.name,
             contact_phone: G01F02S04._selectedValue.phone,
             reportWrong: (G01F02S03._selectedValue)! ? "0" : "1",
             listPostReplyImage: G01F02S06._selectedValue,
-            customerId: Singleton.sharedInstance.currentUpholdDetail.customer_id,
+            customerId: Singleton.shared.currentUpholdDetail.customer_id,
             noteInternal: G01F02S05._selectedValue,
             view: self)
     }

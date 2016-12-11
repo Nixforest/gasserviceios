@@ -59,7 +59,7 @@ class G01F01VC: StepVC, StepDoneDelegate {
     }
     override func btnSendTapped() {
         CommonProcess.requestCreateUphold(
-            customerId: Singleton.sharedInstance.user_id,
+            customerId: Singleton.shared.user_id,
             employeeId: "",
             typeUphold: G01F01S01._selectedValue.id,
             content: G01F01S01._otherProblem,

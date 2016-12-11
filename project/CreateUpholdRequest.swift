@@ -70,7 +70,7 @@ class CreateUpholdRequest: BaseRequest {
                  contactTel: String, requestBy: String) {
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken(),
+            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
             DomainConst.KEY_CUSTOMER_ID, customerId,
             DomainConst.KEY_EMPLOYEE_ID, employeeId,
             DomainConst.KEY_UPHOLD_TYPE, typeUphold,

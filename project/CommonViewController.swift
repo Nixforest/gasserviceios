@@ -28,7 +28,7 @@ class CommonViewController : UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        //changeBackgroundColor(Singleton.sharedInstance.checkTrainningMode())
+        //changeBackgroundColor(Singleton.shared.checkTrainningMode())
     }
     
     /**
@@ -145,13 +145,13 @@ class CommonViewController : UIViewController {
      * - parameter sender: AnyObject
      */
     func notificationButtonTapped(_ sender: AnyObject) {
-        showAlert(message: Singleton.sharedInstance.notifyCountText)
-//        showAlert(message: Singleton.sharedInstance.notify.id + " - "
-//            + Singleton.sharedInstance.notify.notify_id + " - "
-//            + Singleton.sharedInstance.notify.notify_type + " - "
-//            + Singleton.sharedInstance.notify.type + " - "
-//            + Singleton.sharedInstance.notify.reply_id + " - "
-//            + Singleton.sharedInstance.notify.message)
+        showAlert(message: Singleton.shared.notifyCountText)
+//        showAlert(message: Singleton.shared.notify.id + " - "
+//            + Singleton.shared.notify.notify_id + " - "
+//            + Singleton.shared.notify.notify_type + " - "
+//            + Singleton.shared.notify.type + " - "
+//            + Singleton.shared.notify.reply_id + " - "
+//            + Singleton.shared.notify.message)
     }
     
     /**
@@ -203,8 +203,8 @@ class CommonViewController : UIViewController {
      * Update notification button status
      */
     func updateNotificationStatus() {
-        self.notificationButton.isEnabled = !Singleton.sharedInstance.notifyCountText.isEmpty
-        if !Singleton.sharedInstance.notifyCountText.isEmpty {
+        self.notificationButton.isEnabled = !Singleton.shared.notifyCountText.isEmpty
+        if !Singleton.shared.notifyCountText.isEmpty {
             self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         } else {
             self.notificationButton.backgroundColor = GlobalConst.BUTTON_COLOR_GRAY

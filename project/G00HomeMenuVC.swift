@@ -12,7 +12,7 @@ class G00HomeMenuVC: CommonMenuViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if Singleton.sharedInstance.isLogin {
+        if Singleton.shared.isLogin {
             setItem(listValues: [false, true, false, true, true])
         } else {
             setItem(listValues: [true, false, true, false, true])

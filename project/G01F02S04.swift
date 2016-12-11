@@ -173,11 +173,12 @@ class G01F02S04: StepContent, UITextFieldDelegate {
     }
     
     override func checkDone() -> Bool {
-        if G01F02S04._selectedValue.name.isEmpty || G01F02S04._selectedValue.phone.isEmpty {
-            self._parent?.showAlert(message: GlobalConst.CONTENT00187)
-            return false
-        } else {
-            return true
-        }
+//        if G01F02S04._selectedValue.name.isEmpty || G01F02S04._selectedValue.phone.isEmpty {
+//            self._parent?.showAlert(message: GlobalConst.CONTENT00187)
+//            return false
+//        } else {
+//            return true
+//        }
+        return true
     }
 }

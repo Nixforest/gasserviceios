@@ -31,8 +31,8 @@ class G01F03S01: StepContent {
         contentView.translatesAutoresizingMaskIntoConstraints = true
         
         // Add button
-        if Singleton.sharedInstance.listRatingStatus.count > 0 {
-            for i in 0..<Singleton.sharedInstance.listRatingStatus.count {
+        if Singleton.shared.listRatingStatus.count > 0 {
+            for i in 0..<Singleton.shared.listRatingStatus.count {
                 let button = UIButton()
                 button.translatesAutoresizingMaskIntoConstraints = true
                 button.frame = CGRect(
@@ -41,14 +41,14 @@ class G01F03S01: StepContent {
                     width: GlobalConst.BUTTON_W,
                     height: GlobalConst.BUTTON_H)
                 button.tag = i
-                button.setTitle(Singleton.sharedInstance.listRatingStatus[i].name, for: .normal)
+                button.setTitle(Singleton.shared.listRatingStatus[i].name, for: .normal)
                 button.setTitleColor(UIColor.white , for: .normal)
                 button.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
                 button.backgroundColor = GlobalConst.BUTTON_COLOR_RED
                 button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
                 button.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
                 // Mark button
-                if G01F03S01._selectedValue.id == Singleton.sharedInstance.listRatingStatus[i].id {
+                if G01F03S01._selectedValue.id == Singleton.shared.listRatingStatus[i].id {
                     CommonProcess.markButton(button: button)
                 }
                 _listButton.append(button)
@@ -77,7 +77,7 @@ class G01F03S01: StepContent {
         // Un-mark selecting button
         if !G01F03S01._selectedValue.id.isEmpty {
             for button in self._listButton {
-                if Singleton.sharedInstance.listRatingStatus[button.tag].id == G01F03S01._selectedValue.id {
+                if Singleton.shared.listRatingStatus[button.tag].id == G01F03S01._selectedValue.id {
                     CommonProcess.unMarkButton(button: button)
                     break
                 }
@@ -85,7 +85,7 @@ class G01F03S01: StepContent {
         }
         
         // Set new selected value
-        G01F03S01._selectedValue = Singleton.sharedInstance.listRatingStatus[sender.tag]
+        G01F03S01._selectedValue = Singleton.shared.listRatingStatus[sender.tag]
         // Mark selecting button
         CommonProcess.markButton(button: sender as! UIButton)
         NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F03), object: nil)

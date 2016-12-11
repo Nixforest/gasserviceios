@@ -29,7 +29,7 @@ class LogoutRequest: BaseRequest {
             let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
             if model.status == "1" {
                 // Handle logout is success
-                Singleton.sharedInstance.logoutSuccess()
+                Singleton.shared.logoutSuccess()
             } else {
                 self.showAlert(message: model.message)
                 return
@@ -66,6 +66,6 @@ class LogoutRequest: BaseRequest {
      * Set data content
      */
     func setData() {
-        self.data = "q=" + String.init(format: "{\"token\":\"%@\"}", Singleton.sharedInstance.getUserToken())
+        self.data = "q=" + String.init(format: "{\"token\":\"%@\"}", Singleton.shared.getUserToken())
     }
 }

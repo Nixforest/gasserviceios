@@ -30,7 +30,7 @@ class UpholdDetailRequest: BaseRequest {
             // Convert to object
             let model: UpholdDetailRespModel = UpholdDetailRespModel(jsonString: dataString as! String)
             if model.status == "1" {
-                Singleton.sharedInstance.saveCurrentUpholdDetail(model: model.model_uphold)
+                Singleton.shared.saveCurrentUpholdDetail(model: model.model_uphold)
                 // Notify update data on UpholdList view (cross-thread)
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: model)
@@ -63,7 +63,7 @@ class UpholdDetailRequest: BaseRequest {
     func setData(upholdId: String, replyId: String) {
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken(),
+            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
             DomainConst.KEY_UPHOLD_ID, upholdId,
             DomainConst.KEY_REPLY_ID, replyId
         )

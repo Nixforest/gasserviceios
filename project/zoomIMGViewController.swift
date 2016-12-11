@@ -14,14 +14,12 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var infomationNavBar: UINavigationItem!
     /** Back button */
     @IBOutlet weak var backButton: UIButton!
-    // ScrollView
+    /** ScrollView */
     var scrollView = UIScrollView()
-    //ImageView
+    /** ImageView */
     static var imageView = UIImageView()
-    //ButtonExit
-//    let btnExit = UIButton()
-    //IMG Picked
-    static var imgPicked:UIImage? = nil
+    /** IMG Picked */
+    static var imgPicked: UIImage? = nil
     
     // MARK: Actions
     /**
@@ -32,17 +30,19 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
-    
+    /**
+     * View did load
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         
         infomationNavBar.title = GlobalConst.CONTENT00212
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: GlobalConst.BUTTON_COLOR_RED]
         
-        let backOrigin = UIImage(named: "back.png");
+        let backOrigin = UIImage(named: GlobalConst.BACK_IMG_NAME);
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         backButton.setImage(tintedBackLogo, for: UIControlState())
-        backButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)
+        backButton.tintColor = GlobalConst.BUTTON_COLOR_RED
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         backButton.setTitle("", for: UIControlState())
@@ -84,6 +84,10 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
 //        btnExit.addTarget(self, action: #selector(btnExitTapped), for: UIControlEvents.touchUpInside)
 //        self.view.addSubview(btnExit)
         // Do any additional setup after loading the view.
+        // Show loading view
+        if zoomIMGViewController.imageView.image == nil {
+            LoadingView.shared.showOverlay()
+        }
     }
 //    func btnExitTapped() {
 //        zoomIMGViewController.imgPicked = nil

@@ -115,7 +115,6 @@
 		9281C3B01DB93EE600BA17D7 /* UpholdDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281C3AF1DB93EE600BA17D7 /* UpholdDetailRequest.swift */; };
 		9281C3B21DB94B4700BA17D7 /* UpholdReplyBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281C3B11DB94B4700BA17D7 /* UpholdReplyBean.swift */; };
 		9281C3B41DB9527400BA17D7 /* UpholdDetailRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281C3B31DB9527400BA17D7 /* UpholdDetailRespModel.swift */; };
-		929B07AE1DD2DC85008EF6E6 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929B07AD1DD2DC85008EF6E6 /* ImageView.swift */; };
 		92A5C7D31DCB4B3C00D6572F /* CreateUpholdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A5C7D21DCB4B3C00D6572F /* CreateUpholdRequest.swift */; };
 		92A5C7D61DCB787300D6572F /* G01F03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A5C7D51DCB787300D6572F /* G01F03VC.swift */; };
 		92A5C7D81DCB792900D6572F /* G01F03S01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A5C7D71DCB792900D6572F /* G01F03S01.swift */; };
@@ -292,7 +291,6 @@
 		9281C3AF1DB93EE600BA17D7 /* UpholdDetailRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailRequest.swift; sourceTree = "<group>"; };
 		9281C3B11DB94B4700BA17D7 /* UpholdReplyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdReplyBean.swift; sourceTree = "<group>"; };
 		9281C3B31DB9527400BA17D7 /* UpholdDetailRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpholdDetailRespModel.swift; sourceTree = "<group>"; };
-		929B07AD1DD2DC85008EF6E6 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		92A5C7D21DCB4B3C00D6572F /* CreateUpholdRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUpholdRequest.swift; sourceTree = "<group>"; };
 		92A5C7D51DCB787300D6572F /* G01F03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F03VC.swift; sourceTree = "<group>"; };
 		92A5C7D71DCB792900D6572F /* G01F03S01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F03S01.swift; sourceTree = "<group>"; };
@@ -436,7 +434,6 @@
 				92BF0C251DC1B776009B1DA4 /* StepSummary.swift */,
 				92BF0C271DC1BA11009B1DA4 /* ScrollButtonList.swift */,
 				926638551DCC2777001A36BF /* RatingBar.swift */,
-				929B07AD1DD2DC85008EF6E6 /* ImageView.swift */,
 				84EB7C911DAEA38800047DB7 /* CollectionImageViewCell.swift */,
 				84EB7C921DAEA38800047DB7 /* CollectionImageViewCell.xib */,
 			);
@@ -920,7 +917,6 @@
 				9266385E1DCC72D7001A36BF /* RatingUpholdRequest.swift in Sources */,
 				927BA5331DEBF37B009085DD /* ConfirmNotifyRequest.swift in Sources */,
 				92A5C7DC1DCB7C8B00D6572F /* G01F03S02.swift in Sources */,
-				929B07AE1DD2DC85008EF6E6 /* ImageView.swift in Sources */,
 				84EBBD251D8F8E7300FB4D25 /* G00InfomationVC.swift in Sources */,
 				84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */,
 				92A5C7D31DCB4B3C00D6572F /* CreateUpholdRequest.swift in Sources */,

@@ -29,7 +29,7 @@ class SearchCustomerRequest: BaseRequest {
             // Convert to object
             let model: SearchCustomerRespModel = SearchCustomerRespModel(jsonString: dataString as! String)
             if model.status == "1" {
-                Singleton.sharedInstance.saveSearchCustomerResult(result: model)
+                Singleton.shared.saveSearchCustomerResult(result: model)
                 // Notify update data on UpholdList view (cross-thread)
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW), object: model)
@@ -61,7 +61,7 @@ class SearchCustomerRequest: BaseRequest {
     func setData(keyword: String) {
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken(),
+            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
             DomainConst.KEY_KEYWORD, keyword
         )
     }

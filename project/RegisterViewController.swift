@@ -85,16 +85,16 @@ class RegisterViewController: CommonViewController, UIPopoverPresentationControl
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
         //logo customize
         imgCenter.frame = CGRect(x: (self.view.frame.size.width - 140)/2, y: 70, width: 140, height: 140)
-        imgCenter.image = UIImage(named: "contact.png")
+        imgCenter.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
         imgCenter.translatesAutoresizingMaskIntoConstraints = true
         imgName.frame = CGRect(x: 20, y: 230, width: 40, height: 40)
-        imgName.image = UIImage(named: "contact.png")
+        imgName.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
         imgName.translatesAutoresizingMaskIntoConstraints = true
         imgPhone.frame = CGRect(x: 20, y: 280, width: 40, height: 40)
-        imgPhone.image = UIImage(named: "mobile.png")
+        imgPhone.image = UIImage(named: GlobalConst.PHONE_IMG_NAME)
         imgPhone.translatesAutoresizingMaskIntoConstraints = true
         imgAddress.frame = CGRect(x: 20, y: 330, width: 40, height: 40)
-        imgAddress.image = UIImage(named: "address.png")
+        imgAddress.image = UIImage(named: GlobalConst.ADDRESS_IMG_NAME)
         imgAddress.translatesAutoresizingMaskIntoConstraints = true
         
         //textfield customize
@@ -177,7 +177,7 @@ class RegisterViewController: CommonViewController, UIPopoverPresentationControl
   
     //popover menu
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "popoverMenu" {
+        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
             let popoverVC = segue.destination
             popoverVC.popoverPresentationController?.delegate = self
         }

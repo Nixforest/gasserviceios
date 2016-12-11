@@ -35,8 +35,8 @@ class RatingBar: UIView {
         super.init(coder: aDecoder)
     }
     func addContent() {
-        let filledStarImg = UIImage(named: "rating.png")
-        let emptyStarImg = UIImage(named: "rating_empty.png")
+        let filledStarImg = UIImage(named: GlobalConst.RATING_IMG_NAME)
+        let emptyStarImg = UIImage(named: GlobalConst.RATING_EMPTY_IMG_NAME)
         
         // Create button
         for _ in 0..<self._starCount {

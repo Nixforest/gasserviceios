@@ -29,7 +29,7 @@ class UpdateConfigurationRequest: BaseRequest {
             // Convert to object
             let model: LoginRespModel = LoginRespModel(jsonString: dataString as! String)
             if model.status == "1" {
-                Singleton.sharedInstance.saveTempData(loginModel: model)
+                Singleton.shared.saveTempData(loginModel: model)
             } else {
                 self.showAlert(message: model.message)
                 return
@@ -59,7 +59,7 @@ class UpdateConfigurationRequest: BaseRequest {
     func setData() {
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken()
+            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken()
         )
     }
 }

@@ -44,7 +44,7 @@ class G00InfomationVC: UIViewController {
         infomationNavBar.title = GlobalConst.CONTENT00072
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: GlobalConst.BUTTON_COLOR_RED]
 
-        let backOrigin = UIImage(named: "back.png");
+        let backOrigin = UIImage(named: GlobalConst.BACK_IMG_NAME)
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         backButton.setImage(tintedBackLogo, for: UIControlState())
         backButton.tintColor = ColorFromRGB().getColorFromRGB(0xF00020)

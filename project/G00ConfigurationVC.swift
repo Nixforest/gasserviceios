@@ -117,13 +117,13 @@ class G00ConfigurationVC: CommonViewController, UITableViewDelegate, UITableView
             case 1:             // Training mode
                 cell.rightImg.isHidden  = true
                 cell.mySw.isHidden      = false
-                cell.leftImg.image      = UIImage(named: "trainingMode.png")
+                cell.leftImg.image      = UIImage(named: GlobalConst.TRAINING_MODE_IMG_NAME)
                 cell.nameLbl.text       = GlobalConst.CONTENT00138
             case 0:             // Information
                 cell.rightImg.isHidden  = false
                 cell.mySw.isHidden      = true
-                cell.leftImg.image      = UIImage(named: "information")
-                cell.rightImg.image     = UIImage(named: "back.png")
+                cell.leftImg.image      = UIImage(named: GlobalConst.INFORMATION_IMG_NAME)
+                cell.rightImg.image     = UIImage(named: GlobalConst.BACK_IMG_NAME)
                 cell.rightImg.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(M_PI)) / 180.0)
                 cell.nameLbl.text       = GlobalConst.CONTENT00139
                 let cellButton:UIButton = UIButton()

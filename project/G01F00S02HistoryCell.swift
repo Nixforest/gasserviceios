@@ -24,12 +24,6 @@ class G01F00S02HistoryCell: UITableViewCell {
     @IBOutlet weak var lblPhone: UILabel!
     /** Label Internal note */
     @IBOutlet weak var lblInternal: UILabel!
-    /** Image view */
-    @IBOutlet weak var img1: UIImageView!
-    /** Image view */
-    @IBOutlet weak var img2: UIImageView!
-    /** Image view */
-    @IBOutlet weak var img3: UIImageView!
     /** Handle day value */
     @IBOutlet weak var tbxHandleDay: UITextView!
     /** Creator value */
@@ -74,14 +68,13 @@ class G01F00S02HistoryCell: UITableViewCell {
      * - parameter foRow row: Index of row
      */
     func setCollectionViewDataSourceDelegate<D: UICollectionViewDataSource & UICollectionViewDelegate>(dataSourceDelegate: D, forRow row: Int) {
-        self.cltImg.delegate = dataSourceDelegate
-        self.cltImg.dataSource = dataSourceDelegate
-        self.cltImg.tag = row
-//        if Singleton.sharedInstance.currentUpholdDetail.reply_item.count > row {
-//            self.setData(model: Singleton.sharedInstance.currentUpholdDetail.reply_item[row])
-//        }
+        self.cltImg.delegate    = dataSourceDelegate
+        self.cltImg.dataSource  = dataSourceDelegate
+        self.cltImg.tag         = row
+        self.cltImg.isHidden    = false
         self.cltImg.reloadData()
     }
+    
     /**
      * Prepares the receiver for service after it has been loaded from an Interface Builder archive, or nib file.
      */
@@ -92,7 +85,6 @@ class G01F00S02HistoryCell: UITableViewCell {
         layout.itemSize = CGSize(width: GlobalConst.ACCOUNT_AVATAR_W / 2,
                                  height: GlobalConst.ACCOUNT_AVATAR_W / 2)
         self.cltImg = UICollectionView(frame: self.frame, collectionViewLayout: layout)
-        self.cltImg.tag = 100
         self.cltImg.register(UINib(nibName: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, bundle: nil),
                              forCellWithReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL)
         self.cltImg.alwaysBounceHorizontal = true
@@ -101,6 +93,13 @@ class G01F00S02HistoryCell: UITableViewCell {
             layout.scrollDirection = .horizontal
         }
         self.addSubview(self.cltImg)
+    }
+    
+    /**
+     * Hide image collection.
+     */
+    func hideImageCollection() {
+        self.cltImg.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -113,8 +112,8 @@ class G01F00S02HistoryCell: UITableViewCell {
      * Set data for cell.
      * - parameter model: Data model
      */
-    func setData(model: UpholdReplyBean) {
-        data = model
+    func setData(model: UpholdReplyBean, row: Int, view: CommonViewController) {
+        self.data = model
         var offset: CGFloat = marginY
         lblReportWrong.isHidden = true
         if !model.report_wrong.isEmpty {
@@ -173,54 +172,24 @@ class G01F00S02HistoryCell: UITableViewCell {
         offset += GlobalConst.LABEL_HEIGHT * 2
         
         // Image
-//        if model.images.count >= 1 {
-//            img1.isHidden = false
-//            img1.translatesAutoresizingMaskIntoConstraints = true
-//            img1.frame = CGRect(x: marginX, y: offset,
-//                                width: img1.frame.width,
-//                                height: img1.frame.height)
-//            img1.getImgFromUrl(link: model.images[0].thumb, contentMode: img1.contentMode)
-//        }
-//        if model.images.count >= 2 {
-//            img2.isHidden = false
-//            img2.translatesAutoresizingMaskIntoConstraints = true
-//            img2.frame = CGRect(x: img1.frame.maxX,
-//                                y: offset,
-//                                width: img2.frame.width,
-//                                height: img2.frame.height)
-//            img2.getImgFromUrl(link: model.images[1].thumb, contentMode: img2.contentMode)
-//        }
-//        if model.images.count >= 3 {
-//            img3.isHidden = false
-//            img3.translatesAutoresizingMaskIntoConstraints = true
-//            img3.frame = CGRect(x: img2.frame.maxX,
-//                                y: offset,
-//                                width: img3.frame.width,
-//                                height: img3.frame.height)
-//            img3.getImgFromUrl(link: model.images[2].thumb, contentMode: img3.contentMode)
-//        }
+        if cltImg != nil {
+            cltImg.translatesAutoresizingMaskIntoConstraints = true
+            cltImg.frame = CGRect(x: marginX * 2,
+                                  y: offset,
+                                  width: self.frame.width - 4 * marginX,
+                                  height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+            cltImg.backgroundColor = UIColor.white
+            cltImg.contentSize = CGSize(
+                width: GlobalConst.ACCOUNT_AVATAR_H / 2 * (CGFloat)(model.images.count),
+                height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+            cltImg.reloadData()
+        }
         
         if model.images.count != 0 {
-            if cltImg != nil {
-                cltImg.translatesAutoresizingMaskIntoConstraints = true
-                cltImg.frame = CGRect(x: marginX * 2,
-                                      y: offset,
-                                      width: self.frame.width - 4 * marginX,
-                                      height: GlobalConst.ACCOUNT_AVATAR_H / 2)
-                cltImg.backgroundColor = UIColor.white
-                cltImg.contentSize = CGSize(
-                    width: GlobalConst.ACCOUNT_AVATAR_H / 2 * (CGFloat)(model.images.count),
-                    height: GlobalConst.ACCOUNT_AVATAR_H / 2)
-                //cltImg.reloadData()
-            }
-            offset += GlobalConst.ACCOUNT_AVATAR_H / 2 + marginY
-            //offset += img1.frame.height + marginY
-        } else {
-            if let viewWithTag = self.viewWithTag(100) {
-                viewWithTag.removeFromSuperview()
-            }
-            offset += marginY
+            offset += GlobalConst.ACCOUNT_AVATAR_H / 2
         }
+        offset += marginY
+        
         G01F00S02HistoryCell.VIEW_HEIGHT = offset + marginY
         // Parent view
         parentView.translatesAutoresizingMaskIntoConstraints = true
@@ -267,7 +236,6 @@ class G01F00S02HistoryCell: UITableViewCell {
         
         if model.images.count != 0 {
             offset += GlobalConst.ACCOUNT_AVATAR_H / 2 + GlobalConst.MARGIN_CELL_Y
-            //offset += img1.frame.height + marginY
         } else {
             offset += GlobalConst.MARGIN_CELL_Y
         }

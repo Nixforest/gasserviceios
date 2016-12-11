@@ -69,7 +69,7 @@ class RatingUpholdRequest: BaseRequest {
                  listRating: [Int], content: String) {
         var rating = "{"
         for i in 0..<listRating.count {
-            rating += String.init(format: "\"%@\":%d", Singleton.sharedInstance.listRatingType[i].id, listRating[i])
+            rating += String.init(format: "\"%@\":%d", Singleton.shared.listRatingType[i].id, listRating[i])
             if i < (listRating.count - 1) {
                 rating += ","
             }
@@ -77,7 +77,7 @@ class RatingUpholdRequest: BaseRequest {
         rating += "}"
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":%@,\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.sharedInstance.getUserToken(),
+            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
             DomainConst.KEY_UPHOLD_ID, id,
             DomainConst.KEY_RATING_STATUS, ratingStatusId,
             DomainConst.KEY_RATING_TYPE, rating,

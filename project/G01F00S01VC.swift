@@ -33,8 +33,8 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
     /** Tap gesture show status list */
     var gestureShowStatusList: UIGestureRecognizer = UIGestureRecognizer()
     
-    /***/
-    @IBOutlet weak var view2: UIView!
+    /** Blur view */
+    @IBOutlet weak var blurView: UIView!
     /** Search box */
     @IBOutlet weak var searchBox: UISearchBar!
     /** Uphold list button */
@@ -89,7 +89,7 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
     @IBAction func showStatusListButtonTapped(_ sender: AnyObject) {
         if aStatusList.count > 0 {
             statusListView.isHidden = false
-            view2.isHidden          = false
+            blurView.isHidden          = false
         }
     }
     //training mode
@@ -136,13 +136,13 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.showSearchBarTableView(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW), object: nil)
         
         // Blur view when status list picker active
-        view2.isHidden          = true
-        view2.backgroundColor   = UIColor.clear
+        blurView.isHidden          = true
+        blurView.backgroundColor   = UIColor.clear
         let blurEffect          = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView      = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame    = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
-        view2.addSubview(blurEffectView)
+        blurView.addSubview(blurEffectView)
         let marginX = GlobalConst.PARENT_BORDER_WIDTH
         // Cell
         self.periodTableView.register(UINib(nibName: GlobalConst.G01_F00_S01_PERIOD_CELL, bundle: nil),
@@ -183,8 +183,8 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
         lblStatusList.translatesAutoresizingMaskIntoConstraints = true
         
         // Set status uphold data
-        if Singleton.sharedInstance.listUpholdStatus.count > 0 {
-            for item in Singleton.sharedInstance.listUpholdStatus {
+        if Singleton.shared.listUpholdStatus.count > 0 {
+            for item in Singleton.shared.listUpholdStatus {
                 aStatusList.append(item)
             }
             lblStatusList.text = aStatusList[0].name
@@ -279,15 +279,15 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
         }
         //        CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
         // Check open by notification
-        if Singleton.sharedInstance.checkNotificationExist() {
-            if Singleton.sharedInstance.checkIsLogin() {
-                if Singleton.sharedInstance.isUpholdNotification() {
-                    if Singleton.sharedInstance.isCustomerUser() {
-                        Singleton.sharedInstance.sharedInt = Singleton.sharedInstance.getUpholdIndexById(id: Singleton.sharedInstance.notify.id)
+        if Singleton.shared.checkNotificationExist() {
+            if Singleton.shared.checkIsLogin() {
+                if Singleton.shared.isUpholdNotification() {
+                    if Singleton.shared.isCustomerUser() {
+                        Singleton.shared.sharedInt = Singleton.shared.getUpholdIndexById(id: Singleton.shared.notify.id)
                         let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S03_VIEW_CTRL)
                         self.navigationController?.pushViewController(detail, animated: true)
                     } else {
-                        Singleton.sharedInstance.sharedInt = Singleton.sharedInstance.getUpholdIndexById(id: Singleton.sharedInstance.notify.id)
+                        Singleton.shared.sharedInt = Singleton.shared.getUpholdIndexById(id: Singleton.shared.notify.id)
                         let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S02_VIEW_CTRL)
                         self.navigationController?.pushViewController(detail, animated: true)
                     }
@@ -303,7 +303,7 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
      */
     override func clearData() {
         currentPage = 0
-        Singleton.sharedInstance.clearUpholdList()
+        Singleton.shared.clearUpholdList()
     }
     
     // MARK: - Textfield Delegate
@@ -392,7 +392,7 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
             currentStatus = aStatusList[row].id
             // Hide status picker view
             statusListView.isHidden = true
-            view2.isHidden = true
+            blurView.isHidden = true
             // Clear uphold data
             clearData()
             // Request data from server
@@ -408,16 +408,16 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
         var count = NSInteger()
         // Current view is periodically uphold
         if tableView == periodTableView {
-            count = Singleton.sharedInstance.upholdList.record.count
+            count = Singleton.shared.upholdList.record.count
         }
         // Current view is problem uphold
         if tableView == problemTableView {
-            count = Singleton.sharedInstance.upholdList.record.count
+            count = Singleton.shared.upholdList.record.count
         }
         
         // Search bar is showing
         if tableView == searchBarTableView {
-            count = Singleton.sharedInstance.searchCustomerResult.record.count
+            count = Singleton.shared.searchCustomerResult.record.count
         }
 
         return count
@@ -433,8 +433,8 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
             if tableView == periodTableView {
                 let cell:G01F00S01PeriodCell = tableView.dequeueReusableCell(
                     withIdentifier: GlobalConst.G01_F00_S01_PERIOD_CELL) as! G01F00S01PeriodCell
-                if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
-                    cell.setData(model: Singleton.sharedInstance.upholdList.record[indexPath.row])
+                if (Singleton.shared.upholdList.record.count > indexPath.row) {
+                    cell.setData(model: Singleton.shared.upholdList.record[indexPath.row])
                 }
                 cellReturn = cell
             }
@@ -443,8 +443,8 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
             if tableView == problemTableView {
                 let cell:G01F00S01ProblemCell = tableView.dequeueReusableCell(
                     withIdentifier: GlobalConst.G01_F00_S01_PROBLEM_CELL) as! G01F00S01ProblemCell
-                if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
-                    cell.setData(model: Singleton.sharedInstance.upholdList.record[indexPath.row])
+                if (Singleton.shared.upholdList.record.count > indexPath.row) {
+                    cell.setData(model: Singleton.shared.upholdList.record[indexPath.row])
                 }
                 cell.delegate = self
                 cellReturn = cell
@@ -454,8 +454,8 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
             if tableView == searchBarTableView {
                 let cell:SearchBarTableViewCell = tableView.dequeueReusableCell(
                     withIdentifier: GlobalConst.SEARCH_BAR_TABLE_VIEW_CELL) as! SearchBarTableViewCell
-                if (Singleton.sharedInstance.searchCustomerResult.record.count > indexPath.row) {
-                    cell.result.text = Singleton.sharedInstance.searchCustomerResult.record[indexPath.row].name
+                if (Singleton.shared.searchCustomerResult.record.count > indexPath.row) {
+                    cell.result.text = Singleton.shared.searchCustomerResult.record[indexPath.row].name
                 }
 
                 cellReturn = cell
@@ -491,35 +491,35 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Period view
         if tableView == periodTableView {
-            if Singleton.sharedInstance.isCustomerUser() {
+            if Singleton.shared.isCustomerUser() {
                 // Move to customer detail uphold G01F00S03
-                if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
-                    Singleton.sharedInstance.sharedInt = indexPath.row
+                if (Singleton.shared.upholdList.record.count > indexPath.row) {
+                    Singleton.shared.sharedInt = indexPath.row
                     let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S03_VIEW_CTRL)
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
             } else {
                 // Move to customer detail uphold G01F00S02
-                if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
-                    Singleton.sharedInstance.sharedInt = indexPath.row
+                if (Singleton.shared.upholdList.record.count > indexPath.row) {
+                    Singleton.shared.sharedInt = indexPath.row
                     let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S02_VIEW_CTRL)
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
             }
         }
         if tableView == problemTableView {
-            if Singleton.sharedInstance.isCustomerUser() {
+            if Singleton.shared.isCustomerUser() {
                 // Move to customer detail uphold G01F00S03
-                if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
-                    Singleton.sharedInstance.sharedInt = indexPath.row
+                if (Singleton.shared.upholdList.record.count > indexPath.row) {
+                    Singleton.shared.sharedInt = indexPath.row
                     let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S03_VIEW_CTRL)
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
 
             } else {
                 // Move to customer detail uphold G01F00S02
-                if (Singleton.sharedInstance.upholdList.record.count > indexPath.row) {
-                    Singleton.sharedInstance.sharedInt = indexPath.row
+                if (Singleton.shared.upholdList.record.count > indexPath.row) {
+                    Singleton.shared.sharedInt = indexPath.row
                     let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S02_VIEW_CTRL)
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
@@ -533,10 +533,10 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
         if tableView == searchBarTableView {
             searchBarTableView.isHidden = true
             searchBox.resignFirstResponder()
-            if (Singleton.sharedInstance.searchCustomerResult.record.count > indexPath.row) {
-                searchBox.text = Singleton.sharedInstance.searchCustomerResult.record[indexPath.row].name
+            if (Singleton.shared.searchCustomerResult.record.count > indexPath.row) {
+                searchBox.text = Singleton.shared.searchCustomerResult.record[indexPath.row].name
                 self.clearData()
-                currentCustomerId = Singleton.sharedInstance.searchCustomerResult.record[indexPath.row].id
+                currentCustomerId = Singleton.shared.searchCustomerResult.record[indexPath.row].id
                 CommonProcess.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
             }
         }
@@ -546,7 +546,7 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
      * Handle when tap on Rating button.
      */
     func toRatingVC(id: String) {
-        Singleton.sharedInstance.sharedString = id
+        Singleton.shared.sharedString = id
         let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F03_VIEW_CTRL)
         self.navigationController?.pushViewController(ratingVC, animated: true)
     }
@@ -556,8 +556,8 @@ class G01F00S01VC: CommonViewController, UIPopoverPresentationControllerDelegate
      */
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // If current view is Uphold table view
-        if (Singleton.sharedInstance.upholdList.record.count >= 10) {
-            let lastElement = Singleton.sharedInstance.upholdList.record.count - 1
+        if (Singleton.shared.upholdList.record.count >= 10) {
+            let lastElement = Singleton.shared.upholdList.record.count - 1
             if indexPath.row == lastElement {
                 currentPage += 1
                 CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
