@@ -93,7 +93,7 @@ class CommonMenuViewController : UIViewController {
             setItemContent(title: GlobalConst.CONTENT00128, iconPath: GlobalConst.CONFIG_MENU_IMG_NAME, action: #selector(configItemTapped), button: configBtn, icon: iconConfig, offset: offset)
             offset += GlobalConst.BUTTON_HEIGHT
         }
-        self.preferredContentSize = CGSize(width: 170, height: offset)
+        self.preferredContentSize = CGSize(width: GlobalConst.POPOVER_WIDTH, height: offset)
     }
     
     /**

@@ -175,9 +175,9 @@ class Singleton: NSObject {
      * - returns: Server URL
      */
     func getServerURL() -> String {
-//        if !checkTrainningMode() {
-//            return DomainConst.SERVER_URL
-//        }
+        if !checkTrainningMode() {
+            return DomainConst.SERVER_URL
+        }
         return DomainConst.SERVER_URL_TRAINING
     }
     

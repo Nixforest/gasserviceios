@@ -231,13 +231,13 @@ class GlobalConst {
     static let LOGIN_SHOWPASS_LABEL_Y : CGFloat = 338
     static let LOGIN_LOGIN_BUTTON_Y : CGFloat = 400
     static let LOGIN_REGISTER_BUTTON_Y : CGFloat = 450
-    static let EDITTEXT_W : CGFloat = 260
+    static let EDITTEXT_W : CGFloat = SCREEN_WIDTH - 30
     static let EDITTEXT_H : CGFloat = 30
     static let CHECKBOX_W : CGFloat = 20
     static let CHECKBOX_H : CGFloat = 20
     static let LABEL_W : CGFloat = 120
     static let LABEL_H : CGFloat = 20
-    static let BUTTON_W : CGFloat = 260
+    static let BUTTON_W : CGFloat = SCREEN_WIDTH - 30
     static let BUTTON_H : CGFloat = 40
     static let LOGIN_BUTTON_CORNER_RADIUS : CGFloat = 6
     static let MENU_BUTTON_W : CGFloat = 30
@@ -263,6 +263,7 @@ class GlobalConst {
     /** Application main color */
     static let MAIN_COLOR:                  UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
     static let TRAINING_COLOR:              UIColor = ColorFromRGB().getColorFromRGB(0x08C011)
+    //static let TRAINING_COLOR:              UIColor = ColorFromRGB().getColorFromRGB(0xF00020)
     static var BUTTON_COLOR_RED:            UIColor = MAIN_COLOR
     static let BUTTON_COLOR_GRAY:UIColor = ColorFromRGB().getColorFromRGB(0xD5D5D5)
     static let BUTTON_COLOR_DISABLE:UIColor = ColorFromRGB().getColorFromRGB(0x535353)

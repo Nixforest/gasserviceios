@@ -14,13 +14,11 @@ class ChangePassRequest: BaseRequest {
             data, response, error) in
             // Check error
             guard error == nil else {
-                self.view.showAlert(message: GlobalConst.CONTENT00196)
-                LoadingView.shared.hideOverlayView()
+                self.showAlert(message: GlobalConst.CONTENT00196)
                 return
             }
             guard let data = data else {
-                self.view.showAlert(message: GlobalConst.CONTENT00196)
-                LoadingView.shared.hideOverlayView()
+                self.showAlert(message: GlobalConst.CONTENT00196)
                 return
             }
             // Convert to string
