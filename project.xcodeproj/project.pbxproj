@@ -155,6 +155,8 @@
 		92FC1A491DC3551000815EB9 /* G01F02S03.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A481DC3551000815EB9 /* G01F02S03.swift */; };
 		92FC1A4B1DC3CAC000815EB9 /* G01F02S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A4A1DC3CAC000815EB9 /* G01F02S02.swift */; };
 		92FC1A4D1DC3D3E800815EB9 /* G01F02S07.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */; };
+		D7BE047D1E0586A400D37740 /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; };
+		D7BE047E1E0586A400D37740 /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,7 +174,42 @@
 			remoteGlobalIDString = 84284E0D1D40DF050079DEBC;
 			remoteInfo = project;
 		};
+		D7BE04771E0585F600D37740 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D7BE044D1E0584D900D37740;
+			remoteInfo = harpyframework;
+		};
+		D7BE04791E0585F600D37740 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D7BE04561E0584DA00D37740;
+			remoteInfo = harpyframeworkTests;
+		};
+		D7BE047F1E0586A400D37740 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D7BE044C1E0584D900D37740;
+			remoteInfo = harpyframework;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D7BE04811E0586A400D37740 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D7BE047E1E0586A400D37740 /* harpyframework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		841273081D829E3A00BCC56D /* G01F00S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F00S01VC.swift; sourceTree = "<group>"; };
@@ -332,6 +369,7 @@
 		92FC1A481DC3551000815EB9 /* G01F02S03.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S03.swift; sourceTree = "<group>"; };
 		92FC1A4A1DC3CAC000815EB9 /* G01F02S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S02.swift; sourceTree = "<group>"; };
 		92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S07.swift; sourceTree = "<group>"; };
+		D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +377,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7BE047D1E0586A400D37740 /* harpyframework.framework in Frameworks */,
 				924EABC41DF10CFC0056A303 /* UserNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,6 +402,7 @@
 		84284E051D40DF050079DEBC = {
 			isa = PBXGroup;
 			children = (
+				D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */,
 				84284E101D40DF050079DEBC /* project */,
 				84284E251D40DF050079DEBC /* projectTests */,
 				84284E301D40DF050079DEBC /* projectUITests */,
@@ -683,6 +723,15 @@
 			name = F00;
 			sourceTree = "<group>";
 		};
+		D7BE04731E0585F600D37740 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D7BE04781E0585F600D37740 /* harpyframework.framework */,
+				D7BE047A1E0585F600D37740 /* harpyframeworkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -692,11 +741,13 @@
 			buildPhases = (
 				84284E0A1D40DF050079DEBC /* Sources */,
 				84284E0B1D40DF050079DEBC /* Frameworks */,
+				D7BE04811E0586A400D37740 /* Embed Frameworks */,
 				84284E0C1D40DF050079DEBC /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D7BE04801E0586A400D37740 /* PBXTargetDependency */,
 			);
 			name = project;
 			productName = project;
@@ -753,6 +804,7 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = PZV5YS9B34;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -782,6 +834,12 @@
 			mainGroup = 84284E051D40DF050079DEBC;
 			productRefGroup = 84284E0F1D40DF050079DEBC /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D7BE04731E0585F600D37740 /* Products */;
+					ProjectRef = D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				84284E0D1D40DF050079DEBC /* project */,
@@ -790,6 +848,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D7BE04781E0585F600D37740 /* harpyframework.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = harpyframework.framework;
+			remoteRef = D7BE04771E0585F600D37740 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D7BE047A1E0585F600D37740 /* harpyframeworkTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = harpyframeworkTests.xctest;
+			remoteRef = D7BE04791E0585F600D37740 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		84284E0C1D40DF050079DEBC /* Resources */ = {
@@ -997,6 +1072,11 @@
 			target = 84284E0D1D40DF050079DEBC /* project */;
 			targetProxy = 84284E2E1D40DF050079DEBC /* PBXContainerItemProxy */;
 		};
+		D7BE04801E0586A400D37740 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = harpyframework;
+			targetProxy = D7BE047F1E0586A400D37740 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1112,19 +1192,21 @@
 		84284E371D40DF050079DEBC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = project/project.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Dung Nguyen Tien (PZV5YS9B34)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = PZV5YS9B34;
 				INFOPLIST_FILE = project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nixforest.spj.gasservice;
+				PRODUCT_BUNDLE_IDENTIFIER = com.spj.gas.gasservice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1135,19 +1217,22 @@
 		84284E381D40DF050079DEBC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = project/project.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Dung Nguyen Tien (PZV5YS9B34)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = PZV5YS9B34;
 				INFOPLIST_FILE = project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nixforest.spj.gasservice;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.spj.gas.gasservice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "project/project-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
     // MARK: Properties
@@ -22,7 +23,8 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
     /** Sign in button */
     @IBOutlet weak var btnSignin: UIButton!
     /** Show password checkbox */
-    @IBOutlet weak var chbShowPassword: CheckBox!
+    //@IBOutlet weak var chbShowPassword: CheckBox!
+    @IBOutlet weak var chbShowPassword: CustomCheckBox!
     /** Show password label */
     @IBOutlet weak var lblShowPassword: UILabel!
     /** Tap counter on logo */
