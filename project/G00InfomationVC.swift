@@ -136,6 +136,7 @@ class G00InfomationVC: UIViewController {
                                y: offset,
                                width: GlobalConst.LOGIN_LOGO_W,
                                height: GlobalConst.LOGIN_LOGO_H)
+        imgLogo.contentMode = .scaleAspectFit
         imgLogo.translatesAutoresizingMaskIntoConstraints = true
         
         self.view.addSubview(lblVersion)

@@ -148,7 +148,9 @@ class CommonMenuViewController : UIViewController {
      * - parameter sender: AnyObject
      */
     func logoutItemTapped(_ sender: AnyObject) {
-        Singleton.shared.logoutSuccess()
+        //++ BUG0025-SPJ (NguyenPT 20161221) Fix bug logout not success
+        //Singleton.shared.logoutSuccess()
+        //-- BUG0025-SPJ (NguyenPT 20161221) Fix bug logout not success
         self.dismiss(animated: false) {
             NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_LOGOUT_ITEM), object: nil)
         }

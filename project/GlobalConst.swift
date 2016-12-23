@@ -206,6 +206,7 @@ class GlobalConst {
     static let CONTENT00223 = "Xem"
     static let CONTENT00224 = "Để sau"
     static let CONTENT00225 = "Bảo trì miễn phí"
+    static let CONTENT00226 = "Gas 24h"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
@@ -418,7 +419,7 @@ class GlobalConst {
     
     /** Version code */
     static let VERSION_CODE = "111"
-    static let VERSION_CODE_NAME = "Gas Service 1.1.1 @2016 Southern Petroleum"
+    static let VERSION_CODE_NAME = "Gas 24h 1.1.1 @2016 Southern Petroleum"
     static let EMAIL = "it@spj.vn"
     static let WEBSITE = "http://daukhimiennam.com"
 }

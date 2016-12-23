@@ -96,7 +96,7 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         homeTableView.separatorStyle = .none
         
         // NavBar setup
-        setupNavigationBar(title: GlobalConst.CONTENT00108, isNotifyEnable: Singleton.shared.checkIsLogin(), isHiddenBackBtn: true)
+        setupNavigationBar(title: GlobalConst.CONTENT00226, isNotifyEnable: Singleton.shared.checkIsLogin(), isHiddenBackBtn: true)
         
         /** Cell register */
         self.homeTableView.register(UINib(nibName: GlobalConst.G00_HOME_CELL, bundle: nil), forCellReuseIdentifier: GlobalConst.G00_HOME_CELL)
