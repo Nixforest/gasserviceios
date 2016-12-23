@@ -189,7 +189,7 @@ class CommonViewController : UIViewController {
      * Handle when tap on Log out menu item
      */
     func logoutItemTapped(_ notification: Notification) {
-        CommonProcess.requestLogout(view: self)
+        //CommonProcess.requestLogout(view: self)
     }
     
     /**

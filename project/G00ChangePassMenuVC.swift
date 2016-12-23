@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import harpyframework
 
-class G00ChangePassMenuVC: CommonMenuViewController {
+class G00ChangePassMenuVC: BaseMenuViewController {
     /**
      * Override
      */

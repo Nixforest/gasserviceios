@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import harpyframework
 
-class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDelegate,UITextFieldDelegate {
+class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelegate,UITextFieldDelegate {
     // MARK: Properties
     /** Flag show password */
     var bShowPassword:Bool!
@@ -44,7 +45,7 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
      * - parameter sender: AnyObject
      */
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
-        CommonProcess.requestLogout(view: self)
+        RequestAPI.requestLogout(view: self)
     }
     
     /**
@@ -61,7 +62,7 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
         // Check if password is correct
         if (txtNewPassword.text == txtNewPasswordRetype.text){
             //print("password update successfully")
-            CommonProcess.requestChangePassword(
+            RequestAPI.requestChangePassword(
                 oldPass: txtOldPassword.text!,
                 newPass: txtNewPassword.text!,
                 view: self)

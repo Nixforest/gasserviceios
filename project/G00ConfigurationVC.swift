@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import harpyframework
 
-class G00ConfigurationVC: CommonViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
+class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
     // MARK: Properties
     /** Search bar */
     @IBOutlet weak var searchBar: UISearchBar!

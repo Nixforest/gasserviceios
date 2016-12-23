@@ -7,9 +7,9 @@
 //
 
 import UIKit
+import harpyframework
 
-
-class RegisterViewController: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
+class RegisterViewController: BaseViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
     
     //declare outlets
     @IBOutlet weak var imgCenter: UIImageView!

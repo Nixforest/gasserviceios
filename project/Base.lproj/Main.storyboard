@@ -265,14 +265,14 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="a2M-Ls-2Fj" id="FsJ-e1-AH8"/>
+                        <outlet property="backButton" destination="a2M-Ls-2Fj" id="kHP-y1-0gs"/>
                         <outlet property="imgAddress" destination="kWQ-5y-74b" id="HZH-Ne-Abf"/>
                         <outlet property="imgCenter" destination="Tg7-iS-2z7" id="tjc-10-NQT"/>
                         <outlet property="imgName" destination="Yn0-lh-GNK" id="naQ-SI-TNV"/>
                         <outlet property="imgPhone" destination="KDi-Lh-zBo" id="SiQ-cJ-Qn6"/>
-                        <outlet property="menuButton" destination="zhX-ik-1Wi" id="tNn-Oo-s9r"/>
-                        <outlet property="navigationBar" destination="T3Y-cB-U1w" id="APV-01-0Ed"/>
-                        <outlet property="notificationButton" destination="o1H-gH-Gbh" id="pS6-4t-vOf"/>
+                        <outlet property="menuButton" destination="zhX-ik-1Wi" id="255-Ut-TdE"/>
+                        <outlet property="navigationBar" destination="T3Y-cB-U1w" id="HdJ-x4-7N1"/>
+                        <outlet property="notificationButton" destination="o1H-gH-Gbh" id="1wt-VT-vMf"/>
                         <outlet property="registerButton" destination="5bu-IU-aFw" id="Hyt-Xt-diQ"/>
                         <outlet property="txtAddress" destination="BWH-be-3MO" id="zjY-Zz-Yed"/>
                         <outlet property="txtName" destination="wKu-2I-Rd6" id="Afg-Bf-etU"/>
@@ -392,16 +392,16 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="DH1-Nc-mVR" id="bDN-lb-uRx"/>
+                        <outlet property="backButton" destination="DH1-Nc-mVR" id="a4J-Xj-gG6"/>
                         <outlet property="changePasswordButton" destination="jxo-04-t18" id="ACa-hz-BRg"/>
                         <outlet property="imgAddress" destination="x8O-cr-Lzq" id="AcJ-OV-6Jy"/>
                         <outlet property="imgAvatar" destination="E61-VU-x5g" id="L1R-j9-wVc"/>
                         <outlet property="imgName" destination="b64-vd-c5g" id="8lj-Ph-sUJ"/>
                         <outlet property="imgPhone" destination="UgH-IR-KPZ" id="AUg-Qa-pq5"/>
                         <outlet property="logoutButton" destination="zyS-LC-AqQ" id="Gky-ii-pye"/>
-                        <outlet property="menuButton" destination="gD4-20-kqM" id="Yei-2v-iZO"/>
-                        <outlet property="navigationBar" destination="TBh-2w-e41" id="r5F-99-1gC"/>
-                        <outlet property="notificationButton" destination="Tha-Mu-96f" id="yac-ak-A1z"/>
+                        <outlet property="menuButton" destination="gD4-20-kqM" id="OZV-Xo-Jnd"/>
+                        <outlet property="navigationBar" destination="TBh-2w-e41" id="QyD-gz-fhu"/>
+                        <outlet property="notificationButton" destination="Tha-Mu-96f" id="Ag9-4w-s3B"/>
                         <outlet property="saveButton" destination="Flz-c9-Q5S" id="bdN-8z-imN"/>
                         <outlet property="txtAddress" destination="xq6-Pr-TAB" id="g79-aL-Uoz"/>
                         <outlet property="txtName" destination="edI-aN-Dhf" id="GmI-Bx-D8y"/>
@@ -552,13 +552,13 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="55d-Ed-IRE" id="YC1-Of-rQM"/>
+                        <outlet property="backButton" destination="55d-Ed-IRE" id="VVI-7q-FX9"/>
                         <outlet property="checkboxButton" destination="GuU-AZ-y7c" id="n9j-9z-Ncz"/>
                         <outlet property="lblCheckboxButton" destination="kBh-VW-jiT" id="jCk-eH-a3N"/>
                         <outlet property="logoutButton" destination="VCL-oa-l3C" id="Ar2-oB-uRu"/>
-                        <outlet property="menuButton" destination="FR9-Vx-Zff" id="BNI-BY-Z7H"/>
-                        <outlet property="navigationBar" destination="Ga8-8r-p2T" id="7Aq-y9-aaA"/>
-                        <outlet property="notificationButton" destination="LxY-V4-1QP" id="Blu-xR-xCQ"/>
+                        <outlet property="menuButton" destination="FR9-Vx-Zff" id="xXi-nc-8V0"/>
+                        <outlet property="navigationBar" destination="Ga8-8r-p2T" id="ZbH-qN-lQF"/>
+                        <outlet property="notificationButton" destination="LxY-V4-1QP" id="wCm-fZ-loD"/>
                         <outlet property="saveButton" destination="zz7-G6-osD" id="H9k-ak-ZAd"/>
                         <outlet property="txtNewPassword" destination="Esv-lg-5kB" id="K6A-6l-9WY"/>
                         <outlet property="txtNewPasswordRetype" destination="uUQ-N8-Jvh" id="6Ak-C3-Rmy"/>
@@ -1266,7 +1266,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uHs-Pb-9Kl" id="ufp-uI-QHq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-rT-a5I">
@@ -1351,12 +1351,12 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="ALm-Xh-TXl" id="731-Mo-BCS"/>
+                        <outlet property="backButton" destination="ALm-Xh-TXl" id="a70-Zx-GQe"/>
                         <outlet property="configTableView" destination="leA-JA-DAE" id="f5Q-Qh-Wzg"/>
                         <outlet property="configView" destination="tMP-uu-sju" id="fAL-Gl-VXT"/>
-                        <outlet property="menuButton" destination="0hR-P1-CtS" id="BVL-5N-cXr"/>
-                        <outlet property="navigationBar" destination="9Z2-Kv-WlZ" id="vDT-i8-vuj"/>
-                        <outlet property="notificationButton" destination="mjh-gB-ZS7" id="7zF-hx-Dlm"/>
+                        <outlet property="menuButton" destination="0hR-P1-CtS" id="omX-vg-AYU"/>
+                        <outlet property="navigationBar" destination="9Z2-Kv-WlZ" id="gZG-Hn-HEh"/>
+                        <outlet property="notificationButton" destination="mjh-gB-ZS7" id="QHF-4U-R1U"/>
                         <outlet property="searchBar" destination="PNn-PF-B6G" id="A6M-we-74U"/>
                     </connections>
                 </viewController>
