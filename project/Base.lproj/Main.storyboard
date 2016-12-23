@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="TrL-Mo-e0y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="TrL-Mo-e0y">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -127,15 +127,15 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="backButton" destination="oju-tH-mvJ" id="tJj-mG-qJN"/>
+                        <outlet property="backButton" destination="oju-tH-mvJ" id="X4T-fJ-EwR"/>
                         <outlet property="btnLogin" destination="tUD-B5-4IU" id="dzM-2o-Zx2"/>
                         <outlet property="btnSignin" destination="Osa-RX-1K7" id="56m-RP-2Vw"/>
                         <outlet property="chbShowPassword" destination="HuI-gc-aJa" id="8h4-28-zl5"/>
                         <outlet property="imgLogo" destination="cLF-Jn-NAq" id="98L-uR-Wen"/>
                         <outlet property="lblShowPassword" destination="vx3-2C-1X5" id="PEY-eF-EhB"/>
-                        <outlet property="menuButton" destination="J9R-Jj-xBE" id="4Eq-qA-llM"/>
-                        <outlet property="navigationBar" destination="6NS-2E-c3P" id="4Yd-Ks-Ibk"/>
-                        <outlet property="notificationButton" destination="Cy7-Jp-rYU" id="IGu-wb-2dg"/>
+                        <outlet property="menuButton" destination="J9R-Jj-xBE" id="9wY-FH-QFf"/>
+                        <outlet property="navigationBar" destination="6NS-2E-c3P" id="2zr-2U-mjT"/>
+                        <outlet property="notificationButton" destination="Cy7-Jp-rYU" id="hVt-LV-euR"/>
                         <outlet property="txtAccount" destination="eeu-rD-CBp" id="Mlw-cz-1Yh"/>
                         <outlet property="txtPassword" destination="mDN-Gd-7pd" id="N4D-vv-J6j"/>
                     </connections>
@@ -1266,7 +1266,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uHs-Pb-9Kl" id="ufp-uI-QHq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-rT-a5I">
@@ -1490,11 +1490,11 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="i6O-WQ-3a5" id="VRA-87-LBb"/>
+                        <outlet property="backButton" destination="i6O-WQ-3a5" id="pKd-fE-J6G"/>
                         <outlet property="homeTableView" destination="s6h-fG-xxf" id="k4v-Z8-0CH"/>
-                        <outlet property="menuButton" destination="pVV-PX-X2F" id="FJb-1Q-ybJ"/>
-                        <outlet property="navigationBar" destination="mgN-eU-Cco" id="5HA-eI-3cm"/>
-                        <outlet property="notificationButton" destination="euP-sA-vBh" id="Meq-Br-4dT"/>
+                        <outlet property="menuButton" destination="pVV-PX-X2F" id="Zor-2g-NLJ"/>
+                        <outlet property="navigationBar" destination="mgN-eU-Cco" id="11U-dZ-BT0"/>
+                        <outlet property="notificationButton" destination="euP-sA-vBh" id="mGF-hH-mMF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mys-UY-nex" userLabel="First Responder" sceneMemberID="firstResponder"/>

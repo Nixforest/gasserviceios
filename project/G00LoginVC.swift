@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
+class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
     // MARK: Properties
     var bShowPassword:Bool!
     /** Logo image */
@@ -51,7 +51,7 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
             showAlert(message: GlobalConst.CONTENT00023)
         } else {
             // Start login process
-            CommonProcess.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
+            RequestAPI.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
         }
     }
     
@@ -96,7 +96,7 @@ class G00LoginVC: CommonViewController, UIPopoverPresentationControllerDelegate,
     /**
      * View did load
      */
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         // Menu item tap
         asignNotifyForMenuItem()

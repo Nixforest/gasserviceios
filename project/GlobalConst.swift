@@ -206,6 +206,7 @@ class GlobalConst {
     static let CONTENT00223 = "Xem"
     static let CONTENT00224 = "Để sau"
     static let CONTENT00225 = "Bảo trì miễn phí"
+    static let CONTENT00226 = "Gas 24h"
     
     // ----- Size of control -----
     static let SCREEN_WIDTH = UIScreen.main.bounds.width
