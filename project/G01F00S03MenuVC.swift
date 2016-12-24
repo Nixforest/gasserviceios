@@ -7,7 +7,9 @@
 //
 
 import Foundation
-class G01F00S03MenuVC: CommonMenuViewController {
+import harpyframework
+
+class G01F00S03MenuVC: BaseMenuViewController {
     
     /**
      * Override

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import harpyframework
 
 class G01F03VC: StepVC, StepDoneDelegate {
     /**
@@ -57,7 +58,7 @@ class G01F03VC: StepVC, StepDoneDelegate {
         G01F03S03._selectedValue = ""
     }
     override func btnSendTapped() {
-        CommonProcess.requestRatingUphold(id: Singleton.shared.sharedString,
+        CommonProcess.requestRatingUphold(id: BaseModel.shared.sharedString,
                                           ratingStatusId: G01F03S01._selectedValue.id,
                                           listRating: G01F03S02._selectedValue,
                                           content: G01F03S03._selectedValue, view: self)

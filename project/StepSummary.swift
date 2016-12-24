@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class StepSummary: UIView {
     // MARK: Properties
@@ -17,7 +18,7 @@ class StepSummary: UIView {
     /** Main view */
     var _mainView: UIView?
     /** Parent */
-    var _parent: CommonViewController?
+    var _parent: BaseViewController?
     
     /*
      // Only override draw() if you perform custom drawing.

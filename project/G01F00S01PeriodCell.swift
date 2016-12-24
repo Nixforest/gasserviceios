@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class G01F00S01PeriodCell: UITableViewCell {
     /** Item view */
@@ -131,12 +132,6 @@ class G01F00S01PeriodCell: UITableViewCell {
                                      width: parentWidth - contentMarginX * 2 - lblCreatedDateL.frame.width,
                                      height: lblCreatedDateL.frame.height)
         periodView.addSubview(lblTimeCreate)
-        
-        lblName.text = "Khach hang"
-        lblType.text = "1 thang 1 lan"
-        lblStatus.text = "Hoàn thành"
-        lblEmployee.text = "Nguyen Duy Truong"
-        lblTimeCreate.text = "Thoi gian tao"
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

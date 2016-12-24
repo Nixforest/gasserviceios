@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import harpyframework
+
 class G01F03S04: StepSummary {
     // MARK: Properties
     /** Label Feeling */
@@ -33,7 +35,7 @@ class G01F03S04: StepSummary {
     /**
      * Default initializer.
      */
-    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
+    init(w: CGFloat, h: CGFloat, parent: BaseViewController) {
         super.init()
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = true
@@ -85,8 +87,8 @@ class G01F03S04: StepSummary {
         var offset: CGFloat = 0
         
         // Add controls
-        if Singleton.shared.listRatingType.count > 0 {
-            for i in 0..<Singleton.shared.listRatingType.count {
+        if BaseModel.shared.listRatingType.count > 0 {
+            for i in 0..<BaseModel.shared.listRatingType.count {
                 // Label title
                 let label = UILabel()
                 label.translatesAutoresizingMaskIntoConstraints = true
@@ -95,7 +97,7 @@ class G01F03S04: StepSummary {
                     y: offset,
                     width: self.frame.width,
                     height: GlobalConst.LABEL_HEIGHT)
-                label.text               = Singleton.shared.listRatingType[i].name
+                label.text               = BaseModel.shared.listRatingType[i].name
                 //label.textAlignment      = NSTextAlignment.center
                 label.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
                 self._listLabel.append(label)

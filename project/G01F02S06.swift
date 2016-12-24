@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, step5TableViewCellDelegate {
     // MARK: Properties
@@ -29,7 +30,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
     /**
      * Default initializer.
      */
-    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
+    init(w: CGFloat, h: CGFloat, parent: BaseViewController) {
         super.init()
         var offset: CGFloat = GlobalConst.MARGIN
         let contentView = UIView()

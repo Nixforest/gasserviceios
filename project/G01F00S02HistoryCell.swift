@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class G01F00S02HistoryCell: UITableViewCell {
     // MARK: Properties
@@ -112,7 +113,7 @@ class G01F00S02HistoryCell: UITableViewCell {
      * Set data for cell.
      * - parameter model: Data model
      */
-    func setData(model: UpholdReplyBean, row: Int, view: CommonViewController) {
+    func setData(model: UpholdReplyBean, row: Int, view: BaseViewController) {
         self.data = model
         var offset: CGFloat = marginY
         lblReportWrong.isHidden = true

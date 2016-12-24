@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 protocol G01F00S01ProblemCellDelegate {
     func toRatingVC(id: String)

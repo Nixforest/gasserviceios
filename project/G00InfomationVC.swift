@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class G00InfomationVC: UIViewController {
     // MARK: Properties

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import harpyframework
+
 class RatingUpholdRequest: BaseRequest {
     override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
         let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
@@ -23,7 +25,7 @@ class RatingUpholdRequest: BaseRequest {
             }
             // Convert to string
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            print(dataString)
+            print(dataString ?? "")
             // Convert to object
             let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
             if model.status == "1" {
@@ -54,7 +56,7 @@ class RatingUpholdRequest: BaseRequest {
      * - parameter reqMethod: Request method
      * - parameter view: Root view
      */
-    override init(url: String, reqMethod: String, view: CommonViewController) {
+    override init(url: String, reqMethod: String, view: BaseViewController) {
         super.init(url: url, reqMethod: reqMethod, view: view)
     }
     
@@ -67,7 +69,7 @@ class RatingUpholdRequest: BaseRequest {
                  listRating: [Int], content: String) {
         var rating = "{"
         for i in 0..<listRating.count {
-            rating += String.init(format: "\"%@\":%d", Singleton.shared.listRatingType[i].id, listRating[i])
+            rating += String.init(format: "\"%@\":%d", BaseModel.shared.listRatingType[i].id, listRating[i])
             if i < (listRating.count - 1) {
                 rating += ","
             }
@@ -75,7 +77,7 @@ class RatingUpholdRequest: BaseRequest {
         rating += "}"
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":%@,\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
+            DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
             DomainConst.KEY_UPHOLD_ID, id,
             DomainConst.KEY_RATING_STATUS, ratingStatusId,
             DomainConst.KEY_RATING_TYPE, rating,

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class G00ConfigurationCell: UITableViewCell {
     /** Image in the left */
@@ -24,7 +25,7 @@ class G00ConfigurationCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        mySw.setOn(Singleton.shared.checkTrainningMode(), animated:true)
+        mySw.setOn(BaseModel.shared.checkTrainningMode(), animated:true)
         self.backgroundColor = UIColor.white
     }
 
@@ -43,9 +44,9 @@ class G00ConfigurationCell: UITableViewCell {
      */
     @IBAction func changeValue(_ sender: AnyObject) {
         if mySw.isOn {
-            Singleton.shared.setTrainningMode(true)
+            BaseModel.shared.setTrainningMode(true)
         } else {
-            Singleton.shared.setTrainningMode(false)
+            BaseModel.shared.setTrainningMode(false)
         }
     }
 }

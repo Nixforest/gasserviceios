@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import harpyframework
+
 class CreateUpholdReplyRequest: BaseRequest {
     override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
         let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
@@ -27,7 +29,7 @@ class CreateUpholdReplyRequest: BaseRequest {
             // Convert to object
             let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
             // Enable action handle notification from server
-            Singleton.shared.enableHandleNotificationFlag(isEnabled: true)
+            BaseModel.shared.enableHandleNotificationFlag(isEnabled: true)
             if model.status == "1" {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
@@ -42,7 +44,7 @@ class CreateUpholdReplyRequest: BaseRequest {
                             _ = self.view.navigationController?.popViewController(animated: true)
                     })
                     NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: model)
-                    Singleton.shared.upholdList.record[Singleton.shared.sharedInt].status = self.status
+                    BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].status = self.status
                 }
             } else {
                 self.showAlert(message: model.message)
@@ -60,7 +62,7 @@ class CreateUpholdReplyRequest: BaseRequest {
      * - parameter reqMethod: Request method
      * - parameter view: Root view
      */
-    override init(url: String, reqMethod: String, view: CommonViewController) {
+    override init(url: String, reqMethod: String, view: BaseViewController) {
         super.init(url: url, reqMethod: reqMethod, view: view)
     }
     
@@ -78,7 +80,7 @@ class CreateUpholdReplyRequest: BaseRequest {
         self.status = statusText
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
+            DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
             DomainConst.KEY_UPHOLD_ID, upholdId,
             DomainConst.KEY_STATUS, status,
             DomainConst.KEY_HOURS_HANDLE, hoursHandle,
@@ -94,7 +96,7 @@ class CreateUpholdReplyRequest: BaseRequest {
         self.param = [
             "q" : String.init(
                 format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":\"%@\"}",
-                DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
+                DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
                 DomainConst.KEY_UPHOLD_ID, upholdId,
                 DomainConst.KEY_STATUS, status,
                 DomainConst.KEY_HOURS_HANDLE, hoursHandle,

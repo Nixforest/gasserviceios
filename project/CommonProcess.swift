@@ -7,69 +7,9 @@
 //
 
 import Foundation
-class CommonProcess {
-    
-    /**
-     * Request change password.
-     * - parameter oldPass: Old password
-     * - parameter newPass: New password
-     * - parameter view:    View controller
-     */
-    static func requestChangePassword(oldPass: String, newPass: String, view: CommonViewController) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
-        let request = ChangePassRequest(url: DomainConst.PATH_USER_CHANGE_PASS,
-                                   reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
-        request.setData(oldPass: oldPass, newPass: newPass)
-        request.execute()
-    }
-    
-    /**
-     * Request uphold list
-     * - parameter page:        Page index
-     * - parameter type:        Type uphold (Problem/Periodically)
-     * - parameter customerId:  Id of customer
-     * - parameter status:      Status of item
-     * - parameter view:        View controller
-     */
-    static func requestUpholdList(page: Int, type: Int, customerId: String, status: String, view: CommonViewController) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
-        let request = UpholdListRequest(url: DomainConst.PATH_SITE_UPHOLD_LIST, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
-        
-        request.setData(page: page, type: type, customerId: customerId, status: status)
-        request.execute()
-    }
-    
-    /**
-     * Request search customer
-     * - parameter keyword: Keyword
-     * - parameter view:    View controller
-     */
-    static func requestSearchCustomer(keyword: String, view: CommonViewController) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
-        let request = SearchCustomerRequest(url: DomainConst.PATH_SITE_AUTOCOMPLETE_USER, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
-        
-        request.setData(keyword: keyword)
-        request.execute()
-    }
-    
-    /**
-     * Request uphold detail data
-     * - parameter upholdId:    Id of uphold
-     * - parameter replyId:     Id of reply
-     * - parameter view:        View controller
-     */
-    static func requestUpholdDetail(upholdId: String, replyId: String,
-                                    view: CommonViewController) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
-        let request = UpholdDetailRequest(url: DomainConst.PATH_SITE_UPHOLD_VIEW, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
-        request.setData(upholdId: upholdId, replyId: replyId)
-        request.execute()
-    }
-    
+import harpyframework
+
+class CommonProcess {    
     /**
      * Request create uphold reply
      * - parameter upholdId:            Id of uphold item
@@ -91,7 +31,7 @@ class CommonProcess {
                                          listPostReplyImage: [UIImage],
                                          customerId: String,
                                          noteInternal: String,
-                                         view: CommonViewController) {
+                                         view: BaseViewController) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = CreateUpholdReplyRequest(url: DomainConst.PATH_SITE_UPHOLD_REPLY, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
@@ -104,30 +44,6 @@ class CommonProcess {
                         noteInternal: noteInternal)
         //request.execute()
         request.executeUploadFile(listImages: listPostReplyImage)
-    }
-    
-    /**
-     * Request uphold configuration
-     * - parameter view: View controller
-     */
-    static func requestUpdateConfiguration(view: CommonViewController) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
-        let request = UpdateConfigurationRequest(url: DomainConst.PATH_SITE_UPDATE_CONFIG, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
-        request.setData()
-        request.execute()
-    }
-    
-    /**
-     * Request count of notification
-     * - parameter view: View controller
-     */
-    static func requestNotificationCount(view: CommonViewController) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
-        let request = NotificationCountRequest(url: DomainConst.PATH_SITE_NOTIFY_COUNT, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
-        request.setData()
-        request.execute()
     }
     
     /**
@@ -146,7 +62,7 @@ class CommonProcess {
     static func requestCreateUphold(customerId: String, employeeId: String,
                                     typeUphold: String, content: String, contactPerson: String,
                                     contactTel: String, requestBy: String,
-                                         view: CommonViewController) {
+                                         view: BaseViewController) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = CreateUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CREATE, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
@@ -166,26 +82,13 @@ class CommonProcess {
      */
     static func requestRatingUphold(id: String, ratingStatusId: String,
                                     listRating: [Int], content: String,
-                                    view: CommonViewController) {
+                                    view: BaseViewController) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = RatingUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CUSTOMER_RATING, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
         request.setData(id: id, ratingStatusId: ratingStatusId, listRating: listRating, content: content)
         request.execute()
         
-    }
-    
-    /**
-     * Request confirm notify.
-     * - parameter notifyId : Id of notify
-     * - parameter type     : Type of notify
-     * - parameter objId    : Id of object
-     */
-    static func requestConfirmNotify(notifyId: String, type: String, objId: String) {
-        let request = ConfirmNotifyRequest(url: DomainConst.PATH_SITE_CONFIRM_NOTIFY,
-                                   reqMethod: GlobalConst.HTTP_POST_REQUEST)
-        request.setData(notifyId: notifyId, type: type, objId: objId)
-        request.execute()
     }
     
     /**
@@ -344,17 +247,5 @@ class CommonProcess {
         btn.titleLabel?.font    = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
         btn.backgroundColor     = GlobalConst.BUTTON_COLOR_RED
         btn.layer.cornerRadius  = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-    }
-    
-    /**
-     * Get current view controller
-     * - returns: Current view controller
-     */
-    static func getCurrentViewController() -> CommonViewController {
-        var currentView: UIViewController? = nil
-        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
-            currentView = navigationController.visibleViewController
-        }
-        return currentView as! CommonViewController
     }
 }

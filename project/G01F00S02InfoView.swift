@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class G01F00S02InfoView: UIView, UITextFieldDelegate {
     /** Label Status */
@@ -71,10 +72,10 @@ class G01F00S02InfoView: UIView, UITextFieldDelegate {
     override func awakeFromNib() {
         
         // Set data
-        if Singleton.shared.sharedInt != -1 {
+        if BaseModel.shared.sharedInt != -1 {
             // Check data is existed
-            if Singleton.shared.upholdList.record.count > Singleton.shared.sharedInt {
-                setData(model: Singleton.shared.upholdList.record[Singleton.shared.sharedInt])
+            if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
+                setData(model: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt])
             }
         }
     }

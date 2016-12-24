@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class G01F02S01: StepContent {
     /** Selected value */
@@ -24,7 +25,7 @@ class G01F02S01: StepContent {
     /**
      * Default initializer.
      */
-    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
+    init(w: CGFloat, h: CGFloat, parent: BaseViewController) {
         super.init()
         var offset: CGFloat = GlobalConst.MARGIN
         let contentView = UIView()
@@ -32,8 +33,8 @@ class G01F02S01: StepContent {
         //contentView.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         // Add button
-        if Singleton.shared.listUpholdType.count > 0 {
-            for i in 1..<Singleton.shared.listUpholdStatus.count {
+        if BaseModel.shared.listUpholdType.count > 0 {
+            for i in 1..<BaseModel.shared.listUpholdStatus.count {
                 let button = UIButton()
                 button.translatesAutoresizingMaskIntoConstraints = true
                 button.frame = CGRect(
@@ -42,14 +43,14 @@ class G01F02S01: StepContent {
                     width: GlobalConst.BUTTON_W,
                     height: GlobalConst.BUTTON_H)
                 button.tag = i
-                button.setTitle(Singleton.shared.listUpholdStatus[i].name, for: .normal)
+                button.setTitle(BaseModel.shared.listUpholdStatus[i].name, for: .normal)
                 button.setTitleColor(UIColor.white , for: .normal)
                 button.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
                 button.backgroundColor = GlobalConst.BUTTON_COLOR_RED
                 button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
                 button.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
                 // Mark button
-                if G01F02S01._selectedValue.id == Singleton.shared.listUpholdStatus[i].id {
+                if G01F02S01._selectedValue.id == BaseModel.shared.listUpholdStatus[i].id {
                     CommonProcess.markButton(button: button)
                 }
                 _listButton.append(button)
@@ -78,7 +79,7 @@ class G01F02S01: StepContent {
         // Un-mark selecting button
         if !G01F02S01._selectedValue.id.isEmpty {
             for button in self._listButton {
-                if Singleton.shared.listUpholdStatus[button.tag].id == G01F02S01._selectedValue.id {
+                if BaseModel.shared.listUpholdStatus[button.tag].id == G01F02S01._selectedValue.id {
                     CommonProcess.unMarkButton(button: button)
                     break
                 }
@@ -86,7 +87,7 @@ class G01F02S01: StepContent {
         }
         
         // Set new selected value
-        G01F02S01._selectedValue = Singleton.shared.listUpholdStatus[sender.tag]
+        G01F02S01._selectedValue = BaseModel.shared.listUpholdStatus[sender.tag]
         // Mark selecting button
         CommonProcess.markButton(button: sender as! UIButton)
         NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)

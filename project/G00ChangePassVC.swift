@@ -18,7 +18,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
     /** Logout button */
     @IBOutlet weak var logoutButton: UIButton!
     /** Checkbox show password button */
-    @IBOutlet weak var checkboxButton: CheckBox!
+    @IBOutlet weak var checkboxButton: CustomCheckBox!
     /** Checkbox show password label */
     @IBOutlet weak var lblCheckboxButton: UILabel!
     /** Old password textbox */

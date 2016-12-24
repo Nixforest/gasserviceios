@@ -7,10 +7,10 @@
 //
 
 import UIKit
+import harpyframework
 
-class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate {
-
-    
+class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
+    // MARK: Properties
     let lblHeader0 = UILabel()
     let lblHeader1 = UILabel()
     let lblHeader2 = UILabel()
@@ -55,8 +55,7 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
     // ScrollView
     @IBOutlet weak var scrollView: UIScrollView!
     
-    
-    
+    // MARK: Methods
     /**
      * Handle when tap on Issue menu item
      */
@@ -104,10 +103,10 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(G01F00S03VC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
 
         // Do any additional setup after loading the view.// Set data
-        if Singleton.shared.sharedInt != -1 {
+        if BaseModel.shared.sharedInt != -1 {
             // Check data is existed
-            if Singleton.shared.upholdList.record.count > Singleton.shared.sharedInt {
-                CommonProcess.requestUpholdDetail(upholdId: Singleton.shared.upholdList.record[Singleton.shared.sharedInt].id, replyId: Singleton.shared.upholdList.record[Singleton.shared.sharedInt].reply_id, view: self)
+            if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
+                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
             }
         }
     }
@@ -156,7 +155,7 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
 //        offset = lblAddress.frame.maxY
         
         // Label Contact and ContactValue
-        if Singleton.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
+        if BaseModel.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
 //            setLayoutLeft(lbl: lblContact, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00146)
 //            setLayoutRight(lbl: lblContactValue, offset: offset,
 //                           height: GlobalConst.LABEL_HEIGHT * 2, text: "")
@@ -204,7 +203,7 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
         offset = lblEmployeePhone.frame.maxY
         
         // Label HandlingTime and HandlingTimeValue
-        if Singleton.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
+        if BaseModel.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
             setLayoutLeft(lbl: lblHandlingTime, offset: offset,
                           height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00157)
             setLayoutRight(lbl: lblHandlingTimeValue, offset: offset,
@@ -219,9 +218,9 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
         setHeader(header: lblHeader2, offset: offset, text: GlobalConst.CONTENT00158)
         offset = lblHeader2.frame.maxY + GlobalConst.MARGIN_CELL_Y
         
-        if Singleton.shared.currentUpholdDetail.status_number == DomainConst.UPHOLD_STATUS_COMPLETE {
-            if Singleton.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
-                if Singleton.shared.currentUpholdDetail.report_wrong.isEmpty {
+        if BaseModel.shared.currentUpholdDetail.status_number == DomainConst.UPHOLD_STATUS_COMPLETE {
+            if BaseModel.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
+                if BaseModel.shared.currentUpholdDetail.report_wrong.isEmpty {
                     // Label Status and StatusValue
                     setLayoutLeft(lbl: lblStatus, offset: offset,
                                   height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092, isDrawTopBorder: false)
@@ -263,8 +262,8 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
                 offset = lblReport.frame.maxY
             }
         } else {
-            if Singleton.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
-                if !Singleton.shared.currentUpholdDetail.report_wrong.isEmpty {
+            if BaseModel.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
+                if !BaseModel.shared.currentUpholdDetail.report_wrong.isEmpty {
                     lblReportWrong.translatesAutoresizingMaskIntoConstraints = true
                     lblReportWrong.frame = CGRect(
                         x: GlobalConst.MARGIN_CELL_X + GlobalConst.PARENT_BORDER_WIDTH,
@@ -295,29 +294,29 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
         setHeader(header: lblHeader3, offset: scrollView.contentSize.height - GlobalConst.LABEL_HEIGHT - GlobalConst.MARGIN_CELL_Y, text: GlobalConst.CONTENT00225,
                   bkgColor: ColorFromRGB().getColorFromRGB(0xFAB102))
         
-        if Singleton.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
+        if BaseModel.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
             lblHeader0.text = GlobalConst.CONTENT00041.uppercased()
             lblCreateDate.text = GlobalConst.CONTENT00096
-            lblContactValue.text        = Singleton.shared.currentUpholdDetail.contact_person + " - " +
-                Singleton.shared.currentUpholdDetail.contact_tel
+            lblContactValue.text        = BaseModel.shared.currentUpholdDetail.contact_person + " - " +
+                BaseModel.shared.currentUpholdDetail.contact_tel
         } else {
             lblHeader0.text             = GlobalConst.CONTENT00040.uppercased()
             lblCreateDate.text          = GlobalConst.CONTENT00160
-            lblContactValue.text        = Singleton.shared.currentUpholdDetail.schedule_month
+            lblContactValue.text        = BaseModel.shared.currentUpholdDetail.schedule_month
         }
-        lblCreateDateValue.text     = Singleton.shared.currentUpholdDetail.created_date
-        lblCustomerNameValue.text   = Singleton.shared.currentUpholdDetail.customer_name
-        lblAddressValue.text        = Singleton.shared.currentUpholdDetail.customer_address
-        lblIssueValue.text          = Singleton.shared.currentUpholdDetail.type_uphold
-        lblContentValue.text        = Singleton.shared.currentUpholdDetail.content
-        lblEmployeeValue.text       = Singleton.shared.currentUpholdDetail.employee_name
-        lblEmployeePhoneValue.text  = Singleton.shared.currentUpholdDetail.employee_phone
-        if Singleton.shared.currentUpholdDetail.reply_item.count > 0 {
-            lblHandlingTimeValue.text   = Singleton.shared.currentUpholdDetail.reply_item[0].date_time_handle
+        lblCreateDateValue.text     = BaseModel.shared.currentUpholdDetail.created_date
+        lblCustomerNameValue.text   = BaseModel.shared.currentUpholdDetail.customer_name
+        lblAddressValue.text        = BaseModel.shared.currentUpholdDetail.customer_address
+        lblIssueValue.text          = BaseModel.shared.currentUpholdDetail.type_uphold
+        lblContentValue.text        = BaseModel.shared.currentUpholdDetail.content
+        lblEmployeeValue.text       = BaseModel.shared.currentUpholdDetail.employee_name
+        lblEmployeePhoneValue.text  = BaseModel.shared.currentUpholdDetail.employee_phone
+        if BaseModel.shared.currentUpholdDetail.reply_item.count > 0 {
+            lblHandlingTimeValue.text   = BaseModel.shared.currentUpholdDetail.reply_item[0].date_time_handle
         }
-        lblStatusValue.text         = Singleton.shared.currentUpholdDetail.status
-        lblReportValue.text         = Singleton.shared.currentUpholdDetail.last_reply_message
-        lblReportWrong.text         = Singleton.shared.currentUpholdDetail.report_wrong
+        lblStatusValue.text         = BaseModel.shared.currentUpholdDetail.status
+        lblReportValue.text         = BaseModel.shared.currentUpholdDetail.last_reply_message
+        lblReportWrong.text         = BaseModel.shared.currentUpholdDetail.report_wrong
         self.updateNotificationStatus()
     }
 
@@ -400,8 +399,8 @@ class G01F00S03VC: CommonViewController, UIPopoverPresentationControllerDelegate
     
     override func clearData() {
         // Notification
-        if Singleton.shared.checkNotificationExist() {
-            Singleton.shared.clearNotificationData()
+        if BaseModel.shared.checkNotificationExist() {
+            BaseModel.shared.clearNotificationData()
         }
     }
     

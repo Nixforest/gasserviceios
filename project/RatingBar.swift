@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class RatingBar: UIView {
     // MARK: Properties

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class G01F02VC: StepVC, StepDoneDelegate {
     
@@ -30,9 +31,9 @@ class G01F02VC: StepVC, StepDoneDelegate {
         
         step1.stepDoneDelegate = self
         self.appendContent(stepContent: step1)
-        if Singleton.shared.currentUpholdDetail.uphold_type != DomainConst.UPHOLD_TYPE_PERIODICALLY {
-        step2.stepDoneDelegate = self
-        self.appendContent(stepContent: step2)
+        if BaseModel.shared.currentUpholdDetail.uphold_type != DomainConst.UPHOLD_TYPE_PERIODICALLY {
+            step2.stepDoneDelegate = self
+            self.appendContent(stepContent: step2)
         }
         step3.stepDoneDelegate = self
         self.appendContent(stepContent: step3)
@@ -75,16 +76,16 @@ class G01F02VC: StepVC, StepDoneDelegate {
     }
     override func btnSendTapped() {
         // Disable action handle notification from server
-        Singleton.shared.enableHandleNotificationFlag(isEnabled: false)
+        BaseModel.shared.enableHandleNotificationFlag(isEnabled: false)
         CommonProcess.requestCreateUpholdReply(
-            upholdId: Singleton.shared.currentUpholdDetail.id,
+            upholdId: BaseModel.shared.currentUpholdDetail.id,
             status: G01F02S01._selectedValue.id, statusText: G01F02S01._selectedValue.name,
             hoursHandle: G01F02S02._selectedValue.id,
             note: G01F02S04._selectedValue.name,
             contact_phone: G01F02S04._selectedValue.phone,
             reportWrong: (G01F02S03._selectedValue)! ? "0" : "1",
             listPostReplyImage: G01F02S06._selectedValue,
-            customerId: Singleton.shared.currentUpholdDetail.customer_id,
+            customerId: BaseModel.shared.currentUpholdDetail.customer_id,
             noteInternal: G01F02S05._selectedValue,
             view: self)
     }

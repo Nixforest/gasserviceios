@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import harpyframework
+
 class G01F03S03: StepContent, UITextViewDelegate {
     /** Selected value */
     static var _selectedValue: String = ""
@@ -25,7 +27,7 @@ class G01F03S03: StepContent, UITextViewDelegate {
     /**
      * Default initializer.
      */
-    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
+    init(w: CGFloat, h: CGFloat, parent: BaseViewController) {
         super.init()
         var offset: CGFloat = 0
         let contentView = UIView()

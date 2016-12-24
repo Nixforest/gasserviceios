@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import harpyframework
+
 class G01F03S02: StepContent {
     // MARK: Properties
     /** Selected value */
@@ -24,15 +26,15 @@ class G01F03S02: StepContent {
     /**
      * Default initializer.
      */
-    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
+    init(w: CGFloat, h: CGFloat, parent: BaseViewController) {
         super.init()
         var offset: CGFloat = GlobalConst.MARGIN
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = true
         
         // Add controls
-        if Singleton.shared.listRatingType.count > 0 {
-            for i in 0..<Singleton.shared.listRatingType.count {
+        if BaseModel.shared.listRatingType.count > 0 {
+            for i in 0..<BaseModel.shared.listRatingType.count {
                 // Label title
                 let label = UILabel()
                 label.translatesAutoresizingMaskIntoConstraints = true
@@ -41,7 +43,7 @@ class G01F03S02: StepContent {
                     y: offset,
                     width: self.frame.width,
                     height: GlobalConst.LABEL_HEIGHT)
-                label.text               = Singleton.shared.listRatingType[i].name
+                label.text               = BaseModel.shared.listRatingType[i].name
                 //label.textAlignment      = NSTextAlignment.center
                 label.font               = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
                 contentView.addSubview(label)
@@ -85,7 +87,7 @@ class G01F03S02: StepContent {
     }
     
     override func checkDone() -> Bool {
-        for i in 0..<Singleton.shared.listRatingType.count {
+        for i in 0..<BaseModel.shared.listRatingType.count {
             G01F03S02._selectedValue[i] = self._listRating[i]._rating
         }
         NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F03), object: nil)

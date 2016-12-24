@@ -10,23 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Test View Controller-->
-        <scene sceneID="LqZ-hG-J1h">
-            <objects>
-                <navigationController storyboardIdentifier="testViewController" id="b6D-Zo-0xL" customClass="testViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="Bhe-jC-PXq"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ezl-Cg-KdW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Chx-eV-12R"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fv9-O3-dQb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1062" y="5"/>
-        </scene>
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -673,11 +656,11 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="vdS-4K-Dza" id="2Wn-W8-mz7"/>
+                        <outlet property="backButton" destination="vdS-4K-Dza" id="kSc-sK-Uk7"/>
                         <outlet property="btnCreateReply" destination="aJw-kY-G6e" id="i6p-jj-FNt"/>
-                        <outlet property="menuButton" destination="lnl-QN-Lej" id="Eux-D6-fjl"/>
-                        <outlet property="navigationBar" destination="NyK-87-PNK" id="37v-e7-GNa"/>
-                        <outlet property="notificationButton" destination="hDH-vb-HeA" id="A8k-yh-VYK"/>
+                        <outlet property="menuButton" destination="lnl-QN-Lej" id="ccM-bf-XMK"/>
+                        <outlet property="navigationBar" destination="NyK-87-PNK" id="oTv-4N-swP"/>
+                        <outlet property="notificationButton" destination="hDH-vb-HeA" id="yHU-m1-j7U"/>
                         <outlet property="scrViewInformation" destination="KPR-az-hRy" id="7sE-qV-7cA"/>
                         <outlet property="sgmScrollViewChange" destination="8T1-Ob-QJ9" id="eIq-X0-lOj"/>
                         <outlet property="tblViewHistory" destination="dPd-Pb-NjF" id="eTe-Cc-2Vc"/>
@@ -999,10 +982,10 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="gXS-Qg-UWe" id="HXy-jI-u4v"/>
-                        <outlet property="menuButton" destination="69e-OZ-suA" id="jMg-Uf-gGQ"/>
-                        <outlet property="navigationBar" destination="uY3-1u-jTc" id="SCQ-ic-qvr"/>
-                        <outlet property="notificationButton" destination="iTb-Ue-2fG" id="Qrt-Se-pu2"/>
+                        <outlet property="backButton" destination="gXS-Qg-UWe" id="ePy-jI-jn9"/>
+                        <outlet property="menuButton" destination="69e-OZ-suA" id="AG4-71-cF9"/>
+                        <outlet property="navigationBar" destination="uY3-1u-jTc" id="Ewj-Ab-jc1"/>
+                        <outlet property="notificationButton" destination="iTb-Ue-2fG" id="vm5-3k-sCK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VBj-QO-0Qo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1120,12 +1103,12 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="w3e-qE-YzU" id="3uQ-el-9lL"/>
+                        <outlet property="backButton" destination="w3e-qE-YzU" id="dd4-ea-2vp"/>
                         <outlet property="blurView" destination="UEt-oR-25B" id="JZz-I7-SZ3"/>
                         <outlet property="lblStatusList" destination="Ho4-M1-kMd" id="Vhk-31-VxU"/>
-                        <outlet property="menuButton" destination="xc3-Ys-aJQ" id="wji-03-bKX"/>
-                        <outlet property="navigationBar" destination="Rhb-f0-pJI" id="v2w-h9-2Ek"/>
-                        <outlet property="notificationButton" destination="PJx-qE-UkD" id="XgM-U5-TA7"/>
+                        <outlet property="menuButton" destination="xc3-Ys-aJQ" id="mgk-xS-r2c"/>
+                        <outlet property="navigationBar" destination="Rhb-f0-pJI" id="dbb-NG-QHK"/>
+                        <outlet property="notificationButton" destination="PJx-qE-UkD" id="CT6-pn-e0a"/>
                         <outlet property="periodTableView" destination="gmz-so-odz" id="3Ej-a3-F2U"/>
                         <outlet property="problemTableView" destination="QXc-fu-aYw" id="OQH-PB-1XO"/>
                         <outlet property="searchBarTableView" destination="ImI-gF-muT" id="k6K-2g-lVM"/>
@@ -1225,10 +1208,10 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="jET-VC-qiO" id="rwm-si-BJZ"/>
-                        <outlet property="menuButton" destination="192-vg-vIl" id="ydP-3D-KiN"/>
-                        <outlet property="navigationBar" destination="wvg-G7-vDS" id="bUQ-v8-24m"/>
-                        <outlet property="notificationButton" destination="Dg9-m6-pkA" id="2zB-MB-S8X"/>
+                        <outlet property="backButton" destination="jET-VC-qiO" id="wVz-2D-PkW"/>
+                        <outlet property="menuButton" destination="192-vg-vIl" id="1z2-0U-TiJ"/>
+                        <outlet property="navigationBar" destination="wvg-G7-vDS" id="0Tf-Zf-fih"/>
+                        <outlet property="notificationButton" destination="Dg9-m6-pkA" id="Ey7-No-fhd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yLp-n9-DYK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2016,10 +1999,10 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="13g-jg-Pgd" id="KHa-Rm-KU4"/>
-                        <outlet property="menuButton" destination="JDa-UA-uVn" id="lZn-ji-ctY"/>
-                        <outlet property="navigationBar" destination="Qqc-wC-dO6" id="XhU-vC-bHe"/>
-                        <outlet property="notificationButton" destination="dU8-gx-4pf" id="da6-ou-q3D"/>
+                        <outlet property="backButton" destination="13g-jg-Pgd" id="ZF5-Vp-qvM"/>
+                        <outlet property="menuButton" destination="JDa-UA-uVn" id="Jbb-0l-qjT"/>
+                        <outlet property="navigationBar" destination="Qqc-wC-dO6" id="CDP-ih-qie"/>
+                        <outlet property="notificationButton" destination="dU8-gx-4pf" id="U6h-H1-p9X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kDS-Sm-vMB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2736,10 +2719,10 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="UX0-I5-Svp" id="s3x-4Z-wOg"/>
-                        <outlet property="menuButton" destination="OcM-7V-SWQ" id="Wyi-V7-Ddv"/>
-                        <outlet property="navigationBar" destination="24c-1u-Yym" id="IM0-sf-Dau"/>
-                        <outlet property="notificationButton" destination="Iye-ix-5ks" id="Jof-Y4-xFN"/>
+                        <outlet property="backButton" destination="UX0-I5-Svp" id="odK-Nf-Hrd"/>
+                        <outlet property="menuButton" destination="OcM-7V-SWQ" id="9nm-Bi-Vra"/>
+                        <outlet property="navigationBar" destination="24c-1u-Yym" id="vlA-KL-koD"/>
+                        <outlet property="notificationButton" destination="Iye-ix-5ks" id="wOP-Hx-N1Z"/>
                         <outlet property="scrollView" destination="A3z-Eb-Nsr" id="BG0-Qk-x94"/>
                     </connections>
                 </viewController>

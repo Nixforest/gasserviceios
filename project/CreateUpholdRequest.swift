@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import harpyframework
+
 class CreateUpholdRequest: BaseRequest {
     override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
         let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
@@ -23,7 +25,7 @@ class CreateUpholdRequest: BaseRequest {
             }
             // Convert to string
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            print(dataString)
+            print(dataString ?? "")
             // Convert to object
             let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
             if model.status == "1" {
@@ -54,7 +56,7 @@ class CreateUpholdRequest: BaseRequest {
      * - parameter reqMethod: Request method
      * - parameter view: Root view
      */
-    override init(url: String, reqMethod: String, view: CommonViewController) {
+    override init(url: String, reqMethod: String, view: BaseViewController) {
         super.init(url: url, reqMethod: reqMethod, view: view)
     }
     
@@ -68,7 +70,7 @@ class CreateUpholdRequest: BaseRequest {
                  contactTel: String, requestBy: String) {
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
+            DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
             DomainConst.KEY_CUSTOMER_ID, customerId,
             DomainConst.KEY_EMPLOYEE_ID, employeeId,
             DomainConst.KEY_UPHOLD_TYPE, typeUphold,

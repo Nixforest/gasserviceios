@@ -7,7 +7,9 @@
 //
 
 import Foundation
-class G01F01MenuVC: CommonMenuViewController {
+import harpyframework
+
+class G01F01MenuVC: BaseMenuViewController {
     /**
      * Override
      */
@@ -23,7 +25,7 @@ class G01F01MenuVC: CommonMenuViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        if Singleton.shared.checkIsLogin() {
+        if BaseModel.shared.checkIsLogin() {
             setItem(listValues: [false, false, false, true, true])
         } else {
             setItem(listValues: [true, false, true, false, true])

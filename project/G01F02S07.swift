@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     // MARK: Properties
@@ -41,7 +42,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
     /**
      * Default initializer.
      */
-    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
+    init(w: CGFloat, h: CGFloat, parent: BaseViewController) {
         super.init()
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = true

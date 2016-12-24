@@ -7,7 +7,9 @@
 //
 
 import UIKit
-class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelegate, UIPopoverPresentationControllerDelegate {
+import harpyframework
+
+class StepVC: BaseViewController, UIScrollViewDelegate, ScrollButtonListDelegate, UIPopoverPresentationControllerDelegate {
     // MARK: Properties
     /** Step number */
     var _numberStep: Int                = 0
@@ -46,7 +48,7 @@ class StepVC: CommonViewController, UIScrollViewDelegate, ScrollButtonListDelega
         self.view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         // Setup navigation bar
-        setupNavigationBar(title: _title, isNotifyEnable: Singleton.shared.checkIsLogin())
+        setupNavigationBar(title: _title, isNotifyEnable: BaseModel.shared.checkIsLogin())
     }
     
     override func viewDidLayoutSubviews() {

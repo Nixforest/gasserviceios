@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import harpyframework
 
-class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
+class G01F00S02VC: BaseViewController, UIPopoverPresentationControllerDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
     // MARK: Properties
     /** Segment ScrollView Control */
     @IBOutlet weak var sgmScrollViewChange: UISegmentedControl!
@@ -153,10 +154,10 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(G01F00S02VC.reloadData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: nil)
         
         // Set data
-        if Singleton.shared.sharedInt != -1 {
+        if BaseModel.shared.sharedInt != -1 {
             // Check data is existed
-            if Singleton.shared.upholdList.record.count > Singleton.shared.sharedInt {
-                CommonProcess.requestUpholdDetail(upholdId: Singleton.shared.upholdList.record[Singleton.shared.sharedInt].id, replyId: Singleton.shared.upholdList.record[Singleton.shared.sharedInt].reply_id, view: self)
+            if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
+                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
             }
         }
     }
@@ -167,10 +168,10 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
      */
     func reloadData(_ notification: Notification) {
         // Set data
-        if Singleton.shared.sharedInt != -1 {
+        if BaseModel.shared.sharedInt != -1 {
             // Check data is existed
-            if Singleton.shared.upholdList.record.count > Singleton.shared.sharedInt {
-                CommonProcess.requestUpholdDetail(upholdId: Singleton.shared.upholdList.record[Singleton.shared.sharedInt].id, replyId: Singleton.shared.upholdList.record[Singleton.shared.sharedInt].reply_id, view: self)
+            if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
+                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
             }
         }
     }
@@ -180,7 +181,7 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
      * - parameter notification: Notification
      */
     override func setData(_ notification: Notification) {
-        viewInformation.setData(model: Singleton.shared.currentUpholdDetail)
+        viewInformation.setData(model: BaseModel.shared.currentUpholdDetail)
         
         tblViewHistory.reloadData()
         self.updateNotificationStatus()
@@ -190,11 +191,11 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
      * Clear data
      */
     override func clearData() {
-        Singleton.shared.currentUpholdDetail.reply_item.removeAll()
+        BaseModel.shared.currentUpholdDetail.reply_item.removeAll()
         tblViewHistory.reloadData()
         // Notification
-        if Singleton.shared.checkNotificationExist() {
-            Singleton.shared.clearNotificationData()
+        if BaseModel.shared.checkNotificationExist() {
+            BaseModel.shared.clearNotificationData()
         }
     }
 
@@ -226,7 +227,7 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
      * Tells the data source to return the number of rows in a given section of a table view.
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        let count:Int = Singleton.shared.currentUpholdDetail.reply_item.count
+        let count:Int = BaseModel.shared.currentUpholdDetail.reply_item.count
         return count
     }
     
@@ -238,12 +239,12 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
             let cell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL) as! G01F00S02HistoryCell
             
             // Set cell data
-            if Singleton.shared.currentUpholdDetail.reply_item.count > indexPath.row {
-                cell.setData(model: Singleton.shared.currentUpholdDetail.reply_item[indexPath.row], row: indexPath.row, view: self)
+            if BaseModel.shared.currentUpholdDetail.reply_item.count > indexPath.row {
+                cell.setData(model: BaseModel.shared.currentUpholdDetail.reply_item[indexPath.row], row: indexPath.row, view: self)
             }
             // Set data source for image collection
-            if Singleton.shared.currentUpholdDetail.reply_item.count > indexPath.row {
-                if (Singleton.shared.currentUpholdDetail.reply_item[indexPath.row].images.count > 0) {
+            if BaseModel.shared.currentUpholdDetail.reply_item.count > indexPath.row {
+                if (BaseModel.shared.currentUpholdDetail.reply_item[indexPath.row].images.count > 0) {
                     cell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
                 } else {
                     cell.hideImageCollection()
@@ -256,7 +257,7 @@ class G01F00S02VC: CommonViewController, UIPopoverPresentationControllerDelegate
      * Asks the delegate for the height to use for a row in a specified location.
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return G01F00S02HistoryCell.getTableCellHeight(model: Singleton.shared.currentUpholdDetail.reply_item[indexPath.row])
+        return G01F00S02HistoryCell.getTableCellHeight(model: BaseModel.shared.currentUpholdDetail.reply_item[indexPath.row])
     }
     
     /**
@@ -292,7 +293,7 @@ extension G01F00S02VC: UICollectionViewDelegate, UICollectionViewDataSource {
      * Asks your data source object for the number of items in the specified section.
      */
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Singleton.shared.currentUpholdDetail.reply_item[collectionView.tag].images.count
+        return BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images.count
     }
     
     /**
@@ -303,7 +304,7 @@ extension G01F00S02VC: UICollectionViewDelegate, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         
         cell.imageView1.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
-        cell.imageView1.getImgFromUrl(link: Singleton.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].thumb, contentMode: cell.imageView1.contentMode)
+        cell.imageView1.getImgFromUrl(link: BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].thumb, contentMode: cell.imageView1.contentMode)
         return cell
     }
     
@@ -314,7 +315,7 @@ extension G01F00S02VC: UICollectionViewDelegate, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         /** push to zoomIMGVC */
         zoomIMGViewController.imgPicked = cell.imageView1.image
-        zoomIMGViewController.imageView.getImgFromUrl(link: Singleton.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].large, contentMode: cell.imageView1.contentMode)
+        zoomIMGViewController.imageView.getImgFromUrl(link: BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].large, contentMode: cell.imageView1.contentMode)
         let IMGVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.ZOOM_IMAGE_VIEW_CTRL)
         self.navigationController?.pushViewController(IMGVC, animated: true)
     }

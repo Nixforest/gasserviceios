@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
     // MARK: Properties
