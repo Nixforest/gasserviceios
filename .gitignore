@@ -20,3 +20,5 @@ DerivedData
 Pods
 
 project/Users/.localized
+
+project.xcodeproj/project.xcworkspace/contents.xcworkspacedata

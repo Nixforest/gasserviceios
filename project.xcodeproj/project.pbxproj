@@ -107,8 +107,8 @@
 		92FC1A491DC3551000815EB9 /* G01F02S03.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A481DC3551000815EB9 /* G01F02S03.swift */; };
 		92FC1A4B1DC3CAC000815EB9 /* G01F02S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A4A1DC3CAC000815EB9 /* G01F02S02.swift */; };
 		92FC1A4D1DC3D3E800815EB9 /* G01F02S07.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */; };
-		D77FFB701E0EE3BC00A795AD /* step5TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77FFB6E1E0EE3BC00A795AD /* step5TableViewCell.swift */; };
-		D77FFB711E0EE3BC00A795AD /* step5TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77FFB6F1E0EE3BC00A795AD /* step5TableViewCell.xib */; };
+		D77FFB701E0EE3BC00A795AD /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77FFB6E1E0EE3BC00A795AD /* ImageTableViewCell.swift */; };
+		D77FFB711E0EE3BC00A795AD /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77FFB6F1E0EE3BC00A795AD /* ImageTableViewCell.xib */; };
 		D7BE047D1E0586A400D37740 /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; };
 		D7BE047E1E0586A400D37740 /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -275,8 +275,8 @@
 		92FC1A481DC3551000815EB9 /* G01F02S03.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S03.swift; sourceTree = "<group>"; };
 		92FC1A4A1DC3CAC000815EB9 /* G01F02S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S02.swift; sourceTree = "<group>"; };
 		92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S07.swift; sourceTree = "<group>"; };
-		D77FFB6E1E0EE3BC00A795AD /* step5TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = step5TableViewCell.swift; sourceTree = "<group>"; };
-		D77FFB6F1E0EE3BC00A795AD /* step5TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = step5TableViewCell.xib; sourceTree = "<group>"; };
+		D77FFB6E1E0EE3BC00A795AD /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
+		D77FFB6F1E0EE3BC00A795AD /* ImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
 		D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -517,8 +517,8 @@
 				92C674BF1DC526D200E8BFEA /* G01F02S04.swift */,
 				92C674C11DC53B8400E8BFEA /* G01F02S05.swift */,
 				92ADD3FD1DC655F000070FAA /* G01F02S06.swift */,
-				D77FFB6E1E0EE3BC00A795AD /* step5TableViewCell.swift */,
-				D77FFB6F1E0EE3BC00A795AD /* step5TableViewCell.xib */,
+				D77FFB6E1E0EE3BC00A795AD /* ImageTableViewCell.swift */,
+				D77FFB6F1E0EE3BC00A795AD /* ImageTableViewCell.xib */,
 				92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */,
 				84E642B91DC77B85005F6413 /* zoomIMGViewController.swift */,
 			);
@@ -752,7 +752,7 @@
 				84284E171D40DF050079DEBC /* Main.storyboard in Resources */,
 				92548F091DDEFA050036BFE5 /* ServiceRating.jpeg in Resources */,
 				92548EFC1DDEFA050036BFE5 /* gas_logo.png in Resources */,
-				D77FFB711E0EE3BC00A795AD /* step5TableViewCell.xib in Resources */,
+				D77FFB711E0EE3BC00A795AD /* ImageTableViewCell.xib in Resources */,
 				92548F031DDEFA050036BFE5 /* menu.png in Resources */,
 				92548EFA1DDEFA050036BFE5 /* delete.png in Resources */,
 				92548EF81DDEFA050036BFE5 /* contact.png in Resources */,
@@ -817,7 +817,7 @@
 				9266385E1DCC72D7001A36BF /* RatingUpholdRequest.swift in Sources */,
 				92A5C7DC1DCB7C8B00D6572F /* G01F03S02.swift in Sources */,
 				84EBBD251D8F8E7300FB4D25 /* G00InfomationVC.swift in Sources */,
-				D77FFB701E0EE3BC00A795AD /* step5TableViewCell.swift in Sources */,
+				D77FFB701E0EE3BC00A795AD /* ImageTableViewCell.swift in Sources */,
 				84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */,
 				92A5C7D31DCB4B3C00D6572F /* CreateUpholdRequest.swift in Sources */,
 				926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */,

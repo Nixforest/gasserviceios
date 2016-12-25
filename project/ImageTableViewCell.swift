@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol step5TableViewCellDelegate {
+protocol ImageTableViewCellDelegate {
     func removeAtRow(row :Int)
 }
 
-class step5TableViewCell: UITableViewCell {
+class ImageTableViewCell: UITableViewCell {
 
     var indexRow  = Int()
     
-    var delegate :step5TableViewCellDelegate?
+    var delegate :ImageTableViewCellDelegate?
     
     
     @IBOutlet weak var imgPicker: UIImageView!

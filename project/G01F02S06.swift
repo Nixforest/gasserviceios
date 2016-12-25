@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, step5TableViewCellDelegate {
+class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageTableViewCellDelegate {
     // MARK: Properties
     /** Selected value */
     static var _selectedValue: [UIImage] = [UIImage]()
@@ -83,10 +83,10 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
      * Mark step done.
      */
     func btnTapped(_ sender: AnyObject) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.allowsEditing = true
             
             self._parent?.present(imagePicker, animated: true, completion: nil)
@@ -99,7 +99,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
     
     // MARK: - TableView Datasource
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:step5TableViewCell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.G01_F02_S06_CELL) as! step5TableViewCell
+        let cell:ImageTableViewCell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.G01_F02_S06_CELL) as! ImageTableViewCell
         cell.indexRow = indexPath.row
         cell.delegate = self
         let  aImage :UIImage = G01F02S06._selectedValue[indexPath.row]
@@ -124,7 +124,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cell:step5TableViewCell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.G01_F02_S06_CELL) as! step5TableViewCell
+        let cell:ImageTableViewCell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.G01_F02_S06_CELL) as! ImageTableViewCell
         return cell.frame.height
     }
     
