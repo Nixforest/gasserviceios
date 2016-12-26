@@ -27,6 +27,8 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
     @IBOutlet weak var txtNewPassword: UITextField!
     /** Retype-New password textbox */
     @IBOutlet weak var txtNewPasswordRetype: UITextField!
+    /** Avatar image */
+    @IBOutlet weak var imgAvatar: UIImageView!
     
     // MARK: Actions
     /**
@@ -119,6 +121,15 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
         // Textfield old password
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
+        
+        imgAvatar.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.ACCOUNT_AVATAR_W) / 2,
+                                 y: heigh + GlobalConst.MARGIN,
+                                 width: GlobalConst.ACCOUNT_AVATAR_W,
+                                 height: GlobalConst.ACCOUNT_AVATAR_H)
+        imgAvatar.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
+        imgAvatar.translatesAutoresizingMaskIntoConstraints = true
+        imgAvatar.isUserInteractionEnabled = true
+        
         txtOldPassword.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
                                       y: heigh + GlobalConst.MARGIN,
                                       width: GlobalConst.EDITTEXT_W,

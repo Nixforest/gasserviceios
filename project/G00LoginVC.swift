@@ -143,7 +143,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
         txtAccount.placeholder = GlobalConst.CONTENT00049
         txtAccount.translatesAutoresizingMaskIntoConstraints = true
         // Set icon
-        setLeftViewForTextField(textField: txtAccount, named: "icon32.png")
+        setLeftViewForTextField(textField: txtAccount, named: "icon2.png")
         
         // Make username textbox is focus when load view
         //self.txtAccount.becomeFirstResponder()
@@ -157,7 +157,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
         txtPassword.placeholder = GlobalConst.CONTENT00050
         
         // Set icon
-        setLeftViewForTextField(textField: txtPassword, named: "icon39.png")
+        setLeftViewForTextField(textField: txtPassword, named: "icon3.png")
         
         // Show password check box
         chbShowPassword.frame = CGRect(x: txtPassword.frame.minX,
@@ -189,15 +189,15 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
         btnLogin.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         self.view.addSubview(btnLogin)
         btnLogin.translatesAutoresizingMaskIntoConstraints = true
-        btnLogin.setImage(UIImage(named: "icon4.png"), for: UIControlState())
-        btnLogin.imageView?.contentMode = .center
+        btnLogin.setImage(UIImage(named: "icon4-ios.png"), for: UIControlState())
+        btnLogin.imageView?.contentMode = .scaleAspectFit
         
         // Sign in button
         btnSignin.frame = CGRect(x: GlobalConst.SCREEN_WIDTH / 2 + GlobalConst.MARGIN / 2,
                                  y: btnLogin.frame.maxY,
                                  width: (GlobalConst.BUTTON_W - GlobalConst.MARGIN) / 2,
                                  height: GlobalConst.BUTTON_H)
-        btnSignin.setTitle(GlobalConst.CONTENT00227, for: UIControlState())
+        btnSignin.setTitle(GlobalConst.CONTENT00228, for: UIControlState())
         self.view.addSubview(btnSignin)
         btnSignin.translatesAutoresizingMaskIntoConstraints = true
         
@@ -208,7 +208,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
                                      width: (GlobalConst.BUTTON_W - GlobalConst.MARGIN) / 2,
                                      height: GlobalConst.BUTTON_H)
         
-        btnForgotPass.setTitle(GlobalConst.CONTENT00226, for: UIControlState())
+        btnForgotPass.setTitle(GlobalConst.CONTENT00227, for: UIControlState())
         btnForgotPass.titleLabel?.textAlignment = .right
         self.view.addSubview(btnForgotPass)
         

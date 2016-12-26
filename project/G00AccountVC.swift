@@ -149,7 +149,8 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                y: imgAvatar.frame.maxY + GlobalConst.MARGIN,
                                width: GlobalConst.ACCOUNT_ICON_SIZE,
                                height: GlobalConst.ACCOUNT_ICON_SIZE)
-        imgName.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
+        //imgName.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
+        imgName.image = UIImage(named: "icon32.png")
         imgName.translatesAutoresizingMaskIntoConstraints = true
         
         // Image phone
@@ -157,8 +158,8 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                 y: imgName.frame.maxY + GlobalConst.MARGIN,
                                 width: GlobalConst.ACCOUNT_ICON_SIZE,
                                 height: GlobalConst.ACCOUNT_ICON_SIZE)
-        imgName.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
-        imgPhone.image = UIImage(named: GlobalConst.PHONE_IMG_NAME)
+        //imgPhone.image = UIImage(named: GlobalConst.PHONE_IMG_NAME)
+        imgPhone.image = UIImage(named: "icon33-user.png")
         imgPhone.translatesAutoresizingMaskIntoConstraints = true
         
         // Image address
@@ -166,7 +167,8 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                   y: imgPhone.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.ACCOUNT_ICON_SIZE,
                                   height: GlobalConst.ACCOUNT_ICON_SIZE)
-        imgAddress.image = UIImage(named: GlobalConst.ADDRESS_IMG_NAME)
+        //imgAddress.image = UIImage(named: GlobalConst.ADDRESS_IMG_NAME)
+        imgAddress.image = UIImage(named: "icon34-user.png")
         imgAddress.translatesAutoresizingMaskIntoConstraints = true
         
         // Name Textfield customize
@@ -185,6 +187,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                 height: GlobalConst.ACCOUNT_ICON_SIZE)
         txtPhone.placeholder = GlobalConst.CONTENT00054
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
+        txtPhone.textColor = GlobalConst.BUTTON_COLOR_RED
         txtPhone.delegate = self
         
         // Address textfield
@@ -201,33 +204,39 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                   y: txtAddress.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.BUTTON_W,
                                   height: GlobalConst.BUTTON_H)
-        saveButton.setTitle(GlobalConst.CONTENT00086, for: UIControlState())
+        saveButton.setTitle(GlobalConst.CONTENT00229.uppercased(), for: UIControlState())
         saveButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         saveButton.setTitleColor(UIColor.white, for: UIControlState())
         saveButton.translatesAutoresizingMaskIntoConstraints = true
-        saveButton.layer.cornerRadius = 6
+        saveButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        saveButton.setImage(UIImage(named: "icon35-user.png"), for: UIControlState())
+        saveButton.imageView?.contentMode = .center
         
         // Change password button
         changePasswordButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                                             y: saveButton.frame.maxY + GlobalConst.MARGIN,
                                             width: GlobalConst.BUTTON_W,
                                             height: GlobalConst.BUTTON_H)
-        changePasswordButton.setTitle(GlobalConst.CONTENT00089, for: UIControlState())
+        changePasswordButton.setTitle(GlobalConst.CONTENT00089.uppercased(), for: UIControlState())
         changePasswordButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         changePasswordButton.setTitleColor(UIColor.white, for: UIControlState())
-        changePasswordButton.layer.cornerRadius = 6
+        changePasswordButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         changePasswordButton.translatesAutoresizingMaskIntoConstraints = true
+        changePasswordButton.setImage(UIImage(named: "icon36-user.png"), for: UIControlState())
+        changePasswordButton.imageView?.contentMode = .center
         
         // Logout button
         logoutButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                                     y: changePasswordButton.frame.maxY + GlobalConst.MARGIN,
                                     width: GlobalConst.BUTTON_W,
                                     height: GlobalConst.BUTTON_H)
-        logoutButton.setTitle(GlobalConst.CONTENT00090, for: UIControlState())
-        logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        logoutButton.setTitle(GlobalConst.CONTENT00090.uppercased(), for: UIControlState())
+        logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
         logoutButton.setTitleColor(UIColor.white, for: UIControlState())
-        logoutButton.layer.cornerRadius = 6
+        logoutButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
+        logoutButton.setImage(UIImage(named: "icon37-user.png"), for: UIControlState())
+        logoutButton.imageView?.contentMode = .center
         
         // Navigation Bar customize
         setupNavigationBar(title: GlobalConst.CONTENT00100, isNotifyEnable: true)
