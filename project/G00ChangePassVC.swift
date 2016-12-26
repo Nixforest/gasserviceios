@@ -30,6 +30,10 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
     /** Avatar image */
     @IBOutlet weak var imgAvatar: UIImageView!
     
+    @IBOutlet weak var imgOldPass: UIImageView!
+    @IBOutlet weak var imgNewPass: UIImageView!
+    @IBOutlet weak var imgNewPassconfirm: UIImageView!
+    @IBOutlet weak var lblName: UILabel!
     // MARK: Actions
     /**
      * Handle tap on checkbox button
@@ -130,28 +134,62 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
         imgAvatar.translatesAutoresizingMaskIntoConstraints = true
         imgAvatar.isUserInteractionEnabled = true
         
-        txtOldPassword.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
-                                      y: heigh + GlobalConst.MARGIN,
-                                      width: GlobalConst.EDITTEXT_W,
-                                      height: GlobalConst.EDITTEXT_H)
+        // Label name
+        lblName.translatesAutoresizingMaskIntoConstraints = true
+        lblName.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
+                               y: imgAvatar.frame.maxY + GlobalConst.MARGIN_CELL_Y,
+                               width: GlobalConst.EDITTEXT_W,
+                               height: GlobalConst.EDITTEXT_H)
+        lblName.text = BaseModel.shared.user_info?.getName()
+        lblName.textAlignment = .center
+        lblName.textColor = GlobalConst.BUTTON_COLOR_RED
+        
+        // Image old pass
+        imgOldPass.frame = CGRect(x: GlobalConst.MARGIN,
+                               y: lblName.frame.maxY + GlobalConst.MARGIN,
+                               width: GlobalConst.ACCOUNT_ICON_SIZE,
+                               height: GlobalConst.ACCOUNT_ICON_SIZE)
+        imgOldPass.image = UIImage(named: "icon38.png")
+        imgOldPass.translatesAutoresizingMaskIntoConstraints = true
+        
+        // Image new pass
+        imgNewPass.frame = CGRect(x: GlobalConst.MARGIN,
+                                  y: imgOldPass.frame.maxY + GlobalConst.MARGIN,
+                                  width: GlobalConst.ACCOUNT_ICON_SIZE,
+                                  height: GlobalConst.ACCOUNT_ICON_SIZE)
+        imgNewPass.image = UIImage(named: "icon38.png")
+        imgNewPass.translatesAutoresizingMaskIntoConstraints = true
+        
+        // Image new pass
+        imgNewPassconfirm.frame = CGRect(x: GlobalConst.MARGIN,
+                                  y: imgNewPass.frame.maxY + GlobalConst.MARGIN,
+                                  width: GlobalConst.ACCOUNT_ICON_SIZE,
+                                  height: GlobalConst.ACCOUNT_ICON_SIZE)
+        imgNewPassconfirm.image = UIImage(named: "icon39.png")
+        imgNewPassconfirm.translatesAutoresizingMaskIntoConstraints = true
+        
+        txtOldPassword.frame = CGRect(x: imgOldPass.frame.maxX + GlobalConst.MARGIN,
+                                      y: imgOldPass.frame.minY,
+                                      width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
+                                      height: GlobalConst.ACCOUNT_ICON_SIZE)
         txtOldPassword.placeholder = GlobalConst.CONTENT00083
         txtOldPassword.translatesAutoresizingMaskIntoConstraints = true
         txtOldPassword.delegate = self
         
         // Textfield new password
-        txtNewPassword.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
-                                      y: txtOldPassword.frame.maxY + GlobalConst.MARGIN,
-                                      width: GlobalConst.EDITTEXT_W,
-                                      height: GlobalConst.EDITTEXT_H)
+        txtNewPassword.frame = CGRect(x: imgNewPass.frame.maxX + GlobalConst.MARGIN,
+                                      y: imgNewPass.frame.minY,
+                                      width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
+                                      height: GlobalConst.ACCOUNT_ICON_SIZE)
         txtNewPassword.placeholder = GlobalConst.CONTENT00084
         txtNewPassword.translatesAutoresizingMaskIntoConstraints = true
         txtNewPassword.delegate = self
         
         // Textfield new password retype
-        txtNewPasswordRetype.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
-                                            y: txtNewPassword.frame.maxY + GlobalConst.MARGIN,
-                                            width: GlobalConst.EDITTEXT_W,
-                                            height: GlobalConst.EDITTEXT_H)
+        txtNewPasswordRetype.frame = CGRect(x: imgNewPassconfirm.frame.maxX + GlobalConst.MARGIN,
+                                            y: imgNewPassconfirm.frame.minY,
+                                            width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
+                                            height: GlobalConst.ACCOUNT_ICON_SIZE)
         txtNewPasswordRetype.placeholder = GlobalConst.CONTENT00085
         txtNewPasswordRetype.translatesAutoresizingMaskIntoConstraints = true
         txtNewPasswordRetype.delegate = self
@@ -181,11 +219,13 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
                                   y: checkboxButton.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.BUTTON_W,
                                   height: GlobalConst.BUTTON_H)
-        saveButton.setTitle(GlobalConst.CONTENT00086, for: UIControlState())
+        saveButton.setTitle(GlobalConst.CONTENT00229.uppercased(), for: UIControlState())
         saveButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         saveButton.setTitleColor(UIColor.white, for: UIControlState())
         saveButton.translatesAutoresizingMaskIntoConstraints = true
-        saveButton.layer.cornerRadius = 6
+        saveButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        saveButton.setImage(UIImage(named: "icon35-user.png"), for: UIControlState())
+        saveButton.imageView?.contentMode = .scaleAspectFit
         
         // Logout buton
         logoutButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,

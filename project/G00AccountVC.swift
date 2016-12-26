@@ -150,7 +150,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                width: GlobalConst.ACCOUNT_ICON_SIZE,
                                height: GlobalConst.ACCOUNT_ICON_SIZE)
         //imgName.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
-        imgName.image = UIImage(named: "icon32.png")
+        imgName.image = UIImage(named: "icon32-user-iso.png")
         imgName.translatesAutoresizingMaskIntoConstraints = true
         
         // Image phone
@@ -159,7 +159,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                 width: GlobalConst.ACCOUNT_ICON_SIZE,
                                 height: GlobalConst.ACCOUNT_ICON_SIZE)
         //imgPhone.image = UIImage(named: GlobalConst.PHONE_IMG_NAME)
-        imgPhone.image = UIImage(named: "icon33-user.png")
+        imgPhone.image = UIImage(named: "icon33-user-iso.png")
         imgPhone.translatesAutoresizingMaskIntoConstraints = true
         
         // Image address
@@ -168,7 +168,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                   width: GlobalConst.ACCOUNT_ICON_SIZE,
                                   height: GlobalConst.ACCOUNT_ICON_SIZE)
         //imgAddress.image = UIImage(named: GlobalConst.ADDRESS_IMG_NAME)
-        imgAddress.image = UIImage(named: "icon34-user.png")
+        imgAddress.image = UIImage(named: "icon34-user-iso.png")
         imgAddress.translatesAutoresizingMaskIntoConstraints = true
         
         // Name Textfield customize
@@ -210,7 +210,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
         saveButton.translatesAutoresizingMaskIntoConstraints = true
         saveButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         saveButton.setImage(UIImage(named: "icon35-user.png"), for: UIControlState())
-        saveButton.imageView?.contentMode = .center
+        saveButton.imageView?.contentMode = .scaleAspectFit
         
         // Change password button
         changePasswordButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
@@ -223,7 +223,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
         changePasswordButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         changePasswordButton.translatesAutoresizingMaskIntoConstraints = true
         changePasswordButton.setImage(UIImage(named: "icon36-user.png"), for: UIControlState())
-        changePasswordButton.imageView?.contentMode = .center
+        changePasswordButton.imageView?.contentMode = .scaleAspectFit
         
         // Logout button
         logoutButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
@@ -236,7 +236,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
         logoutButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
         logoutButton.setImage(UIImage(named: "icon37-user.png"), for: UIControlState())
-        logoutButton.imageView?.contentMode = .center
+        logoutButton.imageView?.contentMode = .scaleAspectFit
         
         // Navigation Bar customize
         setupNavigationBar(title: GlobalConst.CONTENT00100, isNotifyEnable: true)
