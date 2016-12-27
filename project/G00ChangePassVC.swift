@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelegate,UITextFieldDelegate {
+class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
     // MARK: Properties
     /** Flag show password */
     var bShowPassword:Bool!
@@ -283,6 +283,10 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
      */
     func hideKeyboard(_ sender:UITapGestureRecognizer){
         self.view.endEditing(true)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.frame = CGRect(x: self.view.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        })
         isKeyboardShow = false
     }
     
@@ -291,7 +295,12 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
      * - parameter textField: Textfield will be focusing
      */
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
-        isKeyboardShow = true
+        if isKeyboardShow == false {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - 100, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            })
+            isKeyboardShow = true
+        }
         return true
     }
     

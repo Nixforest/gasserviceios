@@ -42,7 +42,7 @@ class G00RegisterVC: BaseViewController, UIPopoverPresentationControllerDelegate
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(super.configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM),
+                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_REGISTERVIEW),
                                                object: nil)
     }
     

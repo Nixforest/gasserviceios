@@ -11,6 +11,14 @@ import harpyframework
 
 class G00RegisterMenuVC: BaseMenuViewController {
     /**
+     * Override
+     */
+    override func configItemTapped(_ sender: AnyObject) {
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_REGISTERVIEW), object: nil)
+        }
+    }
+    /**
      * View did load.
      */
     override func viewDidLoad() {
