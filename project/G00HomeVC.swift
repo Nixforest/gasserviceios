@@ -110,6 +110,11 @@ class G00HomeVC: BaseViewController, UIPopoverPresentationControllerDelegate, UI
         if BaseModel.shared.checkIsLogin() {
             RequestAPI.requestUpdateConfiguration(view: self)
         }
+        
+        // Handle waiting register code confirm
+        if !BaseModel.shared.getTempToken().isEmpty {
+            self.processInputConfirmCode(message: "")
+        }
     }
     
     /**

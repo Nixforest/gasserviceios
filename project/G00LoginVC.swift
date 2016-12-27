@@ -36,7 +36,6 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
     
     // MARK: Actions
     /**
-     @IBOutlet weak var btnForgotPass: UIButton!
      * Handle check/uncheck on Show password checkbox
      * - parameter sender:AnyObject
      */
@@ -115,7 +114,6 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
         asignNotifyForMenuItem()
         
         // Background
-        //self.view.backgroundColor   = GlobalConst.BACKGROUND_COLOR_GRAY
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
         
@@ -187,7 +185,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
         btnLogin.setTitleColor(UIColor.white, for: UIControlState())
         btnLogin.addTarget(self, action: #selector(Login), for: .touchUpInside)
         btnLogin.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        self.view.addSubview(btnLogin)
+        //self.view.addSubview(btnLogin)
         btnLogin.translatesAutoresizingMaskIntoConstraints = true
         btnLogin.setImage(UIImage(named: "icon4-ios.png"), for: UIControlState())
         btnLogin.imageView?.contentMode = .scaleAspectFit
@@ -198,7 +196,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
                                  width: (GlobalConst.BUTTON_W - GlobalConst.MARGIN) / 2,
                                  height: GlobalConst.BUTTON_H)
         btnSignin.setTitle(GlobalConst.CONTENT00228, for: UIControlState())
-        self.view.addSubview(btnSignin)
+        //self.view.addSubview(btnSignin)
         btnSignin.translatesAutoresizingMaskIntoConstraints = true
         
         // Forgot password button
@@ -210,7 +208,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
         
         btnForgotPass.setTitle(GlobalConst.CONTENT00227, for: UIControlState())
         btnForgotPass.titleLabel?.textAlignment = .right
-        self.view.addSubview(btnForgotPass)
+        //self.view.addSubview(btnForgotPass)
         
         // Separator
         btnSeparator.translatesAutoresizingMaskIntoConstraints = true
@@ -221,7 +219,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
         
         //btnSeparator.setTitle(GlobalConst.CONTENT00226, for: UIControlState())
         btnSeparator.titleLabel?.textAlignment = .right
-        self.view.addSubview(btnForgotPass)
+        //self.view.addSubview(btnForgotPass)
         
         // Navigation bar
         setupNavigationBar(title: GlobalConst.CONTENT00051, isNotifyEnable: false)

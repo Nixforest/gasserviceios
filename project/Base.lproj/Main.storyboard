@@ -169,10 +169,10 @@
             </objects>
             <point key="canvasLocation" x="264" y="-273"/>
         </scene>
-        <!--Register View Controller-->
+        <!--RegisterVC-->
         <scene sceneID="iBv-gj-05c">
             <objects>
-                <viewController storyboardIdentifier="RegisterViewController" id="YPW-4o-Cgg" customClass="RegisterViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G00RegisterVC" id="YPW-4o-Cgg" customClass="G00RegisterVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="U6T-C2-NLn"/>
                         <viewControllerLayoutGuide type="bottom" id="4cx-X3-rRq"/>
@@ -181,20 +181,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-iS-2z7">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-iS-2z7">
                                 <rect key="frame" x="100" y="93" width="120" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yn0-lh-GNK">
-                                <rect key="frame" x="32" y="255" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KDi-Lh-zBo">
-                                <rect key="frame" x="32" y="303" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kWQ-5y-74b">
-                                <rect key="frame" x="32" y="350" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wKu-2I-Rd6">
@@ -202,29 +190,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
-                                <connections>
-                                    <outlet property="delegate" destination="YPW-4o-Cgg" id="jHP-xG-nPY"/>
-                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J77-ED-FYO">
                                 <rect key="frame" x="95" y="303" width="185" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
-                                <connections>
-                                    <outlet property="delegate" destination="YPW-4o-Cgg" id="o0g-Iq-O79"/>
-                                </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BWH-be-3MO">
-                                <rect key="frame" x="95" y="350" width="185" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                <connections>
-                                    <outlet property="delegate" destination="YPW-4o-Cgg" id="apg-58-Cm5"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bu-IU-aFw">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bu-IU-aFw">
                                 <rect key="frame" x="137" y="417" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
@@ -250,7 +223,6 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Button"/>
                                     <connections>
-                                        <action selector="showPopover:" destination="YPW-4o-Cgg" eventType="touchUpInside" id="f1p-rI-mpf"/>
                                         <segue destination="WUI-Fv-jsk" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="zhX-ik-1Wi" id="1gm-Nt-X2r">
                                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                         </segue>
@@ -268,16 +240,12 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="a2M-Ls-2Fj" id="kHP-y1-0gs"/>
-                        <outlet property="imgAddress" destination="kWQ-5y-74b" id="HZH-Ne-Abf"/>
+                        <outlet property="backButton" destination="a2M-Ls-2Fj" id="PPO-6T-yne"/>
                         <outlet property="imgCenter" destination="Tg7-iS-2z7" id="tjc-10-NQT"/>
-                        <outlet property="imgName" destination="Yn0-lh-GNK" id="naQ-SI-TNV"/>
-                        <outlet property="imgPhone" destination="KDi-Lh-zBo" id="SiQ-cJ-Qn6"/>
-                        <outlet property="menuButton" destination="zhX-ik-1Wi" id="255-Ut-TdE"/>
-                        <outlet property="navigationBar" destination="T3Y-cB-U1w" id="HdJ-x4-7N1"/>
-                        <outlet property="notificationButton" destination="o1H-gH-Gbh" id="1wt-VT-vMf"/>
+                        <outlet property="menuButton" destination="zhX-ik-1Wi" id="1Lm-gv-tgN"/>
+                        <outlet property="navigationBar" destination="T3Y-cB-U1w" id="l2K-CO-TUL"/>
+                        <outlet property="notificationButton" destination="o1H-gH-Gbh" id="meU-nP-b5u"/>
                         <outlet property="registerButton" destination="5bu-IU-aFw" id="Hyt-Xt-diQ"/>
-                        <outlet property="txtAddress" destination="BWH-be-3MO" id="zjY-Zz-Yed"/>
                         <outlet property="txtName" destination="wKu-2I-Rd6" id="Afg-Bf-etU"/>
                         <outlet property="txtPhone" destination="J77-ED-FYO" id="W4o-zl-hvZ"/>
                     </connections>
@@ -766,10 +734,10 @@
             </objects>
             <point key="canvasLocation" x="1784" y="-1466"/>
         </scene>
-        <!--Right Menu Register View Controller-->
+        <!--Register MenuVC-->
         <scene sceneID="hlB-Ra-rF6">
             <objects>
-                <viewController id="WUI-Fv-jsk" customClass="rightMenuRegisterViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="G00RegisterMenuVC" id="WUI-Fv-jsk" customClass="G00RegisterMenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vav-tQ-wXo"/>
                         <viewControllerLayoutGuide type="bottom" id="tbI-zV-X0a"/>
@@ -777,32 +745,22 @@
                     <view key="view" contentMode="scaleToFill" id="rCf-rH-MI4">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D0E-Td-MwJ">
-                                <rect key="frame" x="77" y="20" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="200" height="50"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="200" height="50"/>
-                    <connections>
-                        <outlet property="button1" destination="D0E-Td-MwJ" id="a4T-Ub-WcF"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dIC-Xo-ZUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-390" y="950"/>
+            <point key="canvasLocation" x="-142" y="965"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="v9T-u5-Xsu">
             <objects>
                 <navigationController storyboardIdentifier="RegisterView" automaticallyAdjustsScrollViewInsets="NO" id="TrL-Mo-e0y" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iTG-WP-Wbu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iTG-WP-Wbu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1264,7 +1222,7 @@
             <objects>
                 <navigationController storyboardIdentifier="G00Account" automaticallyAdjustsScrollViewInsets="NO" id="ane-Qi-P6z" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="o05-76-YMR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="o05-76-YMR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1282,7 +1240,7 @@
             <objects>
                 <navigationController storyboardIdentifier="ChangePassView" automaticallyAdjustsScrollViewInsets="NO" id="Aja-fU-N1M" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zJ7-0h-zjj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="zJ7-0h-zjj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1425,7 +1383,7 @@
             <objects>
                 <navigationController storyboardIdentifier="G00ConfigurationView" automaticallyAdjustsScrollViewInsets="NO" id="bKn-Rs-Bj7" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DAi-5t-vKO">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="DAi-5t-vKO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1443,7 +1401,7 @@
             <objects>
                 <navigationController storyboardIdentifier="G00Information" automaticallyAdjustsScrollViewInsets="NO" id="2qR-cd-Huk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YZu-qP-1Rj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YZu-qP-1Rj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1479,7 +1437,7 @@
             <objects>
                 <navigationController storyboardIdentifier="G01F01" automaticallyAdjustsScrollViewInsets="NO" id="P8R-4d-Rph" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2wo-8X-ORb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2wo-8X-ORb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1892,7 +1850,7 @@
             <objects>
                 <navigationController storyboardIdentifier="ReplyUphold" automaticallyAdjustsScrollViewInsets="NO" id="3ao-6U-3ik" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LLA-XI-v2f">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="LLA-XI-v2f">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1907,7 +1865,7 @@
             <objects>
                 <navigationController storyboardIdentifier="G01F03" automaticallyAdjustsScrollViewInsets="NO" id="eJO-bu-CAo" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rWa-XI-QU5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="rWa-XI-QU5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2095,7 +2053,7 @@
             <objects>
                 <navigationController storyboardIdentifier="G01F00S03" automaticallyAdjustsScrollViewInsets="NO" id="ODc-6f-NW6" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Tg-Vx-suc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="1Tg-Vx-suc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2113,7 +2071,7 @@
             <objects>
                 <navigationController storyboardIdentifier="PeriodUpholdDetail" automaticallyAdjustsScrollViewInsets="NO" id="dhS-aQ-Ihg" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Wa-iP-zHj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6Wa-iP-zHj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2131,7 +2089,7 @@
             <objects>
                 <navigationController storyboardIdentifier="G00Home" automaticallyAdjustsScrollViewInsets="NO" id="znD-RF-xzp" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="G1Z-Ad-pGB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="G1Z-Ad-pGB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2149,7 +2107,7 @@
             <objects>
                 <navigationController storyboardIdentifier="ZoomImage" automaticallyAdjustsScrollViewInsets="NO" id="xM5-pI-qGs" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BKN-6b-Cp1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="BKN-6b-Cp1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

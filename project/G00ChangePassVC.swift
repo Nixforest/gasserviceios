@@ -149,7 +149,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
                                y: lblName.frame.maxY + GlobalConst.MARGIN,
                                width: GlobalConst.ACCOUNT_ICON_SIZE,
                                height: GlobalConst.ACCOUNT_ICON_SIZE)
-        imgOldPass.image = UIImage(named: "icon38.png")
+        imgOldPass.image = UIImage(named: "icon38-user-ios.png")
         imgOldPass.translatesAutoresizingMaskIntoConstraints = true
         
         // Image new pass
@@ -157,7 +157,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
                                   y: imgOldPass.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.ACCOUNT_ICON_SIZE,
                                   height: GlobalConst.ACCOUNT_ICON_SIZE)
-        imgNewPass.image = UIImage(named: "icon38.png")
+        imgNewPass.image = UIImage(named: "icon38-user-ios.png")
         imgNewPass.translatesAutoresizingMaskIntoConstraints = true
         
         // Image new pass
@@ -165,7 +165,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
                                   y: imgNewPass.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.ACCOUNT_ICON_SIZE,
                                   height: GlobalConst.ACCOUNT_ICON_SIZE)
-        imgNewPassconfirm.image = UIImage(named: "icon39.png")
+        imgNewPassconfirm.image = UIImage(named: "icon39-doimatkhau-ios.png")
         imgNewPassconfirm.translatesAutoresizingMaskIntoConstraints = true
         
         txtOldPassword.frame = CGRect(x: imgOldPass.frame.maxX + GlobalConst.MARGIN,
@@ -224,7 +224,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
         saveButton.setTitleColor(UIColor.white, for: UIControlState())
         saveButton.translatesAutoresizingMaskIntoConstraints = true
         saveButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        saveButton.setImage(UIImage(named: "icon35-user.png"), for: UIControlState())
+        saveButton.setImage(UIImage(named: "icon35-user-ios.png"), for: UIControlState())
         saveButton.imageView?.contentMode = .scaleAspectFit
         
         // Logout buton
@@ -240,7 +240,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
         
         // Navigation Bar customize
         setupNavigationBar(title: GlobalConst.CONTENT00089, isNotifyEnable: true)
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.hideKeyboard(_:)))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
     }
 

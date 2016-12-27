@@ -209,7 +209,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
         saveButton.setTitleColor(UIColor.white, for: UIControlState())
         saveButton.translatesAutoresizingMaskIntoConstraints = true
         saveButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        saveButton.setImage(UIImage(named: "icon35-user.png"), for: UIControlState())
+        saveButton.setImage(UIImage(named: "icon35-user-ios.png"), for: UIControlState())
         saveButton.imageView?.contentMode = .scaleAspectFit
         
         // Change password button
@@ -222,7 +222,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
         changePasswordButton.setTitleColor(UIColor.white, for: UIControlState())
         changePasswordButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         changePasswordButton.translatesAutoresizingMaskIntoConstraints = true
-        changePasswordButton.setImage(UIImage(named: "icon36-user.png"), for: UIControlState())
+        changePasswordButton.setImage(UIImage(named: "icon36-user-ios.png"), for: UIControlState())
         changePasswordButton.imageView?.contentMode = .scaleAspectFit
         
         // Logout button
@@ -235,7 +235,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
         logoutButton.setTitleColor(UIColor.white, for: UIControlState())
         logoutButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
-        logoutButton.setImage(UIImage(named: "icon37-user.png"), for: UIControlState())
+        logoutButton.setImage(UIImage(named: "icon37-user-ios.png"), for: UIControlState())
         logoutButton.imageView?.contentMode = .scaleAspectFit
         
         // Navigation Bar customize

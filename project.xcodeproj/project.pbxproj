@@ -35,7 +35,7 @@
 		84A4C06B1D6311D000C0B84C /* example.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C06A1D6311D000C0B84C /* example.txt */; };
 		84D930D61DBA084A007A8F02 /* G01F00S02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D930D51DBA084A007A8F02 /* G01F00S02MenuVC.swift */; };
 		84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC0D811D494D0E00E52249 /* SWRevealViewController.m */; };
-		84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1C4AB1D621A7B00ADD587 /* RegisterViewController.swift */; };
+		84E1C4AC1D621A7B00ADD587 /* G00RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1C4AB1D621A7B00ADD587 /* G00RegisterVC.swift */; };
 		84E1E7A01D664CCD007710BD /* G00ChangePassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1E79F1D664CCD007710BD /* G00ChangePassVC.swift */; };
 		84E642BA1DC77B85005F6413 /* zoomIMGViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E642B91DC77B85005F6413 /* zoomIMGViewController.swift */; };
 		84E7184B1D660859006F4995 /* G00AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7184A1D660859006F4995 /* G00AccountVC.swift */; };
@@ -109,6 +109,12 @@
 		92FC1A4D1DC3D3E800815EB9 /* G01F02S07.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */; };
 		D77FFB701E0EE3BC00A795AD /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77FFB6E1E0EE3BC00A795AD /* ImageTableViewCell.swift */; };
 		D77FFB711E0EE3BC00A795AD /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77FFB6F1E0EE3BC00A795AD /* ImageTableViewCell.xib */; };
+		D7A525CE1E11F2F900E4DEF1 /* icon35-user-ios.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A525C81E11F2F900E4DEF1 /* icon35-user-ios.png */; };
+		D7A525CF1E11F2F900E4DEF1 /* icon36-user-ios.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A525C91E11F2F900E4DEF1 /* icon36-user-ios.png */; };
+		D7A525D01E11F2F900E4DEF1 /* icon37-user-ios.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A525CA1E11F2F900E4DEF1 /* icon37-user-ios.png */; };
+		D7A525D11E11F2F900E4DEF1 /* icon38-user-ios.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A525CB1E11F2F900E4DEF1 /* icon38-user-ios.png */; };
+		D7A525D21E11F2F900E4DEF1 /* icon39-doimatkhau-ios.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A525CC1E11F2F900E4DEF1 /* icon39-doimatkhau-ios.png */; };
+		D7A525D31E11F2F900E4DEF1 /* phone-ios.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A525CD1E11F2F900E4DEF1 /* phone-ios.png */; };
 		D7BE047D1E0586A400D37740 /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; };
 		D7BE047E1E0586A400D37740 /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D7CA5DAD1E10340300FCC78D /* bg1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7CA5DAC1E10340300FCC78D /* bg1.jpg */; };
@@ -126,6 +132,7 @@
 		D7EF193C1E10D1570054A3AF /* icon33-user-iso.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EF19391E10D1570054A3AF /* icon33-user-iso.png */; };
 		D7EF193D1E10D1570054A3AF /* icon34-user-iso.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EF193A1E10D1570054A3AF /* icon34-user-iso.png */; };
 		D7EF193F1E10D1740054A3AF /* icon38.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EF193E1E10D1740054A3AF /* icon38.png */; };
+		D7EF19411E10EFEC0054A3AF /* G00RegisterMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EF19401E10EFEC0054A3AF /* G00RegisterMenuVC.swift */; };
 		D7F683211E103A38006FA905 /* logo-1.png in Resources */ = {isa = PBXBuildFile; fileRef = D7F683201E103A38006FA905 /* logo-1.png */; };
 		D7F683241E103CF3006FA905 /* icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = D7F683231E103CF3006FA905 /* icon2.png */; };
 		D7F683281E103EFB006FA905 /* icon39.png in Resources */ = {isa = PBXBuildFile; fileRef = D7F683261E103EFB006FA905 /* icon39.png */; };
@@ -221,7 +228,7 @@
 		84DC0D7F1D494D0D00E52249 /* project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "project-Bridging-Header.h"; sourceTree = "<group>"; };
 		84DC0D801D494D0E00E52249 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		84DC0D811D494D0E00E52249 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		84E1C4AB1D621A7B00ADD587 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		84E1C4AB1D621A7B00ADD587 /* G00RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00RegisterVC.swift; sourceTree = "<group>"; };
 		84E1E79F1D664CCD007710BD /* G00ChangePassVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00ChangePassVC.swift; sourceTree = "<group>"; };
 		84E642B91DC77B85005F6413 /* zoomIMGViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zoomIMGViewController.swift; sourceTree = "<group>"; };
 		84E7184A1D660859006F4995 /* G00AccountVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00AccountVC.swift; sourceTree = "<group>"; };
@@ -296,6 +303,12 @@
 		92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S07.swift; sourceTree = "<group>"; };
 		D77FFB6E1E0EE3BC00A795AD /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		D77FFB6F1E0EE3BC00A795AD /* ImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
+		D7A525C81E11F2F900E4DEF1 /* icon35-user-ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon35-user-ios.png"; path = "images/icon35-user-ios.png"; sourceTree = "<group>"; };
+		D7A525C91E11F2F900E4DEF1 /* icon36-user-ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon36-user-ios.png"; path = "images/icon36-user-ios.png"; sourceTree = "<group>"; };
+		D7A525CA1E11F2F900E4DEF1 /* icon37-user-ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon37-user-ios.png"; path = "images/icon37-user-ios.png"; sourceTree = "<group>"; };
+		D7A525CB1E11F2F900E4DEF1 /* icon38-user-ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon38-user-ios.png"; path = "images/icon38-user-ios.png"; sourceTree = "<group>"; };
+		D7A525CC1E11F2F900E4DEF1 /* icon39-doimatkhau-ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon39-doimatkhau-ios.png"; path = "images/icon39-doimatkhau-ios.png"; sourceTree = "<group>"; };
+		D7A525CD1E11F2F900E4DEF1 /* phone-ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone-ios.png"; path = "images/phone-ios.png"; sourceTree = "<group>"; };
 		D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 		D7CA5DAC1E10340300FCC78D /* bg1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = bg1.jpg; path = images/bg1.jpg; sourceTree = "<group>"; };
 		D7EF19231E10B2560054A3AF /* icon33-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon33-user.png"; path = "images/icon33-user.png"; sourceTree = "<group>"; };
@@ -312,6 +325,7 @@
 		D7EF19391E10D1570054A3AF /* icon33-user-iso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon33-user-iso.png"; path = "images/icon33-user-iso.png"; sourceTree = "<group>"; };
 		D7EF193A1E10D1570054A3AF /* icon34-user-iso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon34-user-iso.png"; path = "images/icon34-user-iso.png"; sourceTree = "<group>"; };
 		D7EF193E1E10D1740054A3AF /* icon38.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon38.png; path = images/icon38.png; sourceTree = "<group>"; };
+		D7EF19401E10EFEC0054A3AF /* G00RegisterMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00RegisterMenuVC.swift; sourceTree = "<group>"; };
 		D7F683201E103A38006FA905 /* logo-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-1.png"; path = "images/logo-1.png"; sourceTree = "<group>"; };
 		D7F683231E103CF3006FA905 /* icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon2.png; path = images/icon2.png; sourceTree = "<group>"; };
 		D7F683261E103EFB006FA905 /* icon39.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon39.png; path = images/icon39.png; sourceTree = "<group>"; };
@@ -426,6 +440,12 @@
 		84DC0D7C1D494B3000E52249 /* IMG */ = {
 			isa = PBXGroup;
 			children = (
+				D7A525C81E11F2F900E4DEF1 /* icon35-user-ios.png */,
+				D7A525C91E11F2F900E4DEF1 /* icon36-user-ios.png */,
+				D7A525CA1E11F2F900E4DEF1 /* icon37-user-ios.png */,
+				D7A525CB1E11F2F900E4DEF1 /* icon38-user-ios.png */,
+				D7A525CC1E11F2F900E4DEF1 /* icon39-doimatkhau-ios.png */,
+				D7A525CD1E11F2F900E4DEF1 /* phone-ios.png */,
 				D7EF193E1E10D1740054A3AF /* icon38.png */,
 				D7EF19381E10D1570054A3AF /* icon32-user-iso.png */,
 				D7EF19391E10D1570054A3AF /* icon33-user-iso.png */,
@@ -550,7 +570,8 @@
 				92BF0C1B1DC1ADD2009B1DA4 /* G00HomeMenuVC.swift */,
 				84E863531DC0E8BA00F18AA5 /* G00HomeCell.swift */,
 				84E863541DC0E8BA00F18AA5 /* G00HomeCell.xib */,
-				84E1C4AB1D621A7B00ADD587 /* RegisterViewController.swift */,
+				84E1C4AB1D621A7B00ADD587 /* G00RegisterVC.swift */,
+				D7EF19401E10EFEC0054A3AF /* G00RegisterMenuVC.swift */,
 				84E7184A1D660859006F4995 /* G00AccountVC.swift */,
 				842CA8E61D89045E003D9EFF /* G00AccountMenuVC.swift */,
 				84E1E79F1D664CCD007710BD /* G00ChangePassVC.swift */,
@@ -795,13 +816,16 @@
 				84F246871D93DDB300259C35 /* searchBarTableViewCell.xib in Resources */,
 				84284E1C1D40DF050079DEBC /* LaunchScreen.storyboard in Resources */,
 				84E863561DC0E8BA00F18AA5 /* G00HomeCell.xib in Resources */,
+				D7A525D11E11F2F900E4DEF1 /* icon38-user-ios.png in Resources */,
 				92548F021DDEFA050036BFE5 /* logoutMenu.png in Resources */,
 				92548F011DDEFA050036BFE5 /* logout.png in Resources */,
 				92548EFB1DDEFA050036BFE5 /* done.png in Resources */,
 				D7F683211E103A38006FA905 /* logo-1.png in Resources */,
 				84A4C06B1D6311D000C0B84C /* example.txt in Resources */,
+				D7A525CF1E11F2F900E4DEF1 /* icon36-user-ios.png in Resources */,
 				84284E191D40DF050079DEBC /* Assets.xcassets in Resources */,
 				92548F041DDEFA050036BFE5 /* mobile.png in Resources */,
+				D7A525D01E11F2F900E4DEF1 /* icon37-user-ios.png in Resources */,
 				92548F081DDEFA050036BFE5 /* regMenu.png in Resources */,
 				92548EF21DDEFA050036BFE5 /* Account.jpeg in Resources */,
 				D7F683281E103EFB006FA905 /* icon39.png in Resources */,
@@ -811,11 +835,13 @@
 				92E8A49A1DE42C04005B6CA7 /* informationSum.png in Resources */,
 				D7EF193C1E10D1570054A3AF /* icon33-user-iso.png in Resources */,
 				D7EF19271E10B28D0054A3AF /* icon34-user.png in Resources */,
+				D7A525D31E11F2F900E4DEF1 /* phone-ios.png in Resources */,
 				92548F061DDEFA050036BFE5 /* rating_empty.png in Resources */,
 				92B0204A1DE2B13000788C94 /* information.png in Resources */,
 				92548EF41DDEFA050036BFE5 /* back.png in Resources */,
 				84EF507C1D94371000EE41B4 /* G01F00S02InfoView.xib in Resources */,
 				92548F051DDEFA050036BFE5 /* ordergas.png in Resources */,
+				D7A525D21E11F2F900E4DEF1 /* icon39-doimatkhau-ios.png in Resources */,
 				92B020481DE2A51200788C94 /* trainingMode.png in Resources */,
 				D7F683241E103CF3006FA905 /* icon2.png in Resources */,
 				92548EFF1DDEFA050036BFE5 /* issueMenu.png in Resources */,
@@ -825,6 +851,7 @@
 				D7EF192B1E10B8840054A3AF /* icon35-user.png in Resources */,
 				92548F091DDEFA050036BFE5 /* ServiceRating.jpeg in Resources */,
 				92548EFC1DDEFA050036BFE5 /* gas_logo.png in Resources */,
+				D7A525CE1E11F2F900E4DEF1 /* icon35-user-ios.png in Resources */,
 				D7EF193B1E10D1570054A3AF /* icon32-user-iso.png in Resources */,
 				D77FFB711E0EE3BC00A795AD /* ImageTableViewCell.xib in Resources */,
 				D7EF19291E10B8630054A3AF /* icon20.png in Resources */,
@@ -873,6 +900,7 @@
 				92A5C7D61DCB787300D6572F /* G01F03VC.swift in Sources */,
 				84E642BA1DC77B85005F6413 /* zoomIMGViewController.swift in Sources */,
 				92C1C9601DBD5001005A10C8 /* G01F00S03MenuVC.swift in Sources */,
+				D7EF19411E10EFEC0054A3AF /* G00RegisterMenuVC.swift in Sources */,
 				84E1E7A01D664CCD007710BD /* G00ChangePassVC.swift in Sources */,
 				84EF507A1D94352600EE41B4 /* G01F00S02VC.swift in Sources */,
 				84F246861D93DDB300259C35 /* SearchBarTableViewCell.swift in Sources */,
@@ -894,7 +922,7 @@
 				92A5C7DC1DCB7C8B00D6572F /* G01F03S02.swift in Sources */,
 				84EBBD251D8F8E7300FB4D25 /* G00InfomationVC.swift in Sources */,
 				D77FFB701E0EE3BC00A795AD /* ImageTableViewCell.swift in Sources */,
-				84E1C4AC1D621A7B00ADD587 /* RegisterViewController.swift in Sources */,
+				84E1C4AC1D621A7B00ADD587 /* G00RegisterVC.swift in Sources */,
 				92A5C7D31DCB4B3C00D6572F /* CreateUpholdRequest.swift in Sources */,
 				926670F41D9276B5000D2DED /* CommonProcess.swift in Sources */,
 				84459EDF1D9637DD0087F986 /* G01F00S02HistoryCell.swift in Sources */,
