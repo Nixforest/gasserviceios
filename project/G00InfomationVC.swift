@@ -42,10 +42,10 @@ class G00InfomationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        infomationNavBar.title = GlobalConst.CONTENT00072
+        infomationNavBar.title = DomainConst.CONTENT00072
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: GlobalConst.BUTTON_COLOR_RED]
 
-        let backOrigin = UIImage(named: GlobalConst.BACK_IMG_NAME)
+        let backOrigin = UIImage(named: DomainConst.BACK_IMG_NAME)
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         backButton.setImage(tintedBackLogo, for: UIControlState())
         backButton.tintColor = GlobalConst.BUTTON_COLOR_RED
@@ -66,7 +66,7 @@ class G00InfomationVC: UIViewController {
             y: offset,
             width: self.view.frame.width - GlobalConst.MARGIN,
             height: GlobalConst.LABEL_HEIGHT)
-        lblVersion.text               = GlobalConst.CONTENT00198
+        lblVersion.text               = DomainConst.CONTENT00198
         lblVersion.textAlignment      = NSTextAlignment.left
         lblVersion.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         lblVersion.textColor          = GlobalConst.INFOR_TITLE_COLOR
@@ -78,7 +78,7 @@ class G00InfomationVC: UIViewController {
             y: offset,
             width: self.view.frame.width - GlobalConst.MARGIN * 2,
             height: GlobalConst.LABEL_HEIGHT / 2)
-        lblVersionValue.text          = GlobalConst.VERSION_CODE_NAME
+        lblVersionValue.text          = DomainConst.VERSION_CODE_NAME
         lblVersionValue.textAlignment = NSTextAlignment.left
         lblVersionValue.font          = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
         offset += GlobalConst.LABEL_HEIGHT / 2
@@ -90,7 +90,7 @@ class G00InfomationVC: UIViewController {
             y: offset,
             width: self.view.frame.width - GlobalConst.MARGIN,
             height: GlobalConst.LABEL_HEIGHT)
-        lblEmail.text               = GlobalConst.CONTENT00199
+        lblEmail.text               = DomainConst.CONTENT00199
         lblEmail.textAlignment      = NSTextAlignment.left
         lblEmail.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         lblEmail.textColor          = GlobalConst.INFOR_TITLE_COLOR
@@ -102,7 +102,7 @@ class G00InfomationVC: UIViewController {
             y: offset,
             width: self.view.frame.width - GlobalConst.MARGIN * 2,
             height: GlobalConst.LABEL_HEIGHT / 2)
-        lblEmailValue.text          = GlobalConst.EMAIL
+        lblEmailValue.text          = DomainConst.EMAIL
         lblEmailValue.textAlignment = NSTextAlignment.left
         lblEmailValue.font          = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
         offset += GlobalConst.LABEL_HEIGHT / 2
@@ -114,7 +114,7 @@ class G00InfomationVC: UIViewController {
             y: offset,
             width: self.view.frame.width - GlobalConst.MARGIN,
             height: GlobalConst.LABEL_HEIGHT)
-        lblWebsite.text               = GlobalConst.CONTENT00200
+        lblWebsite.text               = DomainConst.CONTENT00200
         lblWebsite.textAlignment      = NSTextAlignment.left
         lblWebsite.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         lblWebsite.textColor          = GlobalConst.INFOR_TITLE_COLOR
@@ -126,13 +126,13 @@ class G00InfomationVC: UIViewController {
             y: offset,
             width: self.view.frame.width - GlobalConst.MARGIN * 2,
             height: GlobalConst.LABEL_HEIGHT / 2)
-        lblWebsiteValue.text          = GlobalConst.WEBSITE
+        lblWebsiteValue.text          = DomainConst.WEBSITE
         lblWebsiteValue.textAlignment = NSTextAlignment.left
         lblWebsiteValue.font          = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
         offset += GlobalConst.LABEL_HEIGHT / 2 + GlobalConst.MARGIN
         
         // Logo
-        imgLogo.image = UIImage(named: GlobalConst.LOGO_IMG_NAME)
+        imgLogo.image = UIImage(named: DomainConst.LOGO_IMG_NAME)
         imgLogo.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W) / 2,
                                y: offset,
                                width: GlobalConst.LOGIN_LOGO_W,

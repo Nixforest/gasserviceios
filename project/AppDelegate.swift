@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_HOME_VIEW_CTRL)
+        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_HOME_VIEW_CTRL)
         rootNav = UINavigationController(rootViewController: firstVC)
         rootNav.isNavigationBarHidden = false
         
@@ -139,8 +139,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Create alert
         if isManual && BaseModel.shared.canHandleNotification() {
-            let alert = UIAlertController(title: GlobalConst.CONTENT00044, message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: GlobalConst.CONTENT00223, style: .default, handler: {
+            let alert = UIAlertController(title: DomainConst.CONTENT00044, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: DomainConst.CONTENT00223, style: .default, handler: {
                 (alert: UIAlertAction!) in
                 RequestAPI.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
                 if let navigationController = self.window?.rootViewController as? UINavigationController {
@@ -152,7 +152,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             })
             alert.addAction(okAction)
-            let cancelAction = UIAlertAction(title: GlobalConst.CONTENT00224, style: .cancel, handler: {
+            let cancelAction = UIAlertAction(title: DomainConst.CONTENT00224, style: .cancel, handler: {
                 (alert: UIAlertAction!) in
                 if let navigationController = self.window?.rootViewController as? UINavigationController {
                     RequestAPI.requestNotificationCount(view: (navigationController.visibleViewController as! BaseViewController))

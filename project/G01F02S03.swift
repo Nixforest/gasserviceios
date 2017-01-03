@@ -41,7 +41,7 @@ class G01F02S03: StepContent {
             y: GlobalConst.MARGIN,
             width: GlobalConst.BUTTON_W,
             height: GlobalConst.BUTTON_H)
-        _rightButton.setTitle(GlobalConst.CONTENT00184, for: .normal)
+        _rightButton.setTitle(DomainConst.CONTENT00184, for: .normal)
         _rightButton.setTitleColor(UIColor.white , for: .normal)
         _rightButton.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
         _rightButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
@@ -63,7 +63,7 @@ class G01F02S03: StepContent {
             y: GlobalConst.MARGIN + offset,
             width: GlobalConst.BUTTON_W,
             height: GlobalConst.BUTTON_H)
-        _wrongButton.setTitle(GlobalConst.CONTENT00185, for: .normal)
+        _wrongButton.setTitle(DomainConst.CONTENT00185, for: .normal)
         _wrongButton.setTitleColor(UIColor.white , for: .normal)
         _wrongButton.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
         _wrongButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
@@ -80,7 +80,7 @@ class G01F02S03: StepContent {
         
         // Set parent
         self._parent = parent
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00183,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00183,
                    contentHeight: offset,
                    width: w, height: h)
         return
@@ -107,13 +107,13 @@ class G01F02S03: StepContent {
         // Set new selected value
         G01F02S03._selectedValue = sender.tag == 1 ? true : false
         CommonProcess.markButton(button: sender as! UIButton)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
         self.stepDoneDelegate?.stepDone()
     }
     
     override func checkDone() -> Bool {
         if G01F02S03._selectedValue == nil {
-            self._parent?.showAlert(message: GlobalConst.CONTENT00183)
+            self._parent?.showAlert(message: DomainConst.CONTENT00183)
             return false
         } else {
             return true

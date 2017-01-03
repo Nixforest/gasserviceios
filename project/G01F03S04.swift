@@ -55,11 +55,11 @@ class G01F03S04: StepSummary {
         contentView.addSubview(lblContent)
         contentView.addSubview(tbxContent)
         
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00209, contentHeight: offset,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00209, contentHeight: offset,
                    width: w, height: h)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateData),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F03),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F03),
                                                object: nil)
         return
     }
@@ -129,7 +129,7 @@ class G01F03S04: StepSummary {
         // Label Feeling
         CommonProcess.setLayoutLeft(lbl: lblFeeling, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00210)
+                                    height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00210)
         lblFeeling.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         // Feeling value
         CommonProcess.setLayoutRight(lbl: tbxFeeling, x: lblFeeling.frame.maxX, y: offset,
@@ -141,7 +141,7 @@ class G01F03S04: StepSummary {
         // Label Content
         CommonProcess.setLayoutLeft(lbl: lblContent, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00063)
+                                    height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00063)
         lblContent.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         // Content value
         CommonProcess.setLayoutRight(lbl: tbxContent, x: lblContent.frame.maxX, y: offset,

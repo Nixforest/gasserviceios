@@ -34,7 +34,7 @@ class CommonProcess {
                                          view: BaseViewController) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
-        let request = CreateUpholdReplyRequest(url: DomainConst.PATH_SITE_UPHOLD_REPLY, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        let request = CreateUpholdReplyRequest(url: DomainConst.PATH_SITE_UPHOLD_REPLY, reqMethod: DomainConst.HTTP_POST_REQUEST, view: view)
         request.setData(upholdId: upholdId,
                         status: status, statusText: statusText, hoursHandle: hoursHandle,
                         note: note, contact_phone: contact_phone,
@@ -65,7 +65,7 @@ class CommonProcess {
                                          view: BaseViewController) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
-        let request = CreateUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CREATE, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        let request = CreateUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CREATE, reqMethod: DomainConst.HTTP_POST_REQUEST, view: view)
         request.setData(customerId: customerId, employeeId: employeeId,
                         typeUphold: typeUphold, content: content, contactPerson: contactPerson,
                         contactTel: contactTel, requestBy: requestBy)
@@ -85,7 +85,7 @@ class CommonProcess {
                                     view: BaseViewController) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
-        let request = RatingUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CUSTOMER_RATING, reqMethod: GlobalConst.HTTP_POST_REQUEST, view: view)
+        let request = RatingUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CUSTOMER_RATING, reqMethod: DomainConst.HTTP_POST_REQUEST, view: view)
         request.setData(id: id, ratingStatusId: ratingStatusId, listRating: listRating, content: content)
         request.execute()
         

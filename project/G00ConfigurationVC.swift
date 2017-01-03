@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
+class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: Properties
     /** Search bar */
     @IBOutlet weak var searchBar: UISearchBar!
@@ -33,11 +33,11 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.gasServiceItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(issueItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
                                                object: nil)
     }
     
@@ -64,7 +64,7 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
             width: self.view.frame.size.width,
             height: self.view.frame.size.height)
         configTableView.translatesAutoresizingMaskIntoConstraints = true
-        searchBar.placeholder = GlobalConst.CONTENT00128
+        searchBar.placeholder = DomainConst.CONTENT00128
         
         // Search bar
         searchBar.translatesAutoresizingMaskIntoConstraints = true
@@ -75,7 +75,7 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
             height: searchBar.frame.size.height)
         
         // Setup navigation
-        setupNavigationBar(title: GlobalConst.CONTENT00128, isNotifyEnable: true)
+        setupNavigationBar(title: DomainConst.CONTENT00128, isNotifyEnable: true)
     }
 
     /**
@@ -103,7 +103,7 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
     func cellAction(_ sender: UIButton) {
         switch sender.tag {
             case 0:     // Information view
-                let InfoVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_INFORMATION_VIEW_CTRL)
+                let InfoVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_INFORMATION_VIEW_CTRL)
                 self.navigationController?.pushViewController(InfoVC, animated: true)
             default:
                 break
@@ -111,7 +111,7 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.G00_CONFIGURATION_TABLE_VIEW_CELL, for: indexPath) as! G00ConfigurationCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.G00_CONFIGURATION_TABLE_VIEW_CELL, for: indexPath) as! G00ConfigurationCell
 //        cell.frame = CGRect(
 //            x: cell.frame.x,
 //            y: cell.frame.y,
@@ -122,18 +122,18 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
             case 1:             // Training mode
                 cell.rightImg.isHidden  = true
                 cell.mySw.isHidden      = false
-                cell.leftImg.image      = UIImage(named: GlobalConst.TRAINING_MODE_IMG_NAME)
-                cell.nameLbl.text       = GlobalConst.CONTENT00138
+                cell.leftImg.image      = UIImage(named: DomainConst.TRAINING_MODE_IMG_NAME)
+                cell.nameLbl.text       = DomainConst.CONTENT00138
             case 0:             // Information
                 cell.rightImg.isHidden  = false
                 cell.mySw.isHidden      = true
-                cell.leftImg.image      = UIImage(named: GlobalConst.INFORMATION_IMG_NAME)
-                cell.rightImg.image     = UIImage(named: GlobalConst.BACK_IMG_NAME)
+                cell.leftImg.image      = UIImage(named: DomainConst.INFORMATION_IMG_NAME)
+                cell.rightImg.image     = UIImage(named: DomainConst.BACK_IMG_NAME)
                 cell.rightImg.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(M_PI)) / 180.0)
                 cell.rightImg.frame = CGRect(x: UIScreen.main.bounds.width - cell.rightImg.frame.width - 25,
                                              y: cell.rightImg.frame.minY,
                                              width: cell.rightImg.frame.width, height: cell.rightImg.frame.height)
-                cell.nameLbl.text       = GlobalConst.CONTENT00139
+                cell.nameLbl.text       = DomainConst.CONTENT00139
                 let cellButton:UIButton = UIButton()
                 cellButton.frame        = CGRect(
                     x: 0, y: 0,
@@ -152,22 +152,5 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-    }
-    
-    /**
-     * Override: show menu controller
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
-            let popoverVC = segue.destination
-            popoverVC.popoverPresentationController?.delegate = self
-        }
-    }
-    
-    /**
-     * ...
-     */
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
     }
 }

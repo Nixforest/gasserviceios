@@ -88,81 +88,81 @@ class G01F00S02InfoView: UIView, UITextFieldDelegate {
         var offset: CGFloat = marginY
         if model.uphold_type != DomainConst.UPHOLD_TYPE_PERIODICALLY {
             // Label Status
-            CommonProcess.setLayoutLeft(lbl: lblStatus, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092, isDrawTopBorder: false)
+            CommonProcess.setLayoutLeft(lbl: lblStatus, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092, isDrawTopBorder: false)
             // Status value
-            CommonProcess.setLayoutRight(lbl: tbxStatusValue, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092, isDrawTopBorder: false)
+            CommonProcess.setLayoutRight(lbl: tbxStatusValue, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092, isDrawTopBorder: false)
             offset += GlobalConst.LABEL_HEIGHT
             
             // Label Customer name
-            CommonProcess.setLayoutLeft(lbl: lblCustomerName, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00079)
+            CommonProcess.setLayoutLeft(lbl: lblCustomerName, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00079)
             // Customer name
-            CommonProcess.setLayoutRight(lbl: tbxCustomerName, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00092)
+            CommonProcess.setLayoutRight(lbl: tbxCustomerName, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00092)
         } else {
             lblStatus.isHidden = true
             tbxStatusValue.isHidden = true
             
             // Label Customer name
-            CommonProcess.setLayoutLeft(lbl: lblCustomerName, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00079, isDrawTopBorder: false)
+            CommonProcess.setLayoutLeft(lbl: lblCustomerName, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00079, isDrawTopBorder: false)
             // Customer name
-            CommonProcess.setLayoutRight(lbl: tbxCustomerName, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00092, isDrawTopBorder: false)
+            CommonProcess.setLayoutRight(lbl: tbxCustomerName, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00092, isDrawTopBorder: false)
         }
         
         // Label Sale
-        CommonProcess.setLayoutLeft(lbl: lblSale, offset: lblCustomerName.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00144)
+        CommonProcess.setLayoutLeft(lbl: lblSale, offset: lblCustomerName.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00144)
         // Sale value
-        CommonProcess.setLayoutRight(lbl: tbxSale, offset: lblCustomerName.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+        CommonProcess.setLayoutRight(lbl: tbxSale, offset: lblCustomerName.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092)
         
         // Label Employee
-        CommonProcess.setLayoutLeft(lbl: lblEmployee, offset: lblSale.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00145)
+        CommonProcess.setLayoutLeft(lbl: lblEmployee, offset: lblSale.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00145)
         // Employee value
-        CommonProcess.setLayoutRight(lbl: tbxEmployee, offset: lblSale.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+        CommonProcess.setLayoutRight(lbl: tbxEmployee, offset: lblSale.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092)
         
         // Label Address
-        CommonProcess.setLayoutLeft(lbl: lblAddress, offset: lblEmployee.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00088)
+        CommonProcess.setLayoutLeft(lbl: lblAddress, offset: lblEmployee.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00088)
         // Address value
-        CommonProcess.setLayoutRight(lbl: tbxAddress, offset: lblEmployee.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00092)
+        CommonProcess.setLayoutRight(lbl: tbxAddress, offset: lblEmployee.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00092)
         
         // Label Contact
-        CommonProcess.setLayoutLeft(lbl: lblContact, offset: lblAddress.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00146)
+        CommonProcess.setLayoutLeft(lbl: lblContact, offset: lblAddress.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00146)
         // Contact value
-        CommonProcess.setLayoutRight(lbl: tbxContact, offset: lblAddress.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00092)
+        CommonProcess.setLayoutRight(lbl: tbxContact, offset: lblAddress.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00092)
         
         if model.uphold_type != DomainConst.UPHOLD_TYPE_PERIODICALLY {
             // Label Problem
-            CommonProcess.setLayoutLeft(lbl: lblProblem, offset: lblContact.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00147)
+            CommonProcess.setLayoutLeft(lbl: lblProblem, offset: lblContact.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00147)
             // Problem value
-            CommonProcess.setLayoutRight(lbl: tbxProblem, offset: lblContact.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+            CommonProcess.setLayoutRight(lbl: tbxProblem, offset: lblContact.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092)
             
             // Label Content
-            CommonProcess.setLayoutLeft(lbl: lblContent, offset: lblProblem.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00063)
+            CommonProcess.setLayoutLeft(lbl: lblContent, offset: lblProblem.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00063)
             // Content value
-            CommonProcess.setLayoutRight(lbl: tbxContent, offset: lblProblem.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00092)
+            CommonProcess.setLayoutRight(lbl: tbxContent, offset: lblProblem.frame.maxY, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00092)
         } else {
             // Label Problem
-            CommonProcess.setLayoutLeft(lbl: lblProblem, offset: lblContact.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00177)
+            CommonProcess.setLayoutLeft(lbl: lblProblem, offset: lblContact.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00177)
             // Problem value
-            CommonProcess.setLayoutRight(lbl: tbxProblem, offset: lblContact.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00177)
+            CommonProcess.setLayoutRight(lbl: tbxProblem, offset: lblContact.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00177)
             
             // Label Content
-            CommonProcess.setLayoutLeft(lbl: lblContent, offset: lblProblem.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00161)
+            CommonProcess.setLayoutLeft(lbl: lblContent, offset: lblProblem.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00161)
             // Content value
-            CommonProcess.setLayoutRight(lbl: tbxContent, offset: lblProblem.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00161)
+            CommonProcess.setLayoutRight(lbl: tbxContent, offset: lblProblem.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00161)
         }
         
         // Label Creator
-        CommonProcess.setLayoutLeft(lbl: lblCreator, offset: lblContent.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00095)
+        CommonProcess.setLayoutLeft(lbl: lblCreator, offset: lblContent.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00095)
         // Creator value
-        CommonProcess.setLayoutRight(lbl: tbxCreator, offset: lblContent.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+        CommonProcess.setLayoutRight(lbl: tbxCreator, offset: lblContent.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092)
         
         // Label CreateTime
-        CommonProcess.setLayoutLeft(lbl: lblCreateTime, offset: lblCreator.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00096)
+        CommonProcess.setLayoutLeft(lbl: lblCreateTime, offset: lblCreator.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00096)
         // CreateTime value
-        CommonProcess.setLayoutRight(lbl: tbxCreateTime, offset: lblCreator.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+        CommonProcess.setLayoutRight(lbl: tbxCreateTime, offset: lblCreator.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092)
         
         // Label Code
-        CommonProcess.setLayoutLeft(lbl: lblCode, offset: lblCreateTime.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00148)
+        CommonProcess.setLayoutLeft(lbl: lblCode, offset: lblCreateTime.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00148)
         // Code value
-        CommonProcess.setLayoutRight(lbl: tbxCode, offset: lblCreateTime.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+        CommonProcess.setLayoutRight(lbl: tbxCode, offset: lblCreateTime.frame.maxY, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092)
         
         tbxStatusValue.text     = model.status
         tbxCustomerName.text    = model.customer_name

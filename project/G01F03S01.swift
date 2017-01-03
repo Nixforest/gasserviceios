@@ -61,7 +61,7 @@ class G01F03S01: StepContent {
         // Set parent
         self._parent = parent
         
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00206,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00206,
                    contentHeight: offset,
                    width: w, height: h)
         return
@@ -90,13 +90,13 @@ class G01F03S01: StepContent {
         G01F03S01._selectedValue = BaseModel.shared.listRatingStatus[sender.tag]
         // Mark selecting button
         CommonProcess.markButton(button: sender as! UIButton)
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F03), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F03), object: nil)
         self.stepDoneDelegate?.stepDone()
     }
     
     override func checkDone() -> Bool {
         if G01F03S01._selectedValue.id.isEmpty {
-            self._parent?.showAlert(message: GlobalConst.CONTENT00206)
+            self._parent?.showAlert(message: DomainConst.CONTENT00206)
             return false
         } else {
             return true

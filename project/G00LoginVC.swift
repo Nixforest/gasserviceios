@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
+class G00LoginVC: BaseViewController, UITextFieldDelegate {
     // MARK: Properties
     var bShowPassword:Bool!
     /** Logo image */
@@ -52,7 +52,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
         // Check the value of text field is empty or not
         if (((txtPassword.text?.isEmpty)! || (txtAccount.text?.isEmpty)!)){
             // Call alert
-            showAlert(message: GlobalConst.CONTENT00023)
+            showAlert(message: DomainConst.CONTENT00023)
         } else {
             // Start login process
             RequestAPI.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
@@ -64,7 +64,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
      * - parameter sender:AnyObject
      */
     @IBAction func Register(_ sender: AnyObject) {
-        let registerVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REGISTER_VIEW_CTRL)
+        let registerVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.REGISTER_VIEW_CTRL)
         self.navigationController?.pushViewController(registerVC, animated: true)
     }
     
@@ -73,7 +73,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
      * - parameter sender:AnyObject
      */
     @IBAction func forgotPass(_ sender: AnyObject) {
-        showAlert(message: GlobalConst.CONTENT00197)
+        showAlert(message: DomainConst.CONTENT00197)
     }
     
     // MARK: Methods
@@ -89,7 +89,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
         if imgLogoTappedCounter == 7 {
             imgLogoTappedCounter = 0
             print(imgLogoTappedCounter)
-            let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_CONFIGURATION_VIEW_CTRL)
+            let configVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_CONFIGURATION_VIEW_CTRL)
             self.navigationController?.pushViewController(configVC, animated: true)
         }
     }
@@ -100,7 +100,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(super.configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM),
                                                object: nil)
     }
     
@@ -138,7 +138,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
                                   y: imgLogo.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.EDITTEXT_W,
                                   height: GlobalConst.EDITTEXT_H)
-        txtAccount.placeholder = GlobalConst.CONTENT00049
+        txtAccount.placeholder = DomainConst.CONTENT00049
         txtAccount.translatesAutoresizingMaskIntoConstraints = true
         // Set icon
         setLeftViewForTextField(textField: txtAccount, named: "icon2.png")
@@ -152,7 +152,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
                                    width: GlobalConst.EDITTEXT_W,
                                    height: GlobalConst.EDITTEXT_H)
         txtPassword.translatesAutoresizingMaskIntoConstraints = true
-        txtPassword.placeholder = GlobalConst.CONTENT00050
+        txtPassword.placeholder = DomainConst.CONTENT00050
         
         // Set icon
         setLeftViewForTextField(textField: txtPassword, named: "icon3.png")
@@ -170,7 +170,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
                                        y: txtPassword.frame.maxY + GlobalConst.MARGIN,
                                        width: GlobalConst.LABEL_W,
                                        height: GlobalConst.LABEL_H)
-        lblShowPassword.text = GlobalConst.CONTENT00102
+        lblShowPassword.text = DomainConst.CONTENT00102
         lblShowPassword.translatesAutoresizingMaskIntoConstraints = true
         // Check box status
         bShowPassword = false
@@ -181,7 +181,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
                                 width: GlobalConst.BUTTON_W,
                                 height: GlobalConst.BUTTON_H)
         btnLogin.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnLogin.setTitle(GlobalConst.CONTENT00051.uppercased(), for: UIControlState())
+        btnLogin.setTitle(DomainConst.CONTENT00051.uppercased(), for: UIControlState())
         btnLogin.setTitleColor(UIColor.white, for: UIControlState())
         btnLogin.addTarget(self, action: #selector(Login), for: .touchUpInside)
         btnLogin.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
@@ -195,7 +195,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
                                  y: btnLogin.frame.maxY,
                                  width: (GlobalConst.BUTTON_W - GlobalConst.MARGIN) / 2,
                                  height: GlobalConst.BUTTON_H)
-        btnSignin.setTitle(GlobalConst.CONTENT00228, for: UIControlState())
+        btnSignin.setTitle(DomainConst.CONTENT00228, for: UIControlState())
         //self.view.addSubview(btnSignin)
         btnSignin.translatesAutoresizingMaskIntoConstraints = true
         
@@ -206,7 +206,7 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
                                      width: (GlobalConst.BUTTON_W - GlobalConst.MARGIN) / 2,
                                      height: GlobalConst.BUTTON_H)
         
-        btnForgotPass.setTitle(GlobalConst.CONTENT00227, for: UIControlState())
+        btnForgotPass.setTitle(DomainConst.CONTENT00227, for: UIControlState())
         btnForgotPass.titleLabel?.textAlignment = .right
         //self.view.addSubview(btnForgotPass)
         
@@ -217,12 +217,12 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
                                      width: btnSignin.frame.minX - btnForgotPass.frame.maxX,
                                      height: GlobalConst.BUTTON_H)
         
-        //btnSeparator.setTitle(GlobalConst.CONTENT00226, for: UIControlState())
+        //btnSeparator.setTitle(DomainConst.CONTENT00226, for: UIControlState())
         btnSeparator.titleLabel?.textAlignment = .right
         //self.view.addSubview(btnForgotPass)
         
         // Navigation bar
-        setupNavigationBar(title: GlobalConst.CONTENT00051, isNotifyEnable: false)
+        setupNavigationBar(title: DomainConst.CONTENT00051, isNotifyEnable: false)
         
         txtAccount.delegate     = self
         txtPassword.delegate    = self
@@ -283,23 +283,6 @@ class G00LoginVC: BaseViewController, UIPopoverPresentationControllerDelegate, U
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    /**
-     * Override: show menu controller
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
-            let popoverVC = segue.destination
-            popoverVC.popoverPresentationController?.delegate = self
-        }
-    }
-    
-    /**
-     * ...
-     */
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
     }
     
     /**

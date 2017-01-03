@@ -14,8 +14,8 @@ class G01F03VC: StepVC, StepDoneDelegate {
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self, selector: #selector(gasServiceItemTapped), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(gasServiceItemTapped), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
     }
     
     override func viewDidLoad() {
@@ -39,7 +39,7 @@ class G01F03VC: StepVC, StepDoneDelegate {
         self._numberStep = self._arrayContent.count + 1
         appendSummary(summary: summary)
         // Set title
-        self._title = GlobalConst.CONTENT00098
+        self._title = DomainConst.CONTENT00098
         super.viewDidLoad()
         // Menu item tap
         asignNotifyForMenuItem()

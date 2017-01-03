@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G01F00S02VC: BaseViewController, UIPopoverPresentationControllerDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
+class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
     // MARK: Properties
     /** Segment ScrollView Control */
     @IBOutlet weak var sgmScrollViewChange: UISegmentedControl!
@@ -46,7 +46,7 @@ class G01F00S02VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
      * Handle tap create uphold reply button.
      */
     @IBAction func btnCreateUpholdReplyTapped(_ sender: AnyObject) {
-        let configVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F02_VIEW_CTRL)
+        let configVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F02_VIEW_CTRL)
         self.navigationController?.pushViewController(configVC, animated: true)
     }
     
@@ -68,17 +68,17 @@ class G01F00S02VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.gasServiceItemTapped(_:)),
-            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
             object: nil)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(super.issueItemTapped(_:)),
-            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
+            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
             object: nil)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(super.configItemTap(_:)),
-            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
+            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
             object: nil)
     }
     
@@ -99,8 +99,8 @@ class G01F00S02VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
             x: marginX, y: height,
             width: GlobalConst.SCREEN_WIDTH - marginX * 2,
             height: GlobalConst.BUTTON_H)
-        sgmScrollViewChange.setTitle(GlobalConst.CONTENT00072, forSegmentAt: 0)
-        sgmScrollViewChange.setTitle(GlobalConst.CONTENT00071, forSegmentAt: 1)
+        sgmScrollViewChange.setTitle(DomainConst.CONTENT00072, forSegmentAt: 0)
+        sgmScrollViewChange.setTitle(DomainConst.CONTENT00071, forSegmentAt: 1)
         sgmScrollViewChange.tintColor = GlobalConst.BUTTON_COLOR_RED
         
         //----- Information view -----
@@ -114,7 +114,7 @@ class G01F00S02VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
         CommonProcess.setBorder(view: scrViewInformation)
         scrViewInformation.delegate = self
         // Load content
-        Bundle.main.loadNibNamed(GlobalConst.G01_F00_S02_INFO_VIEW, owner: self, options: nil)
+        Bundle.main.loadNibNamed(DomainConst.G01_F00_S02_INFO_VIEW, owner: self, options: nil)
         scrViewInformation.addSubview(viewInformation)
 
         // Create reply button
@@ -124,7 +124,7 @@ class G01F00S02VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
             y: sgmScrollViewChange.frame.maxY + GlobalConst.MARGIN_CELL_Y,
             width: GlobalConst.BUTTON_W,
             height: GlobalConst.BUTTON_H)
-        btnCreateReply.setTitle(GlobalConst.CONTENT00065, for: .normal)
+        btnCreateReply.setTitle(DomainConst.CONTENT00065, for: .normal)
         btnCreateReply.setTitleColor(UIColor.white, for: .normal)
         btnCreateReply.isHidden             = true
         btnCreateReply.backgroundColor      = GlobalConst.BUTTON_COLOR_RED
@@ -141,17 +141,17 @@ class G01F00S02VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
         tblViewHistory.separatorStyle   = .none
         
         self.tblViewHistory.register(
-            UINib(nibName: GlobalConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL, bundle: nil),
-            forCellReuseIdentifier: GlobalConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL)
+            UINib(nibName: DomainConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL, bundle: nil),
+            forCellReuseIdentifier: DomainConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL)
         tblViewHistory.dataSource   = self
         tblViewHistory.delegate     = self
         
         // MARK: - NavBar
-        setupNavigationBar(title: GlobalConst.CONTENT00143, isNotifyEnable: true)
+        setupNavigationBar(title: DomainConst.CONTENT00143, isNotifyEnable: true)
         
         // MARK: - Notification Center
-        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S02VC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S02VC.reloadData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S02VC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S02VC.reloadData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: nil)
         
         // Set data
         if BaseModel.shared.sharedInt != -1 {
@@ -236,7 +236,7 @@ class G01F00S02VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
         UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL) as! G01F00S02HistoryCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL) as! G01F00S02HistoryCell
             
             // Set cell data
             if BaseModel.shared.currentUpholdDetail.reply_item.count > indexPath.row {
@@ -258,23 +258,6 @@ class G01F00S02VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return G01F00S02HistoryCell.getTableCellHeight(model: BaseModel.shared.currentUpholdDetail.reply_item[indexPath.row])
-    }
-    
-    /**
-     * Override: show menu controller
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
-            let popoverVC = segue.destination
-            popoverVC.popoverPresentationController?.delegate = self
-        }
-    }
-    
-    /**
-     * ...
-     */
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
     }
     
     /**
@@ -301,7 +284,7 @@ extension G01F00S02VC: UICollectionViewDelegate, UICollectionViewDataSource {
      */
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Get current cell
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         
         cell.imageView1.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
         cell.imageView1.getImgFromUrl(link: BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].thumb, contentMode: cell.imageView1.contentMode)
@@ -312,11 +295,11 @@ extension G01F00S02VC: UICollectionViewDelegate, UICollectionViewDataSource {
      * Tells the delegate that the item at the specified index path was selected.
      */
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         /** push to zoomIMGVC */
         zoomIMGViewController.imgPicked = cell.imageView1.image
         zoomIMGViewController.imageView.getImgFromUrl(link: BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].large, contentMode: cell.imageView1.contentMode)
-        let IMGVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.ZOOM_IMAGE_VIEW_CTRL)
+        let IMGVC = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
         self.navigationController?.pushViewController(IMGVC, animated: true)
     }
 }

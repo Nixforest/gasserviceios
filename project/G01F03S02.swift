@@ -76,7 +76,7 @@ class G01F03S02: StepContent {
         // Set parent
         self._parent = parent
         
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00207,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00207,
                    contentHeight: offset,
                    width: w, height: h)
         return
@@ -90,9 +90,9 @@ class G01F03S02: StepContent {
         for i in 0..<BaseModel.shared.listRatingType.count {
             G01F03S02._selectedValue[i] = self._listRating[i]._rating
         }
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F03), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F03), object: nil)
         if G01F03S02._selectedValue.count == 0 {
-            self._parent?.showAlert(message: GlobalConst.CONTENT00207)
+            self._parent?.showAlert(message: DomainConst.CONTENT00207)
             return false
         } else {
             return true

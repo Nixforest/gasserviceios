@@ -51,11 +51,11 @@ class G01F01S03: StepSummary {
         //contentView.addSubview(lblContact)
         //contentView.addSubview(tbxContact)
         
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00205, contentHeight: offset,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00205, contentHeight: offset,
                    width: w, height: h)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateData),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F01),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F01),
                                                object: nil)
         return
     }
@@ -94,7 +94,7 @@ class G01F01S03: StepSummary {
         // Label Problem
         CommonProcess.setLayoutLeft(lbl: lblProblem, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00147)
+                                    height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00147)
         lblProblem.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         // Problem value
         CommonProcess.setLayoutRight(lbl: tbxProblem, x: lblProblem.frame.maxX, y: offset,
@@ -106,7 +106,7 @@ class G01F01S03: StepSummary {
         // Label Content
         CommonProcess.setLayoutLeft(lbl: lblContent, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00063)
+                                    height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00063)
         lblContent.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         // Content value
         CommonProcess.setLayoutRight(lbl: tbxContent, x: lblContent.frame.maxX, y: offset,
@@ -118,7 +118,7 @@ class G01F01S03: StepSummary {
         // Label Contact
         CommonProcess.setLayoutLeft(lbl: lblContact, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT * 1.5, text: GlobalConst.CONTENT00146)
+                                    height: GlobalConst.LABEL_HEIGHT * 1.5, text: DomainConst.CONTENT00146)
         lblContact.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         // Contact value
         CommonProcess.setLayoutRight(lbl: tbxContact, x: lblContact.frame.maxX, y: offset,

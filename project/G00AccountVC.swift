@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     // MARK: Properties
     /** Save button */
     @IBOutlet weak var saveButton: UIButton!
@@ -72,7 +72,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
         if (((txtName.text?.isEmpty)! || (txtPhone.text?.isEmpty)!
             || (txtAddress.text?.isEmpty)!)) {
             // Call alert
-            showAlert(message: GlobalConst.CONTENT00025)
+            showAlert(message: DomainConst.CONTENT00025)
         } else {
             print("Save successfully")
         }
@@ -83,7 +83,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
      * - parameter sender:AnyObject
      */
     @IBAction func changePasswordTapped(_ sender: AnyObject) {
-        let changePasswordVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_CHANGE_PASS_VIEW_CTRL)
+        let changePasswordVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_CHANGE_PASS_VIEW_CTRL)
         self.navigationController?.pushViewController(changePasswordVC, animated: true)
     }
     
@@ -109,15 +109,15 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(super.gasServiceItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(super.issueItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(super.configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
                                                object: nil)
     }
     
@@ -140,7 +140,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                  y: heigh + GlobalConst.MARGIN,
                                  width: GlobalConst.ACCOUNT_AVATAR_W,
                                  height: GlobalConst.ACCOUNT_AVATAR_H)
-        imgAvatar.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
+        imgAvatar.image = UIImage(named: DomainConst.CONTACT_IMG_NAME)
         imgAvatar.translatesAutoresizingMaskIntoConstraints = true
         imgAvatar.isUserInteractionEnabled = true
         
@@ -176,7 +176,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                y: imgAvatar.frame.maxY + GlobalConst.MARGIN,
                                width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
                                height: GlobalConst.ACCOUNT_ICON_SIZE)
-        txtName.placeholder = GlobalConst.CONTENT00055
+        txtName.placeholder = DomainConst.CONTENT00055
         txtName.translatesAutoresizingMaskIntoConstraints = true
         txtName.delegate = self
         
@@ -185,7 +185,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                 y: txtName.frame.maxY + GlobalConst.MARGIN,
                                 width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
                                 height: GlobalConst.ACCOUNT_ICON_SIZE)
-        txtPhone.placeholder = GlobalConst.CONTENT00054
+        txtPhone.placeholder = DomainConst.CONTENT00054
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
         txtPhone.textColor = GlobalConst.BUTTON_COLOR_RED
         txtPhone.delegate = self
@@ -195,7 +195,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                   y: txtPhone.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
                                   height: GlobalConst.ACCOUNT_ICON_SIZE)
-        txtAddress.placeholder = GlobalConst.CONTENT00088
+        txtAddress.placeholder = DomainConst.CONTENT00088
         txtAddress.translatesAutoresizingMaskIntoConstraints = true
         txtAddress.delegate = self
         
@@ -204,7 +204,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                   y: txtAddress.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.BUTTON_W,
                                   height: GlobalConst.BUTTON_H)
-        saveButton.setTitle(GlobalConst.CONTENT00229.uppercased(), for: UIControlState())
+        saveButton.setTitle(DomainConst.CONTENT00229.uppercased(), for: UIControlState())
         saveButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         saveButton.setTitleColor(UIColor.white, for: UIControlState())
         saveButton.translatesAutoresizingMaskIntoConstraints = true
@@ -217,7 +217,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                             y: saveButton.frame.maxY + GlobalConst.MARGIN,
                                             width: GlobalConst.BUTTON_W,
                                             height: GlobalConst.BUTTON_H)
-        changePasswordButton.setTitle(GlobalConst.CONTENT00089.uppercased(), for: UIControlState())
+        changePasswordButton.setTitle(DomainConst.CONTENT00089.uppercased(), for: UIControlState())
         changePasswordButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         changePasswordButton.setTitleColor(UIColor.white, for: UIControlState())
         changePasswordButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
@@ -230,7 +230,7 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
                                     y: changePasswordButton.frame.maxY + GlobalConst.MARGIN,
                                     width: GlobalConst.BUTTON_W,
                                     height: GlobalConst.BUTTON_H)
-        logoutButton.setTitle(GlobalConst.CONTENT00090.uppercased(), for: UIControlState())
+        logoutButton.setTitle(DomainConst.CONTENT00090.uppercased(), for: UIControlState())
         logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
         logoutButton.setTitleColor(UIColor.white, for: UIControlState())
         logoutButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
@@ -239,14 +239,14 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
         logoutButton.imageView?.contentMode = .scaleAspectFit
         
         // Navigation Bar customize
-        setupNavigationBar(title: GlobalConst.CONTENT00100, isNotifyEnable: true)
+        setupNavigationBar(title: DomainConst.CONTENT00100, isNotifyEnable: true)
 
         // Do any additional setup after loading the view.
         let gesture = UITapGestureRecognizer(target: self, action: #selector(G00AccountVC.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
         
         // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(G00AccountVC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G00AccountVC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)
         
         // Load data from server?
         if BaseModel.shared.user_info == nil {
@@ -286,23 +286,6 @@ class G00AccountVC: BaseViewController, UIPopoverPresentationControllerDelegate,
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    /**
-     * Override: show menu controller
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
-            let popoverVC = segue.destination
-            popoverVC.popoverPresentationController?.delegate = self
-        }
-    }
-    
-    /**
-     * ...
-     */
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
     }
     
     /**

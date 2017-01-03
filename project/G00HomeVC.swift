@@ -9,17 +9,17 @@
 import UIKit
 import harpyframework
 
-class G00HomeVC: BaseViewController, UIPopoverPresentationControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     // MARK: Properties
     /** List text content */
-    var aList:[String] = [GlobalConst.CONTENT00130, GlobalConst.CONTENT00041, GlobalConst.CONTENT00099, GlobalConst.CONTENT00098, GlobalConst.CONTENT00100]
+    var aList:[String] = [DomainConst.CONTENT00130, DomainConst.CONTENT00041, DomainConst.CONTENT00099, DomainConst.CONTENT00098, DomainConst.CONTENT00100]
     /** List icon image */
     var aListIcon:[String] = [
-        GlobalConst.ORDER_GAS_IMG_NAME,
-        GlobalConst.UPHOLD_REQUEST_IMG_NAME,
-        GlobalConst.UPHOLD_LIST_IMG_NAME,
-        GlobalConst.SERVICE_RATING_IMG_NAME,
-        GlobalConst.ACCOUNT_IMG_NAME
+        DomainConst.ORDER_GAS_IMG_NAME,
+        DomainConst.UPHOLD_REQUEST_IMG_NAME,
+        DomainConst.UPHOLD_LIST_IMG_NAME,
+        DomainConst.SERVICE_RATING_IMG_NAME,
+        DomainConst.ACCOUNT_IMG_NAME
     ]
     /** Table view */
     @IBOutlet weak var homeTableView: UITableView!
@@ -32,7 +32,7 @@ class G00HomeVC: BaseViewController, UIPopoverPresentationControllerDelegate, UI
     func pushToRegisterVC(_ notification: Notification){
 //        let RegisterVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REGISTER_VIEW_CTRL)
 //        self.navigationController?.pushViewController(RegisterVC, animated: true)
-        showAlert(message: GlobalConst.CONTENT00197)
+        showAlert(message: DomainConst.CONTENT00197)
     }
     
     /**
@@ -49,20 +49,20 @@ class G00HomeVC: BaseViewController, UIPopoverPresentationControllerDelegate, UI
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(pushToRegisterVC(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_REGISTER_ITEM),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_REGISTER_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(logoutItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_LOGOUT_ITEM),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGOUT_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushToLoginVC(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
     }
     
     //MARK: ViewDidLoad
@@ -97,14 +97,14 @@ class G00HomeVC: BaseViewController, UIPopoverPresentationControllerDelegate, UI
         homeTableView.separatorStyle = .none
         
         // NavBar setup
-        setupNavigationBar(title: GlobalConst.CONTENT00108, isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
+        setupNavigationBar(title: DomainConst.CONTENT00108, isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
         
         /** Cell register */
-        self.homeTableView.register(UINib(nibName: GlobalConst.G00_HOME_CELL, bundle: nil), forCellReuseIdentifier: GlobalConst.G00_HOME_CELL)
+        self.homeTableView.register(UINib(nibName: DomainConst.G00_HOME_CELL, bundle: nil), forCellReuseIdentifier: DomainConst.G00_HOME_CELL)
         
         // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(G00HomeVC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G00HomeVC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
         
         // Get data from server
         if BaseModel.shared.checkIsLogin() {
@@ -138,23 +138,6 @@ class G00HomeVC: BaseViewController, UIPopoverPresentationControllerDelegate, UI
         // Dispose of any resources that can be recreated.
     }
     
-    /**
-     * Override: show menu controller
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
-            let popoverVC = segue.destination
-            popoverVC.popoverPresentationController?.delegate = self
-        }
-    }
-    
-    /**
-     * ...
-     */
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
-    }
-    
     // MARK: Table view setup
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -167,7 +150,7 @@ class G00HomeVC: BaseViewController, UIPopoverPresentationControllerDelegate, UI
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.G00_HOME_CELL, for: indexPath) as! G00HomeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.G00_HOME_CELL, for: indexPath) as! G00HomeCell
         cell.homeCellImageView.image = UIImage(named: aListIcon[(indexPath as NSIndexPath).row])
         cell.titleLbl.text = aList[(indexPath as NSIndexPath).row]
         // cell text color
@@ -268,20 +251,20 @@ class G00HomeVC: BaseViewController, UIPopoverPresentationControllerDelegate, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 1:
-            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F01_VIEW_CTRL)
+            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F01_VIEW_CTRL)
             self.navigationController?.pushViewController(upholdListVC, animated: true)
         case 2:
             //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S01_VIEW_CTRL)
+            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S01_VIEW_CTRL)
             self.navigationController?.pushViewController(upholdListVC, animated: true)
         case 4:
             //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let accountVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_ACCOUNT_VIEW_CTRL)
+            let accountVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_ACCOUNT_VIEW_CTRL)
             self.navigationController?.pushViewController(accountVC, animated: true)
         case 3:
             if !BaseModel.shared.lastUpholdId.isEmpty {
                 BaseModel.shared.sharedString = BaseModel.shared.lastUpholdId
-                let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F03_VIEW_CTRL)
+                let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F03_VIEW_CTRL)
                 self.navigationController?.pushViewController(ratingVC, animated: true)
             }
         default:
@@ -306,7 +289,7 @@ class G00HomeVC: BaseViewController, UIPopoverPresentationControllerDelegate, UI
         if BaseModel.shared.checkNotificationExist() {
             if BaseModel.shared.checkIsLogin() {
                 if BaseModel.shared.isUpholdNotification() {
-                    let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S01_VIEW_CTRL)
+                    let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S01_VIEW_CTRL)
                     self.navigationController?.pushViewController(upholdListVC, animated: true)
                 }
             } else {
@@ -326,7 +309,7 @@ class G00HomeVC: BaseViewController, UIPopoverPresentationControllerDelegate, UI
      * Move to login view
      */
     func moveToLoginVC() {
-        let loginVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_LOGIN_VIEW_CTRL)
+        let loginVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_LOGIN_VIEW_CTRL)
         self.navigationController?.pushViewController(loginVC, animated: true)
     }
 }

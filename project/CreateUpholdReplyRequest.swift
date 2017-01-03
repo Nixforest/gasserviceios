@@ -16,11 +16,11 @@ class CreateUpholdReplyRequest: BaseRequest {
             data, response, error) in
             // Check error
             guard error == nil else {
-                self.showAlert(message: GlobalConst.CONTENT00196)
+                self.showAlert(message: DomainConst.CONTENT00196)
                 return
             }
             guard let data = data else {
-                self.showAlert(message: GlobalConst.CONTENT00196)
+                self.showAlert(message: DomainConst.CONTENT00196)
                 return
             }
             // Convert to string
@@ -43,7 +43,7 @@ class CreateUpholdReplyRequest: BaseRequest {
                             (alert: UIAlertAction!) in
                             _ = self.view.navigationController?.popViewController(animated: true)
                     })
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: model)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: model)
                     BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].status = self.status
                 }
             } else {
@@ -91,7 +91,7 @@ class CreateUpholdReplyRequest: BaseRequest {
             DomainConst.KEY_NOTE_INTERNAL, noteInternal,
             DomainConst.KEY_LATITUDE, 0.0,
             DomainConst.KEY_LONGITUDE, 0.0,
-            DomainConst.KEY_VERSION_CODE, GlobalConst.VERSION_CODE
+            DomainConst.KEY_VERSION_CODE, DomainConst.VERSION_CODE
         )
         self.param = [
             "q" : String.init(
@@ -107,7 +107,7 @@ class CreateUpholdReplyRequest: BaseRequest {
                 DomainConst.KEY_NOTE_INTERNAL, noteInternal,
                 DomainConst.KEY_LATITUDE, 0.0,
                 DomainConst.KEY_LONGITUDE, 0.0,
-                DomainConst.KEY_VERSION_CODE, GlobalConst.VERSION_CODE
+                DomainConst.KEY_VERSION_CODE, DomainConst.VERSION_CODE
             )
         ]
     }

@@ -15,8 +15,8 @@ class G01F01VC: StepVC, StepDoneDelegate {
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self, selector: #selector(gasServiceItemTapped), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(gasServiceItemTapped), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
     }
     
     override func viewDidLoad() {
@@ -36,7 +36,7 @@ class G01F01VC: StepVC, StepDoneDelegate {
         self._numberStep = self._arrayContent.count + 1
         appendSummary(summary: summary)
         // Set title
-        self._title = GlobalConst.CONTENT00178
+        self._title = DomainConst.CONTENT00178
         var listIcon = [String]()
         listIcon.append("problemType")
         listIcon.append("informationSum")

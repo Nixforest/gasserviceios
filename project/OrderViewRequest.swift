@@ -1,15 +1,16 @@
 //
-//  RatingUpholdRequest.swift
+//  OrderViewRequest.swift
 //  project
 //
-//  Created by Nixforest on 11/4/16.
+//  Created by SPJ on 12/31/16.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import harpyframework
 
-class RatingUpholdRequest: BaseRequest {
+class OrderViewRequest: BaseRequest {
+    
     override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
         let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
             (
@@ -31,16 +32,11 @@ class RatingUpholdRequest: BaseRequest {
             if model.status == "1" {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
-                // Clear data
-                (self.view as! G01F03VC).clearData()
-                // Back to home page (cross-thread)
+                // Set data
+                (self.view as! G04F00S02VC).setData(jsonString: dataString as! String)
+                // Update data to G04F00S02 view (cross-thread)
                 DispatchQueue.main.async {
-                    self.view.showAlert(
-                        message: model.message,
-                        okHandler: {
-                            (alert: UIAlertAction!) in
-                            _ = self.view.navigationController?.popViewController(animated: true)
-                    })
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_VIEW_SET_DATA), object: model)
                 }
             } else {
                 self.showAlert(message: model.message)
@@ -62,26 +58,27 @@ class RatingUpholdRequest: BaseRequest {
     
     /**
      * Set data content
-     * - parameter upholdId:    Id of uphold
-     * - parameter replyId:     Id of uphold
+     * - parameter id:    Order id
      */
-    func setData(id: String, ratingStatusId: String,
-                 listRating: [Int], content: String) {
-        var rating = "{"
-        for i in 0..<listRating.count {
-            rating += String.init(format: "\"%@\":%d", BaseModel.shared.listRatingType[i].id, listRating[i])
-            if i < (listRating.count - 1) {
-                rating += ","
-            }
-        }
-        rating += "}"
+    func setData(id: String) {
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":%@,\"%@\":\"%@\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\"}",
             DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
-            DomainConst.KEY_UPHOLD_ID, id,
-            DomainConst.KEY_RATING_STATUS, ratingStatusId,
-            DomainConst.KEY_RATING_TYPE, rating,
-            DomainConst.KEY_RATING_NOTE, content
+            DomainConst.KEY_TRANSACTION_HISTORY_ID, id
         )
+    }
+    
+    /**
+     * Request order view function
+     * - parameter id:    Order id
+     */
+    public static func requestOrderView(id: String, view: BaseViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = OrderViewRequest(url: G04Const.PATH_ORDER_TRANSACTION_VIEW,
+                                       reqMethod: DomainConst.HTTP_POST_REQUEST,
+                                       view: view)
+        request.setData(id: id)
+        request.execute()
     }
 }

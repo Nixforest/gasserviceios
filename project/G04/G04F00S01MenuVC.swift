@@ -1,21 +1,21 @@
 //
-//  G01F03MenuVC.swift
+//  G04F00S01MenuVC.swift
 //  project
 //
-//  Created by Nixforest on 11/3/16.
+//  Created by SPJ on 12/28/16.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
 import Foundation
 import harpyframework
 
-class G01F03MenuVC: BaseMenuViewController {
+class G04F00S01MenuVC: BaseMenuViewController {
     /**
      * Override
      */
     override func configItemTapped(_ sender: AnyObject) {
         self.dismiss(animated: false) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_LIST_CONFIG_ITEM), object: nil)
         }
     }
     
@@ -25,11 +25,7 @@ class G01F03MenuVC: BaseMenuViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        if BaseModel.shared.checkIsLogin() {
-            setItem(listValues: [false, false, false, true, true])
-        } else {
-            setItem(listValues: [true, false, true, false, true])
-        }
+        setItem(listValues: [false, false, false, true, true])
         setupMenuItem()
     }
     

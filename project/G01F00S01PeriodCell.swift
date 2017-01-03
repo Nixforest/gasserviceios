@@ -99,7 +99,7 @@ class G01F00S01PeriodCell: UITableViewCell {
                                      y: lblStatusL.frame.minY,
                                      width: GlobalConst.LABEL_IN_CELL_HEIGHT,
                                      height: GlobalConst.LABEL_IN_CELL_HEIGHT)
-        finishMarkImg.image = UIImage(named: GlobalConst.DONE_IMG_NAME)
+        finishMarkImg.image = UIImage(named: DomainConst.DONE_IMG_NAME)
         
         // Employee label
         lblEmployeeL.translatesAutoresizingMaskIntoConstraints = true

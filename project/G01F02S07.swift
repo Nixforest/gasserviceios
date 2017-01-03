@@ -66,8 +66,8 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
             right: 0)
         layout.itemSize = CGSize(width: GlobalConst.ACCOUNT_AVATAR_W / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
         self.cltviewStep5 = UICollectionView(frame: self.frame, collectionViewLayout: layout)
-        self.cltviewStep5.register(UINib(nibName: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, bundle: nil),
-                                   forCellWithReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL)
+        self.cltviewStep5.register(UINib(nibName: DomainConst.COLLECTION_IMAGE_VIEW_CELL, bundle: nil),
+                                   forCellWithReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL)
         cltviewStep5.dataSource = self
         cltviewStep5.delegate = self
         cltviewStep5.alwaysBounceHorizontal = true
@@ -86,11 +86,11 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         contentView.addSubview(lblInternal)
         contentView.addSubview(tbxInternal)
         contentView.addSubview(cltviewStep5)
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00190, contentHeight: offset,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00190, contentHeight: offset,
                    width: w, height: h)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateData),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02),
                                                object: nil)
         return
     }
@@ -107,7 +107,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
     }
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         cell.imageView1.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H, height: GlobalConst.ACCOUNT_AVATAR_H)
         cell.imageView1.image = G01F02S06._selectedValue[indexPath.row]
         return cell
@@ -126,7 +126,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // handle tap events
         /** push to zoomIMGVC */
         zoomIMGViewController.imgPicked = G01F02S06._selectedValue[indexPath.row]
-        let IMGVC = self._parent?.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.ZOOM_IMAGE_VIEW_CTRL)
+        let IMGVC = self._parent?.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
         self._parent?.navigationController?.pushViewController(IMGVC!, animated: true)
 //        ImageView.imgPicked = G01F02S06._selectedValue[indexPath.row]
 //        var imageView: ImageView = ImageView()
@@ -198,7 +198,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
             width: w - GlobalConst.MARGIN_CELL_X * 2,
             height: GlobalConst.LABEL_HEIGHT
         )
-        lblReportWrong.text               = GlobalConst.CONTENT00191
+        lblReportWrong.text               = DomainConst.CONTENT00191
         lblReportWrong.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         if G01F02S03._selectedValue != nil && !G01F02S03._selectedValue! {
             lblReportWrong.isHidden = false
@@ -208,7 +208,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // Label Status
         CommonProcess.setLayoutLeft(lbl: lblStatus, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+                                    height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092)
         lblStatus.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         // Status value
         CommonProcess.setLayoutRight(lbl: tbxStatus, x: lblStatus.frame.maxX, y: offset,
@@ -220,7 +220,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // Label Time
         CommonProcess.setLayoutLeft(lbl: lblTime, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00194)
+                                    height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00194)
         lblTime.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         // Time value
         CommonProcess.setLayoutRight(lbl: tbxTime, x: lblTime.frame.maxX, y: offset,
@@ -232,7 +232,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // Label Reviewer
         CommonProcess.setLayoutLeft(lbl: lblReviewer, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT * 1.5, text: GlobalConst.CONTENT00195)
+                                    height: GlobalConst.LABEL_HEIGHT * 1.5, text: DomainConst.CONTENT00195)
         lblReviewer.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         // Reviewer value
         CommonProcess.setLayoutRight(lbl: tbxReviewer, x: lblReviewer.frame.maxX, y: offset,
@@ -245,7 +245,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // Label Intenal
         CommonProcess.setLayoutLeft(lbl: lblInternal, offset: offset,
                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00151)
+                                    height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00151)
         lblInternal.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         // Intenal value
         CommonProcess.setLayoutRight(lbl: tbxInternal, x: lblInternal.frame.maxX, y: offset,

@@ -45,7 +45,7 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
         
         // Set parent
         self._parent = parent
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00182, contentHeight: GlobalConst.SCREEN_HEIGHT / 3,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00182, contentHeight: GlobalConst.SCREEN_HEIGHT / 3,
                    width: w, height: h)
         return
     }
@@ -69,7 +69,7 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     public func pickerView(_ pkviewStep1: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         G01F02S02._selectedValue = BaseModel.shared.listHourHandle[row]
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
     }
     func pickerView(_ pkviewStep1: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let attributedString = NSAttributedString(string: BaseModel.shared.listHourHandle[row].name, attributes: [NSForegroundColorAttributeName : UIColor.black])
@@ -86,7 +86,7 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
     
     override func checkDone() -> Bool {
         if G01F02S02._selectedValue.id.isEmpty {
-            self._parent?.showAlert(message: GlobalConst.CONTENT00182)
+            self._parent?.showAlert(message: DomainConst.CONTENT00182)
             return false
         } else {
             return true

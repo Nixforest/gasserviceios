@@ -47,7 +47,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
         _tbxName.autocorrectionType = .no
         _tbxName.clearButtonMode = .whileEditing
         
-        _tbxName.placeholder = GlobalConst.CONTENT00055
+        _tbxName.placeholder = DomainConst.CONTENT00055
         _tbxName.translatesAutoresizingMaskIntoConstraints = true
         _tbxName.addTarget(self, action: #selector(textFieldNameDidChange(_:)), for: .editingChanged)
         _tbxName.returnKeyType = .next
@@ -71,7 +71,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
         _tbxPhone.keyboardType = .phonePad
         _tbxPhone.autocorrectionType = .no
         _tbxPhone.clearButtonMode = .whileEditing
-        _tbxPhone.placeholder = GlobalConst.CONTENT00054
+        _tbxPhone.placeholder = DomainConst.CONTENT00054
         _tbxPhone.translatesAutoresizingMaskIntoConstraints = true
         _tbxPhone.addTarget(self, action: #selector(textFieldPhoneDidChange(_:)), for: .editingChanged)
         _tbxPhone.returnKeyType = .done
@@ -84,7 +84,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
         
         // Set parent
         self._parent = parent
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00187,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00187,
                    contentHeight: offset,
                    width: w, height: h)
         // Set data
@@ -111,7 +111,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
      */
     func textFieldNameDidChange(_ textField: UITextField) {
         G01F02S04._selectedValue.name = _tbxName.text!
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
     }
     /**
      * Handle text field phone did change event
@@ -119,7 +119,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
      */
     func textFieldPhoneDidChange(_ textField: UITextField) {
         G01F02S04._selectedValue.phone = _tbxPhone.text!
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
     }
     
     /**
@@ -175,7 +175,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
     
     override func checkDone() -> Bool {
 //        if G01F02S04._selectedValue.name.isEmpty || G01F02S04._selectedValue.phone.isEmpty {
-//            self._parent?.showAlert(message: GlobalConst.CONTENT00187)
+//            self._parent?.showAlert(message: DomainConst.CONTENT00187)
 //            return false
 //        } else {
 //            return true

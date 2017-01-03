@@ -83,7 +83,7 @@ class G01F01S01: StepContent {
         // Set parent
         self._parent = parent
         
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00201,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00201,
                    contentHeight: offset,
                    width: w, height: h)
         return
@@ -117,7 +117,7 @@ class G01F01S01: StepContent {
         } else {
             _lblOtherProblem.isHidden           = true
             G01F01S01._otherProblem = ""
-            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F01), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F01), object: nil)
             self.stepDoneDelegate?.stepDone()
         }
     }
@@ -126,7 +126,7 @@ class G01F01S01: StepContent {
         if G01F01S01._selectedValue.name == DomainConst.OPTION_OTHER {
             var inputTextField: UITextField?
             // Create alert
-            let alert = UIAlertController(title: GlobalConst.CONTENT00203, message: "", preferredStyle: .alert)
+            let alert = UIAlertController(title: DomainConst.CONTENT00203, message: "", preferredStyle: .alert)
             
             // Add textfield to alert
 //            alert.addTextField(configurationHandler: { (<#UITextField#>) in
@@ -138,20 +138,20 @@ class G01F01S01: StepContent {
 //                inputTextField?.frame = CGRect(x: GlobalConst.MARGIN, y: 0,
 //                                               width: GlobalConst.EDITTEXT_W - GlobalConst.MARGIN * 2,
 //                                               height: GlobalConst.EDITTEXT_H * 3)
-                inputTextField?.placeholder         = GlobalConst.CONTENT00063
+                inputTextField?.placeholder         = DomainConst.CONTENT00063
                 inputTextField?.clearButtonMode     = .whileEditing
                 inputTextField?.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
             })
             // Add cancel action
-            let cancel = UIAlertAction(title: GlobalConst.CONTENT00202, style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
             
             // Add ok action
-            let ok = UIAlertAction(title: GlobalConst.CONTENT00008, style: .default) { action -> Void in
+            let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
                 if !(inputTextField?.text?.isEmpty)! {
                     G01F01S01._otherProblem     = (inputTextField?.text)!
                     self._lblOtherProblem.text  = G01F01S01._otherProblem
                     self._lblOtherProblem.isHidden   = (G01F01S01._otherProblem == "")
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F01), object: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F01), object: nil)
                     self.stepDoneDelegate?.stepDone()
                 } else {
                     self.createAlert()
@@ -168,12 +168,12 @@ class G01F01S01: StepContent {
     
     override func checkDone() -> Bool {
         if G01F01S01._selectedValue.id.isEmpty {
-            self._parent?.showAlert(message: GlobalConst.CONTENT00201)
+            self._parent?.showAlert(message: DomainConst.CONTENT00201)
             return false
         } else {
             if ((G01F01S01._selectedValue.name == DomainConst.OPTION_OTHER)
                 && (G01F01S01._otherProblem.isEmpty)) {
-                self._parent?.showAlert(message: GlobalConst.CONTENT00201)
+                self._parent?.showAlert(message: DomainConst.CONTENT00201)
                 return false
             } else {
                 return true

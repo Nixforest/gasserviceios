@@ -99,7 +99,7 @@ class G01F01S02: StepContent {
         // Set parent
         self._parent = parent
         
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00204,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00204,
                    contentHeight: offset,
                    width: w, height: h)
         return
@@ -135,12 +135,12 @@ class G01F01S02: StepContent {
         var tbxName: UITextField?
         var tbxPhone: UITextField?
         // Create alert
-        let alert = UIAlertController(title: GlobalConst.CONTENT00076, message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: DomainConst.CONTENT00076, message: "", preferredStyle: .alert)
         // Add textfield name
         alert.addTextField(configurationHandler: { textField -> Void in
             tbxName = textField
             //tbxName?.translatesAutoresizingMaskIntoConstraints = true
-            tbxName?.placeholder        = GlobalConst.CONTENT00055
+            tbxName?.placeholder        = DomainConst.CONTENT00055
             tbxName?.clearButtonMode    = .whileEditing
             tbxName?.frame.size.height  = GlobalConst.EDITTEXT_H
             //tbxName?.borderStyle        = .roundedRect
@@ -153,7 +153,7 @@ class G01F01S02: StepContent {
         alert.addTextField(configurationHandler: { textField -> Void in
             tbxPhone = textField
             //tbxPhone?.translatesAutoresizingMaskIntoConstraints = true
-            tbxPhone?.placeholder       = GlobalConst.CONTENT00054
+            tbxPhone?.placeholder       = DomainConst.CONTENT00054
             tbxPhone?.clearButtonMode   = .whileEditing
             tbxPhone?.keyboardType      = .phonePad
             tbxPhone?.frame.size.height = GlobalConst.EDITTEXT_H
@@ -162,16 +162,16 @@ class G01F01S02: StepContent {
             tbxPhone?.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
         })
         // Add cancel action
-        let cancel = UIAlertAction(title: GlobalConst.CONTENT00202, style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
         
         // Add ok action
-        let ok = UIAlertAction(title: GlobalConst.CONTENT00008, style: .default) { action -> Void in
+        let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
             if !(tbxName?.text?.isEmpty)! && !(tbxPhone?.text?.isEmpty)! {
                 G01F01S02._name     = (tbxName?.text)!
                 self._tbxName.text  = G01F01S02._name
                 G01F01S02._phone     = (tbxPhone?.text)!
                 self._tbxPhone.text  = G01F01S02._phone
-                NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F01), object: nil)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F01), object: nil)
                 self.stepDoneDelegate?.stepDone()
             } else {
                 self.createAlert()
@@ -187,11 +187,11 @@ class G01F01S02: StepContent {
     
     override func checkDone() -> Bool {
         if G01F01S02._selectedValue.id.isEmpty {
-            self._parent?.showAlert(message: GlobalConst.CONTENT00204)
+            self._parent?.showAlert(message: DomainConst.CONTENT00204)
             return false
         } else {
             if (G01F01S02._name.isEmpty || G01F01S02._phone.isEmpty) {
-                self._parent?.showAlert(message: GlobalConst.CONTENT00204)
+                self._parent?.showAlert(message: DomainConst.CONTENT00204)
                 return false
             } else {
                 return true

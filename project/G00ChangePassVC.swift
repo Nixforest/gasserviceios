@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
+class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
     // MARK: Properties
     /** Flag show password */
     var bShowPassword:Bool!
@@ -62,7 +62,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
         // Validate data is filled
         if (((txtOldPassword.text?.isEmpty)! || (txtNewPassword.text?.isEmpty)! || (txtNewPasswordRetype.text?.isEmpty)!)){
             // Call alert
-            showAlert(message: GlobalConst.CONTENT00025)
+            showAlert(message: DomainConst.CONTENT00025)
             return
         }
         // Check if password is correct
@@ -74,7 +74,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
                 view: self)
         } else {
             // Call alert
-            showAlert(message: GlobalConst.CONTENT00026)
+            showAlert(message: DomainConst.CONTENT00026)
         }
 
     }
@@ -97,15 +97,15 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.gasServiceItemTapped),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(G00ChangePassVC.issueButtonInChangePassVCTapped(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(super.configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW),
                                                object: nil)
     }
     
@@ -130,7 +130,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
                                  y: heigh + GlobalConst.MARGIN,
                                  width: GlobalConst.ACCOUNT_AVATAR_W,
                                  height: GlobalConst.ACCOUNT_AVATAR_H)
-        imgAvatar.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
+        imgAvatar.image = UIImage(named: DomainConst.CONTACT_IMG_NAME)
         imgAvatar.translatesAutoresizingMaskIntoConstraints = true
         imgAvatar.isUserInteractionEnabled = true
         
@@ -172,7 +172,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
                                       y: imgOldPass.frame.minY,
                                       width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
                                       height: GlobalConst.ACCOUNT_ICON_SIZE)
-        txtOldPassword.placeholder = GlobalConst.CONTENT00083
+        txtOldPassword.placeholder = DomainConst.CONTENT00083
         txtOldPassword.translatesAutoresizingMaskIntoConstraints = true
         txtOldPassword.delegate = self
         
@@ -181,7 +181,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
                                       y: imgNewPass.frame.minY,
                                       width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
                                       height: GlobalConst.ACCOUNT_ICON_SIZE)
-        txtNewPassword.placeholder = GlobalConst.CONTENT00084
+        txtNewPassword.placeholder = DomainConst.CONTENT00084
         txtNewPassword.translatesAutoresizingMaskIntoConstraints = true
         txtNewPassword.delegate = self
         
@@ -190,7 +190,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
                                             y: imgNewPassconfirm.frame.minY,
                                             width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
                                             height: GlobalConst.ACCOUNT_ICON_SIZE)
-        txtNewPasswordRetype.placeholder = GlobalConst.CONTENT00085
+        txtNewPasswordRetype.placeholder = DomainConst.CONTENT00085
         txtNewPasswordRetype.translatesAutoresizingMaskIntoConstraints = true
         txtNewPasswordRetype.delegate = self
         
@@ -207,7 +207,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
                                          y: checkboxButton.frame.minY,
                                          width: GlobalConst.LABEL_W,
                                          height: GlobalConst.LABEL_H)
-        lblCheckboxButton.text = GlobalConst.CONTENT00102
+        lblCheckboxButton.text = DomainConst.CONTENT00102
         lblCheckboxButton.translatesAutoresizingMaskIntoConstraints = true
         bShowPassword = false
         txtOldPassword.isSecureTextEntry = !bShowPassword
@@ -219,7 +219,7 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
                                   y: checkboxButton.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.BUTTON_W,
                                   height: GlobalConst.BUTTON_H)
-        saveButton.setTitle(GlobalConst.CONTENT00229.uppercased(), for: UIControlState())
+        saveButton.setTitle(DomainConst.CONTENT00229.uppercased(), for: UIControlState())
         saveButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         saveButton.setTitleColor(UIColor.white, for: UIControlState())
         saveButton.translatesAutoresizingMaskIntoConstraints = true
@@ -232,14 +232,14 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
                                     y: saveButton.frame.maxY + GlobalConst.MARGIN,
                                     width: GlobalConst.BUTTON_W,
                                     height: GlobalConst.BUTTON_H)
-        logoutButton.setTitle(GlobalConst.CONTENT00090, for: UIControlState())
+        logoutButton.setTitle(DomainConst.CONTENT00090, for: UIControlState())
         logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         logoutButton.setTitleColor(UIColor.white, for: UIControlState())
         logoutButton.layer.cornerRadius = 6
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
         
         // Navigation Bar customize
-        setupNavigationBar(title: GlobalConst.CONTENT00089, isNotifyEnable: true)
+        setupNavigationBar(title: DomainConst.CONTENT00089, isNotifyEnable: true)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
     }
@@ -260,22 +260,6 @@ class G00ChangePassVC: BaseViewController, UIPopoverPresentationControllerDelega
     }
     */
 
-    /**
-     * Handle show menu.
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
-            let popoverVC = segue.destination
-            popoverVC.popoverPresentationController?.delegate = self
-        }
-    }
-    
-    /**
-     * ...
-     */
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
-    }
 
     /**
      * Hilde keyboard

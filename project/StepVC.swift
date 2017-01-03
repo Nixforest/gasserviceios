@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class StepVC: BaseViewController, UIScrollViewDelegate, ScrollButtonListDelegate, UIPopoverPresentationControllerDelegate {
+class StepVC: BaseViewController, UIScrollViewDelegate, ScrollButtonListDelegate {
     // MARK: Properties
     /** Step number */
     var _numberStep: Int                = 0
@@ -96,7 +96,7 @@ class StepVC: BaseViewController, UIScrollViewDelegate, ScrollButtonListDelegate
      */
     func setupButtons() {
         // Set up button Back
-        let back = UIImage(named: GlobalConst.BACK_IMG_NAME)
+        let back = UIImage(named: DomainConst.BACK_IMG_NAME)
         let tintedBack = back?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         _btnBack.translatesAutoresizingMaskIntoConstraints = true
         _btnBack.frame = CGRect(
@@ -131,7 +131,7 @@ class StepVC: BaseViewController, UIScrollViewDelegate, ScrollButtonListDelegate
             y: self.view.frame.height - GlobalConst.SCROLL_BUTTON_LIST_HEIGHT - GlobalConst.BUTTON_H,
             width: GlobalConst.BUTTON_H * 2,
             height: GlobalConst.BUTTON_H)
-        _btnSend.setTitle(GlobalConst.CONTENT00180, for: .normal)
+        _btnSend.setTitle(DomainConst.CONTENT00180, for: .normal)
         _btnSend.backgroundColor    = GlobalConst.BUTTON_COLOR_RED
         _btnSend.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         _btnSend.tintColor          = UIColor.white
@@ -293,23 +293,6 @@ class StepVC: BaseViewController, UIScrollViewDelegate, ScrollButtonListDelegate
         summary.isHidden = true
         self._summary = summary
         self.view.addSubview(summary)
-    }
-    
-    /**
-     * Override: show menu controller
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
-            let popoverVC = segue.destination
-            popoverVC.popoverPresentationController?.delegate = self
-        }
-    }
-    
-    /**
-     * ...
-     */
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
     }
     
     func setListIcon(listIcon: [String]) {

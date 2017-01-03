@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G00RegisterVC: BaseViewController, UIPopoverPresentationControllerDelegate, UITextFieldDelegate {
+class G00RegisterVC: BaseViewController, UITextFieldDelegate {
     // MARK: Properties
     /** Logo image */
     @IBOutlet weak var imgCenter: UIImageView!
@@ -29,7 +29,7 @@ class G00RegisterVC: BaseViewController, UIPopoverPresentationControllerDelegate
         // Check the value of text field
         if (((txtName.text?.isEmpty)! || (txtPhone.text?.isEmpty)!)){
             // Call alert
-            showAlert(message: GlobalConst.CONTENT00025)
+            showAlert(message: DomainConst.CONTENT00025)
         } else {
             RequestAPI.requestRegister(name: txtName.text!, phone: txtPhone.text!, view: self)
         }
@@ -42,7 +42,7 @@ class G00RegisterVC: BaseViewController, UIPopoverPresentationControllerDelegate
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(super.configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_REGISTERVIEW),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_REGISTERVIEW),
                                                object: nil)
     }
     
@@ -71,7 +71,7 @@ class G00RegisterVC: BaseViewController, UIPopoverPresentationControllerDelegate
                                   y: imgCenter.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.EDITTEXT_W,
                                   height: GlobalConst.EDITTEXT_H)
-        txtName.placeholder = GlobalConst.CONTENT00055
+        txtName.placeholder = DomainConst.CONTENT00055
         txtName.translatesAutoresizingMaskIntoConstraints = true
         // Set icon
         setLeftViewForTextField(textField: txtName, named: "icon2.png")
@@ -82,7 +82,7 @@ class G00RegisterVC: BaseViewController, UIPopoverPresentationControllerDelegate
                                y: txtName.frame.maxY + GlobalConst.MARGIN,
                                width: GlobalConst.EDITTEXT_W,
                                height: GlobalConst.EDITTEXT_H)
-        txtPhone.placeholder = GlobalConst.CONTENT00054
+        txtPhone.placeholder = DomainConst.CONTENT00054
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
         // Set icon
         setLeftViewForTextField(textField: txtPhone, named: "phone-ios.png")
@@ -94,7 +94,7 @@ class G00RegisterVC: BaseViewController, UIPopoverPresentationControllerDelegate
                                 width: GlobalConst.BUTTON_W,
                                 height: GlobalConst.BUTTON_H)
         registerButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        registerButton.setTitle(GlobalConst.CONTENT00052.uppercased(), for: UIControlState())
+        registerButton.setTitle(DomainConst.CONTENT00052.uppercased(), for: UIControlState())
         registerButton.setTitleColor(UIColor.white, for: UIControlState())
         registerButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         //self.view.addSubview(registerButton)
@@ -103,7 +103,7 @@ class G00RegisterVC: BaseViewController, UIPopoverPresentationControllerDelegate
         registerButton.imageView?.contentMode = .scaleAspectFit
                 
         //Navigation Bar customize
-        setupNavigationBar(title: GlobalConst.CONTENT00052, isNotifyEnable: false)
+        setupNavigationBar(title: DomainConst.CONTENT00052, isNotifyEnable: false)
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(G00RegisterVC.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
@@ -129,17 +129,6 @@ class G00RegisterVC: BaseViewController, UIPopoverPresentationControllerDelegate
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-  
-    //popover menu
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
-            let popoverVC = segue.destination
-            popoverVC.popoverPresentationController?.delegate = self
-        }
-    }
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
     }
     
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{

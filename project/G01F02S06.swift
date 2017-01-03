@@ -40,7 +40,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
         CommonProcess.createButtonLayout(btn: _btnAddImg,
                                    x: (w - GlobalConst.BUTTON_W) / 2,
                                    y: GlobalConst.MARGIN,
-                                   text: GlobalConst.CONTENT00064)
+                                   text: DomainConst.CONTENT00064)
         _btnAddImg.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
         _btnAddImg.tag = 0
         contentView.addSubview(_btnAddImg)
@@ -48,14 +48,14 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
         
         // Table view
         /** Cell define */
-        self._tblListImg.register(UINib(nibName: GlobalConst.G01_F02_S06_CELL, bundle: nil), forCellReuseIdentifier: GlobalConst.G01_F02_S06_CELL)
+        self._tblListImg.register(UINib(nibName: DomainConst.G01_F02_S06_CELL, bundle: nil), forCellReuseIdentifier: DomainConst.G01_F02_S06_CELL)
         _viewPickImg.addSubview(_tblListImg)
         contentView.addSubview(_viewPickImg)
         
         // Set parent
         self._parent = parent
         
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00189,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00189,
                    contentHeight: offset,
                    width: w, height: h)
         
@@ -99,7 +99,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
     
     // MARK: - TableView Datasource
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:ImageTableViewCell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.G01_F02_S06_CELL) as! ImageTableViewCell
+        let cell:ImageTableViewCell = tableView.dequeueReusableCell(withIdentifier: DomainConst.G01_F02_S06_CELL) as! ImageTableViewCell
         cell.indexRow = indexPath.row
         cell.delegate = self
         let  aImage :UIImage = G01F02S06._selectedValue[indexPath.row]
@@ -111,8 +111,8 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
         // Button Delete
         cell.btnDelete.translatesAutoresizingMaskIntoConstraints = true
         cell.btnDelete.frame = CGRect(x: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 5) - GlobalConst.BUTTON_HEIGHT, y: cell.frame.size.height / 2 - (GlobalConst.BUTTON_HEIGHT / 2), width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
-        cell.btnDelete.setImage(UIImage(named: GlobalConst.DELETE_IMG_NAME), for: .normal)
-        let deleteImage = UIImage(named: GlobalConst.DELETE_IMG_NAME);
+        cell.btnDelete.setImage(UIImage(named: DomainConst.DELETE_IMG_NAME), for: .normal)
+        let deleteImage = UIImage(named: DomainConst.DELETE_IMG_NAME);
         let tintedImage = deleteImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         cell.btnDelete.setImage(tintedImage, for: .normal)
         //cell.btnDelete.tintColor = UIColor.red
@@ -124,7 +124,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cell:ImageTableViewCell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.G01_F02_S06_CELL) as! ImageTableViewCell
+        let cell:ImageTableViewCell = tableView.dequeueReusableCell(withIdentifier: DomainConst.G01_F02_S06_CELL) as! ImageTableViewCell
         return cell.frame.height
     }
     
@@ -132,7 +132,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             G01F02S06._selectedValue.append(image)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
         }
         self._tblListImg.reloadData()
         self._parent?.dismiss(animated: true, completion: nil)
@@ -143,6 +143,6 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
         print("remove row ",row)
         G01F02S06._selectedValue.remove(at: row)
         self._tblListImg.reloadData()
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
     }
 }

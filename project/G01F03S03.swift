@@ -54,7 +54,7 @@ class G01F03S03: StepContent, UITextViewDelegate {
         
         // Set parent
         self._parent = parent
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00208,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00208,
                    contentHeight: offset,
                    width: w, height: h)
         // Set data
@@ -73,7 +73,7 @@ class G01F03S03: StepContent, UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         G01F03S03._selectedValue = textView.text
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F03), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F03), object: nil)
     }
     
     /**

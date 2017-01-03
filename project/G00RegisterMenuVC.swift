@@ -15,7 +15,7 @@ class G00RegisterMenuVC: BaseMenuViewController {
      */
     override func configItemTapped(_ sender: AnyObject) {
         self.dismiss(animated: false) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_REGISTERVIEW), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_REGISTERVIEW), object: nil)
         }
     }
     /**

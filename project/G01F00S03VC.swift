@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
+class G01F00S03VC: BaseViewController {
     // MARK: Properties
     let lblHeader0 = UILabel()
     let lblHeader1 = UILabel()
@@ -74,17 +74,17 @@ class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.gasServiceItemTapped(_:)),
-            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
             object: nil)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(G01F00S03VC.issueButtonInAccountVCTapped(_:)),
-            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
+            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
             object: nil)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(super.configItemTap(_:)),
-            name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_CREATE_UPHOLD),
+            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_CREATE_UPHOLD),
             object: nil)
     }
     
@@ -99,8 +99,8 @@ class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
         
         // MARK: - NavBar
-        setupNavigationBar(title: GlobalConst.CONTENT00143, isNotifyEnable: true)
-        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S03VC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
+        setupNavigationBar(title: DomainConst.CONTENT00143, isNotifyEnable: true)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S03VC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
 
         // Do any additional setup after loading the view.// Set data
         if BaseModel.shared.sharedInt != -1 {
@@ -135,7 +135,7 @@ class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
         
         // Label CreateDate and CreateDateValue
         setLayoutLeft(lbl: lblCreateDate, offset: offset,
-                      height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00096,
+                      height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00096,
                       isDrawTopBorder: false)
         setLayoutRight(lbl: lblCreateDateValue, offset: offset,
                        height: GlobalConst.LABEL_HEIGHT, text: "",
@@ -143,38 +143,38 @@ class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
         offset = lblCreateDate.frame.maxY
         
 //        // Customer name
-//        setLayoutLeft(lbl: lblCustomerName, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00079)
+//        setLayoutLeft(lbl: lblCustomerName, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00079)
 //        setLayoutRight(lbl: lblCustomerNameValue, offset: offset,
 //                       height: GlobalConst.LABEL_HEIGHT * 2, text: "")
 //        offset = lblCustomerName.frame.maxY
 //        
 //        // Label Address and AddressValue
-//        setLayoutLeft(lbl: lblAddress, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00088)
+//        setLayoutLeft(lbl: lblAddress, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00088)
 //        setLayoutRight(lbl: lblAddressValue, offset: offset,
 //                       height: GlobalConst.LABEL_HEIGHT * 2, text: "")
 //        offset = lblAddress.frame.maxY
         
         // Label Contact and ContactValue
         if BaseModel.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
-//            setLayoutLeft(lbl: lblContact, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00146)
+//            setLayoutLeft(lbl: lblContact, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00146)
 //            setLayoutRight(lbl: lblContactValue, offset: offset,
 //                           height: GlobalConst.LABEL_HEIGHT * 2, text: "")
 //            offset = lblContact.frame.maxY
             
             // Label Issue and IssueValue
             setLayoutLeft(lbl: lblIssue, offset: offset,
-                          height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00147)
+                          height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00147)
             setLayoutRight(lbl: lblIssueValue, offset: offset,
                            height: GlobalConst.LABEL_HEIGHT, text: "")
             offset = lblIssue.frame.maxY
             
             // Label Content and ContentValue
-            setLayoutLeft(lbl: lblContent, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00081)
+            setLayoutLeft(lbl: lblContent, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00081)
             setLayoutRight(lbl: lblContentValue, offset: offset,
                            height: GlobalConst.LABEL_HEIGHT * 2, text: "")
             offset = lblContent.frame.maxY + GlobalConst.MARGIN_CELL_Y
         } else {
-            setLayoutLeft(lbl: lblContact, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00161)
+            setLayoutLeft(lbl: lblContact, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00161)
             setLayoutRight(lbl: lblContactValue, offset: offset,
                            height: GlobalConst.LABEL_HEIGHT, text: "")
             offset = lblContact.frame.maxY
@@ -185,19 +185,19 @@ class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
         /**
          * Header 1 - Uphold Emplyee Detail
          */
-        setHeader(header: lblHeader1, offset: offset, text: GlobalConst.CONTENT00156)
+        setHeader(header: lblHeader1, offset: offset, text: DomainConst.CONTENT00156)
         
         offset = lblHeader1.frame.maxY + GlobalConst.MARGIN_CELL_Y
         // Label Employee and EmployeeValue
         setLayoutLeft(lbl: lblEmployee, offset: offset,
-                      height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00145, isDrawTopBorder: false)
+                      height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00145, isDrawTopBorder: false)
         setLayoutRight(lbl: lblEmployeeValue, offset: offset,
                        height: GlobalConst.LABEL_HEIGHT, text: "", isDrawTopBorder: false)
         offset = lblEmployee.frame.maxY
         
         // Label EmployeePhone and EmployeePhoneValue
         setLayoutLeft(lbl: lblEmployeePhone, offset: offset,
-                      height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00152)
+                      height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00152)
         setLayoutRight(lbl: lblEmployeePhoneValue, offset: offset,
                        height: GlobalConst.LABEL_HEIGHT, text: "")
         offset = lblEmployeePhone.frame.maxY
@@ -205,7 +205,7 @@ class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
         // Label HandlingTime and HandlingTimeValue
         if BaseModel.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
             setLayoutLeft(lbl: lblHandlingTime, offset: offset,
-                          height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00157)
+                          height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00157)
             setLayoutRight(lbl: lblHandlingTimeValue, offset: offset,
                            height: GlobalConst.LABEL_HEIGHT, text: "")
             offset = lblHandlingTime.frame.maxY + GlobalConst.MARGIN_CELL_Y
@@ -215,7 +215,7 @@ class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
         /**
          * Header 2 - Uphold Result Detail
          */
-        setHeader(header: lblHeader2, offset: offset, text: GlobalConst.CONTENT00158)
+        setHeader(header: lblHeader2, offset: offset, text: DomainConst.CONTENT00158)
         offset = lblHeader2.frame.maxY + GlobalConst.MARGIN_CELL_Y
         
         if BaseModel.shared.currentUpholdDetail.status_number == DomainConst.UPHOLD_STATUS_COMPLETE {
@@ -223,14 +223,14 @@ class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
                 if BaseModel.shared.currentUpholdDetail.report_wrong.isEmpty {
                     // Label Status and StatusValue
                     setLayoutLeft(lbl: lblStatus, offset: offset,
-                                  height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092, isDrawTopBorder: false)
+                                  height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092, isDrawTopBorder: false)
                     setLayoutRight(lbl: lblStatusValue, offset: offset,
                                    height: GlobalConst.LABEL_HEIGHT, text: "", isDrawTopBorder: false)
                     offset = lblStatus.frame.maxY
                     
                     // Label Report and ReportValue
                     setLayoutLeft(lbl: lblReport, offset: offset,
-                                  height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00159)
+                                  height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00159)
                     setLayoutRight(lbl: lblReportValue, offset: offset,
                                    height: GlobalConst.LABEL_HEIGHT, text: "")
                     offset = lblReport.frame.maxY
@@ -249,14 +249,14 @@ class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
             } else {
                 // Label Status and StatusValue
                 setLayoutLeft(lbl: lblStatus, offset: offset,
-                              height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+                              height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092)
                 setLayoutRight(lbl: lblStatusValue, offset: offset,
                                height: GlobalConst.LABEL_HEIGHT, text: "")
                 offset = lblStatus.frame.maxY
                 
                 // Label Report and ReportValue
                 setLayoutLeft(lbl: lblReport, offset: offset,
-                              height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00159)
+                              height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00159)
                 setLayoutRight(lbl: lblReportValue, offset: offset,
                                height: GlobalConst.LABEL_HEIGHT, text: "")
                 offset = lblReport.frame.maxY
@@ -291,17 +291,17 @@ class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
         CommonProcess.setBorder(view: scrollView)
         
         // Header 3
-        setHeader(header: lblHeader3, offset: scrollView.contentSize.height - GlobalConst.LABEL_HEIGHT - GlobalConst.MARGIN_CELL_Y, text: GlobalConst.CONTENT00225,
+        setHeader(header: lblHeader3, offset: scrollView.contentSize.height - GlobalConst.LABEL_HEIGHT - GlobalConst.MARGIN_CELL_Y, text: DomainConst.CONTENT00225,
                   bkgColor: ColorFromRGB().getColorFromRGB(0xFAB102))
         
         if BaseModel.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
-            lblHeader0.text = GlobalConst.CONTENT00041.uppercased()
-            lblCreateDate.text = GlobalConst.CONTENT00096
+            lblHeader0.text = DomainConst.CONTENT00041.uppercased()
+            lblCreateDate.text = DomainConst.CONTENT00096
             lblContactValue.text        = BaseModel.shared.currentUpholdDetail.contact_person + " - " +
                 BaseModel.shared.currentUpholdDetail.contact_tel
         } else {
-            lblHeader0.text             = GlobalConst.CONTENT00040.uppercased()
-            lblCreateDate.text          = GlobalConst.CONTENT00160
+            lblHeader0.text             = DomainConst.CONTENT00040.uppercased()
+            lblCreateDate.text          = DomainConst.CONTENT00160
             lblContactValue.text        = BaseModel.shared.currentUpholdDetail.schedule_month
         }
         lblCreateDateValue.text     = BaseModel.shared.currentUpholdDetail.created_date
@@ -325,24 +325,6 @@ class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    /**
-     * Override: show menu controller
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
-            let popoverVC = segue.destination
-            popoverVC.popoverPresentationController?.delegate = self
-        }
-    }
-    
-    /**
-     * ...
-     */
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
-    }
-    
-
     /*
     // MARK: - Navigation
 
@@ -352,7 +334,7 @@ class G01F00S03VC: BaseViewController, UIPopoverPresentationControllerDelegate {
         // Pass the selected object to the new view controller.
     }
      */
-    func setHeader(header: UILabel, offset: CGFloat, text: String = GlobalConst.CONTENT00041, bkgColor: UIColor = GlobalConst.BUTTON_COLOR_RED) {
+    func setHeader(header: UILabel, offset: CGFloat, text: String = DomainConst.CONTENT00041, bkgColor: UIColor = GlobalConst.BUTTON_COLOR_RED) {
         header.translatesAutoresizingMaskIntoConstraints = true
         header.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
                               y: offset,

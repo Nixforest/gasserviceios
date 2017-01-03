@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, G01F00S01ProblemCellDelegate {
+class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, G01F00S01ProblemCellDelegate {
     // MARK: Properties
     /** Current view type */
     var currentViewType = DomainConst.TYPE_TROUBLE
@@ -121,9 +121,9 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self, selector: #selector(gasServiceItemTapped), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(configItemTap(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_UPHOLDLISTVIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(gasServiceItemTapped), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(configItemTap(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_UPHOLDLISTVIEW), object: nil)
     }
     
     /**
@@ -134,7 +134,7 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
         // Menu item tap
         asignNotifyForMenuItem()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.showSearchBarTableView(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.showSearchBarTableView(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW), object: nil)
         
         // Blur view when status list picker active
         blurView.isHidden          = true
@@ -146,19 +146,19 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
         blurView.addSubview(blurEffectView)
         let marginX = GlobalConst.PARENT_BORDER_WIDTH
         // Cell
-        self.periodTableView.register(UINib(nibName: GlobalConst.G01_F00_S01_PERIOD_CELL, bundle: nil),
-                                      forCellReuseIdentifier: GlobalConst.G01_F00_S01_PERIOD_CELL)
-        self.problemTableView.register(UINib(nibName: GlobalConst.G01_F00_S01_PROBLEM_CELL, bundle: nil),
-                                       forCellReuseIdentifier: GlobalConst.G01_F00_S01_PROBLEM_CELL)
-        self.searchBarTableView.register(UINib(nibName: GlobalConst.SEARCH_BAR_TABLE_VIEW_CELL, bundle: nil),
-                                         forCellReuseIdentifier: GlobalConst.SEARCH_BAR_TABLE_VIEW_CELL)
+        self.periodTableView.register(UINib(nibName: DomainConst.G01_F00_S01_PERIOD_CELL, bundle: nil),
+                                      forCellReuseIdentifier: DomainConst.G01_F00_S01_PERIOD_CELL)
+        self.problemTableView.register(UINib(nibName: DomainConst.G01_F00_S01_PROBLEM_CELL, bundle: nil),
+                                       forCellReuseIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL)
+        self.searchBarTableView.register(UINib(nibName: DomainConst.SEARCH_BAR_TABLE_VIEW_CELL, bundle: nil),
+                                         forCellReuseIdentifier: DomainConst.SEARCH_BAR_TABLE_VIEW_CELL)
         
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
         
         // Search bar
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
-        searchBox.placeholder = GlobalConst.CONTENT00060
+        searchBox.placeholder = DomainConst.CONTENT00060
         searchBox.translatesAutoresizingMaskIntoConstraints = true
         searchBox.frame = CGRect(x: marginX,
                                  y: heigh,
@@ -221,8 +221,8 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
         upholdListButton.setTitleTextAttributes([NSFontAttributeName: font],
                                                 for: UIControlState())
         
-        upholdListButton.setTitle(GlobalConst.CONTENT00077, forSegmentAt: 0)
-        upholdListButton.setTitle(GlobalConst.CONTENT00078, forSegmentAt: 1)
+        upholdListButton.setTitle(DomainConst.CONTENT00077, forSegmentAt: 0)
+        upholdListButton.setTitle(DomainConst.CONTENT00078, forSegmentAt: 1)
         upholdListButton.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
         upholdListButton.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
         upholdListButton.tintColor = GlobalConst.BUTTON_COLOR_RED
@@ -251,10 +251,10 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
         problemTableView.isHidden = false
         
         //Navigation Bar
-        setupNavigationBar(title: GlobalConst.CONTENT00129, isNotifyEnable: true)
+        setupNavigationBar(title: DomainConst.CONTENT00129, isNotifyEnable: true)
         
         // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW), object: nil)
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.reloadData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_RELOAD_DATA_UPHOLDLIST_VIEW), object: nil)
         
@@ -285,11 +285,11 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
                 if BaseModel.shared.isUpholdNotification() {
                     if BaseModel.shared.isCustomerUser() {
                         BaseModel.shared.sharedInt = BaseModel.shared.getUpholdIndexById(id: BaseModel.shared.notify.getId())
-                        let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S03_VIEW_CTRL)
+                        let detail = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S03_VIEW_CTRL)
                         self.navigationController?.pushViewController(detail, animated: true)
                     } else {
                         BaseModel.shared.sharedInt = BaseModel.shared.getUpholdIndexById(id: BaseModel.shared.notify.getId())
-                        let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S02_VIEW_CTRL)
+                        let detail = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S02_VIEW_CTRL)
                         self.navigationController?.pushViewController(detail, animated: true)
                     }
                 }
@@ -326,23 +326,6 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    /**
-     * Override: show menu controller
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
-            let popoverVC = segue.destination
-            popoverVC.popoverPresentationController?.delegate = self
-        }
-    }
-    
-    /**
-     * ...
-     */
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
     }
     
     //MARK: - UIPickerViewDelegate
@@ -433,7 +416,7 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
             // Period view
             if tableView == periodTableView {
                 let cell:G01F00S01PeriodCell = tableView.dequeueReusableCell(
-                    withIdentifier: GlobalConst.G01_F00_S01_PERIOD_CELL) as! G01F00S01PeriodCell
+                    withIdentifier: DomainConst.G01_F00_S01_PERIOD_CELL) as! G01F00S01PeriodCell
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
                     cell.setData(model: BaseModel.shared.upholdList.getRecord()[indexPath.row])
                 }
@@ -443,7 +426,7 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
             // Problem view
             if tableView == problemTableView {
                 let cell:G01F00S01ProblemCell = tableView.dequeueReusableCell(
-                    withIdentifier: GlobalConst.G01_F00_S01_PROBLEM_CELL) as! G01F00S01ProblemCell
+                    withIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL) as! G01F00S01ProblemCell
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
                     cell.setData(model: BaseModel.shared.upholdList.getRecord()[indexPath.row])
                 }
@@ -454,7 +437,7 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
             // Search bar view
             if tableView == searchBarTableView {
                 let cell:SearchBarTableViewCell = tableView.dequeueReusableCell(
-                    withIdentifier: GlobalConst.SEARCH_BAR_TABLE_VIEW_CELL) as! SearchBarTableViewCell
+                    withIdentifier: DomainConst.SEARCH_BAR_TABLE_VIEW_CELL) as! SearchBarTableViewCell
                 if (BaseModel.shared.searchCustomerResult.getRecord().count > indexPath.row) {
                     cell.result.text = BaseModel.shared.searchCustomerResult.getRecord()[indexPath.row].name
                 }
@@ -496,14 +479,14 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
                 // Move to customer detail uphold G01F00S03
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
                     BaseModel.shared.sharedInt = indexPath.row
-                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S03_VIEW_CTRL)
+                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S03_VIEW_CTRL)
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
             } else {
                 // Move to customer detail uphold G01F00S02
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
                     BaseModel.shared.sharedInt = indexPath.row
-                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S02_VIEW_CTRL)
+                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S02_VIEW_CTRL)
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
             }
@@ -513,7 +496,7 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
                 // Move to customer detail uphold G01F00S03
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
                     BaseModel.shared.sharedInt = indexPath.row
-                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S03_VIEW_CTRL)
+                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S03_VIEW_CTRL)
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
 
@@ -521,12 +504,12 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
                 // Move to customer detail uphold G01F00S02
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
                     BaseModel.shared.sharedInt = indexPath.row
-                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S02_VIEW_CTRL)
+                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S02_VIEW_CTRL)
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
             }
             let cell:G01F00S01ProblemCell = tableView.dequeueReusableCell(
-                withIdentifier: GlobalConst.G01_F00_S01_PROBLEM_CELL) as! G01F00S01ProblemCell
+                withIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL) as! G01F00S01ProblemCell
             cell.ratingButton.addTarget(self, action: #selector(toRatingVC), for: .touchUpInside)
         }
         
@@ -548,7 +531,7 @@ class G01F00S01VC: BaseViewController, UIPopoverPresentationControllerDelegate, 
      */
     func toRatingVC(id: String) {
         BaseModel.shared.sharedString = id
-        let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F03_VIEW_CTRL)
+        let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F03_VIEW_CTRL)
         self.navigationController?.pushViewController(ratingVC, animated: true)
     }
     

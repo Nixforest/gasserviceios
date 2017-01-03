@@ -86,8 +86,8 @@ class G01F00S02HistoryCell: UITableViewCell {
         layout.itemSize = CGSize(width: GlobalConst.ACCOUNT_AVATAR_W / 2,
                                  height: GlobalConst.ACCOUNT_AVATAR_W / 2)
         self.cltImg = UICollectionView(frame: self.frame, collectionViewLayout: layout)
-        self.cltImg.register(UINib(nibName: GlobalConst.COLLECTION_IMAGE_VIEW_CELL, bundle: nil),
-                             forCellWithReuseIdentifier: GlobalConst.COLLECTION_IMAGE_VIEW_CELL)
+        self.cltImg.register(UINib(nibName: DomainConst.COLLECTION_IMAGE_VIEW_CELL, bundle: nil),
+                             forCellWithReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL)
         self.cltImg.alwaysBounceHorizontal = true
         self.cltImg.bounces = true
         if let layout = self.cltImg.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -131,45 +131,45 @@ class G01F00S02HistoryCell: UITableViewCell {
         }
         
         // Label Handle date
-        CommonProcess.setLayoutLeft(lbl: lblHandleDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00150)
+        CommonProcess.setLayoutLeft(lbl: lblHandleDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00150)
         // Handle date value
-        CommonProcess.setLayoutRight(lbl: tbxHandleDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00150)
+        CommonProcess.setLayoutRight(lbl: tbxHandleDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00150)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Creator
-        CommonProcess.setLayoutLeft(lbl: lblCreator, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00095)
+        CommonProcess.setLayoutLeft(lbl: lblCreator, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00095)
         // Creator value
-        CommonProcess.setLayoutRight(lbl: tbxCreator, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00095)
+        CommonProcess.setLayoutRight(lbl: tbxCreator, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00095)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Status
-        CommonProcess.setLayoutLeft(lbl: lblStatus, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+        CommonProcess.setLayoutLeft(lbl: lblStatus, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092)
         // Status value
-        CommonProcess.setLayoutRight(lbl: tbxStatus, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00092)
+        CommonProcess.setLayoutRight(lbl: tbxStatus, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00092)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Created day
-        CommonProcess.setLayoutLeft(lbl: lblCreatedDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00096)
+        CommonProcess.setLayoutLeft(lbl: lblCreatedDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00096)
         // Created day value
-        CommonProcess.setLayoutRight(lbl: tbxCreatedDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00096)
+        CommonProcess.setLayoutRight(lbl: tbxCreatedDay, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00096)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Note
-        CommonProcess.setLayoutLeft(lbl: lblNote, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00195)
+        CommonProcess.setLayoutLeft(lbl: lblNote, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00195)
         // Note value
-        CommonProcess.setLayoutRight(lbl: tbxNote, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00195)
+        CommonProcess.setLayoutRight(lbl: tbxNote, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00195)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Phone
-        CommonProcess.setLayoutLeft(lbl: lblPhone, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00152)
+        CommonProcess.setLayoutLeft(lbl: lblPhone, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00152)
         // Phone value
-        CommonProcess.setLayoutRight(lbl: tbxPhone, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: GlobalConst.CONTENT00152)
+        CommonProcess.setLayoutRight(lbl: tbxPhone, offset: offset, height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00152)
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Intenal
-        CommonProcess.setLayoutLeft(lbl: lblInternal, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00151)
+        CommonProcess.setLayoutLeft(lbl: lblInternal, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00151)
         // Intenal value
-        CommonProcess.setLayoutRight(lbl: tbxInternal, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: GlobalConst.CONTENT00151)
+        CommonProcess.setLayoutRight(lbl: tbxInternal, offset: offset, height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00151)
         offset += GlobalConst.LABEL_HEIGHT * 2
         
         // Image

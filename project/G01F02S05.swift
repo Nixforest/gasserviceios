@@ -54,7 +54,7 @@ class G01F02S05: StepContent, UITextViewDelegate {
         
         // Set parent
         self._parent = parent
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00188,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00188,
                    contentHeight: offset,
                    width: w, height: h)
         // Set data
@@ -73,7 +73,7 @@ class G01F02S05: StepContent, UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         G01F02S05._selectedValue = textView.text
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
     }
     
     /**
@@ -109,7 +109,7 @@ class G01F02S05: StepContent, UITextViewDelegate {
     
     override func checkDone() -> Bool {
 //        if G01F02S05._selectedValue.isEmpty {
-//            self._parent?.showAlert(message: GlobalConst.CONTENT00188)
+//            self._parent?.showAlert(message: DomainConst.CONTENT00188)
 //            return false
 //        } else {
 //            return true

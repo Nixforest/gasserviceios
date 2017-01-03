@@ -46,7 +46,7 @@ class G01F02VC: StepVC, StepDoneDelegate {
         self._numberStep = self._arrayContent.count + 1
         appendSummary(summary: summary)
         // Set title
-        self._title = GlobalConst.CONTENT00186
+        self._title = DomainConst.CONTENT00186
         var listIcon = [String]()
         listIcon.append("trainingMode.png")
         listIcon.append("trainingMode.png")
