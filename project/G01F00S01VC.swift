@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, G01F00S01ProblemCellDelegate {
+class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate/*, G01F00S01ProblemCellDelegate*/ {
     // MARK: Properties
     /** Current view type */
     var currentViewType = DomainConst.TYPE_TROUBLE
@@ -146,9 +146,10 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
         blurView.addSubview(blurEffectView)
         let marginX = GlobalConst.PARENT_BORDER_WIDTH
         // Cell
-        self.periodTableView.register(UINib(nibName: DomainConst.G01_F00_S01_PERIOD_CELL, bundle: nil),
+        let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
+        self.periodTableView.register(UINib(nibName: DomainConst.G01_F00_S01_PERIOD_CELL, bundle: frameworkBundle),
                                       forCellReuseIdentifier: DomainConst.G01_F00_S01_PERIOD_CELL)
-        self.problemTableView.register(UINib(nibName: DomainConst.G01_F00_S01_PROBLEM_CELL, bundle: nil),
+        self.problemTableView.register(UINib(nibName: DomainConst.G01_F00_S01_PROBLEM_CELL, bundle: frameworkBundle),
                                        forCellReuseIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL)
         self.searchBarTableView.register(UINib(nibName: DomainConst.SEARCH_BAR_TABLE_VIEW_CELL, bundle: nil),
                                          forCellReuseIdentifier: DomainConst.SEARCH_BAR_TABLE_VIEW_CELL)
@@ -237,14 +238,14 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
                                         y: upholdListButton.frame.maxY,
                                         width: GlobalConst.SCREEN_WIDTH - marginX * 2,
                                         height: GlobalConst.SCREEN_HEIGHT - upholdListButton.frame.maxY - GlobalConst.PARENT_BORDER_WIDTH * 2)
-        problemTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        problemTableView.separatorStyle = .singleLine
         
         periodTableView.translatesAutoresizingMaskIntoConstraints = true
         periodTableView.frame = CGRect(x: marginX,
                                        y: upholdListButton.frame.maxY,
                                        width: GlobalConst.SCREEN_WIDTH - marginX * 2,
                                        height: GlobalConst.SCREEN_HEIGHT - upholdListButton.frame.maxY - GlobalConst.PARENT_BORDER_WIDTH * 2)
-        periodTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        periodTableView.separatorStyle = .singleLine
         
         // Show-hide UpholdList
         periodTableView.isHidden = true
@@ -415,8 +416,8 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
             var cellReturn = UITableViewCell()
             // Period view
             if tableView == periodTableView {
-                let cell:G01F00S01PeriodCell = tableView.dequeueReusableCell(
-                    withIdentifier: DomainConst.G01_F00_S01_PERIOD_CELL) as! G01F00S01PeriodCell
+                let cell:TableCellUpholdType = tableView.dequeueReusableCell(
+                    withIdentifier: DomainConst.G01_F00_S01_PERIOD_CELL) as! TableCellUpholdType
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
                     cell.setData(model: BaseModel.shared.upholdList.getRecord()[indexPath.row])
                 }
@@ -425,12 +426,12 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
             
             // Problem view
             if tableView == problemTableView {
-                let cell:G01F00S01ProblemCell = tableView.dequeueReusableCell(
-                    withIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL) as! G01F00S01ProblemCell
+                let cell:TableCellUpholdType = tableView.dequeueReusableCell(
+                    withIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL) as! TableCellUpholdType
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
                     cell.setData(model: BaseModel.shared.upholdList.getRecord()[indexPath.row])
                 }
-                cell.delegate = self
+                //cell.delegate = self
                 cellReturn = cell
             }
             
@@ -452,15 +453,18 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
      * Asks the delegate for the height to use for a row in a specified location.
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        var height = CGFloat()
-        // Period view
-        if tableView == periodTableView {
-            height = GlobalConst.CELL_HEIGHT_SHOW
-            
-        }
-        // Problem view
-        if tableView == problemTableView {
-            height = GlobalConst.CELL_HEIGHT_SHOW
+        var height = GlobalConst.CELL_HEIGHT_SHOW
+//        // Period view
+//        if tableView == periodTableView {
+//            height = GlobalConst.CELL_HEIGHT_SHOW
+//            
+//        }
+//        // Problem view
+//        if tableView == problemTableView {
+//            height = GlobalConst.CELL_HEIGHT_SHOW
+//        }
+        if BaseModel.shared.isCustomerUser() {
+            height -= GlobalConst.CELL_HEIGHT_SHOW / 4
         }
         // Search bar view
         if tableView == searchBarTableView {
@@ -508,9 +512,9 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
             }
-            let cell:G01F00S01ProblemCell = tableView.dequeueReusableCell(
-                withIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL) as! G01F00S01ProblemCell
-            cell.ratingButton.addTarget(self, action: #selector(toRatingVC), for: .touchUpInside)
+            let cell:TableCellUpholdType = tableView.dequeueReusableCell(
+                withIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL) as! TableCellUpholdType
+            //cell.ratingButton.addTarget(self, action: #selector(toRatingVC), for: .touchUpInside)
         }
         
         // Search bar

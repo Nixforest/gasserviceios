@@ -1085,7 +1085,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uHs-Pb-9Kl" id="ufp-uI-QHq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D3Q-rT-a5I">
@@ -1725,7 +1725,7 @@
             </objects>
             <point key="canvasLocation" x="8344.7999999999993" y="-1209.4452773613195"/>
         </scene>
-        <!--Title-->
+        <!--G04F00S02VC-->
         <scene sceneID="e2Q-PJ-V5q">
             <objects>
                 <viewController storyboardIdentifier="G04F00S02VC" id="LaW-j5-dU0" customClass="G04F00S02VC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
@@ -1738,7 +1738,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="hSM-D0-HbU">
+                    <navigationItem key="navigationItem" id="hSM-D0-HbU">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="qDd-N5-kt2">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CLT-ne-yrg">
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
@@ -1808,9 +1808,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <connections>
-                        <segue destination="LaW-j5-dU0" kind="relationship" relationship="IBSegueTriggerManual" id="lYz-Eo-434"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qAQ-xK-LZa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
