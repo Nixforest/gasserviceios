@@ -99,7 +99,7 @@ class CommonProcess {
         view.layer.borderWidth  = GlobalConst.BUTTON_BORDER_WIDTH
         view.layer.borderColor  = GlobalConst.BUTTON_COLOR_RED.cgColor
         view.clipsToBounds      = true
-        view.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
+        view.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
     }
     
     /**

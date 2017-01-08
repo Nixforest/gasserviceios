@@ -544,7 +544,7 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
      */
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // If current view is Uphold table view
-        if (BaseModel.shared.upholdList.getRecord().count >= 10) {
+        if (BaseModel.shared.upholdList.getRecord().count >= 15) {
             let lastElement = BaseModel.shared.upholdList.getRecord().count - 1
             if indexPath.row == lastElement {
                 currentPage += 1

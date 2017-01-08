@@ -48,8 +48,8 @@ class G01F01S03: StepSummary {
         contentView.addSubview(tbxProblem)
         contentView.addSubview(lblContent)
         contentView.addSubview(tbxContent)
-        //contentView.addSubview(lblContact)
-        //contentView.addSubview(tbxContact)
+        contentView.addSubview(lblContact)
+        contentView.addSubview(tbxContact)
         
         self.setup(mainView: contentView, title: DomainConst.CONTENT00205, contentHeight: offset,
                    width: w, height: h)

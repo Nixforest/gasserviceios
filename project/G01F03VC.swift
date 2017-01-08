@@ -30,10 +30,10 @@ class G01F03VC: StepVC, StepDoneDelegate {
         let summary = G01F03S04(w: GlobalConst.SCREEN_WIDTH,
                                 h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         
-        step2.stepDoneDelegate = self
-        self.appendContent(stepContent: step2)
         step1.stepDoneDelegate = self
         self.appendContent(stepContent: step1)
+        step2.stepDoneDelegate = self
+        self.appendContent(stepContent: step2)
         step3.stepDoneDelegate = self
         self.appendContent(stepContent: step3)
         self._numberStep = self._arrayContent.count + 1

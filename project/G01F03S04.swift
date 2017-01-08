@@ -71,12 +71,15 @@ class G01F03S04: StepSummary {
     func updateData() {
         tbxFeeling.text = G01F03S01._selectedValue.name
         tbxContent.text = G01F03S03._selectedValue
-        //self.updateLayout(contentHeight: offset)
+        self.updateLayout()
         for i in 0..<G01F03S02._selectedValue.count {
             self._listRating[i]._rating = G01F03S02._selectedValue[i]
         }
     }
-    
+    func updateLayout() {
+        lblContent.isHidden = G01F03S03._selectedValue.isEmpty
+        tbxContent.isHidden = G01F03S03._selectedValue.isEmpty
+    }
     func updateLayout(view: UIView, offset: CGFloat) {
         view.frame = CGRect(x: view.frame.origin.x, y: offset,
                             width: view.frame.width,
@@ -136,6 +139,7 @@ class G01F03S04: StepSummary {
                                      width: (w - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
                                      height: GlobalConst.LABEL_HEIGHT, text: G01F03S01._selectedValue.name)
         tbxFeeling.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+        
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Content
@@ -149,6 +153,9 @@ class G01F03S04: StepSummary {
                                      height: GlobalConst.LABEL_HEIGHT * 2, text: G01F03S03._selectedValue)
         tbxContent.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         offset += GlobalConst.LABEL_HEIGHT * 2
+        
+        lblContent.isHidden = G01F03S03._selectedValue.isEmpty
+        tbxContent.isHidden = G01F03S03._selectedValue.isEmpty
         
         return offset
     }

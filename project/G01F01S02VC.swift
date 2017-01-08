@@ -67,28 +67,30 @@ class G01F01S02: StepContent {
             }
             // Name textfield
             _tbxName.frame = CGRect(
-                x: (w - GlobalConst.EDITTEXT_W) / 2,
+                x: (w - GlobalConst.BUTTON_W) / 2,
                 y: offset,
-                width: GlobalConst.EDITTEXT_W,
-                height: GlobalConst.EDITTEXT_H)
+                width: GlobalConst.BUTTON_W,
+                height: GlobalConst.BUTTON_H)
             _tbxName.translatesAutoresizingMaskIntoConstraints = true
-            _tbxName.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+            _tbxName.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
             _tbxName.isEditable = false
+            _tbxName.textAlignment = .center
             if !G01F01S02._name.isEmpty {
                 _tbxName.text = G01F01S02._name
             }
             CommonProcess.setBorder(view: _tbxName)
-            offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
+            offset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
             contentView.addSubview(_tbxName)
             // Phone textfield
             _tbxPhone.frame = CGRect(
-                x: (w - GlobalConst.EDITTEXT_W) / 2,
+                x: (w - GlobalConst.BUTTON_W) / 2,
                 y: offset,
-                width: GlobalConst.EDITTEXT_W,
-                height: GlobalConst.EDITTEXT_H)
+                width: GlobalConst.BUTTON_W,
+                height: GlobalConst.BUTTON_H)
             _tbxPhone.translatesAutoresizingMaskIntoConstraints = true
-            _tbxPhone.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+            _tbxPhone.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
             _tbxPhone.isEditable = false
+            _tbxPhone.textAlignment = .center
             if !G01F01S02._phone.isEmpty {
                 _tbxName.text = G01F01S02._phone
             }
@@ -126,6 +128,28 @@ class G01F01S02: StepContent {
         
         // Set new selected value
         G01F01S02._selectedValue = BaseModel.shared.listContactType[sender.tag]
+        switch G01F01S02._selectedValue.id {
+        case "1":
+            G01F01S02._name = (BaseModel.shared.user_info?.getBossName())!
+            G01F01S02._phone = (BaseModel.shared.user_info?.getBossPhone())!
+            break
+        case "2":
+            G01F01S02._name = (BaseModel.shared.user_info?.getManagerName())!
+            G01F01S02._phone = (BaseModel.shared.user_info?.getManagerPhone())!
+            break
+        case "3":
+            G01F01S02._name = (BaseModel.shared.user_info?.getTechnicalName())!
+            G01F01S02._phone = (BaseModel.shared.user_info?.getTechnicalPhone())!
+            break
+        default:
+            break
+        }
+        if !G01F01S02._name.isEmpty {
+            _tbxName.text = G01F01S02._name
+        }
+        if !G01F01S02._phone.isEmpty {
+            _tbxPhone.text = G01F01S02._phone
+        }
         // Mark selecting button
         CommonProcess.markButton(button: sender as! UIButton)
         createAlert()
@@ -143,11 +167,12 @@ class G01F01S02: StepContent {
             tbxName?.placeholder        = DomainConst.CONTENT00055
             tbxName?.clearButtonMode    = .whileEditing
             tbxName?.frame.size.height  = GlobalConst.EDITTEXT_H
-            //tbxName?.borderStyle        = .roundedRect
+            tbxName?.borderStyle        = .roundedRect
             tbxName?.returnKeyType      = .next
             tbxName?.autocapitalizationType = .words
             tbxName?.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
             tbxName?.text               = G01F01S02._name
+            //tbxName?.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         })
         // Add textfield phone
         alert.addTextField(configurationHandler: { textField -> Void in
@@ -157,7 +182,7 @@ class G01F01S02: StepContent {
             tbxPhone?.clearButtonMode   = .whileEditing
             tbxPhone?.keyboardType      = .phonePad
             tbxPhone?.frame.size.height = GlobalConst.EDITTEXT_H
-            //tbxPhone?.borderStyle       = .roundedRect
+            tbxPhone?.borderStyle       = .roundedRect
             tbxPhone?.text              = G01F01S02._phone
             tbxPhone?.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
         })

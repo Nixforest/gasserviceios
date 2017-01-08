@@ -52,7 +52,7 @@ class RatingBar: UIView {
             button.addTarget(self, action: #selector(RatingBar.ratingButtonTapped),
                              for: .touchDown)
             button.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
-            button.tintColor = GlobalConst.BUTTON_COLOR_RED
+            button.tintColor = GlobalConst.BUTTON_COLOR_YELLOW
             self._ratingButtons.append(button)
             addSubview(button)
         }

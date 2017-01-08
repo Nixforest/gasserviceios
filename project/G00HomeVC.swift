@@ -75,11 +75,11 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         asignNotifyForMenuItem()
         
         // Handle display color when training mode is on
-        if BaseModel.shared.checkTrainningMode() {
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
-        } else {    // Training mode off
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
-        }
+//        if BaseModel.shared.checkTrainningMode() {
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+//        } else {    // Training mode off
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+//        }
         
         // Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
@@ -251,6 +251,10 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 1:
+            if BaseModel.shared.user_info == nil {
+                // User information does not exist
+                RequestAPI.requestUserProfile(view: self)
+            }
             let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F01_VIEW_CTRL)
             self.navigationController?.pushViewController(upholdListVC, animated: true)
         case 2:
@@ -298,11 +302,11 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         }
         
         // Handle display color when training mode is on
-        if BaseModel.shared.checkTrainningMode() {
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
-        } else {    // Training mode off
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
-        }
+//        if BaseModel.shared.checkTrainningMode() {
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+//        } else {    // Training mode off
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+//        }
     }
     
     /**

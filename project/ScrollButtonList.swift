@@ -58,8 +58,8 @@ class ScrollButtonList: UIScrollView {
 //                }
                 button.setImage(UIImage(named: self._listIcons[i]), for: UIControlState())
             } else {
-                button.setTitle(String(i + 1), for: .normal)
-                button.setTitleColor(UIColor.white , for: .normal)
+                //button.setTitle(String(i + 1), for: .normal)
+                //button.setTitleColor(UIColor.white , for: .normal)
             }
             button.translatesAutoresizingMaskIntoConstraints = true
             button.frame = CGRect(
@@ -80,8 +80,8 @@ class ScrollButtonList: UIScrollView {
         self.contentSize        = CGSize(
             width: self.frame.width + (CGFloat)(self._numberOfBtn - 1) * GlobalConst.SCROLL_BUTTON_LIST_HEIGHT,
             height: self.frame.height)
-        self.backgroundColor    = GlobalConst.SCROLLBUTTONLIST_BKG_COLOR
-        self.layer.borderWidth  = GlobalConst.BUTTON_BORDER_WIDTH
+        //self.backgroundColor    = GlobalConst.SCROLLBUTTONLIST_BKG_COLOR
+        //self.layer.borderWidth  = GlobalConst.BUTTON_BORDER_WIDTH
         self.contentOffset      = CGPoint(x: 0, y: 0)
         self.contentInset       = UIEdgeInsetsMake(0, 0, 0, 0)
         self.bounces            = true

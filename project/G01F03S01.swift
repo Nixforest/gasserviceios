@@ -47,8 +47,24 @@ class G01F03S01: StepContent {
                 button.setTitleColor(UIColor.white , for: .normal)
                 button.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
                 button.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+                var imgName = DomainConst.BLANK
+                switch BaseModel.shared.listRatingStatus[i].id {
+                case "1":
+                    imgName = "icon53.png"
+                    break
+                case "2":
+                    imgName = "icon52.png"
+                    break
+                case "3":
+                    imgName = "icon54.png"
+                    break
+                default:
+                    break
+                }
+                button.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0)
                 button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
                 button.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+                button.setLeftImage(imageName: imgName, padding: 10.0)
                 // Mark button
                 if G01F03S01._selectedValue.id == BaseModel.shared.listRatingStatus[i].id {
                     CommonProcess.markButton(button: button)
