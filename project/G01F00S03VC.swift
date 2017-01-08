@@ -145,24 +145,24 @@ class G01F00S03VC: BaseViewController {
         setHeader(header: lblHeader0, offset: offset)
         offset = lblHeader0.frame.maxY + GlobalConst.MARGIN_CELL_Y
         
-        // Customer
-        self.imgCustomerNameIcon.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
-                                        y: offset + GlobalConst.CELL_HEIGHT_SHOW / 10,
-                                        width: GlobalConst.CELL_HEIGHT_SHOW / 5,
-                                        height: GlobalConst.CELL_HEIGHT_SHOW / 5)
-        self.imgCustomerNameIcon.contentMode = .scaleAspectFit
-        self.imgCustomerNameIcon.image = UIImage(named: DomainConst.CUSTOMER_ICON_IMG_NAME)
-        // Customer name label
-        self.lblCustomerName.frame = CGRect(x: self.imgCustomerNameIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
-                                         y: offset,
-                                         width: rightWidth,
-                                         height: GlobalConst.CELL_HEIGHT_SHOW / 5 * 2)
-        self.lblCustomerName.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-        self.lblCustomerName.textColor = GlobalConst.BUTTON_COLOR_RED
-        self.lblCustomerName.text = DomainConst.BLANK
-        self.lblCustomerName.numberOfLines = 0
-        self.lblCustomerName.lineBreakMode = .byWordWrapping
-        offset += self.lblCustomerName.frame.height + GlobalConst.MARGIN_CELL_Y
+//        // Customer
+//        self.imgCustomerNameIcon.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
+//                                        y: offset + GlobalConst.CELL_HEIGHT_SHOW / 10,
+//                                        width: GlobalConst.CELL_HEIGHT_SHOW / 5,
+//                                        height: GlobalConst.CELL_HEIGHT_SHOW / 5)
+//        self.imgCustomerNameIcon.contentMode = .scaleAspectFit
+//        self.imgCustomerNameIcon.image = UIImage(named: DomainConst.CUSTOMER_ICON_IMG_NAME)
+//        // Customer name label
+//        self.lblCustomerName.frame = CGRect(x: self.imgCustomerNameIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
+//                                         y: offset,
+//                                         width: rightWidth,
+//                                         height: GlobalConst.CELL_HEIGHT_SHOW / 5 * 2)
+//        self.lblCustomerName.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+//        self.lblCustomerName.textColor = GlobalConst.BUTTON_COLOR_RED
+//        self.lblCustomerName.text = DomainConst.BLANK
+//        self.lblCustomerName.numberOfLines = 0
+//        self.lblCustomerName.lineBreakMode = .byWordWrapping
+//        offset += self.lblCustomerName.frame.height + GlobalConst.MARGIN_CELL_Y
         
         // Date icon
         self.imgCreateDateIcon.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
@@ -181,24 +181,24 @@ class G01F00S03VC: BaseViewController {
         self.lblCreateDate.text = DomainConst.BLANK
         offset += self.lblCreateDate.frame.height + GlobalConst.MARGIN_CELL_Y
         
-        // Address icon
-        self.imgAddressIcon.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
-                                           y: offset + GlobalConst.CELL_HEIGHT_SHOW / 10,
-                                           width: GlobalConst.CELL_HEIGHT_SHOW / 5,
-                                           height: GlobalConst.CELL_HEIGHT_SHOW / 5)
-        self.imgAddressIcon.contentMode = .scaleAspectFit
-        self.imgAddressIcon.image = UIImage(named: "icon47.png")
-        // Address label
-        self.lblAddress.frame = CGRect(x: self.imgAddressIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
-                                       y: offset,
-                                       width: rightWidth,
-                                       height: GlobalConst.CELL_HEIGHT_SHOW / 5 * 2)
-        self.lblAddress.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
-        self.lblAddress.textColor = UIColor.black
-        self.lblAddress.text = DomainConst.BLANK
-        self.lblAddress.numberOfLines = 0
-        self.lblAddress.lineBreakMode = .byWordWrapping
-        offset += self.lblAddress.frame.height + GlobalConst.MARGIN_CELL_Y
+//        // Address icon
+//        self.imgAddressIcon.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
+//                                           y: offset + GlobalConst.CELL_HEIGHT_SHOW / 10,
+//                                           width: GlobalConst.CELL_HEIGHT_SHOW / 5,
+//                                           height: GlobalConst.CELL_HEIGHT_SHOW / 5)
+//        self.imgAddressIcon.contentMode = .scaleAspectFit
+//        self.imgAddressIcon.image = UIImage(named: "icon47.png")
+//        // Address label
+//        self.lblAddress.frame = CGRect(x: self.imgAddressIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
+//                                       y: offset,
+//                                       width: rightWidth,
+//                                       height: GlobalConst.CELL_HEIGHT_SHOW / 5 * 2)
+//        self.lblAddress.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
+//        self.lblAddress.textColor = UIColor.black
+//        self.lblAddress.text = DomainConst.BLANK
+//        self.lblAddress.numberOfLines = 0
+//        self.lblAddress.lineBreakMode = .byWordWrapping
+//        offset += self.lblAddress.frame.height + GlobalConst.MARGIN_CELL_Y
         
         // Contact icon
         self.imgContactIcon.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
@@ -258,6 +258,7 @@ class G01F00S03VC: BaseViewController {
         /**
          * Header 1 - Uphold Emplyee Detail
          */
+        offset += GlobalConst.MARGIN_CELL_Y * 2
         setHeader(header: lblHeader1, offset: offset, text: DomainConst.CONTENT00156)
         
         offset = lblHeader1.frame.maxY + GlobalConst.MARGIN_CELL_Y
@@ -316,6 +317,7 @@ class G01F00S03VC: BaseViewController {
         /**
          * Header 2 - Uphold Result Detail
          */
+        offset += GlobalConst.MARGIN_CELL_Y * 2
         setHeader(header: lblHeader2, offset: offset, text: DomainConst.CONTENT00158)
         offset = lblHeader2.frame.maxY + GlobalConst.MARGIN_CELL_Y
         
@@ -434,80 +436,80 @@ class G01F00S03VC: BaseViewController {
         }
         
         // Rating
-        if !BaseModel.shared.currentUpholdDetail.rating_status.isEmpty {
-            // Add controls
-            if BaseModel.shared.listRatingType.count > 0 {
-                for i in 0..<BaseModel.shared.listRatingType.count {
-                    // Label title
-                    let label = UILabel()
-                    label.translatesAutoresizingMaskIntoConstraints = true
-                    label.frame = CGRect(
-                        x: GlobalConst.MARGIN_CELL_X,
-                        y: offset,
-                        width: self.view.frame.width,
-                        height: GlobalConst.LABEL_HEIGHT)
-                    label.text               = BaseModel.shared.listRatingType[i].name
-                    //label.textAlignment      = NSTextAlignment.center
-                    label.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-                    scrollView.addSubview(label)
-                    offset += GlobalConst.LABEL_HEIGHT
-                    
-                    // Rating bar
-                    let ratingBar = RatingBar()
-                    ratingBar.translatesAutoresizingMaskIntoConstraints = true
-                    let size = GlobalConst.LABEL_HEIGHT
-                    let width = size * (CGFloat)(ratingBar._starCount) + (ratingBar._spacing * (CGFloat)(ratingBar._starCount - 1))
-                    ratingBar.frame = CGRect(
-                        x: (self.view.frame.width - width) / 2,
-                        y: offset,
-                        width: width,
-                        height: size)
-                    ratingBar.setBackgroundColor(color: UIColor.white)
-                    ratingBar.setEnabled(isEnabled: true)
-                    ratingBar.isUserInteractionEnabled = false
-                    if BaseModel.shared.currentUpholdDetail.rating_type.count > i {
-                        let ratingValue = Int(BaseModel.shared.currentUpholdDetail.rating_type[i].name)
-                        ratingBar.setRatingValue(value: ratingValue!)
-                    }
-                    scrollView.addSubview(ratingBar)
-                    offset += size
-                }
-            }
-            
-            // Label Feeling
-            CommonProcess.setLayoutLeft(lbl: lblFeeling, offset: offset,
-                                        width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                        height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00210)
-            lblFeeling.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-            // Feeling value
-            var statusString: String = DomainConst.BLANK
-            for status in BaseModel.shared.listRatingStatus {
-                if status.id == BaseModel.shared.currentUpholdDetail.rating_status {
-                    statusString = status.name
-                    break
-                }
-            }
-            CommonProcess.setLayoutRight(lbl: tbxFeeling, x: lblFeeling.frame.maxX, y: offset,
-                                         width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
-                                         height: GlobalConst.LABEL_HEIGHT, text: statusString)
-            tbxFeeling.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-            
-            offset += GlobalConst.LABEL_HEIGHT
-            
-            if !BaseModel.shared.currentUpholdDetail.rating_note.isEmpty {
-                // Label Content
-                CommonProcess.setLayoutLeft(lbl: lblContentRating, offset: offset,
-                                            width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                            height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00063)
-                lblContentRating.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-                // Content value
-                CommonProcess.setLayoutRight(lbl: tbxContent, x: lblContent.frame.maxX, y: offset,
-                                             width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
-                                             height: GlobalConst.LABEL_HEIGHT * 2, text: BaseModel.shared.currentUpholdDetail.rating_note)
-                tbxContent.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-                offset += GlobalConst.LABEL_HEIGHT * 2
-            }
-        }
+//        if !BaseModel.shared.currentUpholdDetail.rating_status.isEmpty {
+//            // Add controls
+//            if BaseModel.shared.listRatingType.count > 0 {
+//                for i in 0..<BaseModel.shared.listRatingType.count {
+//                    // Label title
+//                    let label = UILabel()
+//                    label.translatesAutoresizingMaskIntoConstraints = true
+//                    label.frame = CGRect(
+//                        x: GlobalConst.MARGIN_CELL_X,
+//                        y: offset,
+//                        width: self.view.frame.width,
+//                        height: GlobalConst.LABEL_HEIGHT)
+//                    label.text               = BaseModel.shared.listRatingType[i].name
+//                    //label.textAlignment      = NSTextAlignment.center
+//                    label.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+//                    scrollView.addSubview(label)
+//                    offset += GlobalConst.LABEL_HEIGHT
+//                    
+//                    // Rating bar
+//                    let ratingBar = RatingBar()
+//                    ratingBar.translatesAutoresizingMaskIntoConstraints = true
+//                    let size = GlobalConst.LABEL_HEIGHT
+//                    let width = size * (CGFloat)(ratingBar._starCount) + (ratingBar._spacing * (CGFloat)(ratingBar._starCount - 1))
+//                    ratingBar.frame = CGRect(
+//                        x: (self.view.frame.width - width) / 2,
+//                        y: offset,
+//                        width: width,
+//                        height: size)
+//                    ratingBar.setBackgroundColor(color: UIColor.white)
+//                    ratingBar.setEnabled(isEnabled: true)
+//                    ratingBar.isUserInteractionEnabled = false
+//                    if BaseModel.shared.currentUpholdDetail.rating_type.count > i {
+//                        let ratingValue = Int(BaseModel.shared.currentUpholdDetail.rating_type[i].name)
+//                        ratingBar.setRatingValue(value: ratingValue!)
+//                    }
+//                    scrollView.addSubview(ratingBar)
+//                    offset += size
+//                }
+//            }
+//            
+//            // Label Feeling
+//            CommonProcess.setLayoutLeft(lbl: lblFeeling, offset: offset,
+//                                        width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) / 3,
+//                                        height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00210)
+//            lblFeeling.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+//            // Feeling value
+//            var statusString: String = DomainConst.BLANK
+//            for status in BaseModel.shared.listRatingStatus {
+//                if status.id == BaseModel.shared.currentUpholdDetail.rating_status {
+//                    statusString = status.name
+//                    break
+//                }
+//            }
+//            CommonProcess.setLayoutRight(lbl: tbxFeeling, x: lblFeeling.frame.maxX, y: offset,
+//                                         width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
+//                                         height: GlobalConst.LABEL_HEIGHT, text: statusString)
+//            tbxFeeling.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+//            
+//            offset += GlobalConst.LABEL_HEIGHT
+//            
+//            if !BaseModel.shared.currentUpholdDetail.rating_note.isEmpty {
+//                // Label Content
+//                CommonProcess.setLayoutLeft(lbl: lblContentRating, offset: offset,
+//                                            width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) / 3,
+//                                            height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00063)
+//                lblContentRating.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+//                // Content value
+//                CommonProcess.setLayoutRight(lbl: tbxContent, x: lblContent.frame.maxX, y: offset,
+//                                             width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
+//                                             height: GlobalConst.LABEL_HEIGHT * 2, text: BaseModel.shared.currentUpholdDetail.rating_note)
+//                tbxContent.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+//                offset += GlobalConst.LABEL_HEIGHT * 2
+//            }
+//        }
         
         // Add control
         scrollView.addSubview(self.imgCustomerNameIcon)

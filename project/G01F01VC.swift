@@ -47,22 +47,28 @@ class G01F01VC: StepVC, StepDoneDelegate {
         asignNotifyForMenuItem()
         
         // Do any additional setup after loading the view.
-        let phone: UILabel = UILabel()
+        let phone: UIButton = UIButton()
         phone.frame = CGRect(x: GlobalConst.MARGIN, y: self.getTitleHeight(), width: GlobalConst.SCREEN_WIDTH - 2 * GlobalConst.MARGIN, height: TOP_PART_HEIGHT / 2)
         phone.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
-        phone.text = "0838 409 409"
-        phone.textColor = UIColor.white
-        phone.textAlignment = .center
-        phone.font = UIFont.boldSystemFont(ofSize: GlobalConst.LARGE_FONT_SIZE)
+        phone.setTitle(BaseModel.shared.getCallCenterUpholdNumber(), for: UIControlState())
+        phone.setTitleColor(UIColor.white, for: UIControlState())
+        phone.titleLabel?.textAlignment = .center
+        phone.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.LARGE_FONT_SIZE)
+        phone.setImage(UIImage(named: "icon6.png"), for: UIControlState())
+        phone.imageView?.contentMode = .scaleAspectFit
+        phone.isEnabled = false
         self.view.addSubview(phone)
         
-        let phoneStr: UILabel = UILabel()
+        let phoneStr: UIButton = UIButton()
         phoneStr.frame = CGRect(x: phone.frame.minX, y: phone.frame.maxY, width: phone.frame.width, height: TOP_PART_HEIGHT / 2)
         phoneStr.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
-        phoneStr.text = "Bảo trì miễn phí 24/24"
-        phoneStr.textColor = UIColor.white
-        phoneStr.textAlignment = .center
-        phoneStr.font = UIFont.boldSystemFont(ofSize: GlobalConst.BIG_FONT_SIZE)
+        phoneStr.setTitle(BaseModel.shared.getHotlineNumber(), for: UIControlState())
+        phoneStr.setTitleColor(UIColor.white, for: UIControlState())
+        phoneStr.titleLabel?.textAlignment = .center
+        phoneStr.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BIG_FONT_SIZE)
+        phoneStr.setImage(UIImage(named: "icon6.png"), for: UIControlState())
+        phoneStr.imageView?.contentMode = .scaleAspectFit
+        phoneStr.isEnabled = false
         self.view.addSubview(phoneStr)
     }
     
