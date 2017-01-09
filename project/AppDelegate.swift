@@ -9,6 +9,7 @@
 import UIKit
 import UserNotifications
 import harpyframework
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -38,6 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             handleNotification(data: notification)
         }
         
+        // Google maps
+        GMSServices.provideAPIKey("AIzaSyDpiyIoQSxkj1GAqwUSxk-3wxxUcuQa_6k")
         return true
     }
 

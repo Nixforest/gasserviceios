@@ -54,7 +54,10 @@ class G01F01VC: StepVC, StepDoneDelegate {
         phone.setTitleColor(UIColor.white, for: UIControlState())
         phone.titleLabel?.textAlignment = .center
         phone.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.LARGE_FONT_SIZE)
-        phone.setImage(UIImage(named: "icon6.png"), for: UIControlState())
+        let tintImg = UIImage(named: "icon63.png")
+        let tinted = tintImg?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        phone.setImage(tinted, for: UIControlState())
+        phone.tintColor = UIColor.white
         phone.imageView?.contentMode = .scaleAspectFit
         phone.isEnabled = false
         self.view.addSubview(phone)
@@ -66,7 +69,7 @@ class G01F01VC: StepVC, StepDoneDelegate {
         phoneStr.setTitleColor(UIColor.white, for: UIControlState())
         phoneStr.titleLabel?.textAlignment = .center
         phoneStr.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BIG_FONT_SIZE)
-        phoneStr.setImage(UIImage(named: "icon6.png"), for: UIControlState())
+        phoneStr.setImage(UIImage(named: "icon64.png"), for: UIControlState())
         phoneStr.imageView?.contentMode = .scaleAspectFit
         phoneStr.isEnabled = false
         self.view.addSubview(phoneStr)
