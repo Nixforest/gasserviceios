@@ -73,7 +73,8 @@ class G01F03S04: StepSummary {
         tbxContent.text = G01F03S03._selectedValue
         self.updateLayout()
         for i in 0..<G01F03S02._selectedValue.count {
-            self._listRating[i]._rating = G01F03S02._selectedValue[i]
+            //self._listRating[i]._rating = G01F03S02._selectedValue[i]
+            self._listRating[i].setRatingValue(value: G01F03S02._selectedValue[i])
         }
     }
     func updateLayout() {
@@ -110,7 +111,7 @@ class G01F03S04: StepSummary {
                 let ratingBar = RatingBar()
                 ratingBar.translatesAutoresizingMaskIntoConstraints = true
                 let size = GlobalConst.LABEL_HEIGHT
-                let width = size * (CGFloat)(ratingBar._starCount) + (ratingBar._spacing * (CGFloat)(ratingBar._starCount - 1))
+                let width = size * (CGFloat)(ratingBar.getStarNumber()) + (ratingBar.getStarSpace() * (CGFloat)(ratingBar.getStarNumber() - 1))
                 ratingBar.frame = CGRect(
                     x: (self.frame.width - width) / 2,
                     y: offset,

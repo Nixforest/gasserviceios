@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate/*, G01F00S01ProblemCellDelegate*/ {
+class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     // MARK: Properties
     /** Current view type */
     var currentViewType = DomainConst.TYPE_TROUBLE
@@ -512,8 +512,8 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
                     self.navigationController?.pushViewController(detail, animated: true)
                 }
             }
-            let cell:TableCellUpholdType = tableView.dequeueReusableCell(
-                withIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL) as! TableCellUpholdType
+//            let cell:TableCellUpholdType = tableView.dequeueReusableCell(
+//                withIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL) as! TableCellUpholdType
             //cell.ratingButton.addTarget(self, action: #selector(toRatingVC), for: .touchUpInside)
         }
         

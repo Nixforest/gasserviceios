@@ -86,7 +86,9 @@ class G01F00S02HistoryCell: UITableViewCell {
         layout.itemSize = CGSize(width: GlobalConst.ACCOUNT_AVATAR_W / 2,
                                  height: GlobalConst.ACCOUNT_AVATAR_W / 2)
         self.cltImg = UICollectionView(frame: self.frame, collectionViewLayout: layout)
-        self.cltImg.register(UINib(nibName: DomainConst.COLLECTION_IMAGE_VIEW_CELL, bundle: nil),
+        
+        let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
+        self.cltImg.register(UINib(nibName: DomainConst.COLLECTION_IMAGE_VIEW_CELL, bundle: frameworkBundle),
                              forCellWithReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL)
         self.cltImg.alwaysBounceHorizontal = true
         self.cltImg.bounces = true

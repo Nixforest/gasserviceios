@@ -66,7 +66,9 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
             right: 0)
         layout.itemSize = CGSize(width: GlobalConst.ACCOUNT_AVATAR_W / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
         self.cltviewStep5 = UICollectionView(frame: self.frame, collectionViewLayout: layout)
-        self.cltviewStep5.register(UINib(nibName: DomainConst.COLLECTION_IMAGE_VIEW_CELL, bundle: nil),
+        
+        let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
+        self.cltviewStep5.register(UINib(nibName: DomainConst.COLLECTION_IMAGE_VIEW_CELL, bundle: frameworkBundle),
                                    forCellWithReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL)
         cltviewStep5.dataSource = self
         cltviewStep5.delegate = self
@@ -108,8 +110,8 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
-        cell.imageView1.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H, height: GlobalConst.ACCOUNT_AVATAR_H)
-        cell.imageView1.image = G01F02S06._selectedValue[indexPath.row]
+        cell.imageView.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H, height: GlobalConst.ACCOUNT_AVATAR_H)
+        cell.imageView.image = G01F02S06._selectedValue[indexPath.row]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

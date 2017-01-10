@@ -286,8 +286,8 @@ extension G01F00S02VC: UICollectionViewDelegate, UICollectionViewDataSource {
         // Get current cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         
-        cell.imageView1.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
-        cell.imageView1.getImgFromUrl(link: BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].thumb, contentMode: cell.imageView1.contentMode)
+        cell.imageView.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+        cell.imageView.getImgFromUrl(link: BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].thumb, contentMode: cell.imageView.contentMode)
         return cell
     }
     
@@ -297,8 +297,8 @@ extension G01F00S02VC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         /** push to zoomIMGVC */
-        zoomIMGViewController.imgPicked = cell.imageView1.image
-        zoomIMGViewController.imageView.getImgFromUrl(link: BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].large, contentMode: cell.imageView1.contentMode)
+        zoomIMGViewController.imgPicked = cell.imageView.image
+        zoomIMGViewController.imageView.getImgFromUrl(link: BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].large, contentMode: cell.imageView.contentMode)
         let IMGVC = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
         self.navigationController?.pushViewController(IMGVC, animated: true)
     }

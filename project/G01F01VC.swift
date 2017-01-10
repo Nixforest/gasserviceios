@@ -116,7 +116,7 @@ class G01F01VC: StepVC, StepDoneDelegate {
     }
     
     override func getTopHeight() -> CGFloat {
-        var top = (self.navigationController!.navigationBar.frame.size.height
+        let top = (self.navigationController!.navigationBar.frame.size.height
             + UIApplication.shared.statusBarFrame.size.height)
         return top + TOP_PART_HEIGHT
     }
