@@ -53,7 +53,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
         contentView.addSubview(_viewPickImg)
         
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         self.setup(mainView: contentView, title: DomainConst.CONTENT00189,
                    contentHeight: offset,
@@ -62,7 +62,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
         _viewPickImg.translatesAutoresizingMaskIntoConstraints = true
         _viewPickImg.frame = CGRect(
             x: 0, y: offset,
-            width: w, height: h - offset - self._lblTitle.frame.height)
+            width: w, height: h - offset - self.getTitleHeight())
         _viewPickImg.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         _tblListImg.translatesAutoresizingMaskIntoConstraints = true
@@ -89,7 +89,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.allowsEditing = true
             
-            self._parent?.present(imagePicker, animated: true, completion: nil)
+            self.getParentView().present(imagePicker, animated: true, completion: nil)
         }
     }
     
@@ -135,7 +135,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
             NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
         }
         self._tblListImg.reloadData()
-        self._parent?.dismiss(animated: true, completion: nil)
+        self.getParentView().dismiss(animated: true, completion: nil)
     }
     
     // MARK: - step5TableViewCellDelegate

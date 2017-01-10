@@ -99,7 +99,7 @@ class G01F01S02: StepContent {
             contentView.addSubview(_tbxPhone)
         }
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         self.setup(mainView: contentView, title: DomainConst.CONTENT00204,
                    contentHeight: offset,
@@ -205,18 +205,18 @@ class G01F01S02: StepContent {
         
         alert.addAction(cancel)
         alert.addAction(ok)
-        self._parent?.present(alert, animated: true, completion: { () -> Void in
+        self.getParentView().present(alert, animated: true, completion: { () -> Void in
             self.layoutIfNeeded()
         })
     }
     
     override func checkDone() -> Bool {
         if G01F01S02._selectedValue.id.isEmpty {
-            self._parent?.showAlert(message: DomainConst.CONTENT00204)
+            self.showAlert(message: DomainConst.CONTENT00204)
             return false
         } else {
             if (G01F01S02._name.isEmpty || G01F01S02._phone.isEmpty) {
-                self._parent?.showAlert(message: DomainConst.CONTENT00204)
+                self.showAlert(message: DomainConst.CONTENT00204)
                 return false
             } else {
                 return true

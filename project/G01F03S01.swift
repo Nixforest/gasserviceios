@@ -75,7 +75,7 @@ class G01F03S01: StepContent {
             }
         }
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         self.setup(mainView: contentView, title: DomainConst.CONTENT00206,
                    contentHeight: offset,
@@ -112,7 +112,7 @@ class G01F03S01: StepContent {
     
     override func checkDone() -> Bool {
         if G01F03S01._selectedValue.id.isEmpty {
-            self._parent?.showAlert(message: DomainConst.CONTENT00206)
+            self.showAlert(message: DomainConst.CONTENT00206)
             return false
         } else {
             return true

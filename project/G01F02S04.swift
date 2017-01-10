@@ -83,7 +83,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
         contentView.addSubview(_tbxPhone)
         
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         self.setup(mainView: contentView, title: DomainConst.CONTENT00187,
                    contentHeight: offset,
                    width: w, height: h)

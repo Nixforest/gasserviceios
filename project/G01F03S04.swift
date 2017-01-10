@@ -42,7 +42,7 @@ class G01F03S04: StepSummary {
         // Update layout of content view
         let offset: CGFloat = updateLayout(w: w, h: h)
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         contentView.addSubview(lblFeeling)
         contentView.addSubview(tbxFeeling)

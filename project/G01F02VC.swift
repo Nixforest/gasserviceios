@@ -43,10 +43,10 @@ class G01F02VC: StepVC, StepDoneDelegate {
         self.appendContent(stepContent: step5)
         step6.stepDoneDelegate = self
         self.appendContent(stepContent: step6)
-        self._numberStep = self._arrayContent.count + 1
+        //self._numberStep = self._arrayContent.count + 1
         appendSummary(summary: summary)
         // Set title
-        self._title = DomainConst.CONTENT00186
+        self.setTitle(title: DomainConst.CONTENT00186)
         var listIcon = [String]()
         listIcon.append("trainingMode.png")
         listIcon.append("trainingMode.png")
@@ -77,7 +77,7 @@ class G01F02VC: StepVC, StepDoneDelegate {
     override func btnSendTapped() {
         // Disable action handle notification from server
         BaseModel.shared.enableHandleNotificationFlag(isEnabled: false)
-        CommonProcess.requestCreateUpholdReply(
+        CreateUpholdReplyRequest.requestCreateUpholdReply(
             upholdId: BaseModel.shared.currentUpholdDetail.id,
             status: G01F02S01._selectedValue.id, statusText: G01F02S01._selectedValue.name,
             hoursHandle: G01F02S02._selectedValue.id,

@@ -44,7 +44,7 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
         contentView.addSubview(_pkView)
         
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         self.setup(mainView: contentView, title: DomainConst.CONTENT00182, contentHeight: GlobalConst.SCREEN_HEIGHT / 3,
                    width: w, height: h)
         return
@@ -86,7 +86,7 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
     
     override func checkDone() -> Bool {
         if G01F02S02._selectedValue.id.isEmpty {
-            self._parent?.showAlert(message: DomainConst.CONTENT00182)
+            self.showAlert(message: DomainConst.CONTENT00182)
             return false
         } else {
             return true

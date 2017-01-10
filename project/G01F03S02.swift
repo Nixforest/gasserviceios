@@ -74,7 +74,7 @@ class G01F03S02: StepContent {
             }
         }
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         self.setup(mainView: contentView, title: DomainConst.CONTENT00207,
                    contentHeight: offset,
@@ -92,7 +92,7 @@ class G01F03S02: StepContent {
         }
         NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F03), object: nil)
         if G01F03S02._selectedValue.count == 0 {
-            self._parent?.showAlert(message: DomainConst.CONTENT00207)
+            self.showAlert(message: DomainConst.CONTENT00207)
             return false
         } else {
             return true

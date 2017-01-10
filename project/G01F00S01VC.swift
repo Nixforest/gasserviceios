@@ -151,7 +151,7 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
                                       forCellReuseIdentifier: DomainConst.G01_F00_S01_PERIOD_CELL)
         self.problemTableView.register(UINib(nibName: DomainConst.G01_F00_S01_PROBLEM_CELL, bundle: frameworkBundle),
                                        forCellReuseIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL)
-        self.searchBarTableView.register(UINib(nibName: DomainConst.SEARCH_BAR_TABLE_VIEW_CELL, bundle: nil),
+        self.searchBarTableView.register(UINib(nibName: DomainConst.SEARCH_BAR_TABLE_VIEW_CELL, bundle: frameworkBundle),
                                          forCellReuseIdentifier: DomainConst.SEARCH_BAR_TABLE_VIEW_CELL)
         
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH

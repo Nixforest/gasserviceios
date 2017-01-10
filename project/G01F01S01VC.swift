@@ -81,7 +81,7 @@ class G01F01S01: StepContent {
             contentView.addSubview(_lblOtherProblem)
         }
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         self.setup(mainView: contentView, title: DomainConst.CONTENT00201,
                    contentHeight: offset,
@@ -160,7 +160,7 @@ class G01F01S01: StepContent {
             
             alert.addAction(cancel)
             alert.addAction(ok)
-            self._parent?.present(alert, animated: true, completion: { () -> Void in
+            self.getParentView().present(alert, animated: true, completion: { () -> Void in
                 self.layoutIfNeeded()
             })
         }
@@ -168,12 +168,12 @@ class G01F01S01: StepContent {
     
     override func checkDone() -> Bool {
         if G01F01S01._selectedValue.id.isEmpty {
-            self._parent?.showAlert(message: DomainConst.CONTENT00201)
+            self.showAlert(message: DomainConst.CONTENT00201)
             return false
         } else {
             if ((G01F01S01._selectedValue.name == DomainConst.OPTION_OTHER)
                 && (G01F01S01._otherProblem.isEmpty)) {
-                self._parent?.showAlert(message: DomainConst.CONTENT00201)
+                self.showAlert(message: DomainConst.CONTENT00201)
                 return false
             } else {
                 return true

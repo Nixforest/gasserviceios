@@ -34,10 +34,10 @@ class G01F01VC: StepVC, StepDoneDelegate {
         self.appendContent(stepContent: step1)
         step2.stepDoneDelegate = self
         self.appendContent(stepContent: step2)
-        self._numberStep = self._arrayContent.count + 1
+        //self._numberStep = self._arrayContent.count + 1
         appendSummary(summary: summary)
         // Set title
-        self._title = DomainConst.CONTENT00178
+        self.setTitle(title: DomainConst.CONTENT00178)
 //        var listIcon = [String]()
 //        listIcon.append("problemType")
 //        listIcon.append("informationSum")
@@ -88,7 +88,7 @@ class G01F01VC: StepVC, StepDoneDelegate {
         G01F01S02._phone = ""
     }
     override func btnSendTapped() {
-        CommonProcess.requestCreateUphold(
+        CreateUpholdRequest.requestCreateUphold(
             customerId: BaseModel.shared.user_id,
             employeeId: "",
             typeUphold: G01F01S01._selectedValue.id,

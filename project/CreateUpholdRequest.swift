@@ -28,7 +28,7 @@ class CreateUpholdRequest: BaseRequest {
             print(dataString ?? "")
             // Convert to object
             let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
-            if model.status == "1" {
+            if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
                 // Clear data
@@ -79,5 +79,31 @@ class CreateUpholdRequest: BaseRequest {
             DomainConst.KEY_CONTACT_TEL, contactTel,
             DomainConst.KEY_REQUEST_TYPE, requestBy
         )
+    }
+    
+    /**
+     * Request create uphold reply
+     * - parameter upholdId:            Id of uphold item
+     * - parameter status:              Status of uphold
+     * - parameter hoursHandle:         Hours handle
+     * - parameter note:                Name of reviewer
+     * - parameter contact_phone:       Phone of reviewer
+     * - parameter reportWrong:         Report wrong
+     * - parameter listPostReplyImage:  List images
+     * - parameter customerId:          Id of customer
+     * - parameter noteInternal:        Note internal
+     * - parameter view:                View controller
+     */
+    public static func requestCreateUphold(customerId: String, employeeId: String,
+                                    typeUphold: String, content: String, contactPerson: String,
+                                    contactTel: String, requestBy: String,
+                                    view: BaseViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = CreateUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CREATE, reqMethod: DomainConst.HTTP_POST_REQUEST, view: view)
+        request.setData(customerId: customerId, employeeId: employeeId,
+                        typeUphold: typeUphold, content: content, contactPerson: contactPerson,
+                        contactTel: contactTel, requestBy: requestBy)
+        request.execute()
     }
 }

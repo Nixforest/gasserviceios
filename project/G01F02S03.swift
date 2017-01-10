@@ -79,7 +79,7 @@ class G01F02S03: StepContent {
         contentView.addSubview(_wrongButton)
         
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         self.setup(mainView: contentView, title: DomainConst.CONTENT00183,
                    contentHeight: offset,
                    width: w, height: h)
@@ -113,7 +113,7 @@ class G01F02S03: StepContent {
     
     override func checkDone() -> Bool {
         if G01F02S03._selectedValue == nil {
-            self._parent?.showAlert(message: DomainConst.CONTENT00183)
+            self.showAlert(message: DomainConst.CONTENT00183)
             return false
         } else {
             return true

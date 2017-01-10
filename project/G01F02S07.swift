@@ -49,7 +49,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // Update layout of content view
         let offset: CGFloat = updateLayout(w: w, h: h)
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         // List image
         /**
@@ -126,8 +126,8 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // handle tap events
         /** push to zoomIMGVC */
         zoomIMGViewController.imgPicked = G01F02S06._selectedValue[indexPath.row]
-        let IMGVC = self._parent?.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
-        self._parent?.navigationController?.pushViewController(IMGVC!, animated: true)
+        let IMGVC = self.getParentView().mainStoryboard.instantiateViewController(withIdentifier: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
+        self.getParentView().navigationController?.pushViewController(IMGVC, animated: true)
 //        ImageView.imgPicked = G01F02S06._selectedValue[indexPath.row]
 //        var imageView: ImageView = ImageView()
 //        imageView.frame = CGRect(x: 0, y: 0,

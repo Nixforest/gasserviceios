@@ -36,10 +36,10 @@ class G01F03VC: StepVC, StepDoneDelegate {
         self.appendContent(stepContent: step2)
         step3.stepDoneDelegate = self
         self.appendContent(stepContent: step3)
-        self._numberStep = self._arrayContent.count + 1
+        //self._numberStep = self._arrayContent.count + 1
         appendSummary(summary: summary)
         // Set title
-        self._title = DomainConst.CONTENT00098
+        self.setTitle(title: DomainConst.CONTENT00098)
         super.viewDidLoad()
         // Menu item tap
         asignNotifyForMenuItem()
@@ -58,7 +58,7 @@ class G01F03VC: StepVC, StepDoneDelegate {
         G01F03S03._selectedValue = ""
     }
     override func btnSendTapped() {
-        CommonProcess.requestRatingUphold(id: BaseModel.shared.sharedString,
+        RatingUpholdRequest.requestRatingUphold(id: BaseModel.shared.sharedString,
                                           ratingStatusId: G01F03S01._selectedValue.id,
                                           listRating: G01F03S02._selectedValue,
                                           content: G01F03S03._selectedValue, view: self)

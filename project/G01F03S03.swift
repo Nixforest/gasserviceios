@@ -53,7 +53,7 @@ class G01F03S03: StepContent, UITextViewDelegate {
         contentView.addSubview(_tbxNote)
         
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         self.setup(mainView: contentView, title: DomainConst.CONTENT00208,
                    contentHeight: offset,
                    width: w, height: h)
