@@ -80,18 +80,6 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
     }
     
     /**
-     * Handle tap on Menu ite Issue
-     * - parameter notification: Notification
-     */
-    func issueButtonInChangePassVCTapped(_ notification: Notification) {
-        /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
-        self.navigationController?.pushViewController(configVC, animated: true)
-         */
-        print("issue button tapped")
-    }
-    
-    /**
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
@@ -100,7 +88,7 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
                                                name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(G00ChangePassVC.issueButtonInChangePassVCTapped(_:)),
+                                               selector: #selector(super.issueItemTapped(_:)),
                                                name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,

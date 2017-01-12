@@ -103,8 +103,7 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
     func cellAction(_ sender: UIButton) {
         switch sender.tag {
             case 0:     // Information view
-                let InfoVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_INFORMATION_VIEW_CTRL)
-                self.navigationController?.pushViewController(InfoVC, animated: true)
+                self.pushToView(name: DomainConst.G00_INFORMATION_VIEW_CTRL)
             default:
                 break
         }

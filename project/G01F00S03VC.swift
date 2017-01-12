@@ -37,7 +37,7 @@ class G01F00S03VC: BaseViewController {
     var lblEmployee = UILabel()
     var imgEmployeeIcon = UIImageView()
     
-    var lblEmployeePhone = UILabel()
+    var lblEmployeePhone = UIButton()
     var imgEmployeePhoneIcon = UIImageView()
     
     var lblHandlingTime = UILabel()
@@ -60,23 +60,16 @@ class G01F00S03VC: BaseViewController {
     var lblContentRating: UILabel = UILabel()
     /** Time value */
     var tbxContent: UITextView = UITextView()
-    
+    var attrs: [String : Any]  = [
+        NSFontAttributeName : UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1),
+        NSForegroundColorAttributeName : UIColor.blue,
+        NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue,
+        ]
     
     // ScrollView
     @IBOutlet weak var scrollView: UIScrollView!
     
-    // MARK: Methods
-    /**
-     * Handle when tap on Issue menu item
-     */
-    func issueButtonInAccountVCTapped(_ notification: Notification) {
-        /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
-         self.navigationController?.pushViewController(configVC, animated: true)
-         */
-        print("issue button tapped")
-    }
-    
+    // MARK: Methods    
     /**
      * Handle when tap menu item
      */
@@ -88,7 +81,7 @@ class G01F00S03VC: BaseViewController {
             object: nil)
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(G01F00S03VC.issueButtonInAccountVCTapped(_:)),
+            selector: #selector(super.issueItemTapped(_:)),
             name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
             object: nil)
         NotificationCenter.default.addObserver(
@@ -110,13 +103,17 @@ class G01F00S03VC: BaseViewController {
         
         // MARK: - NavBar
         setupNavigationBar(title: DomainConst.CONTENT00143, isNotifyEnable: true)
-        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S03VC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S03VC.setData(_:)),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW),
+                                               object: nil)
 
         // Do any additional setup after loading the view.// Set data
         if BaseModel.shared.sharedInt != -1 {
             // Check data is existed
             if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
-                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
+                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id,
+                                               replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id,
+                                               view: self)
             }
         }
     }
@@ -125,19 +122,20 @@ class G01F00S03VC: BaseViewController {
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
-        let marginX = GlobalConst.PARENT_BORDER_WIDTH
-        let leftWidth = GlobalConst.CELL_HEIGHT_SHOW / 5 + GlobalConst.MARGIN_CELL_X
-        let rightWidth = GlobalConst.SCREEN_WIDTH - leftWidth
+        let marginX     = GlobalConst.PARENT_BORDER_WIDTH
+        let leftWidth   = GlobalConst.CELL_HEIGHT_SHOW / 5 + GlobalConst.MARGIN_CELL_X
+        let rightWidth  = GlobalConst.SCREEN_WIDTH - leftWidth
         // Get height of status bar + navigation bar
-        let height = self.getTopHeight()
-        var offset  = height + GlobalConst.MARGIN_CELL_Y
+        let height      = self.getTopHeight()
+        var offset      = height + GlobalConst.MARGIN_CELL_Y
         
         // Do any additional setup after loading the view, typically from a nib.
         
-        scrollView.contentSize = CGSize(width : self.view.frame.size.width - GlobalConst.PARENT_BORDER_WIDTH * 4, height : GlobalConst.LABEL_HEIGHT * 17 + GlobalConst.PARENT_BORDER_WIDTH * 7)
+        scrollView.contentSize = CGSize(width : self.view.frame.size.width - GlobalConst.PARENT_BORDER_WIDTH * 4,
+                                        height : GlobalConst.LABEL_HEIGHT * 17 + GlobalConst.PARENT_BORDER_WIDTH * 7)
         //scrollView.scrollRectToVisible(CGRect(x: 0,y: 44 , width: self.view.frame.size.width, height: self.view.frame.size.height -  44) , animated: true)
         
-        //MARK: Header0 and Label
+        // MARK: Header0 and Label
         /**
          * Header 0 - Uphold Request Detail
          */
@@ -165,20 +163,20 @@ class G01F00S03VC: BaseViewController {
 //        offset += self.lblCustomerName.frame.height + GlobalConst.MARGIN_CELL_Y
         
         // Date icon
-        self.imgCreateDateIcon.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
-                                                y: offset,
-                                                width: GlobalConst.CELL_HEIGHT_SHOW / 5,
-                                                height: GlobalConst.CELL_HEIGHT_SHOW / 5)
-        self.imgCreateDateIcon.contentMode = .scaleAspectFit
-        self.imgCreateDateIcon.image = UIImage(named: "icon31.png")
+        self.imgCreateDateIcon.frame        = CGRect(x: GlobalConst.MARGIN_CELL_X,
+                                                     y: offset,
+                                                     width: GlobalConst.CELL_HEIGHT_SHOW / 5,
+                                                     height: GlobalConst.CELL_HEIGHT_SHOW / 5)
+        self.imgCreateDateIcon.contentMode  = .scaleAspectFit
+        self.imgCreateDateIcon.image        = ImageManager.getImage(named: DomainConst.DATETIME_ICON_IMG_NAME)
         // Create Date label
-        self.lblCreateDate.frame = CGRect(x: self.imgCreateDateIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
-                                            y: offset,
-                                            width: rightWidth,
-                                            height: self.imgCreateDateIcon.frame.height)
-        self.lblCreateDate.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
-        self.lblCreateDate.textColor = UIColor.black
-        self.lblCreateDate.text = DomainConst.BLANK
+        self.lblCreateDate.frame            = CGRect(x: self.imgCreateDateIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
+                                                     y: offset,
+                                                     width: rightWidth,
+                                                     height: self.imgCreateDateIcon.frame.height)
+        self.lblCreateDate.font             = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
+        self.lblCreateDate.textColor        = UIColor.black
+        self.lblCreateDate.text             = DomainConst.BLANK
         offset += self.lblCreateDate.frame.height + GlobalConst.MARGIN_CELL_Y
         
 //        // Address icon
@@ -201,56 +199,62 @@ class G01F00S03VC: BaseViewController {
 //        offset += self.lblAddress.frame.height + GlobalConst.MARGIN_CELL_Y
         
         // Contact icon
-        self.imgContactIcon.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
-                                           y: offset,
-                                           width: GlobalConst.CELL_HEIGHT_SHOW / 5,
-                                           height: GlobalConst.CELL_HEIGHT_SHOW / 5)
+        self.imgContactIcon.frame       = CGRect(x: GlobalConst.MARGIN_CELL_X,
+                                                 y: offset + GlobalConst.CELL_HEIGHT_SHOW / 10,
+                                                 width: GlobalConst.CELL_HEIGHT_SHOW / 5,
+                                                 height: GlobalConst.CELL_HEIGHT_SHOW / 5)
         self.imgContactIcon.contentMode = .scaleAspectFit
-        self.imgContactIcon.image = UIImage(named: DomainConst.CONTACT_ICON_IMG_NAME)
+        self.imgContactIcon.image       = UIImage(named: DomainConst.CONTACT_ICON_IMG_NAME)
         // Contact label
-        self.lblContact.frame = CGRect(x: self.imgContactIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
-                                       y: offset,
-                                       width: rightWidth / 2,
-                                       height: self.imgContactIcon.frame.height)
-        self.lblContact.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
-        self.lblContact.textColor = UIColor.black
-        self.lblContact.text = DomainConst.BLANK
+        self.lblContact.frame           = CGRect(x: self.imgContactIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
+                                                 y: offset,
+                                                 width: rightWidth / 2,
+                                                 height: GlobalConst.CELL_HEIGHT_SHOW / 5 * 2)
+        self.lblContact.font            = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
+        self.lblContact.textColor       = UIColor.black
+        self.lblContact.text            = DomainConst.BLANK
+        self.lblContact.numberOfLines   = 0
+        self.lblContact.lineBreakMode   = .byWordWrapping
         
+        // Check uphold type is Problem type
         if BaseModel.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
             // Issue icon
-            self.imgIssueIcon.frame = CGRect(x: self.lblContact.frame.maxX + GlobalConst.MARGIN_CELL_X,
-                                             y: offset,
-                                             width: GlobalConst.CELL_HEIGHT_SHOW / 5,
-                                             height: GlobalConst.CELL_HEIGHT_SHOW / 5)
-            self.imgIssueIcon.contentMode = .scaleAspectFit
-            self.imgIssueIcon.image = UIImage(named: DomainConst.PROBLEM_TYPE_IMG_NAME)
+            self.imgIssueIcon.frame         = CGRect(x: self.lblContact.frame.maxX + GlobalConst.MARGIN_CELL_X,
+                                                     y: self.imgContactIcon.frame.minY,
+                                                     width: GlobalConst.CELL_HEIGHT_SHOW / 5,
+                                                     height: GlobalConst.CELL_HEIGHT_SHOW / 5)
+            self.imgIssueIcon.contentMode   = .scaleAspectFit
+            self.imgIssueIcon.image         = ImageManager.getImage(named: DomainConst.PROBLEM_TYPE_IMG_NAME)
             // Issue label
-            self.lblIssue.frame = CGRect(x: self.imgIssueIcon.frame.maxX,
-                                         y: offset,
-                                         width: rightWidth / 2,
-                                         height: self.imgIssueIcon.frame.height)
-            self.lblIssue.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
-            self.lblIssue.textColor = UIColor.black
-            self.lblIssue.text = DomainConst.BLANK
+            self.lblIssue.frame             = CGRect(x: self.imgIssueIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
+                                                     y: offset,
+                                                     width: rightWidth / 2,
+                                                     height: GlobalConst.CELL_HEIGHT_SHOW / 5 * 2)
+            self.lblIssue.font              = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
+            self.lblIssue.textColor         = UIColor.black
+            self.lblIssue.text              = DomainConst.BLANK
+            self.lblIssue.numberOfLines     = 0
+            self.lblIssue.lineBreakMode     = .byWordWrapping
         }
         offset += self.lblContact.frame.height + GlobalConst.MARGIN_CELL_Y
         
+        // Check content is empty or not
         if !BaseModel.shared.currentUpholdDetail.content.isEmpty {
             // Content icon
-            self.imgContentIcon.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
-                                               y: offset,
-                                               width: GlobalConst.CELL_HEIGHT_SHOW / 5,
-                                               height: GlobalConst.CELL_HEIGHT_SHOW / 5)
+            self.imgContentIcon.frame       = CGRect(x: GlobalConst.MARGIN_CELL_X,
+                                                     y: offset,
+                                                     width: GlobalConst.CELL_HEIGHT_SHOW / 5,
+                                                     height: GlobalConst.CELL_HEIGHT_SHOW / 5)
             self.imgContentIcon.contentMode = .scaleAspectFit
-            self.imgContentIcon.image = UIImage(named: DomainConst.CONTENT_ICON_IMG_NAME)
+            self.imgContentIcon.image       = UIImage(named: DomainConst.CONTENT_ICON_IMG_NAME)
             // Content label
-            self.lblContent.frame = CGRect(x: self.imgContentIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
-                                           y: offset,
-                                           width: rightWidth,
-                                           height: self.imgContentIcon.frame.height)
-            self.lblContent.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
-            self.lblContent.textColor = UIColor.black
-            self.lblContent.text = DomainConst.BLANK
+            self.lblContent.frame           = CGRect(x: self.imgContentIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
+                                                     y: offset,
+                                                     width: rightWidth,
+                                                     height: self.imgContentIcon.frame.height)
+            self.lblContent.font            = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
+            self.lblContent.textColor       = UIColor.black
+            self.lblContent.text            = DomainConst.BLANK
             offset += self.lblContent.frame.height + GlobalConst.MARGIN_CELL_Y
         }
         
@@ -269,7 +273,7 @@ class G01F00S03VC: BaseViewController {
                                                 width: GlobalConst.CELL_HEIGHT_SHOW / 5,
                                                 height: GlobalConst.CELL_HEIGHT_SHOW / 5)
         self.imgEmployeeIcon.contentMode = .scaleAspectFit
-        self.imgEmployeeIcon.image = UIImage(named: "icon47.png")
+        self.imgEmployeeIcon.image = ImageManager.getImage(named: DomainConst.HUMAN_ICON_IMG_NAME)
         // Employee name label
         self.lblEmployee.frame = CGRect(x: self.imgEmployeeIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
                                             y: offset,
@@ -292,9 +296,12 @@ class G01F00S03VC: BaseViewController {
                                        y: offset,
                                        width: rightWidth / 2,
                                        height: self.imgEmployeePhoneIcon.frame.height)
-        self.lblEmployeePhone.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
-        self.lblEmployeePhone.textColor = UIColor.black
-        self.lblEmployeePhone.text = DomainConst.BLANK
+        //self.lblEmployeePhone.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
+        //self.lblEmployeePhone.textColor = UIColor.black
+        //self.lblEmployeePhone.text = DomainConst.BLANK
+        self.lblEmployeePhone.addTarget(self, action: #selector(phonetap), for: .touchUpInside)
+//        self.lblEmployeePhone.setTitleColor(UIColor.blue, for: UIControlState())
+//        self.lblEmployeePhone.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
         
         // Handle time icon
         self.imgHandlingTimeIcon.frame = CGRect(x: self.lblEmployeePhone.frame.maxX + GlobalConst.MARGIN_CELL_X,
@@ -302,7 +309,7 @@ class G01F00S03VC: BaseViewController {
                                                 width: GlobalConst.CELL_HEIGHT_SHOW / 5,
                                                 height: GlobalConst.CELL_HEIGHT_SHOW / 5)
         self.imgHandlingTimeIcon.contentMode = .scaleAspectFit
-        self.imgHandlingTimeIcon.image = UIImage(named: "icon31.png")
+        self.imgHandlingTimeIcon.image = ImageManager.getImage(named: DomainConst.DATETIME_ICON_IMG_NAME)
         // Handle time label
         self.lblHandlingTime.frame = CGRect(x: self.imgHandlingTimeIcon.frame.maxX,
                                             y: offset,
@@ -330,7 +337,7 @@ class G01F00S03VC: BaseViewController {
                                                              width: GlobalConst.CELL_HEIGHT_SHOW / 5,
                                                              height: GlobalConst.CELL_HEIGHT_SHOW / 5)
                     self.imgStatusIcon.contentMode = .scaleAspectFit
-                    self.imgStatusIcon.image = UIImage(named: DomainConst.STATUS_ICON_IMG_NAME)
+                    self.imgStatusIcon.image = ImageManager.getImage(named: DomainConst.STATUS_ICON_IMG_NAME)
                     // Status label
                     self.lblStatus.frame = CGRect(x: self.imgStatusIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
                                                          y: offset,
@@ -357,32 +364,32 @@ class G01F00S03VC: BaseViewController {
                     self.lblReport.text = DomainConst.BLANK
                     offset = self.imgStatusIcon.frame.maxY
                 } else {
-//                    lblReportWrong.translatesAutoresizingMaskIntoConstraints = true
-//                    lblReportWrong.frame = CGRect(
-//                        x: GlobalConst.MARGIN_CELL_X + GlobalConst.PARENT_BORDER_WIDTH,
-//                        y: offset,
-//                        width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X * 2) * 2,
-//                        height: GlobalConst.LABEL_HEIGHT
-//                    )
-//                    lblReportWrong.font = UIFont.boldSystemFont(ofSize: 15.0)
-//                    scrollView.addSubview(lblReportWrong)
+                    lblReportWrong.translatesAutoresizingMaskIntoConstraints = true
+                    lblReportWrong.frame = CGRect(
+                        x: GlobalConst.MARGIN_CELL_X + GlobalConst.PARENT_BORDER_WIDTH,
+                        y: offset,
+                        width: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH + GlobalConst.MARGIN_CELL_X * 2) * 2,
+                        height: GlobalConst.LABEL_HEIGHT
+                    )
+                    lblReportWrong.font = UIFont.boldSystemFont(ofSize: 15.0)
+                    scrollView.addSubview(lblReportWrong)
                     
-                    // Report icon
-                    self.imgReportIcon.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
-                                                      y: offset,
-                                                      width: GlobalConst.CELL_HEIGHT_SHOW / 5,
-                                                      height: GlobalConst.CELL_HEIGHT_SHOW / 5)
-                    self.imgReportIcon.contentMode = .scaleAspectFit
-                    self.imgReportIcon.image = UIImage(named: DomainConst.REPORT_ICON_IMG_NAME)
-                    // Report label
-                    self.lblReport.frame = CGRect(x: self.imgReportIcon.frame.maxX,
-                                                  y: offset,
-                                                  width: rightWidth,
-                                                  height: self.imgReportIcon.frame.height)
-                    self.lblReport.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
-                    self.lblReport.textColor = UIColor.black
-                    self.lblReport.text = DomainConst.BLANK
-                    offset += GlobalConst.LABEL_HEIGHT
+//                    // Report icon
+//                    self.imgReportIcon.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
+//                                                      y: offset,
+//                                                      width: GlobalConst.CELL_HEIGHT_SHOW / 5,
+//                                                      height: GlobalConst.CELL_HEIGHT_SHOW / 5)
+//                    self.imgReportIcon.contentMode = .scaleAspectFit
+//                    self.imgReportIcon.image = UIImage(named: DomainConst.REPORT_ICON_IMG_NAME)
+//                    // Report label
+//                    self.lblReport.frame = CGRect(x: self.imgReportIcon.frame.maxX,
+//                                                  y: offset,
+//                                                  width: rightWidth,
+//                                                  height: self.imgReportIcon.frame.height)
+//                    self.lblReport.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
+//                    self.lblReport.textColor = UIColor.black
+//                    self.lblReport.text = DomainConst.BLANK
+//                    offset += GlobalConst.LABEL_HEIGHT
                 }
             } else {
                 // Status icon
@@ -391,9 +398,9 @@ class G01F00S03VC: BaseViewController {
                                                   width: GlobalConst.CELL_HEIGHT_SHOW / 5,
                                                   height: GlobalConst.CELL_HEIGHT_SHOW / 5)
                 self.imgStatusIcon.contentMode = .scaleAspectFit
-                self.imgStatusIcon.image = UIImage(named: DomainConst.STATUS_ICON_IMG_NAME)
+                self.imgStatusIcon.image = ImageManager.getImage(named: DomainConst.STATUS_ICON_IMG_NAME)
                 // Status label
-                self.lblStatus.frame = CGRect(x: self.imgStatusIcon.frame.maxX,
+                self.lblStatus.frame = CGRect(x: self.imgStatusIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
                                               y: offset,
                                               width: rightWidth / 2,
                                               height: self.imgStatusIcon.frame.height)
@@ -528,6 +535,8 @@ class G01F00S03VC: BaseViewController {
         scrollView.addSubview(self.lblEmployee)
         scrollView.addSubview(self.imgEmployeePhoneIcon)
         scrollView.addSubview(self.lblEmployeePhone)
+        scrollView.addSubview(self.imgHandlingTimeIcon)
+        scrollView.addSubview(self.lblHandlingTime)
         scrollView.addSubview(self.imgStatusIcon)
         scrollView.addSubview(self.lblStatus)
         scrollView.addSubview(self.imgReportIcon)
@@ -555,14 +564,15 @@ class G01F00S03VC: BaseViewController {
 //                  bkgColor: ColorFromRGB().getColorFromRGB(0xFAB102))
         
         if BaseModel.shared.currentUpholdDetail.uphold_type == DomainConst.UPHOLD_TYPE_TROUBLE {
-            lblHeader0.text = DomainConst.CONTENT00041.uppercased()
-            lblCreateDate.text = DomainConst.CONTENT00096
-            lblContact.text        = BaseModel.shared.currentUpholdDetail.contact_person + " - " +
-                BaseModel.shared.currentUpholdDetail.contact_tel
+            lblHeader0.text         = DomainConst.CONTENT00041.uppercased()
+            lblCreateDate.text      = DomainConst.CONTENT00096
+            lblContact.text         = BaseModel.shared.currentUpholdDetail.contact_person +
+                                        DomainConst.CONTACT_SPLITER +
+                                        BaseModel.shared.currentUpholdDetail.contact_tel
         } else {
             lblHeader0.text             = DomainConst.CONTENT00040.uppercased()
             lblCreateDate.text          = DomainConst.CONTENT00160
-            lblContact.text        = BaseModel.shared.currentUpholdDetail.schedule_month
+            lblContact.text             = BaseModel.shared.currentUpholdDetail.schedule_month
         }
         lblCreateDate.text     = BaseModel.shared.currentUpholdDetail.created_date
         lblCustomerName.text   = BaseModel.shared.currentUpholdDetail.customer_name
@@ -570,7 +580,19 @@ class G01F00S03VC: BaseViewController {
         lblIssue.text          = BaseModel.shared.currentUpholdDetail.type_uphold
         lblContent.text        = BaseModel.shared.currentUpholdDetail.content
         lblEmployee.text       = BaseModel.shared.currentUpholdDetail.employee_name
-        lblEmployeePhone.text  = BaseModel.shared.currentUpholdDetail.employee_phone
+        //lblEmployeePhone.text  = BaseModel.shared.currentUpholdDetail.employee_phone
+        //lblEmployeePhone.setTitle(BaseModel.shared.currentUpholdDetail.employee_phone, for: UIControlState())
+        
+        let attributedString = NSMutableAttributedString(string:"")
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .left
+        attrs.updateValue(paragraph, forKey: NSParagraphStyleAttributeName)
+        let buttonTitleStr = NSMutableAttributedString(string: BaseModel.shared.currentUpholdDetail.employee_phone,
+                                                       attributes:attrs)
+        
+        attributedString.append(buttonTitleStr)
+        self.lblEmployeePhone.setAttributedTitle(attributedString, for: .normal)
+        
         if BaseModel.shared.currentUpholdDetail.reply_item.count > 0 {
             lblHandlingTime.text   = BaseModel.shared.currentUpholdDetail.reply_item[0].date_time_handle
         }
@@ -579,7 +601,13 @@ class G01F00S03VC: BaseViewController {
         lblReportWrong.text         = BaseModel.shared.currentUpholdDetail.report_wrong
         self.updateNotificationStatus()
     }
-
+    
+    func phonetap() {
+        if let url = NSURL(string: "tel://\(BaseModel.shared.currentUpholdDetail.employee_phone)"), UIApplication.shared.canOpenURL(url as URL) {
+            UIApplication.shared.openURL(url as URL)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

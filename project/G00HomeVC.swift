@@ -30,9 +30,7 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
      * - parameter sender:AnyObject
      */
     func pushToRegisterVC(_ notification: Notification){
-//        let RegisterVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REGISTER_VIEW_CTRL)
-//        self.navigationController?.pushViewController(RegisterVC, animated: true)
-        showAlert(message: DomainConst.CONTENT00197)
+        self.pushToView(name: DomainConst.REGISTER_VIEW_CTRL)
     }
     
     /**
@@ -250,26 +248,21 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 1:
+        case 1:     // New uphold
             if BaseModel.shared.user_info == nil {
                 // User information does not exist
                 RequestAPI.requestUserProfile(view: self)
             }
-            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F01_VIEW_CTRL)
-            self.navigationController?.pushViewController(upholdListVC, animated: true)
-        case 2:
-            //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S01_VIEW_CTRL)
-            self.navigationController?.pushViewController(upholdListVC, animated: true)
-        case 4:
-            //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let accountVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_ACCOUNT_VIEW_CTRL)
-            self.navigationController?.pushViewController(accountVC, animated: true)
+            self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
+        case 2: // List uphold
+            self.pushToView(name: DomainConst.G01_F00_S01_VIEW_CTRL)
+        case 4: // User profile
+            self.pushToView(name: DomainConst.G00_ACCOUNT_VIEW_CTRL)
         case 3:
             if !BaseModel.shared.lastUpholdId.isEmpty {
                 BaseModel.shared.sharedString = BaseModel.shared.lastUpholdId
-                let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F03_VIEW_CTRL)
-                self.navigationController?.pushViewController(ratingVC, animated: true)
+                // Move to G01_F03 rating view
+                self.pushToView(name: DomainConst.G01_F03_VIEW_CTRL)
             }
         default:
             break
@@ -293,8 +286,7 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         if BaseModel.shared.checkNotificationExist() {
             if BaseModel.shared.checkIsLogin() {
                 if BaseModel.shared.isUpholdNotification() {
-                    let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S01_VIEW_CTRL)
-                    self.navigationController?.pushViewController(upholdListVC, animated: true)
+                    self.pushToView(name: DomainConst.G01_F00_S01_VIEW_CTRL)
                 }
             } else {
                 moveToLoginVC()
@@ -313,7 +305,6 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
      * Move to login view
      */
     func moveToLoginVC() {
-        let loginVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_LOGIN_VIEW_CTRL)
-        self.navigationController?.pushViewController(loginVC, animated: true)
+        self.pushToView(name: DomainConst.G00_LOGIN_VIEW_CTRL)
     }
 }

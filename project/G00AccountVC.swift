@@ -83,8 +83,7 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
      * - parameter sender:AnyObject
      */
     @IBAction func changePasswordTapped(_ sender: AnyObject) {
-        let changePasswordVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_CHANGE_PASS_VIEW_CTRL)
-        self.navigationController?.pushViewController(changePasswordVC, animated: true)
+        self.pushToView(name: DomainConst.G00_CHANGE_PASS_VIEW_CTRL)
     }
     
     /**

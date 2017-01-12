@@ -17,8 +17,7 @@ class G01F00S01MenuVC: BaseMenuViewController {
         self.dismiss(animated: false) {
             NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_UPHOLDLISTVIEW), object: nil)
         }
-    }
-    
+    }    
     
     /**
      * View did load

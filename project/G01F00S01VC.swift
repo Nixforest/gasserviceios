@@ -12,19 +12,19 @@ import harpyframework
 class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     // MARK: Properties
     /** Current view type */
-    var currentViewType = DomainConst.TYPE_TROUBLE
+    var currentViewType     = DomainConst.TYPE_TROUBLE
     /** Current page */
-    var currentPage = 0
+    var currentPage         = 0
     /** Current customer Id */
-    var currentCustomerId = ""
+    var currentCustomerId   = ""
     /** Current status */
-    var currentStatus = ""
+    var currentStatus       = ""
     /** Filtered string */
-    var filteredStr = String()
+    var filteredStr         = String()
     /** Flag search active */
-    var searchActive:Bool = false
+    var searchActive:Bool   = false
     /** Flag begin search */
-    var beginSearch:Bool = false
+    var beginSearch:Bool    = false
     /** List of status */
     var aStatusList: [ConfigBean] = [ConfigBean]()
     /** Timer for search auto complete */
@@ -89,11 +89,14 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
      */
     @IBAction func showStatusListButtonTapped(_ sender: AnyObject) {
         if aStatusList.count > 0 {
-            statusListView.isHidden = false
-            blurView.isHidden          = false
+            statusListView.isHidden     = false
+            blurView.isHidden           = false
         }
     }
-    //training mode
+    /**
+     * View did appear
+     * - parameter animated:
+     */
     override func viewDidAppear(_ animated: Bool) {
         //notification button enable/disable
         self.updateNotificationStatus()
@@ -285,13 +288,15 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
             if BaseModel.shared.checkIsLogin() {
                 if BaseModel.shared.isUpholdNotification() {
                     if BaseModel.shared.isCustomerUser() {
+                        // Save index
                         BaseModel.shared.sharedInt = BaseModel.shared.getUpholdIndexById(id: BaseModel.shared.notify.getId())
-                        let detail = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S03_VIEW_CTRL)
-                        self.navigationController?.pushViewController(detail, animated: true)
+                        // Move to detail view
+                        self.pushToView(name: DomainConst.G01_F00_S03_VIEW_CTRL)
                     } else {
+                        // Save index
                         BaseModel.shared.sharedInt = BaseModel.shared.getUpholdIndexById(id: BaseModel.shared.notify.getId())
-                        let detail = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S02_VIEW_CTRL)
-                        self.navigationController?.pushViewController(detail, animated: true)
+                        // Move to detail view
+                        self.pushToView(name: DomainConst.G01_F00_S02_VIEW_CTRL)
                     }
                 }
             }
@@ -483,15 +488,15 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
                 // Move to customer detail uphold G01F00S03
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
                     BaseModel.shared.sharedInt = indexPath.row
-                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S03_VIEW_CTRL)
-                    self.navigationController?.pushViewController(detail, animated: true)
+                    // Move to detail view
+                    self.pushToView(name: DomainConst.G01_F00_S03_VIEW_CTRL)
                 }
             } else {
                 // Move to customer detail uphold G01F00S02
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
                     BaseModel.shared.sharedInt = indexPath.row
-                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S02_VIEW_CTRL)
-                    self.navigationController?.pushViewController(detail, animated: true)
+                    // Move to detail view
+                    self.pushToView(name: DomainConst.G01_F00_S02_VIEW_CTRL)
                 }
             }
         }
@@ -500,16 +505,16 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
                 // Move to customer detail uphold G01F00S03
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
                     BaseModel.shared.sharedInt = indexPath.row
-                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S03_VIEW_CTRL)
-                    self.navigationController?.pushViewController(detail, animated: true)
+                    // Move to detail view
+                    self.pushToView(name: DomainConst.G01_F00_S03_VIEW_CTRL)
                 }
 
             } else {
                 // Move to customer detail uphold G01F00S02
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
                     BaseModel.shared.sharedInt = indexPath.row
-                    let detail = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S02_VIEW_CTRL)
-                    self.navigationController?.pushViewController(detail, animated: true)
+                    // Move to detail view
+                    self.pushToView(name: DomainConst.G01_F00_S02_VIEW_CTRL)
                 }
             }
 //            let cell:TableCellUpholdType = tableView.dequeueReusableCell(
@@ -535,8 +540,8 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
      */
     func toRatingVC(id: String) {
         BaseModel.shared.sharedString = id
-        let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F03_VIEW_CTRL)
-        self.navigationController?.pushViewController(ratingVC, animated: true)
+        // Move to rating view
+        self.pushToView(name: DomainConst.G01_F03_VIEW_CTRL)
     }
     
     /**
@@ -633,6 +638,4 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
         searchActive = true
         beginSearching()
     }
-
-
 }

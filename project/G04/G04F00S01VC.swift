@@ -109,8 +109,7 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let view = mainStoryboard.instantiateViewController(withIdentifier: "G04F00S02VC")
-        self.navigationController?.pushViewController(view, animated: true)
+        self.pushToView(name: G04Const.G04_F00_S02_VIEW_CTRL)
     }
     /**
      * View did appear

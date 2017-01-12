@@ -128,15 +128,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // handle tap events
         /** push to zoomIMGVC */
         zoomIMGViewController.imgPicked = G01F02S06._selectedValue[indexPath.row]
-        let IMGVC = self.getParentView().mainStoryboard.instantiateViewController(withIdentifier: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
-        self.getParentView().navigationController?.pushViewController(IMGVC, animated: true)
-//        ImageView.imgPicked = G01F02S06._selectedValue[indexPath.row]
-//        var imageView: ImageView = ImageView()
-//        imageView.frame = CGRect(x: 0, y: 0,
-//                                 width: GlobalConst.SCREEN_WIDTH,
-//                                 height: GlobalConst.SCREEN_HEIGHT)
-//        imageView.setup()
-//        self._parent?.view.addSubview(imageView)
+        self.getParentView().pushToView(name: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
 
     }
     func updateData() {

@@ -64,8 +64,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
      * - parameter sender:AnyObject
      */
     @IBAction func Register(_ sender: AnyObject) {
-        let registerVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.REGISTER_VIEW_CTRL)
-        self.navigationController?.pushViewController(registerVC, animated: true)
+        self.pushToView(name: DomainConst.REGISTER_VIEW_CTRL)
     }
     
     /**
@@ -89,8 +88,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         if imgLogoTappedCounter == 7 {
             imgLogoTappedCounter = 0
             print(imgLogoTappedCounter)
-            let configVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_CONFIGURATION_VIEW_CTRL)
-            self.navigationController?.pushViewController(configVC, animated: true)
+            self.pushToView(name: DomainConst.G00_CONFIGURATION_VIEW_CTRL)
         }
     }
     

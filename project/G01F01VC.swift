@@ -9,9 +9,10 @@
 import UIKit
 import harpyframework
 
-
 class G01F01VC: StepVC, StepDoneDelegate {
+    /** Height of top segment */
     let TOP_PART_HEIGHT: CGFloat = 100.0
+    
     /**
      * Handle when tap menu item
      */
@@ -20,6 +21,9 @@ class G01F01VC: StepVC, StepDoneDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
     }
     
+    /**
+     * Handle view did load
+     */
     override func viewDidLoad() {
         // Get height of status bar + navigation bar
         let height = self.getTopHeight()
@@ -34,14 +38,9 @@ class G01F01VC: StepVC, StepDoneDelegate {
         self.appendContent(stepContent: step1)
         step2.stepDoneDelegate = self
         self.appendContent(stepContent: step2)
-        //self._numberStep = self._arrayContent.count + 1
         appendSummary(summary: summary)
         // Set title
         self.setTitle(title: DomainConst.CONTENT00178)
-//        var listIcon = [String]()
-//        listIcon.append("problemType")
-//        listIcon.append("informationSum")
-//        super.setListIcon(listIcon: listIcon)
         super.viewDidLoad()
         // Menu item tap
         asignNotifyForMenuItem()
@@ -54,12 +53,12 @@ class G01F01VC: StepVC, StepDoneDelegate {
         phone.setTitleColor(UIColor.white, for: UIControlState())
         phone.titleLabel?.textAlignment = .center
         phone.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.LARGE_FONT_SIZE)
-        let tintImg = UIImage(named: "icon63.png")
+        let tintImg = UIImage(named: G01Const.CALL_CENTER_NUMBER_IMG_NAME)
         let tinted = tintImg?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         phone.setImage(tinted, for: UIControlState())
         phone.tintColor = UIColor.white
         phone.imageView?.contentMode = .scaleAspectFit
-        phone.isEnabled = false
+        phone.addTarget(self, action: #selector(callCenterTap), for: .touchUpInside)
         self.view.addSubview(phone)
         
         let phoneStr: UIButton = UIButton()
@@ -69,10 +68,30 @@ class G01F01VC: StepVC, StepDoneDelegate {
         phoneStr.setTitleColor(UIColor.white, for: UIControlState())
         phoneStr.titleLabel?.textAlignment = .center
         phoneStr.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BIG_FONT_SIZE)
-        phoneStr.setImage(UIImage(named: "icon64.png"), for: UIControlState())
+        phoneStr.setImage(UIImage(named: G01Const.HOTLINE_NUMBER_IMG_NAME), for: UIControlState())
         phoneStr.imageView?.contentMode = .scaleAspectFit
-        phoneStr.isEnabled = false
+        phoneStr.addTarget(self, action: #selector(hotlineTap), for: .touchUpInside)
         self.view.addSubview(phoneStr)
+    }
+    
+    /**
+     * Handle when tap on call center phone number
+     * Make a phone call
+     */
+    func callCenterTap() {
+        if let url = NSURL(string: "tel://\(BaseModel.shared.getCallCenterUpholdNumber().normalizatePhoneString())"), UIApplication.shared.canOpenURL(url as URL) {
+            UIApplication.shared.openURL(url as URL)
+        }
+    }
+    
+    /**
+     * Handle when tap on hotline phone number
+     * Make a phone call
+     */
+    func hotlineTap() {
+        if let url = NSURL(string: "tel://\(BaseModel.shared.getHotlineNumber().normalizatePhoneString())"), UIApplication.shared.canOpenURL(url as URL) {
+            UIApplication.shared.openURL(url as URL)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -121,6 +140,10 @@ class G01F01VC: StepVC, StepDoneDelegate {
         return top + TOP_PART_HEIGHT
     }
     
+    /**
+     * Get height of status + navigation bar
+     * - returns: Height of status + navigation bar
+     */
     func getTitleHeight() -> CGFloat {
         return (self.navigationController!.navigationBar.frame.size.height
             + UIApplication.shared.statusBarFrame.size.height)
