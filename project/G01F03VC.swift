@@ -36,7 +36,7 @@ class G01F03VC: StepVC, StepDoneDelegate {
         self.appendContent(stepContent: step2)
         step3.stepDoneDelegate = self
         self.appendContent(stepContent: step3)
-        //self._numberStep = self._arrayContent.count + 1
+        
         appendSummary(summary: summary)
         // Set title
         self.setTitle(title: DomainConst.CONTENT00098)
@@ -47,33 +47,31 @@ class G01F03VC: StepVC, StepDoneDelegate {
         // Do any additional setup after loading the view.
     }
     
+    /**
+     * Did receive memory warning
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     * Clear data
+     */
     override func clearData() {
         G01F03S01._selectedValue = ConfigBean(id: "", name: "")
         G01F03S02._selectedValue = [Int]()
         G01F03S03._selectedValue = ""
     }
+    
+    /**
+     * Handle send request rating uphold
+     */
     override func btnSendTapped() {
         RatingUpholdRequest.requestRatingUphold(id: BaseModel.shared.sharedString,
                                           ratingStatusId: G01F03S01._selectedValue.id,
                                           listRating: G01F03S02._selectedValue,
                                           content: G01F03S03._selectedValue, view: self)
-//        CommonProcess.requestCreateUphold(
-//            customerId: Singleton.shared.user_id,
-//            employeeId: "",
-//            typeUphold: G01F01S01._selectedValue.id,
-//            content: G01F01S01._otherProblem,
-//            contactPerson: G01F01S02._name,
-//            contactTel: G01F01S02._phone,
-//            requestBy: G01F01S02._selectedValue.id, view: self)
-    }
-    
-    func stepDone() {
-        self.moveNext()
     }
     
     /*

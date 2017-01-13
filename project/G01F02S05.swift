@@ -32,23 +32,20 @@ class G01F02S05: StepContent, UITextViewDelegate {
         var offset: CGFloat = 0
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = true
-        //contentView.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         // Name textfield
-        _tbxNote.frame = CGRect(
-            x: (w - GlobalConst.EDITTEXT_W) / 2,
-            y: GlobalConst.MARGIN,
-            width: GlobalConst.EDITTEXT_W,
-            height: GlobalConst.EDITTEXT_H * 5)
-        _tbxNote.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
-        _tbxNote.backgroundColor = UIColor.white
+        _tbxNote.frame = CGRect(x: (w - GlobalConst.EDITTEXT_W) / 2,
+                                y: GlobalConst.MARGIN,
+                                width: GlobalConst.EDITTEXT_W,
+                                height: GlobalConst.EDITTEXT_H * 5)
+        _tbxNote.font               = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+        _tbxNote.backgroundColor    = UIColor.white
         _tbxNote.autocorrectionType = .no
         _tbxNote.translatesAutoresizingMaskIntoConstraints = true
-        _tbxNote.returnKeyType = .done
-        _tbxNote.tag = 0
+        _tbxNote.returnKeyType      = .done
+        _tbxNote.tag                = 0
         _tbxNote.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         CommonProcess.setBorder(view: _tbxNote)
-        //_tbxNote.becomeFirstResponder()
         offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
         contentView.addSubview(_tbxNote)
         
@@ -107,6 +104,9 @@ class G01F02S05: StepContent, UITextViewDelegate {
         hideKeyboard()
     }
     
+    /**
+     * Handle validate data
+     */
     override func checkDone() -> Bool {
 //        if G01F02S05._selectedValue.isEmpty {
 //            self._parent?.showAlert(message: DomainConst.CONTENT00188)

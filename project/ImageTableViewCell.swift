@@ -13,18 +13,25 @@ protocol ImageTableViewCellDelegate {
 }
 
 class ImageTableViewCell: UITableViewCell {
-
+    /** Index of row */
     var indexRow  = Int()
-    
+    /** Delegate */
     var delegate :ImageTableViewCellDelegate?
-    
-    
+    /** Image picker */
     @IBOutlet weak var imgPicker: UIImageView!
+    /** Delete button */
     @IBOutlet weak var btnDelete: UIButton!
     
+    /**
+     * Handle tap delete button
+     */
     @IBAction func btnDeleteTapped(_ sender: AnyObject) {
         delegate?.removeAtRow(row: indexRow)
     }
+    
+    /**
+     * Awake from nib
+     */
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

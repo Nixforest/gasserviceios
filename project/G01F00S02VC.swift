@@ -148,6 +148,10 @@ class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate
                 RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
             }
         }
+        // Notification
+        if BaseModel.shared.checkNotificationExist() {
+            BaseModel.shared.clearNotificationData()
+        }
     }
     
     /**

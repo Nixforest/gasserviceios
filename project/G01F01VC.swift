@@ -94,11 +94,17 @@ class G01F01VC: StepVC, StepDoneDelegate {
         }
     }
     
+    /**
+     * Did receive memory warning
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     * Clear data before close view
+     */
     override func clearData() {
         G01F01S01._selectedValue = ConfigBean(id: "", name: "")
         G01F01S01._otherProblem = ""
@@ -106,7 +112,13 @@ class G01F01VC: StepVC, StepDoneDelegate {
         G01F01S02._name = ""
         G01F01S02._phone = ""
     }
+    
+    /**
+     * Handle send request create uphold
+     */
     override func btnSendTapped() {
+        // Disable action handle notification from server
+        BaseModel.shared.enableHandleNotificationFlag(isEnabled: false)
         CreateUpholdRequest.requestCreateUphold(
             customerId: BaseModel.shared.user_id,
             employeeId: "",
@@ -115,10 +127,6 @@ class G01F01VC: StepVC, StepDoneDelegate {
             contactPerson: G01F01S02._name,
             contactTel: G01F01S02._phone,
             requestBy: G01F01S02._selectedValue.id, view: self)
-    }
-    
-    func stepDone() {
-        self.moveNext()
     }
     
     /*
@@ -134,6 +142,10 @@ class G01F01VC: StepVC, StepDoneDelegate {
         self.updateNotificationStatus()
     }
     
+    /**
+     * Override get height of top segment function
+     * - returns: height of status + navigation bar + Top segment height
+     */
     override func getTopHeight() -> CGFloat {
         let top = (self.navigationController!.navigationBar.frame.size.height
             + UIApplication.shared.statusBarFrame.size.height)

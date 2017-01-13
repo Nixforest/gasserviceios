@@ -38,13 +38,11 @@ class G01F03S02: StepContent {
                 // Label title
                 let label = UILabel()
                 label.translatesAutoresizingMaskIntoConstraints = true
-                label.frame = CGRect(
-                    x: GlobalConst.MARGIN,
-                    y: offset,
-                    width: self.frame.width,
-                    height: GlobalConst.LABEL_HEIGHT)
+                label.frame = CGRect(x: GlobalConst.MARGIN,
+                                     y: offset,
+                                     width: self.frame.width,
+                                     height: GlobalConst.LABEL_HEIGHT)
                 label.text               = BaseModel.shared.listRatingType[i].name
-                //label.textAlignment      = NSTextAlignment.center
                 label.font               = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
                 contentView.addSubview(label)
                 offset += GlobalConst.LABEL_HEIGHT
@@ -54,12 +52,11 @@ class G01F03S02: StepContent {
                 ratingBar.translatesAutoresizingMaskIntoConstraints = true
                 let size = GlobalConst.LABEL_HEIGHT * 1.5
                 let width = size * (CGFloat)(ratingBar.getStarNumber()) + (ratingBar.getStarSpace() * (CGFloat)(ratingBar.getStarNumber() - 1))
-                ratingBar.frame = CGRect(
-                    x: (self.frame.width - width) / 2,
-                    y: offset,
-                    width: width,
-                    height: size)
-                //ratingBar.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
+                ratingBar.frame = CGRect(x: (self.frame.width - width) / 2,
+                                         y: offset,
+                                         width: width,
+                                         height: size)
+                
                 ratingBar.setBackgroundColor(color: GlobalConst.BACKGROUND_COLOR_GRAY)
                 if G01F03S02._selectedValue.count > i {
                     ratingBar.setRatingValue(value: G01F03S02._selectedValue[i])
@@ -86,6 +83,9 @@ class G01F03S02: StepContent {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     * Handle validate data
+     */
     override func checkDone() -> Bool {
         for i in 0..<BaseModel.shared.listRatingType.count {
             G01F03S02._selectedValue[i] = self._listRating[i].getRatingValue()

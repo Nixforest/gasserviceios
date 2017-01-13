@@ -28,6 +28,8 @@ class CreateUpholdRequest: BaseRequest {
             print(dataString ?? "")
             // Convert to object
             let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
+            // Enable action handle notification from server
+            BaseModel.shared.enableHandleNotificationFlag(isEnabled: true)
             if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()

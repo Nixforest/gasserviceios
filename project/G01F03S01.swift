@@ -49,14 +49,14 @@ class G01F03S01: StepContent {
                 button.backgroundColor = GlobalConst.BUTTON_COLOR_RED
                 var imgName = DomainConst.BLANK
                 switch BaseModel.shared.listRatingStatus[i].id {
-                case "1":
-                    imgName = "icon53.png"
+                case DomainConst.RATING_STATUS_GLAD:
+                    imgName = DomainConst.CUST_FEELING_GLAD_IMG_NAME
                     break
-                case "2":
-                    imgName = "icon52.png"
+                case DomainConst.RATING_STATUS_NORMAL:
+                    imgName = DomainConst.CUST_FEELING_NORMAL_IMG_NAME
                     break
-                case "3":
-                    imgName = "icon54.png"
+                case DomainConst.RATING_STATUS_SAD:
+                    imgName = DomainConst.CUST_FEELING_SAD_IMG_NAME
                     break
                 default:
                     break
@@ -110,6 +110,9 @@ class G01F03S01: StepContent {
         self.stepDoneDelegate?.stepDone()
     }
     
+    /**
+     * Handle validate data
+     */
     override func checkDone() -> Bool {
         if G01F03S01._selectedValue.id.isEmpty {
             self.showAlert(message: DomainConst.CONTENT00206)

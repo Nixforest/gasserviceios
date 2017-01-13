@@ -43,18 +43,17 @@ class G01F01S02: StepContent {
         // Add button
         if BaseModel.shared.listContactType.count > 0 {
             for i in 0..<BaseModel.shared.listContactType.count {
-                let button = UIButton()
+                let button      = UIButton()
+                button.frame    = CGRect(x: (w - GlobalConst.BUTTON_W) / 2,
+                                         y: GlobalConst.MARGIN + (CGFloat)(i) * (GlobalConst.BUTTON_H + GlobalConst.MARGIN),
+                                         width: GlobalConst.BUTTON_W,
+                                         height: GlobalConst.BUTTON_H)
+                button.tag      = i
+                button.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+                button.backgroundColor  = GlobalConst.BUTTON_COLOR_RED
                 button.translatesAutoresizingMaskIntoConstraints = true
-                button.frame = CGRect(
-                    x: (w - GlobalConst.BUTTON_W) / 2,
-                    y: GlobalConst.MARGIN + (CGFloat)(i) * (GlobalConst.BUTTON_H + GlobalConst.MARGIN),
-                    width: GlobalConst.BUTTON_W,
-                    height: GlobalConst.BUTTON_H)
-                button.tag = i
                 button.setTitle(BaseModel.shared.listContactType[i].name, for: .normal)
                 button.setTitleColor(UIColor.white , for: .normal)
-                button.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
-                button.backgroundColor = GlobalConst.BUTTON_COLOR_RED
                 button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
                 button.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
                 // Mark button
@@ -66,15 +65,14 @@ class G01F01S02: StepContent {
                 offset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
             }
             // Name textfield
-            _tbxName.frame = CGRect(
-                x: (w - GlobalConst.BUTTON_W) / 2,
-                y: offset,
-                width: GlobalConst.BUTTON_W,
-                height: GlobalConst.BUTTON_H)
+            _tbxName.frame = CGRect(x: (w - GlobalConst.BUTTON_W) / 2,
+                                    y: offset,
+                                    width: GlobalConst.BUTTON_W,
+                                    height: GlobalConst.BUTTON_H)
+            _tbxName.font           = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
+            _tbxName.isEditable     = false
+            _tbxName.textAlignment  = .center
             _tbxName.translatesAutoresizingMaskIntoConstraints = true
-            _tbxName.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
-            _tbxName.isEditable = false
-            _tbxName.textAlignment = .center
             if !G01F01S02._name.isEmpty {
                 _tbxName.text = G01F01S02._name
             }
@@ -129,21 +127,23 @@ class G01F01S02: StepContent {
         // Set new selected value
         G01F01S02._selectedValue = BaseModel.shared.listContactType[sender.tag]
         switch G01F01S02._selectedValue.id {
-        case "1":
+        case DomainConst.CONTACT_TYPE_BOSS:
             G01F01S02._name = (BaseModel.shared.user_info?.getBossName())!
             G01F01S02._phone = (BaseModel.shared.user_info?.getBossPhone())!
             break
-        case "2":
+        case DomainConst.CONTACT_TYPE_MANAGER:
             G01F01S02._name = (BaseModel.shared.user_info?.getManagerName())!
             G01F01S02._phone = (BaseModel.shared.user_info?.getManagerPhone())!
             break
-        case "3":
+        case DomainConst.CONTACT_TYPE_TECHNICAL:
             G01F01S02._name = (BaseModel.shared.user_info?.getTechnicalName())!
             G01F01S02._phone = (BaseModel.shared.user_info?.getTechnicalPhone())!
             break
         default:
             break
         }
+        
+        // Update text fields
         if !G01F01S02._name.isEmpty {
             _tbxName.text = G01F01S02._name
         }
@@ -155,15 +155,19 @@ class G01F01S02: StepContent {
         createAlert()
     }
     
+    /**
+     * Create alert to input name and phone of contact person
+     */
     func createAlert() {
         var tbxName: UITextField?
         var tbxPhone: UITextField?
         // Create alert
-        let alert = UIAlertController(title: DomainConst.CONTENT00076, message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: DomainConst.CONTENT00076,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .alert)
         // Add textfield name
         alert.addTextField(configurationHandler: { textField -> Void in
             tbxName = textField
-            //tbxName?.translatesAutoresizingMaskIntoConstraints = true
             tbxName?.placeholder        = DomainConst.CONTENT00055
             tbxName?.clearButtonMode    = .whileEditing
             tbxName?.frame.size.height  = GlobalConst.EDITTEXT_H
@@ -172,12 +176,10 @@ class G01F01S02: StepContent {
             tbxName?.autocapitalizationType = .words
             tbxName?.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
             tbxName?.text               = G01F01S02._name
-            //tbxName?.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         })
         // Add textfield phone
         alert.addTextField(configurationHandler: { textField -> Void in
             tbxPhone = textField
-            //tbxPhone?.translatesAutoresizingMaskIntoConstraints = true
             tbxPhone?.placeholder       = DomainConst.CONTENT00054
             tbxPhone?.clearButtonMode   = .whileEditing
             tbxPhone?.keyboardType      = .phonePad
@@ -194,8 +196,8 @@ class G01F01S02: StepContent {
             if !(tbxName?.text?.isEmpty)! && !(tbxPhone?.text?.isEmpty)! {
                 G01F01S02._name     = (tbxName?.text)!
                 self._tbxName.text  = G01F01S02._name
-                G01F01S02._phone     = (tbxPhone?.text)!
-                self._tbxPhone.text  = G01F01S02._phone
+                G01F01S02._phone    = (tbxPhone?.text)!
+                self._tbxPhone.text = G01F01S02._phone
                 NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F01), object: nil)
                 self.stepDoneDelegate?.stepDone()
             } else {
@@ -210,6 +212,9 @@ class G01F01S02: StepContent {
         })
     }
     
+    /**
+     * Handle validate data
+     */
     override func checkDone() -> Bool {
         if G01F01S02._selectedValue.id.isEmpty {
             self.showAlert(message: DomainConst.CONTENT00204)

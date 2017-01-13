@@ -17,8 +17,7 @@ class G01F03MenuVC: BaseMenuViewController {
         self.dismiss(animated: false) {
             NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)
         }
-    }
-    
+    }    
     
     /**
      * View did load

@@ -118,7 +118,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
         //imgLogo.image = UIImage(named: GlobalConst.LOGO_IMG_NAME)
-        imgLogo.image = UIImage(named: "logo-1.png")
+        imgLogo.image = ImageManager.getImage(named: DomainConst.BRAND_LOGO_IMG_NAME)
         imgLogo.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W) / 2,
                                y: heigh + GlobalConst.MARGIN,
                                width: GlobalConst.LOGIN_LOGO_W,

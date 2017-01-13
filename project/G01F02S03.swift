@@ -30,23 +30,21 @@ class G01F02S03: StepContent {
     init(w: CGFloat, h: CGFloat, parent: BaseViewController) {
         super.init()
         var offset: CGFloat = 0
-        let contentView = UIView()
+        let contentView     = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = true
-        //contentView.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         // Right button
         _rightButton.translatesAutoresizingMaskIntoConstraints = true
-        _rightButton.frame = CGRect(
-            x: (w - GlobalConst.BUTTON_W) / 2,
-            y: GlobalConst.MARGIN,
-            width: GlobalConst.BUTTON_W,
-            height: GlobalConst.BUTTON_H)
+        _rightButton.frame = CGRect(x: (w - GlobalConst.BUTTON_W) / 2,
+                                    y: GlobalConst.MARGIN,
+                                    width: GlobalConst.BUTTON_W,
+                                    height: GlobalConst.BUTTON_H)
         _rightButton.setTitle(DomainConst.CONTENT00184, for: .normal)
         _rightButton.setTitleColor(UIColor.white , for: .normal)
-        _rightButton.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
-        _rightButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        _rightButton.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
+        _rightButton.titleLabel?.font   = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+        _rightButton.backgroundColor    = GlobalConst.BUTTON_COLOR_RED
         _rightButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        _rightButton.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
         _rightButton.tag = 1
         if G01F02S03._selectedValue != nil {
             if G01F02S03._selectedValue! {
@@ -58,17 +56,16 @@ class G01F02S03: StepContent {
         
         // Wrong button
         _wrongButton.translatesAutoresizingMaskIntoConstraints = true
-        _wrongButton.frame = CGRect(
-            x: (w - GlobalConst.BUTTON_W) / 2,
-            y: GlobalConst.MARGIN + offset,
-            width: GlobalConst.BUTTON_W,
-            height: GlobalConst.BUTTON_H)
+        _wrongButton.frame = CGRect(x: (w - GlobalConst.BUTTON_W) / 2,
+                                    y: GlobalConst.MARGIN + offset,
+                                    width: GlobalConst.BUTTON_W,
+                                    height: GlobalConst.BUTTON_H)
         _wrongButton.setTitle(DomainConst.CONTENT00185, for: .normal)
         _wrongButton.setTitleColor(UIColor.white , for: .normal)
-        _wrongButton.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
-        _wrongButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        _wrongButton.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
+        _wrongButton.titleLabel?.font   = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+        _wrongButton.backgroundColor    = GlobalConst.BUTTON_COLOR_RED
         _wrongButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        _wrongButton.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
         _wrongButton.tag = 0
         if G01F02S03._selectedValue != nil {
             if !G01F02S03._selectedValue! {
@@ -111,6 +108,9 @@ class G01F02S03: StepContent {
         self.stepDoneDelegate?.stepDone()
     }
     
+    /**
+     * Handle validate data
+     */
     override func checkDone() -> Bool {
         if G01F02S03._selectedValue == nil {
             self.showAlert(message: DomainConst.CONTENT00183)

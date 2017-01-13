@@ -39,20 +39,19 @@ class G01F01S01: StepContent {
         // Add button
         if BaseModel.shared.listUpholdType.count > 0 {
             for i in 0..<BaseModel.shared.listUpholdType.count {
-                let button = UIButton()
-                button.translatesAutoresizingMaskIntoConstraints = true
-                button.frame = CGRect(
-                    x: (w - GlobalConst.BUTTON_W) / 2,
-                    y: GlobalConst.MARGIN + (CGFloat)(i) * (GlobalConst.BUTTON_H + GlobalConst.MARGIN),
-                    width: GlobalConst.BUTTON_W,
-                    height: GlobalConst.BUTTON_H)
-                button.tag = i
+                let button      = UIButton()
+                button.frame    = CGRect(x: (w - GlobalConst.BUTTON_W) / 2,
+                                         y: GlobalConst.MARGIN + (CGFloat)(i) * (GlobalConst.BUTTON_H + GlobalConst.MARGIN),
+                                         width: GlobalConst.BUTTON_W,
+                                         height: GlobalConst.BUTTON_H)
+                button.tag      = i
+                button.titleLabel?.font     = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+                button.backgroundColor      = GlobalConst.BUTTON_COLOR_RED
+                button.layer.cornerRadius   = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
                 button.setTitle(BaseModel.shared.listUpholdType[i].name, for: .normal)
                 button.setTitleColor(UIColor.white , for: .normal)
-                button.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
-                button.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+                button.translatesAutoresizingMaskIntoConstraints = true
                 button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
-                button.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
                 // Mark button
                 if G01F01S01._selectedValue.id == BaseModel.shared.listUpholdType[i].id {
                     CommonProcess.markButton(button: button)
@@ -63,19 +62,15 @@ class G01F01S01: StepContent {
             }
             // Label title
             _lblOtherProblem.translatesAutoresizingMaskIntoConstraints = true
-            _lblOtherProblem.frame = CGRect(
-                x: (w - GlobalConst.BUTTON_W) / 2,
-                y: offset,
-                width: GlobalConst.BUTTON_W,
-                height: GlobalConst.LABEL_HEIGHT * 3)
+            _lblOtherProblem.frame = CGRect(x: (w - GlobalConst.BUTTON_W) / 2,
+                                            y: offset,
+                                            width: GlobalConst.BUTTON_W,
+                                            height: GlobalConst.LABEL_HEIGHT * 3)
             _lblOtherProblem.text               = G01F01S01._otherProblem
             _lblOtherProblem.font               = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-            _lblOtherProblem.isHidden           = (G01F01S01._otherProblem == "")
-            
-            //_lblOtherProblem.lineBreakMode   = .byWordWrapping
-            //_lblOtherProblem.numberOfLines   = 0
-            _lblOtherProblem.isEditable = false
-            _lblOtherProblem.backgroundColor = UIColor.white
+            _lblOtherProblem.isHidden           = G01F01S01._otherProblem.isEmpty
+            _lblOtherProblem.isEditable         = false
+            _lblOtherProblem.backgroundColor    = UIColor.white
             CommonProcess.setBorder(view: _lblOtherProblem)
             offset += GlobalConst.LABEL_HEIGHT * 3 + GlobalConst.MARGIN
             contentView.addSubview(_lblOtherProblem)
@@ -116,31 +111,25 @@ class G01F01S01: StepContent {
             createAlert()
         } else {
             _lblOtherProblem.isHidden           = true
-            G01F01S01._otherProblem = ""
+            G01F01S01._otherProblem             = ""
             NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F01), object: nil)
             self.stepDoneDelegate?.stepDone()
         }
     }
     
+    /**
+     * Create alert to input other problem
+     */
     func createAlert() {
         if G01F01S01._selectedValue.name == DomainConst.OPTION_OTHER {
             var inputTextField: UITextField?
             // Create alert
             let alert = UIAlertController(title: DomainConst.CONTENT00203, message: "", preferredStyle: .alert)
-            
-            // Add textfield to alert
-//            alert.addTextField(configurationHandler: { (<#UITextField#>) in
-//                sfd
-//            })
             alert.addTextField(configurationHandler: { textField -> Void in
-                inputTextField = textField
-//                inputTextField?.translatesAutoresizingMaskIntoConstraints = true
-//                inputTextField?.frame = CGRect(x: GlobalConst.MARGIN, y: 0,
-//                                               width: GlobalConst.EDITTEXT_W - GlobalConst.MARGIN * 2,
-//                                               height: GlobalConst.EDITTEXT_H * 3)
+                inputTextField                      = textField
                 inputTextField?.placeholder         = DomainConst.CONTENT00063
                 inputTextField?.clearButtonMode     = .whileEditing
-                inputTextField?.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+                inputTextField?.font                = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
             })
             // Add cancel action
             let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
@@ -148,9 +137,9 @@ class G01F01S01: StepContent {
             // Add ok action
             let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
                 if !(inputTextField?.text?.isEmpty)! {
-                    G01F01S01._otherProblem     = (inputTextField?.text)!
-                    self._lblOtherProblem.text  = G01F01S01._otherProblem
-                    self._lblOtherProblem.isHidden   = (G01F01S01._otherProblem == "")
+                    G01F01S01._otherProblem         = (inputTextField?.text)!
+                    self._lblOtherProblem.text      = G01F01S01._otherProblem
+                    self._lblOtherProblem.isHidden  = G01F01S01._otherProblem.isEmpty
                     NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F01), object: nil)
                     self.stepDoneDelegate?.stepDone()
                 } else {
@@ -166,6 +155,9 @@ class G01F01S01: StepContent {
         }
     }
     
+    /**
+     * Handle validate data
+     */
     override func checkDone() -> Bool {
         if G01F01S01._selectedValue.id.isEmpty {
             self.showAlert(message: DomainConst.CONTENT00201)

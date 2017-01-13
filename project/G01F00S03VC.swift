@@ -116,6 +116,10 @@ class G01F00S03VC: BaseViewController {
                                                view: self)
             }
         }
+        // Notification
+        if BaseModel.shared.checkNotificationExist() {
+            BaseModel.shared.clearNotificationData()
+        }
     }
     
     /**
@@ -296,29 +300,26 @@ class G01F00S03VC: BaseViewController {
                                        y: offset,
                                        width: rightWidth / 2,
                                        height: self.imgEmployeePhoneIcon.frame.height)
-        //self.lblEmployeePhone.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
-        //self.lblEmployeePhone.textColor = UIColor.black
-        //self.lblEmployeePhone.text = DomainConst.BLANK
         self.lblEmployeePhone.addTarget(self, action: #selector(phonetap), for: .touchUpInside)
-//        self.lblEmployeePhone.setTitleColor(UIColor.blue, for: UIControlState())
-//        self.lblEmployeePhone.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
         
-        // Handle time icon
-        self.imgHandlingTimeIcon.frame = CGRect(x: self.lblEmployeePhone.frame.maxX + GlobalConst.MARGIN_CELL_X,
+        if BaseModel.shared.currentUpholdDetail.reply_item.count > 0 {
+            // Handle time icon
+            self.imgHandlingTimeIcon.frame = CGRect(x: self.lblEmployeePhone.frame.maxX + GlobalConst.MARGIN_CELL_X,
+                                                    y: offset,
+                                                    width: GlobalConst.CELL_HEIGHT_SHOW / 5,
+                                                    height: GlobalConst.CELL_HEIGHT_SHOW / 5)
+            self.imgHandlingTimeIcon.contentMode = .scaleAspectFit
+            self.imgHandlingTimeIcon.image = ImageManager.getImage(named: DomainConst.DATETIME_ICON_IMG_NAME)
+            // Handle time label
+            self.lblHandlingTime.frame = CGRect(x: self.imgHandlingTimeIcon.frame.maxX,
                                                 y: offset,
-                                                width: GlobalConst.CELL_HEIGHT_SHOW / 5,
-                                                height: GlobalConst.CELL_HEIGHT_SHOW / 5)
-        self.imgHandlingTimeIcon.contentMode = .scaleAspectFit
-        self.imgHandlingTimeIcon.image = ImageManager.getImage(named: DomainConst.DATETIME_ICON_IMG_NAME)
-        // Handle time label
-        self.lblHandlingTime.frame = CGRect(x: self.imgHandlingTimeIcon.frame.maxX,
-                                            y: offset,
-                                            width: rightWidth / 2,
-                                            height: self.imgHandlingTimeIcon.frame.height)
-        self.lblHandlingTime.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
-        self.lblHandlingTime.textColor = UIColor.black
-        self.lblHandlingTime.text = DomainConst.BLANK
-        offset += self.imgHandlingTimeIcon.frame.height + GlobalConst.MARGIN_CELL_Y
+                                                width: rightWidth / 2,
+                                                height: self.imgHandlingTimeIcon.frame.height)
+            self.lblHandlingTime.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
+            self.lblHandlingTime.textColor = UIColor.black
+            self.lblHandlingTime.text = DomainConst.BLANK
+        }
+        offset += self.imgEmployeePhoneIcon.frame.height + GlobalConst.MARGIN_CELL_Y
         
         // MARK: - Header 2 and label
         /**
