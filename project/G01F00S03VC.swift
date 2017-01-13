@@ -208,7 +208,7 @@ class G01F00S03VC: BaseViewController {
                                                  width: GlobalConst.CELL_HEIGHT_SHOW / 5,
                                                  height: GlobalConst.CELL_HEIGHT_SHOW / 5)
         self.imgContactIcon.contentMode = .scaleAspectFit
-        self.imgContactIcon.image       = UIImage(named: DomainConst.CONTACT_ICON_IMG_NAME)
+        self.imgContactIcon.image       = ImageManager.getImage(named: DomainConst.CONTACT_ICON_IMG_NAME)
         // Contact label
         self.lblContact.frame           = CGRect(x: self.imgContactIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
                                                  y: offset,
@@ -250,7 +250,7 @@ class G01F00S03VC: BaseViewController {
                                                      width: GlobalConst.CELL_HEIGHT_SHOW / 5,
                                                      height: GlobalConst.CELL_HEIGHT_SHOW / 5)
             self.imgContentIcon.contentMode = .scaleAspectFit
-            self.imgContentIcon.image       = UIImage(named: DomainConst.CONTENT_ICON_IMG_NAME)
+            self.imgContentIcon.image       = ImageManager.getImage(named: DomainConst.CONTENT_ICON_IMG_NAME)
             // Content label
             self.lblContent.frame           = CGRect(x: self.imgContentIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
                                                      y: offset,
@@ -294,7 +294,7 @@ class G01F00S03VC: BaseViewController {
                                            width: GlobalConst.CELL_HEIGHT_SHOW / 5,
                                            height: GlobalConst.CELL_HEIGHT_SHOW / 5)
         self.imgEmployeePhoneIcon.contentMode = .scaleAspectFit
-        self.imgEmployeePhoneIcon.image = UIImage(named: DomainConst.CONTACT_ICON_IMG_NAME)
+        self.imgEmployeePhoneIcon.image = ImageManager.getImage(named: DomainConst.CONTACT_ICON_IMG_NAME)
         // Employee phone label
         self.lblEmployeePhone.frame = CGRect(x: self.imgEmployeePhoneIcon.frame.maxX + GlobalConst.MARGIN_CELL_X,
                                        y: offset,
@@ -354,7 +354,7 @@ class G01F00S03VC: BaseViewController {
                                                       width: GlobalConst.CELL_HEIGHT_SHOW / 5,
                                                       height: GlobalConst.CELL_HEIGHT_SHOW / 5)
                     self.imgReportIcon.contentMode = .scaleAspectFit
-                    self.imgReportIcon.image = UIImage(named: DomainConst.REPORT_ICON_IMG_NAME)
+                    self.imgReportIcon.image = ImageManager.getImage(named: DomainConst.REPORT_ICON_IMG_NAME)
                     // Report label
                     self.lblReport.frame = CGRect(x: self.imgReportIcon.frame.maxX,
                                                   y: offset,
@@ -415,7 +415,7 @@ class G01F00S03VC: BaseViewController {
                                                   width: GlobalConst.CELL_HEIGHT_SHOW / 5,
                                                   height: GlobalConst.CELL_HEIGHT_SHOW / 5)
                 self.imgReportIcon.contentMode = .scaleAspectFit
-                self.imgReportIcon.image = UIImage(named: DomainConst.REPORT_ICON_IMG_NAME)
+                self.imgReportIcon.image = ImageManager.getImage(named: DomainConst.REPORT_ICON_IMG_NAME)
                 // Report label
                 self.lblReport.frame = CGRect(x: self.imgReportIcon.frame.maxX,
                                               y: offset,

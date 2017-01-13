@@ -150,7 +150,7 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.G00_HOME_CELL, for: indexPath) as! G00HomeCell
-        cell.homeCellImageView.image = UIImage(named: aListIcon[(indexPath as NSIndexPath).row])
+        cell.homeCellImageView.image = ImageManager.getImage(named: aListIcon[(indexPath as NSIndexPath).row])
         cell.titleLbl.text = aList[(indexPath as NSIndexPath).row]
         // cell text color
         cell.titleLbl.textColor = UIColor.white

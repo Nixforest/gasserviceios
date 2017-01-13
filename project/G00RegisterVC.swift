@@ -47,7 +47,7 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
     }
     
     override func viewDidLoad() {
-        setBackground(bkg: "bg1.jpg")
+        setBackground(bkg: DomainConst.TYPE_1_BKG_IMG_NAME)
         super.viewDidLoad()
         // Menu item tap
         asignNotifyForMenuItem()
@@ -74,7 +74,7 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
         txtName.placeholder = DomainConst.CONTENT00055
         txtName.translatesAutoresizingMaskIntoConstraints = true
         // Set icon
-        setLeftViewForTextField(textField: txtName, named: "icon2.png")
+        setLeftViewForTextField(textField: txtName, named: DomainConst.USERNAME_IMG_NAME)
         txtName.delegate = self
         
         // Phone text field
@@ -85,7 +85,7 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
         txtPhone.placeholder = DomainConst.CONTENT00054
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
         // Set icon
-        setLeftViewForTextField(textField: txtPhone, named: "phone-ios.png")
+        setLeftViewForTextField(textField: txtPhone, named: DomainConst.PHONE_IMG_NAME)
         txtPhone.delegate = self
         
         // Register button
@@ -99,7 +99,7 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
         registerButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         //self.view.addSubview(registerButton)
         registerButton.translatesAutoresizingMaskIntoConstraints = true
-        registerButton.setImage(UIImage(named: "icon35-user-ios.png"), for: UIControlState())
+        registerButton.setImage(ImageManager.getImage(named: DomainConst.SAVE_INFO_IMG_NAME), for: UIControlState())
         registerButton.imageView?.contentMode = .scaleAspectFit
                 
         //Navigation Bar customize
@@ -121,7 +121,7 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
         let imgView = UIImageView(frame: CGRect(x: 0, y: 0,
                                                 width: GlobalConst.EDITTEXT_H - GlobalConst.MARGIN_CELL_X,
                                                 height: GlobalConst.EDITTEXT_H - GlobalConst.MARGIN_CELL_X))
-        let img = UIImage(named: named)
+        let img = ImageManager.getImage(named: named)
         imgView.image = img
         textField.leftView = imgView
     }

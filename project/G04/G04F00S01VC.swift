@@ -45,8 +45,7 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
-        //imgLogo.image = UIImage(named: GlobalConst.LOGO_IMG_NAME)
-        iconImg.image = UIImage(named: "ic_custom_order_top.png")
+        iconImg.image = ImageManager.getImage(named: DomainConst.ORDER_ICON_IMG_NAME)
         iconImg.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W / 2) / 2,
                                y: heigh + GlobalConst.MARGIN,
                                width: GlobalConst.LOGIN_LOGO_W / 2,

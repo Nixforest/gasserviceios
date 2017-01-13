@@ -40,7 +40,7 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
         infomationNavBar.title = DomainConst.CONTENT00212
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: GlobalConst.BUTTON_COLOR_RED]
         
-        let backOrigin = UIImage(named: DomainConst.BACK_IMG_NAME);
+        let backOrigin = ImageManager.getImage(named: DomainConst.BACK_IMG_NAME);
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         backButton.setImage(tintedBackLogo, for: UIControlState())
         backButton.tintColor = GlobalConst.BUTTON_COLOR_RED

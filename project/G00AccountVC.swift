@@ -139,7 +139,7 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
                                  y: heigh + GlobalConst.MARGIN,
                                  width: GlobalConst.ACCOUNT_AVATAR_W,
                                  height: GlobalConst.ACCOUNT_AVATAR_H)
-        imgAvatar.image = UIImage(named: DomainConst.CONTACT_IMG_NAME)
+        imgAvatar.image = ImageManager.getImage(named: DomainConst.CONTACT_IMG_NAME)
         imgAvatar.translatesAutoresizingMaskIntoConstraints = true
         imgAvatar.isUserInteractionEnabled = true
         
@@ -148,8 +148,7 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
                                y: imgAvatar.frame.maxY + GlobalConst.MARGIN,
                                width: GlobalConst.ACCOUNT_ICON_SIZE,
                                height: GlobalConst.ACCOUNT_ICON_SIZE)
-        //imgName.image = UIImage(named: GlobalConst.CONTACT_IMG_NAME)
-        imgName.image = UIImage(named: "icon32-user-iso.png")
+        imgName.image = ImageManager.getImage(named: DomainConst.USER_NAME_IMG_NAME)
         imgName.translatesAutoresizingMaskIntoConstraints = true
         
         // Image phone
@@ -157,8 +156,7 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
                                 y: imgName.frame.maxY + GlobalConst.MARGIN,
                                 width: GlobalConst.ACCOUNT_ICON_SIZE,
                                 height: GlobalConst.ACCOUNT_ICON_SIZE)
-        //imgPhone.image = UIImage(named: GlobalConst.PHONE_IMG_NAME)
-        imgPhone.image = UIImage(named: "icon33-user-iso.png")
+        imgPhone.image = ImageManager.getImage(named: DomainConst.USER_PHONE_IMG_NAME)
         imgPhone.translatesAutoresizingMaskIntoConstraints = true
         
         // Image address
@@ -166,8 +164,7 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
                                   y: imgPhone.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.ACCOUNT_ICON_SIZE,
                                   height: GlobalConst.ACCOUNT_ICON_SIZE)
-        //imgAddress.image = UIImage(named: GlobalConst.ADDRESS_IMG_NAME)
-        imgAddress.image = UIImage(named: "icon34-user-iso.png")
+        imgAddress.image = ImageManager.getImage(named: DomainConst.ADDRESS_IMG_NAME)
         imgAddress.translatesAutoresizingMaskIntoConstraints = true
         
         // Name Textfield customize
@@ -208,7 +205,7 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
         saveButton.setTitleColor(UIColor.white, for: UIControlState())
         saveButton.translatesAutoresizingMaskIntoConstraints = true
         saveButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        saveButton.setImage(UIImage(named: "icon35-user-ios.png"), for: UIControlState())
+        saveButton.setImage(ImageManager.getImage(named: DomainConst.SAVE_INFO_IMG_NAME), for: UIControlState())
         saveButton.imageView?.contentMode = .scaleAspectFit
         
         // Change password button
@@ -221,7 +218,7 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
         changePasswordButton.setTitleColor(UIColor.white, for: UIControlState())
         changePasswordButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         changePasswordButton.translatesAutoresizingMaskIntoConstraints = true
-        changePasswordButton.setImage(UIImage(named: "icon36-user-ios.png"), for: UIControlState())
+        changePasswordButton.setImage(ImageManager.getImage(named: DomainConst.CHANGE_PASS_IMG_NAME), for: UIControlState())
         changePasswordButton.imageView?.contentMode = .scaleAspectFit
         
         // Logout button
@@ -234,7 +231,7 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
         logoutButton.setTitleColor(UIColor.white, for: UIControlState())
         logoutButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
-        logoutButton.setImage(UIImage(named: "icon37-user-ios.png"), for: UIControlState())
+        logoutButton.setImage(ImageManager.getImage(named: DomainConst.LOGOUT_IMG_NAME), for: UIControlState())
         logoutButton.imageView?.contentMode = .scaleAspectFit
         
         // Navigation Bar customize

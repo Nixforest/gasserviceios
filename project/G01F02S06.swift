@@ -143,8 +143,8 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
                                       y: cell.frame.size.height / 2 - (GlobalConst.BUTTON_HEIGHT / 2),
                                       width: GlobalConst.BUTTON_HEIGHT,
                                       height: GlobalConst.BUTTON_HEIGHT)
-        cell.btnDelete.setImage(UIImage(named: DomainConst.DELETE_IMG_NAME), for: .normal)
-        let deleteImage = UIImage(named: DomainConst.DELETE_IMG_NAME);
+        cell.btnDelete.setImage(ImageManager.getImage(named: DomainConst.DELETE_IMG_NAME), for: .normal)
+        let deleteImage = ImageManager.getImage(named: DomainConst.DELETE_IMG_NAME);
         let tintedImage = deleteImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         cell.btnDelete.setImage(tintedImage, for: .normal)
         return cell

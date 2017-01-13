@@ -118,7 +118,7 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
                                  y: heigh + GlobalConst.MARGIN,
                                  width: GlobalConst.ACCOUNT_AVATAR_W,
                                  height: GlobalConst.ACCOUNT_AVATAR_H)
-        imgAvatar.image = UIImage(named: DomainConst.CONTACT_IMG_NAME)
+        imgAvatar.image = ImageManager.getImage(named: DomainConst.CONTACT_IMG_NAME)
         imgAvatar.translatesAutoresizingMaskIntoConstraints = true
         imgAvatar.isUserInteractionEnabled = true
         
@@ -137,7 +137,7 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
                                y: lblName.frame.maxY + GlobalConst.MARGIN,
                                width: GlobalConst.ACCOUNT_ICON_SIZE,
                                height: GlobalConst.ACCOUNT_ICON_SIZE)
-        imgOldPass.image = UIImage(named: "icon38-user-ios.png")
+        imgOldPass.image = ImageManager.getImage(named: DomainConst.OLD_PASS_IMG_NAME)
         imgOldPass.translatesAutoresizingMaskIntoConstraints = true
         
         // Image new pass
@@ -145,7 +145,7 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
                                   y: imgOldPass.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.ACCOUNT_ICON_SIZE,
                                   height: GlobalConst.ACCOUNT_ICON_SIZE)
-        imgNewPass.image = UIImage(named: "icon38-user-ios.png")
+        imgNewPass.image = ImageManager.getImage(named: DomainConst.OLD_PASS_IMG_NAME)
         imgNewPass.translatesAutoresizingMaskIntoConstraints = true
         
         // Image new pass
@@ -153,7 +153,7 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
                                   y: imgNewPass.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.ACCOUNT_ICON_SIZE,
                                   height: GlobalConst.ACCOUNT_ICON_SIZE)
-        imgNewPassconfirm.image = UIImage(named: "icon39-doimatkhau-ios.png")
+        imgNewPassconfirm.image = ImageManager.getImage(named: DomainConst.NEW_PASS_IMG_NAME)
         imgNewPassconfirm.translatesAutoresizingMaskIntoConstraints = true
         
         txtOldPassword.frame = CGRect(x: imgOldPass.frame.maxX + GlobalConst.MARGIN,
@@ -212,7 +212,7 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
         saveButton.setTitleColor(UIColor.white, for: UIControlState())
         saveButton.translatesAutoresizingMaskIntoConstraints = true
         saveButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        saveButton.setImage(UIImage(named: "icon35-user-ios.png"), for: UIControlState())
+        saveButton.setImage(ImageManager.getImage(named: DomainConst.SAVE_INFO_IMG_NAME), for: UIControlState())
         saveButton.imageView?.contentMode = .scaleAspectFit
         
         // Logout buton

@@ -106,7 +106,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
      * View did load
      */
     override public func viewDidLoad() {
-        setBackground(bkg: "bg1.jpg")
+        setBackground(bkg: DomainConst.TYPE_1_BKG_IMG_NAME)
         super.viewDidLoad()
         // Menu item tap
         asignNotifyForMenuItem()
@@ -139,7 +139,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         txtAccount.placeholder = DomainConst.CONTENT00049
         txtAccount.translatesAutoresizingMaskIntoConstraints = true
         // Set icon
-        setLeftViewForTextField(textField: txtAccount, named: "icon2.png")
+        setLeftViewForTextField(textField: txtAccount, named: DomainConst.USERNAME_IMG_NAME)
         
         // Make username textbox is focus when load view
         //self.txtAccount.becomeFirstResponder()
@@ -153,7 +153,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         txtPassword.placeholder = DomainConst.CONTENT00050
         
         // Set icon
-        setLeftViewForTextField(textField: txtPassword, named: "icon3.png")
+        setLeftViewForTextField(textField: txtPassword, named: DomainConst.PASSWORD_IMG_NAME)
         
         // Show password check box
         chbShowPassword.frame = CGRect(x: txtPassword.frame.minX,
@@ -185,7 +185,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         btnLogin.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         //self.view.addSubview(btnLogin)
         btnLogin.translatesAutoresizingMaskIntoConstraints = true
-        btnLogin.setImage(UIImage(named: "icon4-ios.png"), for: UIControlState())
+        btnLogin.setImage(ImageManager.getImage(named: DomainConst.LOGIN_IMG_NAME), for: UIControlState())
         btnLogin.imageView?.contentMode = .scaleAspectFit
         
         // Sign in button
@@ -245,7 +245,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         let imgView = UIImageView(frame: CGRect(x: 0, y: 0,
                                                 width: GlobalConst.EDITTEXT_H - GlobalConst.MARGIN_CELL_X,
                                                 height: GlobalConst.EDITTEXT_H - GlobalConst.MARGIN_CELL_X))
-        let img = UIImage(named: named)
+        let img = ImageManager.getImage(named: named)
         imgView.image = img
         textField.leftView = imgView
     }

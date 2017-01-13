@@ -53,7 +53,7 @@ class G01F01VC: StepVC, StepDoneDelegate {
         phone.setTitleColor(UIColor.white, for: UIControlState())
         phone.titleLabel?.textAlignment = .center
         phone.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.LARGE_FONT_SIZE)
-        let tintImg = UIImage(named: G01Const.CALL_CENTER_NUMBER_IMG_NAME)
+        let tintImg = ImageManager.getImage(named: G01Const.CALL_CENTER_NUMBER_IMG_NAME)
         let tinted = tintImg?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         phone.setImage(tinted, for: UIControlState())
         phone.tintColor = UIColor.white
@@ -68,7 +68,7 @@ class G01F01VC: StepVC, StepDoneDelegate {
         phoneStr.setTitleColor(UIColor.white, for: UIControlState())
         phoneStr.titleLabel?.textAlignment = .center
         phoneStr.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BIG_FONT_SIZE)
-        phoneStr.setImage(UIImage(named: G01Const.HOTLINE_NUMBER_IMG_NAME), for: UIControlState())
+        phoneStr.setImage(ImageManager.getImage(named: G01Const.HOTLINE_NUMBER_IMG_NAME), for: UIControlState())
         phoneStr.imageView?.contentMode = .scaleAspectFit
         phoneStr.addTarget(self, action: #selector(hotlineTap), for: .touchUpInside)
         self.view.addSubview(phoneStr)

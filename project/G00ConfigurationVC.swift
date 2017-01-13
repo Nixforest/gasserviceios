@@ -121,13 +121,13 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
             case 1:             // Training mode
                 cell.rightImg.isHidden  = true
                 cell.mySw.isHidden      = false
-                cell.leftImg.image      = UIImage(named: DomainConst.TRAINING_MODE_IMG_NAME)
+                cell.leftImg.image      = ImageManager.getImage(named: DomainConst.TRAINING_MODE_IMG_NAME)
                 cell.nameLbl.text       = DomainConst.CONTENT00138
             case 0:             // Information
                 cell.rightImg.isHidden  = false
                 cell.mySw.isHidden      = true
-                cell.leftImg.image      = UIImage(named: DomainConst.INFORMATION_IMG_NAME)
-                cell.rightImg.image     = UIImage(named: DomainConst.BACK_IMG_NAME)
+                cell.leftImg.image      = ImageManager.getImage(named: DomainConst.INFORMATION_IMG_NAME)
+                cell.rightImg.image     = ImageManager.getImage(named: DomainConst.BACK_IMG_NAME)
                 cell.rightImg.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(M_PI)) / 180.0)
                 cell.rightImg.frame = CGRect(x: UIScreen.main.bounds.width - cell.rightImg.frame.width - 25,
                                              y: cell.rightImg.frame.minY,

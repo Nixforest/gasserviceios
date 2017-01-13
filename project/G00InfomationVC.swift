@@ -46,7 +46,7 @@ class G00InfomationVC: UIViewController {
         infomationNavBar.title = DomainConst.CONTENT00072
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: GlobalConst.BUTTON_COLOR_RED]
 
-        let backOrigin = UIImage(named: DomainConst.BACK_IMG_NAME)
+        let backOrigin = ImageManager.getImage(named: DomainConst.BACK_IMG_NAME)
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         backButton.setImage(tintedBackLogo, for: UIControlState())
         backButton.tintColor = GlobalConst.BUTTON_COLOR_RED
@@ -133,7 +133,7 @@ class G00InfomationVC: UIViewController {
         offset += GlobalConst.LABEL_HEIGHT / 2 + GlobalConst.MARGIN
         
         // Logo
-        imgLogo.image = UIImage(named: DomainConst.LOGO_IMG_NAME)
+        imgLogo.image = ImageManager.getImage(named: DomainConst.LOGO_IMG_NAME)
         imgLogo.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W) / 2,
                                y: offset,
                                width: GlobalConst.LOGIN_LOGO_W,

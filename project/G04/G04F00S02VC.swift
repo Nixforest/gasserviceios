@@ -71,7 +71,7 @@ class G04F00S02VC: BaseViewController {
         offset += lblEmployee.frame.height
         
         // Icon image
-        iconImg.image = UIImage(named: "ic_custom_order_top.png")
+        iconImg.image = ImageManager.getImage(named: DomainConst.ORDER_ICON_IMG_NAME)
         iconImg.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W / 2) / 2,
                                y: offset,
                                width: GlobalConst.LOGIN_LOGO_W / 2,

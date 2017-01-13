@@ -15,6 +15,6 @@ class G01Const {
     /** Image name: Call center phone number */
     public static let CALL_CENTER_NUMBER_IMG_NAME   = "icon63.png"
     /** Image name: Hotline phone number */
-    public static let HOTLINE_NUMBER_IMG_NAME   = "icon64.png"
+    public static let HOTLINE_NUMBER_IMG_NAME       = "icon64.png"
 
 }
