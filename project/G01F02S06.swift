@@ -15,6 +15,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
     static var _selectedValue: [UIImage] = [UIImage]()
     /** Button add new image */
     var _btnAddImg = UIButton()
+    var _btnAddImgLibrary = UIButton()
     /** View pick new image */
     var _viewPickImg = UIView()
     /** Table view list image */
@@ -39,30 +40,38 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
         // Add new image button
         CommonProcess.createButtonLayout(btn: _btnAddImg,
                                    x: (w - GlobalConst.BUTTON_W) / 2,
-                                   y: GlobalConst.MARGIN,
-                                   text: DomainConst.CONTENT00064)
+                                   y: offset,
+                                   text: DomainConst.CONTENT00234)
         _btnAddImg.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
         _btnAddImg.tag = 0
         contentView.addSubview(_btnAddImg)
         offset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
+        CommonProcess.createButtonLayout(btn: _btnAddImgLibrary,
+                                         x: (w - GlobalConst.BUTTON_W) / 2,
+                                         y: offset,
+                                         text: DomainConst.CONTENT00235)
+        _btnAddImgLibrary.addTarget(self, action: #selector(btnLibraryTapped), for: .touchUpInside)
+        _btnAddImgLibrary.tag = 0
+        contentView.addSubview(_btnAddImgLibrary)
+        offset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
         
         // Table view
         /** Cell define */
-        self._tblListImg.register(UINib(nibName: DomainConst.G01_F02_S06_CELL, bundle: nil), forCellReuseIdentifier: DomainConst.G01_F02_S06_CELL)
+        self._tblListImg.register(UINib(nibName: DomainConst.G01_F02_S06_CELL, bundle: nil),
+                                  forCellReuseIdentifier: DomainConst.G01_F02_S06_CELL)
         _viewPickImg.addSubview(_tblListImg)
         contentView.addSubview(_viewPickImg)
         
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         self.setup(mainView: contentView, title: DomainConst.CONTENT00189,
                    contentHeight: offset,
                    width: w, height: h)
         
         _viewPickImg.translatesAutoresizingMaskIntoConstraints = true
-        _viewPickImg.frame = CGRect(
-            x: 0, y: offset,
-            width: w, height: h - offset - self._lblTitle.frame.height)
+        _viewPickImg.frame = CGRect(x: 0, y: offset,
+                                    width: w, height: h - offset - self.getTitleHeight())
         _viewPickImg.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         _tblListImg.translatesAutoresizingMaskIntoConstraints = true
@@ -89,9 +98,25 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.allowsEditing = true
             
-            self._parent?.present(imagePicker, animated: true, completion: nil)
+            self.getParentView().present(imagePicker, animated: true, completion: nil)
         }
     }
+    
+    /**
+     * Handle save selected data.
+     * Mark step done.
+     */
+    func btnLibraryTapped(_ sender: AnyObject) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            imagePicker.allowsEditing = true
+            
+            self.getParentView().present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
     
     override func checkDone() -> Bool {
         return true
@@ -99,23 +124,29 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
     
     // MARK: - TableView Datasource
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:ImageTableViewCell = tableView.dequeueReusableCell(withIdentifier: DomainConst.G01_F02_S06_CELL) as! ImageTableViewCell
+        let cell: ImageTableViewCell = tableView.dequeueReusableCell(withIdentifier: DomainConst.G01_F02_S06_CELL)
+            as! ImageTableViewCell
         cell.indexRow = indexPath.row
         cell.delegate = self
-        let  aImage :UIImage = G01F02S06._selectedValue[indexPath.row]
-        cell.imgPicker.image = aImage
+        let aImage :UIImage     = G01F02S06._selectedValue[indexPath.row]
+        cell.imgPicker.image    = aImage
         
         // image picked
         cell.imgPicker.translatesAutoresizingMaskIntoConstraints = true
-        cell.imgPicker.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH, y: GlobalConst.PARENT_BORDER_WIDTH, width: cell.frame.size.width - (GlobalConst.PARENT_BORDER_WIDTH * 3) - GlobalConst.BUTTON_HEIGHT, height: cell.frame.size.height - GlobalConst.PARENT_BORDER_WIDTH * 2)
+        cell.imgPicker.frame = CGRect(x: GlobalConst.PARENT_BORDER_WIDTH,
+                                      y: GlobalConst.PARENT_BORDER_WIDTH,
+                                      width: cell.frame.size.width - (GlobalConst.PARENT_BORDER_WIDTH * 3) - GlobalConst.BUTTON_HEIGHT,
+                                      height: cell.frame.size.height - GlobalConst.PARENT_BORDER_WIDTH * 2)
         // Button Delete
         cell.btnDelete.translatesAutoresizingMaskIntoConstraints = true
-        cell.btnDelete.frame = CGRect(x: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 5) - GlobalConst.BUTTON_HEIGHT, y: cell.frame.size.height / 2 - (GlobalConst.BUTTON_HEIGHT / 2), width: GlobalConst.BUTTON_HEIGHT, height: GlobalConst.BUTTON_HEIGHT)
-        cell.btnDelete.setImage(UIImage(named: DomainConst.DELETE_IMG_NAME), for: .normal)
-        let deleteImage = UIImage(named: DomainConst.DELETE_IMG_NAME);
+        cell.btnDelete.frame = CGRect(x: GlobalConst.SCREEN_WIDTH - (GlobalConst.PARENT_BORDER_WIDTH * 5) - GlobalConst.BUTTON_HEIGHT,
+                                      y: cell.frame.size.height / 2 - (GlobalConst.BUTTON_HEIGHT / 2),
+                                      width: GlobalConst.BUTTON_HEIGHT,
+                                      height: GlobalConst.BUTTON_HEIGHT)
+        cell.btnDelete.setImage(ImageManager.getImage(named: DomainConst.DELETE_IMG_NAME), for: .normal)
+        let deleteImage = ImageManager.getImage(named: DomainConst.DELETE_IMG_NAME);
         let tintedImage = deleteImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         cell.btnDelete.setImage(tintedImage, for: .normal)
-        //cell.btnDelete.tintColor = UIColor.red
         return cell
     }
     
@@ -135,7 +166,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
             NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
         }
         self._tblListImg.reloadData()
-        self._parent?.dismiss(animated: true, completion: nil)
+        self.getParentView().dismiss(animated: true, completion: nil)
     }
     
     // MARK: - step5TableViewCellDelegate

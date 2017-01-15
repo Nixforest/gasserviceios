@@ -45,8 +45,7 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
-        //imgLogo.image = UIImage(named: GlobalConst.LOGO_IMG_NAME)
-        iconImg.image = UIImage(named: "ic_custom_order_top.png")
+        iconImg.image = ImageManager.getImage(named: DomainConst.ORDER_ICON_IMG_NAME)
         iconImg.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W / 2) / 2,
                                y: heigh + GlobalConst.MARGIN,
                                width: GlobalConst.LOGIN_LOGO_W / 2,
@@ -109,8 +108,7 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let view = mainStoryboard.instantiateViewController(withIdentifier: "G04F00S02VC")
-        self.navigationController?.pushViewController(view, animated: true)
+        self.pushToView(name: G04Const.G04_F00_S02_VIEW_CTRL)
     }
     /**
      * View did appear

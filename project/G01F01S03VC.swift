@@ -42,14 +42,14 @@ class G01F01S03: StepSummary {
         // Update layout of content view
         let offset: CGFloat = updateLayout(w: w, h: h)
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         contentView.addSubview(lblProblem)
         contentView.addSubview(tbxProblem)
         contentView.addSubview(lblContent)
         contentView.addSubview(tbxContent)
-        //contentView.addSubview(lblContact)
-        //contentView.addSubview(tbxContact)
+        contentView.addSubview(lblContact)
+        contentView.addSubview(tbxContact)
         
         self.setup(mainView: contentView, title: DomainConst.CONTENT00205, contentHeight: offset,
                    width: w, height: h)
@@ -64,10 +64,13 @@ class G01F01S03: StepSummary {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     * Update data of content view
+     */
     func updateData() {
-        tbxProblem.text = G01F01S01._selectedValue.name
-        tbxContent.text = G01F01S01._otherProblem
-        tbxContact.text = G01F01S02._name + "\n" + G01F01S02._phone
+        tbxProblem.text     = G01F01S01._selectedValue.name
+        tbxContent.text     = G01F01S01._otherProblem
+        tbxContact.text     = G01F01S02._name + DomainConst.CONTACT_SPLITER + G01F01S02._phone
         var offset: CGFloat = GlobalConst.LABEL_HEIGHT
         lblContent.isHidden = true
         tbxContent.isHidden = true
@@ -82,12 +85,22 @@ class G01F01S03: StepSummary {
         self.updateLayout(contentHeight: offset)
     }
     
+    /**
+     * Update layout of content view
+     * - parameter view:    Content view
+     * - parameter offset:  Offset value
+     */
     func updateLayout(view: UIView, offset: CGFloat) {
         view.frame = CGRect(x: view.frame.origin.x, y: offset,
                             width: view.frame.width,
                             height: view.frame.height)
     }
     
+    /**
+     * Update layout of content view
+     * - parameter w:   Width of view
+     * - parameter h:   Height of view
+     */
     func updateLayout(w: CGFloat, h: CGFloat) -> CGFloat {
         var offset: CGFloat = 0
         
@@ -124,7 +137,7 @@ class G01F01S03: StepSummary {
         CommonProcess.setLayoutRight(lbl: tbxContact, x: lblContact.frame.maxX, y: offset,
                                      width: (w - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
                                      height: GlobalConst.LABEL_HEIGHT * 1.5,
-                                     text: G01F02S04._selectedValue.name + "\n" + G01F02S04._selectedValue.phone)
+                                     text: G01F02S04._selectedValue.name + DomainConst.CONTACT_SPLITER + G01F02S04._selectedValue.phone)
         tbxContact.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         offset += GlobalConst.LABEL_HEIGHT * 1.5
         

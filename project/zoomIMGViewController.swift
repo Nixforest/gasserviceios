@@ -40,7 +40,7 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
         infomationNavBar.title = DomainConst.CONTENT00212
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: GlobalConst.BUTTON_COLOR_RED]
         
-        let backOrigin = UIImage(named: DomainConst.BACK_IMG_NAME);
+        let backOrigin = ImageManager.getImage(named: DomainConst.BACK_IMG_NAME);
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         backButton.setImage(tintedBackLogo, for: UIControlState())
         backButton.tintColor = GlobalConst.BUTTON_COLOR_RED
@@ -73,27 +73,12 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
         zoomIMGViewController.imageView.backgroundColor = UIColor.white
         scrollView.addSubview(zoomIMGViewController.imageView)
         
-        //BtnExit Setup
-//        btnExit.translatesAutoresizingMaskIntoConstraints = true
-//        btnExit.backgroundImage(for: .normal)
-//        let exit = UIImage(named: GlobalConst.DELETE_IMG_NAME)
-//        let tintedBack = exit?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-//        btnExit.setImage(tintedBack, for: UIControlState())
-//        btnExit.tintColor = GlobalConst.BUTTON_COLOR_RED
-//        btnExit.frame = CGRect(x: 10, y: 10, width: 30, height: 30)
-//        btnExit.setTitle("", for: UIControlState())
-//        btnExit.addTarget(self, action: #selector(btnExitTapped), for: UIControlEvents.touchUpInside)
-//        self.view.addSubview(btnExit)
         // Do any additional setup after loading the view.
         // Show loading view
         if zoomIMGViewController.imageView.image == nil {
             LoadingView.shared.showOverlay()
         }
     }
-//    func btnExitTapped() {
-//        zoomIMGViewController.imgPicked = nil
-//        _ = self.navigationController?.popViewController(animated: true)
-//    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -114,5 +99,4 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-
 }

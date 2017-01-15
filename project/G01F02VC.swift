@@ -10,7 +10,9 @@ import UIKit
 import harpyframework
 
 class G01F02VC: StepVC, StepDoneDelegate {
-    
+    /**
+     * View did load
+     */
     override func viewDidLoad() {
         // Get height of status bar + navigation bar
         let height = self.getTopHeight()
@@ -43,29 +45,26 @@ class G01F02VC: StepVC, StepDoneDelegate {
         self.appendContent(stepContent: step5)
         step6.stepDoneDelegate = self
         self.appendContent(stepContent: step6)
-        self._numberStep = self._arrayContent.count + 1
+        
         appendSummary(summary: summary)
         // Set title
-        self._title = DomainConst.CONTENT00186
-        var listIcon = [String]()
-        listIcon.append("trainingMode.png")
-        listIcon.append("trainingMode.png")
-        listIcon.append("trainingMode.png")
-        listIcon.append("trainingMode.png")
-        listIcon.append("trainingMode.png")
-        listIcon.append("trainingMode.png")
-        listIcon.append("informationSum")
-        //super.setListIcon(listIcon: listIcon)
+        self.setTitle(title: DomainConst.CONTENT00186)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
+    /**
+     * Did receive memory warning
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     * Clear data
+     */
     override func clearData() {
         G01F02S01._selectedValue = ConfigBean(id: "", name: "")
         G01F02S02._selectedValue = ConfigBean(id: "", name: "")
@@ -74,26 +73,25 @@ class G01F02VC: StepVC, StepDoneDelegate {
         G01F02S05._selectedValue = ""
         G01F02S06._selectedValue.removeAll()
     }
+    
+    /**
+     * Handle send request create uphold reply
+     */
     override func btnSendTapped() {
         // Disable action handle notification from server
         BaseModel.shared.enableHandleNotificationFlag(isEnabled: false)
-        CommonProcess.requestCreateUpholdReply(
+        CreateUpholdReplyRequest.requestCreateUpholdReply(
             upholdId: BaseModel.shared.currentUpholdDetail.id,
             status: G01F02S01._selectedValue.id, statusText: G01F02S01._selectedValue.name,
             hoursHandle: G01F02S02._selectedValue.id,
             note: G01F02S04._selectedValue.name,
             contact_phone: G01F02S04._selectedValue.phone,
-            reportWrong: (G01F02S03._selectedValue)! ? "0" : "1",
+            reportWrong: (G01F02S03._selectedValue)! ? DomainConst.REPORT_RIGHT : DomainConst.REPORT_WRONG,
             listPostReplyImage: G01F02S06._selectedValue,
             customerId: BaseModel.shared.currentUpholdDetail.customer_id,
             noteInternal: G01F02S05._selectedValue,
             view: self)
     }
-    
-    func stepDone() {
-        self.moveNext()
-    }
-
     /*
     // MARK: - Navigation
 

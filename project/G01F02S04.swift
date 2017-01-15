@@ -32,25 +32,22 @@ class G01F02S04: StepContent, UITextFieldDelegate {
     init(w: CGFloat, h: CGFloat, parent: BaseViewController) {
         super.init()
         var offset: CGFloat = 0
-        let contentView = UIView()
+        let contentView     = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = true
-        //contentView.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         // Name textfield
-        _tbxName.frame = CGRect(
-            x: (w - GlobalConst.EDITTEXT_W) / 2,
-            y: GlobalConst.MARGIN,
-            width: GlobalConst.EDITTEXT_W,
-            height: GlobalConst.EDITTEXT_H)
-        _tbxName.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
-        _tbxName.borderStyle = .roundedRect
+        _tbxName.frame = CGRect(x: (w - GlobalConst.EDITTEXT_W) / 2,
+                                y: GlobalConst.MARGIN,
+                                width: GlobalConst.EDITTEXT_W,
+                                height: GlobalConst.EDITTEXT_H)
+        _tbxName.font               = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+        _tbxName.borderStyle        = .roundedRect
         _tbxName.autocorrectionType = .no
-        _tbxName.clearButtonMode = .whileEditing
-        
-        _tbxName.placeholder = DomainConst.CONTENT00055
+        _tbxName.clearButtonMode    = .whileEditing
+        _tbxName.placeholder        = DomainConst.CONTENT00055
         _tbxName.translatesAutoresizingMaskIntoConstraints = true
         _tbxName.addTarget(self, action: #selector(textFieldNameDidChange(_:)), for: .editingChanged)
-        _tbxName.returnKeyType = .next
+        _tbxName.returnKeyType      = .next
         _tbxName.tag = 0
         _tbxName.autocapitalizationType = .words
         if !G01F02S04._selectedValue.name.isEmpty {
@@ -61,20 +58,19 @@ class G01F02S04: StepContent, UITextFieldDelegate {
         contentView.addSubview(_tbxName)
         
         // Phone textfield
-        _tbxPhone.frame = CGRect(
-            x: (w - GlobalConst.EDITTEXT_W) / 2,
-            y: GlobalConst.MARGIN + offset,
-            width: GlobalConst.EDITTEXT_W,
-            height: GlobalConst.EDITTEXT_H)
-        _tbxPhone.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
-        _tbxPhone.borderStyle = .roundedRect
-        _tbxPhone.keyboardType = .phonePad
-        _tbxPhone.autocorrectionType = .no
-        _tbxPhone.clearButtonMode = .whileEditing
+        _tbxPhone.frame = CGRect(x: (w - GlobalConst.EDITTEXT_W) / 2,
+                                 y: GlobalConst.MARGIN + offset,
+                                 width: GlobalConst.EDITTEXT_W,
+                                 height: GlobalConst.EDITTEXT_H)
+        _tbxPhone.font                  = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+        _tbxPhone.borderStyle           = .roundedRect
+        _tbxPhone.keyboardType          = .phonePad
+        _tbxPhone.autocorrectionType    = .no
+        _tbxPhone.clearButtonMode       = .whileEditing
         _tbxPhone.placeholder = DomainConst.CONTENT00054
         _tbxPhone.translatesAutoresizingMaskIntoConstraints = true
         _tbxPhone.addTarget(self, action: #selector(textFieldPhoneDidChange(_:)), for: .editingChanged)
-        _tbxPhone.returnKeyType = .done
+        _tbxPhone.returnKeyType         = .done
         _tbxPhone.tag = 1
         if !G01F02S04._selectedValue.phone.isEmpty {
             _tbxPhone.text = G01F02S04._selectedValue.phone
@@ -83,7 +79,7 @@ class G01F02S04: StepContent, UITextFieldDelegate {
         contentView.addSubview(_tbxPhone)
         
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         self.setup(mainView: contentView, title: DomainConst.CONTENT00187,
                    contentHeight: offset,
                    width: w, height: h)
@@ -96,8 +92,8 @@ class G01F02S04: StepContent, UITextFieldDelegate {
         }
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         self.addGestureRecognizer(gesture)
-        _tbxName.delegate = self
-        _tbxPhone.delegate = self
+        _tbxName.delegate   = self
+        _tbxPhone.delegate  = self
         return
     }
     
@@ -173,6 +169,9 @@ class G01F02S04: StepContent, UITextFieldDelegate {
         hideKeyboard()
     }
     
+    /**
+     * Handle validate data
+     */
     override func checkDone() -> Bool {
 //        if G01F02S04._selectedValue.name.isEmpty || G01F02S04._selectedValue.phone.isEmpty {
 //            self._parent?.showAlert(message: DomainConst.CONTENT00187)

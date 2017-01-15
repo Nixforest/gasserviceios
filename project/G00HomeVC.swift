@@ -8,6 +8,7 @@
 
 import UIKit
 import harpyframework
+import GoogleMaps
 
 class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     // MARK: Properties
@@ -30,9 +31,7 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
      * - parameter sender:AnyObject
      */
     func pushToRegisterVC(_ notification: Notification){
-//        let RegisterVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REGISTER_VIEW_CTRL)
-//        self.navigationController?.pushViewController(RegisterVC, animated: true)
-        showAlert(message: DomainConst.CONTENT00197)
+        self.pushToView(name: DomainConst.REGISTER_VIEW_CTRL)
     }
     
     /**
@@ -75,11 +74,11 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         asignNotifyForMenuItem()
         
         // Handle display color when training mode is on
-        if BaseModel.shared.checkTrainningMode() {
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
-        } else {    // Training mode off
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
-        }
+//        if BaseModel.shared.checkTrainningMode() {
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+//        } else {    // Training mode off
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+//        }
         
         // Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
@@ -151,7 +150,7 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.G00_HOME_CELL, for: indexPath) as! G00HomeCell
-        cell.homeCellImageView.image = UIImage(named: aListIcon[(indexPath as NSIndexPath).row])
+        cell.homeCellImageView.image = ImageManager.getImage(named: aListIcon[(indexPath as NSIndexPath).row])
         cell.titleLbl.text = aList[(indexPath as NSIndexPath).row]
         // cell text color
         cell.titleLbl.textColor = UIColor.white
@@ -250,22 +249,21 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 1:
-            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F01_VIEW_CTRL)
-            self.navigationController?.pushViewController(upholdListVC, animated: true)
-        case 2:
-            //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S01_VIEW_CTRL)
-            self.navigationController?.pushViewController(upholdListVC, animated: true)
-        case 4:
-            //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let accountVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_ACCOUNT_VIEW_CTRL)
-            self.navigationController?.pushViewController(accountVC, animated: true)
+        case 1:     // New uphold
+            if BaseModel.shared.user_info == nil {
+                // User information does not exist
+                RequestAPI.requestUserProfile(view: self)
+            }
+            self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
+        case 2: // List uphold
+            self.pushToView(name: DomainConst.G01_F00_S01_VIEW_CTRL)
+        case 4: // User profile
+            self.pushToView(name: DomainConst.G00_ACCOUNT_VIEW_CTRL)
         case 3:
             if !BaseModel.shared.lastUpholdId.isEmpty {
                 BaseModel.shared.sharedString = BaseModel.shared.lastUpholdId
-                let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F03_VIEW_CTRL)
-                self.navigationController?.pushViewController(ratingVC, animated: true)
+                // Move to G01_F03 rating view
+                self.pushToView(name: DomainConst.G01_F03_VIEW_CTRL)
             }
         default:
             break
@@ -289,8 +287,7 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         if BaseModel.shared.checkNotificationExist() {
             if BaseModel.shared.checkIsLogin() {
                 if BaseModel.shared.isUpholdNotification() {
-                    let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F00_S01_VIEW_CTRL)
-                    self.navigationController?.pushViewController(upholdListVC, animated: true)
+                    self.pushToView(name: DomainConst.G01_F00_S01_VIEW_CTRL)
                 }
             } else {
                 moveToLoginVC()
@@ -298,18 +295,31 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         }
         
         // Handle display color when training mode is on
-        if BaseModel.shared.checkTrainningMode() {
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
-        } else {    // Training mode off
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
-        }
+//        if BaseModel.shared.checkTrainningMode() {
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+//        } else {    // Training mode off
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+//        }
     }
     
     /**
      * Move to login view
      */
     func moveToLoginVC() {
-        let loginVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_LOGIN_VIEW_CTRL)
-        self.navigationController?.pushViewController(loginVC, animated: true)
+        self.pushToView(name: DomainConst.G00_LOGIN_VIEW_CTRL)
     }
+//    override func loadView() {
+//        // Create a GMSCameraPosition that tells the map to display the
+//        // coordinate -33.86,151.20 at zoom level 6.
+//        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+//        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+//        view.addSubview(mapView)
+//        
+//        // Creates a marker in the center of the map.
+//        let marker = GMSMarker()
+//        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+//        marker.title = "Sydney"
+//        marker.snippet = "Australia"
+//        marker.map = mapView
+//    }
 }

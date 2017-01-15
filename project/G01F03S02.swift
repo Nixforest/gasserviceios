@@ -38,13 +38,11 @@ class G01F03S02: StepContent {
                 // Label title
                 let label = UILabel()
                 label.translatesAutoresizingMaskIntoConstraints = true
-                label.frame = CGRect(
-                    x: GlobalConst.MARGIN,
-                    y: offset,
-                    width: self.frame.width,
-                    height: GlobalConst.LABEL_HEIGHT)
+                label.frame = CGRect(x: GlobalConst.MARGIN,
+                                     y: offset,
+                                     width: self.frame.width,
+                                     height: GlobalConst.LABEL_HEIGHT)
                 label.text               = BaseModel.shared.listRatingType[i].name
-                //label.textAlignment      = NSTextAlignment.center
                 label.font               = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
                 contentView.addSubview(label)
                 offset += GlobalConst.LABEL_HEIGHT
@@ -53,13 +51,12 @@ class G01F03S02: StepContent {
                 let ratingBar = RatingBar()
                 ratingBar.translatesAutoresizingMaskIntoConstraints = true
                 let size = GlobalConst.LABEL_HEIGHT * 1.5
-                let width = size * (CGFloat)(ratingBar._starCount) + (ratingBar._spacing * (CGFloat)(ratingBar._starCount - 1))
-                ratingBar.frame = CGRect(
-                    x: (self.frame.width - width) / 2,
-                    y: offset,
-                    width: width,
-                    height: size)
-                //ratingBar.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
+                let width = size * (CGFloat)(ratingBar.getStarNumber()) + (ratingBar.getStarSpace() * (CGFloat)(ratingBar.getStarNumber() - 1))
+                ratingBar.frame = CGRect(x: (self.frame.width - width) / 2,
+                                         y: offset,
+                                         width: width,
+                                         height: size)
+                
                 ratingBar.setBackgroundColor(color: GlobalConst.BACKGROUND_COLOR_GRAY)
                 if G01F03S02._selectedValue.count > i {
                     ratingBar.setRatingValue(value: G01F03S02._selectedValue[i])
@@ -74,7 +71,7 @@ class G01F03S02: StepContent {
             }
         }
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         self.setup(mainView: contentView, title: DomainConst.CONTENT00207,
                    contentHeight: offset,
@@ -86,13 +83,16 @@ class G01F03S02: StepContent {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     * Handle validate data
+     */
     override func checkDone() -> Bool {
         for i in 0..<BaseModel.shared.listRatingType.count {
-            G01F03S02._selectedValue[i] = self._listRating[i]._rating
+            G01F03S02._selectedValue[i] = self._listRating[i].getRatingValue()
         }
         NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F03), object: nil)
         if G01F03S02._selectedValue.count == 0 {
-            self._parent?.showAlert(message: DomainConst.CONTENT00207)
+            self.showAlert(message: DomainConst.CONTENT00207)
             return false
         } else {
             return true

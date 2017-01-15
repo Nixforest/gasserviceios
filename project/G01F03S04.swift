@@ -42,7 +42,7 @@ class G01F03S04: StepSummary {
         // Update layout of content view
         let offset: CGFloat = updateLayout(w: w, h: h)
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         contentView.addSubview(lblFeeling)
         contentView.addSubview(tbxFeeling)
@@ -68,21 +68,42 @@ class G01F03S04: StepSummary {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     * Update data
+     */
     func updateData() {
         tbxFeeling.text = G01F03S01._selectedValue.name
         tbxContent.text = G01F03S03._selectedValue
-        //self.updateLayout(contentHeight: offset)
+        self.updateLayout()
         for i in 0..<G01F03S02._selectedValue.count {
-            self._listRating[i]._rating = G01F03S02._selectedValue[i]
+            self._listRating[i].setRatingValue(value: G01F03S02._selectedValue[i])
         }
     }
     
+    /**
+     * Update layout of content view
+     */
+    func updateLayout() {
+        lblContent.isHidden = G01F03S03._selectedValue.isEmpty
+        tbxContent.isHidden = G01F03S03._selectedValue.isEmpty
+    }
+    
+    /**
+     * Update layout of content view
+     * - parameter view:    Content view
+     * - parameter offset:  Offset value
+     */
     func updateLayout(view: UIView, offset: CGFloat) {
         view.frame = CGRect(x: view.frame.origin.x, y: offset,
                             width: view.frame.width,
                             height: view.frame.height)
     }
     
+    /**
+     * Update layout of content view
+     * - parameter w:   Width of view
+     * - parameter h:   Height of view
+     */
     func updateLayout(w: CGFloat, h: CGFloat) -> CGFloat {
         var offset: CGFloat = 0
         
@@ -98,7 +119,6 @@ class G01F03S04: StepSummary {
                     width: self.frame.width,
                     height: GlobalConst.LABEL_HEIGHT)
                 label.text               = BaseModel.shared.listRatingType[i].name
-                //label.textAlignment      = NSTextAlignment.center
                 label.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
                 self._listLabel.append(label)
                 offset += GlobalConst.LABEL_HEIGHT
@@ -107,13 +127,12 @@ class G01F03S04: StepSummary {
                 let ratingBar = RatingBar()
                 ratingBar.translatesAutoresizingMaskIntoConstraints = true
                 let size = GlobalConst.LABEL_HEIGHT
-                let width = size * (CGFloat)(ratingBar._starCount) + (ratingBar._spacing * (CGFloat)(ratingBar._starCount - 1))
+                let width = size * (CGFloat)(ratingBar.getStarNumber()) + (ratingBar.getStarSpace() * (CGFloat)(ratingBar.getStarNumber() - 1))
                 ratingBar.frame = CGRect(
                     x: (self.frame.width - width) / 2,
                     y: offset,
                     width: width,
                     height: size)
-                //ratingBar.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
                 ratingBar.setBackgroundColor(color: UIColor.white)
                 ratingBar.setEnabled(isEnabled: true)
                 ratingBar.isUserInteractionEnabled = false
@@ -136,6 +155,7 @@ class G01F03S04: StepSummary {
                                      width: (w - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
                                      height: GlobalConst.LABEL_HEIGHT, text: G01F03S01._selectedValue.name)
         tbxFeeling.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+        
         offset += GlobalConst.LABEL_HEIGHT
         
         // Label Content
@@ -149,6 +169,9 @@ class G01F03S04: StepSummary {
                                      height: GlobalConst.LABEL_HEIGHT * 2, text: G01F03S03._selectedValue)
         tbxContent.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         offset += GlobalConst.LABEL_HEIGHT * 2
+        
+        lblContent.isHidden = G01F03S03._selectedValue.isEmpty
+        tbxContent.isHidden = G01F03S03._selectedValue.isEmpty
         
         return offset
     }

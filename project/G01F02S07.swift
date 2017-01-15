@@ -12,24 +12,24 @@ import harpyframework
 class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     // MARK: Properties
     /** Report wrong value */
-    var lblReportWrong: UILabel = UILabel()
+    var lblReportWrong: UILabel     = UILabel()
     /** Label status */
-    var lblStatus: UILabel = UILabel()
+    var lblStatus: UILabel          = UILabel()
     /** Status value */
-    var tbxStatus: UITextView = UITextView()
+    var tbxStatus: UITextView       = UITextView()
     /** Label Time */
-    var lblTime: UILabel = UILabel()
+    var lblTime: UILabel            = UILabel()
     /** Time value */
-    var tbxTime: UITextView = UITextView()
+    var tbxTime: UITextView         = UITextView()
     /** Label Reviewer */
-    var lblReviewer: UILabel = UILabel()
+    var lblReviewer: UILabel        = UILabel()
     /** Reviewer value */
-    var tbxReviewer: UITextView = UITextView()
+    var tbxReviewer: UITextView     = UITextView()
     /** Label Internal note */
-    var lblInternal: UILabel = UILabel()
+    var lblInternal: UILabel        = UILabel()
     /** Internal value */
-    var tbxInternal: UITextView = UITextView()
-    var cltviewStep5: UICollectionView! = nil
+    var tbxInternal: UITextView     = UITextView()
+    var cltImg: UICollectionView! = nil
     
     /*
      // Only override draw() if you perform custom drawing.
@@ -49,7 +49,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // Update layout of content view
         let offset: CGFloat = updateLayout(w: w, h: h)
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         // List image
         /**
@@ -59,20 +59,18 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
          * add xib file to CollectionView Cell
          */
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0)
-        layout.itemSize = CGSize(width: GlobalConst.ACCOUNT_AVATAR_W / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
-        self.cltviewStep5 = UICollectionView(frame: self.frame, collectionViewLayout: layout)
-        self.cltviewStep5.register(UINib(nibName: DomainConst.COLLECTION_IMAGE_VIEW_CELL, bundle: nil),
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize     = CGSize(width: GlobalConst.ACCOUNT_AVATAR_W / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+        self.cltImg = UICollectionView(frame: self.frame, collectionViewLayout: layout)
+        
+        let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
+        self.cltImg.register(UINib(nibName: DomainConst.COLLECTION_IMAGE_VIEW_CELL, bundle: frameworkBundle),
                                    forCellWithReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL)
-        cltviewStep5.dataSource = self
-        cltviewStep5.delegate = self
-        cltviewStep5.alwaysBounceHorizontal = true
-        cltviewStep5.bounces = true
-        if let layout = cltviewStep5.collectionViewLayout as? UICollectionViewFlowLayout {
+        cltImg.dataSource   = self
+        cltImg.delegate     = self
+        cltImg.alwaysBounceHorizontal = true
+        cltImg.bounces = true
+        if let layout = cltImg.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
         
@@ -85,7 +83,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         contentView.addSubview(tbxReviewer)
         contentView.addSubview(lblInternal)
         contentView.addSubview(tbxInternal)
-        contentView.addSubview(cltviewStep5)
+        contentView.addSubview(cltImg)
         self.setup(mainView: contentView, title: DomainConst.CONTENT00190, contentHeight: offset,
                    width: w, height: h)
         NotificationCenter.default.addObserver(self,
@@ -107,9 +105,12 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
     }
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
-        cell.imageView1.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H, height: GlobalConst.ACCOUNT_AVATAR_H)
-        cell.imageView1.image = G01F02S06._selectedValue[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL,
+                                                      for: indexPath) as! CollectionImageViewCell
+        cell.imageView.frame  = CGRect(x: 0,  y: 0,
+                                       width: GlobalConst.ACCOUNT_AVATAR_H,
+                                       height: GlobalConst.ACCOUNT_AVATAR_H)
+        cell.imageView.image = G01F02S06._selectedValue[indexPath.row]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -126,24 +127,20 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         // handle tap events
         /** push to zoomIMGVC */
         zoomIMGViewController.imgPicked = G01F02S06._selectedValue[indexPath.row]
-        let IMGVC = self._parent?.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
-        self._parent?.navigationController?.pushViewController(IMGVC!, animated: true)
-//        ImageView.imgPicked = G01F02S06._selectedValue[indexPath.row]
-//        var imageView: ImageView = ImageView()
-//        imageView.frame = CGRect(x: 0, y: 0,
-//                                 width: GlobalConst.SCREEN_WIDTH,
-//                                 height: GlobalConst.SCREEN_HEIGHT)
-//        imageView.setup()
-//        self._parent?.view.addSubview(imageView)
+        self.getParentView().pushToView(name: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
 
     }
+    
+    /**
+     * Update data
+     */
     func updateData() {
-        tbxStatus.text = G01F02S01._selectedValue.name
-        tbxTime.text = G01F02S02._selectedValue.name
-        tbxReviewer.text = G01F02S04._selectedValue.name + "\n" + G01F02S04._selectedValue.phone
-        tbxInternal.text = G01F02S05._selectedValue
-        if cltviewStep5 != nil {
-            cltviewStep5.reloadData()
+        tbxStatus.text      = G01F02S01._selectedValue.name
+        tbxTime.text        = G01F02S02._selectedValue.name
+        tbxReviewer.text    = G01F02S04._selectedValue.name + DomainConst.CONTACT_SPLITER + G01F02S04._selectedValue.phone
+        tbxInternal.text    = G01F02S05._selectedValue
+        if cltImg != nil {
+            cltImg.reloadData()
         }
         var offset: CGFloat = 0
         // Label Report wrong
@@ -165,38 +162,47 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         updateLayout(view: lblInternal, offset: offset)
         updateLayout(view: tbxInternal, offset: offset)
         offset += GlobalConst.LABEL_HEIGHT * 2
-        //updateLayout(view: cltviewStep5, offset: offset)
-        cltviewStep5.translatesAutoresizingMaskIntoConstraints = true
-        cltviewStep5.frame = CGRect(x: 0,
+        //updateLayout(view: cltImg, offset: offset)
+        cltImg.translatesAutoresizingMaskIntoConstraints = true
+        cltImg.frame = CGRect(x: 0,
                                     y: offset,
                                     width: self.frame.width,
                                     height: GlobalConst.ACCOUNT_AVATAR_H)
-        cltviewStep5.backgroundColor = UIColor.white
-        cltviewStep5.contentSize = CGSize(
+        cltImg.backgroundColor = UIColor.white
+        cltImg.contentSize = CGSize(
             width: GlobalConst.ACCOUNT_AVATAR_H * (CGFloat)(G01F02S06._selectedValue.count),
             height: GlobalConst.ACCOUNT_AVATAR_H)
-        //cltviewStep5.bounds = cltviewStep5.frame
+        //cltImg.bounds = cltImg.frame
         offset += GlobalConst.ACCOUNT_AVATAR_H
         self.updateLayout(contentHeight: offset)
     }
     
+    /**
+     * Update layout of content view
+     * - parameter view:    Content view
+     * - parameter offset:  Offset value
+     */
     func updateLayout(view: UIView, offset: CGFloat) {
         view.frame = CGRect(x: view.frame.origin.x, y: offset,
                             width: view.frame.width,
                             height: view.frame.height)
     }
     
+    /**
+     * Update layout of content view
+     * - parameter w:   Width of view
+     * - parameter h:   Height of view
+     */
     func updateLayout(w: CGFloat, h: CGFloat) -> CGFloat {
         var offset: CGFloat = 0
         lblReportWrong.isHidden = true
         // Label Report wrong
         lblReportWrong.translatesAutoresizingMaskIntoConstraints = true
         lblReportWrong.translatesAutoresizingMaskIntoConstraints = true
-        lblReportWrong.frame = CGRect(
-            x: GlobalConst.MARGIN_CELL_X,
-            y: offset,
-            width: w - GlobalConst.MARGIN_CELL_X * 2,
-            height: GlobalConst.LABEL_HEIGHT
+        lblReportWrong.frame = CGRect(x: GlobalConst.MARGIN_CELL_X,
+                                      y: offset,
+                                      width: w - GlobalConst.MARGIN_CELL_X * 2,
+                                      height: GlobalConst.LABEL_HEIGHT
         )
         lblReportWrong.text               = DomainConst.CONTENT00191
         lblReportWrong.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
@@ -238,7 +244,7 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         CommonProcess.setLayoutRight(lbl: tbxReviewer, x: lblReviewer.frame.maxX, y: offset,
                                      width: (w - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
                                      height: GlobalConst.LABEL_HEIGHT * 1.5,
-                                     text: G01F02S04._selectedValue.name + "\n" + G01F02S04._selectedValue.phone)
+                                     text: G01F02S04._selectedValue.name + DomainConst.CONTACT_SPLITER + G01F02S04._selectedValue.phone)
         tbxReviewer.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         offset += GlobalConst.LABEL_HEIGHT * 1.5
         
@@ -253,15 +259,15 @@ class G01F02S07: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
                                      height: GlobalConst.LABEL_HEIGHT * 2, text: G01F02S05._selectedValue)
         tbxInternal.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         offset += GlobalConst.LABEL_HEIGHT * 2
-        if cltviewStep5 != nil {
-            cltviewStep5.translatesAutoresizingMaskIntoConstraints = true
-            cltviewStep5.frame = CGRect(x: 0,
+        if cltImg != nil {
+            cltImg.translatesAutoresizingMaskIntoConstraints = true
+            cltImg.frame = CGRect(x: 0,
                                         y: offset,
                                         width: w * 2,
                                         height: GlobalConst.ACCOUNT_AVATAR_H)
             offset += GlobalConst.ACCOUNT_AVATAR_H
-            cltviewStep5.backgroundColor = UIColor.white
-            cltviewStep5.bounds = cltviewStep5.frame
+            cltImg.backgroundColor = UIColor.white
+            cltImg.bounds = cltImg.frame
         }
         
         return offset

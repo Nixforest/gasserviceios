@@ -30,7 +30,7 @@ class CreateUpholdReplyRequest: BaseRequest {
             let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
             // Enable action handle notification from server
             BaseModel.shared.enableHandleNotificationFlag(isEnabled: true)
-            if model.status == "1" {
+            if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
                 // Clear data
@@ -110,5 +110,40 @@ class CreateUpholdReplyRequest: BaseRequest {
                 DomainConst.KEY_VERSION_CODE, DomainConst.VERSION_CODE
             )
         ]
+    }
+    /**
+     * Request create uphold reply
+     * - parameter upholdId:            Id of uphold item
+     * - parameter status:              Status of uphold
+     * - parameter hoursHandle:         Hours handle
+     * - parameter note:                Name of reviewer
+     * - parameter contact_phone:       Phone of reviewer
+     * - parameter reportWrong:         Report wrong
+     * - parameter listPostReplyImage:  List images
+     * - parameter customerId:          Id of customer
+     * - parameter noteInternal:        Note internal
+     * - parameter view:                View controller
+     */
+    public static func requestCreateUpholdReply(upholdId: String,
+                                         status: String, statusText: String,
+                                         hoursHandle: String,
+                                         note: String, contact_phone: String,
+                                         reportWrong: String,
+                                         listPostReplyImage: [UIImage],
+                                         customerId: String,
+                                         noteInternal: String,
+                                         view: BaseViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = CreateUpholdReplyRequest(url: DomainConst.PATH_SITE_UPHOLD_REPLY, reqMethod: DomainConst.HTTP_POST_REQUEST, view: view)
+        request.setData(upholdId: upholdId,
+                        status: status, statusText: statusText, hoursHandle: hoursHandle,
+                        note: note, contact_phone: contact_phone,
+                        reportWrong: reportWrong,
+                        listPostReplyImage: listPostReplyImage,
+                        customerId: customerId,
+                        noteInternal: noteInternal)
+        //request.execute()
+        request.executeUploadFile(listImages: listPostReplyImage)
     }
 }

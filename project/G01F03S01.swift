@@ -47,8 +47,24 @@ class G01F03S01: StepContent {
                 button.setTitleColor(UIColor.white , for: .normal)
                 button.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
                 button.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+                var imgName = DomainConst.BLANK
+                switch BaseModel.shared.listRatingStatus[i].id {
+                case DomainConst.RATING_STATUS_GLAD:
+                    imgName = DomainConst.CUST_FEELING_GLAD_IMG_NAME
+                    break
+                case DomainConst.RATING_STATUS_NORMAL:
+                    imgName = DomainConst.CUST_FEELING_NORMAL_IMG_NAME
+                    break
+                case DomainConst.RATING_STATUS_SAD:
+                    imgName = DomainConst.CUST_FEELING_SAD_IMG_NAME
+                    break
+                default:
+                    break
+                }
+                button.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0)
                 button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
                 button.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+                button.setLeftImage(imageName: imgName, padding: 10.0)
                 // Mark button
                 if G01F03S01._selectedValue.id == BaseModel.shared.listRatingStatus[i].id {
                     CommonProcess.markButton(button: button)
@@ -59,7 +75,7 @@ class G01F03S01: StepContent {
             }
         }
         // Set parent
-        self._parent = parent
+        self.setParentView(parent: parent)
         
         self.setup(mainView: contentView, title: DomainConst.CONTENT00206,
                    contentHeight: offset,
@@ -94,9 +110,12 @@ class G01F03S01: StepContent {
         self.stepDoneDelegate?.stepDone()
     }
     
+    /**
+     * Handle validate data
+     */
     override func checkDone() -> Bool {
         if G01F03S01._selectedValue.id.isEmpty {
-            self._parent?.showAlert(message: DomainConst.CONTENT00206)
+            self.showAlert(message: DomainConst.CONTENT00206)
             return false
         } else {
             return true

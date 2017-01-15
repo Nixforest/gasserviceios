@@ -8,6 +8,7 @@
 
 import UIKit
 import harpyframework
+import GoogleMaps
 
 class G00InfomationVC: UIViewController {
     // MARK: Properties
@@ -45,7 +46,7 @@ class G00InfomationVC: UIViewController {
         infomationNavBar.title = DomainConst.CONTENT00072
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: GlobalConst.BUTTON_COLOR_RED]
 
-        let backOrigin = UIImage(named: DomainConst.BACK_IMG_NAME)
+        let backOrigin = ImageManager.getImage(named: DomainConst.BACK_IMG_NAME)
         let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         backButton.setImage(tintedBackLogo, for: UIControlState())
         backButton.tintColor = GlobalConst.BUTTON_COLOR_RED
@@ -64,7 +65,7 @@ class G00InfomationVC: UIViewController {
         lblVersion.frame = CGRect(
             x: GlobalConst.MARGIN,
             y: offset,
-            width: self.view.frame.width - GlobalConst.MARGIN,
+            width: GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN,
             height: GlobalConst.LABEL_HEIGHT)
         lblVersion.text               = DomainConst.CONTENT00198
         lblVersion.textAlignment      = NSTextAlignment.left
@@ -76,7 +77,7 @@ class G00InfomationVC: UIViewController {
         lblVersionValue.frame = CGRect(
             x: GlobalConst.MARGIN * 2,
             y: offset,
-            width: self.view.frame.width - GlobalConst.MARGIN * 2,
+            width: GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN * 2,
             height: GlobalConst.LABEL_HEIGHT / 2)
         lblVersionValue.text          = DomainConst.VERSION_CODE_NAME
         lblVersionValue.textAlignment = NSTextAlignment.left
@@ -88,7 +89,7 @@ class G00InfomationVC: UIViewController {
         lblEmail.frame = CGRect(
             x: GlobalConst.MARGIN,
             y: offset,
-            width: self.view.frame.width - GlobalConst.MARGIN,
+            width: GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN,
             height: GlobalConst.LABEL_HEIGHT)
         lblEmail.text               = DomainConst.CONTENT00199
         lblEmail.textAlignment      = NSTextAlignment.left
@@ -100,7 +101,7 @@ class G00InfomationVC: UIViewController {
         lblEmailValue.frame = CGRect(
             x: GlobalConst.MARGIN * 2,
             y: offset,
-            width: self.view.frame.width - GlobalConst.MARGIN * 2,
+            width: GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN * 2,
             height: GlobalConst.LABEL_HEIGHT / 2)
         lblEmailValue.text          = DomainConst.EMAIL
         lblEmailValue.textAlignment = NSTextAlignment.left
@@ -112,7 +113,7 @@ class G00InfomationVC: UIViewController {
         lblWebsite.frame = CGRect(
             x: GlobalConst.MARGIN,
             y: offset,
-            width: self.view.frame.width - GlobalConst.MARGIN,
+            width: GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN,
             height: GlobalConst.LABEL_HEIGHT)
         lblWebsite.text               = DomainConst.CONTENT00200
         lblWebsite.textAlignment      = NSTextAlignment.left
@@ -124,7 +125,7 @@ class G00InfomationVC: UIViewController {
         lblWebsiteValue.frame = CGRect(
             x: GlobalConst.MARGIN * 2,
             y: offset,
-            width: self.view.frame.width - GlobalConst.MARGIN * 2,
+            width: GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN * 2,
             height: GlobalConst.LABEL_HEIGHT / 2)
         lblWebsiteValue.text          = DomainConst.WEBSITE
         lblWebsiteValue.textAlignment = NSTextAlignment.left
@@ -132,13 +133,14 @@ class G00InfomationVC: UIViewController {
         offset += GlobalConst.LABEL_HEIGHT / 2 + GlobalConst.MARGIN
         
         // Logo
-        imgLogo.image = UIImage(named: DomainConst.LOGO_IMG_NAME)
+        imgLogo.image = ImageManager.getImage(named: DomainConst.LOGO_IMG_NAME)
         imgLogo.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W) / 2,
                                y: offset,
                                width: GlobalConst.LOGIN_LOGO_W,
                                height: GlobalConst.LOGIN_LOGO_H)
         imgLogo.contentMode = .scaleAspectFit
         imgLogo.translatesAutoresizingMaskIntoConstraints = true
+        offset += imgLogo.frame.height + GlobalConst.MARGIN
         
         self.view.addSubview(lblVersion)
         self.view.addSubview(lblVersionValue)
@@ -147,6 +149,27 @@ class G00InfomationVC: UIViewController {
         self.view.addSubview(lblWebsite)
         self.view.addSubview(lblWebsiteValue)
         self.view.addSubview(imgLogo)
+        
+        // Create a GMSCameraPosition that tells the map to display the
+        // coordinate -33.86,151.20 at zoom level 6.
+        let lat: CLLocationDegrees = 10.7964088
+        let long: CLLocationDegrees = 106.705768
+        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: long, zoom: 15.0)
+        let mapView = GMSMapView.map(withFrame: CGRect(x: GlobalConst.MARGIN,
+                                                       y: offset,
+                                                       width:GlobalConst.SCREEN_WIDTH - 2 * GlobalConst.MARGIN,
+                                                       height:GlobalConst.SCREEN_HEIGHT - offset - GlobalConst.MARGIN),
+                                     camera: camera)
+        //view = mapView
+        //self.view.insertSubview(mapView, at: 0)
+        
+        // Creates a marker in the center of the map.
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        marker.title = "Công ty Cổ Phần Dầu Khí Miền Nam"
+        marker.snippet = "86 Nguyễn Cửu Vân - Bình Thạnh - TP HCM"
+        marker.map = mapView
+        self.view.addSubview(mapView)
     }
     
     /**
@@ -156,4 +179,6 @@ class G00InfomationVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+//    override func loadView() {
+//    }
 }

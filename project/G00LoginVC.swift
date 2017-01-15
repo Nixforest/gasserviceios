@@ -64,8 +64,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
      * - parameter sender:AnyObject
      */
     @IBAction func Register(_ sender: AnyObject) {
-        let registerVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.REGISTER_VIEW_CTRL)
-        self.navigationController?.pushViewController(registerVC, animated: true)
+        self.pushToView(name: DomainConst.REGISTER_VIEW_CTRL)
     }
     
     /**
@@ -89,8 +88,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         if imgLogoTappedCounter == 7 {
             imgLogoTappedCounter = 0
             print(imgLogoTappedCounter)
-            let configVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_CONFIGURATION_VIEW_CTRL)
-            self.navigationController?.pushViewController(configVC, animated: true)
+            self.pushToView(name: DomainConst.G00_CONFIGURATION_VIEW_CTRL)
         }
     }
     
@@ -108,7 +106,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
      * View did load
      */
     override public func viewDidLoad() {
-        setBackground(bkg: "bg1.jpg")
+        setBackground(bkg: DomainConst.TYPE_1_BKG_IMG_NAME)
         super.viewDidLoad()
         // Menu item tap
         asignNotifyForMenuItem()
@@ -120,7 +118,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
         //imgLogo.image = UIImage(named: GlobalConst.LOGO_IMG_NAME)
-        imgLogo.image = UIImage(named: "logo-1.png")
+        imgLogo.image = ImageManager.getImage(named: DomainConst.BRAND_LOGO_IMG_NAME)
         imgLogo.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W) / 2,
                                y: heigh + GlobalConst.MARGIN,
                                width: GlobalConst.LOGIN_LOGO_W,
@@ -141,7 +139,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         txtAccount.placeholder = DomainConst.CONTENT00049
         txtAccount.translatesAutoresizingMaskIntoConstraints = true
         // Set icon
-        setLeftViewForTextField(textField: txtAccount, named: "icon2.png")
+        setLeftViewForTextField(textField: txtAccount, named: DomainConst.USERNAME_IMG_NAME)
         
         // Make username textbox is focus when load view
         //self.txtAccount.becomeFirstResponder()
@@ -155,7 +153,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         txtPassword.placeholder = DomainConst.CONTENT00050
         
         // Set icon
-        setLeftViewForTextField(textField: txtPassword, named: "icon3.png")
+        setLeftViewForTextField(textField: txtPassword, named: DomainConst.PASSWORD_IMG_NAME)
         
         // Show password check box
         chbShowPassword.frame = CGRect(x: txtPassword.frame.minX,
@@ -187,7 +185,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         btnLogin.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         //self.view.addSubview(btnLogin)
         btnLogin.translatesAutoresizingMaskIntoConstraints = true
-        btnLogin.setImage(UIImage(named: "icon4-ios.png"), for: UIControlState())
+        btnLogin.setImage(ImageManager.getImage(named: DomainConst.LOGIN_IMG_NAME), for: UIControlState())
         btnLogin.imageView?.contentMode = .scaleAspectFit
         
         // Sign in button
@@ -247,7 +245,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         let imgView = UIImageView(frame: CGRect(x: 0, y: 0,
                                                 width: GlobalConst.EDITTEXT_H - GlobalConst.MARGIN_CELL_X,
                                                 height: GlobalConst.EDITTEXT_H - GlobalConst.MARGIN_CELL_X))
-        let img = UIImage(named: named)
+        let img = ImageManager.getImage(named: named)
         imgView.image = img
         textField.leftView = imgView
     }

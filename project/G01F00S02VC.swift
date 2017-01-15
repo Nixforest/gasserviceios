@@ -46,19 +46,7 @@ class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate
      * Handle tap create uphold reply button.
      */
     @IBAction func btnCreateUpholdReplyTapped(_ sender: AnyObject) {
-        let configVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G01_F02_VIEW_CTRL)
-        self.navigationController?.pushViewController(configVC, animated: true)
-    }
-    
-    /**
-     * Handle when tap on Issue menu item
-     */
-    func issueButtonInAccountVCTapped(_ notification: Notification) {
-        /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-         let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
-         self.navigationController?.pushViewController(configVC, animated: true)
-         */
-        print("issue button tapped")
+        self.pushToView(name: DomainConst.G01_F02_VIEW_CTRL)
     }
     
     /**
@@ -160,6 +148,10 @@ class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate
                 RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
             }
         }
+        // Notification
+        if BaseModel.shared.checkNotificationExist() {
+            BaseModel.shared.clearNotificationData()
+        }
     }
     
     /**
@@ -236,16 +228,19 @@ class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
         UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL) as! G01F00S02HistoryCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:
+                DomainConst.UPHOLD_DETAIL_EMPLOYEE_HISTORY_TABLE_VIEW_CELL) as! G01F00S02HistoryCell
             
             // Set cell data
             if BaseModel.shared.currentUpholdDetail.reply_item.count > indexPath.row {
-                cell.setData(model: BaseModel.shared.currentUpholdDetail.reply_item[indexPath.row], row: indexPath.row, view: self)
+                cell.setData(model: BaseModel.shared.currentUpholdDetail.reply_item[indexPath.row],
+                             row: indexPath.row, view: self)
             }
             // Set data source for image collection
             if BaseModel.shared.currentUpholdDetail.reply_item.count > indexPath.row {
                 if (BaseModel.shared.currentUpholdDetail.reply_item[indexPath.row].images.count > 0) {
-                    cell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
+                    cell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self,
+                                                             forRow: indexPath.row)
                 } else {
                     cell.hideImageCollection()
                 }
@@ -286,8 +281,8 @@ extension G01F00S02VC: UICollectionViewDelegate, UICollectionViewDataSource {
         // Get current cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         
-        cell.imageView1.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
-        cell.imageView1.getImgFromUrl(link: BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].thumb, contentMode: cell.imageView1.contentMode)
+        cell.imageView.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+        cell.imageView.getImgFromUrl(link: BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].thumb, contentMode: cell.imageView.contentMode)
         return cell
     }
     
@@ -297,10 +292,10 @@ extension G01F00S02VC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         /** push to zoomIMGVC */
-        zoomIMGViewController.imgPicked = cell.imageView1.image
-        zoomIMGViewController.imageView.getImgFromUrl(link: BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].large, contentMode: cell.imageView1.contentMode)
-        let IMGVC = self.mainStoryboard.instantiateViewController(withIdentifier: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
-        self.navigationController?.pushViewController(IMGVC, animated: true)
+        zoomIMGViewController.imgPicked = cell.imageView.image
+        zoomIMGViewController.imageView.getImgFromUrl(link: BaseModel.shared.currentUpholdDetail.reply_item[collectionView.tag].images[indexPath.row].large, contentMode: cell.imageView.contentMode)
+        // Move to rating view
+        self.pushToView(name: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
     }
 }
 
