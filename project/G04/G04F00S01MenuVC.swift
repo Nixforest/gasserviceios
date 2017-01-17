@@ -1,23 +1,24 @@
 //
-//  menuAccountViewController.swift
+//  G04F00S01MenuVC.swift
 //  project
 //
-//  Created by Lâm Phạm on 9/14/16.
+//  Created by SPJ on 12/28/16.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import harpyframework
 
-class G00AccountMenuVC: BaseMenuViewController {
+class G04F00S01MenuVC: BaseMenuViewController {
     /**
      * Override
      */
     override func configItemTapped(_ sender: AnyObject) {
         self.dismiss(animated: false) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_LIST_CONFIG_ITEM), object: nil)
         }
     }
+    
     
     /**
      * View did load
@@ -27,7 +28,7 @@ class G00AccountMenuVC: BaseMenuViewController {
         setItem(listValues: [false, false, false, true, true])
         setupMenuItem()
     }
-
+    
     /**
      * Did receive memory warning
      */

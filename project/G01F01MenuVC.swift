@@ -7,23 +7,24 @@
 //
 
 import Foundation
-class G01F01MenuVC: CommonMenuViewController {
+import harpyframework
+
+class G01F01MenuVC: BaseMenuViewController {
     /**
      * Override
      */
     override func configItemTapped(_ sender: AnyObject) {
         self.dismiss(animated: false) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)
         }
-    }
-    
+    }    
     
     /**
      * View did load
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        if Singleton.shared.isLogin {
+        if BaseModel.shared.checkIsLogin() {
             setItem(listValues: [false, false, false, true, true])
         } else {
             setItem(listValues: [true, false, true, false, true])

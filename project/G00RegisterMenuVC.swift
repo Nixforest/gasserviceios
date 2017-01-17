@@ -1,35 +1,33 @@
 //
-//  menuAccountViewController.swift
+//  G00RegisterMenuVC.swift
 //  project
 //
-//  Created by Lâm Phạm on 9/14/16.
+//  Created by SPJ on 12/26/16.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import harpyframework
 
-class G00AccountMenuVC: BaseMenuViewController {
+class G00RegisterMenuVC: BaseMenuViewController {
     /**
      * Override
      */
     override func configItemTapped(_ sender: AnyObject) {
         self.dismiss(animated: false) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW), object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_REGISTERVIEW), object: nil)
         }
     }
-    
     /**
-     * View did load
+     * View did load.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        setItem(listValues: [false, false, false, true, true])
+        setItem(listValues: [false, false, false, false, true])
         setupMenuItem()
     }
-
     /**
-     * Did receive memory warning
+     * Dis receive memory warning.
      */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

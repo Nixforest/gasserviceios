@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import harpyframework
 
-class G00LoginMenuVC: CommonMenuViewController {
+class G00LoginMenuVC: BaseMenuViewController {
     /**
      * View did load.
      */

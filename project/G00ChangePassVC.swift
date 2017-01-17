@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import harpyframework
 
-class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDelegate,UITextFieldDelegate {
+class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
     // MARK: Properties
     /** Flag show password */
     var bShowPassword:Bool!
@@ -17,7 +18,7 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
     /** Logout button */
     @IBOutlet weak var logoutButton: UIButton!
     /** Checkbox show password button */
-    @IBOutlet weak var checkboxButton: CheckBox!
+    @IBOutlet weak var checkboxButton: CustomCheckBox!
     /** Checkbox show password label */
     @IBOutlet weak var lblCheckboxButton: UILabel!
     /** Old password textbox */
@@ -26,7 +27,13 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
     @IBOutlet weak var txtNewPassword: UITextField!
     /** Retype-New password textbox */
     @IBOutlet weak var txtNewPasswordRetype: UITextField!
+    /** Avatar image */
+    @IBOutlet weak var imgAvatar: UIImageView!
     
+    @IBOutlet weak var imgOldPass: UIImageView!
+    @IBOutlet weak var imgNewPass: UIImageView!
+    @IBOutlet weak var imgNewPassconfirm: UIImageView!
+    @IBOutlet weak var lblName: UILabel!
     // MARK: Actions
     /**
      * Handle tap on checkbox button
@@ -44,7 +51,7 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
      * - parameter sender: AnyObject
      */
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
-        CommonProcess.requestLogout(view: self)
+        RequestAPI.requestLogout(view: self)
     }
     
     /**
@@ -55,33 +62,21 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
         // Validate data is filled
         if (((txtOldPassword.text?.isEmpty)! || (txtNewPassword.text?.isEmpty)! || (txtNewPasswordRetype.text?.isEmpty)!)){
             // Call alert
-            showAlert(message: GlobalConst.CONTENT00025)
+            showAlert(message: DomainConst.CONTENT00025)
             return
         }
         // Check if password is correct
         if (txtNewPassword.text == txtNewPasswordRetype.text){
             //print("password update successfully")
-            CommonProcess.requestChangePassword(
+            RequestAPI.requestChangePassword(
                 oldPass: txtOldPassword.text!,
                 newPass: txtNewPassword.text!,
                 view: self)
         } else {
             // Call alert
-            showAlert(message: GlobalConst.CONTENT00026)
+            showAlert(message: DomainConst.CONTENT00026)
         }
 
-    }
-    
-    /**
-     * Handle tap on Menu ite Issue
-     * - parameter notification: Notification
-     */
-    func issueButtonInChangePassVCTapped(_ notification: Notification) {
-        /*let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let configVC = mainStoryboard.instantiateViewControllerWithIdentifier("issueViewController")
-        self.navigationController?.pushViewController(configVC, animated: true)
-         */
-        print("issue button tapped")
     }
     
     /**
@@ -90,15 +85,15 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.gasServiceItemTapped),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(G00ChangePassVC.issueButtonInChangePassVCTapped(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM),
+                                               selector: #selector(super.issueItemTapped(_:)),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(super.configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW),
                                                object: nil)
     }
     
@@ -118,29 +113,72 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
         // Textfield old password
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
-        txtOldPassword.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
-                                      y: heigh + GlobalConst.MARGIN,
-                                      width: GlobalConst.EDITTEXT_W,
-                                      height: GlobalConst.EDITTEXT_H)
-        txtOldPassword.placeholder = GlobalConst.CONTENT00083
+        
+        imgAvatar.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.ACCOUNT_AVATAR_W) / 2,
+                                 y: heigh + GlobalConst.MARGIN,
+                                 width: GlobalConst.ACCOUNT_AVATAR_W,
+                                 height: GlobalConst.ACCOUNT_AVATAR_H)
+        imgAvatar.image = ImageManager.getImage(named: DomainConst.CONTACT_IMG_NAME)
+        imgAvatar.translatesAutoresizingMaskIntoConstraints = true
+        imgAvatar.isUserInteractionEnabled = true
+        
+        // Label name
+        lblName.translatesAutoresizingMaskIntoConstraints = true
+        lblName.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
+                               y: imgAvatar.frame.maxY + GlobalConst.MARGIN_CELL_Y,
+                               width: GlobalConst.EDITTEXT_W,
+                               height: GlobalConst.EDITTEXT_H)
+        lblName.text = BaseModel.shared.user_info?.getName()
+        lblName.textAlignment = .center
+        lblName.textColor = GlobalConst.BUTTON_COLOR_RED
+        
+        // Image old pass
+        imgOldPass.frame = CGRect(x: GlobalConst.MARGIN,
+                               y: lblName.frame.maxY + GlobalConst.MARGIN,
+                               width: GlobalConst.ACCOUNT_ICON_SIZE,
+                               height: GlobalConst.ACCOUNT_ICON_SIZE)
+        imgOldPass.image = ImageManager.getImage(named: DomainConst.OLD_PASS_IMG_NAME)
+        imgOldPass.translatesAutoresizingMaskIntoConstraints = true
+        
+        // Image new pass
+        imgNewPass.frame = CGRect(x: GlobalConst.MARGIN,
+                                  y: imgOldPass.frame.maxY + GlobalConst.MARGIN,
+                                  width: GlobalConst.ACCOUNT_ICON_SIZE,
+                                  height: GlobalConst.ACCOUNT_ICON_SIZE)
+        imgNewPass.image = ImageManager.getImage(named: DomainConst.OLD_PASS_IMG_NAME)
+        imgNewPass.translatesAutoresizingMaskIntoConstraints = true
+        
+        // Image new pass
+        imgNewPassconfirm.frame = CGRect(x: GlobalConst.MARGIN,
+                                  y: imgNewPass.frame.maxY + GlobalConst.MARGIN,
+                                  width: GlobalConst.ACCOUNT_ICON_SIZE,
+                                  height: GlobalConst.ACCOUNT_ICON_SIZE)
+        imgNewPassconfirm.image = ImageManager.getImage(named: DomainConst.NEW_PASS_IMG_NAME)
+        imgNewPassconfirm.translatesAutoresizingMaskIntoConstraints = true
+        
+        txtOldPassword.frame = CGRect(x: imgOldPass.frame.maxX + GlobalConst.MARGIN,
+                                      y: imgOldPass.frame.minY,
+                                      width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
+                                      height: GlobalConst.ACCOUNT_ICON_SIZE)
+        txtOldPassword.placeholder = DomainConst.CONTENT00083
         txtOldPassword.translatesAutoresizingMaskIntoConstraints = true
         txtOldPassword.delegate = self
         
         // Textfield new password
-        txtNewPassword.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
-                                      y: txtOldPassword.frame.maxY + GlobalConst.MARGIN,
-                                      width: GlobalConst.EDITTEXT_W,
-                                      height: GlobalConst.EDITTEXT_H)
-        txtNewPassword.placeholder = GlobalConst.CONTENT00084
+        txtNewPassword.frame = CGRect(x: imgNewPass.frame.maxX + GlobalConst.MARGIN,
+                                      y: imgNewPass.frame.minY,
+                                      width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
+                                      height: GlobalConst.ACCOUNT_ICON_SIZE)
+        txtNewPassword.placeholder = DomainConst.CONTENT00084
         txtNewPassword.translatesAutoresizingMaskIntoConstraints = true
         txtNewPassword.delegate = self
         
         // Textfield new password retype
-        txtNewPasswordRetype.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
-                                            y: txtNewPassword.frame.maxY + GlobalConst.MARGIN,
-                                            width: GlobalConst.EDITTEXT_W,
-                                            height: GlobalConst.EDITTEXT_H)
-        txtNewPasswordRetype.placeholder = GlobalConst.CONTENT00085
+        txtNewPasswordRetype.frame = CGRect(x: imgNewPassconfirm.frame.maxX + GlobalConst.MARGIN,
+                                            y: imgNewPassconfirm.frame.minY,
+                                            width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
+                                            height: GlobalConst.ACCOUNT_ICON_SIZE)
+        txtNewPasswordRetype.placeholder = DomainConst.CONTENT00085
         txtNewPasswordRetype.translatesAutoresizingMaskIntoConstraints = true
         txtNewPasswordRetype.delegate = self
         
@@ -157,7 +195,7 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
                                          y: checkboxButton.frame.minY,
                                          width: GlobalConst.LABEL_W,
                                          height: GlobalConst.LABEL_H)
-        lblCheckboxButton.text = GlobalConst.CONTENT00102
+        lblCheckboxButton.text = DomainConst.CONTENT00102
         lblCheckboxButton.translatesAutoresizingMaskIntoConstraints = true
         bShowPassword = false
         txtOldPassword.isSecureTextEntry = !bShowPassword
@@ -169,26 +207,28 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
                                   y: checkboxButton.frame.maxY + GlobalConst.MARGIN,
                                   width: GlobalConst.BUTTON_W,
                                   height: GlobalConst.BUTTON_H)
-        saveButton.setTitle(GlobalConst.CONTENT00086, for: UIControlState())
+        saveButton.setTitle(DomainConst.CONTENT00229.uppercased(), for: UIControlState())
         saveButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         saveButton.setTitleColor(UIColor.white, for: UIControlState())
         saveButton.translatesAutoresizingMaskIntoConstraints = true
-        saveButton.layer.cornerRadius = 6
+        saveButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        saveButton.setImage(ImageManager.getImage(named: DomainConst.SAVE_INFO_IMG_NAME), for: UIControlState())
+        saveButton.imageView?.contentMode = .scaleAspectFit
         
         // Logout buton
         logoutButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                                     y: saveButton.frame.maxY + GlobalConst.MARGIN,
                                     width: GlobalConst.BUTTON_W,
                                     height: GlobalConst.BUTTON_H)
-        logoutButton.setTitle(GlobalConst.CONTENT00090, for: UIControlState())
+        logoutButton.setTitle(DomainConst.CONTENT00090, for: UIControlState())
         logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         logoutButton.setTitleColor(UIColor.white, for: UIControlState())
         logoutButton.layer.cornerRadius = 6
         logoutButton.translatesAutoresizingMaskIntoConstraints = true
         
         // Navigation Bar customize
-        setupNavigationBar(title: GlobalConst.CONTENT00089, isNotifyEnable: true)
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(RegisterViewController.hideKeyboard(_:)))
+        setupNavigationBar(title: DomainConst.CONTENT00089, isNotifyEnable: true)
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
     }
 
@@ -208,22 +248,6 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
     }
     */
 
-    /**
-     * Handle show menu.
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
-            let popoverVC = segue.destination
-            popoverVC.popoverPresentationController?.delegate = self
-        }
-    }
-    
-    /**
-     * ...
-     */
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
-    }
 
     /**
      * Hilde keyboard
@@ -231,6 +255,10 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
      */
     func hideKeyboard(_ sender:UITapGestureRecognizer){
         self.view.endEditing(true)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.frame = CGRect(x: self.view.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        })
         isKeyboardShow = false
     }
     
@@ -239,7 +267,12 @@ class G00ChangePassVC: CommonViewController, UIPopoverPresentationControllerDele
      * - parameter textField: Textfield will be focusing
      */
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
-        isKeyboardShow = true
+        if isKeyboardShow == false {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - 100, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            })
+            isKeyboardShow = true
+        }
         return true
     }
     

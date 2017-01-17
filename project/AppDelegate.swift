@@ -8,6 +8,8 @@
 
 import UIKit
 import UserNotifications
+import harpyframework
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,7 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_HOME_VIEW_CTRL)
+        //let firstVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_HOME_VIEW_CTRL)
+        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: "G00MapVC")
         rootNav = UINavigationController(rootViewController: firstVC)
         rootNav.isNavigationBarHidden = false
         
@@ -37,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             handleNotification(data: notification)
         }
         
+        // Google maps
+        GMSServices.provideAPIKey("AIzaSyDpiyIoQSxkj1GAqwUSxk-3wxxUcuQa_6k")
         return true
     }
 
@@ -98,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
-        Singleton.shared.setDeviceToken(token: tokenString)
+        BaseModel.shared.setDeviceToken(token: tokenString)
         print(tokenString)
     }
     
@@ -134,14 +139,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let message     = data["spj_message"] as? String ?? ""
         
         // Save to setting
-        Singleton.shared.setNotificationData(id: id, notify_id: notifyId, notify_type: notifyType, type: type, reply_id: replyId, message: message)
+        BaseModel.shared.setNotificationData(id: id, notify_id: notifyId, notify_type: notifyType, type: type, reply_id: replyId, message: message)
         
         // Create alert
-        if isManual && Singleton.shared.canHandleNotification() {
-            let alert = UIAlertController(title: GlobalConst.CONTENT00044, message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: GlobalConst.CONTENT00223, style: .default, handler: {
+        if isManual && BaseModel.shared.canHandleNotification() {
+            let alert = UIAlertController(title: DomainConst.CONTENT00044, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: DomainConst.CONTENT00223, style: .default, handler: {
                 (alert: UIAlertAction!) in
-                CommonProcess.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
+                RequestAPI.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
                 if let navigationController = self.window?.rootViewController as? UINavigationController {
                     if navigationController.visibleViewController is G00HomeVC {
                         navigationController.visibleViewController?.viewDidAppear(true)
@@ -151,18 +156,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             })
             alert.addAction(okAction)
-            let cancelAction = UIAlertAction(title: GlobalConst.CONTENT00224, style: .cancel, handler: {
+            let cancelAction = UIAlertAction(title: DomainConst.CONTENT00224, style: .cancel, handler: {
                 (alert: UIAlertAction!) in
                 if let navigationController = self.window?.rootViewController as? UINavigationController {
-                    CommonProcess.requestNotificationCount(view: (navigationController.visibleViewController as! CommonViewController))
+                    RequestAPI.requestNotificationCount(view: (navigationController.visibleViewController as! BaseViewController))
                 }
-                Singleton.shared.clearNotificationData()
+                BaseModel.shared.clearNotificationData()
             })
             alert.addAction(cancelAction)
             self.window?.rootViewController?.present(alert, animated: true, completion: nil)
         } else {
             // Reply confirm notify to server
-            CommonProcess.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
+            RequestAPI.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
         }
         
         // Move to detail

@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import harpyframework
 
 class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
+    // MARK: Properties
     /** Selected value */
     static var _selectedValue: ConfigBean = ConfigBean(id: "", name: "")
-    // MARK: Properties
+    /** Picker view */
     var _pkView: UIPickerView = UIPickerView()
     
     /*
@@ -24,27 +26,24 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
     /**
      * Default initializer.
      */
-    init(w: CGFloat, h: CGFloat, parent: CommonViewController) {
+    init(w: CGFloat, h: CGFloat, parent: BaseViewController) {
         super.init()
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = true
-        //contentView.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         
         // Add picker view
         _pkView.translatesAutoresizingMaskIntoConstraints = true
-        _pkView.frame = CGRect(x: 0,
-                               y: 0,
+        _pkView.frame = CGRect(x: 0, y: 0,
                                width: w,
                                height: GlobalConst.SCREEN_HEIGHT / 3)
-        _pkView.backgroundColor = UIColor.white        
-        
-        _pkView.dataSource = self
-        _pkView.delegate = self
+        _pkView.backgroundColor = UIColor.white
+        _pkView.dataSource      = self
+        _pkView.delegate        = self
         contentView.addSubview(_pkView)
         
         // Set parent
-        self._parent = parent
-        self.setup(mainView: contentView, title: GlobalConst.CONTENT00182, contentHeight: GlobalConst.SCREEN_HEIGHT / 3,
+        self.setParentView(parent: parent)
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00182, contentHeight: GlobalConst.SCREEN_HEIGHT / 3,
                    width: w, height: h)
         return
     }
@@ -61,17 +60,19 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
         return GlobalConst.LABEL_HEIGHT
     }
     public func pickerView(_ pkviewStep1: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if G01F02S02._selectedValue.id == Singleton.shared.listHourHandle[row].id {
+        if G01F02S02._selectedValue.id == BaseModel.shared.listHourHandle[row].id {
             _pkView.selectedRow(inComponent: row)
         }
-        return Singleton.shared.listHourHandle[row].name
+        return BaseModel.shared.listHourHandle[row].name
     }
     public func pickerView(_ pkviewStep1: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        G01F02S02._selectedValue = Singleton.shared.listHourHandle[row]
-        NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
+        G01F02S02._selectedValue = BaseModel.shared.listHourHandle[row]
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02),
+                                        object: nil)
     }
     func pickerView(_ pkviewStep1: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let attributedString = NSAttributedString(string: Singleton.shared.listHourHandle[row].name, attributes: [NSForegroundColorAttributeName : UIColor.black])
+        let attributedString = NSAttributedString(string: BaseModel.shared.listHourHandle[row].name,
+                                                  attributes: [NSForegroundColorAttributeName : UIColor.black])
         return attributedString
     }
     
@@ -80,12 +81,15 @@ class G01F02S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
         return 1
     }
     func pickerView(_ pkviewStep1: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return Singleton.shared.listHourHandle.count
+        return BaseModel.shared.listHourHandle.count
     }
     
+    /**
+     * Handle validate data
+     */
     override func checkDone() -> Bool {
         if G01F02S02._selectedValue.id.isEmpty {
-            self._parent?.showAlert(message: GlobalConst.CONTENT00182)
+            self.showAlert(message: DomainConst.CONTENT00182)
             return false
         } else {
             return true

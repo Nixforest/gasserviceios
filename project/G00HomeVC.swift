@@ -7,18 +7,20 @@
 //
 
 import UIKit
+import harpyframework
+import GoogleMaps
 
-class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     // MARK: Properties
     /** List text content */
-    var aList:[String] = [GlobalConst.CONTENT00130, GlobalConst.CONTENT00041, GlobalConst.CONTENT00099, GlobalConst.CONTENT00098, GlobalConst.CONTENT00100]
+    var aList:[String] = [DomainConst.CONTENT00130, DomainConst.CONTENT00041, DomainConst.CONTENT00099, DomainConst.CONTENT00098, DomainConst.CONTENT00100]
     /** List icon image */
     var aListIcon:[String] = [
-        GlobalConst.ORDER_GAS_IMG_NAME,
-        GlobalConst.UPHOLD_REQUEST_IMG_NAME,
-        GlobalConst.UPHOLD_LIST_IMG_NAME,
-        GlobalConst.SERVICE_RATING_IMG_NAME,
-        GlobalConst.ACCOUNT_IMG_NAME
+        DomainConst.ORDER_GAS_IMG_NAME,
+        DomainConst.UPHOLD_REQUEST_IMG_NAME,
+        DomainConst.UPHOLD_LIST_IMG_NAME,
+        DomainConst.SERVICE_RATING_IMG_NAME,
+        DomainConst.ACCOUNT_IMG_NAME
     ]
     /** Table view */
     @IBOutlet weak var homeTableView: UITableView!
@@ -29,9 +31,7 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
      * - parameter sender:AnyObject
      */
     func pushToRegisterVC(_ notification: Notification){
-//        let RegisterVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.REGISTER_VIEW_CTRL)
-//        self.navigationController?.pushViewController(RegisterVC, animated: true)
-        showAlert(message: GlobalConst.CONTENT00197)
+        self.pushToView(name: DomainConst.REGISTER_VIEW_CTRL)
     }
     
     /**
@@ -48,20 +48,20 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
     func asignNotifyForMenuItem() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(pushToRegisterVC(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_REGISTER_ITEM),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_REGISTER_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(logoutItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_LOGOUT_ITEM),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGOUT_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushToLoginVC(_:)),
-                                               name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
     }
     
     //MARK: ViewDidLoad
@@ -74,11 +74,11 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         asignNotifyForMenuItem()
         
         // Handle display color when training mode is on
-        if Singleton.shared.checkTrainningMode() {
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
-        } else {    // Training mode off
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
-        }
+//        if BaseModel.shared.checkTrainningMode() {
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+//        } else {    // Training mode off
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+//        }
         
         // Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
@@ -96,18 +96,23 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         homeTableView.separatorStyle = .none
         
         // NavBar setup
-        setupNavigationBar(title: GlobalConst.CONTENT00226, isNotifyEnable: Singleton.shared.checkIsLogin(), isHiddenBackBtn: true)
+        setupNavigationBar(title: DomainConst.CONTENT00108, isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
         
         /** Cell register */
-        self.homeTableView.register(UINib(nibName: GlobalConst.G00_HOME_CELL, bundle: nil), forCellReuseIdentifier: GlobalConst.G00_HOME_CELL)
+        self.homeTableView.register(UINib(nibName: DomainConst.G00_HOME_CELL, bundle: nil), forCellReuseIdentifier: DomainConst.G00_HOME_CELL)
         
         // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(G00HomeVC.setData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(G00HomeVC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
         
         // Get data from server
-        if Singleton.shared.checkIsLogin() {
-            CommonProcess.requestUpdateConfiguration(view: self)
+        if BaseModel.shared.checkIsLogin() {
+            RequestAPI.requestUpdateConfiguration(view: self)
+        }
+        
+        // Handle waiting register code confirm
+        if !BaseModel.shared.getTempToken().isEmpty {
+            self.processInputConfirmCode(message: "")
         }
     }
     
@@ -119,8 +124,8 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         self.updateNotificationStatus()
         
         // Get notification count from server
-        if Singleton.shared.checkIsLogin() {
-            CommonProcess.requestNotificationCount(view: self)
+        if BaseModel.shared.checkIsLogin() {
+            RequestAPI.requestNotificationCount(view: self)
         }
     }
 
@@ -130,23 +135,6 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    /**
-     * Override: show menu controller
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == GlobalConst.POPOVER_MENU_IDENTIFIER {
-            let popoverVC = segue.destination
-            popoverVC.popoverPresentationController?.delegate = self
-        }
-    }
-    
-    /**
-     * ...
-     */
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.none
     }
     
     // MARK: Table view setup
@@ -161,8 +149,8 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: GlobalConst.G00_HOME_CELL, for: indexPath) as! G00HomeCell
-        cell.homeCellImageView.image = UIImage(named: aListIcon[(indexPath as NSIndexPath).row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.G00_HOME_CELL, for: indexPath) as! G00HomeCell
+        cell.homeCellImageView.image = ImageManager.getImage(named: aListIcon[(indexPath as NSIndexPath).row])
         cell.titleLbl.text = aList[(indexPath as NSIndexPath).row]
         // cell text color
         cell.titleLbl.textColor = UIColor.white
@@ -194,17 +182,17 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
      */
     func setShowHideItem(cell: G00HomeCell, indexPath: IndexPath) {
         // User is logging
-        if Singleton.shared.checkIsLogin() {
+        if BaseModel.shared.checkIsLogin() {
             switch (indexPath as NSIndexPath).row {
             case 0:         // Order gas
-                //cell.isHidden = !Singleton.shared.isCustomerUser()
+                //cell.isHidden = !BaseModel.shared.isCustomerUser()
                 cell.isHidden = true
             case 1:         // Create uphold
-                cell.isHidden = !Singleton.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_CREATE)
+                cell.isHidden = !BaseModel.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_CREATE)
             case 2:         // Uphold list
-                cell.isHidden = !Singleton.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_LIST)
+                cell.isHidden = !BaseModel.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_LIST)
             case 3:         // Uphold rating
-                cell.isHidden = !Singleton.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_RATING)
+                cell.isHidden = !BaseModel.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_RATING)
             case 4:         // Account -> Always show
                 cell.isHidden = false
             default: break
@@ -231,17 +219,17 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
      */
     func setCellHeight(indexPath: IndexPath) -> CGFloat {
         var rowHeight: CGFloat = 0.0
-        if Singleton.shared.checkIsLogin() {
+        if BaseModel.shared.checkIsLogin() {
             switch (indexPath as NSIndexPath).row {
             case 0:         // Order gas
-                //rowHeight = Singleton.shared.isCustomerUser() ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
+                //rowHeight = BaseModel.shared.isCustomerUser() ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
                 rowHeight = 0
             case 1:         // Create uphold
-                rowHeight = Singleton.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_CREATE) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
+                rowHeight = BaseModel.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_CREATE) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
             case 2:         // Uphold list
-                rowHeight = Singleton.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_LIST) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
+                rowHeight = BaseModel.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_LIST) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
             case 3:         // Uphold rating
-                rowHeight = Singleton.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_RATING) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
+                rowHeight = BaseModel.shared.checkAllowAccess(key: DomainConst.KEY_UPHOLD_RATING) ? GlobalConst.CELL_HEIGHT_SHOW : GlobalConst.CELL_HEIGHT_HIDE
             case 4:         // Account -> Always show
                 rowHeight = GlobalConst.CELL_HEIGHT_SHOW
             default: break
@@ -261,22 +249,21 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 1:
-            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F01_VIEW_CTRL)
-            self.navigationController?.pushViewController(upholdListVC, animated: true)
-        case 2:
-            //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S01_VIEW_CTRL)
-            self.navigationController?.pushViewController(upholdListVC, animated: true)
-        case 4:
-            //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let accountVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_ACCOUNT_VIEW_CTRL)
-            self.navigationController?.pushViewController(accountVC, animated: true)
+        case 1:     // New uphold
+            if BaseModel.shared.user_info == nil {
+                // User information does not exist
+                RequestAPI.requestUserProfile(view: self)
+            }
+            self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
+        case 2: // List uphold
+            self.pushToView(name: DomainConst.G01_F00_S01_VIEW_CTRL)
+        case 4: // User profile
+            self.pushToView(name: DomainConst.G00_ACCOUNT_VIEW_CTRL)
         case 3:
-            if !Singleton.shared.lastUpholdId.isEmpty {
-                Singleton.shared.sharedString = Singleton.shared.lastUpholdId
-                let ratingVC = self.mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F03_VIEW_CTRL)
-                self.navigationController?.pushViewController(ratingVC, animated: true)
+            if !BaseModel.shared.lastUpholdId.isEmpty {
+                BaseModel.shared.sharedString = BaseModel.shared.lastUpholdId
+                // Move to G01_F03 rating view
+                self.pushToView(name: DomainConst.G01_F03_VIEW_CTRL)
             }
         default:
             break
@@ -292,16 +279,15 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         self.homeTableView.reloadData()
         
         // Get notification count from server
-        if Singleton.shared.checkIsLogin() {
-            CommonProcess.requestNotificationCount(view: self)
+        if BaseModel.shared.checkIsLogin() {
+            RequestAPI.requestNotificationCount(view: self)
         }
         
         // Check open by notification
-        if Singleton.shared.checkNotificationExist() {
-            if Singleton.shared.checkIsLogin() {
-                if Singleton.shared.isUpholdNotification() {
-                    let upholdListVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G01_F00_S01_VIEW_CTRL)
-                    self.navigationController?.pushViewController(upholdListVC, animated: true)
+        if BaseModel.shared.checkNotificationExist() {
+            if BaseModel.shared.checkIsLogin() {
+                if BaseModel.shared.isUpholdNotification() {
+                    self.pushToView(name: DomainConst.G01_F00_S01_VIEW_CTRL)
                 }
             } else {
                 moveToLoginVC()
@@ -309,18 +295,31 @@ class G00HomeVC: CommonViewController, UIPopoverPresentationControllerDelegate, 
         }
         
         // Handle display color when training mode is on
-        if Singleton.shared.checkTrainningMode() {
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
-        } else {    // Training mode off
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
-        }
+//        if BaseModel.shared.checkTrainningMode() {
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+//        } else {    // Training mode off
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+//        }
     }
     
     /**
      * Move to login view
      */
     func moveToLoginVC() {
-        let loginVC = mainStoryboard.instantiateViewController(withIdentifier: GlobalConst.G00_LOGIN_VIEW_CTRL)
-        self.navigationController?.pushViewController(loginVC, animated: true)
+        self.pushToView(name: DomainConst.G00_LOGIN_VIEW_CTRL)
     }
+//    override func loadView() {
+//        // Create a GMSCameraPosition that tells the map to display the
+//        // coordinate -33.86,151.20 at zoom level 6.
+//        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+//        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+//        view.addSubview(mapView)
+//        
+//        // Creates a marker in the center of the map.
+//        let marker = GMSMarker()
+//        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+//        marker.title = "Sydney"
+//        marker.snippet = "Australia"
+//        marker.map = mapView
+//    }
 }

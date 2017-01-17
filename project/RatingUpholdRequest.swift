@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import harpyframework
+
 class RatingUpholdRequest: BaseRequest {
     override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
         let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
@@ -14,19 +16,19 @@ class RatingUpholdRequest: BaseRequest {
             data, response, error) in
             // Check error
             guard error == nil else {
-                self.showAlert(message: GlobalConst.CONTENT00196)
+                self.showAlert(message: DomainConst.CONTENT00196)
                 return
             }
             guard let data = data else {
-                self.showAlert(message: GlobalConst.CONTENT00196)
+                self.showAlert(message: DomainConst.CONTENT00196)
                 return
             }
             // Convert to string
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            print(dataString)
+            print(dataString ?? "")
             // Convert to object
             let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
-            if model.status == "1" {
+            if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
                 // Clear data
@@ -54,7 +56,7 @@ class RatingUpholdRequest: BaseRequest {
      * - parameter reqMethod: Request method
      * - parameter view: Root view
      */
-    override init(url: String, reqMethod: String, view: CommonViewController) {
+    override init(url: String, reqMethod: String, view: BaseViewController) {
         super.init(url: url, reqMethod: reqMethod, view: view)
     }
     
@@ -67,7 +69,7 @@ class RatingUpholdRequest: BaseRequest {
                  listRating: [Int], content: String) {
         var rating = "{"
         for i in 0..<listRating.count {
-            rating += String.init(format: "\"%@\":%d", Singleton.shared.listRatingType[i].id, listRating[i])
+            rating += String.init(format: "\"%@\":%d", BaseModel.shared.listRatingType[i].id, listRating[i])
             if i < (listRating.count - 1) {
                 rating += ","
             }
@@ -75,11 +77,30 @@ class RatingUpholdRequest: BaseRequest {
         rating += "}"
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":%@,\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
+            DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
             DomainConst.KEY_UPHOLD_ID, id,
             DomainConst.KEY_RATING_STATUS, ratingStatusId,
             DomainConst.KEY_RATING_TYPE, rating,
             DomainConst.KEY_RATING_NOTE, content
         )
+    }
+    
+    /**
+     * Request create uphold reply
+     * - parameter id:              Id of uphold item
+     * - parameter ratingStatusId:  Id of rating status
+     * - parameter listRating:      List rating type
+     * - parameter content:         Content
+     * - parameter view:            View controller
+     */
+    public static func requestRatingUphold(id: String, ratingStatusId: String,
+                                    listRating: [Int], content: String,
+                                    view: BaseViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = RatingUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CUSTOMER_RATING, reqMethod: DomainConst.HTTP_POST_REQUEST, view: view)
+        request.setData(id: id, ratingStatusId: ratingStatusId, listRating: listRating, content: content)
+        request.execute()
+        
     }
 }

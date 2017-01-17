@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import harpyframework
 
 class G01F03VC: StepVC, StepDoneDelegate {
     /**
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self, selector: #selector(gasServiceItemTapped), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(gasServiceItemTapped), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
     }
     
     override func viewDidLoad() {
@@ -29,16 +30,16 @@ class G01F03VC: StepVC, StepDoneDelegate {
         let summary = G01F03S04(w: GlobalConst.SCREEN_WIDTH,
                                 h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         
-        step2.stepDoneDelegate = self
-        self.appendContent(stepContent: step2)
         step1.stepDoneDelegate = self
         self.appendContent(stepContent: step1)
+        step2.stepDoneDelegate = self
+        self.appendContent(stepContent: step2)
         step3.stepDoneDelegate = self
         self.appendContent(stepContent: step3)
-        self._numberStep = self._arrayContent.count + 1
+        
         appendSummary(summary: summary)
         // Set title
-        self._title = GlobalConst.CONTENT00098
+        self.setTitle(title: DomainConst.CONTENT00098)
         super.viewDidLoad()
         // Menu item tap
         asignNotifyForMenuItem()
@@ -46,33 +47,31 @@ class G01F03VC: StepVC, StepDoneDelegate {
         // Do any additional setup after loading the view.
     }
     
+    /**
+     * Did receive memory warning
+     */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     * Clear data
+     */
     override func clearData() {
         G01F03S01._selectedValue = ConfigBean(id: "", name: "")
         G01F03S02._selectedValue = [Int]()
         G01F03S03._selectedValue = ""
     }
+    
+    /**
+     * Handle send request rating uphold
+     */
     override func btnSendTapped() {
-        CommonProcess.requestRatingUphold(id: Singleton.shared.sharedString,
+        RatingUpholdRequest.requestRatingUphold(id: BaseModel.shared.sharedString,
                                           ratingStatusId: G01F03S01._selectedValue.id,
                                           listRating: G01F03S02._selectedValue,
                                           content: G01F03S03._selectedValue, view: self)
-//        CommonProcess.requestCreateUphold(
-//            customerId: Singleton.shared.user_id,
-//            employeeId: "",
-//            typeUphold: G01F01S01._selectedValue.id,
-//            content: G01F01S01._otherProblem,
-//            contactPerson: G01F01S02._name,
-//            contactTel: G01F01S02._phone,
-//            requestBy: G01F01S02._selectedValue.id, view: self)
-    }
-    
-    func stepDone() {
-        self.moveNext()
     }
     
     /*

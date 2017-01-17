@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import harpyframework
+
 class CreateUpholdReplyRequest: BaseRequest {
     override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
         let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
@@ -14,11 +16,11 @@ class CreateUpholdReplyRequest: BaseRequest {
             data, response, error) in
             // Check error
             guard error == nil else {
-                self.showAlert(message: GlobalConst.CONTENT00196)
+                self.showAlert(message: DomainConst.CONTENT00196)
                 return
             }
             guard let data = data else {
-                self.showAlert(message: GlobalConst.CONTENT00196)
+                self.showAlert(message: DomainConst.CONTENT00196)
                 return
             }
             // Convert to string
@@ -27,8 +29,8 @@ class CreateUpholdReplyRequest: BaseRequest {
             // Convert to object
             let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
             // Enable action handle notification from server
-            Singleton.shared.enableHandleNotificationFlag(isEnabled: true)
-            if model.status == "1" {
+            BaseModel.shared.enableHandleNotificationFlag(isEnabled: true)
+            if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
                 // Clear data
@@ -41,8 +43,8 @@ class CreateUpholdReplyRequest: BaseRequest {
                             (alert: UIAlertAction!) in
                             _ = self.view.navigationController?.popViewController(animated: true)
                     })
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: GlobalConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: model)
-                    Singleton.shared.upholdList.record[Singleton.shared.sharedInt].status = self.status
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: model)
+                    BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].status = self.status
                 }
             } else {
                 self.showAlert(message: model.message)
@@ -60,7 +62,7 @@ class CreateUpholdReplyRequest: BaseRequest {
      * - parameter reqMethod: Request method
      * - parameter view: Root view
      */
-    override init(url: String, reqMethod: String, view: CommonViewController) {
+    override init(url: String, reqMethod: String, view: BaseViewController) {
         super.init(url: url, reqMethod: reqMethod, view: view)
     }
     
@@ -78,7 +80,7 @@ class CreateUpholdReplyRequest: BaseRequest {
         self.status = statusText
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
+            DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
             DomainConst.KEY_UPHOLD_ID, upholdId,
             DomainConst.KEY_STATUS, status,
             DomainConst.KEY_HOURS_HANDLE, hoursHandle,
@@ -89,12 +91,12 @@ class CreateUpholdReplyRequest: BaseRequest {
             DomainConst.KEY_NOTE_INTERNAL, noteInternal,
             DomainConst.KEY_LATITUDE, 0.0,
             DomainConst.KEY_LONGITUDE, 0.0,
-            DomainConst.KEY_VERSION_CODE, GlobalConst.VERSION_CODE
+            DomainConst.KEY_VERSION_CODE, DomainConst.VERSION_CODE
         )
         self.param = [
             "q" : String.init(
                 format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":\"%@\"}",
-                DomainConst.KEY_TOKEN, Singleton.shared.getUserToken(),
+                DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
                 DomainConst.KEY_UPHOLD_ID, upholdId,
                 DomainConst.KEY_STATUS, status,
                 DomainConst.KEY_HOURS_HANDLE, hoursHandle,
@@ -105,8 +107,43 @@ class CreateUpholdReplyRequest: BaseRequest {
                 DomainConst.KEY_NOTE_INTERNAL, noteInternal,
                 DomainConst.KEY_LATITUDE, 0.0,
                 DomainConst.KEY_LONGITUDE, 0.0,
-                DomainConst.KEY_VERSION_CODE, GlobalConst.VERSION_CODE
+                DomainConst.KEY_VERSION_CODE, DomainConst.VERSION_CODE
             )
         ]
+    }
+    /**
+     * Request create uphold reply
+     * - parameter upholdId:            Id of uphold item
+     * - parameter status:              Status of uphold
+     * - parameter hoursHandle:         Hours handle
+     * - parameter note:                Name of reviewer
+     * - parameter contact_phone:       Phone of reviewer
+     * - parameter reportWrong:         Report wrong
+     * - parameter listPostReplyImage:  List images
+     * - parameter customerId:          Id of customer
+     * - parameter noteInternal:        Note internal
+     * - parameter view:                View controller
+     */
+    public static func requestCreateUpholdReply(upholdId: String,
+                                         status: String, statusText: String,
+                                         hoursHandle: String,
+                                         note: String, contact_phone: String,
+                                         reportWrong: String,
+                                         listPostReplyImage: [UIImage],
+                                         customerId: String,
+                                         noteInternal: String,
+                                         view: BaseViewController) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = CreateUpholdReplyRequest(url: DomainConst.PATH_SITE_UPHOLD_REPLY, reqMethod: DomainConst.HTTP_POST_REQUEST, view: view)
+        request.setData(upholdId: upholdId,
+                        status: status, statusText: statusText, hoursHandle: hoursHandle,
+                        note: note, contact_phone: contact_phone,
+                        reportWrong: reportWrong,
+                        listPostReplyImage: listPostReplyImage,
+                        customerId: customerId,
+                        noteInternal: noteInternal)
+        //request.execute()
+        request.executeUploadFile(listImages: listPostReplyImage)
     }
 }
