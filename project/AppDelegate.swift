@@ -10,6 +10,7 @@ import UIKit
 import UserNotifications
 import harpyframework
 import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
         //let firstVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_HOME_VIEW_CTRL)
-        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: "G00MapVC")
+        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: G04Const.G04_F01_S01_VIEW_CTRL)
         rootNav = UINavigationController(rootViewController: firstVC)
         rootNav.isNavigationBarHidden = false
         
@@ -42,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Google maps
         GMSServices.provideAPIKey("AIzaSyDpiyIoQSxkj1GAqwUSxk-3wxxUcuQa_6k")
+        GMSPlacesClient.provideAPIKey("AIzaSyBAp4n2BAmthIPvaF4FCOmQ19WEnb6trfs")
         return true
     }
 

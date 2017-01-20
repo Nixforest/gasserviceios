@@ -165,3 +165,14 @@ return UIModalPresentationStyle.None
 }
 
 }
+
+
+
+let totalHeight = ((imgSize?.height)! + (lblSize?.height)! + padding)
+self.imageEdgeInsets = UIEdgeInsets(top: -(totalHeight - (imgSize?.height)!),
+left: 0.0, bottom: GlobalConst.BUTTON_CATEGORY_SIZE / 2,
+right: 0.0)
+self.titleEdgeInsets = UIEdgeInsets(top: GlobalConst.BUTTON_CATEGORY_SIZE / 2,
+left: -((imgSize?.width)!) + ((imgSize?.width)! - (lblSize?.width)! / 2),
+bottom: 0.0,
+right: 0.0)
