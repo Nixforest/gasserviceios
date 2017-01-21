@@ -12,41 +12,82 @@ import GoogleMaps
 import GooglePlaces
 
 class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate {
+    // MARK: Properties
     /** Top view */
-    private var _topView            = UIView()
+    private var _topView                = UIView()
     /** Address textfield */
-    private var _txtAddress         = UITextField()
+    private var _txtAddress             = UITextField()
     /** Bottom view */
-    private var _bottomView         = UIView()
+    private var _bottomView             = UIView()
     /** Order button */
-    private var _btnOrder           = UIButton()
+    private var _btnOrder               = UIButton()
     /** Material selector view */
-    private var _materialSelect     = UIView()
+    private var _materialSelect         = UIView()
+    private var _gasSelector: MaterialSelector? = nil
+    private var _promoteSelector: MaterialSelector? = nil
     /** Type view */
-    private var _categoryView       = UIView()
+    private var _categoryView           = UIView()
     /** List of category button */
-    private var _listButton         = [UIButton]()
-    /** Manager location */
-    private let _location           =  CLLocationManager()
+    private var _listButton             = [UIButton]()
     /** Center mark */
-    private var _centerMark         = UIImageView()
-    /** Agent information */
-    private static var _agentInfo   = [AgentInfoBean]()
+    private var _centerMark             = UIImageView()
     /** Map view */
-    private var _mapView: GMSMapView?            = nil
-    /**  */
-    private var _isShowChildren = true
-    public let _zoomValue: CGFloat  = 15.0
+    private var _mapView: GMSMapView?   = nil
+    /** Current position of map view */
+    public var _currentPos              = CLLocationCoordinate2D.init()
+    /** Agent information */
+    private static var _agentInfo       = [AgentInfoBean]()
+    private static var _distance        = 0.0
+    /** Flag show/hide children controls */
+    private var _isShowChildren         = true
+    /** Camera zoom value */
+    public let _zoomValue: CGFloat      = 15.0
+    /** Manager location */
+    private let _location               =  CLLocationManager()
+    /** Save neares agent information */
+    private var _nearestAgent           = AgentInfoBean()
     
-    /***/
-    public func saveAgentInfo(data: [AgentInfoBean]) {
-        MapViewController._agentInfo.append(contentsOf: data)
+    
+    // MARK: Actions
+    /**
+     * Update agent information from server
+     * - paramater data: AgentInfoBean object
+     */
+    public func saveAgentInfo(data: OrderConfigBean) {
+        MapViewController._agentInfo.append(contentsOf: data.agent)
+        //MapViewCont roller._distance = data.distance_1
+        MapViewController._distance = 999999999
     }
+    
+    /**
+     * Handle when tap menu item
+     */
+    func asignNotifyForMenuItem() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(configItemTap(_:)),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(registerItemTapped(_:)),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_REGISTER_ITEM),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(logoutItemTapped(_:)),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGOUT_ITEM),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loginItemTapped(_:)),
+                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
+    }
+    
     /**
      * View did load
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Menu item tap
+        asignNotifyForMenuItem()
         
         // Do any additional setup after loading the view.
         _location.requestAlwaysAuthorization()
@@ -57,36 +98,40 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
             //_location.startUpdatingLocation()
             _location.startMonitoringSignificantLocationChanges()
         }
-        
-        var offset = getTopHeight()
-        offset = setupTopView(offset: offset)
+        // Setup layout
+        var offset  = getTopHeight()
+        offset      = setupTopView(offset: offset)
         setupCenterMark()
         setupBottomView()
-        
-//        let gesture = UITapGestureRecognizer(target: mapView, action: #selector(showChildren(_:)))
-//        mapView.addGestureRecognizer(gesture)
         
         // NavBar setup
         setupNavigationBar(title: DomainConst.CONTENT00226, isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
         
         // Notify set data
         NotificationCenter.default.addObserver(self, selector: #selector(setData(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ADDRESS_VIEW_SET_DATA), object: nil)
-        //        NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
-        //        // Get data from server
-        //        if BaseModel.shared.checkIsLogin() {
-        //            RequestAPI.requestUpdateConfiguration(view: self)
-        //        }
-        //
-        //        // Handle waiting register code confirm
-        //        if !BaseModel.shared.getTempToken().isEmpty {
-        //            self.processInputConfirmCode(message: "")
-        //        }
+        NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
+        
+        // Handle waiting register code confirm
+        if !BaseModel.shared.getTempToken().isEmpty {
+            self.processInputConfirmCode(message: "")
+        }
     }
     
+    /**
+     * Set data event handler
+     */
     override func setData(_ notification: Notification) {
+        // Create marker for all agent
         for item in MapViewController._agentInfo {
             createMarker(info: item.info_agent)
         }
+        // Get data from server
+        if BaseModel.shared.checkIsLogin() {
+            RequestAPI.requestUpdateConfiguration(view: self)
+        } else {
+            self.pushToView(name: DomainConst.G00_LOGIN_VIEW_CTRL)
+        }
+        updateNearestAgent()
     }
     
     /**
@@ -94,25 +139,61 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
      * - parameter info: Basic agent information
      */
     func createMarker(info: BaseAgentInfoBean) {
-        let marker = GMSMarker()
-        // Set icon
-        marker.icon = ImageManager.getImage(named: DomainConst.LOGO_AGENT_IMG_NAME)
         // Get lat and long value from agent information
         let lat: CLLocationDegrees = (info.agent_latitude as NSString).doubleValue
         let long: CLLocationDegrees = (info.agent_longitude as NSString).doubleValue
-        // Set marker position
-        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: long)
-        marker.title = info.agent_name
-        marker.snippet = info.agent_address
-        //marker.appearAnimation = kGMSMarkerAnimationPop
-        //marker.infoWindowAnchor = CGPoint(x: 0.44, y: 0.45)
-        // Insert marker into map view
-        marker.map = self._mapView
+        let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        if calculateDistance(pos1: self._currentPos, pos2: location) <= MapViewController._distance {
+            print(info.agent_name)
+            let marker = GMSMarker()
+            // Set icon
+            marker.icon = ImageManager.getImage(named: DomainConst.LOGO_AGENT_IMG_NAME)
+            // Set marker position
+            marker.position = location
+            marker.title = info.agent_name
+            marker.snippet = info.agent_address
+            //marker.appearAnimation = kGMSMarkerAnimationPop
+            //marker.infoWindowAnchor = CGPoint(x: 0.44, y: 0.45)
+            // Insert marker into map view
+            marker.map = self._mapView
+        }
     }
     
+    /**
+     * Calculate the distance (in meters) from the receiver’s location to the specified location.
+     * - parameter pos1: Receiver’s location
+     * - parameter pos2: Specified location
+     * - returns: This method measures the distance between the two locations by tracing a line between them that follows the curvature of the Earth. The resulting arc is a smooth curve and does not take into account specific altitude changes between the two locations
+     */
+    func calculateDistance(pos1: CLLocationCoordinate2D, pos2: CLLocationCoordinate2D) -> Double {
+        let position1 = CLLocation(latitude: pos1.latitude, longitude: pos1.longitude)
+        let position2 = CLLocation(latitude: pos2.latitude, longitude: pos2.longitude)
+        let distance: CLLocationDistance = position1.distance(from: position2)
+        return distance
+    }
+    
+    func updateNearestAgent() {
+        var distance = Double.greatestFiniteMagnitude
+        for item in MapViewController._agentInfo {
+            // Get lat and long value from agent information
+            let lat: CLLocationDegrees = (item.info_agent.agent_latitude as NSString).doubleValue
+            let long: CLLocationDegrees = (item.info_agent.agent_longitude as NSString).doubleValue
+            let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            let currentDist = calculateDistance(pos1: self._currentPos, pos2: location)
+            if distance > currentDist {
+                self._nearestAgent = item
+                distance = currentDist
+            }
+        }
+        self.updateMaterialSelector()
+    }
+    
+    /**
+     * Tells the delegate that new location data is available.
+     */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let locValue = manager.location?.coordinate
-        let camera = GMSCameraPosition.camera(withLatitude: (locValue?.latitude)!, longitude: (locValue?.longitude)!, zoom: Float(self._zoomValue))
+        self._currentPos = (manager.location?.coordinate)!
+        let camera = GMSCameraPosition.camera(withLatitude: _currentPos.latitude, longitude: _currentPos.longitude, zoom: Float(self._zoomValue))
         _mapView = GMSMapView.map(withFrame: CGRect(x: 0,
                                                        y: self.getTopHeight(),
                                                        width:GlobalConst.SCREEN_WIDTH,
@@ -125,7 +206,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         
         // Creates a marker in the center of the map.
         let marker = GMSMarker()
-        marker.position = locValue!
+        marker.position = self._currentPos
         marker.title = "Công ty Cổ Phần Dầu Khí Miền Nam"
         marker.snippet = "86 Nguyễn Cửu Vân - Bình Thạnh - TP HCM"
         //marker.map = mapView
@@ -250,33 +331,41 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
      * Setup material selector and its components
      */
     func setupMaterialSelector() {
-        let gas = MaterialSelector(iconPath: DomainConst.CATEGORY_VIP_IMG_NAME,
+        _gasSelector = MaterialSelector(iconPath: DomainConst.CATEGORY_VIP_IMG_NAME,
                                    name: "Gas Origin xám 12",
                                    price: "328,000",
                                    width: (GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN) / 2,
                                    height: GlobalConst.BUTTON_CATEGORY_SIZE * 1.5)
-        gas.frame = CGRect(x: GlobalConst.MARGIN,
+        _gasSelector?.frame = CGRect(x: GlobalConst.MARGIN,
                            y: 0,
                            width: (GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN) / 2,
                            height: GlobalConst.BUTTON_CATEGORY_SIZE * 1.5)
-        self._materialSelect.addSubview(gas)
+        self._materialSelect.addSubview(_gasSelector!)
         
-        let promote = MaterialSelector(iconPath: DomainConst.CATEGORY_VIP_IMG_NAME,
+        _promoteSelector = MaterialSelector(iconPath: DomainConst.CATEGORY_VIP_IMG_NAME,
                                        name: "Chọn quà tặng",
                                        price: "",
                                        width: GlobalConst.SCREEN_WIDTH / 2 - GlobalConst.MARGIN ,
                                        height: GlobalConst.BUTTON_CATEGORY_SIZE * 1.5)
-        promote.frame = CGRect(x: GlobalConst.SCREEN_WIDTH / 2,
+        _promoteSelector?.frame = CGRect(x: GlobalConst.SCREEN_WIDTH / 2,
                                y: 0,
                                width: (GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN) / 2,
                                height: GlobalConst.BUTTON_CATEGORY_SIZE * 1.5)
-        self._materialSelect.addSubview(promote)
+        self._materialSelect.addSubview(_promoteSelector!)
         
         self._materialSelect.frame = CGRect(x: GlobalConst.MARGIN,
                                             y: GlobalConst.BUTTON_H + GlobalConst.MARGIN,
                                             width: GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN * 2,
                                             height: GlobalConst.BUTTON_CATEGORY_SIZE * 1.5)
         self._materialSelect.backgroundColor = UIColor.white
+    }
+    
+    func updateMaterialSelector() {
+        if self._nearestAgent.info_gas.count > 0 {
+            self._gasSelector?.setImage(img: self._nearestAgent.info_gas[0].material_image)
+            self._gasSelector?.setName(name: self._nearestAgent.info_gas[0].material_name)
+            self._gasSelector?.setPrice(price: self._nearestAgent.info_gas[0].material_price)
+        }
     }
     
     /**
@@ -364,37 +453,60 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     * Finish detect current location
+     */
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         let center = position.target
         GMSGeocoder().reverseGeocodeCoordinate(center) { (response, error) in
             if error != nil {
                 return
             }
-            
-            var address = response?.firstResult()?.lines?.joined(separator: ",")
-            address = address?.appendingFormat(", %@", (response?.firstResult()?.country)!)
+            // Get address
+            let address = response?.firstResult()?.lines?.joined(separator: DomainConst.ADDRESS_SPLITER)
+            // Use line below to add country into address result
+            //address = address?.appendingFormat(", %@", (response?.firstResult()?.country)!)
+            // Set for address textbox value
             self._txtAddress.text = address
         }
+        // Show children
         if !self._isShowChildren {
             self.showHideChildrent(isHide: false)
         }
     }
+    
+    /**
+     * Mapview changing
+     */
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         print("didChange: " + "\(position)")
     }
     
+    /**
+     * Handle event start drag map view
+     */
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         print("willMove: " + "\(gesture)")
+        // Hide children
         if self._isShowChildren {
             self.showHideChildrent(isHide: true)
         }
     }
     
+    /**
+     * Tells the delegate that editing began in the specified text field.
+     */
     internal func textFieldDidBeginEditing(_ textField: UITextField) {
+        // Start search address from google toolkit
         let autocompleteController      = GMSAutocompleteViewController()
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
     }
+    
+    /**
+     * Update address text value
+     * - parameter address: Address value
+     */
     public func setAddressText(address: String) {
         self._txtAddress.text = address
     }
@@ -409,40 +521,65 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         // Pass the selected object to the new view controller.
     }
     */
+    
+    /**
+     * Move camera
+     */
     public func moveCamera(position: CLLocationCoordinate2D) {
-        let camera = GMSCameraPosition.camera(withLatitude: position.latitude, longitude: position.longitude, zoom: Float(self._zoomValue))
-        let bounds = GMSCoordinateBounds.init()
+        self._currentPos = position
+        let camera       = GMSCameraPosition.camera(withLatitude: position.latitude,
+                                                    longitude: position.longitude,
+                                                    zoom: Float(self._zoomValue))
+        let bounds       = GMSCoordinateBounds.init()
         bounds.includingCoordinate(position)
         self._mapView?.camera = camera
     }
 }
+
+/**
+ * Implement GMSAutocompleteViewControllerDelegate
+ */
 extension MapViewController: GMSAutocompleteViewControllerDelegate {
-    // Handle the user's selection.
+    /**
+     * Handle the user's selection.
+     */
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         print("Place name: \(place.name)")
         print("Place address: \(place.formattedAddress)")
         print("Place attributions: \(place.attributions)")
+        // Update address text
         self.setAddressText(address: place.formattedAddress!)
-        
+        // Update camera position
         self.moveCamera(position: place.coordinate)
+        // Hide current autocomplete view
         dismiss(animated: true, completion: nil)
     }
     
+    /**
+     * Handle fail event
+     */
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         // TODO: handle the error.
         print("Error: ", error.localizedDescription)
     }
     
-    // User canceled the operation.
+    /**
+     * User canceled the operation.
+     */
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         dismiss(animated: true, completion: nil)
     }
     
-    // Turn the network activity indicator on and off again.
+    /**
+     * Turn the network activity indicator on and off again.
+     */
     func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
     
+    /**
+     * Turn the network activity indicator on and off again.
+     */
     func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }

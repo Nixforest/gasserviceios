@@ -32,7 +32,7 @@ class OrderConfigRequest: BaseRequest {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
                 // Set data
-                (self.view as! MapViewController).saveAgentInfo(data: model.getRecord().agent)
+                (self.view as! MapViewController).saveAgentInfo(data: model.getRecord())
                 // Update data to MapViewController view (cross-thread)
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ADDRESS_VIEW_SET_DATA), object: model)

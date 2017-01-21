@@ -64,7 +64,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
      * - parameter sender:AnyObject
      */
     @IBAction func Register(_ sender: AnyObject) {
-        self.pushToView(name: DomainConst.REGISTER_VIEW_CTRL)
+        self.pushToView(name: DomainConst.G00_REGISTER_VIEW_CTRL)
     }
     
     /**
