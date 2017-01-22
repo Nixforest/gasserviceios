@@ -55,8 +55,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
      */
     public func saveAgentInfo(data: OrderConfigBean) {
         MapViewController._agentInfo.append(contentsOf: data.agent)
-        //MapViewCont roller._distance = data.distance_1
-        MapViewController._distance = 999999999
+        MapViewController._distance = data.distance_1
     }
     
     /**
@@ -113,7 +112,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         
         // Handle waiting register code confirm
         if !BaseModel.shared.getTempToken().isEmpty {
-            self.processInputConfirmCode(message: "")
+            self.processInputConfirmCode(message: DomainConst.BLANK)
         }
     }
     
@@ -129,6 +128,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         if BaseModel.shared.checkIsLogin() {
             RequestAPI.requestUpdateConfiguration(view: self)
         } else {
+            // Show login view if user not login yet
             self.pushToView(name: DomainConst.G00_LOGIN_VIEW_CTRL)
         }
         updateNearestAgent()
@@ -140,23 +140,21 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
      */
     func createMarker(info: BaseAgentInfoBean) {
         // Get lat and long value from agent information
-        let lat: CLLocationDegrees = (info.agent_latitude as NSString).doubleValue
-        let long: CLLocationDegrees = (info.agent_longitude as NSString).doubleValue
-        let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
-        if calculateDistance(pos1: self._currentPos, pos2: location) <= MapViewController._distance {
+        let lat         = (info.agent_latitude as NSString).doubleValue
+        let long        = (info.agent_longitude as NSString).doubleValue
+        let location    = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        //if calculateDistance(pos1: self._currentPos, pos2: location) <= MapViewController._distance {
             print(info.agent_name)
-            let marker = GMSMarker()
+            let marker      = GMSMarker()
             // Set icon
-            marker.icon = ImageManager.getImage(named: DomainConst.LOGO_AGENT_IMG_NAME)
+            marker.icon     = ImageManager.getImage(named: DomainConst.LOGO_AGENT_IMG_NAME)
             // Set marker position
             marker.position = location
-            marker.title = info.agent_name
-            marker.snippet = info.agent_address
-            //marker.appearAnimation = kGMSMarkerAnimationPop
-            //marker.infoWindowAnchor = CGPoint(x: 0.44, y: 0.45)
+            marker.title    = info.agent_name
+            marker.snippet  = info.agent_address
             // Insert marker into map view
-            marker.map = self._mapView
-        }
+            marker.map      = self._mapView
+        //}
     }
     
     /**
@@ -172,6 +170,9 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         return distance
     }
     
+    /**
+     * Update nearest agent and material selector
+     */
     func updateNearestAgent() {
         var distance = Double.greatestFiniteMagnitude
         for item in MapViewController._agentInfo {
@@ -184,6 +185,9 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
                 self._nearestAgent = item
                 distance = currentDist
             }
+        }
+        if distance > MapViewController._distance {
+            self._nearestAgent = AgentInfoBean.init()
         }
         self.updateMaterialSelector()
     }
@@ -204,17 +208,15 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         _mapView?.settings.myLocationButton = true
         _mapView?.delegate                  = self
         
-        // Creates a marker in the center of the map.
-        let marker = GMSMarker()
-        marker.position = self._currentPos
-        marker.title = "Công ty Cổ Phần Dầu Khí Miền Nam"
-        marker.snippet = "86 Nguyễn Cửu Vân - Bình Thạnh - TP HCM"
-        //marker.map = mapView
         self.view.insertSubview(_mapView!, at: 0)
         OrderConfigRequest.requestOrderConfig(view: self)
     }
     
-    func showHideChildrent(isHide: Bool) {
+    /**
+     * Show/hide children control
+     * - parameter isHide: True -> Hide all children control, False -> Show all children control
+     */
+    func showHideChildren(isHide: Bool) {
         _isShowChildren = isHide
         showChildren()
     }
@@ -263,7 +265,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         _txtAddress.placeholder         = DomainConst.BLANK
         _txtAddress.layer.cornerRadius  = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         _txtAddress.backgroundColor     = UIColor.white
-        _txtAddress.font                = UIFont.systemFont(ofSize: GlobalConst.SMALL_FONT_SIZE)
+        _txtAddress.font                = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE_1)
         _txtAddress.delegate            = self
         setLeftViewForTextField(textField: _txtAddress, named: DomainConst.ADDRESS_IMG_NAME)
         
@@ -331,25 +333,24 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
      * Setup material selector and its components
      */
     func setupMaterialSelector() {
+        let halfWidth = GlobalConst.SCREEN_WIDTH / 2 - GlobalConst.MARGIN
         _gasSelector = MaterialSelector(iconPath: DomainConst.CATEGORY_VIP_IMG_NAME,
-                                   name: "Gas Origin xám 12",
-                                   price: "328,000",
-                                   width: (GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN) / 2,
-                                   height: GlobalConst.BUTTON_CATEGORY_SIZE * 1.5)
-        _gasSelector?.frame = CGRect(x: GlobalConst.MARGIN,
-                           y: 0,
-                           width: (GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN) / 2,
-                           height: GlobalConst.BUTTON_CATEGORY_SIZE * 1.5)
+                                        name: DomainConst.CONTENT00237,
+                                        price: DomainConst.BLANK,
+                                        width: halfWidth,
+                                        height: GlobalConst.BUTTON_CATEGORY_SIZE * 1.5)
+        _gasSelector?.frame = CGRect(x: 0, y: 0,
+                                     width: halfWidth,
+                                     height: GlobalConst.BUTTON_CATEGORY_SIZE * 1.5)
         self._materialSelect.addSubview(_gasSelector!)
         
         _promoteSelector = MaterialSelector(iconPath: DomainConst.CATEGORY_VIP_IMG_NAME,
-                                       name: "Chọn quà tặng",
-                                       price: "",
-                                       width: GlobalConst.SCREEN_WIDTH / 2 - GlobalConst.MARGIN ,
-                                       height: GlobalConst.BUTTON_CATEGORY_SIZE * 1.5)
-        _promoteSelector?.frame = CGRect(x: GlobalConst.SCREEN_WIDTH / 2,
-                               y: 0,
-                               width: (GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN) / 2,
+                                            name: DomainConst.CONTENT00238,
+                                            price: DomainConst.BLANK,
+                                            width: halfWidth,
+                                            height: GlobalConst.BUTTON_CATEGORY_SIZE * 1.5)
+        _promoteSelector?.frame = CGRect(x: (_gasSelector?.frame.maxX)!, y: 0,
+                               width: halfWidth,
                                height: GlobalConst.BUTTON_CATEGORY_SIZE * 1.5)
         self._materialSelect.addSubview(_promoteSelector!)
         
@@ -360,11 +361,29 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         self._materialSelect.backgroundColor = UIColor.white
     }
     
+    /**
+     * Update material selector view data
+     */
     func updateMaterialSelector() {
+        // Found nearest agent information
         if self._nearestAgent.info_gas.count > 0 {
             self._gasSelector?.setImage(img: self._nearestAgent.info_gas[0].material_image)
             self._gasSelector?.setName(name: self._nearestAgent.info_gas[0].material_name)
             self._gasSelector?.setPrice(price: self._nearestAgent.info_gas[0].material_price)
+        } else {
+            self._gasSelector?.setImage(img: DomainConst.BLANK)
+            self._gasSelector?.setName(name: DomainConst.CONTENT00237)
+            self._gasSelector?.setPrice(price: DomainConst.BLANK)
+        }
+        // Found nearest agent information
+        if self._nearestAgent.info_promotion.count > 0 {
+            self._promoteSelector?.setImage(img: self._nearestAgent.info_promotion[0].material_image)
+            self._promoteSelector?.setName(name: self._nearestAgent.info_promotion[0].material_name)
+            self._promoteSelector?.setPrice(price: self._nearestAgent.info_promotion[0].material_price)
+        } else {
+            self._promoteSelector?.setImage(img: DomainConst.BLANK)
+            self._promoteSelector?.setName(name: DomainConst.CONTENT00238)
+            self._promoteSelector?.setPrice(price: DomainConst.BLANK)
         }
     }
     
@@ -471,8 +490,11 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         }
         // Show children
         if !self._isShowChildren {
-            self.showHideChildrent(isHide: false)
+            self.showHideChildren(isHide: false)
         }
+        self._currentPos = center
+        
+        updateNearestAgent()
     }
     
     /**
@@ -489,7 +511,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         print("willMove: " + "\(gesture)")
         // Hide children
         if self._isShowChildren {
-            self.showHideChildrent(isHide: true)
+            self.showHideChildren(isHide: true)
         }
     }
     

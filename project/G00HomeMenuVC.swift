@@ -10,7 +10,6 @@ import UIKit
 import harpyframework
 
 class G00HomeMenuVC: BaseMenuViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         if BaseModel.shared.checkIsLogin() {
@@ -28,8 +27,7 @@ class G00HomeMenuVC: BaseMenuViewController {
     override func configItemTapped(_ sender: AnyObject) {
         self.dismiss(animated: false) {
             NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)
-        }
-        
+        }        
     }
 
     override func didReceiveMemoryWarning() {
