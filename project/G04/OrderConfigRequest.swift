@@ -31,8 +31,9 @@ class OrderConfigRequest: BaseRequest {
             if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
+                BaseModel.shared.saveOrderConfig(config: model.getRecord())
                 // Set data
-                (self.view as! MapViewController).saveAgentInfo(data: model.getRecord())
+                (self.view as! MapViewController).saveAgentInfo()
                 // Update data to MapViewController view (cross-thread)
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ADDRESS_VIEW_SET_DATA), object: model)
@@ -43,6 +44,17 @@ class OrderConfigRequest: BaseRequest {
             }
         })
         return task
+    }
+    
+    override func execute() {
+        let serverUrl: URL = URL(string: DomainConst.SERVER_URL + self.url)!
+        let request = NSMutableURLRequest(url: serverUrl)
+        request.httpMethod = self.reqMethod
+        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
+        // Make data string
+        request.httpBody = self.data.data(using: String.Encoding.utf8)
+        let task = completetionHandler(request: request)
+        task.resume()
     }
     
     /**

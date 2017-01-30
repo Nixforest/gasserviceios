@@ -32,4 +32,10 @@ class G04Const {
     public static let G04_F00_S02_VIEW_CTRL                     = "G04F00S02VC"
     /** Name of Order delivery address view controller */
     public static let G04_F01_S01_VIEW_CTRL                     = "G04F01S01VC"
+    /** Name of Gas selector view controller */
+    public static let G04_F01_S02_VIEW_CTRL                     = "G04F01S02VC"
+    /** Name of Promote selector view controller */
+    public static let G04_F01_S03_VIEW_CTRL                     = "G04F01S03VC"
+    /** Name of Confirm view controller */
+    public static let G04_F01_S05_VIEW_CTRL                     = "G04F01S05VC"
 }

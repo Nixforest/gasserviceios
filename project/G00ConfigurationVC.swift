@@ -63,7 +63,12 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
             y: 0,
             width: self.view.frame.size.width,
             height: self.view.frame.size.height)
-        configTableView.translatesAutoresizingMaskIntoConstraints = true
+        //configTableView.translatesAutoresizingMaskIntoConstraints = true
+//        let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
+//        configTableView.register(UINib(nibName: "ConfigurationTableViewCell", bundle: frameworkBundle), forCellReuseIdentifier: "ConfigurationTableViewCell")
+//        configTableView.delegate = self
+//        configTableView.dataSource = self
+//        configView.addSubview(configTableView)
         searchBar.placeholder = DomainConst.CONTENT00128
         
         // Search bar
@@ -110,37 +115,19 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.G00_CONFIGURATION_TABLE_VIEW_CELL, for: indexPath) as! G00ConfigurationCell
-//        cell.frame = CGRect(
-//            x: cell.frame.x,
-//            y: cell.frame.y,
-//            width: self.view.frame.size.width,
-//            height: cell.frame.height)
+        let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL, for: indexPath) as! ConfigurationTableViewCell
         // Custom cell
         switch (indexPath as NSIndexPath).row {
             case 1:             // Training mode
-                cell.rightImg.isHidden  = true
-                cell.mySw.isHidden      = false
-                cell.leftImg.image      = ImageManager.getImage(named: DomainConst.TRAINING_MODE_IMG_NAME)
-                cell.nameLbl.text       = DomainConst.CONTENT00138
+                cell.setData(leftImg: DomainConst.TRAINING_MODE_IMG_NAME,
+                             name: DomainConst.CONTENT00138,
+                             switchValue: BaseModel.shared.checkTrainningMode(),
+                             action: #selector(updateTrainingMode(_:)),
+                             target: self)
             case 0:             // Information
-                cell.rightImg.isHidden  = false
-                cell.mySw.isHidden      = true
-                cell.leftImg.image      = ImageManager.getImage(named: DomainConst.INFORMATION_IMG_NAME)
-                cell.rightImg.image     = ImageManager.getImage(named: DomainConst.BACK_IMG_NAME)
-                cell.rightImg.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(M_PI)) / 180.0)
-                cell.rightImg.frame = CGRect(x: UIScreen.main.bounds.width - cell.rightImg.frame.width - 25,
-                                             y: cell.rightImg.frame.minY,
-                                             width: cell.rightImg.frame.width, height: cell.rightImg.frame.height)
-                cell.nameLbl.text       = DomainConst.CONTENT00139
-                let cellButton:UIButton = UIButton()
-                cellButton.frame        = CGRect(
-                    x: 0, y: 0,
-                    width: cell.contentView.frame.size.width,
-                    height: cell.contentView.frame.size.height)
-                cellButton.tag          = (indexPath as NSIndexPath).row
-                cellButton.addTarget(self, action: #selector(cellAction(_ :)), for: UIControlEvents.touchUpInside)
-                cell.contentView.addSubview(cellButton)
+                cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
+                             name: DomainConst.CONTENT00139,
+                             value: DomainConst.VERSION_CODE)
             default:
                 break
             
@@ -149,7 +136,23 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
         return cell //ConfigurationTableViewCell
     }
     
+    
+    /**
+     * Handle tap on cell.
+     */
+    public func updateTrainingMode(_ sender: UISwitch) {
+        if sender.isOn {
+            BaseModel.shared.setTrainningMode(true)
+        } else {
+            BaseModel.shared.setTrainningMode(false)
+        }
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        switch indexPath.row {
+        case 0:
+            self.pushToView(name: DomainConst.G00_INFORMATION_VIEW_CTRL)
+        default:
+            break
+        }
     }
 }

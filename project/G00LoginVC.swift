@@ -85,10 +85,11 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         //dismiss it, animate it off screen, whatever.
         //let tappedImageView = gestureRecognizer.view!
         imgLogoTappedCounter += 1
-        if imgLogoTappedCounter == 7 {
+        if imgLogoTappedCounter == DomainConst.MAXIMUM_TAPPED {
             imgLogoTappedCounter = 0
             print(imgLogoTappedCounter)
-            self.pushToView(name: DomainConst.G00_CONFIGURATION_VIEW_CTRL)
+            //self.pushToView(name: DomainConst.G00_CONFIGURATION_VIEW_CTRL)
+            self.pushToView(name: DomainConst.INTERNAL_VIEW_CTRL)
         }
     }
     

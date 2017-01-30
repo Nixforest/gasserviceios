@@ -27,6 +27,8 @@ class G00InfomationVC: UIViewController {
     var lblWebsiteValue: UILabel = UILabel()
     /** Logo */
     var imgLogo: UIImageView = UIImageView()
+    /** Tap counter on logo */
+    var imgLogoTappedCounter: Int = 0
     
     // MARK: Actions
     /**
@@ -35,6 +37,24 @@ class G00InfomationVC: UIViewController {
      */
     @IBAction func backButtonTapped(_ sender: AnyObject) {
         _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: Methods
+    /**
+     * Handle tap on Logo image
+     * - parameter gestureRecognizer: UITapGestureRecognizer
+     */
+    func imgLogoTapped(_ gestureRecognizer: UITapGestureRecognizer) {
+        //tappedImageView will be the image view that was tapped.
+        //dismiss it, animate it off screen, whatever.
+        //let tappedImageView = gestureRecognizer.view!
+        imgLogoTappedCounter += 1
+        if imgLogoTappedCounter == DomainConst.MAXIMUM_TAPPED {
+            imgLogoTappedCounter = 0
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let view = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.INTERNAL_VIEW_CTRL)
+            self.navigationController?.pushViewController(view, animated: true)
+        }
     }
     
     /**
@@ -140,6 +160,8 @@ class G00InfomationVC: UIViewController {
                                height: GlobalConst.LOGIN_LOGO_H)
         imgLogo.contentMode = .scaleAspectFit
         imgLogo.translatesAutoresizingMaskIntoConstraints = true
+        imgLogo.isUserInteractionEnabled = true
+        let imgLogoTappedRecognizer = UITapGestureRecognizer(target: self, action: #selector(imgLogoTapped(_:)))
         offset += imgLogo.frame.height + GlobalConst.MARGIN
         
         self.view.addSubview(lblVersion)

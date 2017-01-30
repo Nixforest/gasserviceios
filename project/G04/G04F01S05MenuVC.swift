@@ -1,29 +1,33 @@
 //
-//  G04F01S01VC.swift
+//  G04F01S05MenuVC.swift
 //  project
 //
-//  Created by SPJ on 1/18/17.
+//  Created by SPJ on 1/26/17.
 //  Copyright © 2017 admin. All rights reserved.
 //
 
 import UIKit
 import harpyframework
 
-class G04F01S01VC: MapViewController {
+class G04F01S05MenuVC: BaseMenuViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if BaseModel.shared.checkIsLogin() {
+            setItem(listValues: [false, true, false, true, true])
+        } else {
+            setItem(listValues: [true, false, true, false, true])
+        }
+        setupMenuItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func btnOrderTapped(_ sender: AnyObject) {
-        self.pushToView(name: G04Const.G04_F01_S05_VIEW_CTRL)
-    }
+    
 
     /*
     // MARK: - Navigation

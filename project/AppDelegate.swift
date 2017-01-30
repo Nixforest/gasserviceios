@@ -44,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Google maps
         GMSServices.provideAPIKey("AIzaSyDpiyIoQSxkj1GAqwUSxk-3wxxUcuQa_6k")
         GMSPlacesClient.provideAPIKey("AIzaSyBAp4n2BAmthIPvaF4FCOmQ19WEnb6trfs")
+        // Google Direct API
+        // AIzaSyB9aMZnBX9TENtEDdhsJtpGI8kfbSFtKgo
         return true
     }
 
