@@ -83,6 +83,8 @@
 		D7BE047D1E0586A400D37740 /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; };
 		D7BE047E1E0586A400D37740 /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D7C30A3D1E305BF900B3FDA6 /* OrderConfigRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C30A3C1E305BF900B3FDA6 /* OrderConfigRespModel.swift */; };
+		D7DA56AB1E40EB1000B6F618 /* OrderTransactionStartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA56AA1E40EB1000B6F618 /* OrderTransactionStartRequest.swift */; };
+		D7DA56B01E40F18F00B6F618 /* OrderTransactionStartRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA56AF1E40F18F00B6F618 /* OrderTransactionStartRespModel.swift */; };
 		D7E014A51E345FAF001F26B6 /* G04F01S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E014A41E345FAF001F26B6 /* G04F01S02VC.swift */; };
 		D7E014A81E34647D001F26B6 /* G04F01S02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E014A71E34647D001F26B6 /* G04F01S02MenuVC.swift */; };
 		D7E014B21E348F2A001F26B6 /* G04F01S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E014B11E348F2A001F26B6 /* G04F01S03VC.swift */; };
@@ -233,6 +235,8 @@
 		D791F6AC1E237BF5009CBBED /* OrderViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderViewRequest.swift; path = G04/OrderViewRequest.swift; sourceTree = "<group>"; };
 		D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 		D7C30A3C1E305BF900B3FDA6 /* OrderConfigRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderConfigRespModel.swift; path = G04/OrderConfigRespModel.swift; sourceTree = "<group>"; };
+		D7DA56AA1E40EB1000B6F618 /* OrderTransactionStartRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionStartRequest.swift; path = G04/OrderTransactionStartRequest.swift; sourceTree = "<group>"; };
+		D7DA56AF1E40F18F00B6F618 /* OrderTransactionStartRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionStartRespModel.swift; path = G04/OrderTransactionStartRespModel.swift; sourceTree = "<group>"; };
 		D7E014A41E345FAF001F26B6 /* G04F01S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S02VC.swift; path = G04/G04F01S02VC.swift; sourceTree = "<group>"; };
 		D7E014A71E34647D001F26B6 /* G04F01S02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S02MenuVC.swift; path = G04/G04F01S02MenuVC.swift; sourceTree = "<group>"; };
 		D7E014B11E348F2A001F26B6 /* G04F01S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S03VC.swift; path = G04/G04F01S03VC.swift; sourceTree = "<group>"; };
@@ -489,6 +493,7 @@
 				D791F6AB1E237BF5009CBBED /* OrderListRequest.swift */,
 				D791F6AC1E237BF5009CBBED /* OrderViewRequest.swift */,
 				D7F684401E2F49E900D3D6F4 /* OrderConfigRequest.swift */,
+				D7DA56AA1E40EB1000B6F618 /* OrderTransactionStartRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -511,6 +516,7 @@
 				D7671BE01E16E3AC0026DCFA /* OrderListRespModel.swift */,
 				D7671BEE1E16FC470026DCFA /* OrderViewRespModel.swift */,
 				D7C30A3C1E305BF900B3FDA6 /* OrderConfigRespModel.swift */,
+				D7DA56AF1E40F18F00B6F618 /* OrderTransactionStartRespModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -783,6 +789,7 @@
 				84EF50801D9437C200EE41B4 /* G01F00S02InfoView.swift in Sources */,
 				D7671BE91E16E3FE0026DCFA /* G04Const.swift in Sources */,
 				D7E014A51E345FAF001F26B6 /* G04F01S02VC.swift in Sources */,
+				D7DA56AB1E40EB1000B6F618 /* OrderTransactionStartRequest.swift in Sources */,
 				92FC1A491DC3551000815EB9 /* G01F02S03.swift in Sources */,
 				841273091D829E3A00BCC56D /* G01F00S01VC.swift in Sources */,
 				D7671BEB1E16E43A0026DCFA /* G04F00S02VC.swift in Sources */,
@@ -830,6 +837,7 @@
 				84E863551DC0E8BA00F18AA5 /* G00HomeCell.swift in Sources */,
 				92BF0C221DC1B51C009B1DA4 /* G01F02VC.swift in Sources */,
 				84459EE61D9649450087F986 /* G01F01VC.swift in Sources */,
+				D7DA56B01E40F18F00B6F618 /* OrderTransactionStartRespModel.swift in Sources */,
 				92B021AF1DC333EB00BE8AD7 /* G01F02S01.swift in Sources */,
 				842CA8E71D89045E003D9EFF /* G00AccountMenuVC.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,

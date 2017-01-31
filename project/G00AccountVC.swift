@@ -242,12 +242,12 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
         self.view.addGestureRecognizer(gesture)
         
         // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(G00AccountVC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(G00AccountVC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)
         
         // Load data from server?
         if BaseModel.shared.user_info == nil {
             // User information does not exist
-            RequestAPI.requestUserProfile(view: self)
+            RequestAPI.requestUserProfile(action: #selector(setData(_:)), view: self)
         } else {
             txtName.text    = BaseModel.shared.user_info?.getName()
             txtPhone.text   = BaseModel.shared.user_info?.getPhone()

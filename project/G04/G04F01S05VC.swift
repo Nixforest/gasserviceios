@@ -140,6 +140,7 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         self._txtPhone.layer.borderWidth = 1
         self._txtPhone.layer.borderColor = GlobalConst.MAIN_COLOR.cgColor
         self._txtPhone.textColor = GlobalConst.MAIN_COLOR
+        self._txtPhone.isUserInteractionEnabled = false
         offset = offset + self._txtPhone.frame.height
         
         // Label Address
@@ -158,10 +159,11 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
                                       height: GlobalConst.BUTTON_H)
         self._txtAddress.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         self._txtAddress.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        self._txtAddress.text = "293 Tôn Thất Thuyết"
+        self._txtAddress.text = MapViewController._currentAddress
         self._txtAddress.textAlignment = .center
         self._txtAddress.layer.borderWidth = 1
         self._txtAddress.layer.borderColor = GlobalConst.MAIN_COLOR.cgColor
+        self._txtAddress.isUserInteractionEnabled = false
         offset = offset + self._txtAddress.frame.height + GlobalConst.MARGIN
         
         // Button Confirm
@@ -209,6 +211,17 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         self._scrollView.contentSize = CGSize(width: GlobalConst.SCREEN_WIDTH,
                                               height: offset + getTopHeight())
         //self._scrollView.backgroundColor = UIColor.blue
+        
+        // Load data from server
+        if BaseModel.shared.user_info == nil {
+            // User information does not exist
+            RequestAPI.requestUserProfile(action: #selector(setData(_:)), view: self)
+        } else {
+            _txtPhone.text = BaseModel.shared.user_info?.getPhone()
+        }
+    }
+    override func setData(_ notification: Notification) {
+        _txtPhone.text = BaseModel.shared.user_info?.getPhone()
     }
 
     override func didReceiveMemoryWarning() {

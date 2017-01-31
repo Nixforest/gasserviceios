@@ -49,6 +49,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
     /** Material select */
     public static var _gasSelected      = MaterialBean()
     public static var _promoteSelected  = MaterialBean()
+    public static var _currentAddress   = DomainConst.BLANK
     
     
     // MARK: Actions
@@ -112,11 +113,15 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         // Notify set data
         NotificationCenter.default.addObserver(self, selector: #selector(setData(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ADDRESS_VIEW_SET_DATA), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setData1(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: nil)
         
         // Handle waiting register code confirm
         if !BaseModel.shared.getTempToken().isEmpty {
             self.processInputConfirmCode(message: DomainConst.BLANK)
         }
+    }
+    public func setData1(_ notification: Notification) {
+        
     }
     
     /**
@@ -192,11 +197,21 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         if distance > MapViewController._distance {
             MapViewController._nearestAgent = AgentInfoBean.init()
         }
-        if MapViewController._nearestAgent.info_gas.count > 0 {
-            MapViewController._gasSelected = MapViewController._nearestAgent.info_gas[0]
-        }
-        if MapViewController._nearestAgent.info_promotion.count > 0 {
-            MapViewController._promoteSelected = MapViewController._nearestAgent.info_promotion[0]
+        
+        // Not found agent
+        if MapViewController._nearestAgent.isEmpty() {
+            // Reset selected materials
+            MapViewController._gasSelected      = MaterialBean.init()
+            MapViewController._promoteSelected  = MaterialBean.init()
+        } else {    // Found
+            // Save selected gas
+            if MapViewController._nearestAgent.info_gas.count > 0 {
+                MapViewController._gasSelected = MapViewController._nearestAgent.info_gas[0]
+            }
+            // Save selected promote
+            if MapViewController._nearestAgent.info_promotion.count > 0 {
+                MapViewController._promoteSelected = MapViewController._nearestAgent.info_promotion[0]
+            }
         }
         
         self.updateMaterialSelector()
@@ -556,7 +571,8 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
             // Use line below to add country into address result
             //address = address?.appendingFormat(", %@", (response?.firstResult()?.country)!)
             // Set for address textbox value
-            self._txtAddress.text = address
+            //self._txtAddress.text = address
+            self.setAddressText(address: address!)
         }
         // Show children
         if !self._isShowChildren {
@@ -601,6 +617,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
      */
     public func setAddressText(address: String) {
         self._txtAddress.text = address
+        MapViewController._currentAddress = address
     }
     
 

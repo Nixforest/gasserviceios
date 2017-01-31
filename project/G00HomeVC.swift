@@ -236,7 +236,7 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         case 1:     // New uphold
             if BaseModel.shared.user_info == nil {
                 // User information does not exist
-                RequestAPI.requestUserProfile(view: self)
+                RequestAPI.requestUserProfile(action: #selector(emptyMethod(_:)), view: self)
             }
             self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
         case 2: // List uphold

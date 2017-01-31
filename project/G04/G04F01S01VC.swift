@@ -15,6 +15,13 @@ class G04F01S01VC: MapViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+    }
+    
+    override func setData1(_ notification: Notification) {
+        if !BaseModel.shared.checkTransactionKey() {
+            OrderTransactionStartRequest.requestOrderTransactionStart(action: #selector(emptyMethod(_:)), view: self)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,7 +29,17 @@ class G04F01S01VC: MapViewController {
         // Dispose of any resources that can be recreated.
     }
     override func btnOrderTapped(_ sender: AnyObject) {
-        self.pushToView(name: G04Const.G04_F01_S05_VIEW_CTRL)
+        if !MapViewController._nearestAgent.isEmpty() {
+            if BaseModel.shared.checkIsLogin() {
+                self.pushToView(name: G04Const.G04_F01_S05_VIEW_CTRL)
+            } else {
+                self.pushToView(name: DomainConst.G00_LOGIN_VIEW_CTRL)
+            }
+            
+        } else {
+            self.showAlert(message: DomainConst.CONTENT00176)
+        }
+        
     }
 
     /*
