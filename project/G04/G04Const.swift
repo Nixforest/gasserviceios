@@ -13,13 +13,15 @@ class G04Const {
     /** Function identifier */
     public static let FUNC_IDENTIFIER = DomainConst.APPNAME + "g04"
     /** Path to connect with PHP server */
-    public static let PATH_ORDER_TRANSACTION_LIST   = "order/transactionList"
+    public static let PATH_ORDER_TRANSACTION_LIST       = "order/transactionList"
     /** Path to connect with PHP server */
-    public static let PATH_ORDER_TRANSACTION_VIEW   = "order/transactionView"
+    public static let PATH_ORDER_TRANSACTION_VIEW       = "order/transactionView"
     /** Path to connect with PHP server */
-    public static let PATH_ORDER_CONFIG             = "order/getConfig"
+    public static let PATH_ORDER_CONFIG                 = "order/getConfig"
     /** Path to connect with PHP server */
-    public static let PATH_ORDER_TRANSACTION_START  = "order/transactionStart"
+    public static let PATH_ORDER_TRANSACTION_START      = "order/transactionStart"
+    /** Path to connect with PHP server */
+    public static let PATH_ORDER_TRANSACTION_COMPLETE   = "order/transactionComplete"
     /** Notification key: Configuration item */
     public static let NOTIFY_NAME_G04_ORDER_LIST_CONFIG_ITEM    = G04Const.FUNC_IDENTIFIER + ".orderlist.configitem"
     /** Notification key: Configuration item */

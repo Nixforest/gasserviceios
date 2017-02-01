@@ -162,6 +162,7 @@ class G00InfomationVC: UIViewController {
         imgLogo.translatesAutoresizingMaskIntoConstraints = true
         imgLogo.isUserInteractionEnabled = true
         let imgLogoTappedRecognizer = UITapGestureRecognizer(target: self, action: #selector(imgLogoTapped(_:)))
+        imgLogo.addGestureRecognizer(imgLogoTappedRecognizer)
         offset += imgLogo.frame.height + GlobalConst.MARGIN
         
         self.view.addSubview(lblVersion)

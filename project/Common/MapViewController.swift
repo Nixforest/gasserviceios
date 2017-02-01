@@ -34,7 +34,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
     /** Map view */
     private var _mapView: GMSMapView?   = nil
     /** Current position of map view */
-    public var _currentPos              = CLLocationCoordinate2D.init()
+    public static var _currentPos       = CLLocationCoordinate2D.init()
     /** Agent information */
     private static var _agentInfo       = [AgentInfoBean]()
     private static var _distance        = 0.0
@@ -188,7 +188,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
             let lat: CLLocationDegrees = (item.info_agent.agent_latitude as NSString).doubleValue
             let long: CLLocationDegrees = (item.info_agent.agent_longitude as NSString).doubleValue
             let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            let currentDist = calculateDistance(pos1: self._currentPos, pos2: location)
+            let currentDist = calculateDistance(pos1: MapViewController._currentPos, pos2: location)
             if distance > currentDist {
                 MapViewController._nearestAgent = item
                 distance = currentDist
@@ -221,8 +221,8 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
      * Tells the delegate that new location data is available.
      */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self._currentPos = (manager.location?.coordinate)!
-        let camera = GMSCameraPosition.camera(withLatitude: _currentPos.latitude, longitude: _currentPos.longitude, zoom: Float(self._zoomValue))
+        MapViewController._currentPos = (manager.location?.coordinate)!
+        let camera = GMSCameraPosition.camera(withLatitude: MapViewController._currentPos.latitude, longitude: MapViewController._currentPos.longitude, zoom: Float(self._zoomValue))
         _mapView = GMSMapView.map(withFrame: CGRect(x: 0,
                                                        y: self.getTopHeight(),
                                                        width:GlobalConst.SCREEN_WIDTH,
@@ -578,7 +578,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         if !self._isShowChildren {
             self.showHideChildren(isHide: false)
         }
-        self._currentPos = center
+        MapViewController._currentPos = center
         
         updateNearestAgent()
     }
@@ -635,7 +635,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
      * Move camera
      */
     public func moveCamera(position: CLLocationCoordinate2D) {
-        self._currentPos = position
+        MapViewController._currentPos = position
         let camera       = GMSCameraPosition.camera(withLatitude: position.latitude,
                                                     longitude: position.longitude,
                                                     zoom: Float(self._zoomValue))

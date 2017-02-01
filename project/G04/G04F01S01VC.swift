@@ -41,6 +41,7 @@ class G04F01S01VC: MapViewController {
         }
         
     }
+    
 
     /*
     // MARK: - Navigation
@@ -51,5 +52,10 @@ class G04F01S01VC: MapViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        if !BaseModel.shared.checkTransactionKey() {
+            OrderTransactionStartRequest.requestOrderTransactionStart(action: #selector(emptyMethod(_:)), view: self)
+        }
+    }
 }

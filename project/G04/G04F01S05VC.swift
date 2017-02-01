@@ -17,7 +17,7 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
     /** Information table view */
     @IBOutlet weak var _tblViewInfo: UITableView!
     /** List of material data */
-    private var _listMaterial:  [MaterialBean]       = [MaterialBean]()
+    private var _listMaterial:  [OrderDetailBean]       = [OrderDetailBean]()
     /** List of information data */
     private var _listInfo:      [ConfigurationModel] = [ConfigurationModel]()
     /** Label phone */
@@ -32,6 +32,8 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
     private var _btnConfirm: UIButton       = UIButton()
     /** Button cancel */
     private var _btnCancel: UIButton        = UIButton()
+    /** Current transaction data */
+    private var _transactionCompleteBean    = TransactionCompleteBean()
     
     // MARK: Methods
     /**
@@ -49,16 +51,45 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     /**
+     * Update total money form the other value
+     * - returns: Total money
+     */
+    func updateTotalMoney() -> String {
+        let fmt         = NumberFormatter()
+        fmt.numberStyle = .decimal
+        let promotion   = fmt.number(from: self._transactionCompleteBean.promotion_amount)?.doubleValue
+        let discount    = fmt.number(from: self._transactionCompleteBean.discount_amount)?.doubleValue
+        var gas = 0.0
+        for detail in self._transactionCompleteBean.order_detail {
+            gas = gas + (fmt.number(from: detail.material_price)?.doubleValue)! * (detail.qty as NSString).doubleValue
+        }
+        let total       = (gas - (promotion! + discount!))
+        return String(fmt.string(from: total as NSNumber) ?? DomainConst.BLANK)
+    }
+    
+    /**
      * Setup list material data
      */
     func setupListMaterial() {
         self._listMaterial.removeAll()
         if !MapViewController._gasSelected.material_id.isEmpty {
-            self._listMaterial.append(MapViewController._gasSelected)
+            let detailGas = OrderDetailBean(data: MapViewController._gasSelected)
+            detailGas.qty = "1"
+            self._listMaterial.append(detailGas)
         }
         if !MapViewController._promoteSelected.material_id.isEmpty {
-            self._listMaterial.append(MapViewController._promoteSelected)
+            let detailPromote = OrderDetailBean(data: MapViewController._promoteSelected)
+            detailPromote.qty = "1"
+            self._listMaterial.append(detailPromote)
         }
+    }
+    
+    /**
+     * Update data of list materials
+     */
+    func updateListMaterial() {
+        self._listMaterial.removeAll()
+        self._listMaterial.append(contentsOf: self._transactionCompleteBean.order_detail)
     }
     
     /**
@@ -82,6 +113,38 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
                                             name: DomainConst.CONTENT00240,
                                             iconPath: DomainConst.AGENT_ICON_IMG_NAME,
                                             value: MapViewController._nearestAgent.info_agent.agent_name))
+        _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_PHONE_ID,
+                                            name: DomainConst.CONTENT00241,
+                                            iconPath: DomainConst.PHONE_ICON_IMG_NAME,
+                                            value: MapViewController._nearestAgent.info_agent.agent_phone))
+        _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_SUPPORT_ID,
+                                            name: DomainConst.CONTENT00242,
+                                            iconPath: DomainConst.SUPPORT_ICON_IMG_NAME,
+                                            value: MapViewController._nearestAgent.info_agent.agent_phone_support))
+    }
+    
+    /**
+     * Update data of list information
+     */
+    func updateListInfo() {
+        self._listInfo.removeAll()
+        _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_PROMOTION_ID,
+                                            name: DomainConst.CONTENT00219,
+                                            iconPath: DomainConst.DEFAULT_MATERIAL_IMG_NAME,
+                                            value: self._transactionCompleteBean.promotion_amount + DomainConst.VIETNAMDONG))
+        _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_DISCOUNT_ID,
+                                            name: DomainConst.CONTENT00239,
+                                            iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                                            value: self._transactionCompleteBean.discount_amount + DomainConst.VIETNAMDONG))
+        
+        _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_TOTAL_MONEY_ID,
+                                            name: DomainConst.CONTENT00218,
+                                            iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                                            value: updateTotalMoney() + DomainConst.VIETNAMDONG))
+        _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_NAME_ID,
+                                            name: DomainConst.CONTENT00240,
+                                            iconPath: DomainConst.AGENT_ICON_IMG_NAME,
+                                            value: self._transactionCompleteBean.agent_name))
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_PHONE_ID,
                                             name: DomainConst.CONTENT00241,
                                             iconPath: DomainConst.PHONE_ICON_IMG_NAME,
@@ -217,11 +280,67 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
             // User information does not exist
             RequestAPI.requestUserProfile(action: #selector(setData(_:)), view: self)
         } else {
-            _txtPhone.text = BaseModel.shared.user_info?.getPhone()
+            setData()
         }
+        
     }
+    
+    /**
+     * Handler when transaction complete request is finish
+     */
+    func finishRequestTransactionCompleteHandler(_ notification: Notification) {
+        _transactionCompleteBean = (notification.object as! TransactionCompleteBean)
+        updateListMaterial()
+        updateListInfo()
+        self._tblViewMaterial.reloadData()
+        self._tblViewInfo.reloadData()
+    }
+    
+    /**
+     * Set data notification
+     */
     override func setData(_ notification: Notification) {
+        setData()
+    }
+    
+    /**
+     * Set data for	phone and request transaction complete
+     */
+    func setData() {
         _txtPhone.text = BaseModel.shared.user_info?.getPhone()
+        requestTransactionComplete()
+    }
+    
+    /**
+     * Request transaction complete
+     */
+    func requestTransactionComplete() {
+        var orderDetail = DomainConst.BLANK
+        for item in self._listMaterial {
+            orderDetail = orderDetail + item.createJsonData()
+        }
+        orderDetail = String(orderDetail.characters.dropLast())
+        OrderTransactionCompleteRequest.requestOrderTransactionComplete(
+            action: #selector(finishRequestTransactionCompleteHandler(_:)),
+            view: self,
+            key: BaseModel.shared.getTransactionData().name,
+            id: BaseModel.shared.getTransactionData().id,
+            devicePhone: DomainConst.BLANK,
+            firstName: (BaseModel.shared.user_info?.getName())!,
+            phone: (BaseModel.shared.user_info?.getPhone())!,
+            email: (BaseModel.shared.user_info?.getEmail())!,
+            provinceId: (BaseModel.shared.user_info?.getProvinceId())!,
+            districtId: (BaseModel.shared.user_info?.getDistrictId())!,
+            wardId: (BaseModel.shared.user_info?.getWardId())!,
+            streetId: (BaseModel.shared.user_info?.getStreetId())!,
+            houseNum: (BaseModel.shared.user_info?.getHouseNumber())!,
+            note: "",
+            address: MapViewController._currentAddress,
+            orderDetail: orderDetail,
+            lat: String(MapViewController._currentPos.latitude),
+            long: String(MapViewController._currentPos.longitude),
+            agentId: MapViewController._nearestAgent.info_agent.agent_id,
+            transactionType: "1")
     }
 
     override func didReceiveMemoryWarning() {

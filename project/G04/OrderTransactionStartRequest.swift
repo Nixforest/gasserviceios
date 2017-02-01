@@ -74,8 +74,8 @@ class OrderTransactionStartRequest: BaseRequest {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = OrderTransactionStartRequest(url: G04Const.PATH_ORDER_TRANSACTION_START,
-                                       reqMethod: DomainConst.HTTP_POST_REQUEST,
-                                       view: view)
+                                                   reqMethod: DomainConst.HTTP_POST_REQUEST,
+                                                   view: view)
         request.setData()
         NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
