@@ -252,7 +252,7 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         self._btnCancel.setTitle(DomainConst.CONTENT00220.uppercased(), for: UIControlState())
         self._btnCancel.setTitleColor(UIColor.white, for: UIControlState())
         self._btnCancel.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        self._btnCancel.addTarget(self, action: #selector(self.backButtonTapped(_:)), for: .touchUpInside)
+        self._btnCancel.addTarget(self, action: #selector(btnCancelTapped(_:)), for: .touchUpInside)
         self._btnCancel.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         self._btnCancel.setImage(ImageManager.getImage(named: DomainConst.CANCEL_IMG_NAME), for: UIControlState())
         self._btnCancel.imageView?.contentMode = .scaleAspectFit
@@ -347,9 +347,21 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func btnCancelTapped(_ sender: AnyObject) {
+        OrderTransactionCancelRequest.requestOrderTransactionConfirm(
+            action: #selector(finishRequestTransactionConfirmHandler(_:)),
+            view: self)
+    }
     
     func btnConfirmTapped(_ sender: AnyObject) {
-        
+        OrderTransactionConfirmRequest.requestOrderTransactionConfirm(
+            action: #selector(finishRequestTransactionConfirmHandler(_:)), view: self,
+            address: MapViewController._currentAddress,
+            phone: (BaseModel.shared.user_info?.getPhone())!)
+    }
+    
+    func finishRequestTransactionConfirmHandler(_ notification: Notification) {
+        self.backButtonTapped(self)
     }
 
     /*

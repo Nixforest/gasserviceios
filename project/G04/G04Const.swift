@@ -22,6 +22,10 @@ class G04Const {
     public static let PATH_ORDER_TRANSACTION_START      = "order/transactionStart"
     /** Path to connect with PHP server */
     public static let PATH_ORDER_TRANSACTION_COMPLETE   = "order/transactionComplete"
+    /** Path to connect with PHP server */
+    public static let PATH_ORDER_TRANSACTION_CANCEL     = "order/transactionViewCancel"
+    /** Path to connect with PHP server */
+    public static let PATH_ORDER_TRANSACTION_CONFIRM    = "order/transactionViewConfirm"
     /** Notification key: Configuration item */
     public static let NOTIFY_NAME_G04_ORDER_LIST_CONFIG_ITEM    = G04Const.FUNC_IDENTIFIER + ".orderlist.configitem"
     /** Notification key: Configuration item */

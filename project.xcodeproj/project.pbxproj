@@ -66,6 +66,8 @@
 		92FC1A4D1DC3D3E800815EB9 /* G01F02S07.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */; };
 		A6D5C206D076DEA55DDA5D48 /* libPods-project.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD94308087296BAEC6FCDC9 /* libPods-project.a */; };
 		D71C25A51E4201C600E29C3B /* OrderTransactionCompleteRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C25A41E4201C600E29C3B /* OrderTransactionCompleteRespModel.swift */; };
+		D71C25A81E42512B00E29C3B /* OrderTransactionConfirmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C25A71E42512B00E29C3B /* OrderTransactionConfirmRequest.swift */; };
+		D71C25AA1E42544300E29C3B /* OrderTransactionCancelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C25A91E42544300E29C3B /* OrderTransactionCancelRequest.swift */; };
 		D73373101E22CCC6004F2781 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D733730F1E22CCC6004F2781 /* Podfile */; };
 		D7424AA81E39BA7100E442DC /* G04F01S05VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7424AA71E39BA7100E442DC /* G04F01S05VC.swift */; };
 		D7424AAA1E39BD1F00E442DC /* G04F01S05MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7424AA91E39BD1F00E442DC /* G04F01S05MenuVC.swift */; };
@@ -221,6 +223,8 @@
 		92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S07.swift; sourceTree = "<group>"; };
 		A18C7C071B3A30513EC7D78C /* Pods-project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project.debug.xcconfig"; path = "project/Pods/Target Support Files/Pods-project/Pods-project.debug.xcconfig"; sourceTree = "<group>"; };
 		D71C25A41E4201C600E29C3B /* OrderTransactionCompleteRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionCompleteRespModel.swift; path = G04/OrderTransactionCompleteRespModel.swift; sourceTree = "<group>"; };
+		D71C25A71E42512B00E29C3B /* OrderTransactionConfirmRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionConfirmRequest.swift; path = G04/OrderTransactionConfirmRequest.swift; sourceTree = "<group>"; };
+		D71C25A91E42544300E29C3B /* OrderTransactionCancelRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionCancelRequest.swift; path = G04/OrderTransactionCancelRequest.swift; sourceTree = "<group>"; };
 		D733730F1E22CCC6004F2781 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D7424AA71E39BA7100E442DC /* G04F01S05VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S05VC.swift; path = G04/G04F01S05VC.swift; sourceTree = "<group>"; };
 		D7424AA91E39BD1F00E442DC /* G04F01S05MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S05MenuVC.swift; path = G04/G04F01S05MenuVC.swift; sourceTree = "<group>"; };
@@ -499,6 +503,8 @@
 				D7F684401E2F49E900D3D6F4 /* OrderConfigRequest.swift */,
 				D7DA56AA1E40EB1000B6F618 /* OrderTransactionStartRequest.swift */,
 				D7DA56B11E41171500B6F618 /* OrderTransactionCompleteRequest.swift */,
+				D71C25A71E42512B00E29C3B /* OrderTransactionConfirmRequest.swift */,
+				D71C25A91E42544300E29C3B /* OrderTransactionCancelRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -801,6 +807,7 @@
 				841273091D829E3A00BCC56D /* G01F00S01VC.swift in Sources */,
 				D7671BEB1E16E43A0026DCFA /* G04F00S02VC.swift in Sources */,
 				D7F684461E2F4C0B00D3D6F4 /* G04F01S01VC.swift in Sources */,
+				D71C25A81E42512B00E29C3B /* OrderTransactionConfirmRequest.swift in Sources */,
 				D791F6AD1E237BF5009CBBED /* OrderListRequest.swift in Sources */,
 				D7E014B21E348F2A001F26B6 /* G04F01S03VC.swift in Sources */,
 				8427820A1DBC9BE600781206 /* G00HomeVC.swift in Sources */,
@@ -815,6 +822,7 @@
 				92C1C9601DBD5001005A10C8 /* G01F00S03MenuVC.swift in Sources */,
 				D7EF19411E10EFEC0054A3AF /* G00RegisterMenuVC.swift in Sources */,
 				84E1E7A01D664CCD007710BD /* G00ChangePassVC.swift in Sources */,
+				D71C25AA1E42544300E29C3B /* OrderTransactionCancelRequest.swift in Sources */,
 				84EF507A1D94352600EE41B4 /* G01F00S02VC.swift in Sources */,
 				92FC1A4D1DC3D3E800815EB9 /* G01F02S07.swift in Sources */,
 				92A5C7DA1DCB794000D6572F /* G01F03MenuVC.swift in Sources */,
