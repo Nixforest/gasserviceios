@@ -33,10 +33,14 @@ class OrderTransactionCancelRequest: BaseRequest {
                 LoadingView.shared.hideOverlayView()
                 // Set data
                 BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
-                self.showAlert(message: model.message)
                 // Handle completion
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
+                    self.view.showAlert(
+                        message: model.message,
+                        okHandler: {
+                            (alert: UIAlertAction!) in
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
+                    })
                 }
             } else {
                 self.showAlert(message: model.message)
@@ -72,7 +76,7 @@ class OrderTransactionCancelRequest: BaseRequest {
      * - parameter action:  Completion handler
      * - parameter view:    Current view controller
      */
-    public static func requestOrderTransactionConfirm(action: Selector, view: BaseViewController) {
+    public static func requestOrderTransactionCancel(action: Selector, view: BaseViewController) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = OrderTransactionCancelRequest(url: G04Const.PATH_ORDER_TRANSACTION_CANCEL,

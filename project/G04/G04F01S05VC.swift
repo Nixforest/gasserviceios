@@ -17,7 +17,7 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
     /** Information table view */
     @IBOutlet weak var _tblViewInfo: UITableView!
     /** List of material data */
-    private var _listMaterial:  [OrderDetailBean]       = [OrderDetailBean]()
+    private var _listMaterial:  [OrderDetailBean]    = [OrderDetailBean]()
     /** List of information data */
     private var _listInfo:      [ConfigurationModel] = [ConfigurationModel]()
     /** Label phone */
@@ -140,7 +140,7 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_TOTAL_MONEY_ID,
                                             name: DomainConst.CONTENT00218,
                                             iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                                            value: updateTotalMoney() + DomainConst.VIETNAMDONG))
+                                            value: self._transactionCompleteBean.total + DomainConst.VIETNAMDONG))
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_NAME_ID,
                                             name: DomainConst.CONTENT00240,
                                             iconPath: DomainConst.AGENT_ICON_IMG_NAME,
@@ -274,15 +274,6 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         self._scrollView.contentSize = CGSize(width: GlobalConst.SCREEN_WIDTH,
                                               height: offset + getTopHeight())
         //self._scrollView.backgroundColor = UIColor.blue
-        
-        // Load data from server
-        if BaseModel.shared.user_info == nil {
-            // User information does not exist
-            RequestAPI.requestUserProfile(action: #selector(setData(_:)), view: self)
-        } else {
-            setData()
-        }
-        
     }
     
     /**
@@ -321,38 +312,45 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         }
         orderDetail = String(orderDetail.characters.dropLast())
         OrderTransactionCompleteRequest.requestOrderTransactionComplete(
-            action: #selector(finishRequestTransactionCompleteHandler(_:)),
-            view: self,
-            key: BaseModel.shared.getTransactionData().name,
-            id: BaseModel.shared.getTransactionData().id,
+            action:      #selector(finishRequestTransactionCompleteHandler(_:)),
+            view:        self,
+            key:         BaseModel.shared.getTransactionData().name,
+            id:          BaseModel.shared.getTransactionData().id,
             devicePhone: DomainConst.BLANK,
-            firstName: (BaseModel.shared.user_info?.getName())!,
-            phone: (BaseModel.shared.user_info?.getPhone())!,
-            email: (BaseModel.shared.user_info?.getEmail())!,
-            provinceId: (BaseModel.shared.user_info?.getProvinceId())!,
-            districtId: (BaseModel.shared.user_info?.getDistrictId())!,
-            wardId: (BaseModel.shared.user_info?.getWardId())!,
-            streetId: (BaseModel.shared.user_info?.getStreetId())!,
-            houseNum: (BaseModel.shared.user_info?.getHouseNumber())!,
-            note: "",
-            address: MapViewController._currentAddress,
+            firstName:   (BaseModel.shared.user_info?.getName())!,
+            phone:       (BaseModel.shared.user_info?.getPhone())!,
+            email:       (BaseModel.shared.user_info?.getEmail())!,
+            provinceId:  (BaseModel.shared.user_info?.getProvinceId())!,
+            districtId:  (BaseModel.shared.user_info?.getDistrictId())!,
+            wardId:      (BaseModel.shared.user_info?.getWardId())!,
+            streetId:    (BaseModel.shared.user_info?.getStreetId())!,
+            houseNum:    (BaseModel.shared.user_info?.getHouseNumber())!,
+            note:        DomainConst.BLANK,
+            address:     MapViewController._currentAddress,
             orderDetail: orderDetail,
-            lat: String(MapViewController._currentPos.latitude),
-            long: String(MapViewController._currentPos.longitude),
-            agentId: MapViewController._nearestAgent.info_agent.agent_id,
-            transactionType: "1")
+            lat:         String(MapViewController._currentPos.latitude),
+            long:        String(MapViewController._currentPos.longitude),
+            agentId:     MapViewController._nearestAgent.info_agent.agent_id,
+            transactionType: DomainConst.TRANSACTION_TYPE_NORMAL)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    /**
+     * Handle when tap cancel button
+     */
     func btnCancelTapped(_ sender: AnyObject) {
-        OrderTransactionCancelRequest.requestOrderTransactionConfirm(
+        OrderTransactionCancelRequest.requestOrderTransactionCancel(
             action: #selector(finishRequestTransactionConfirmHandler(_:)),
             view: self)
     }
     
+    /**
+     * Handle when tap confirm button
+     */
     func btnConfirmTapped(_ sender: AnyObject) {
         OrderTransactionConfirmRequest.requestOrderTransactionConfirm(
             action: #selector(finishRequestTransactionConfirmHandler(_:)), view: self,
@@ -360,7 +358,11 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
             phone: (BaseModel.shared.user_info?.getPhone())!)
     }
     
+    /**
+     * Handle when finish request transaction confirm/cancel
+     */
     func finishRequestTransactionConfirmHandler(_ notification: Notification) {
+        // Back to previous view
         self.backButtonTapped(self)
     }
 
@@ -448,6 +450,13 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
      */
     override func viewDidAppear(_ animated: Bool) {
         setupListMaterial()
-        self._tblViewMaterial.reloadData()
+        // Load data from server
+        if BaseModel.shared.user_info == nil {
+            // User information does not exist
+            RequestAPI.requestUserProfile(action: #selector(setData(_:)), view: self)
+        } else {
+            setData()
+        }
+        //self._tblViewMaterial.reloadData()
     }
 }

@@ -17,6 +17,8 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var tableView:   UITableView!
     /** Data */
     private static var _data:       OrderListRespModel = OrderListRespModel()
+    /** Current page */
+    private var _page = 0
     /**  */
     
     // MARK: Methods
@@ -69,7 +71,7 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         // Notify set data
         NotificationCenter.default.addObserver(self, selector: #selector(setData(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_LIST_SET_DATA), object: nil)
         
-        OrderListRequest.requestOrderList(page: "0", view: self)
+        OrderListRequest.requestOrderList(page: String(self._page), view: self)
     }
     
     /**
@@ -107,9 +109,24 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         return TableCellOrderType.CELL_HEIGHT
     }
     
+    /**
+     * Tells the delegate that the specified row is now selected.
+     */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        G04F00S02VC._id = G04F00S01VC._data.getRecord()[indexPath.row].id
         self.pushToView(name: G04Const.G04_F00_S02_VIEW_CTRL)
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if G04F00S01VC._data.total_page != 1 {
+            let lastElement = G04F00S01VC._data.getRecord().count - 1
+            if indexPath.row == lastElement {
+                self._page += 1
+                OrderListRequest.requestOrderList(page: String(self._page), view: self)
+            }
+        }
+    }
+    
     /**
      * View did appear
      */

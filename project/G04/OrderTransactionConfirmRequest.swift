@@ -33,10 +33,14 @@ class OrderTransactionConfirmRequest: BaseRequest {
                 LoadingView.shared.hideOverlayView()
                 // Set data
                 BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
-                self.showAlert(message: model.message)
                 // Handle completion
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
+                    self.view.showAlert(
+                        message: model.message,
+                        okHandler: {
+                            (alert: UIAlertAction!) in
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
+                    })
                 }
             } else {
                 self.showAlert(message: model.message)
