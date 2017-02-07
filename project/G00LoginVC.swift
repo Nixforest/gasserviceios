@@ -231,8 +231,8 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         
         // Fill data in training mode
         if BaseModel.shared.checkTrainningMode() {
-            txtAccount.text = "truongnd"
-            txtPassword.text = "123123"
+            txtAccount.text = "01689945321"
+            txtPassword.text = "774519"
         }
     }
     

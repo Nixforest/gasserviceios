@@ -1932,7 +1932,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConfigurationTableViewCell" id="mm0-rE-GTa" customClass="ConfigurationTableViewCell" customModule="harpyframework">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ConfigurationTableViewCellEmployee" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConfigurationTableViewCell" id="mm0-rE-GTa" customClass="ConfigurationTableViewCell" customModule="harpyframework">
                                         <rect key="frame" x="0.0" y="28" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mm0-rE-GTa" id="dKT-t0-yBP">
@@ -1951,7 +1951,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MaterialTableViewCell" id="Sm9-s3-ddD" customClass="MaterialTableViewCell" customModule="harpyframework">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ConfigurationTableViewCellMaterial" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConfigurationTableViewCell" id="Sm9-s3-ddD" customClass="ConfigurationTableViewCell" customModule="harpyframework">
                                         <rect key="frame" x="0.0" y="28" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sm9-s3-ddD" id="zEd-hN-mF5">
@@ -1970,7 +1970,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ConfigurationTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConfigurationTableViewCell" id="EEi-aQ-vuG" customClass="ConfigurationTableViewCell" customModule="harpyframework">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ConfigurationTableViewCellInfo" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConfigurationTableViewCell" id="EEi-aQ-vuG" customClass="ConfigurationTableViewCell" customModule="harpyframework">
                                         <rect key="frame" x="0.0" y="28" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EEi-aQ-vuG" id="N3c-y6-pMu">

@@ -72,6 +72,7 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(setData(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_LIST_SET_DATA), object: nil)
         
         OrderListRequest.requestOrderList(page: String(self._page), view: self)
+        self.view.makeComponentsColor()
     }
     
     /**
@@ -115,6 +116,7 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         G04F00S02VC._id = G04F00S01VC._data.getRecord()[indexPath.row].id
         self.pushToView(name: G04Const.G04_F00_S02_VIEW_CTRL)
+        self.showToast(message: "Open order detail: \(G04F00S02VC._id)")
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

@@ -115,6 +115,7 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        ConfigurationTableViewCell.PARENT_WIDTH = GlobalConst.SCREEN_WIDTH
         let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL, for: indexPath) as! ConfigurationTableViewCell
         // Custom cell
         switch (indexPath as NSIndexPath).row {

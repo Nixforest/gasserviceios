@@ -410,6 +410,7 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
             cell.setData(data: self._listMaterial[indexPath.row])
             retCell = cell
         } else if tableView == _tblViewInfo {
+            ConfigurationTableViewCell.PARENT_WIDTH = GlobalConst.SCREEN_WIDTH
             let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL,
                                                      for: indexPath) as! ConfigurationTableViewCell
                 
