@@ -65,12 +65,16 @@
 		92FC1A4B1DC3CAC000815EB9 /* G01F02S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A4A1DC3CAC000815EB9 /* G01F02S02.swift */; };
 		92FC1A4D1DC3D3E800815EB9 /* G01F02S07.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */; };
 		A6D5C206D076DEA55DDA5D48 /* libPods-project.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD94308087296BAEC6FCDC9 /* libPods-project.a */; };
+		D719D69F1E4AB5AE00D1B6C5 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D719D69E1E4AB5AE00D1B6C5 /* background.jpg */; };
 		D71C25A51E4201C600E29C3B /* OrderTransactionCompleteRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C25A41E4201C600E29C3B /* OrderTransactionCompleteRespModel.swift */; };
 		D71C25A81E42512B00E29C3B /* OrderTransactionConfirmRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C25A71E42512B00E29C3B /* OrderTransactionConfirmRequest.swift */; };
 		D71C25AA1E42544300E29C3B /* OrderTransactionCancelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C25A91E42544300E29C3B /* OrderTransactionCancelRequest.swift */; };
+		D72C8B651E49D83700541651 /* G04F02S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C8B641E49D83700541651 /* G04F02S01VC.swift */; };
+		D72C8B671E49D85900541651 /* G04F02S01MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C8B661E49D85900541651 /* G04F02S01MenuVC.swift */; };
 		D73373101E22CCC6004F2781 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D733730F1E22CCC6004F2781 /* Podfile */; };
 		D7424AA81E39BA7100E442DC /* G04F01S05VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7424AA71E39BA7100E442DC /* G04F01S05VC.swift */; };
 		D7424AAA1E39BD1F00E442DC /* G04F01S05MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7424AA91E39BD1F00E442DC /* G04F01S05MenuVC.swift */; };
+		D747F9E61E4C4FB90098A9BA /* AddPromotionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D747F9E51E4C4FB90098A9BA /* AddPromotionRequest.swift */; };
 		D7671BE11E16E3AC0026DCFA /* OrderListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7671BE01E16E3AC0026DCFA /* OrderListRespModel.swift */; };
 		D7671BE61E16E3E80026DCFA /* G04F00S01MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7671BE41E16E3E80026DCFA /* G04F00S01MenuVC.swift */; };
 		D7671BE71E16E3E80026DCFA /* G04F00S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7671BE51E16E3E80026DCFA /* G04F00S01VC.swift */; };
@@ -83,6 +87,9 @@
 		D77FFB711E0EE3BC00A795AD /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77FFB6F1E0EE3BC00A795AD /* ImageTableViewCell.xib */; };
 		D791F6AD1E237BF5009CBBED /* OrderListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D791F6AB1E237BF5009CBBED /* OrderListRequest.swift */; };
 		D791F6AE1E237BF5009CBBED /* OrderViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D791F6AC1E237BF5009CBBED /* OrderViewRequest.swift */; };
+		D79C1BB91E4AB7B600E6E121 /* splashlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = D79C1BB81E4AB7B600E6E121 /* splashlogo.png */; };
+		D79C1BBB1E4ACB3E00E6E121 /* PromotionListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C1BBA1E4ACB3E00E6E121 /* PromotionListRequest.swift */; };
+		D79C1BBF1E4AD3D700E6E121 /* PromotionListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C1BBE1E4AD3D700E6E121 /* PromotionListRespModel.swift */; };
 		D7BE047D1E0586A400D37740 /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; };
 		D7BE047E1E0586A400D37740 /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D7C30A3D1E305BF900B3FDA6 /* OrderConfigRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C30A3C1E305BF900B3FDA6 /* OrderConfigRespModel.swift */; };
@@ -222,12 +229,16 @@
 		92FC1A4A1DC3CAC000815EB9 /* G01F02S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S02.swift; sourceTree = "<group>"; };
 		92FC1A4C1DC3D3E800815EB9 /* G01F02S07.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02S07.swift; sourceTree = "<group>"; };
 		A18C7C071B3A30513EC7D78C /* Pods-project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project.debug.xcconfig"; path = "project/Pods/Target Support Files/Pods-project/Pods-project.debug.xcconfig"; sourceTree = "<group>"; };
+		D719D69E1E4AB5AE00D1B6C5 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = background.jpg; path = Assets.xcassets/background.jpg; sourceTree = "<group>"; };
 		D71C25A41E4201C600E29C3B /* OrderTransactionCompleteRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionCompleteRespModel.swift; path = G04/OrderTransactionCompleteRespModel.swift; sourceTree = "<group>"; };
 		D71C25A71E42512B00E29C3B /* OrderTransactionConfirmRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionConfirmRequest.swift; path = G04/OrderTransactionConfirmRequest.swift; sourceTree = "<group>"; };
 		D71C25A91E42544300E29C3B /* OrderTransactionCancelRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionCancelRequest.swift; path = G04/OrderTransactionCancelRequest.swift; sourceTree = "<group>"; };
+		D72C8B641E49D83700541651 /* G04F02S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F02S01VC.swift; path = G04/G04F02S01VC.swift; sourceTree = "<group>"; };
+		D72C8B661E49D85900541651 /* G04F02S01MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F02S01MenuVC.swift; path = G04/G04F02S01MenuVC.swift; sourceTree = "<group>"; };
 		D733730F1E22CCC6004F2781 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D7424AA71E39BA7100E442DC /* G04F01S05VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S05VC.swift; path = G04/G04F01S05VC.swift; sourceTree = "<group>"; };
 		D7424AA91E39BD1F00E442DC /* G04F01S05MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S05MenuVC.swift; path = G04/G04F01S05MenuVC.swift; sourceTree = "<group>"; };
+		D747F9E51E4C4FB90098A9BA /* AddPromotionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddPromotionRequest.swift; path = G04/AddPromotionRequest.swift; sourceTree = "<group>"; };
 		D7671BE01E16E3AC0026DCFA /* OrderListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderListRespModel.swift; path = G04/OrderListRespModel.swift; sourceTree = "<group>"; };
 		D7671BE41E16E3E80026DCFA /* G04F00S01MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F00S01MenuVC.swift; path = G04/G04F00S01MenuVC.swift; sourceTree = "<group>"; };
 		D7671BE51E16E3E80026DCFA /* G04F00S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F00S01VC.swift; path = G04/G04F00S01VC.swift; sourceTree = "<group>"; };
@@ -240,6 +251,9 @@
 		D77FFB6F1E0EE3BC00A795AD /* ImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
 		D791F6AB1E237BF5009CBBED /* OrderListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderListRequest.swift; path = G04/OrderListRequest.swift; sourceTree = "<group>"; };
 		D791F6AC1E237BF5009CBBED /* OrderViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderViewRequest.swift; path = G04/OrderViewRequest.swift; sourceTree = "<group>"; };
+		D79C1BB81E4AB7B600E6E121 /* splashlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = splashlogo.png; path = Assets.xcassets/splashlogo.png; sourceTree = "<group>"; };
+		D79C1BBA1E4ACB3E00E6E121 /* PromotionListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionListRequest.swift; path = G04/PromotionListRequest.swift; sourceTree = "<group>"; };
+		D79C1BBE1E4AD3D700E6E121 /* PromotionListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionListRespModel.swift; path = G04/PromotionListRespModel.swift; sourceTree = "<group>"; };
 		D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 		D7C30A3C1E305BF900B3FDA6 /* OrderConfigRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderConfigRespModel.swift; path = G04/OrderConfigRespModel.swift; sourceTree = "<group>"; };
 		D7DA56AA1E40EB1000B6F618 /* OrderTransactionStartRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionStartRequest.swift; path = G04/OrderTransactionStartRequest.swift; sourceTree = "<group>"; };
@@ -383,6 +397,8 @@
 		926670F51D927BB4000D2DED /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D79C1BB81E4AB7B600E6E121 /* splashlogo.png */,
+				D719D69E1E4AB5AE00D1B6C5 /* background.jpg */,
 				D733730F1E22CCC6004F2781 /* Podfile */,
 				D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */,
 			);
@@ -485,6 +501,15 @@
 			name = F00;
 			sourceTree = "<group>";
 		};
+		D72C8B621E49D80A00541651 /* F02 */ = {
+			isa = PBXGroup;
+			children = (
+				D72C8B641E49D83700541651 /* G04F02S01VC.swift */,
+				D72C8B661E49D85900541651 /* G04F02S01MenuVC.swift */,
+			);
+			name = F02;
+			sourceTree = "<group>";
+		};
 		D791F6A91E2379FE009CBBED /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,6 +530,8 @@
 				D7DA56B11E41171500B6F618 /* OrderTransactionCompleteRequest.swift */,
 				D71C25A71E42512B00E29C3B /* OrderTransactionConfirmRequest.swift */,
 				D71C25A91E42544300E29C3B /* OrderTransactionCancelRequest.swift */,
+				D79C1BBA1E4ACB3E00E6E121 /* PromotionListRequest.swift */,
+				D747F9E51E4C4FB90098A9BA /* AddPromotionRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -517,6 +544,7 @@
 				D7A966781E12EF2B00C9D601 /* Model */,
 				D7A9667B1E12F04900C9D601 /* F00 */,
 				D7F684441E2F4BAE00D3D6F4 /* F01 */,
+				D72C8B621E49D80A00541651 /* F02 */,
 			);
 			name = G04;
 			sourceTree = "<group>";
@@ -529,6 +557,7 @@
 				D7C30A3C1E305BF900B3FDA6 /* OrderConfigRespModel.swift */,
 				D7DA56AF1E40F18F00B6F618 /* OrderTransactionStartRespModel.swift */,
 				D71C25A41E4201C600E29C3B /* OrderTransactionCompleteRespModel.swift */,
+				D79C1BBE1E4AD3D700E6E121 /* PromotionListRespModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -711,6 +740,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84459EE01D9637DD0087F986 /* G01F00S02HistoryCell.xib in Resources */,
+				D719D69F1E4AB5AE00D1B6C5 /* background.jpg in Resources */,
 				D73373101E22CCC6004F2781 /* Podfile in Resources */,
 				84284E1C1D40DF050079DEBC /* LaunchScreen.storyboard in Resources */,
 				84E863561DC0E8BA00F18AA5 /* G00HomeCell.xib in Resources */,
@@ -718,6 +748,7 @@
 				84284E191D40DF050079DEBC /* Assets.xcassets in Resources */,
 				84EF507C1D94371000EE41B4 /* G01F00S02InfoView.xib in Resources */,
 				84284E171D40DF050079DEBC /* Main.storyboard in Resources */,
+				D79C1BB91E4AB7B600E6E121 /* splashlogo.png in Resources */,
 				D77FFB711E0EE3BC00A795AD /* ImageTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -796,9 +827,11 @@
 				D7424AAA1E39BD1F00E442DC /* G04F01S05MenuVC.swift in Sources */,
 				92C674C21DC53B8400E8BFEA /* G01F02S05.swift in Sources */,
 				92A5C7E01DCB83A900D6572F /* G01F03S04.swift in Sources */,
+				D79C1BBF1E4AD3D700E6E121 /* PromotionListRespModel.swift in Sources */,
 				92A5C7DE1DCB82AC00D6572F /* G01F03S03.swift in Sources */,
 				84459EEC1D964BA10087F986 /* G01F01S03VC.swift in Sources */,
 				84EF50801D9437C200EE41B4 /* G01F00S02InfoView.swift in Sources */,
+				D747F9E61E4C4FB90098A9BA /* AddPromotionRequest.swift in Sources */,
 				D7671BE91E16E3FE0026DCFA /* G04Const.swift in Sources */,
 				D7E014A51E345FAF001F26B6 /* G04F01S02VC.swift in Sources */,
 				D7DA56AB1E40EB1000B6F618 /* OrderTransactionStartRequest.swift in Sources */,
@@ -818,16 +851,19 @@
 				92A5C7D61DCB787300D6572F /* G01F03VC.swift in Sources */,
 				D7E014B41E348FC9001F26B6 /* G04F01S03MenuVC.swift in Sources */,
 				84E642BA1DC77B85005F6413 /* zoomIMGViewController.swift in Sources */,
+				D72C8B671E49D85900541651 /* G04F02S01MenuVC.swift in Sources */,
 				D7671BE11E16E3AC0026DCFA /* OrderListRespModel.swift in Sources */,
 				92C1C9601DBD5001005A10C8 /* G01F00S03MenuVC.swift in Sources */,
 				D7EF19411E10EFEC0054A3AF /* G00RegisterMenuVC.swift in Sources */,
 				84E1E7A01D664CCD007710BD /* G00ChangePassVC.swift in Sources */,
 				D71C25AA1E42544300E29C3B /* OrderTransactionCancelRequest.swift in Sources */,
 				84EF507A1D94352600EE41B4 /* G01F00S02VC.swift in Sources */,
+				D72C8B651E49D83700541651 /* G04F02S01VC.swift in Sources */,
 				92FC1A4D1DC3D3E800815EB9 /* G01F02S07.swift in Sources */,
 				92A5C7DA1DCB794000D6572F /* G01F03MenuVC.swift in Sources */,
 				D7671BE71E16E3E80026DCFA /* G04F00S01VC.swift in Sources */,
 				84D930D61DBA084A007A8F02 /* G01F00S02MenuVC.swift in Sources */,
+				D79C1BBB1E4ACB3E00E6E121 /* PromotionListRequest.swift in Sources */,
 				8435C24C1D8A9E2B00F9903D /* G00ChangePassMenuVC.swift in Sources */,
 				92BF0C1C1DC1ADD2009B1DA4 /* G00HomeMenuVC.swift in Sources */,
 				D791F6AE1E237BF5009CBBED /* OrderViewRequest.swift in Sources */,

@@ -72,6 +72,7 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
                                   width: GlobalConst.EDITTEXT_W,
                                   height: GlobalConst.EDITTEXT_H)
         txtName.placeholder = DomainConst.CONTENT00055
+        txtName.autocapitalizationType = .words
         txtName.translatesAutoresizingMaskIntoConstraints = true
         // Set icon
         setLeftViewForTextField(textField: txtName, named: DomainConst.USERNAME_IMG_NAME)

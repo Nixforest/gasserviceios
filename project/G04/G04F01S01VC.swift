@@ -20,7 +20,9 @@ class G04F01S01VC: MapViewController {
     
     override func setData1(_ notification: Notification) {
         if !BaseModel.shared.checkTransactionKey() {
-            OrderTransactionStartRequest.requestOrderTransactionStart(action: #selector(emptyMethod(_:)), view: self)
+            if BaseModel.shared.checkIsLogin() {
+                OrderTransactionStartRequest.requestOrderTransactionStart(action: #selector(emptyMethod(_:)), view: self)
+            }            
         }
     }
 
@@ -55,7 +57,9 @@ class G04F01S01VC: MapViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         if !BaseModel.shared.checkTransactionKey() {
-            OrderTransactionStartRequest.requestOrderTransactionStart(action: #selector(emptyMethod(_:)), view: self)
+            if BaseModel.shared.checkIsLogin() {
+                OrderTransactionStartRequest.requestOrderTransactionStart(action: #selector(emptyMethod(_:)), view: self)
+            }
         }
     }
 }

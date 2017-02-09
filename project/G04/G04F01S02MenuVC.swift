@@ -28,6 +28,15 @@ class G04F01S02MenuVC: BaseMenuViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     * Override
+     */
+    override func configItemTapped(_ sender: AnyObject) {
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)
+        }
+    }
+    
 
     /*
     // MARK: - Navigation
