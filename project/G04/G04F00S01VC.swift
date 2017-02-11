@@ -133,7 +133,7 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
      * View did appear
      */
     override func viewDidAppear(_ animated: Bool) {
-        self.updateNotificationStatus()
+        super.viewDidAppear(animated)
         self.tableView.reloadData()
     }
     

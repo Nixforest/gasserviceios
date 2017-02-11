@@ -309,9 +309,13 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
      */
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         if isKeyboardShow == false {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - 100, width: self.view.frame.size.width, height: self.view.frame.size.height)
-            })
+            let delta = self.keyboardTopY - textField.frame.maxY
+            if delta > 0 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - delta, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                })
+            }
+            
             isKeyboardShow = true
         }
         return true

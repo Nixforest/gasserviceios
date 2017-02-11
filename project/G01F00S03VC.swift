@@ -674,8 +674,4 @@ class G01F00S03VC: BaseViewController {
             BaseModel.shared.clearNotificationData()
         }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.updateNotificationStatus()
-    }
 }

@@ -111,7 +111,13 @@ class G04F02S01VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
             if !(tbxCode?.text?.isEmpty)! {
                 AddPromotionRequest.requestAddPromotion(action: #selector(self.finishRequestAddPromotion(_:)), view: self, code: (tbxCode?.text)!)
             } else {
-                //self.createAlert()
+                self.showAlert(message: DomainConst.CONTENT00025, okTitle: DomainConst.CONTENT00251,
+                               okHandler: {_ in
+                                self.createAlert()
+                },
+                               cancelHandler: {_ in
+                                
+                })
             }
         }
         

@@ -18,15 +18,7 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
     /** Config table view */
     @IBOutlet weak var configTableView: UITableView!
     
-    // MARK: Actions
-    /**
-     * View did appear
-     */
-    override func viewDidAppear(_ animated: Bool) {
-        //notification button enable/disable
-        self.updateNotificationStatus()
-    }
-    
+    // MARK: Actions    
     /**
      * Handle when tap menu item
      */

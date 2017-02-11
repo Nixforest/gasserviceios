@@ -351,20 +351,24 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
      * Setup bottom view layout
      */
     func setupBottomView() {
-        let img = ImageManager.getImage(named: DomainConst.ORDER_START_ICON_IMG_NAME)
-        let tintedImg = img?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        self._btnOrder.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
-                                      y: 0,
-                                      width: GlobalConst.BUTTON_W,
-                                      height: GlobalConst.BUTTON_H)
-        self._btnOrder.setTitle(DomainConst.CONTENT00236.uppercased(), for: UIControlState())
-        self._btnOrder.setTitleColor(UIColor.white, for: UIControlState())
-        self._btnOrder.backgroundColor = GlobalConst.MAIN_COLOR
-        self._btnOrder.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        self._btnOrder.addTarget(self, action: #selector(btnOrderTapped), for: .touchUpInside)
-        self._btnOrder.tintColor = UIColor.white
-        self._btnOrder.setImage(tintedImg, for: UIControlState())
-        self._btnOrder.imageView?.contentMode = .scaleAspectFit
+//        let img = ImageManager.getImage(named: DomainConst.ORDER_START_ICON_IMG_NAME)
+//        let tintedImg = img?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+//        CommonProcess.createButtonLayout(btn: self._btnOrder,
+//                                         x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+//                                         y: 0,
+//                                         text: DomainConst.CONTENT00236.uppercased())
+//        self._btnOrder.addTarget(self, action: #selector(btnOrderTapped), for: .touchUpInside)
+//        self._btnOrder.tintColor = UIColor.white
+//        self._btnOrder.setImage(tintedImg, for: UIControlState())
+//        self._btnOrder.imageView?.contentMode = .scaleAspectFit
+        CommonProcess.createButtonLayout(btn: self._btnOrder,
+                                         x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                         y: 0,
+                                         text: DomainConst.CONTENT00236.uppercased(),
+                                         action: #selector(btnOrderTapped),
+                                         target: self,
+                                         img: DomainConst.ORDER_START_ICON_IMG_NAME,
+                                         tintedColor: UIColor.white)
         self._btnOrder.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN_CELL_X,
                                                       left: GlobalConst.MARGIN_CELL_X,
                                                       bottom: GlobalConst.MARGIN_CELL_X,
@@ -645,6 +649,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         updateMaterialSelector()
     }
 }

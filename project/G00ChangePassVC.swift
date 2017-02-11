@@ -203,28 +203,24 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
         txtNewPasswordRetype.isSecureTextEntry = !bShowPassword
         
         // Save button
-        saveButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
-                                  y: checkboxButton.frame.maxY + GlobalConst.MARGIN,
-                                  width: GlobalConst.BUTTON_W,
-                                  height: GlobalConst.BUTTON_H)
-        saveButton.setTitle(DomainConst.CONTENT00229.uppercased(), for: UIControlState())
-        saveButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        saveButton.setTitleColor(UIColor.white, for: UIControlState())
-        saveButton.translatesAutoresizingMaskIntoConstraints = true
-        saveButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        saveButton.setImage(ImageManager.getImage(named: DomainConst.SAVE_INFO_IMG_NAME), for: UIControlState())
-        saveButton.imageView?.contentMode = .scaleAspectFit
+        CommonProcess.createButtonLayout(btn: saveButton,
+                                         x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                         y: checkboxButton.frame.maxY + GlobalConst.MARGIN,
+                                         text: DomainConst.CONTENT00229.uppercased(),
+                                         action: #selector(saveButtonTapped(_:)),
+                                         target: self,
+                                         img: DomainConst.SAVE_INFO_IMG_NAME,
+                                         tintedColor: UIColor.white)
         
         // Logout buton
-        logoutButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
-                                    y: saveButton.frame.maxY + GlobalConst.MARGIN,
-                                    width: GlobalConst.BUTTON_W,
-                                    height: GlobalConst.BUTTON_H)
-        logoutButton.setTitle(DomainConst.CONTENT00090, for: UIControlState())
-        logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        logoutButton.setTitleColor(UIColor.white, for: UIControlState())
-        logoutButton.layer.cornerRadius = 6
-        logoutButton.translatesAutoresizingMaskIntoConstraints = true
+        CommonProcess.createButtonLayout(btn: logoutButton,
+                                         x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                         y: saveButton.frame.maxY + GlobalConst.MARGIN,
+                                         text: DomainConst.CONTENT00090.uppercased(),
+                                         action: #selector(logoutButtonTapped(_:)),
+                                         target: self,
+                                         img: DomainConst.SAVE_INFO_IMG_NAME,
+                                         tintedColor: UIColor.white)
         
         // Navigation Bar customize
         setupNavigationBar(title: DomainConst.CONTENT00089, isNotifyEnable: true)
@@ -268,9 +264,12 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
      */
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         if isKeyboardShow == false {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - 100, width: self.view.frame.size.width, height: self.view.frame.size.height)
-            })
+            let delta = self.keyboardTopY - textField.frame.maxY
+            if delta > 0 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - delta, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                })
+            }
             isKeyboardShow = true
         }
         return true

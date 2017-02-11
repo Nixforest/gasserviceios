@@ -450,6 +450,7 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
      * View did appear
      */
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         setupListMaterial()
         // Load data from server
         if BaseModel.shared.user_info == nil {

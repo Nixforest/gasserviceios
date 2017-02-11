@@ -83,7 +83,4 @@ class G01F03VC: StepVC, StepDoneDelegate {
      // Pass the selected object to the new view controller.
      }
      */
-    override func viewDidAppear(_ animated: Bool) {
-        self.updateNotificationStatus()
-    }
 }

@@ -138,9 +138,6 @@ class G01F01VC: StepVC, StepDoneDelegate {
      // Pass the selected object to the new view controller.
      }
      */
-    override func viewDidAppear(_ animated: Bool) {
-        self.updateNotificationStatus()
-    }
     
     /**
      * Override get height of top segment function
