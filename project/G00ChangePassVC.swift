@@ -27,6 +27,8 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
     @IBOutlet weak var txtNewPassword: UITextField!
     /** Retype-New password textbox */
     @IBOutlet weak var txtNewPasswordRetype: UITextField!
+    /** Current text field */
+    private var _currentTextField: UITextField? = nil
     /** Avatar image */
     @IBOutlet weak var imgAvatar: UIImageView!
     
@@ -67,7 +69,7 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
         }
         // Check if password is correct
         if (txtNewPassword.text == txtNewPasswordRetype.text){
-            //print("password update successfully")
+            self.showToast(message: "password update successfully")
             RequestAPI.requestChangePassword(
                 oldPass: txtOldPassword.text!,
                 newPass: txtNewPassword.text!,
@@ -246,7 +248,7 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
 
 
     /**
-     * Hilde keyboard
+     * Hide keyboard
      * - parameter sender: Gesture
      */
     func hideKeyboard(_ sender:UITapGestureRecognizer){
@@ -264,15 +266,32 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
      */
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         if isKeyboardShow == false {
-            let delta = self.keyboardTopY - textField.frame.maxY
+            isKeyboardShow = true
+        }
+        return true
+    }
+    
+    /**
+     * Handle when focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self._currentTextField = textField
+    }
+    
+    /**
+     * Handle move textfield when keyboard overloading
+     */
+    override func keyboardWillShow(_ notification: Notification) {
+        super.keyboardWillShow(notification)
+        if self._currentTextField != nil {
+            let delta = (self._currentTextField?.frame.maxY)! - self.keyboardTopY
             if delta > 0 {
                 UIView.animate(withDuration: 0.3, animations: {
                     self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - delta, width: self.view.frame.size.width, height: self.view.frame.size.height)
                 })
             }
-            isKeyboardShow = true
         }
-        return true
     }
     
     /**

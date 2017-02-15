@@ -19,6 +19,8 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
     @IBOutlet weak var txtPhone: UITextField!
     /** Register button */
     @IBOutlet weak var registerButton: UIButton!
+    /** Current text field */
+    private var _currentTextField: UITextField? = nil
     
     // MARK: Actions
     /**
@@ -58,7 +60,8 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
         
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
-        imgCenter.image = ImageManager.getImage(named: DomainConst.LOGO_IMG_NAME)
+        imgCenter.image = ImageManager.getImage(named: BaseModel.shared.getMainLogo()
+        )
         imgCenter.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W) / 2,
                                y: heigh + GlobalConst.MARGIN,
                                width: GlobalConst.LOGIN_LOGO_W,
@@ -132,15 +135,44 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     * Handle when focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         if isKeyboardShow == false {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - self.keyboardTopY, width: self.view.frame.size.width, height: self.view.frame.size.height)
-            }) 
             isKeyboardShow = true
         }
         return true
     }
+    
+    /**
+     * Handle when focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self._currentTextField = textField
+    }
+    
+    /**
+     * Handle move textfield when keyboard overloading
+     */
+    override func keyboardWillShow(_ notification: Notification) {
+        super.keyboardWillShow(notification)
+        if self._currentTextField != nil {
+            let delta = (self._currentTextField?.frame.maxY)! - self.keyboardTopY
+            if delta > 0 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - delta, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                })
+            }
+        }
+    }
+    
+    /**
+     * Hide keyboard
+     * - parameter sender: Gesture
+     */
     func hideKeyboard(_ sender:UITapGestureRecognizer){
         self.view.endEditing(true)
         UIView.animate(withDuration: 0.3, animations: {
@@ -149,6 +181,11 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
         isKeyboardShow = false
         
     }
+    
+    /**
+     * Handle when lost focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //hide keyboard
         //textField.resignFirstResponder()

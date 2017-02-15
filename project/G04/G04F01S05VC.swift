@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     /** Scroll view */
     @IBOutlet weak var _scrollView: UIScrollView!
     /** Material table view */
@@ -28,6 +28,8 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
     private var _txtPhone: UITextField      = UITextField()
     /** Textfield address */
     private var _txtAddress: UITextField    = UITextField()
+    /** Current text field */
+    private var _currentTextField: UITextField? = nil
     /** Button confirm */
     private var _btnConfirm: UIButton       = UIButton()
     /** Button cancel */
@@ -77,11 +79,11 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
             detailGas.qty = "1"
             self._listMaterial.append(detailGas)
         }
-        if !MapViewController._promoteSelected.material_id.isEmpty {
+        //if !MapViewController._promoteSelected.material_id.isEmpty {
             let detailPromote = OrderDetailBean(data: MapViewController._promoteSelected)
             detailPromote.qty = "1"
             self._listMaterial.append(detailPromote)
-        }
+        //}
     }
     
     /**
@@ -90,6 +92,10 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
     func updateListMaterial() {
         self._listMaterial.removeAll()
         self._listMaterial.append(contentsOf: self._transactionCompleteBean.order_detail)
+        if self._listMaterial.count == 2 &&
+            self._listMaterial[1].material_id.isEmpty {
+            self._listMaterial[1].material_name = DomainConst.CONTENT00244
+        }
     }
     
     /**
@@ -140,7 +146,7 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_TOTAL_MONEY_ID,
                                             name: DomainConst.CONTENT00218,
                                             iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                                            value: self._transactionCompleteBean.total + DomainConst.VIETNAMDONG))
+                                            value: self._transactionCompleteBean.grand_total + DomainConst.VIETNAMDONG))
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_NAME_ID,
                                             name: DomainConst.CONTENT00240,
                                             iconPath: DomainConst.AGENT_ICON_IMG_NAME,
@@ -203,7 +209,8 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         self._txtPhone.layer.borderWidth = 1
         self._txtPhone.layer.borderColor = GlobalConst.MAIN_COLOR.cgColor
         self._txtPhone.textColor = GlobalConst.MAIN_COLOR
-        self._txtPhone.isUserInteractionEnabled = false
+        self._txtPhone.returnKeyType = .done
+        //self._txtPhone.isUserInteractionEnabled = false
         offset = offset + self._txtPhone.frame.height
         
         // Label Address
@@ -226,7 +233,8 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         self._txtAddress.textAlignment = .center
         self._txtAddress.layer.borderWidth = 1
         self._txtAddress.layer.borderColor = GlobalConst.MAIN_COLOR.cgColor
-        self._txtAddress.isUserInteractionEnabled = false
+        self._txtAddress.returnKeyType = .done
+        //self._txtAddress.isUserInteractionEnabled = false
         offset = offset + self._txtAddress.frame.height + GlobalConst.MARGIN
         
         // Button Confirm
@@ -273,7 +281,8 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
                                         height: GlobalConst.SCREEN_HEIGHT)
         self._scrollView.contentSize = CGSize(width: GlobalConst.SCREEN_WIDTH,
                                               height: offset + getTopHeight())
-        //self._scrollView.backgroundColor = UIColor.blue
+        self._txtPhone.delegate = self
+        self._txtAddress.delegate = self
     }
     
     /**
@@ -308,7 +317,9 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
     func requestTransactionComplete() {
         var orderDetail = DomainConst.BLANK
         for item in self._listMaterial {
-            orderDetail = orderDetail + item.createJsonData()
+            if !item.material_id.isEmpty {
+                orderDetail = orderDetail + item.createJsonData()
+            }            
         }
         orderDetail = String(orderDetail.characters.dropLast())
         OrderTransactionCompleteRequest.requestOrderTransactionComplete(
@@ -354,8 +365,8 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
     func btnConfirmTapped(_ sender: AnyObject) {
         OrderTransactionConfirmRequest.requestOrderTransactionConfirm(
             action: #selector(finishRequestTransactionConfirmHandler(_:)), view: self,
-            address: MapViewController._currentAddress,
-            phone: (BaseModel.shared.user_info?.getPhone())!)
+            address: self._txtAddress.text!,
+            phone: self._txtPhone.text!)
     }
     
     /**
@@ -460,5 +471,82 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
             setData()
         }
         //self._tblViewMaterial.reloadData()
+    }
+    
+    
+    /**
+     * Hide keyboard
+     * - parameter sender: Gesture
+     */
+    func hideKeyboard(_ sender:UITapGestureRecognizer){
+        self.view.endEditing(true)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.frame = CGRect(x: self.view.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        })
+        isKeyboardShow = false
+    }
+    
+    /**
+     * Handle when focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
+    internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
+        if isKeyboardShow == false {
+            isKeyboardShow = true
+        }
+        return true
+    }
+    
+    /**
+     * Handle when focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self._currentTextField = textField
+    }
+    
+    /**
+     * Handle move textfield when keyboard overloading
+     */
+    override func keyboardWillShow(_ notification: Notification) {
+        super.keyboardWillShow(notification)
+        if self._currentTextField != nil {
+            let bottomOffset = CGPoint(x: 0.0,
+                                       y: _scrollView.contentSize.height - _scrollView.bounds.size.height)
+            _scrollView.setContentOffset(bottomOffset, animated: true)
+            let delta = (self._currentTextField?.frame.maxY)! + getTopHeight() - self.keyboardTopY
+            if delta > 0 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - delta, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                })
+            }
+        }
+    }
+    
+    /**
+     * Handle when lost focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //hide keyboard
+        //textField.resignFirstResponder()
+        let nextTag = textField.tag + 1
+        // Try to find next responder
+        let nextResponder = textField.superview?.viewWithTag(nextTag) as UIResponder!
+        
+        if (nextResponder != nil){
+            // Found next responder, so set it.
+            nextResponder?.becomeFirstResponder()
+        }
+        else
+        {
+            // Not found, so remove keyboard
+            textField.resignFirstResponder()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.frame = CGRect(x: self.view.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            })
+        }
+        return true
     }
 }

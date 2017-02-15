@@ -55,12 +55,6 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
             y: 0,
             width: self.view.frame.size.width,
             height: self.view.frame.size.height)
-        //configTableView.translatesAutoresizingMaskIntoConstraints = true
-//        let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
-//        configTableView.register(UINib(nibName: "ConfigurationTableViewCell", bundle: frameworkBundle), forCellReuseIdentifier: "ConfigurationTableViewCell")
-//        configTableView.delegate = self
-//        configTableView.dataSource = self
-//        configView.addSubview(configTableView)
         searchBar.placeholder = DomainConst.CONTENT00128
         
         // Search bar
@@ -91,7 +85,7 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        return 1
     }
     
     /**
@@ -111,12 +105,6 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL, for: indexPath) as! ConfigurationTableViewCell
         // Custom cell
         switch (indexPath as NSIndexPath).row {
-            case 1:             // Training mode
-                cell.setData(leftImg: DomainConst.TRAINING_MODE_IMG_NAME,
-                             name: DomainConst.CONTENT00138,
-                             switchValue: BaseModel.shared.checkTrainningMode(),
-                             action: #selector(updateTrainingMode(_:)),
-                             target: self)
             case 0:             // Information
                 cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
                              name: DomainConst.CONTENT00139,
@@ -129,17 +117,6 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
         return cell //ConfigurationTableViewCell
     }
     
-    
-    /**
-     * Handle tap on cell.
-     */
-    public func updateTrainingMode(_ sender: UISwitch) {
-        if sender.isOn {
-            BaseModel.shared.setTrainningMode(true)
-        } else {
-            BaseModel.shared.setTrainningMode(false)
-        }
-    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:

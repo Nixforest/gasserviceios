@@ -65,4 +65,13 @@ public class OrderListRespModel: BaseRespModel {
     public func getRecord() -> [OrderListBean] {
         return self.record
     }
+    
+    /**
+     * Append list of record
+     * - parameter contentOf: List of record
+     */
+    public func append(contentOf: [OrderListBean]) {
+        self.record.append(contentsOf: contentOf)
+    }
+    
 }

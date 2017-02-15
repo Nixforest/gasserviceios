@@ -41,7 +41,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
     /** Flag show/hide children controls */
     private var _isShowChildren         = true
     /** Camera zoom value */
-    public let _zoomValue: CGFloat      = 15.0
+    public let _zoomValue: CGFloat      = BaseModel.shared.getZoomValue()
     /** Manager location */
     private let _location               =  CLLocationManager()
     /** Save neares agent information */
@@ -208,10 +208,10 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
             if MapViewController._nearestAgent.info_gas.count > 0 {
                 MapViewController._gasSelected = MapViewController._nearestAgent.info_gas[0]
             }
-            // Save selected promote
-            if MapViewController._nearestAgent.info_promotion.count > 0 {
-                MapViewController._promoteSelected = MapViewController._nearestAgent.info_promotion[0]
-            }
+//            // Save selected promote
+//            if MapViewController._nearestAgent.info_promotion.count > 0 {
+//                MapViewController._promoteSelected = MapViewController._nearestAgent.info_promotion[0]
+//            }
         }
         
         self.updateMaterialSelector()
@@ -444,32 +444,20 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
     func updateMaterialSelector() {
         // Found nearest agent information
         if !MapViewController._gasSelected.material_id.isEmpty {
-//            self._gasSelector?.setImage(img: MapViewController._gasSelected.material_image)
-//            self._gasSelector?.setName(name: MapViewController._gasSelected.material_name)
-//            self._gasSelector?.setPrice(price: MapViewController._gasSelected.material_price)
             self._gasSelector?.updateContent(iconPath: MapViewController._gasSelected.material_image,
                                              name: MapViewController._gasSelected.material_name,
                                              price: MapViewController._gasSelected.material_price)
         } else {
-//            self._gasSelector?.setImage(img: DomainConst.BLANK)
-//            self._gasSelector?.setName(name: DomainConst.CONTENT00237)
-//            self._gasSelector?.setPrice(price: DomainConst.BLANK)
             self._gasSelector?.updateContent(iconPath: DomainConst.BLANK,
                                              name: DomainConst.CONTENT00237,
                                              price: DomainConst.BLANK)
         }
         // Found nearest agent information
         if !MapViewController._promoteSelected.material_id.isEmpty {
-//            self._promoteSelector?.setImage(img: MapViewController._promoteSelected.material_image)
-//            self._promoteSelector?.setName(name: MapViewController._promoteSelected.material_name)
-//            self._promoteSelector?.setPrice(price: MapViewController._promoteSelected.material_price)
             self._promoteSelector?.updateContent(iconPath: MapViewController._promoteSelected.material_image,
                                              name: MapViewController._promoteSelected.material_name,
                                              price: MapViewController._promoteSelected.material_price)
         } else {
-//            self._promoteSelector?.setImage(img: DomainConst.BLANK)
-//            self._promoteSelector?.setName(name: DomainConst.CONTENT00238)
-//            self._promoteSelector?.setPrice(price: DomainConst.BLANK)
             self._promoteSelector?.updateContent(iconPath: DomainConst.BLANK,
                                              name: DomainConst.CONTENT00238,
                                              price: DomainConst.BLANK)

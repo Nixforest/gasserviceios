@@ -33,6 +33,8 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
     @IBOutlet weak var txtAddress: UITextField!
     /** User avatar picker */
     var userAvatarPicker = UIImagePickerController()
+    /** Current text field */
+    private var _currentTextField: UITextField? = nil
     
     // MARK: Actions
     /**
@@ -74,7 +76,7 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
             // Call alert
             showAlert(message: DomainConst.CONTENT00025)
         } else {
-            print("Save successfully")
+            self.showToast(message: "Save successfully")
         }
     }
     
@@ -275,12 +277,32 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
      */
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         if isKeyboardShow == false {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - self.keyboardTopY, width: self.view.frame.size.width, height: self.view.frame.size.height)
-            }) 
             isKeyboardShow = true
         }
         return true
+    }
+    
+    /**
+     * Handle when focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self._currentTextField = textField
+    }
+    
+    /**
+     * Handle move textfield when keyboard overloading
+     */
+    override func keyboardWillShow(_ notification: Notification) {
+        super.keyboardWillShow(notification)
+        if self._currentTextField != nil {
+            let delta = (self._currentTextField?.frame.maxY)! - self.keyboardTopY
+            if delta > 0 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - delta, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                })
+            }
+        }
     }
     
     /**

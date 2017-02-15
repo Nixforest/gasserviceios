@@ -61,20 +61,14 @@ class G04F02S01VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         tableView.separatorStyle = .none
         
         // Button Add
-        self._btnAdd.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
-                                          y: tableView.frame.maxY + GlobalConst.MARGIN,
-                                          width: GlobalConst.BUTTON_W,
-                                          height: GlobalConst.BUTTON_H)
-        self._btnAdd.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        self._btnAdd.setTitle(DomainConst.CONTENT00222.uppercased(), for: UIControlState())
-        self._btnAdd.setTitleColor(UIColor.white, for: UIControlState())
-        self._btnAdd.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        self._btnAdd.addTarget(self, action: #selector(_btnAddTapped),
-                               for: .touchUpInside)
-        self._btnAdd.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        self._btnAdd.setImage(ImageManager.getImage(named: DomainConst.CANCEL_IMG_NAME), for: UIControlState())
-        self._btnAdd.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
-        self._btnAdd.imageView?.contentMode = .scaleAspectFit
+        CommonProcess.createButtonLayout(btn: self._btnAdd,
+                                         x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                         y: tableView.frame.maxY + GlobalConst.MARGIN,
+                                         text: DomainConst.CONTENT00222.uppercased(),
+                                         action: #selector(_btnAddTapped),
+                                         target: self,
+                                         img: DomainConst.ADD_ICON_IMG_NAME,
+                                         tintedColor: UIColor.white)
         self.view.addSubview(self._btnAdd)
 
         // Do any additional setup after loading the view.

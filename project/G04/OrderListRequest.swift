@@ -27,15 +27,13 @@ class OrderListRequest: BaseRequest {
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
             print(dataString ?? "")
             // Convert to object
-            let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
+            let model: OrderListRespModel = OrderListRespModel(jsonString: dataString as! String)
             if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
-                // Set data
-                (self.view as! G04F00S01VC).setData(jsonString: dataString as! String)
-                // Update data to G04F00S01 view (cross-thread)
+                // Handle completion
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_LIST_SET_DATA), object: model)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
                 }
             } else {
                 self.showAlert(message: model.message)
@@ -71,13 +69,14 @@ class OrderListRequest: BaseRequest {
      * Request order list function
      * - parameter page:    Page index
      */
-    public static func requestOrderList(page: String, view: BaseViewController) {
+    public static func requestOrderList(action: Selector, view: BaseViewController, page: String) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = OrderListRequest(url: G04Const.PATH_ORDER_TRANSACTION_LIST,
                                        reqMethod: DomainConst.HTTP_POST_REQUEST,
                                        view: view)
         request.setData(page: page)
+        NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
 }

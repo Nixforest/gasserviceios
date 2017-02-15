@@ -153,7 +153,7 @@ class G00InfomationVC: UIViewController {
         offset += GlobalConst.LABEL_HEIGHT / 2 + GlobalConst.MARGIN
         
         // Logo
-        imgLogo.image = ImageManager.getImage(named: DomainConst.LOGO_IMG_NAME)
+        imgLogo.image = ImageManager.getImage(named: BaseModel.shared.getMainLogo())
         imgLogo.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W) / 2,
                                y: offset,
                                width: GlobalConst.LOGIN_LOGO_W,

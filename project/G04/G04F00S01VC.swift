@@ -19,17 +19,8 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
     private static var _data:       OrderListRespModel = OrderListRespModel()
     /** Current page */
     private var _page = 0
-    /**  */
     
     // MARK: Methods
-    /**
-     * Set data of screen.
-     * - parameter jsonString: JSON data
-     */
-    public func setData(jsonString: String) {
-        G04F00S01VC._data = OrderListRespModel(jsonString: jsonString)
-    }
-    
     /**
      * Handle when tap menu item
      */
@@ -71,7 +62,7 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         // Notify set data
         NotificationCenter.default.addObserver(self, selector: #selector(setData(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_LIST_SET_DATA), object: nil)
         
-        OrderListRequest.requestOrderList(page: String(self._page), view: self)
+        OrderListRequest.requestOrderList(action: #selector(setData(_:)), view: self, page: String(self._page))
         self.view.makeComponentsColor()
     }
     
@@ -79,6 +70,10 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
+        let data = (notification.object as! OrderListRespModel)
+        G04F00S01VC._data.total_page = data.total_page
+        G04F00S01VC._data.total_record = data.total_record
+        G04F00S01VC._data.append(contentOf: data.getRecord())
         tableView.reloadData()
     }
     
@@ -119,12 +114,20 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         self.showToast(message: "Open order detail: \(G04F00S02VC._id)")
     }
     
+    /**
+     * Tells the delegate the table view is about to draw a cell for a particular row.
+     */
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // Total page does not 1
         if G04F00S01VC._data.total_page != 1 {
             let lastElement = G04F00S01VC._data.getRecord().count - 1
+            // Current is the last element
             if indexPath.row == lastElement {
                 self._page += 1
-                OrderListRequest.requestOrderList(page: String(self._page), view: self)
+                // Page less than total page
+                if self._page <= G04F00S01VC._data.total_page {
+                    OrderListRequest.requestOrderList(action: #selector(setData(_:)), view: self, page: String(self._page))
+                }
             }
         }
     }

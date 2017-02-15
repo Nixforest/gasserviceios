@@ -130,7 +130,12 @@ class G04F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
      * Setup list material data
      */
     func setupListMaterial(data: OrderBean = OrderBean()) {
-        self._listMaterial.append(contentsOf: data.order_detail)
+        for item in data.order_detail {
+            if !item.material_id.isEmpty {
+                self._listMaterial.append(item)
+            }
+        }
+        //self._listMaterial.append(contentsOf: data.order_detail)
         updateLayout(data: data)
     }
     
@@ -139,14 +144,19 @@ class G04F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
      */
     func setupListInfo(data: OrderBean = OrderBean()) {
         self._listInfo.removeAll()
-        _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_PROMOTION_ID,
-                                            name: DomainConst.CONTENT00219,
-                                            iconPath: DomainConst.DEFAULT_MATERIAL_IMG_NAME,
-                                            value: data.promotion_amount + DomainConst.VIETNAMDONG))
-        _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_DISCOUNT_ID,
-                                            name: DomainConst.CONTENT00239,
-                                            iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                                            value: data.discount_amount + DomainConst.VIETNAMDONG))
+        if data.promotion_amount != DomainConst.NUMBER_ZERO_VALUE {
+            _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_PROMOTION_ID,
+                                                name: DomainConst.CONTENT00219,
+                                                iconPath: DomainConst.DEFAULT_MATERIAL_IMG_NAME,
+                                                value: data.promotion_amount + DomainConst.VIETNAMDONG))
+        }
+        if data.discount_amount != DomainConst.NUMBER_ZERO_VALUE {
+            _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_DISCOUNT_ID,
+                                                name: DomainConst.CONTENT00239,
+                                                iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                                                value: data.discount_amount + DomainConst.VIETNAMDONG))
+        }
+        
         if data.amount_bu_vo != DomainConst.NUMBER_ZERO_VALUE {
             _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_BUVO_ID,
                                                 name: DomainConst.CONTENT00246,
@@ -156,7 +166,7 @@ class G04F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_TOTAL_MONEY_ID,
                                             name: DomainConst.CONTENT00218,
                                             iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                                            value: data.total + DomainConst.VIETNAMDONG))
+                                            value: data.grand_total + DomainConst.VIETNAMDONG))
         updateLayout(data: data)
     }
     

@@ -33,6 +33,8 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
     @IBOutlet weak var btnSeparator: UIButton!
     /** Tap counter on logo */
     var imgLogoTappedCounter:Int = 0
+    /** Current text field */
+    private var _currentTextField: UITextField? = nil
     
     // MARK: Actions
     /**
@@ -118,8 +120,7 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
-        //imgLogo.image = UIImage(named: GlobalConst.LOGO_IMG_NAME)
-        imgLogo.image = ImageManager.getImage(named: DomainConst.LOGO_IMG_NAME)
+        imgLogo.image = ImageManager.getImage(named: BaseModel.shared.getMainLogo())
         imgLogo.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W) / 2,
                                y: heigh + GlobalConst.MARGIN,
                                width: GlobalConst.LOGIN_LOGO_W,
@@ -308,17 +309,33 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
      * - parameter textField: Textfield will be focusing
      */
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
-        if isKeyboardShow == false {
-            let delta = self.keyboardTopY - textField.frame.maxY
+        if isKeyboardShow == false {            
+            isKeyboardShow = true
+        }
+        return true
+    }
+    
+    /**
+     * Handle when focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self._currentTextField = textField
+    }
+    
+    /**
+     * Handle move textfield when keyboard overloading
+     */
+    override func keyboardWillShow(_ notification: Notification) {
+        super.keyboardWillShow(notification)
+        if self._currentTextField != nil {
+            let delta = (self._currentTextField?.frame.maxY)! - self.keyboardTopY
             if delta > 0 {
                 UIView.animate(withDuration: 0.3, animations: {
                     self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - delta, width: self.view.frame.size.width, height: self.view.frame.size.height)
                 })
             }
-            
-            isKeyboardShow = true
         }
-        return true
     }
 
 }
