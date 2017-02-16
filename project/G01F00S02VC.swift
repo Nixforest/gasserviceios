@@ -254,13 +254,6 @@ class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return G01F00S02HistoryCell.getTableCellHeight(model: BaseModel.shared.currentUpholdDetail.reply_item[indexPath.row])
     }
-    
-    /**
-     * View did appear
-     */
-    override func viewDidAppear(_ animated: Bool) {
-        self.updateNotificationStatus()
-    }
 }
 
 /**

@@ -1,26 +1,22 @@
 //
-//  OrderListRespModel.swift
+//  OrderConfigRespModel.swift
 //  project
 //
-//  Created by SPJ on 12/28/16.
-//  Copyright © 2016 admin. All rights reserved.
+//  Created by SPJ on 1/19/17.
+//  Copyright © 2017 admin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import harpyframework
 
-public class OrderListRespModel: BaseRespModel {
-    /** Total record */
-    var total_record: Int = 0
-    /** Total page */
-    var total_page: Int = 0
+class OrderConfigRespModel: BaseRespModel {
     /** Record */
-    var record: [OrderListBean] = [OrderListBean]()
+    var record: OrderConfigBean = OrderConfigBean()
     
     override init() {
         super.init()
     }
-        
+    
     /**
      * Initializer
      */
@@ -36,19 +32,11 @@ public class OrderListRespModel: BaseRespModel {
                 if self.status != DomainConst.RESPONSE_STATUS_SUCCESS {
                     return
                 }
-                // Total record
-                let totalRecord = json[DomainConst.KEY_TOTAL_RECORD] as? String ?? ""
-                if totalRecord != "" {
-                    self.total_record = Int(totalRecord)!
-                }
-                // Total page
-                self.total_page = json[DomainConst.KEY_TOTAL_PAGE] as? Int ?? 0
                 
                 // Record
-                let recordList = json[DomainConst.KEY_RECORD] as? [[String: AnyObject]]
-                for uphold in recordList! {
-                    self.record.append(OrderListBean(jsonData: uphold))
-                }
+                let order = json[DomainConst.KEY_RECORD] as? [String: AnyObject]
+                
+                self.record = OrderConfigBean(jsonData: order!)
             } catch let error as NSError {
                 print(DomainConst.JSON_ERR_FAILED_LOAD + "\(error.localizedDescription)")
             }
@@ -62,7 +50,8 @@ public class OrderListRespModel: BaseRespModel {
      * Get record value.
      * - returns: Record value
      */
-    public func getRecord() -> [OrderListBean] {
+    public func getRecord() -> OrderConfigBean {
         return self.record
     }
+
 }

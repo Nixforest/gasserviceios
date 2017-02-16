@@ -33,6 +33,8 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
     @IBOutlet weak var txtAddress: UITextField!
     /** User avatar picker */
     var userAvatarPicker = UIImagePickerController()
+    /** Current text field */
+    private var _currentTextField: UITextField? = nil
     
     // MARK: Actions
     /**
@@ -74,7 +76,7 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
             // Call alert
             showAlert(message: DomainConst.CONTENT00025)
         } else {
-            print("Save successfully")
+            self.showToast(message: "Save successfully")
         }
     }
     
@@ -93,13 +95,6 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
         RequestAPI.requestLogout(view: self.view)
         _ = self.navigationController?.popViewController(animated: true)
-    }
-    
-    /**
-     * View did appear
-     */
-    override func viewDidAppear(_ animated: Bool) {
-        
     }
     
     /**
@@ -196,43 +191,35 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
         txtAddress.delegate = self
         
         // Save Button customize
-        saveButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
-                                  y: txtAddress.frame.maxY + GlobalConst.MARGIN,
-                                  width: GlobalConst.BUTTON_W,
-                                  height: GlobalConst.BUTTON_H)
-        saveButton.setTitle(DomainConst.CONTENT00229.uppercased(), for: UIControlState())
-        saveButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        saveButton.setTitleColor(UIColor.white, for: UIControlState())
-        saveButton.translatesAutoresizingMaskIntoConstraints = true
-        saveButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        saveButton.setImage(ImageManager.getImage(named: DomainConst.SAVE_INFO_IMG_NAME), for: UIControlState())
-        saveButton.imageView?.contentMode = .scaleAspectFit
+        CommonProcess.createButtonLayout(btn: saveButton,
+                                         x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                         y: txtAddress.frame.maxY + GlobalConst.MARGIN,
+                                         text: DomainConst.CONTENT00229.uppercased(),
+                                         action: #selector(saveButtonTapped(_:)),
+                                         target: self,
+                                         img: DomainConst.SAVE_INFO_IMG_NAME,
+                                         tintedColor: UIColor.white)
         
         // Change password button
-        changePasswordButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
-                                            y: saveButton.frame.maxY + GlobalConst.MARGIN,
-                                            width: GlobalConst.BUTTON_W,
-                                            height: GlobalConst.BUTTON_H)
-        changePasswordButton.setTitle(DomainConst.CONTENT00089.uppercased(), for: UIControlState())
-        changePasswordButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        changePasswordButton.setTitleColor(UIColor.white, for: UIControlState())
-        changePasswordButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        changePasswordButton.translatesAutoresizingMaskIntoConstraints = true
-        changePasswordButton.setImage(ImageManager.getImage(named: DomainConst.CHANGE_PASS_IMG_NAME), for: UIControlState())
-        changePasswordButton.imageView?.contentMode = .scaleAspectFit
+        CommonProcess.createButtonLayout(btn: changePasswordButton,
+                                         x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                         y: saveButton.frame.maxY + GlobalConst.MARGIN,
+                                         text: DomainConst.CONTENT00089.uppercased(),
+                                         action: #selector(changePasswordTapped(_:)),
+                                         target: self,
+                                         img: DomainConst.CHANGE_PASS_IMG_NAME,
+                                         tintedColor: UIColor.white)
         
         // Logout button
-        logoutButton.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
-                                    y: changePasswordButton.frame.maxY + GlobalConst.MARGIN,
-                                    width: GlobalConst.BUTTON_W,
-                                    height: GlobalConst.BUTTON_H)
-        logoutButton.setTitle(DomainConst.CONTENT00090.uppercased(), for: UIControlState())
+        CommonProcess.createButtonLayout(btn: logoutButton,
+                                         x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                         y: changePasswordButton.frame.maxY + GlobalConst.MARGIN,
+                                         text: DomainConst.CONTENT00090.uppercased(),
+                                         action: #selector(logoutButtonTapped(_:)),
+                                         target: self,
+                                         img: DomainConst.LOGOUT_IMG_NAME,
+                                         tintedColor: UIColor.white)
         logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
-        logoutButton.setTitleColor(UIColor.white, for: UIControlState())
-        logoutButton.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        logoutButton.translatesAutoresizingMaskIntoConstraints = true
-        logoutButton.setImage(ImageManager.getImage(named: DomainConst.LOGOUT_IMG_NAME), for: UIControlState())
-        logoutButton.imageView?.contentMode = .scaleAspectFit
         
         // Navigation Bar customize
         setupNavigationBar(title: DomainConst.CONTENT00100, isNotifyEnable: true)
@@ -242,12 +229,12 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
         self.view.addGestureRecognizer(gesture)
         
         // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(G00AccountVC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(G00AccountVC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)
         
         // Load data from server?
         if BaseModel.shared.user_info == nil {
             // User information does not exist
-            RequestAPI.requestUserProfile(view: self)
+            RequestAPI.requestUserProfile(action: #selector(setData(_:)), view: self)
         } else {
             txtName.text    = BaseModel.shared.user_info?.getName()
             txtPhone.text   = BaseModel.shared.user_info?.getPhone()
@@ -258,7 +245,7 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
                 }
             }
         }
-
+        self.view.makeComponentsColor()
     }
     
     /**
@@ -290,12 +277,32 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
      */
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         if isKeyboardShow == false {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - 100, width: self.view.frame.size.width, height: self.view.frame.size.height)
-            }) 
             isKeyboardShow = true
         }
         return true
+    }
+    
+    /**
+     * Handle when focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self._currentTextField = textField
+    }
+    
+    /**
+     * Handle move textfield when keyboard overloading
+     */
+    override func keyboardWillShow(_ notification: Notification) {
+        super.keyboardWillShow(notification)
+        if self._currentTextField != nil {
+            let delta = (self._currentTextField?.frame.maxY)! - self.keyboardTopY
+            if delta > 0 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - delta, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                })
+            }
+        }
     }
     
     /**

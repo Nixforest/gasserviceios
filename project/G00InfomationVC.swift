@@ -27,6 +27,8 @@ class G00InfomationVC: UIViewController {
     var lblWebsiteValue: UILabel = UILabel()
     /** Logo */
     var imgLogo: UIImageView = UIImageView()
+    /** Tap counter on logo */
+    var imgLogoTappedCounter: Int = 0
     
     // MARK: Actions
     /**
@@ -35,6 +37,24 @@ class G00InfomationVC: UIViewController {
      */
     @IBAction func backButtonTapped(_ sender: AnyObject) {
         _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: Methods
+    /**
+     * Handle tap on Logo image
+     * - parameter gestureRecognizer: UITapGestureRecognizer
+     */
+    func imgLogoTapped(_ gestureRecognizer: UITapGestureRecognizer) {
+        //tappedImageView will be the image view that was tapped.
+        //dismiss it, animate it off screen, whatever.
+        //let tappedImageView = gestureRecognizer.view!
+        imgLogoTappedCounter += 1
+        if imgLogoTappedCounter == DomainConst.MAXIMUM_TAPPED {
+            imgLogoTappedCounter = 0
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let view = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.INTERNAL_VIEW_CTRL)
+            self.navigationController?.pushViewController(view, animated: true)
+        }
     }
     
     /**
@@ -133,13 +153,16 @@ class G00InfomationVC: UIViewController {
         offset += GlobalConst.LABEL_HEIGHT / 2 + GlobalConst.MARGIN
         
         // Logo
-        imgLogo.image = ImageManager.getImage(named: DomainConst.LOGO_IMG_NAME)
+        imgLogo.image = ImageManager.getImage(named: BaseModel.shared.getMainLogo())
         imgLogo.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W) / 2,
                                y: offset,
                                width: GlobalConst.LOGIN_LOGO_W,
                                height: GlobalConst.LOGIN_LOGO_H)
         imgLogo.contentMode = .scaleAspectFit
         imgLogo.translatesAutoresizingMaskIntoConstraints = true
+        imgLogo.isUserInteractionEnabled = true
+        let imgLogoTappedRecognizer = UITapGestureRecognizer(target: self, action: #selector(imgLogoTapped(_:)))
+        imgLogo.addGestureRecognizer(imgLogoTappedRecognizer)
         offset += imgLogo.frame.height + GlobalConst.MARGIN
         
         self.view.addSubview(lblVersion)

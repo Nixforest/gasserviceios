@@ -27,22 +27,6 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
     
     // MARK: Actions
     /**
-     * Handle tap on Register menu item
-     * - parameter sender:AnyObject
-     */
-    func pushToRegisterVC(_ notification: Notification){
-        self.pushToView(name: DomainConst.REGISTER_VIEW_CTRL)
-    }
-    
-    /**
-     * Handle tap on Login menu item
-     * - parameter sender:AnyObject
-     */
-    func pushToLoginVC(_ notification: Notification){
-        moveToLoginVC()
-    }
-    
-    /**
      * Handle when tap menu item
      */
     func asignNotifyForMenuItem() {
@@ -51,7 +35,7 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
                                                name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(pushToRegisterVC(_:)),
+                                               selector: #selector(registerItemTapped(_:)),
                                                name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_REGISTER_ITEM),
                                                object: nil)
         NotificationCenter.default.addObserver(self,
@@ -60,7 +44,7 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
                                                object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)),
                                                name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(pushToLoginVC(_:)),
+        NotificationCenter.default.addObserver(self, selector: #selector(loginItemTapped(_:)),
                                                name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
     }
     
@@ -74,11 +58,11 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         asignNotifyForMenuItem()
         
         // Handle display color when training mode is on
-//        if BaseModel.shared.checkTrainningMode() {
-//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
-//        } else {    // Training mode off
-//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
-//        }
+        if BaseModel.shared.checkTrainningMode() {
+            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+        } else {    // Training mode off
+            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+        }
         
         // Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
@@ -252,7 +236,7 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         case 1:     // New uphold
             if BaseModel.shared.user_info == nil {
                 // User information does not exist
-                RequestAPI.requestUserProfile(view: self)
+                RequestAPI.requestUserProfile(action: #selector(emptyMethod(_:)), view: self)
             }
             self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
         case 2: // List uphold
@@ -295,11 +279,11 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         }
         
         // Handle display color when training mode is on
-//        if BaseModel.shared.checkTrainningMode() {
-//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
-//        } else {    // Training mode off
-//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
-//        }
+        if BaseModel.shared.checkTrainningMode() {
+            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+        } else {    // Training mode off
+            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+        }
     }
     
     /**

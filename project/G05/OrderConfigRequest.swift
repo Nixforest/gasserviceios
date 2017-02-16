@@ -1,16 +1,15 @@
 //
-//  OrderViewRequest.swift
+//  OrderConfig.swift
 //  project
 //
-//  Created by SPJ on 12/31/16.
-//  Copyright © 2016 admin. All rights reserved.
+//  Created by SPJ on 1/18/17.
+//  Copyright © 2017 admin. All rights reserved.
 //
 
 import UIKit
 import harpyframework
 
-class OrderViewRequest: BaseRequest {
-    
+class OrderConfigRequest: BaseRequest {
     override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
         let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
             (
@@ -28,15 +27,14 @@ class OrderViewRequest: BaseRequest {
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
             print(dataString ?? "")
             // Convert to object
-            let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
+            let model: OrderConfigRespModel = OrderConfigRespModel(jsonString: dataString as! String)
             if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
-                // Set data
-                (self.view as! G04F00S02VC).setData(jsonString: dataString as! String)
-                // Update data to G04F00S02 view (cross-thread)
+                BaseModel.shared.saveOrderConfig(config: model.getRecord())
+                // Update data to MapViewController view (cross-thread)
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_VIEW_SET_DATA), object: model)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
                 }
             } else {
                 self.showAlert(message: model.message)
@@ -44,6 +42,17 @@ class OrderViewRequest: BaseRequest {
             }
         })
         return task
+    }
+    
+    override func execute() {
+        let serverUrl: URL = URL(string: DomainConst.SERVER_URL + self.url)!
+        let request = NSMutableURLRequest(url: serverUrl)
+        request.httpMethod = self.reqMethod
+        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
+        // Make data string
+        request.httpBody = self.data.data(using: String.Encoding.utf8)
+        let task = completetionHandler(request: request)
+        task.resume()
     }
     
     /**
@@ -58,27 +67,25 @@ class OrderViewRequest: BaseRequest {
     
     /**
      * Set data content
-     * - parameter id:    Order id
+     * - parameter page:    Page index
      */
-    func setData(id: String) {
+    func setData() {
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\"}",
-            DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
-            DomainConst.KEY_TRANSACTION_HISTORY_ID, id
-        )
+            format: "{}")
     }
     
     /**
-     * Request order view function
-     * - parameter id:    Order id
+     * Request order list function
+     * - parameter page:    Page index
      */
-    public static func requestOrderView(id: String, view: BaseViewController) {
+    public static func requestOrderConfig(action: Selector, view: BaseViewController) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
-        let request = OrderViewRequest(url: G04Const.PATH_ORDER_TRANSACTION_VIEW,
+        let request = OrderConfigRequest(url: G05Const.PATH_ORDER_CONFIG,
                                        reqMethod: DomainConst.HTTP_POST_REQUEST,
                                        view: view)
-        request.setData(id: id)
+        request.setData()
+        NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
 }
