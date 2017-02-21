@@ -371,10 +371,14 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         switch ((sender as! UIButton).accessibilityIdentifier!) {
         case DomainConst.CATEGORY_TYPE_ORDER_VIP:
             self.showToast(message: "DomainConst.CATEGORY_TYPE_ORDER_VIP")
+            self.pushToView(name: G05Const.G05_F01_S02_VIEW_CTRL)
             return
         case DomainConst.CATEGORY_TYPE_UPHOLD:
             self.showToast(message: "CATEGORY_TYPE_UPHOLD")
-            self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
+            if BaseModel.shared.user_info == nil {
+                // User information does not exist
+                RequestAPI.requestUserProfile(action: #selector(finishRequestUserProfile(_:)), view: self)
+            }
             break
         default:
             break
@@ -385,6 +389,10 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
 //        }
         // Select current tapped button
         (sender as! UIButton).isSelected = true
+    }
+    
+    internal func finishRequestUserProfile(_ notification: Notification) {
+        self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
     }
     
     /**

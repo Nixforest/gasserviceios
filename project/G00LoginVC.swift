@@ -160,10 +160,13 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         // Show password check box
         chbShowPassword.frame = CGRect(x: txtPassword.frame.minX,
                                        y: txtPassword.frame.maxY + GlobalConst.MARGIN,
-                                       width: GlobalConst.CHECKBOX_W,
+                                       width: GlobalConst.CHECKBOX_W + GlobalConst.LABEL_W,
                                        height: GlobalConst.CHECKBOX_H)
         chbShowPassword.tintColor = UIColor.black
         chbShowPassword.translatesAutoresizingMaskIntoConstraints = true
+        chbShowPassword.setTitle(DomainConst.CONTENT00102, for: UIControlState())
+        chbShowPassword.imageView?.contentMode = .scaleAspectFit
+        chbShowPassword.setTitleColor(UIColor.black, for: UIControlState())
         
         // Show password label
         lblShowPassword.frame = CGRect(x: chbShowPassword.frame.maxX + GlobalConst.MARGIN,

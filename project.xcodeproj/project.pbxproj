@@ -74,8 +74,20 @@
 		D76AFDAB1E26A58500E73E1D /* G01Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76AFDAA1E26A58500E73E1D /* G01Const.swift */; };
 		D77FFB701E0EE3BC00A795AD /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77FFB6E1E0EE3BC00A795AD /* ImageTableViewCell.swift */; };
 		D77FFB711E0EE3BC00A795AD /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77FFB6F1E0EE3BC00A795AD /* ImageTableViewCell.xib */; };
+		D78E32681E56A3220035C40D /* OrderVIPCreateRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E32671E56A3220035C40D /* OrderVIPCreateRespModel.swift */; };
+		D78E326A1E56AE710035C40D /* OrderVIPListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E32691E56AE710035C40D /* OrderVIPListRequest.swift */; };
+		D78E326C1E56B91E0035C40D /* OrderVIPSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E326B1E56B91E0035C40D /* OrderVIPSelectorView.swift */; };
+		D7AF27F91E58577900AFF9D6 /* G05F00S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF27F81E58577900AFF9D6 /* G05F00S01VC.swift */; };
+		D7AF27FC1E58579000AFF9D6 /* G05F00S01MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF27FB1E58579000AFF9D6 /* G05F00S01MenuVC.swift */; };
+		D7AF28021E587D4200AFF9D6 /* OrderVIPListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF28011E587D4200AFF9D6 /* OrderVIPListRespModel.swift */; };
+		D7AF28041E588F5500AFF9D6 /* OrderVIPViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF28031E588F5500AFF9D6 /* OrderVIPViewRequest.swift */; };
+		D7AF28061E58971E00AFF9D6 /* G05F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF28051E58971E00AFF9D6 /* G05F00S02VC.swift */; };
+		D7AF28081E58974100AFF9D6 /* G05F00S02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF28071E58974100AFF9D6 /* G05F00S02MenuVC.swift */; };
 		D7BE047D1E0586A400D37740 /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; };
 		D7BE047E1E0586A400D37740 /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D7D04E3D1E557B4000B3F8CF /* G05F01S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D04E3C1E557B4000B3F8CF /* G05F01S02VC.swift */; };
+		D7D04E3F1E557B5D00B3F8CF /* G05F01S02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D04E3E1E557B5D00B3F8CF /* G05F01S02MenuVC.swift */; };
+		D7D04E411E557E6900B3F8CF /* OrderVIPCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D04E401E557E6900B3F8CF /* OrderVIPCreateRequest.swift */; };
 		D7EF19411E10EFEC0054A3AF /* G00RegisterMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EF19401E10EFEC0054A3AF /* G00RegisterMenuVC.swift */; };
 		D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
@@ -211,7 +223,19 @@
 		D76AFDAA1E26A58500E73E1D /* G01Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G01Const.swift; path = G01/G01Const.swift; sourceTree = "<group>"; };
 		D77FFB6E1E0EE3BC00A795AD /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		D77FFB6F1E0EE3BC00A795AD /* ImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
+		D78E32671E56A3220035C40D /* OrderVIPCreateRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPCreateRespModel.swift; path = G05/OrderVIPCreateRespModel.swift; sourceTree = "<group>"; };
+		D78E32691E56AE710035C40D /* OrderVIPListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPListRequest.swift; path = G05/OrderVIPListRequest.swift; sourceTree = "<group>"; };
+		D78E326B1E56B91E0035C40D /* OrderVIPSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPSelectorView.swift; path = G05/OrderVIPSelectorView.swift; sourceTree = "<group>"; };
+		D7AF27F81E58577900AFF9D6 /* G05F00S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S01VC.swift; path = G05/G05F00S01VC.swift; sourceTree = "<group>"; };
+		D7AF27FB1E58579000AFF9D6 /* G05F00S01MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S01MenuVC.swift; path = G05/G05F00S01MenuVC.swift; sourceTree = "<group>"; };
+		D7AF28011E587D4200AFF9D6 /* OrderVIPListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPListRespModel.swift; path = G05/OrderVIPListRespModel.swift; sourceTree = "<group>"; };
+		D7AF28031E588F5500AFF9D6 /* OrderVIPViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPViewRequest.swift; path = G05/OrderVIPViewRequest.swift; sourceTree = "<group>"; };
+		D7AF28051E58971E00AFF9D6 /* G05F00S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S02VC.swift; path = G05/G05F00S02VC.swift; sourceTree = "<group>"; };
+		D7AF28071E58974100AFF9D6 /* G05F00S02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S02MenuVC.swift; path = G05/G05F00S02MenuVC.swift; sourceTree = "<group>"; };
 		D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
+		D7D04E3C1E557B4000B3F8CF /* G05F01S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F01S02VC.swift; path = G05/G05F01S02VC.swift; sourceTree = "<group>"; };
+		D7D04E3E1E557B5D00B3F8CF /* G05F01S02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F01S02MenuVC.swift; path = G05/G05F01S02MenuVC.swift; sourceTree = "<group>"; };
+		D7D04E401E557E6900B3F8CF /* OrderVIPCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPCreateRequest.swift; path = G05/OrderVIPCreateRequest.swift; sourceTree = "<group>"; };
 		D7EF19401E10EFEC0054A3AF /* G00RegisterMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00RegisterMenuVC.swift; sourceTree = "<group>"; };
 		D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Common/MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -450,6 +474,7 @@
 			children = (
 				D706C22C1E544AC000F89B8A /* G05Const.swift */,
 				D706C22F1E544DFE00F89B8A /* API */,
+				D78E32651E56A2120035C40D /* Model */,
 				D7D04E381E5557C500B3F8CF /* F00 */,
 				D706C2351E54525200F89B8A /* F01 */,
 			);
@@ -460,7 +485,9 @@
 			isa = PBXGroup;
 			children = (
 				D706C2301E544E3600F89B8A /* OrderConfigRequest.swift */,
-				D706C2311E544E3600F89B8A /* OrderConfigRespModel.swift */,
+				D7D04E401E557E6900B3F8CF /* OrderVIPCreateRequest.swift */,
+				D78E32691E56AE710035C40D /* OrderVIPListRequest.swift */,
+				D7AF28031E588F5500AFF9D6 /* OrderVIPViewRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -470,8 +497,21 @@
 			children = (
 				D706C2361E54529400F89B8A /* G05F01S01VC.swift */,
 				D706C2381E5452E200F89B8A /* G05F01S01MenuVC.swift */,
+				D7D04E3C1E557B4000B3F8CF /* G05F01S02VC.swift */,
+				D7D04E3E1E557B5D00B3F8CF /* G05F01S02MenuVC.swift */,
+				D78E326B1E56B91E0035C40D /* OrderVIPSelectorView.swift */,
 			);
 			name = F01;
+			sourceTree = "<group>";
+		};
+		D78E32651E56A2120035C40D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D706C2311E544E3600F89B8A /* OrderConfigRespModel.swift */,
+				D78E32671E56A3220035C40D /* OrderVIPCreateRespModel.swift */,
+				D7AF28011E587D4200AFF9D6 /* OrderVIPListRespModel.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		D791F6A91E2379FE009CBBED /* API */ = {
@@ -496,6 +536,10 @@
 		D7D04E381E5557C500B3F8CF /* F00 */ = {
 			isa = PBXGroup;
 			children = (
+				D7AF27F81E58577900AFF9D6 /* G05F00S01VC.swift */,
+				D7AF27FB1E58579000AFF9D6 /* G05F00S01MenuVC.swift */,
+				D7AF28051E58971E00AFF9D6 /* G05F00S02VC.swift */,
+				D7AF28071E58974100AFF9D6 /* G05F00S02MenuVC.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -725,8 +769,10 @@
 			files = (
 				92ADD3FE1DC655F000070FAA /* G01F02S06.swift in Sources */,
 				92C674C21DC53B8400E8BFEA /* G01F02S05.swift in Sources */,
+				D78E32681E56A3220035C40D /* OrderVIPCreateRespModel.swift in Sources */,
 				D706C2371E54529400F89B8A /* G05F01S01VC.swift in Sources */,
 				92A5C7E01DCB83A900D6572F /* G01F03S04.swift in Sources */,
+				D7D04E3F1E557B5D00B3F8CF /* G05F01S02MenuVC.swift in Sources */,
 				92A5C7DE1DCB82AC00D6572F /* G01F03S03.swift in Sources */,
 				D706C22D1E544AC000F89B8A /* G05Const.swift in Sources */,
 				84459EEC1D964BA10087F986 /* G01F01S03VC.swift in Sources */,
@@ -737,13 +783,19 @@
 				D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */,
 				920555081DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift in Sources */,
 				D706C2331E544E3600F89B8A /* OrderConfigRespModel.swift in Sources */,
+				D7D04E3D1E557B4000B3F8CF /* G05F01S02VC.swift in Sources */,
+				D7AF28081E58974100AFF9D6 /* G05F00S02MenuVC.swift in Sources */,
 				84284E141D40DF050079DEBC /* G00LoginVC.swift in Sources */,
 				84E7184B1D660859006F4995 /* G00AccountVC.swift in Sources */,
 				92A5C7D61DCB787300D6572F /* G01F03VC.swift in Sources */,
 				84E642BA1DC77B85005F6413 /* zoomIMGViewController.swift in Sources */,
+				D78E326A1E56AE710035C40D /* OrderVIPListRequest.swift in Sources */,
 				92C1C9601DBD5001005A10C8 /* G01F00S03MenuVC.swift in Sources */,
 				D7EF19411E10EFEC0054A3AF /* G00RegisterMenuVC.swift in Sources */,
+				D7AF27F91E58577900AFF9D6 /* G05F00S01VC.swift in Sources */,
+				D7AF28041E588F5500AFF9D6 /* OrderVIPViewRequest.swift in Sources */,
 				84E1E7A01D664CCD007710BD /* G00ChangePassVC.swift in Sources */,
+				D7D04E411E557E6900B3F8CF /* OrderVIPCreateRequest.swift in Sources */,
 				84EF507A1D94352600EE41B4 /* G01F00S02VC.swift in Sources */,
 				92FC1A4D1DC3D3E800815EB9 /* G01F02S07.swift in Sources */,
 				92A5C7DA1DCB794000D6572F /* G01F03MenuVC.swift in Sources */,
@@ -753,13 +805,17 @@
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
 				927573241DC0F1CC000289BA /* G01F01MenuVC.swift in Sources */,
 				D706C2391E5452E200F89B8A /* G05F01S01MenuVC.swift in Sources */,
+				D7AF27FC1E58579000AFF9D6 /* G05F00S01MenuVC.swift in Sources */,
 				84459EEA1D964B930087F986 /* G01F01S02VC.swift in Sources */,
+				D7AF28061E58971E00AFF9D6 /* G05F00S02VC.swift in Sources */,
 				92FC1A4B1DC3CAC000815EB9 /* G01F02S02.swift in Sources */,
 				926346421DC45263007CEBC6 /* G01F02MenuVC.swift in Sources */,
+				D78E326C1E56B91E0035C40D /* OrderVIPSelectorView.swift in Sources */,
 				9266385E1DCC72D7001A36BF /* RatingUpholdRequest.swift in Sources */,
 				92A5C7DC1DCB7C8B00D6572F /* G01F03S02.swift in Sources */,
 				84EBBD251D8F8E7300FB4D25 /* G00InfomationVC.swift in Sources */,
 				D77FFB701E0EE3BC00A795AD /* ImageTableViewCell.swift in Sources */,
+				D7AF28021E587D4200AFF9D6 /* OrderVIPListRespModel.swift in Sources */,
 				84E1C4AC1D621A7B00ADD587 /* G00RegisterVC.swift in Sources */,
 				92A5C7D31DCB4B3C00D6572F /* CreateUpholdRequest.swift in Sources */,
 				D706C2321E544E3600F89B8A /* OrderConfigRequest.swift in Sources */,
