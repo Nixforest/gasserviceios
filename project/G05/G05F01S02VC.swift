@@ -33,7 +33,7 @@ class G05F01S02VC: BaseViewController, UITextViewDelegate {
         // Do any additional setup after loading the view.
         setupNavigationBar(title: DomainConst.CONTENT00130, isNotifyEnable: true)
         var offset = getTopHeight()
-        let width = GlobalConst.SCREEN_WIDTH - 2 * GlobalConst.MARGIN
+        let width = GlobalConst.SCREEN_WIDTH /*- 2 * GlobalConst.MARGIN*/
         // Title
 //        _lblTitle.frame = CGRect(x: GlobalConst.MARGIN,
 //                                 y: offset,
@@ -256,16 +256,24 @@ class G05F01S02VC: BaseViewController, UITextViewDelegate {
         for item in self._lstSelector {
             switch item.getSelectorValue().id {
             case DomainConst.KEY_B50:
-                b50 = item.getSelectorValue().name
+                if item.getCheckValue() {
+                    b50 = item.getSelectorValue().name
+                }
                 break
             case DomainConst.KEY_B45:
-                b45 = item.getSelectorValue().name
+                if item.getCheckValue() {
+                    b45 = item.getSelectorValue().name
+                }
                 break
             case DomainConst.KEY_B12:
-                b12 = item.getSelectorValue().name
+                if item.getCheckValue() {
+                    b12 = item.getSelectorValue().name
+                }
                 break
             case DomainConst.KEY_B6:
-                b6 = item.getSelectorValue().name
+                if item.getCheckValue() {
+                    b6 = item.getSelectorValue().name
+                }
                 break
             default:
                 break
@@ -287,8 +295,10 @@ class G05F01S02VC: BaseViewController, UITextViewDelegate {
         self.showAlert(message: object.message,
                        okHandler: {
                         (alert: UIAlertAction!) in
-                        // Back to previous view
-                        self.backButtonTapped(self)
+//                        // Back to previous view
+//                        self.backButtonTapped(self)
+                        G05F00S02VC._id = object.getRecord().id
+                        self.pushToView(name: G05Const.G05_F00_S02_VIEW_CTRL)
         })
         
     }

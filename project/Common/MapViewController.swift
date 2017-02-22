@@ -378,6 +378,8 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
             if BaseModel.shared.user_info == nil {
                 // User information does not exist
                 RequestAPI.requestUserProfile(action: #selector(finishRequestUserProfile(_:)), view: self)
+            } else {
+                self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
             }
             break
         default:

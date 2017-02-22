@@ -31,9 +31,11 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
     /** Cylinder table view */
     @IBOutlet weak var _tblViewCylinder: UITableView!
     /** List of material information */
-    private var _listMaterial: [[(String, Int)]] = [[(String, Int)]]()
+    private var _listMaterial: [[(String, Int)]]         = [[(String, Int)]]()
     /** List of cylinder information */
-    private var _listCylinder: [[(String, Int)]] = [[(String, Int)]]()
+    private var _listCylinder: [[(String, Int)]]         = [[(String, Int)]]()
+    /** Note textview */
+    private var _tbxNote: UITextView                     = UITextView()
     
     func setupListMaterial(data: OrderVIPBean = OrderVIPBean()) {
         _listMaterial.removeAll()
@@ -55,7 +57,7 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         createCylinderTableHeader()
         for item in data.info_vo {
             let cylinderValue: [(String, Int)] = [
-                (item.material_name, 3),
+                (item.material_name, 4),
                 (item.seri, 1),
                 (item.kg_empty, 1),
                 (item.kg_has_gas, 1),
@@ -70,7 +72,17 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         if _listMaterial.count < _listCylinder.count {
             height = _tblViewCylinder.frame.height
         }
-        offset = offset + height
+        offset = offset + height + GlobalConst.MARGIN
+        if !data.note_customer.isEmpty {
+            _tbxNote.isHidden = false
+            _tbxNote.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
+                                    y: offset,
+                                    width: GlobalConst.EDITTEXT_W,
+                                    height: GlobalConst.EDITTEXT_H * 5)
+            offset += _tbxNote.frame.height + GlobalConst.MARGIN
+        } else {
+            _tbxNote.isHidden = true
+        }
         
         // Scrollview content
         self._scrollView.contentSize = CGSize(
@@ -95,7 +107,7 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
      */
     func createCylinderTableHeader() {
         let cylinderHeader: [(String, Int)] = [
-            ("Tên", 3),
+            ("Tên", 4),
             ("Serial", 1),
             ("Vỏ", 1),
             ("Cân", 1),
@@ -216,6 +228,23 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         _viewOrderCylinderInfo.isHidden = true
         _scrollView.addSubview(_viewOrderInfo)
         _scrollView.addSubview(_viewOrderCylinderInfo)
+        offset = offset + _viewOrderInfo.frame.height + GlobalConst.MARGIN
+        
+        // Note
+        _tbxNote.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
+                                y: offset,
+                                width: GlobalConst.EDITTEXT_W,
+                                height: GlobalConst.EDITTEXT_H * 5)
+        _tbxNote.font               = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+        _tbxNote.backgroundColor    = UIColor.white
+        _tbxNote.autocorrectionType = .no
+        _tbxNote.translatesAutoresizingMaskIntoConstraints = true
+        _tbxNote.returnKeyType      = .done
+        _tbxNote.tag                = 0
+        _tbxNote.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        CommonProcess.setBorder(view: _tbxNote)
+        offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
+        self._scrollView.addSubview(_tbxNote)
         
         // Scrollview content
         self._scrollView.contentSize = CGSize(
@@ -241,6 +270,7 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         _tableView.reloadData()
         _tblViewGas.reloadData()
         _tblViewCylinder.reloadData()
+        _tbxNote.text = data.getRecord().note_customer
     }
     
 
@@ -294,12 +324,21 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         } else if tableView == _tblViewGas {
             let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.ORDER_DETAIL_TABLE_VIEW_CELL,
                                                      for: indexPath) as! OrderDetailTableViewCell
-            cell.setup(data: _listMaterial[indexPath.row])
+            if indexPath.row == 0 {
+                cell.setup(data: _listMaterial[indexPath.row], color: GlobalConst.BUTTON_COLOR_GRAY)
+            } else {
+                cell.setup(data: _listMaterial[indexPath.row])
+            }
             retCell = cell
         } else if tableView == _tblViewCylinder {
             let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.ORDER_DETAIL_TABLE_VIEW_CELL,
                                                      for: indexPath) as! OrderDetailTableViewCell
-            cell.setup(data: _listCylinder[indexPath.row])
+            //cell.setup(data: _listCylinder[indexPath.row])
+            if indexPath.row == 0 {
+                cell.setup(data: _listCylinder[indexPath.row], color: GlobalConst.BUTTON_COLOR_GRAY)
+            } else {
+                cell.setup(data: _listCylinder[indexPath.row])
+            }
             retCell = cell
         }
         

@@ -52,6 +52,7 @@ class G05F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         _tableView.register(UINib(nibName: DomainConst.TABLE_VIEW_CELL_ORDER_TYPE, bundle: frameworkBundle), forCellReuseIdentifier: DomainConst.TABLE_VIEW_CELL_ORDER_TYPE)
         _tableView.dataSource = self
         _tableView.delegate = self
+        _tableView.contentInset = UIEdgeInsets.zero
         // NavBar setup
         setupNavigationBar(title: DomainConst.CONTENT00231, isNotifyEnable: BaseModel.shared.checkIsLogin())
         OrderVIPListRequest.requestOrderVIPList(action: #selector(setData(_:)), view: self, page: self._page)
@@ -86,6 +87,9 @@ class G05F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
      */
     
     // MARK: - UITableViewDataSource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     /**
      * Tells the data source to return the number of rows in a given section of a table view.
      */

@@ -10,16 +10,31 @@ import UIKit
 import harpyframework
 
 class G05F00S02MenuVC: BaseMenuViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
+        if BaseModel.shared.checkIsLogin() {
+            setItem(listValues: [false, true, false, true, true])
+        } else {
+            setItem(listValues: [true, false, true, false, true])
+        }
+        setupMenuItem()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    /**
+     * Override
+     */
+    override func configItemTapped(_ sender: AnyObject) {
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)
+        }
     }
     
 
