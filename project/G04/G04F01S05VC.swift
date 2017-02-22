@@ -256,32 +256,48 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         offset = offset + self._txtAddress.frame.height + GlobalConst.MARGIN
         
         // Button Confirm
-        self._btnConfirm.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
-                                        y: offset,
-                                        width: GlobalConst.BUTTON_W / 2,
-                                        height: GlobalConst.BUTTON_H)
-        self._btnConfirm.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        self._btnConfirm.setTitle(DomainConst.CONTENT00217.uppercased(), for: UIControlState())
-        self._btnConfirm.setTitleColor(UIColor.white, for: UIControlState())
-        self._btnConfirm.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        self._btnConfirm.addTarget(self, action: #selector(btnConfirmTapped), for: .touchUpInside)
-        self._btnConfirm.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        self._btnConfirm.setImage(ImageManager.getImage(named: DomainConst.CONFIRM_IMG_NAME), for: UIControlState())
-        self._btnConfirm.imageView?.contentMode = .scaleAspectFit
+        //++ BUG0038-SPJ (NguyenPT 20170222) Decrease size of icon on Button
+//        self._btnConfirm.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+//                                        y: offset,
+//                                        width: GlobalConst.BUTTON_W / 2,
+//                                        height: GlobalConst.BUTTON_H)
+//        self._btnConfirm.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+//        self._btnConfirm.setTitle(DomainConst.CONTENT00217.uppercased(), for: UIControlState())
+//        self._btnConfirm.setTitleColor(UIColor.white, for: UIControlState())
+//        self._btnConfirm.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+//        self._btnConfirm.addTarget(self, action: #selector(btnConfirmTapped), for: .touchUpInside)
+//        self._btnConfirm.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+//        self._btnConfirm.setImage(ImageManager.getImage(named: DomainConst.CONFIRM_IMG_NAME), for: UIControlState())
+//        self._btnConfirm.imageView?.contentMode = .scaleAspectFit
+        setupButton(button: self._btnConfirm,
+                    x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                    y: offset, title: DomainConst.CONTENT00217,
+                    icon: DomainConst.CONFIRM_IMG_NAME,
+                    color: GlobalConst.BUTTON_COLOR_RED,
+                    action: #selector(btnConfirmTapped(_:)))
+        //-- BUG0038-SPJ (NguyenPT 20170222) Decrease size of icon on Button
         
         // Button Cancel
-        self._btnCancel.frame = CGRect(x: GlobalConst.SCREEN_WIDTH / 2,
-                                        y: offset,
-                                        width: GlobalConst.BUTTON_W / 2,
-                                        height: GlobalConst.BUTTON_H)
-        self._btnCancel.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
-        self._btnCancel.setTitle(DomainConst.CONTENT00220.uppercased(), for: UIControlState())
-        self._btnCancel.setTitleColor(UIColor.white, for: UIControlState())
-        self._btnCancel.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        self._btnCancel.addTarget(self, action: #selector(btnCancelTapped(_:)), for: .touchUpInside)
-        self._btnCancel.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        self._btnCancel.setImage(ImageManager.getImage(named: DomainConst.CANCEL_IMG_NAME), for: UIControlState())
-        self._btnCancel.imageView?.contentMode = .scaleAspectFit
+        //++ BUG0038-SPJ (NguyenPT 20170222) Decrease size of icon on Button
+//        self._btnCancel.frame = CGRect(x: GlobalConst.SCREEN_WIDTH / 2,
+//                                        y: offset,
+//                                        width: GlobalConst.BUTTON_W / 2,
+//                                        height: GlobalConst.BUTTON_H)
+//        self._btnCancel.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
+//        self._btnCancel.setTitle(DomainConst.CONTENT00220.uppercased(), for: UIControlState())
+//        self._btnCancel.setTitleColor(UIColor.white, for: UIControlState())
+//        self._btnCancel.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+//        self._btnCancel.addTarget(self, action: #selector(btnCancelTapped(_:)), for: .touchUpInside)
+//        self._btnCancel.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+//        self._btnCancel.setImage(ImageManager.getImage(named: DomainConst.CANCEL_IMG_NAME), for: UIControlState())
+//        self._btnCancel.imageView?.contentMode = .scaleAspectFit
+        setupButton(button: self._btnCancel,
+                    x: GlobalConst.SCREEN_WIDTH / 2,
+                    y: offset, title: DomainConst.CONTENT00220,
+                    icon: DomainConst.CANCEL_IMG_NAME,
+                    color: GlobalConst.BUTTON_COLOR_YELLOW,
+                    action: #selector(btnCancelTapped(_:)))
+        //-- BUG0038-SPJ (NguyenPT 20170222) Decrease size of icon on Button
         offset = offset + self._btnCancel.frame.height + GlobalConst.MARGIN
 
         
@@ -302,6 +318,38 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         self._txtPhone.delegate = self
         self._txtAddress.delegate = self
     }
+    
+    //++ BUG0038-SPJ (NguyenPT 20170222) Decrease size of icon on Button
+    /**
+     * Setup button for this view
+     * - parameter button:  Button to setup
+     * - parameter x:       X position of button
+     * - parameter y:       Y position of button
+     * - parameter title:   Title of button
+     * - parameter icon:    Icon of button
+     * - parameter color:   Color of button
+     * - parameter action:  Action of button
+     */
+    private func setupButton(button: UIButton, x: CGFloat, y: CGFloat, title: String,
+                             icon: String, color: UIColor, action: Selector) {
+        button.frame = CGRect(x: x,
+                              y: y,
+                              width: GlobalConst.BUTTON_W / 2,
+                              height: GlobalConst.BUTTON_H)
+        button.setTitle(title.uppercased(), for: UIControlState())
+        button.setTitleColor(UIColor.white, for: UIControlState())
+        button.backgroundColor          = color
+        button.titleLabel?.font         = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        button.layer.cornerRadius       = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        button.imageView?.contentMode   = .scaleAspectFit
+        button.setImage(ImageManager.getImage(named: icon), for: UIControlState())
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
+                                              left: GlobalConst.MARGIN,
+                                              bottom: GlobalConst.MARGIN,
+                                              right: GlobalConst.MARGIN)
+    }
+    //-- BUG0038-SPJ (NguyenPT 20170222) Decrease size of icon on Button
     
     /**
      * Handler when transaction complete request is finish

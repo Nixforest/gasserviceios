@@ -31,6 +31,12 @@ class G04F01S03VC: MaterialSelectViewController {
                                          target: self,
                                          img: DomainConst.CANCEL_IMG_NAME,
                                          tintedColor: UIColor.white)
+        //++ BUG0038-SPJ (NguyenPT 20170222) Decrease size of icon on Button
+        self._btnNotSelect.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
+                                                    left: GlobalConst.MARGIN,
+                                                    bottom: GlobalConst.MARGIN,
+                                                    right: GlobalConst.MARGIN)
+        //-- BUG0038-SPJ (NguyenPT 20170222) Decrease size of icon on Button
         self.view.addSubview(self._btnNotSelect)
     }
     

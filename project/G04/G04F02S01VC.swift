@@ -69,6 +69,12 @@ class G04F02S01VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
                                          target: self,
                                          img: DomainConst.ADD_ICON_IMG_NAME,
                                          tintedColor: UIColor.white)
+        //++ BUG0038-SPJ (NguyenPT 20170222) Decrease size of icon on Button
+        self._btnAdd.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
+                                           left: GlobalConst.MARGIN,
+                                           bottom: GlobalConst.MARGIN,
+                                           right: GlobalConst.MARGIN)
+        //-- BUG0038-SPJ (NguyenPT 20170222) Decrease size of icon on Button
         self.view.addSubview(self._btnAdd)
 
         // Do any additional setup after loading the view.
