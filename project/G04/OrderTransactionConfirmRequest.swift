@@ -27,7 +27,10 @@ class OrderTransactionConfirmRequest: BaseRequest {
             let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
             print(dataString ?? "")
             // Convert to object
-            let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
+            //++ BUG0040-SPJ (NguyenPT 20170222) Move to order detail
+            //let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
+            let model: OrderTransactionConfirmRespModel = OrderTransactionConfirmRespModel(jsonString: dataString as! String)
+            //-- BUG0040-SPJ (NguyenPT 20170222) Move to order detail
             if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()

@@ -420,9 +420,16 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
      * Handle when tap cancel button
      */
     func btnCancelTapped(_ sender: AnyObject) {
-        OrderTransactionCancelRequest.requestOrderTransactionCancel(
-            action: #selector(finishRequestTransactionConfirmHandler(_:)),
-            view: self)
+        self.showAlert(message: DomainConst.CONTENT00256,
+                       okHandler: {
+                        (alert: UIAlertAction!) in
+                        OrderTransactionCancelRequest.requestOrderTransactionCancel(
+                            action: #selector(self.finishRequestTransactionConfirmHandler(_:)),
+                            view: self)
+        },
+                       cancelHandler: {
+                        (alert: UIAlertAction!) in
+        })
     }
     
     /**
@@ -441,6 +448,10 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
     func finishRequestTransactionConfirmHandler(_ notification: Notification) {
         // Back to previous view
         self.backButtonTapped(self)
+        //++ BUG0040-SPJ (NguyenPT 20170222) Move to order detail
+        G04F00S02VC._id = (notification.object as! OrderTransactionConfirmRespModel).getRecord()
+        self.pushToView(name: G04Const.G04_F00_S02_VIEW_CTRL)
+        //-- BUG0040-SPJ (NguyenPT 20170222) Move to order detail
     }
 
     /*
