@@ -105,16 +105,25 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_PROMOTION_ID,
                                             name: DomainConst.CONTENT00219,
                                             iconPath: DomainConst.DEFAULT_MATERIAL_IMG_NAME,
-                                            value: DomainConst.PROMOTION_DEFAULT + DomainConst.VIETNAMDONG))
+                                            //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
+                                            //value: DomainConst.PROMOTION_DEFAULT + DomainConst.VIETNAMDONG))
+                                            value: DomainConst.PROMOTION_DEFAULT))
+                                            //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_DISCOUNT_ID,
                                             name: DomainConst.CONTENT00239,
                                             iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                                            value: DomainConst.DISCOUNT_DEFAULT + DomainConst.VIETNAMDONG))
+                                            //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
+                                            //value: DomainConst.DISCOUNT_DEFAULT + DomainConst.VIETNAMDONG))
+                                            value: DomainConst.DISCOUNT_DEFAULT))
+                                            //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_TOTAL_MONEY_ID,
                                             name: DomainConst.CONTENT00218,
                                             iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                                            value: getTotalMoney() + DomainConst.VIETNAMDONG))
+                                            //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
+                                            //value: getTotalMoney() + DomainConst.VIETNAMDONG))
+                                            value: getTotalMoney()))
+                                            //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_NAME_ID,
                                             name: DomainConst.CONTENT00240,
                                             iconPath: DomainConst.AGENT_ICON_IMG_NAME,
@@ -137,16 +146,25 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_PROMOTION_ID,
                                             name: DomainConst.CONTENT00219,
                                             iconPath: DomainConst.DEFAULT_MATERIAL_IMG_NAME,
-                                            value: self._transactionCompleteBean.promotion_amount + DomainConst.VIETNAMDONG))
+                                            //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
+                                            //value: self._transactionCompleteBean.promotion_amount + DomainConst.VIETNAMDONG))
+                                            value: self._transactionCompleteBean.promotion_amount))
+                                            //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_DISCOUNT_ID,
                                             name: DomainConst.CONTENT00239,
                                             iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                                            value: self._transactionCompleteBean.discount_amount + DomainConst.VIETNAMDONG))
+                                            //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
+                                            //value: self._transactionCompleteBean.discount_amount + DomainConst.VIETNAMDONG))
+                                            value: self._transactionCompleteBean.discount_amount))
+                                            //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_TOTAL_MONEY_ID,
                                             name: DomainConst.CONTENT00218,
                                             iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                                            value: self._transactionCompleteBean.grand_total + DomainConst.VIETNAMDONG))
+                                            //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
+                                            //value: self._transactionCompleteBean.grand_total + DomainConst.VIETNAMDONG))
+                                            value: self._transactionCompleteBean.grand_total))
+                                            //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_NAME_ID,
                                             name: DomainConst.CONTENT00240,
                                             iconPath: DomainConst.AGENT_ICON_IMG_NAME,

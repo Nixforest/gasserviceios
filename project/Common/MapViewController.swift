@@ -155,7 +155,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
             print(info.agent_name)
             let marker      = GMSMarker()
             // Set icon
-            marker.icon     = ImageManager.getImage(named: DomainConst.LOGO_AGENT_IMG_NAME)
+            marker.icon     = ImageManager.getImage(named: DomainConst.LOGO_AGENT_GAS_24H_IMG_NAME)
             // Set marker position
             marker.position = location
             marker.title    = info.agent_name
