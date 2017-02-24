@@ -92,9 +92,13 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
     func updateListMaterial() {
         self._listMaterial.removeAll()
         self._listMaterial.append(contentsOf: self._transactionCompleteBean.order_detail)
-        if self._listMaterial.count == 2 &&
-            self._listMaterial[1].material_id.isEmpty {
-            self._listMaterial[1].material_name = DomainConst.CONTENT00244
+        if self._listMaterial.count == 1 {
+//            self._listMaterial[1].material_id.isEmpty {
+//            self._listMaterial[1].material_name = DomainConst.CONTENT00244
+            let detailPromote = OrderDetailBean(data: MapViewController._promoteSelected)
+            detailPromote.qty = DomainConst.NUMBER_ONE_VALUE
+            detailPromote.material_name = DomainConst.CONTENT00244
+            self._listMaterial.append(detailPromote)
         }
     }
     
@@ -107,14 +111,14 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
                                             iconPath: DomainConst.DEFAULT_MATERIAL_IMG_NAME,
                                             //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
                                             //value: DomainConst.PROMOTION_DEFAULT + DomainConst.VIETNAMDONG))
-                                            value: DomainConst.PROMOTION_DEFAULT))
+                                            value: "-" + DomainConst.PROMOTION_DEFAULT))
                                             //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_DISCOUNT_ID,
                                             name: DomainConst.CONTENT00239,
                                             iconPath: DomainConst.MONEY_ICON_IMG_NAME,
                                             //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
                                             //value: DomainConst.DISCOUNT_DEFAULT + DomainConst.VIETNAMDONG))
-                                            value: DomainConst.DISCOUNT_DEFAULT))
+                                            value: "-" + DomainConst.DISCOUNT_DEFAULT))
                                             //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_TOTAL_MONEY_ID,
@@ -143,20 +147,34 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
      */
     func updateListInfo() {
         self._listInfo.removeAll()
-        _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_PROMOTION_ID,
-                                            name: DomainConst.CONTENT00219,
-                                            iconPath: DomainConst.DEFAULT_MATERIAL_IMG_NAME,
-                                            //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
-                                            //value: self._transactionCompleteBean.promotion_amount + DomainConst.VIETNAMDONG))
-                                            value: self._transactionCompleteBean.promotion_amount))
-                                            //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
-        _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_DISCOUNT_ID,
-                                            name: DomainConst.CONTENT00239,
-                                            iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                                            //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
-                                            //value: self._transactionCompleteBean.discount_amount + DomainConst.VIETNAMDONG))
-                                            value: self._transactionCompleteBean.discount_amount))
-                                            //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
+        //++ BUG0042-SPJ (NguyenPT 20170223) Hide Promotion and discount with "0" value
+//        _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_PROMOTION_ID,
+//                                            name: DomainConst.CONTENT00219,
+//                                            iconPath: DomainConst.DEFAULT_MATERIAL_IMG_NAME,
+//                                            //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
+//                                            //value: self._transactionCompleteBean.promotion_amount + DomainConst.VIETNAMDONG))
+//                                            value: self._transactionCompleteBean.promotion_amount))
+//                                            //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
+//        _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_DISCOUNT_ID,
+//                                            name: DomainConst.CONTENT00239,
+//                                            iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+//                                            //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
+//                                            //value: self._transactionCompleteBean.discount_amount + DomainConst.VIETNAMDONG))
+//                                            value: self._transactionCompleteBean.discount_amount))
+//                                            //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
+        if self._transactionCompleteBean.promotion_amount != DomainConst.NUMBER_ZERO_VALUE {
+            _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_PROMOTION_ID,
+                                                name: DomainConst.CONTENT00219,
+                                                iconPath: DomainConst.DEFAULT_MATERIAL_IMG_NAME,
+                                                value: "-" + self._transactionCompleteBean.promotion_amount))
+        }
+        if self._transactionCompleteBean.discount_amount != DomainConst.NUMBER_ZERO_VALUE {
+            _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_DISCOUNT_ID,
+                                                name: DomainConst.CONTENT00239,
+                                                iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                                                value: "-" + self._transactionCompleteBean.discount_amount))
+        }
+        //-- BUG0042-SPJ (NguyenPT 20170223) Hide Promotion and discount with "0" value
         
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_TOTAL_MONEY_ID,
                                             name: DomainConst.CONTENT00218,
@@ -177,6 +195,53 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
                                             name: DomainConst.CONTENT00242,
                                             iconPath: DomainConst.SUPPORT_ICON_IMG_NAME,
                                             value: MapViewController._nearestAgent.info_agent.agent_phone_support))
+        updateLayout()
+    }
+    
+    func updateLayout() {
+        var offset = self._tblViewMaterial.frame.maxY
+        
+        // Information table view
+        self._tblViewInfo.frame = CGRect(x: 0,
+                                         y: offset,
+                                         width: GlobalConst.SCREEN_WIDTH,
+                                         height: CGFloat(_listInfo.count) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
+        offset = offset + self._tblViewInfo.frame.height + GlobalConst.MARGIN
+        // Label phone
+        self._lblPhone.frame = CGRect(x: 0, y: offset,
+                                      width: GlobalConst.SCREEN_WIDTH,
+                                      height: GlobalConst.LABEL_H)
+        offset = offset + self._lblPhone.frame.height
+        // Textfield Phone
+        self._txtPhone.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                      y: offset,
+                                      width: GlobalConst.BUTTON_W,
+                                      height: GlobalConst.BUTTON_H)
+        offset = offset + self._txtPhone.frame.height
+        // Label Address
+        self._lblAddress.frame = CGRect(x: 0, y: offset,
+                                        width: GlobalConst.SCREEN_WIDTH,
+                                        height: GlobalConst.LABEL_H)
+        offset = offset + self._lblAddress.frame.height
+        // Textfield Address
+        self._txtAddress.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                        y: offset,
+                                        width: GlobalConst.BUTTON_W,
+                                        height: GlobalConst.BUTTON_H)
+        offset = offset + self._txtAddress.frame.height + GlobalConst.MARGIN
+        // Confirm button
+        self._btnConfirm.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                        y: offset,
+                                        width: GlobalConst.BUTTON_W / 2,
+                                        height: GlobalConst.BUTTON_H)
+        // Button Cancel
+        self._btnCancel.frame = CGRect(x: GlobalConst.SCREEN_WIDTH / 2,
+                                       y: offset,
+                                       width: GlobalConst.BUTTON_W / 2,
+                                       height: GlobalConst.BUTTON_H)
+        offset = offset + self._btnCancel.frame.height + GlobalConst.MARGIN
+        self._scrollView.contentSize = CGSize(width: GlobalConst.SCREEN_WIDTH,
+                                              height: offset + getTopHeight())
     }
 
     /**
@@ -228,6 +293,7 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         self._txtPhone.layer.borderColor = GlobalConst.MAIN_COLOR.cgColor
         self._txtPhone.textColor = GlobalConst.MAIN_COLOR
         self._txtPhone.returnKeyType = .done
+        self._txtPhone.keyboardType = .numberPad
         //self._txtPhone.isUserInteractionEnabled = false
         offset = offset + self._txtPhone.frame.height
         
@@ -527,9 +593,10 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         } else if tableView == _tblViewInfo {
             if _listInfo[indexPath.row].id == DomainConst.AGENT_PHONE_ID ||
                 _listInfo[indexPath.row].id == DomainConst.AGENT_SUPPORT_ID {
-                if let url = NSURL(string: "tel://\(_listInfo[indexPath.row].getValue().normalizatePhoneString())"), UIApplication.shared.canOpenURL(url as URL) {
-                    UIApplication.shared.openURL(url as URL)
-                }
+                self.makeACall(phone: _listInfo[indexPath.row].getValue().normalizatePhoneString())
+//                if let url = NSURL(string: "tel://\(_listInfo[indexPath.row].getValue().normalizatePhoneString())"), UIApplication.shared.canOpenURL(url as URL) {
+//                    UIApplication.shared.openURL(url as URL)
+//                }
             }
         }
     }
@@ -571,8 +638,30 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
     internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         if isKeyboardShow == false {
             isKeyboardShow = true
+            // Making A toolbar
+            if textField == self._txtPhone {
+                addDoneButtonOnKeyboard()
+            }
         }
         return true
+    }
+    /**
+     * Add a done button when numpad keyboard show
+     */
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle       = UIBarStyle.default
+        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(hideKeyboard(_:)))
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self._txtPhone.inputAccessoryView = doneToolbar
     }
     
     /**

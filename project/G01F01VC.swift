@@ -79,9 +79,10 @@ class G01F01VC: StepVC, StepDoneDelegate {
      * Make a phone call
      */
     func callCenterTap() {
-        if let url = NSURL(string: "tel://\(BaseModel.shared.getCallCenterUpholdNumber().normalizatePhoneString())"), UIApplication.shared.canOpenURL(url as URL) {
-            UIApplication.shared.openURL(url as URL)
-        }
+        self.makeACall(phone: BaseModel.shared.getCallCenterUpholdNumber().normalizatePhoneString())
+//        if let url = NSURL(string: "tel://\(BaseModel.shared.getCallCenterUpholdNumber().normalizatePhoneString())"), UIApplication.shared.canOpenURL(url as URL) {
+//            UIApplication.shared.openURL(url as URL)
+//        }
     }
     
     /**
@@ -89,9 +90,10 @@ class G01F01VC: StepVC, StepDoneDelegate {
      * Make a phone call
      */
     func hotlineTap() {
-        if let url = NSURL(string: "tel://\(BaseModel.shared.getHotlineNumber().normalizatePhoneString())"), UIApplication.shared.canOpenURL(url as URL) {
-            UIApplication.shared.openURL(url as URL)
-        }
+        self.makeACall(phone: BaseModel.shared.getHotlineNumber().normalizatePhoneString())
+//        if let url = NSURL(string: "tel://\(BaseModel.shared.getHotlineNumber().normalizatePhoneString())"), UIApplication.shared.canOpenURL(url as URL) {
+//            UIApplication.shared.openURL(url as URL)
+//        }
     }
     
     /**

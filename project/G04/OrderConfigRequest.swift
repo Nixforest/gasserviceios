@@ -32,11 +32,9 @@ class OrderConfigRequest: BaseRequest {
                 // Hide overlay
                 LoadingView.shared.hideOverlayView()
                 BaseModel.shared.saveOrderConfig(config: model.getRecord())
-                // Set data
-                (self.view as! MapViewController).saveAgentInfo()
                 // Update data to MapViewController view (cross-thread)
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ADDRESS_VIEW_SET_DATA), object: model)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
                 }
             } else {
                 self.showAlert(message: model.message)
@@ -46,6 +44,9 @@ class OrderConfigRequest: BaseRequest {
         return task
     }
     
+    /**
+     * Override execute method, always use main server
+     */
     override func execute() {
         let serverUrl: URL = URL(string: DomainConst.SERVER_URL + self.url)!
         let request = NSMutableURLRequest(url: serverUrl)
@@ -80,13 +81,14 @@ class OrderConfigRequest: BaseRequest {
      * Request order list function
      * - parameter page:    Page index
      */
-    public static func requestOrderConfig(view: BaseViewController) {
+    public static func requestOrderConfig(action: Selector, view: BaseViewController) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = OrderConfigRequest(url: G04Const.PATH_ORDER_CONFIG,
                                        reqMethod: DomainConst.HTTP_POST_REQUEST,
                                        view: view)
         request.setData()
+        NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
 }

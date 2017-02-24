@@ -150,7 +150,7 @@ class G04F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
                                                 iconPath: DomainConst.DEFAULT_MATERIAL_IMG_NAME,
                                                 //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
                                                 //value: data.promotion_amount + DomainConst.VIETNAMDONG))
-                                                value: data.promotion_amount))
+                                                value: "-" + data.promotion_amount))
                                                 //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         }
         if data.discount_amount != DomainConst.NUMBER_ZERO_VALUE {
@@ -159,7 +159,7 @@ class G04F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
                                                 iconPath: DomainConst.MONEY_ICON_IMG_NAME,
                                                 //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
                                                 //value: data.discount_amount + DomainConst.VIETNAMDONG))
-                                                value: data.discount_amount))
+                                                value: "-" + data.discount_amount))
                                                 //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         }
         
@@ -169,7 +169,7 @@ class G04F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
                                                 iconPath: DomainConst.MONEY_ICON_IMG_NAME,
                                                 //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
                                                 //value: data.amount_bu_vo + DomainConst.VIETNAMDONG))
-                                                value: data.amount_bu_vo))
+                                                value: "+" + data.amount_bu_vo))
                                                 //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         }
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_TOTAL_MONEY_ID,
@@ -191,14 +191,14 @@ class G04F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
                                             iconPath: DomainConst.DEFAULT_MATERIAL_IMG_NAME,
                                             //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
                                             //value: DomainConst.PROMOTION_DEFAULT + DomainConst.VIETNAMDONG))
-                                            value: DomainConst.PROMOTION_DEFAULT))
+                                            value: "-" + DomainConst.PROMOTION_DEFAULT))
                                             //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_DISCOUNT_ID,
                                             name: DomainConst.CONTENT00239,
                                             iconPath: DomainConst.MONEY_ICON_IMG_NAME,
                                             //++ BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
                                             //value: DomainConst.DISCOUNT_DEFAULT + DomainConst.VIETNAMDONG))
-                                            value: DomainConst.DISCOUNT_DEFAULT))
+                                            value: "-" + DomainConst.DISCOUNT_DEFAULT))
                                             //-- BUG0037-SPJ (NguyenPT 20170222) Remove Currency symbol
         _listInfo.append(ConfigurationModel(id: DomainConst.AGENT_TOTAL_MONEY_ID,
                                             name: DomainConst.CONTENT00218,

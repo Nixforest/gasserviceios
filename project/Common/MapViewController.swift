@@ -118,7 +118,6 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         setupNavigationBar(title: DomainConst.CONTENT00226, isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
         
         // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(setData(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ADDRESS_VIEW_SET_DATA), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(setData1(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: nil)
         
@@ -135,6 +134,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
      * Set data event handler
      */
     override func setData(_ notification: Notification) {
+        saveAgentInfo()
         // Create marker for all agent
         for item in MapViewController._agentInfo {
             createMarker(info: item.info_agent)
@@ -228,48 +228,35 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
      * Tells the delegate that new location data is available.
      */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // Get current position
         MapViewController._currentPos = (manager.location?.coordinate)!
+        // Setting camera
         let camera = GMSCameraPosition.camera(withLatitude: MapViewController._currentPos.latitude, longitude: MapViewController._currentPos.longitude, zoom: Float(self._zoomValue))
+        // Create mapview
         _mapView = GMSMapView.map(withFrame: CGRect(x: 0,
                                                        y: self.getTopHeight(),
                                                        width:GlobalConst.SCREEN_WIDTH,
                                                        height:GlobalConst.SCREEN_HEIGHT - self.getTopHeight()),
                                      camera: camera)
+        // Show compass button
         _mapView?.settings.compassButton    = true
+        // Turn on my location
         _mapView?.isMyLocationEnabled       = true
         _mapView?.settings.myLocationButton = true
-        _mapView?.settings.indoorPicker = true
+        _mapView?.settings.indoorPicker     = true
         _mapView?.delegate                  = self
-        
-        // Manual setting my location button position
-//        for item in (_mapView?.subviews)! {
-//            print(item.theClassName)
-//            if item.theClassName == "GMSUISettingsPaddingView" {
-//                for view in item.subviews {
-//                    print("- " + view.theClassName)
-//                    if view.theClassName == "GMSUISettingsView" {
-//                        for child in view.subviews {
-//                            print("-- " + child.theClassName)
-//                            if child.theClassName == "GMSx_QTMButton" {
-//                                var frame = child.frame
-//                                frame.origin.y = frame.origin.y - (GlobalConst.BUTTON_CATEGORY_SIZE * 2.5 + GlobalConst.BUTTON_H + GlobalConst.MARGIN + GlobalConst.MARGIN_CELL_X * 2)
-//                                child.frame = frame
-//                                break
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        // Move up google logo and mylocation button
         _mapView?.padding = UIEdgeInsets(top: 0, left: 0,
                                          bottom: (GlobalConst.BUTTON_CATEGORY_SIZE * 2.5 + GlobalConst.BUTTON_H + GlobalConst.MARGIN + GlobalConst.MARGIN_CELL_X * 2),
                                          right: 0)
         
         self.view.insertSubview(_mapView!, at: 0)
+        // Get order config
         if BaseModel.shared.getOrderConfig().agent.count != 0 {
-            self.saveAgentInfo()
+            MapViewController._agentInfo.append(contentsOf: BaseModel.shared.getOrderConfig().agent)
+            MapViewController._distance = BaseModel.shared.getOrderConfig().distance_1
         } else {
-            OrderConfigRequest.requestOrderConfig(view: self)
+            OrderConfigRequest.requestOrderConfig(action: #selector(setData(_:)), view: self)
         }
     }
     

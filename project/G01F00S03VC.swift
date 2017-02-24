@@ -604,9 +604,10 @@ class G01F00S03VC: BaseViewController {
     }
     
     func phonetap() {
-        if let url = NSURL(string: "tel://\(BaseModel.shared.currentUpholdDetail.employee_phone)"), UIApplication.shared.canOpenURL(url as URL) {
-            UIApplication.shared.openURL(url as URL)
-        }
+        self.makeACall(phone: BaseModel.shared.currentUpholdDetail.employee_phone)
+//        if let url = NSURL(string: "tel://\(BaseModel.shared.currentUpholdDetail.employee_phone)"), UIApplication.shared.canOpenURL(url as URL) {
+//            UIApplication.shared.openURL(url as URL)
+//        }
     }
     
     override func didReceiveMemoryWarning() {
