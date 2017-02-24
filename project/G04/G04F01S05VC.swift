@@ -635,14 +635,19 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
      * Handle when focus edittext
      * - parameter textField: Textfield will be focusing
      */
-    internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
-        if isKeyboardShow == false {
-            isKeyboardShow = true
-            // Making A toolbar
-            if textField == self._txtPhone {
-                addDoneButtonOnKeyboard()
-            }
+    internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//        if isKeyboardShow == false {
+//            isKeyboardShow = true
+//        }
+        isKeyboardShow = true
+        // Making A toolbar
+        if textField == self._txtPhone {
+            addDoneButtonOnKeyboard()
         }
+        return true
+    }
+    internal func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        isKeyboardShow = false
         return true
     }
     /**
@@ -662,6 +667,7 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         doneToolbar.sizeToFit()
         
         self._txtPhone.inputAccessoryView = doneToolbar
+        self.keyboardTopY -= doneToolbar.frame.height
     }
     
     /**
@@ -681,10 +687,16 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
             let bottomOffset = CGPoint(x: 0.0,
                                        y: _scrollView.contentSize.height - _scrollView.bounds.size.height)
             _scrollView.setContentOffset(bottomOffset, animated: true)
-            let delta = (self._currentTextField?.frame.maxY)! + getTopHeight() - self.keyboardTopY
+            var delta = (self._currentTextField?.frame.maxY)! + getTopHeight() - self.keyboardTopY
+//            if self._currentTextField == self._txtPhone {
+//                delta += 50
+//            }
+            if self._transactionCompleteBean.discount_amount == DomainConst.NUMBER_ZERO_VALUE {
+                delta += GlobalConst.CONFIGURATION_ITEM_HEIGHT
+            }
             if delta > 0 {
                 UIView.animate(withDuration: 0.3, animations: {
-                    self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - delta, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                    self.view.frame = CGRect(x: self.view.frame.origin.x, y: -delta, width: self.view.frame.size.width, height: self.view.frame.size.height)
                 })
             }
         }
