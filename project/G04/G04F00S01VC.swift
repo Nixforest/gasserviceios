@@ -37,19 +37,23 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         asignNotifyForMenuItem()
         
         // Get height of status bar + navigation bar
-        let heigh = self.getTopHeight()
-        iconImg.image = ImageManager.getImage(named: DomainConst.ORDER_ICON_IMG_NAME)
-        iconImg.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W / 2) / 2,
-                               y: heigh + GlobalConst.MARGIN,
-                               width: GlobalConst.LOGIN_LOGO_W / 2,
-                               height: GlobalConst.LOGIN_LOGO_H / 2)
-        iconImg.translatesAutoresizingMaskIntoConstraints = true
+        var offset = self.getTopHeight()
+        if BaseModel.shared.getDebugShowTopIconFlag() {
+            iconImg.image = ImageManager.getImage(named: DomainConst.ORDER_ICON_IMG_NAME)
+            iconImg.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W / 2) / 2,
+                                   y: offset,
+                                   width: GlobalConst.LOGIN_LOGO_W / 2,
+                                   height: GlobalConst.LOGIN_LOGO_H / 2)
+            iconImg.translatesAutoresizingMaskIntoConstraints = true
+            offset = offset + iconImg.frame.height
+        } else {
+            iconImg.isHidden = true
+        }
         // Order list view
         tableView.translatesAutoresizingMaskIntoConstraints = true
-        tableView.frame = CGRect(x: 0,
-                                        y: iconImg.frame.maxY,
-                                        width: GlobalConst.SCREEN_WIDTH,
-                                        height: GlobalConst.SCREEN_HEIGHT - iconImg.frame.maxY)
+        tableView.frame = CGRect(x: 0, y: offset,
+                                 width: GlobalConst.SCREEN_WIDTH,
+                                 height: GlobalConst.SCREEN_HEIGHT - offset)
         tableView.separatorStyle = .singleLine
         let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
         tableView.register(UINib(nibName: DomainConst.TABLE_VIEW_CELL_ORDER_TYPE, bundle: frameworkBundle), forCellReuseIdentifier: DomainConst.TABLE_VIEW_CELL_ORDER_TYPE)
