@@ -380,7 +380,10 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
             self.showToast(message: "CATEGORY_TYPE_UPHOLD")
             if BaseModel.shared.user_info == nil {
                 // User information does not exist
-                RequestAPI.requestUserProfile(action: #selector(finishRequestUserProfile(_:)), view: self)
+                //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+                //RequestAPI.requestUserProfile(action: #selector(finishRequestUserProfile(_:)), view: self)
+                UserProfileRequest.requestUserProfile(action: #selector(finishRequestUserProfile(_:)), view: self)
+                //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
             } else {
                 self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
             }
