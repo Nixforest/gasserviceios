@@ -56,12 +56,16 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         _listCylinder.removeAll()
         createCylinderTableHeader()
         for item in data.info_vo {
+            var gasdu = DomainConst.BLANK
+            if !item.kg_has_gas.isEmpty && !item.kg_empty.isEmpty{
+                gasdu = String(Int(item.kg_has_gas)! - Int(item.kg_empty)!)
+            }
             let cylinderValue: [(String, Int)] = [
                 (item.material_name, 4),
                 (item.seri, 1),
                 (item.kg_empty, 1),
                 (item.kg_has_gas, 1),
-                ("5", 1)
+                (gasdu, 1)
             ]
             self._listCylinder.append(cylinderValue)
         }
@@ -116,6 +120,27 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         self._listCylinder.append(cylinderHeader)
     }
     
+    private func getStatusString(status: String) -> String {
+        var retVal = DomainConst.BLANK
+        switch status {
+        case DomainConst.ORDER_STATUS_NEW:
+            retVal = "Đang xử lý đơn hàng"
+            break
+        case DomainConst.ORDER_STATUS_PROCESSING:
+            retVal = "Đang giao hàng"
+            break
+        case DomainConst.ORDER_STATUS_COMPLETE:
+            retVal = "Đã giao"
+            break
+        case DomainConst.ORDER_STATUS_CANCEL:
+            retVal = "Đã huỷ"
+            break
+        default:
+            break
+        }
+        return retVal
+    }
+    
     /**
      * Setup list information data
      */
@@ -125,10 +150,14 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
                                             name: DomainConst.CONTENT00257,
                                             iconPath: DomainConst.ORDER_ID_ICON_IMG_NAME,
                                             value: "#" + data.code_no))
+        var status = "Đang giao hàng"
+        if !G05F00S01VC.getStatusNumber().isEmpty {
+            status = getStatusString(status: G05F00S01VC.getStatusNumber())
+        }
         _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_STATUS_ID,
                                             name: DomainConst.CONTENT00092,
                                             iconPath: DomainConst.ORDER_STATUS_ICON_IMG_NAME,
-                                            value: "Đang giao hàng"))
+                                            value: status))
         if !data.name_car.isEmpty {
             _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_CAR_NUMBER_ID,
                                                 name: DomainConst.CONTENT00258,

@@ -126,6 +126,19 @@ class G05F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     /**
+     * Get status number of item
+     * - returns: Status number value
+     */
+    public static func getStatusNumber() -> String {
+        for item in G05F00S01VC._data.getRecord() {
+            if item.id == G05F00S02VC._id {
+                return item.status_number
+            }
+        }
+        return DomainConst.BLANK
+    }
+    
+    /**
      * Tells the delegate the table view is about to draw a cell for a particular row.
      */
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

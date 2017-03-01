@@ -29,6 +29,7 @@ class G05F01S02VC: BaseViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let orderInfo = BaseModel.shared.getOrderVipDescription()
 
         // Do any additional setup after loading the view.
         setupNavigationBar(title: DomainConst.CONTENT00130, isNotifyEnable: true)
@@ -83,7 +84,7 @@ class G05F01S02VC: BaseViewController, UITextViewDelegate {
                                      width: width,
                                      height: GlobalConst.BUTTON_H),
                        checkboxLabel: "Bình gas 50Kg",
-                       config: ConfigBean(id: DomainConst.KEY_B50, name: DomainConst.NUMBER_ZERO_VALUE))
+                       config: ConfigBean(id: DomainConst.KEY_B50, name: orderInfo.0))
         _lstSelector.append(selector)
         self.view.addSubview(selector)
         offset = offset + selector.frame.height + GlobalConst.MARGIN_CELL_X
@@ -93,7 +94,7 @@ class G05F01S02VC: BaseViewController, UITextViewDelegate {
                                      width: width,
                                      height: GlobalConst.BUTTON_H),
                          checkboxLabel: "Bình gas 45Kg",
-                         config: ConfigBean(id: DomainConst.KEY_B45, name: DomainConst.NUMBER_ZERO_VALUE))
+                         config: ConfigBean(id: DomainConst.KEY_B45, name: orderInfo.1))
         _lstSelector.append(selector45)
         self.view.addSubview(selector45)
         offset = offset + selector45.frame.height + GlobalConst.MARGIN_CELL_X
@@ -103,7 +104,7 @@ class G05F01S02VC: BaseViewController, UITextViewDelegate {
                                      width: width,
                                      height: GlobalConst.BUTTON_H),
                          checkboxLabel: "Bình gas 12Kg",
-                         config: ConfigBean(id: DomainConst.KEY_B12, name: DomainConst.NUMBER_ZERO_VALUE))
+                         config: ConfigBean(id: DomainConst.KEY_B12, name: orderInfo.2))
         _lstSelector.append(selector12)
         self.view.addSubview(selector12)
         offset = offset + selector12.frame.height + GlobalConst.MARGIN_CELL_X
@@ -113,7 +114,7 @@ class G05F01S02VC: BaseViewController, UITextViewDelegate {
                                      width: width,
                                      height: GlobalConst.BUTTON_H),
                         checkboxLabel: "Bình gas 6Kg",
-                        config: ConfigBean(id: DomainConst.KEY_B6, name: DomainConst.NUMBER_ZERO_VALUE))
+                        config: ConfigBean(id: DomainConst.KEY_B6, name: orderInfo.3))
         _lstSelector.append(selector6)
         self.view.addSubview(selector6)
         offset = offset + selector6.frame.height + GlobalConst.MARGIN_CELL_X
@@ -130,6 +131,7 @@ class G05F01S02VC: BaseViewController, UITextViewDelegate {
         _tbxNote.returnKeyType      = .done
         _tbxNote.tag                = 0
         _tbxNote.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        _tbxNote.text = orderInfo.4
         CommonProcess.setBorder(view: _tbxNote)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
@@ -284,7 +286,7 @@ class G05F01S02VC: BaseViewController, UITextViewDelegate {
             view: self,
             b50: b50, b45: b45, b12: b12, b6: b6,
             note: self._tbxNote.text)
-        
+        BaseModel.shared.setOrderVipDescription(b50: b50, b45: b45, b12: b12, b6: b6, note: self._tbxNote.text)
     }
     
     /**

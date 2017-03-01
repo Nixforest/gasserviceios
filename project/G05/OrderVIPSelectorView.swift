@@ -107,7 +107,7 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
                                         width: frame.width / 9,
                                         height: frame.height)
         
-        self._valButton.setTitle(DomainConst.NUMBER_ZERO_VALUE, for: UIControlState())
+        self._valButton.setTitle(config.name, for: UIControlState())
         self._valButton.setTitleColor(UIColor.white, for: UIControlState())
         self._valButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         self._valButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.LARGE_FONT_SIZE)

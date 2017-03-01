@@ -11,9 +11,9 @@ import harpyframework
 
 class G05Const {
     /** Function identifier */
-    public static let FUNC_IDENTIFIER               = DomainConst.APPNAME + "g05"
+    public static let FUNC_IDENTIFIER                           = DomainConst.APPNAME + "g05"
     /** Path to connect with PHP server */
-    public static let PATH_ORDER_CONFIG                 = "order/getConfig"
+    public static let PATH_ORDER_CONFIG                         = "order/getConfig"
     /** Path to connect with PHP server */
     public static let PATH_ORDER_VIP_CREATE                     = "boMoi/boMoiCreate"
     /** Path to connect with PHP server */
