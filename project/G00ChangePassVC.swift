@@ -53,7 +53,10 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
      * - parameter sender: AnyObject
      */
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
-        RequestAPI.requestLogout(view: self)
+        //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+        //RequestAPI.requestLogout(view: self)
+        LogoutRequest.requestLogout(action: #selector(self.finishRequestLogout(_:)), view: self)
+        //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     }
     
     /**
