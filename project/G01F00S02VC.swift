@@ -48,35 +48,38 @@ class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate
     @IBAction func btnCreateUpholdReplyTapped(_ sender: AnyObject) {
         self.pushToView(name: DomainConst.G01_F02_VIEW_CTRL)
     }
-    
-    /**
-     * Handle when tap menu item
-     */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.gasServiceItemTapped(_:)),
-            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(super.issueItemTapped(_:)),
-            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(super.configItemTap(_:)),
-            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
-            object: nil)
-    }
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(self.gasServiceItemTapped(_:)),
+//            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+//            object: nil)
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(super.issueItemTapped(_:)),
+//            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
+//            object: nil)
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(super.configItemTap(_:)),
+//            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
+//            object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     /**
      * MARK: View did load.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Tab button
         let marginX = GlobalConst.PARENT_BORDER_WIDTH

@@ -10,15 +10,16 @@ import Foundation
 import harpyframework
 
 class G01F00S03MenuVC: BaseMenuViewController {
-    
-    /**
-     * Override
-     */
-    override func configItemTapped(_ sender: AnyObject) {
-        self.dismiss(animated: false) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_UPHOLDLISTVIEW), object: nil)
-        }
-    }
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Override
+//     */
+//    override func configItemTapped(_ sender: AnyObject) {
+//        self.dismiss(animated: false) {
+//            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_UPHOLDLISTVIEW), object: nil)
+//        }
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     /**
      * View did load
