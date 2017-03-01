@@ -48,7 +48,7 @@
 	<key>NSHealthUpdateUsageDescription</key>
 	<string></string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
+	<string>Use for detect location</string>
 	<key>NSLocationUsageDescription</key>
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>

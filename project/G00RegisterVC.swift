@@ -94,6 +94,7 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
                                height: GlobalConst.EDITTEXT_H)
         txtPhone.placeholder = DomainConst.CONTENT00054
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
+        txtPhone.keyboardType = .numberPad
         // Set icon
         setLeftViewForTextField(textField: txtPhone, named: DomainConst.PHONE_IMG_NAME)
         txtPhone.delegate = self
