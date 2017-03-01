@@ -553,11 +553,20 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
      */
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // If current view is Uphold table view
-        if (BaseModel.shared.upholdList.getRecord().count >= 15) {
+        //++ BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
+        //if (BaseModel.shared.upholdList.getRecord().count >= 15) {
+        if BaseModel.shared.upholdList.getTotalPage() != 1 {
+        //-- BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
             let lastElement = BaseModel.shared.upholdList.getRecord().count - 1
             if indexPath.row == lastElement {
                 currentPage += 1
-                RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+                //++ BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
+//                RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+                // Page less than total page
+                if currentPage <= BaseModel.shared.upholdList.getTotalPage() {
+                    RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+                }
+                //-- BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
             }
         }
         // If current view is search bar table view
