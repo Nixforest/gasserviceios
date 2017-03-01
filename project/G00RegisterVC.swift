@@ -37,22 +37,28 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
         }
     }
     
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(super.configItemTap(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_REGISTERVIEW),
+//                                               object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     /**
-     * Handle when tap menu item
+     * View did load
      */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(super.configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_REGISTERVIEW),
-                                               object: nil)
-    }
-    
     override func viewDidLoad() {
         setBackground(bkg: DomainConst.TYPE_1_BKG_IMG_NAME)
         super.viewDidLoad()
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
@@ -88,6 +94,7 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
                                height: GlobalConst.EDITTEXT_H)
         txtPhone.placeholder = DomainConst.CONTENT00054
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
+        txtPhone.keyboardType = .numberPad
         // Set icon
         setLeftViewForTextField(textField: txtPhone, named: DomainConst.PHONE_IMG_NAME)
         txtPhone.delegate = self

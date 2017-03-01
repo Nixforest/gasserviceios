@@ -42,8 +42,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Google maps
-        GMSServices.provideAPIKey("AIzaSyDpiyIoQSxkj1GAqwUSxk-3wxxUcuQa_6k")
-        GMSPlacesClient.provideAPIKey("AIzaSyBAp4n2BAmthIPvaF4FCOmQ19WEnb6trfs")
+        //let key = "AIzaSyDpiyIoQSxkj1GAqwUSxk-3wxxUcuQa_6k"
+        //let key = "AIzaSyBAp4n2BAmthIPvaF4FCOmQ19WEnb6trfs"
+        let key = "AIzaSyCOXWFIXGsvZqkOziYt5CQj7Y-bB7Ej40U"
+        GMSServices.provideAPIKey(key)
+        GMSPlacesClient.provideAPIKey(key)
         // Google Direct API
         // AIzaSyB9aMZnBX9TENtEDdhsJtpGI8kfbSFtKgo
         return true

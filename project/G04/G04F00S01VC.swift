@@ -21,20 +21,24 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
     private var _page = 0
     
     // MARK: Methods
-    /**
-     * Handle when tap menu item
-     */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self, selector: #selector(configItemTap(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_LIST_CONFIG_ITEM), object: nil)
-    }
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(configItemTap(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_LIST_CONFIG_ITEM), object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     /**
      * View did load
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Get height of status bar + navigation bar
         var offset = self.getTopHeight()

@@ -10,15 +10,16 @@ import UIKit
 import harpyframework
 
 class G04F00S02MenuVC: BaseMenuViewController {
-    /**
-     * Override
-     */
-    override func configItemTapped(_ sender: AnyObject) {
-        self.dismiss(animated: false) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_VIEW_CONFIG_ITEM), object: nil)
-        }
-    }
-    
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Override
+//     */
+//    override func configItemTapped(_ sender: AnyObject) {
+//        self.dismiss(animated: false) {
+//            NotificationCenter.default.post(name: Notification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_VIEW_CONFIG_ITEM), object: nil)
+//        }
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     /**
      * View did load

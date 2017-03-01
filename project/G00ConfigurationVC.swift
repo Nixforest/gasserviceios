@@ -18,27 +18,31 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
     /** Config table view */
     @IBOutlet weak var configTableView: UITableView!
     
-    // MARK: Actions    
-    /**
-     * Handle when tap menu item
-     */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.gasServiceItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(issueItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
-                                               object: nil)
-    }
+    // MARK: Actions
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(self.gasServiceItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(issueItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
+//                                               object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     /**
      * View did load
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Config view
         configView.translatesAutoresizingMaskIntoConstraints = true

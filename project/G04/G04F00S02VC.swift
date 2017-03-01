@@ -41,12 +41,14 @@ class G04F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
     private var _listInfo:      [ConfigurationModel] = [ConfigurationModel]()
     
     // MARK: Methods
-    /**
-     * Handle when tap menu item
-     */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self, selector: #selector(configItemTap(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_VIEW_CONFIG_ITEM), object: nil)
-    }
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(configItemTap(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_VIEW_CONFIG_ITEM), object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     /**
      * Setup list employee data
@@ -214,8 +216,10 @@ class G04F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Get height of status bar + navigation bar
         // Setup default data

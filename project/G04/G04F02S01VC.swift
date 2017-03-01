@@ -22,12 +22,14 @@ class G04F02S01VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
     /** Data */
     private var _data: [PromotionBean] = [PromotionBean]()
     
-    /**
-     * Handle when tap menu item
-     */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self, selector: #selector(configItemTap(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_PROMOTION_LIST_CONFIG_ITEM), object: nil)
-    }
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(configItemTap(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_PROMOTION_LIST_CONFIG_ITEM), object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
 
     /**
      * View did load
@@ -36,8 +38,10 @@ class G04F02S01VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         super.viewDidLoad()
         // Request list
         PromotionListRequest.requestPromotionList(action: #selector(self.setData(_:)), view: self, page: String(self._page))
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()

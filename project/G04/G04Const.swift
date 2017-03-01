@@ -30,18 +30,22 @@ class G04Const {
     public static let PATH_CUSTOMER_PROMOTION_LIST      = "customer/promotionList"
     /** Path to connect with PHP server */
     public static let PATH_CUSTOMER_PROMOTION_ADD      = "customer/promotionAdd"
-    /** Notification key: Configuration item */
-    public static let NOTIFY_NAME_G04_ORDER_LIST_CONFIG_ITEM        = G04Const.FUNC_IDENTIFIER + ".orderlist.configitem"
-    /** Notification key: Configuration item */
-    public static let NOTIFY_NAME_G04_ORDER_VIEW_CONFIG_ITEM        = G04Const.FUNC_IDENTIFIER + ".orderview.configitem"
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /** Notification key: Configuration item */
+//    public static let NOTIFY_NAME_G04_ORDER_LIST_CONFIG_ITEM        = G04Const.FUNC_IDENTIFIER + ".orderlist.configitem"
+//    /** Notification key: Configuration item */
+//    public static let NOTIFY_NAME_G04_ORDER_VIEW_CONFIG_ITEM        = G04Const.FUNC_IDENTIFIER + ".orderview.configitem"
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     /** Notification key: Set data process */
     public static let NOTIFY_NAME_G04_ORDER_LIST_SET_DATA           = G04Const.FUNC_IDENTIFIER + ".orderlist.setdata"
     /** Notification key: Set data process */
     public static let NOTIFY_NAME_G04_ORDER_VIEW_SET_DATA           = G04Const.FUNC_IDENTIFIER + ".orderview.setdata"
     /** Notification key: Set data process */
     public static let NOTIFY_NAME_G04_ADDRESS_VIEW_SET_DATA         = G04Const.FUNC_IDENTIFIER + ".orderaddress.setdata"
-    /** Notification key: Configuration item */
-    public static let NOTIFY_NAME_G04_PROMOTION_LIST_CONFIG_ITEM    = G04Const.FUNC_IDENTIFIER + ".promotionlist.configitem"
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /** Notification key: Configuration item */
+//    public static let NOTIFY_NAME_G04_PROMOTION_LIST_CONFIG_ITEM    = G04Const.FUNC_IDENTIFIER + ".promotionlist.configitem"
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     /** Name of Order detail view controller */
     public static let G04_F00_S02_VIEW_CTRL                     = "G04F00S02VC"
     /** Name of Order delivery address view controller */

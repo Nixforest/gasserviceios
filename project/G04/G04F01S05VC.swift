@@ -490,13 +490,34 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
                        okHandler: {
                         (alert: UIAlertAction!) in
                         OrderTransactionCancelRequest.requestOrderTransactionCancel(
-                            action: #selector(self.finishRequestTransactionConfirmHandler(_:)),
+                            //++ BUG0045-SPJ (NguyenPT 20170301) Bug when tap on Confirm button
+                            //action: #selector(self.finishRequestTransactionConfirmHandler(_:)),
+                            action: #selector(self.finishRequestTransactionCancelHandler(_:)),
+                            //-- BUG0045-SPJ (NguyenPT 20170301) Bug when tap on Confirm button
                             view: self)
         },
                        cancelHandler: {
                         (alert: UIAlertAction!) in
         })
     }
+    
+    //++ BUG0045-SPJ (NguyenPT 20170301) Bug when tap on Confirm button
+    /**
+     * Override method
+     */
+    override func backButtonTapped(_ sender: AnyObject) {
+        // Handle cancel order
+        self.btnCancelTapped(sender)
+    }
+    
+    /**
+     * Handle when finish request transaction confirm/cancel
+     */
+    func finishRequestTransactionCancelHandler(_ notification: Notification) {
+        // Call super method
+        super.backButtonTapped(self)
+    }
+    //-- BUG0045-SPJ (NguyenPT 20170301) Bug when tap on Confirm button
     
     /**
      * Handle when tap confirm button
@@ -512,8 +533,12 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
      * Handle when finish request transaction confirm/cancel
      */
     func finishRequestTransactionConfirmHandler(_ notification: Notification) {
-        // Back to previous view
-        self.backButtonTapped(self)
+        //++ BUG0045-SPJ (NguyenPT 20170301) Bug when tap on Confirm button
+//        // Back to previous view
+//        self.backButtonTapped(self)
+        // Call super method
+        super.backButtonTapped(self)
+        //-- BUG0045-SPJ (NguyenPT 20170301) Bug when tap on Confirm button
         //++ BUG0040-SPJ (NguyenPT 20170222) Move to order detail
         G04F00S02VC._id = (notification.object as! OrderTransactionConfirmRespModel).getRecord()
         self.pushToView(name: G04Const.G04_F00_S02_VIEW_CTRL)

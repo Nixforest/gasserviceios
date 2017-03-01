@@ -69,33 +69,39 @@ class G01F00S03VC: BaseViewController {
     // ScrollView
     @IBOutlet weak var scrollView: UIScrollView!
     
-    // MARK: Methods    
-    /**
-     * Handle when tap menu item
-     */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.gasServiceItemTapped(_:)),
-            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(super.issueItemTapped(_:)),
-            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(super.configItemTap(_:)),
-            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_CREATE_UPHOLD),
-            object: nil)
-    }
+    // MARK: Methods
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(self.gasServiceItemTapped(_:)),
+//            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+//            object: nil)
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(super.issueItemTapped(_:)),
+//            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
+//            object: nil)
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(super.configItemTap(_:)),
+//            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_CREATE_UPHOLD),
+//            object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
-    // MARK: ViewDidLoad
+    /**
+     * View did load
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
         // MARK: Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
