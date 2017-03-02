@@ -152,7 +152,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let alert = UIAlertController(title: DomainConst.CONTENT00044, message: message, preferredStyle: .alert)
             let okAction = UIAlertAction(title: DomainConst.CONTENT00223, style: .default, handler: {
                 (alert: UIAlertAction!) in
-                RequestAPI.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
+                ConfirmNotifyRequest.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
                 if let navigationController = self.window?.rootViewController as? UINavigationController {
                     if navigationController.visibleViewController is G00HomeVC {
                         navigationController.visibleViewController?.viewDidAppear(true)
@@ -165,7 +165,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let cancelAction = UIAlertAction(title: DomainConst.CONTENT00224, style: .cancel, handler: {
                 (alert: UIAlertAction!) in
                 if let navigationController = self.window?.rootViewController as? UINavigationController {
-                    RequestAPI.requestNotificationCount(view: (navigationController.visibleViewController as! BaseViewController))
+                    //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//                    RequestAPI.requestNotificationCount(view: (navigationController.visibleViewController as! BaseViewController))
+                    let view = (navigationController.visibleViewController as! BaseViewController)
+                    NotificationCountRequest.requestNotificationCount(action: #selector(view.emptyMethod(_:)), view: view)
+                    //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
                 }
                 BaseModel.shared.clearNotificationData()
             })
@@ -173,7 +177,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController?.present(alert, animated: true, completion: nil)
         } else {
             // Reply confirm notify to server
-            RequestAPI.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
+            ConfirmNotifyRequest.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
         }
         
         // Move to detail

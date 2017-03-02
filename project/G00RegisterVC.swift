@@ -33,9 +33,25 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
             // Call alert
             showAlert(message: DomainConst.CONTENT00025)
         } else {
-            RequestAPI.requestRegister(name: txtName.text!, phone: txtPhone.text!, view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+//            RequestAPI.requestRegister(name: txtName.text!, phone: txtPhone.text!, view: self)
+            RegisterRequest.requestRegister(action: #selector(finishRequestRegister(_:)),
+                                            view: self,
+                                            name: txtName.text!,
+                                            phone: txtPhone.text!)
+            //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
         }
     }
+    
+    //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+    /**
+     * Finish request register handler
+     */
+    internal func finishRequestRegister(_ notification: Notification) {
+        let obj = (notification.object as! BaseRespModel)
+        self.processInputConfirmCode(message: obj.message)
+    }
+    //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     
     //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
 //    /**

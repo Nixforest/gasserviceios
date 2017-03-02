@@ -257,6 +257,10 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
             txtAccount.text = "truongnd"
             txtPassword.text = "123123"
         }
+        // Handle waiting register code confirm
+        if !BaseModel.shared.getTempToken().isEmpty {
+            self.processInputConfirmCode(message: DomainConst.BLANK)
+        }
     }
     
     /**

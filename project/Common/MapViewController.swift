@@ -104,10 +104,6 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         
         // NavBar setup
         setupNavigationBar(title: BaseModel.shared.getAppName(), isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
-        // Handle waiting register code confirm
-        if !BaseModel.shared.getTempToken().isEmpty {
-            self.processInputConfirmCode(message: DomainConst.BLANK)
-        }
         self.view.makeComponentsColor()
     }
     
@@ -122,13 +118,34 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         }
         // Get data from server
         if BaseModel.shared.checkIsLogin() {
-            RequestAPI.requestUpdateConfiguration(view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestUpdateConfiguration(view: self)
+            UpdateConfigurationRequest.requestUpdateConfiguration(action: #selector(finishRequestUpdateConfig(_:)),
+                                                                  view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         } else {
             // Show login view if user not login yet
             self.pushToView(name: DomainConst.G00_LOGIN_VIEW_CTRL)
         }
         updateNearestAgent()
     }
+    
+    //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+    /**
+     * Finish request update config handler
+     */
+    func finishRequestUpdateConfig(_ notification: Notification) {
+        self.updateNotificationStatus()
+        
+        // Get notification count from server
+        if BaseModel.shared.checkIsLogin() {
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestNotificationCount(view: self)
+            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+        }
+    }
+    //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     
     /**
      * Create all agent marker from agent information

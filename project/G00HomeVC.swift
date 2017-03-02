@@ -90,12 +90,18 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         self.homeTableView.register(UINib(nibName: DomainConst.G00_HOME_CELL, bundle: nil), forCellReuseIdentifier: DomainConst.G00_HOME_CELL)
         
         // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(G00HomeVC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
+        //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//        NotificationCenter.default.addObserver(self, selector: #selector(G00HomeVC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
+        //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         
         // Get data from server
         if BaseModel.shared.checkIsLogin() {
-            RequestAPI.requestUpdateConfiguration(view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestUpdateConfiguration(view: self)
+            UpdateConfigurationRequest.requestUpdateConfiguration(action: #selector(self.setData(_:)),
+                                                                  view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         }
         
         // Handle waiting register code confirm
@@ -113,7 +119,10 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         
         // Get notification count from server
         if BaseModel.shared.checkIsLogin() {
-            RequestAPI.requestNotificationCount(view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestNotificationCount(view: self)
+            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         }
     }
 
@@ -271,7 +280,10 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         
         // Get notification count from server
         if BaseModel.shared.checkIsLogin() {
-            RequestAPI.requestNotificationCount(view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestNotificationCount(view: self)
+            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         }
         
         // Check open by notification
