@@ -141,14 +141,19 @@ class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate
         setupNavigationBar(title: DomainConst.CONTENT00143, isNotifyEnable: true)
         
         // MARK: - Notification Center
-        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S02VC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
+        //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S02VC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW), object: nil)
+        //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         NotificationCenter.default.addObserver(self, selector: #selector(G01F00S02VC.reloadData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: nil)
         
         // Set data
         if BaseModel.shared.sharedInt != -1 {
             // Check data is existed
             if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
-                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
+                //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
+                getUpholdDetail()
+                //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
             }
         }
         // Notification
@@ -156,6 +161,19 @@ class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate
             BaseModel.shared.clearNotificationData()
         }
     }
+    
+    //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+    /**
+     * Get uphold detail data from server
+     */
+    private func getUpholdDetail() {
+        let bean = BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt]
+        UpholdDetailRequest.requestUpholdDetail(action: #selector(self.setData(_:)),
+                                                view: self,
+                                                upholdId: bean.id,
+                                                replyId: bean.reply_id)
+    }
+    //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     
     /**
      * Reload data after done any action
@@ -166,7 +184,10 @@ class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate
         if BaseModel.shared.sharedInt != -1 {
             // Check data is existed
             if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
-                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
+                //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
+                getUpholdDetail()
+                //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
             }
         }
     }

@@ -635,7 +635,10 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         // Load data from server
         if BaseModel.shared.user_info == nil {
             // User information does not exist
-            RequestAPI.requestUserProfile(action: #selector(setData(_:)), view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+            //RequestAPI.requestUserProfile(action: #selector(setData(_:)), view: self)
+            UserProfileRequest.requestUserProfile(action: #selector(setData(_:)), view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         } else {
             setData()
         }

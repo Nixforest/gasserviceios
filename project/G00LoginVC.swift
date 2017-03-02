@@ -57,9 +57,24 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
             showAlert(message: DomainConst.CONTENT00023)
         } else {
             // Start login process
-            RequestAPI.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+            //RequestAPI.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
+            LoginRequest.requestLogin(action: #selector(finishRequestHandler),
+                                      view: self,
+                                      username: txtAccount.text!,
+                                      password: txtPassword.text!)
+            //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
         }
     }
+    
+    //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+    /**
+     * Finish request login handler
+     */
+    func finishRequestHandler(_ notification: Notification) {
+        self.popToRootView()
+    }
+    //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     
     /**
      * Handle tap on Login button
@@ -236,8 +251,12 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         
         // Fill data in training mode
         if BaseModel.shared.checkTrainningMode() {
-            txtAccount.text = "01689945321"
-            txtPassword.text = "774519"
+            txtAccount.text = "truongnd"
+            txtPassword.text = "123123"
+        }
+        // Handle waiting register code confirm
+        if !BaseModel.shared.getTempToken().isEmpty {
+            self.processInputConfirmCode(message: DomainConst.BLANK)
         }
     }
     

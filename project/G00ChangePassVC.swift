@@ -53,7 +53,10 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
      * - parameter sender: AnyObject
      */
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
-        RequestAPI.requestLogout(view: self)
+        //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+        //RequestAPI.requestLogout(view: self)
+        LogoutRequest.requestLogout(action: #selector(self.finishRequestLogout(_:)), view: self)
+        //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     }
     
     /**
@@ -70,16 +73,30 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
         // Check if password is correct
         if (txtNewPassword.text == txtNewPasswordRetype.text){
             self.showToast(message: "password update successfully")
-            RequestAPI.requestChangePassword(
-                oldPass: txtOldPassword.text!,
-                newPass: txtNewPassword.text!,
-                view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+//            RequestAPI.requestChangePassword(
+//                oldPass: txtOldPassword.text!,
+//                newPass: txtNewPassword.text!,
+//                view: self)
+            ChangePassRequest.requestChangePassword(action: #selector(finishRequestChangePassword),
+                                                    view: self,
+                                                    oldPass: txtOldPassword.text!,
+                                                    newPass: txtNewPassword.text!)
+            //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
         } else {
             // Call alert
             showAlert(message: DomainConst.CONTENT00026)
         }
-
     }
+    
+    //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+    /**
+     * Finish request change password handler
+     */
+    func finishRequestChangePassword(_ notification: Notification) {
+        super.backButtonTapped(self)
+    }
+    //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     
     //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
 //    /**

@@ -117,19 +117,8 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         setupBottomView()
         
         // NavBar setup
-        setupNavigationBar(title: DomainConst.CONTENT00226, isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
-        
-        // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(setData1(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: nil)
-        
-        // Handle waiting register code confirm
-        if !BaseModel.shared.getTempToken().isEmpty {
-            self.processInputConfirmCode(message: DomainConst.BLANK)
-        }
-    }
-    public func setData1(_ notification: Notification) {
-        
+        setupNavigationBar(title: BaseModel.shared.getAppName(), isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
+        self.view.makeComponentsColor()
     }
     
     /**
@@ -143,13 +132,34 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         }
         // Get data from server
         if BaseModel.shared.checkIsLogin() {
-            RequestAPI.requestUpdateConfiguration(view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestUpdateConfiguration(view: self)
+            UpdateConfigurationRequest.requestUpdateConfiguration(action: #selector(finishRequestUpdateConfig(_:)),
+                                                                  view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         } else {
             // Show login view if user not login yet
             self.pushToView(name: DomainConst.G00_LOGIN_VIEW_CTRL)
         }
         updateNearestAgent()
     }
+    
+    //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+    /**
+     * Finish request update config handler
+     */
+    func finishRequestUpdateConfig(_ notification: Notification) {
+        self.updateNotificationStatus()
+        
+        // Get notification count from server
+        if BaseModel.shared.checkIsLogin() {
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestNotificationCount(view: self)
+            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+        }
+    }
+    //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     
     /**
      * Create all agent marker from agent information
@@ -164,7 +174,7 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
             print(info.agent_name)
             let marker      = GMSMarker()
             // Set icon
-            marker.icon     = ImageManager.getImage(named: DomainConst.LOGO_AGENT_GAS_24H_IMG_NAME)
+            marker.icon     = ImageManager.getImage(named: BaseModel.shared.getAppAgentIcon())
             // Set marker position
             marker.position = location
             marker.title    = info.agent_name
@@ -427,6 +437,8 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
     func gasSelectorTapped(_ sender: AnyObject) {
         G04F01S02VC.setData(data: MapViewController._nearestAgent.info_gas)
         self.pushToView(name: G04Const.G04_F01_S02_VIEW_CTRL)
+    }
+    public func setData1(_ notification: Notification) {
     }
     
     func promoteSelectorTapped(_ sender: AnyObject) {

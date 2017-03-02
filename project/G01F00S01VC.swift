@@ -80,8 +80,24 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
             currentStatus = aStatusList[0].id
         }
         
-        RequestAPI.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+        //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//        RequestAPI.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+        getUpholdList()
+        //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     }
+    
+    //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+    /**
+     * Get uphold list from server
+     */
+    private func getUpholdList() {
+        UpholdListRequest.requestUpholdList(action: #selector(self.setData(_:)),
+                                            view: self, page: currentPage,
+                                            type: currentViewType,
+                                            customerId: currentCustomerId,
+                                            status: currentStatus)
+    }
+    //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     
     /**
      * Show list status.
@@ -140,8 +156,6 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
 //        // Menu item tap
 //        asignNotifyForMenuItem()
         //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.showSearchBarTableView(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW), object: nil)
         
         // Blur view when status list picker active
         blurView.isHidden          = true
@@ -262,14 +276,22 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
         setupNavigationBar(title: DomainConst.CONTENT00129, isNotifyEnable: true)
         
         // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW), object: nil)
+        //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+//        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_UPHOLDLIST_VIEW), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.showSearchBarTableView(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SHOW_SEARCH_BAR_UPHOLDLIST_VIEW), object: nil)
+        //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S01VC.reloadData(_:)), name:NSNotification.Name(rawValue: GlobalConst.NOTIFY_NAME_RELOAD_DATA_UPHOLDLIST_VIEW), object: nil)
         
         // Do any additional setup after loading the view.
         gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(G01F00S01VC.hideKeyboard))
         //view.addGestureRecognizer(tap)
-        RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+        //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//        RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType,
+//                                     customerId: currentCustomerId, status: currentStatus,
+//                                     view: self)
+        getUpholdList()
+        //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     }
     
 //    func reloadData(_ notification: Notification) {
@@ -390,7 +412,10 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
             // Clear uphold data
             clearData()
             // Request data from server
-            RequestAPI.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+            getUpholdList()
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         }
     }
     
@@ -534,7 +559,10 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
                 searchBox.text = BaseModel.shared.searchCustomerResult.getRecord()[indexPath.row].name
                 self.clearData()
                 currentCustomerId = BaseModel.shared.searchCustomerResult.getRecord()[indexPath.row].id
-                RequestAPI.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+                //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//                RequestAPI.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+                getUpholdList()
+                //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
             }
         }
     }
@@ -553,11 +581,23 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
      */
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // If current view is Uphold table view
-        if (BaseModel.shared.upholdList.getRecord().count >= 15) {
+        //++ BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
+        //if (BaseModel.shared.upholdList.getRecord().count >= 15) {
+        if BaseModel.shared.upholdList.getTotalPage() != 1 {
+        //-- BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
             let lastElement = BaseModel.shared.upholdList.getRecord().count - 1
             if indexPath.row == lastElement {
                 currentPage += 1
-                RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+                //++ BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
+//                RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+                // Page less than total page
+                if currentPage <= BaseModel.shared.upholdList.getTotalPage() {
+                    //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//                    RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+                    getUpholdList()
+                    //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+                }
+                //-- BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
             }
         }
         // If current view is search bar table view
@@ -577,7 +617,11 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
         
         print("Call api search")
         // CAll API
-        RequestAPI.requestSearchCustomer(keyword: searchBox.text!, view: self)
+        //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//        RequestAPI.requestSearchCustomer(keyword: searchBox.text!, view: self)
+        SearchCustomerRequest.requestSearchCustomer(action: #selector(showSearchBarTableView(_:)),
+                                                    view: self, keyword: searchBox.text!)
+        //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     }
     
     /**
@@ -624,7 +668,10 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
             // Reset current customer id
             currentCustomerId = ""
             // Request data from server
-            RequestAPI.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+            getUpholdList()
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         }
     }
     
