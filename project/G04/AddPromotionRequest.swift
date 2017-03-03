@@ -29,12 +29,15 @@ class AddPromotionRequest: BaseRequest {
             // Convert to object
             let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
             
-            // Hide overlay
-            LoadingView.shared.hideOverlayView()
-            // Handle completion
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
-            }
+            //++ BUG0046-SPJ (NguyenPT 20170303) Use action for Request server completion
+//            // Hide overlay
+//            LoadingView.shared.hideOverlayView()
+//            // Handle completion
+//            DispatchQueue.main.async {
+//                NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
+//            }
+            self.handleCompleteTask(model: model)
+            //-- BUG0046-SPJ (NguyenPT 20170303) Use action for Request server completion
         })
         return task
     }

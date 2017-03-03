@@ -29,14 +29,17 @@ class OrderTransactionStartRequest: BaseRequest {
             // Convert to object
             let model: OrderTransactionStartRespModel = OrderTransactionStartRespModel(jsonString: dataString as! String)
             if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
-                // Hide overlay
-                LoadingView.shared.hideOverlayView()
+                //++ BUG0046-SPJ (NguyenPT 20170303) Use action for Request server completion
+//                // Hide overlay
+//                LoadingView.shared.hideOverlayView()
                 // Set data
                 BaseModel.shared.setTransactionData(transaction: model.getRecord())
-                // Handle completion
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
-                }
+//                // Handle completion
+//                DispatchQueue.main.async {
+//                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
+//                }
+                self.handleCompleteTask(model: model)
+                //-- BUG0046-SPJ (NguyenPT 20170303) Use action for Request server completion
             } else {
                 self.showAlert(message: model.message)
                 return

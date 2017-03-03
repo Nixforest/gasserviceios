@@ -67,8 +67,10 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         // NavBar setup
         setupNavigationBar(title: DomainConst.CONTENT00231, isNotifyEnable: BaseModel.shared.checkIsLogin())
         
-        // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(setData(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_LIST_SET_DATA), object: nil)
+        //++ BUG0046-SPJ (NguyenPT 20170303) Use action for Request server completion
+//        // Notify set data
+//        NotificationCenter.default.addObserver(self, selector: #selector(setData(_:)), name:NSNotification.Name(rawValue: G04Const.NOTIFY_NAME_G04_ORDER_LIST_SET_DATA), object: nil)
+        //-- BUG0046-SPJ (NguyenPT 20170303) Use action for Request server completion
         
         OrderListRequest.requestOrderList(action: #selector(setData(_:)), view: self, page: String(self._page))
         self.view.makeComponentsColor()

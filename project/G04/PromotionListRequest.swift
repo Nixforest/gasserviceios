@@ -29,12 +29,15 @@ class PromotionListRequest: BaseRequest {
             // Convert to object
             let model: PromotionListRespModel = PromotionListRespModel(jsonString: dataString as! String)
             if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
-                // Hide overlay
-                LoadingView.shared.hideOverlayView()
-                // Handle completion
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
-                }
+                //++ BUG0046-SPJ (NguyenPT 20170303) Use action for Request server completion
+//                // Hide overlay
+//                LoadingView.shared.hideOverlayView()
+//                // Handle completion
+//                DispatchQueue.main.async {
+//                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
+//                }
+                self.handleCompleteTask(model: model)
+                //-- BUG0046-SPJ (NguyenPT 20170303) Use action for Request server completion
             } else {
                 self.showAlert(message: model.message)
                 return
