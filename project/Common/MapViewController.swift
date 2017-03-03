@@ -53,36 +53,45 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         MapViewController._agentInfo.append(contentsOf: BaseModel.shared.getOrderConfig().agent)
         MapViewController._distance = BaseModel.shared.getOrderConfig().distance_1
     }
-    
-    /**
-     * Handle when tap menu item
-     */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(registerItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_REGISTER_ITEM),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(logoutItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGOUT_ITEM),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(loginItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
-    }
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(configItemTap(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW),
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(registerItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_REGISTER_ITEM),
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(logoutItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGOUT_ITEM),
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(loginItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     /**
      * View did load
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+        // Handle display color when training mode is on
+        if BaseModel.shared.checkTrainningMode() {
+            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+        } else {    // Training mode off
+            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+        }
         
         // Do any additional setup after loading the view.
         _location.requestAlwaysAuthorization()
@@ -101,10 +110,6 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         
         // NavBar setup
         setupNavigationBar(title: BaseModel.shared.getAppName(), isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
-        // Handle waiting register code confirm
-        if !BaseModel.shared.getTempToken().isEmpty {
-            self.processInputConfirmCode(message: DomainConst.BLANK)
-        }
         self.view.makeComponentsColor()
     }
     
@@ -119,13 +124,34 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         }
         // Get data from server
         if BaseModel.shared.checkIsLogin() {
-            RequestAPI.requestUpdateConfiguration(view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestUpdateConfiguration(view: self)
+            UpdateConfigurationRequest.requestUpdateConfiguration(action: #selector(finishRequestUpdateConfig(_:)),
+                                                                  view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         } else {
             // Show login view if user not login yet
             self.pushToView(name: DomainConst.G00_LOGIN_VIEW_CTRL)
         }
         updateNearestAgent()
     }
+    
+    //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+    /**
+     * Finish request update config handler
+     */
+    func finishRequestUpdateConfig(_ notification: Notification) {
+        self.updateNotificationStatus()
+        
+        // Get notification count from server
+        if BaseModel.shared.checkIsLogin() {
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestNotificationCount(view: self)
+            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+        }
+    }
+    //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     
     /**
      * Create all agent marker from agent information
@@ -377,7 +403,12 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
             self.showToast(message: "CATEGORY_TYPE_UPHOLD")
             if BaseModel.shared.user_info == nil {
                 // User information does not exist
-                RequestAPI.requestUserProfile(action: #selector(finishRequestUserProfile(_:)), view: self)
+                //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+                //RequestAPI.requestUserProfile(action: #selector(finishRequestUserProfile(_:)), view: self)
+                UserProfileRequest.requestUserProfile(action: #selector(finishRequestUserProfile(_:)), view: self)
+                //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+            } else {
+                self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
             }
             break
         default:

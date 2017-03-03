@@ -53,7 +53,10 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
      * - parameter sender: AnyObject
      */
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
-        RequestAPI.requestLogout(view: self)
+        //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+        //RequestAPI.requestLogout(view: self)
+        LogoutRequest.requestLogout(action: #selector(self.finishRequestLogout(_:)), view: self)
+        //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     }
     
     /**
@@ -70,42 +73,60 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
         // Check if password is correct
         if (txtNewPassword.text == txtNewPasswordRetype.text){
             self.showToast(message: "password update successfully")
-            RequestAPI.requestChangePassword(
-                oldPass: txtOldPassword.text!,
-                newPass: txtNewPassword.text!,
-                view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+//            RequestAPI.requestChangePassword(
+//                oldPass: txtOldPassword.text!,
+//                newPass: txtNewPassword.text!,
+//                view: self)
+            ChangePassRequest.requestChangePassword(action: #selector(finishRequestChangePassword),
+                                                    view: self,
+                                                    oldPass: txtOldPassword.text!,
+                                                    newPass: txtNewPassword.text!)
+            //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
         } else {
             // Call alert
             showAlert(message: DomainConst.CONTENT00026)
         }
-
     }
     
+    //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     /**
-     * Handle when tap menu item
+     * Finish request change password handler
      */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.gasServiceItemTapped),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(super.issueItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(super.configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW),
-                                               object: nil)
+    func finishRequestChangePassword(_ notification: Notification) {
+        super.backButtonTapped(self)
     }
+    //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+    
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(self.gasServiceItemTapped),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(super.issueItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(super.configItemTap(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW),
+//                                               object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     /**
      * View did load
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Background
         view.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY

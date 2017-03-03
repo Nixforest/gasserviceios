@@ -93,35 +93,42 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
      * - parameter sender:AnyObject
      */
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
-        RequestAPI.requestLogout(view: self.view)
-        _ = self.navigationController?.popViewController(animated: true)
+        //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+//        RequestAPI.requestLogout(view: self.view)
+//        _ = self.navigationController?.popViewController(animated: true)
+        LogoutRequest.requestLogout(action: #selector(self.finishRequestLogout(_:)), view: self)
+        //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     }
     
-    /**
-     * Handle when tap menu item
-     */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(super.gasServiceItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(super.issueItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(super.configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
-                                               object: nil)
-    }
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(super.gasServiceItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(super.issueItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(super.configItemTap(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_ACCOUNTVIEW),
+//                                               object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     /**
      * View did load
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Background
         self.view.backgroundColor   = GlobalConst.BACKGROUND_COLOR_GRAY
@@ -228,13 +235,13 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
         let gesture = UITapGestureRecognizer(target: self, action: #selector(G00AccountVC.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
         
-        // Notify set data
-//        NotificationCenter.default.addObserver(self, selector: #selector(G00AccountVC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_ACCOUNTVIEW), object: nil)
-        
         // Load data from server?
         if BaseModel.shared.user_info == nil {
             // User information does not exist
-            RequestAPI.requestUserProfile(action: #selector(setData(_:)), view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+            //RequestAPI.requestUserProfile(action: #selector(setData(_:)), view: self)
+            UserProfileRequest.requestUserProfile(action: #selector(setData(_:)), view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
         } else {
             txtName.text    = BaseModel.shared.user_info?.getName()
             txtPhone.text   = BaseModel.shared.user_info?.getPhone()

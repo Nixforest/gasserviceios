@@ -20,18 +20,26 @@ class G05F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
     private var _page = 0
     
     // MARK: Methods
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(configItemTap(_:)), name:NSNotification.Name(rawValue: G05Const.NOTIFY_NAME_G05_ORDER_LIST_CONFIG_ITEM), object: nil)
+//    }
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+    
     /**
-     * Handle when tap menu item
+     * View did load
      */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self, selector: #selector(configItemTap(_:)), name:NSNotification.Name(rawValue: G05Const.NOTIFY_NAME_G05_ORDER_LIST_CONFIG_ITEM), object: nil)
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
@@ -52,6 +60,7 @@ class G05F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         _tableView.register(UINib(nibName: DomainConst.TABLE_VIEW_CELL_ORDER_TYPE, bundle: frameworkBundle), forCellReuseIdentifier: DomainConst.TABLE_VIEW_CELL_ORDER_TYPE)
         _tableView.dataSource = self
         _tableView.delegate = self
+        _tableView.contentInset = UIEdgeInsets.zero
         // NavBar setup
         setupNavigationBar(title: DomainConst.CONTENT00231, isNotifyEnable: BaseModel.shared.checkIsLogin())
         OrderVIPListRequest.requestOrderVIPList(action: #selector(setData(_:)), view: self, page: self._page)
@@ -86,6 +95,9 @@ class G05F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
      */
     
     // MARK: - UITableViewDataSource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     /**
      * Tells the data source to return the number of rows in a given section of a table view.
      */
@@ -119,6 +131,19 @@ class G05F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         G05F00S02VC._id = G05F00S01VC._data.getRecord()[indexPath.row].id
         self.pushToView(name: G05Const.G05_F00_S02_VIEW_CTRL)
         self.showToast(message: "Open order detail: \(G05F00S02VC._id)")
+    }
+    
+    /**
+     * Get status number of item
+     * - returns: Status number value
+     */
+    public static func getStatusNumber() -> String {
+        for item in G05F00S01VC._data.getRecord() {
+            if item.id == G05F00S02VC._id {
+                return item.status_number
+            }
+        }
+        return DomainConst.BLANK
     }
     
     /**

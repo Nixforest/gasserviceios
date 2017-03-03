@@ -33,26 +33,48 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
             // Call alert
             showAlert(message: DomainConst.CONTENT00025)
         } else {
-            RequestAPI.requestRegister(name: txtName.text!, phone: txtPhone.text!, view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+//            RequestAPI.requestRegister(name: txtName.text!, phone: txtPhone.text!, view: self)
+            RegisterRequest.requestRegister(action: #selector(finishRequestRegister(_:)),
+                                            view: self,
+                                            name: txtName.text!,
+                                            phone: txtPhone.text!)
+            //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
         }
     }
     
+    //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+    /**
+     * Finish request register handler
+     */
+    internal func finishRequestRegister(_ notification: Notification) {
+        let obj = (notification.object as! BaseRespModel)
+        self.processInputConfirmCode(message: obj.message)
+    }
+    //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+    
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(super.configItemTap(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_REGISTERVIEW),
+//                                               object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     /**
-     * Handle when tap menu item
+     * View did load
      */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(super.configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_REGISTERVIEW),
-                                               object: nil)
-    }
-    
     override func viewDidLoad() {
         setBackground(bkg: DomainConst.TYPE_1_BKG_IMG_NAME)
         super.viewDidLoad()
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
@@ -88,6 +110,7 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
                                height: GlobalConst.EDITTEXT_H)
         txtPhone.placeholder = DomainConst.CONTENT00054
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
+        txtPhone.keyboardType = .numberPad
         // Set icon
         setLeftViewForTextField(textField: txtPhone, named: DomainConst.PHONE_IMG_NAME)
         txtPhone.delegate = self

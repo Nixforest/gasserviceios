@@ -11,9 +11,9 @@ import harpyframework
 
 class G05Const {
     /** Function identifier */
-    public static let FUNC_IDENTIFIER               = DomainConst.APPNAME + "g05"
+    public static let FUNC_IDENTIFIER                           = DomainConst.APPNAME + "g05"
     /** Path to connect with PHP server */
-    public static let PATH_ORDER_CONFIG                 = "order/getConfig"
+    public static let PATH_ORDER_CONFIG                         = "order/getConfig"
     /** Path to connect with PHP server */
     public static let PATH_ORDER_VIP_CREATE                     = "boMoi/boMoiCreate"
     /** Path to connect with PHP server */
@@ -31,6 +31,8 @@ class G05Const {
     /** Name of Order detail view controller */
     public static let G05_F00_S02_VIEW_CTRL                     = "G05F00S02VC"
     /** Notification key: Configuration item */
-    public static let NOTIFY_NAME_G05_ORDER_LIST_CONFIG_ITEM    = G05Const.FUNC_IDENTIFIER + ".orderlist.configitem"
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    public static let NOTIFY_NAME_G05_ORDER_LIST_CONFIG_ITEM    = G05Const.FUNC_IDENTIFIER + ".orderlist.configitem"
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
 }

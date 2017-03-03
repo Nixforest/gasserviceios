@@ -26,27 +26,29 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
     @IBOutlet weak var homeTableView: UITableView!
     
     // MARK: Actions
-    /**
-     * Handle when tap menu item
-     */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(registerItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_REGISTER_ITEM),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(logoutItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGOUT_ITEM),
-                                               object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(loginItemTapped(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
-    }
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(configItemTap(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW),
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(registerItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_REGISTER_ITEM),
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(logoutItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGOUT_ITEM),
+//                                               object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(issueItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(loginItemTapped(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_LOGIN_ITEM), object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     //MARK: ViewDidLoad
     /**
@@ -54,8 +56,10 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
      */
      override func viewDidLoad() {
         super.viewDidLoad()
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Handle display color when training mode is on
         if BaseModel.shared.checkTrainningMode() {
@@ -86,12 +90,18 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         self.homeTableView.register(UINib(nibName: DomainConst.G00_HOME_CELL, bundle: nil), forCellReuseIdentifier: DomainConst.G00_HOME_CELL)
         
         // Notify set data
-        NotificationCenter.default.addObserver(self, selector: #selector(G00HomeVC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
+        //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//        NotificationCenter.default.addObserver(self, selector: #selector(G00HomeVC.setData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_HOMEVIEW), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(updateNotificationStatus(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_UPDATE_NOTIFY_HOMEVIEW), object: nil)
+        //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         
         // Get data from server
         if BaseModel.shared.checkIsLogin() {
-            RequestAPI.requestUpdateConfiguration(view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestUpdateConfiguration(view: self)
+            UpdateConfigurationRequest.requestUpdateConfiguration(action: #selector(self.setData(_:)),
+                                                                  view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         }
         
         // Handle waiting register code confirm
@@ -109,7 +119,10 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         
         // Get notification count from server
         if BaseModel.shared.checkIsLogin() {
-            RequestAPI.requestNotificationCount(view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestNotificationCount(view: self)
+            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         }
     }
 
@@ -236,7 +249,10 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         case 1:     // New uphold
             if BaseModel.shared.user_info == nil {
                 // User information does not exist
-                RequestAPI.requestUserProfile(action: #selector(emptyMethod(_:)), view: self)
+                //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+                //RequestAPI.requestUserProfile(action: #selector(emptyMethod(_:)), view: self)
+                UserProfileRequest.requestUserProfile(action: #selector(emptyMethod(_:)), view: self)
+                //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
             }
             self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
         case 2: // List uphold
@@ -264,7 +280,10 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         
         // Get notification count from server
         if BaseModel.shared.checkIsLogin() {
-            RequestAPI.requestNotificationCount(view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            RequestAPI.requestNotificationCount(view: self)
+            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         }
         
         // Check open by notification

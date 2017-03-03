@@ -57,9 +57,24 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
             showAlert(message: DomainConst.CONTENT00023)
         } else {
             // Start login process
-            RequestAPI.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
+            //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+            //RequestAPI.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
+            LoginRequest.requestLogin(action: #selector(finishRequestHandler),
+                                      view: self,
+                                      username: txtAccount.text!,
+                                      password: txtPassword.text!)
+            //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
         }
     }
+    
+    //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+    /**
+     * Finish request login handler
+     */
+    func finishRequestHandler(_ notification: Notification) {
+        self.popToRootView()
+    }
+    //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     
     /**
      * Handle tap on Login button
@@ -95,15 +110,17 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         }
     }
     
-    /**
-     * Handle when tap menu item
-     */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(super.configItemTap(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM),
-                                               object: nil)
-    }
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(super.configItemTap(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM),
+//                                               object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
     /**
      * View did load
@@ -111,8 +128,10 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
     override public func viewDidLoad() {
         setBackground(bkg: DomainConst.TYPE_1_BKG_IMG_NAME)
         super.viewDidLoad()
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
@@ -237,6 +256,10 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         if BaseModel.shared.checkTrainningMode() {
             txtAccount.text = "truongnd"
             txtPassword.text = "123123"
+        }
+        // Handle waiting register code confirm
+        if !BaseModel.shared.getTempToken().isEmpty {
+            self.processInputConfirmCode(message: DomainConst.BLANK)
         }
     }
     

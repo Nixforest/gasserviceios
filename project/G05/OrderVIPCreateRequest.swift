@@ -79,8 +79,8 @@ class OrderVIPCreateRequest: BaseRequest {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = OrderVIPCreateRequest(url: G05Const.PATH_ORDER_VIP_CREATE,
-                                         reqMethod: DomainConst.HTTP_POST_REQUEST,
-                                         view: view)
+                                            reqMethod: DomainConst.HTTP_POST_REQUEST,
+                                            view: view)
         request.setData(b50: b50, b45: b45, b12: b12, b6: b6, note: note)
         NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()

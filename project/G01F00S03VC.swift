@@ -69,33 +69,39 @@ class G01F00S03VC: BaseViewController {
     // ScrollView
     @IBOutlet weak var scrollView: UIScrollView!
     
-    // MARK: Methods    
-    /**
-     * Handle when tap menu item
-     */
-    func asignNotifyForMenuItem() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.gasServiceItemTapped(_:)),
-            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(super.issueItemTapped(_:)),
-            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(super.configItemTap(_:)),
-            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_CREATE_UPHOLD),
-            object: nil)
-    }
+    // MARK: Methods
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Handle when tap menu item
+//     */
+//    func asignNotifyForMenuItem() {
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(self.gasServiceItemTapped(_:)),
+//            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_GAS_SERVICE_ITEM),
+//            object: nil)
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(super.issueItemTapped(_:)),
+//            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_ISSUE_ITEM),
+//            object: nil)
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(super.configItemTap(_:)),
+//            name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_CREATE_UPHOLD),
+//            object: nil)
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
-    // MARK: ViewDidLoad
+    /**
+     * View did load
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Menu item tap
-        asignNotifyForMenuItem()
+        //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//        // Menu item tap
+//        asignNotifyForMenuItem()
+        //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
     
         // MARK: Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
@@ -103,17 +109,26 @@ class G01F00S03VC: BaseViewController {
         
         // MARK: - NavBar
         setupNavigationBar(title: DomainConst.CONTENT00143, isNotifyEnable: true)
-        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S03VC.setData(_:)),
-                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW),
-                                               object: nil)
+        //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S03VC.setData(_:)),
+//                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW),
+//                                               object: nil)
+        //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
 
         // Do any additional setup after loading the view.// Set data
         if BaseModel.shared.sharedInt != -1 {
             // Check data is existed
             if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
-                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id,
-                                               replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id,
-                                               view: self)
+                //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id,
+//                                               replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id,
+//                                               view: self)
+                let bean = BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt]
+                UpholdDetailRequest.requestUpholdDetail(action: #selector(self.setData(_:)),
+                                                        view: self,
+                                                        upholdId: bean.id,
+                                                        replyId: bean.reply_id)
+                //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
             }
         }
         // Notification

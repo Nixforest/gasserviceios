@@ -22,15 +22,17 @@ class G00HomeMenuVC: BaseMenuViewController {
         // Do any additional setup after loading the view.
     }
     
-    /**
-     * Override
-     */
-    override func configItemTapped(_ sender: AnyObject) {
-        self.dismiss(animated: false) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)
-        }
-        
-    }
+    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    /**
+//     * Override
+//     */
+//    override func configItemTapped(_ sender: AnyObject) {
+//        self.dismiss(animated: false) {
+//            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_HOMEVIEW), object: nil)
+//        }
+//        
+//    }
+    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
