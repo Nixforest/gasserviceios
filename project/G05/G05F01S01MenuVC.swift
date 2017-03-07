@@ -28,6 +28,7 @@ class G05F01S01MenuVC: BaseMenuViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
     //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
 //    /**
 //     * Override

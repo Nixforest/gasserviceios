@@ -1,6 +1,6 @@
 project '../project.xcodeproj'
 source 'https://github.com/CocoaPods/Specs.git'
 target 'project' do
-pod 'GoogleMaps'
-pod 'GooglePlaces'
+    pod 'GoogleMaps'
+    pod 'GooglePlaces'
 end

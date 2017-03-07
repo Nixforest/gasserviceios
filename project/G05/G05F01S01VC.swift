@@ -32,5 +32,11 @@ class G05F01S01VC: MapViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func btnMenuTapped(_ sender: AnyObject) {
+        if let topView = UIApplication.topViewController() {
+            (topView as! BaseSlideMenuViewController).openLeft()
+        }
+    }
 
 }

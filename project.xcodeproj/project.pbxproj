@@ -83,12 +83,12 @@
 		D7AF28041E588F5500AFF9D6 /* OrderVIPViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF28031E588F5500AFF9D6 /* OrderVIPViewRequest.swift */; };
 		D7AF28061E58971E00AFF9D6 /* G05F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF28051E58971E00AFF9D6 /* G05F00S02VC.swift */; };
 		D7AF28081E58974100AFF9D6 /* G05F00S02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF28071E58974100AFF9D6 /* G05F00S02MenuVC.swift */; };
-		D7BE047D1E0586A400D37740 /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; };
-		D7BE047E1E0586A400D37740 /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D7D04E3D1E557B4000B3F8CF /* G05F01S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D04E3C1E557B4000B3F8CF /* G05F01S02VC.swift */; };
 		D7D04E3F1E557B5D00B3F8CF /* G05F01S02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D04E3E1E557B5D00B3F8CF /* G05F01S02MenuVC.swift */; };
 		D7D04E411E557E6900B3F8CF /* OrderVIPCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D04E401E557E6900B3F8CF /* OrderVIPCreateRequest.swift */; };
 		D7EF19411E10EFEC0054A3AF /* G00RegisterMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EF19401E10EFEC0054A3AF /* G00RegisterMenuVC.swift */; };
+		D7F0D4B61E6E9E50003BC15D /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F0D4B31E6E9E46003BC15D /* harpyframework.framework */; };
+		D7F0D4B71E6E9E50003BC15D /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7F0D4B31E6E9E46003BC15D /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -107,23 +107,23 @@
 			remoteGlobalIDString = 84284E0D1D40DF050079DEBC;
 			remoteInfo = project;
 		};
-		D7BE04771E0585F600D37740 /* PBXContainerItemProxy */ = {
+		D7F0D4B21E6E9E46003BC15D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */;
+			containerPortal = D7F0D4AD1E6E9E46003BC15D /* harpyframework.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D7BE044D1E0584D900D37740;
 			remoteInfo = harpyframework;
 		};
-		D7BE04791E0585F600D37740 /* PBXContainerItemProxy */ = {
+		D7F0D4B41E6E9E46003BC15D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */;
+			containerPortal = D7F0D4AD1E6E9E46003BC15D /* harpyframework.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D7BE04561E0584DA00D37740;
 			remoteInfo = harpyframeworkTests;
 		};
-		D7BE047F1E0586A400D37740 /* PBXContainerItemProxy */ = {
+		D7F0D4B81E6E9E50003BC15D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */;
+			containerPortal = D7F0D4AD1E6E9E46003BC15D /* harpyframework.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = D7BE044C1E0584D900D37740;
 			remoteInfo = harpyframework;
@@ -131,13 +131,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D7BE04811E0586A400D37740 /* Embed Frameworks */ = {
+		D7F0D4BA1E6E9E50003BC15D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D7BE047E1E0586A400D37740 /* harpyframework.framework in Embed Frameworks */,
+				D7F0D4B71E6E9E50003BC15D /* harpyframework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,11 +232,11 @@
 		D7AF28031E588F5500AFF9D6 /* OrderVIPViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPViewRequest.swift; path = G05/OrderVIPViewRequest.swift; sourceTree = "<group>"; };
 		D7AF28051E58971E00AFF9D6 /* G05F00S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S02VC.swift; path = G05/G05F00S02VC.swift; sourceTree = "<group>"; };
 		D7AF28071E58974100AFF9D6 /* G05F00S02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S02MenuVC.swift; path = G05/G05F00S02MenuVC.swift; sourceTree = "<group>"; };
-		D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 		D7D04E3C1E557B4000B3F8CF /* G05F01S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F01S02VC.swift; path = G05/G05F01S02VC.swift; sourceTree = "<group>"; };
 		D7D04E3E1E557B5D00B3F8CF /* G05F01S02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F01S02MenuVC.swift; path = G05/G05F01S02MenuVC.swift; sourceTree = "<group>"; };
 		D7D04E401E557E6900B3F8CF /* OrderVIPCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPCreateRequest.swift; path = G05/OrderVIPCreateRequest.swift; sourceTree = "<group>"; };
 		D7EF19401E10EFEC0054A3AF /* G00RegisterMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00RegisterMenuVC.swift; sourceTree = "<group>"; };
+		D7F0D4AD1E6E9E46003BC15D /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframeworkChangeMenu/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 		D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Common/MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -245,9 +245,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7BE047D1E0586A400D37740 /* harpyframework.framework in Frameworks */,
 				924EABC41DF10CFC0056A303 /* UserNotifications.framework in Frameworks */,
 				A6D5C206D076DEA55DDA5D48 /* libPods-project.a in Frameworks */,
+				D7F0D4B61E6E9E50003BC15D /* harpyframework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,7 +280,7 @@
 		84284E051D40DF050079DEBC = {
 			isa = PBXGroup;
 			children = (
-				D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */,
+				D7F0D4AD1E6E9E46003BC15D /* harpyframework.xcodeproj */,
 				84284E101D40DF050079DEBC /* project */,
 				84284E251D40DF050079DEBC /* projectTests */,
 				84284E301D40DF050079DEBC /* projectUITests */,
@@ -524,15 +524,6 @@
 			name = API;
 			sourceTree = "<group>";
 		};
-		D7BE04731E0585F600D37740 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D7BE04781E0585F600D37740 /* harpyframework.framework */,
-				D7BE047A1E0585F600D37740 /* harpyframeworkTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D7D04E381E5557C500B3F8CF /* F00 */ = {
 			isa = PBXGroup;
 			children = (
@@ -542,6 +533,15 @@
 				D7AF28071E58974100AFF9D6 /* G05F00S02MenuVC.swift */,
 			);
 			name = F00;
+			sourceTree = "<group>";
+		};
+		D7F0D4AE1E6E9E46003BC15D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D7F0D4B31E6E9E46003BC15D /* harpyframework.framework */,
+				D7F0D4B51E6E9E46003BC15D /* harpyframeworkTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -554,15 +554,15 @@
 				7944C7D378C69FE8906D58B7 /* [CP] Check Pods Manifest.lock */,
 				84284E0A1D40DF050079DEBC /* Sources */,
 				84284E0B1D40DF050079DEBC /* Frameworks */,
-				D7BE04811E0586A400D37740 /* Embed Frameworks */,
 				84284E0C1D40DF050079DEBC /* Resources */,
 				1A5E73D66DD5925942EAAE1C /* [CP] Embed Pods Frameworks */,
 				4AE7112CDE9C69FB73FE25A1 /* [CP] Copy Pods Resources */,
+				D7F0D4BA1E6E9E50003BC15D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D7BE04801E0586A400D37740 /* PBXTargetDependency */,
+				D7F0D4B91E6E9E50003BC15D /* PBXTargetDependency */,
 			);
 			name = project;
 			productName = project;
@@ -651,8 +651,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D7BE04731E0585F600D37740 /* Products */;
-					ProjectRef = D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */;
+					ProductGroup = D7F0D4AE1E6E9E46003BC15D /* Products */;
+					ProjectRef = D7F0D4AD1E6E9E46003BC15D /* harpyframework.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -665,18 +665,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D7BE04781E0585F600D37740 /* harpyframework.framework */ = {
+		D7F0D4B31E6E9E46003BC15D /* harpyframework.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = harpyframework.framework;
-			remoteRef = D7BE04771E0585F600D37740 /* PBXContainerItemProxy */;
+			remoteRef = D7F0D4B21E6E9E46003BC15D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D7BE047A1E0585F600D37740 /* harpyframeworkTests.xctest */ = {
+		D7F0D4B51E6E9E46003BC15D /* harpyframeworkTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = harpyframeworkTests.xctest;
-			remoteRef = D7BE04791E0585F600D37740 /* PBXContainerItemProxy */;
+			remoteRef = D7F0D4B41E6E9E46003BC15D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -867,10 +867,10 @@
 			target = 84284E0D1D40DF050079DEBC /* project */;
 			targetProxy = 84284E2E1D40DF050079DEBC /* PBXContainerItemProxy */;
 		};
-		D7BE04801E0586A400D37740 /* PBXTargetDependency */ = {
+		D7F0D4B91E6E9E50003BC15D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = harpyframework;
-			targetProxy = D7BE047F1E0586A400D37740 /* PBXContainerItemProxy */;
+			targetProxy = D7F0D4B81E6E9E50003BC15D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

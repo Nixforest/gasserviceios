@@ -53,6 +53,10 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         MapViewController._agentInfo.append(contentsOf: BaseModel.shared.getOrderConfig().agent)
         MapViewController._distance = BaseModel.shared.getOrderConfig().distance_1
     }
+    
+    override func btnMenuTapped(_ sender: AnyObject) {
+        super.btnMenuTapped(sender)
+    }
     //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
 //    /**
 //     * Handle when tap menu item
@@ -109,7 +113,8 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         setupBottomView()
         
         // NavBar setup
-        setupNavigationBar(title: BaseModel.shared.getAppName(), isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
+        //setupNavigationBar(title: BaseModel.shared.getAppName(), isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
+        setupNavigationBarParent(title: BaseModel.shared.getAppName())
         self.view.makeComponentsColor()
     }
     
