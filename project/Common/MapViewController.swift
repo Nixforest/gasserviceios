@@ -11,7 +11,7 @@ import harpyframework
 import GoogleMaps
 import GooglePlaces
 
-class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate {
+class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, SlideMenuControllerDelegate {
     // MARK: Properties
     /** Top view */
     private var _topView                = UIView()
@@ -42,9 +42,21 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
     /** Save neares agent information */
     public static var _nearestAgent     = AgentInfoBean()
     public static var _currentAddress   = DomainConst.BLANK
+    private var _isOpenMenu             = false
     
     
     // MARK: Actions
+    
+    func leftWillOpen() {
+        //self.showToast(message: "leftWillOpen")
+        self._isOpenMenu = true
+        _mapView?.settings.scrollGestures   = false
+    }
+    func leftDidClose() {
+        //self.showToast(message: "leftDidClose")
+        self._isOpenMenu = false
+        _mapView?.settings.scrollGestures   = true
+    }
     /**
      * Update agent information from server
      * - paramater data: AgentInfoBean object
@@ -116,6 +128,12 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         //setupNavigationBar(title: BaseModel.shared.getAppName(), isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
         setupNavigationBarParent(title: BaseModel.shared.getAppName())
         self.view.makeComponentsColor()
+        if let topView = UIApplication.topViewController() {
+            (topView as! BaseSlideMenuViewController).delegate = self
+        }
+//        if let top = UIApplication.topViewController() {
+//            ((top as! BaseSlideMenuViewController).leftViewController as! BaseMenuViewController).menuItemTappedDelegate = self
+//        }
     }
     
     /**
@@ -154,6 +172,9 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
 //            RequestAPI.requestNotificationCount(view: self)
             NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
             //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+            if let top = UIApplication.topViewController() {
+                ((top as! BaseSlideMenuViewController).leftViewController as! BaseMenuViewController).updateData()
+            }
         }
     }
     //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
@@ -488,6 +509,9 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
      * Handle event start drag map view
      */
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+//        if _isOpenMenu {
+//            return
+//        }
         print("willMove: " + "\(gesture)")
         // Hide children
         if self._isShowChildren {

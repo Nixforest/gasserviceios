@@ -14,13 +14,13 @@ class G05F01S01MenuVC: BaseMenuViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        if BaseModel.shared.checkIsLogin() {
-            setItem(listValues: [false, true, false, true, true])
-        } else {
-            setItem(listValues: [true, false, true, false, true])
-        }
-        setupMenuItem()
+//        // Do any additional setup after loading the view.
+//        if BaseModel.shared.checkIsLogin() {
+//            setItem(listValues: [false, true, false, true, true])
+//        } else {
+//            setItem(listValues: [true, false, true, false, true])
+//        }
+//        setupMenuItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,5 +49,4 @@ class G05F01S01MenuVC: BaseMenuViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }

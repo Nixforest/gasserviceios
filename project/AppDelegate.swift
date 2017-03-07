@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         SlideMenuOptions.leftViewWidth = GlobalConst.POPOVER_WIDTH
+        SlideMenuOptions.panGesturesEnabled = true
+        SlideMenuOptions.hideStatusBar = false
         
         let firstVC = mainStoryboard.instantiateViewController(withIdentifier: G05Const.G05_F01_S01_VIEW_CTRL)
         rootNav = UINavigationController(rootViewController: firstVC)
