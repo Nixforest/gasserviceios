@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: Properties
     /** Search bar */
     @IBOutlet weak var searchBar: UISearchBar!
@@ -70,7 +70,8 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
             height: searchBar.frame.size.height)
         
         // Setup navigation
-        setupNavigationBar(title: DomainConst.CONTENT00128, isNotifyEnable: true)
+        //setupNavigationBar(title: DomainConst.CONTENT00128, isNotifyEnable: true)
+        createNavigationBar(title: DomainConst.CONTENT00128)
     }
 
     /**

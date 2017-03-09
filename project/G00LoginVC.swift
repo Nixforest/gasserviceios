@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G00LoginVC: BaseViewController, UITextFieldDelegate {
+class G00LoginVC: ChildViewController, UITextFieldDelegate {
     // MARK: Properties
     var bShowPassword:Bool!
     /** Logo image */
@@ -244,7 +244,8 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         //self.view.addSubview(btnForgotPass)
         
         // Navigation bar
-        setupNavigationBar(title: DomainConst.CONTENT00051, isNotifyEnable: false)
+        //setupNavigationBar(title: DomainConst.CONTENT00051, isNotifyEnable: false)
+        createNavigationBar(title: DomainConst.CONTENT00051)
         
         txtAccount.delegate     = self
         txtPassword.delegate    = self

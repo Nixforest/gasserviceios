@@ -11,7 +11,7 @@ import harpyframework
 import GoogleMaps
 import GooglePlaces
 
-class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate, SlideMenuControllerDelegate {
+class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate {
     // MARK: Properties
     /** Top view */
     private var _topView                = UIView()
@@ -66,9 +66,9 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         MapViewController._distance = BaseModel.shared.getOrderConfig().distance_1
     }
     
-    override func btnMenuTapped(_ sender: AnyObject) {
-        super.btnMenuTapped(sender)
-    }
+//    override func btnMenuTapped(_ sender: AnyObject) {
+//        super.btnMenuTapped(sender)
+//    }
     //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
 //    /**
 //     * Handle when tap menu item
@@ -126,11 +126,11 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         
         // NavBar setup
         //setupNavigationBar(title: BaseModel.shared.getAppName(), isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
-        setupNavigationBarParent(title: BaseModel.shared.getAppName())
+        createNavigationBar(title: BaseModel.shared.getAppName())
         self.view.makeComponentsColor()
-        if let topView = UIApplication.topViewController() {
-            (topView as! BaseSlideMenuViewController).delegate = self
-        }
+//        if let topView = UIApplication.topViewController() {
+//            (topView as! BaseSlideMenuViewController).delegate = self
+//        }
 //        if let top = UIApplication.topViewController() {
 //            ((top as! BaseSlideMenuViewController).leftViewController as! BaseMenuViewController).menuItemTappedDelegate = self
 //        }
@@ -172,9 +172,9 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
 //            RequestAPI.requestNotificationCount(view: self)
             NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
             //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
-            if let top = UIApplication.topViewController() {
-                ((top as! BaseSlideMenuViewController).leftViewController as! BaseMenuViewController).updateData()
-            }
+//            if let top = UIApplication.topViewController() {
+//                ((top as! BaseSlideMenuViewController).leftViewController as! BaseMenuViewController).updateData()
+//            }
         }
     }
     //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion

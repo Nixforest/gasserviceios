@@ -97,40 +97,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="6NS-2E-c3P">
-                        <barButtonItem key="leftBarButtonItem" id="5wj-Sa-x05">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oju-tH-mvJ">
-                                <rect key="frame" x="16" y="7" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem id="z6X-UN-0ax">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="J9R-Jj-xBE">
-                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <segue destination="nSy-q2-fao" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="J9R-Jj-xBE" id="UeA-3f-vvK">
-                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                        </segue>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem id="Hb1-Cm-dFn">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Cy7-Jp-rYU">
-                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                    <state key="normal" title="Button"/>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="6NS-2E-c3P"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="backButton" destination="oju-tH-mvJ" id="X4T-fJ-EwR"/>
                         <outlet property="btnForgotPass" destination="ftW-EK-ZSq" id="3aA-Pj-Vba"/>
                         <outlet property="btnLogin" destination="tUD-B5-4IU" id="dzM-2o-Zx2"/>
                         <outlet property="btnSeparator" destination="g4k-zS-HZG" id="8Yn-d0-bQI"/>
@@ -138,9 +107,7 @@
                         <outlet property="chbShowPassword" destination="HuI-gc-aJa" id="8h4-28-zl5"/>
                         <outlet property="imgLogo" destination="cLF-Jn-NAq" id="98L-uR-Wen"/>
                         <outlet property="lblShowPassword" destination="vx3-2C-1X5" id="PEY-eF-EhB"/>
-                        <outlet property="menuButton" destination="J9R-Jj-xBE" id="9wY-FH-QFf"/>
                         <outlet property="navigationBar" destination="6NS-2E-c3P" id="2zr-2U-mjT"/>
-                        <outlet property="notificationButton" destination="Cy7-Jp-rYU" id="hVt-LV-euR"/>
                         <outlet property="txtAccount" destination="eeu-rD-CBp" id="Mlw-cz-1Yh"/>
                         <outlet property="txtPassword" destination="mDN-Gd-7pd" id="N4D-vv-J6j"/>
                     </connections>
@@ -148,28 +115,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-375.19999999999999" y="4.9475262368815596"/>
-        </scene>
-        <!--Login MenuVC-->
-        <scene sceneID="MpN-7l-3nS">
-            <objects>
-                <viewController storyboardIdentifier="G00LoginMenuVC" id="nSy-q2-fao" customClass="G00LoginMenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="5zM-eo-HPv"/>
-                        <viewControllerLayoutGuide type="bottom" id="L6p-Hk-mJj"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="CfS-tJ-Om8">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Hr9-G4-Agc"/>
-                    <value key="contentSizeForViewInPopover" type="size" width="200" height="50"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="200" height="50"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2WP-dY-2vU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="264" y="-273"/>
         </scene>
         <!--RegisterVC-->
         <scene sceneID="iBv-gj-05c">
@@ -339,48 +284,15 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="TBh-2w-e41">
-                        <barButtonItem key="leftBarButtonItem" id="xXq-fg-0pP">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DH1-Nc-mVR">
-                                <rect key="frame" x="16" y="7" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem id="Emh-Nu-nF0">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gD4-20-kqM">
-                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <segue destination="r84-IB-4V0" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="gD4-20-kqM" id="HQC-Gx-KDE">
-                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                        </segue>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem id="CpC-w8-OAz">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Tha-Mu-96f">
-                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                    <state key="normal" title="Button"/>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="TBh-2w-e41"/>
                     <connections>
-                        <outlet property="backButton" destination="DH1-Nc-mVR" id="a4J-Xj-gG6"/>
                         <outlet property="changePasswordButton" destination="jxo-04-t18" id="ACa-hz-BRg"/>
                         <outlet property="imgAddress" destination="x8O-cr-Lzq" id="AcJ-OV-6Jy"/>
                         <outlet property="imgAvatar" destination="E61-VU-x5g" id="L1R-j9-wVc"/>
                         <outlet property="imgName" destination="b64-vd-c5g" id="8lj-Ph-sUJ"/>
                         <outlet property="imgPhone" destination="UgH-IR-KPZ" id="AUg-Qa-pq5"/>
                         <outlet property="logoutButton" destination="zyS-LC-AqQ" id="Gky-ii-pye"/>
-                        <outlet property="menuButton" destination="gD4-20-kqM" id="OZV-Xo-Jnd"/>
                         <outlet property="navigationBar" destination="TBh-2w-e41" id="QyD-gz-fhu"/>
-                        <outlet property="notificationButton" destination="Tha-Mu-96f" id="Ag9-4w-s3B"/>
                         <outlet property="saveButton" destination="Flz-c9-Q5S" id="bdN-8z-imN"/>
                         <outlet property="txtAddress" destination="xq6-Pr-TAB" id="g79-aL-Uoz"/>
                         <outlet property="txtName" destination="edI-aN-Dhf" id="GmI-Bx-D8y"/>
@@ -715,27 +627,6 @@
             </objects>
             <point key="canvasLocation" x="4410" y="-1703"/>
         </scene>
-        <!--Account MenuVC-->
-        <scene sceneID="zdA-Q1-Mns">
-            <objects>
-                <viewController storyboardIdentifier="G00AccountMenuVC" id="r84-IB-4V0" customClass="G00AccountMenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="E2H-sF-ZYm"/>
-                        <viewControllerLayoutGuide type="bottom" id="4kf-QH-DrM"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="MWY-nL-jxs">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="200" height="150"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="200" height="150"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LbZ-GH-tRD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1784" y="-1466"/>
-        </scene>
         <!--Register MenuVC-->
         <scene sceneID="hlB-Ra-rF6">
             <objects>
@@ -903,50 +794,11 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Rhb-f0-pJI">
-                        <barButtonItem key="leftBarButtonItem" id="MGV-C6-ORJ">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="w3e-qE-YzU">
-                                <rect key="frame" x="16" y="7" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="backButtonTapped:" destination="oYw-eb-ON9" eventType="touchUpInside" id="B1m-n6-XMn"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem id="K4Q-6W-KM9">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xc3-Ys-aJQ">
-                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <segue destination="gpH-Q6-KIn" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="xc3-Ys-aJQ" id="9Vd-mp-bec">
-                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                        </segue>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem id="5sJ-EI-8XF">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PJx-qE-UkD">
-                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <action selector="notificationButtonTapped:" destination="oYw-eb-ON9" eventType="touchUpInside" id="sJa-ZN-5ej"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Rhb-f0-pJI"/>
                     <connections>
-                        <outlet property="backButton" destination="w3e-qE-YzU" id="dd4-ea-2vp"/>
                         <outlet property="blurView" destination="UEt-oR-25B" id="JZz-I7-SZ3"/>
                         <outlet property="lblStatusList" destination="Ho4-M1-kMd" id="Vhk-31-VxU"/>
-                        <outlet property="menuButton" destination="xc3-Ys-aJQ" id="mgk-xS-r2c"/>
                         <outlet property="navigationBar" destination="Rhb-f0-pJI" id="dbb-NG-QHK"/>
-                        <outlet property="notificationButton" destination="PJx-qE-UkD" id="CT6-pn-e0a"/>
                         <outlet property="periodTableView" destination="gmz-so-odz" id="3Ej-a3-F2U"/>
                         <outlet property="problemTableView" destination="QXc-fu-aYw" id="OQH-PB-1XO"/>
                         <outlet property="searchBarTableView" destination="ImI-gF-muT" id="k6K-2g-lVM"/>
@@ -958,27 +810,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rvw-EK-tWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-491" y="-1938"/>
-        </scene>
-        <!--MenuVC-->
-        <scene sceneID="M7v-e0-gvf">
-            <objects>
-                <viewController storyboardIdentifier="G01F00S01MenuVC" id="gpH-Q6-KIn" customClass="G01F00S01MenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="8E6-C5-7v8"/>
-                        <viewControllerLayoutGuide type="bottom" id="I72-tH-med"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="WNm-xy-RdO">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="200" height="150"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="200" height="150"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zuE-CZ-jNT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="150" y="-2171"/>
         </scene>
         <!--Internal View Controller-->
         <scene sceneID="SOX-yD-hUT">
@@ -1052,27 +883,6 @@
             </objects>
             <point key="canvasLocation" x="2712.8000000000002" y="-2999.5502248875564"/>
         </scene>
-        <!--Configuration MenuVC-->
-        <scene sceneID="qa5-c4-O27">
-            <objects>
-                <viewController id="e0D-Al-xL1" customClass="G00ConfigurationMenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UoH-Kb-JH9"/>
-                        <viewControllerLayoutGuide type="bottom" id="AOn-rC-7yR"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="WpG-Ai-I5Q">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="200" height="100"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="200" height="100"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nua-pv-2hp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2120" y="-2415"/>
-        </scene>
         <!--G01F01VC-->
         <scene sceneID="oJO-EE-luB">
             <objects>
@@ -1086,47 +896,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wvg-G7-vDS">
-                        <barButtonItem key="leftBarButtonItem" id="7kU-c7-o12">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jET-VC-qiO">
-                                <rect key="frame" x="16" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem id="EHK-a6-YeJ">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="192-vg-vIl">
-                                    <rect key="frame" x="276" y="7" width="83" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <segue destination="I2S-u0-FLa" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="192-vg-vIl" id="5ID-yI-Wkd">
-                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                        </segue>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem id="Fpf-k2-LIc">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Dg9-m6-pkA">
-                                    <rect key="frame" x="185" y="7" width="83" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                    <state key="normal" title="Button"/>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="wvg-G7-vDS"/>
                     <connections>
-                        <outlet property="backButton" destination="jET-VC-qiO" id="wVz-2D-PkW"/>
-                        <outlet property="menuButton" destination="192-vg-vIl" id="1z2-0U-TiJ"/>
                         <outlet property="navigationBar" destination="wvg-G7-vDS" id="0Tf-Zf-fih"/>
-                        <outlet property="notificationButton" destination="Dg9-m6-pkA" id="Ey7-No-fhd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yLp-n9-DYK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4692" y="-2540.7796101949029"/>
+            <point key="canvasLocation" x="4126" y="-2575"/>
         </scene>
         <!--ConfigurationVC-->
         <scene sceneID="4Ik-1w-rOI">
@@ -1174,50 +951,11 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="9Z2-Kv-WlZ">
-                        <barButtonItem key="leftBarButtonItem" id="2bq-iE-SFE">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ALm-Xh-TXl">
-                                <rect key="frame" x="16" y="7" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="backButtonTapped:" destination="Ng3-Ob-cQr" eventType="touchUpInside" id="1hs-g9-bRD"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem id="Who-Su-Imd">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0hR-P1-CtS">
-                                    <rect key="frame" x="288" y="7" width="71" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <segue destination="e0D-Al-xL1" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="0hR-P1-CtS" id="OF1-Vy-hhI">
-                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                        </segue>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem id="G5w-Oy-kZA">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mjh-gB-ZS7">
-                                    <rect key="frame" x="209" y="7" width="71" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <action selector="notificationButtonTapped:" destination="Ng3-Ob-cQr" eventType="touchUpInside" id="mPz-7P-Fnm"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="9Z2-Kv-WlZ"/>
                     <connections>
-                        <outlet property="backButton" destination="ALm-Xh-TXl" id="a70-Zx-GQe"/>
                         <outlet property="configTableView" destination="o2q-ue-nZ7" id="ENO-qe-5Rp"/>
                         <outlet property="configView" destination="tMP-uu-sju" id="fAL-Gl-VXT"/>
-                        <outlet property="menuButton" destination="0hR-P1-CtS" id="omX-vg-AYU"/>
                         <outlet property="navigationBar" destination="9Z2-Kv-WlZ" id="gZG-Hn-HEh"/>
-                        <outlet property="notificationButton" destination="mjh-gB-ZS7" id="QHF-4U-R1U"/>
                         <outlet property="searchBar" destination="PNn-PF-B6G" id="A6M-we-74U"/>
                     </connections>
                 </viewController>
@@ -1578,27 +1316,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RqD-N2-GwR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4765.6000000000004" y="-3212.2938530734637"/>
-        </scene>
-        <!--MenuVC-->
-        <scene sceneID="0BK-4a-GDd">
-            <objects>
-                <viewController storyboardIdentifier="G01F01MenuVC" id="I2S-u0-FLa" customClass="G01F01MenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aFl-Of-0pT"/>
-                        <viewControllerLayoutGuide type="bottom" id="fWp-Zz-mFM"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="EDW-6P-lxj">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="200" height="150"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="200" height="150"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6Yy-be-4tc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5431" y="-3274"/>
         </scene>
         <!--G01F01S02VC-->
         <scene sceneID="4of-ro-QQ9">
@@ -2227,70 +1944,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="hZq-Lf-LS4">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="XTh-Ew-HMA">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="f3h-4Z-dw3">
-                                <rect key="frame" x="16" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem style="plain" id="ldW-Cu-WwS">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="35z-tY-ujp">
-                                    <rect key="frame" x="276" y="7" width="83" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <segue destination="P9S-Od-j2L" kind="popoverPresentation" identifier="popOverMenu" popoverAnchorView="35z-tY-ujp" id="HZ4-Yb-7eu">
-                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                        </segue>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem style="plain" id="U0s-mp-tnx">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2Rs-AM-U2y">
-                                    <rect key="frame" x="185" y="7" width="83" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                    <state key="normal" title="Button"/>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="hZq-Lf-LS4"/>
                     <connections>
-                        <outlet property="backButton" destination="f3h-4Z-dw3" id="mrZ-oM-1FS"/>
-                        <outlet property="menuButton" destination="35z-tY-ujp" id="m8e-33-449"/>
                         <outlet property="navigationBar" destination="hZq-Lf-LS4" id="92d-GN-D11"/>
-                        <outlet property="notificationButton" destination="2Rs-AM-U2y" id="hGp-Q3-l7u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cb4-Tx-cs5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="9548" y="3238"/>
         </scene>
-        <!--MenuVC-->
-        <scene sceneID="sgc-6S-GsD">
-            <objects>
-                <viewController storyboardIdentifier="G05F01S02MenuVC" id="P9S-Od-j2L" customClass="G05F01S02MenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3k9-55-aZ7"/>
-                        <viewControllerLayoutGuide type="bottom" id="12b-rL-ea3"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ZCQ-OC-Zmc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6sQ-Bu-aCX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="10534" y="3238"/>
-        </scene>
-        <!--MenuVC-->
+        <!--Base Menu View Controller-->
         <scene sceneID="Wi3-aj-oNj">
             <objects>
-                <viewController storyboardIdentifier="G05F01S01MenuVC" id="MnN-US-TGj" customClass="G05F01S01MenuVC" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BaseMenuViewController" id="MnN-US-TGj" customClass="BaseMenuViewController" customModule="harpyframework" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zUJ-qD-l5Z"/>
                         <viewControllerLayoutGuide type="bottom" id="T93-H2-SnA"/>

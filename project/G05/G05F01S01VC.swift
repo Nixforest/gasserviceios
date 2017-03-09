@@ -33,10 +33,10 @@ class G05F01S01VC: MapViewController {
     }
     */
     
-    override func btnMenuTapped(_ sender: AnyObject) {
-        if let topView = UIApplication.topViewController() {
-            (topView as! BaseSlideMenuViewController).openLeft()
-        }
-    }
+//    override func btnMenuTapped(_ sender: AnyObject) {
+//        if let topView = UIApplication.topViewController() {
+//            (topView as! BaseSlideMenuViewController).openLeft()
+//        }
+//    }
 
 }

@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     // MARK: Properties
     /** Save button */
     @IBOutlet weak var saveButton: UIButton!
@@ -229,7 +229,8 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
         logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
         
         // Navigation Bar customize
-        setupNavigationBar(title: DomainConst.CONTENT00100, isNotifyEnable: true)
+        //setupNavigationBar(title: DomainConst.CONTENT00100, isNotifyEnable: true)
+        createNavigationBar(title: DomainConst.CONTENT00100)
 
         // Do any additional setup after loading the view.
         let gesture = UITapGestureRecognizer(target: self, action: #selector(G00AccountVC.hideKeyboard(_:)))

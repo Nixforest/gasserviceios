@@ -32,13 +32,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SlideMenuOptions.panGesturesEnabled = true
         SlideMenuOptions.hideStatusBar = false
         
-        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: G05Const.G05_F01_S01_VIEW_CTRL)
+        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: G05Const.G05_F01_S01_VIEW_CTRL) as! ParentViewController
         rootNav = UINavigationController(rootViewController: firstVC)
         rootNav.isNavigationBarHidden = false
         
         let slide = BaseSlideMenuViewController(mainViewController: rootNav,
-                                        leftMenuViewController: mainStoryboard.instantiateViewController(withIdentifier: "G05F01S01MenuVC"))
-        
+                                        leftMenuViewController: mainStoryboard.instantiateViewController(withIdentifier: "BaseMenuViewController"))
+        slide.delegate = firstVC
         self.window?.rootViewController = slide
         self.window?.makeKeyAndVisible()
  

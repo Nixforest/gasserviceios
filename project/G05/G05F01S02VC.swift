@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G05F01S02VC: BaseViewController, UITextViewDelegate {
+class G05F01S02VC: ChildViewController, UITextViewDelegate {
     /** List of selector */
     private var _lstSelector: [OrderVIPSelectorView] = [OrderVIPSelectorView]()
     /** Label */
@@ -32,7 +32,8 @@ class G05F01S02VC: BaseViewController, UITextViewDelegate {
         let orderInfo = BaseModel.shared.getOrderVipDescription()
 
         // Do any additional setup after loading the view.
-        setupNavigationBar(title: DomainConst.CONTENT00130, isNotifyEnable: true)
+        //setupNavigationBar(title: DomainConst.CONTENT00130, isNotifyEnable: true)
+        createNavigationBar(title: DomainConst.CONTENT00130)
         var offset = getTopHeight()
         let width = GlobalConst.SCREEN_WIDTH /*- 2 * GlobalConst.MARGIN*/
         // Title

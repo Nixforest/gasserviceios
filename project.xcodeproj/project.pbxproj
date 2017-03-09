@@ -18,9 +18,7 @@
 		84284E271D40DF050079DEBC /* projectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E261D40DF050079DEBC /* projectTests.swift */; };
 		84284E321D40DF050079DEBC /* projectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E311D40DF050079DEBC /* projectUITests.swift */; };
 		842B8EFA1DB8C43C009BA6A9 /* G01F00S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B8EF81DB8C43C009BA6A9 /* G01F00S03VC.swift */; };
-		842CA8E71D89045E003D9EFF /* G00AccountMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842CA8E61D89045E003D9EFF /* G00AccountMenuVC.swift */; };
 		8435C24C1D8A9E2B00F9903D /* G00ChangePassMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435C24B1D8A9E2B00F9903D /* G00ChangePassMenuVC.swift */; };
-		8435C24E1D8ABED100F9903D /* G01F00S01MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8435C24D1D8ABED100F9903D /* G01F00S01MenuVC.swift */; };
 		84459EDF1D9637DD0087F986 /* G01F00S02HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84459EDD1D9637DD0087F986 /* G01F00S02HistoryCell.swift */; };
 		84459EE01D9637DD0087F986 /* G01F00S02HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84459EDE1D9637DD0087F986 /* G01F00S02HistoryCell.xib */; };
 		84459EE61D9649450087F986 /* G01F01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84459EE51D9649450087F986 /* G01F01VC.swift */; };
@@ -37,15 +35,12 @@
 		84E863551DC0E8BA00F18AA5 /* G00HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E863531DC0E8BA00F18AA5 /* G00HomeCell.swift */; };
 		84E863561DC0E8BA00F18AA5 /* G00HomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E863541DC0E8BA00F18AA5 /* G00HomeCell.xib */; };
 		84EBBD251D8F8E7300FB4D25 /* G00InfomationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBBD241D8F8E7300FB4D25 /* G00InfomationVC.swift */; };
-		84EDDFB01D7D869000861ACB /* G00LoginMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EDDFAF1D7D869000861ACB /* G00LoginMenuVC.swift */; };
 		84EF507A1D94352600EE41B4 /* G01F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF50791D94352600EE41B4 /* G01F00S02VC.swift */; };
 		84EF507C1D94371000EE41B4 /* G01F00S02InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EF507B1D94371000EE41B4 /* G01F00S02InfoView.xib */; };
 		84EF50801D9437C200EE41B4 /* G01F00S02InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF507F1D9437C200EE41B4 /* G01F00S02InfoView.swift */; };
-		920555081DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920555071DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift */; };
 		924EABC41DF10CFC0056A303 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924EABC31DF10CFC0056A303 /* UserNotifications.framework */; };
 		926346421DC45263007CEBC6 /* G01F02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926346411DC45263007CEBC6 /* G01F02MenuVC.swift */; };
 		9266385E1DCC72D7001A36BF /* RatingUpholdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266385D1DCC72D7001A36BF /* RatingUpholdRequest.swift */; };
-		927573241DC0F1CC000289BA /* G01F01MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927573231DC0F1CC000289BA /* G01F01MenuVC.swift */; };
 		92A5C7D31DCB4B3C00D6572F /* CreateUpholdRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A5C7D21DCB4B3C00D6572F /* CreateUpholdRequest.swift */; };
 		92A5C7D61DCB787300D6572F /* G01F03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A5C7D51DCB787300D6572F /* G01F03VC.swift */; };
 		92A5C7D81DCB792900D6572F /* G01F03S01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A5C7D71DCB792900D6572F /* G01F03S01.swift */; };
@@ -69,7 +64,6 @@
 		D706C2321E544E3600F89B8A /* OrderConfigRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706C2301E544E3600F89B8A /* OrderConfigRequest.swift */; };
 		D706C2331E544E3600F89B8A /* OrderConfigRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706C2311E544E3600F89B8A /* OrderConfigRespModel.swift */; };
 		D706C2371E54529400F89B8A /* G05F01S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706C2361E54529400F89B8A /* G05F01S01VC.swift */; };
-		D706C2391E5452E200F89B8A /* G05F01S01MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706C2381E5452E200F89B8A /* G05F01S01MenuVC.swift */; };
 		D73373101E22CCC6004F2781 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D733730F1E22CCC6004F2781 /* Podfile */; };
 		D76AFDAB1E26A58500E73E1D /* G01Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76AFDAA1E26A58500E73E1D /* G01Const.swift */; };
 		D77FFB701E0EE3BC00A795AD /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77FFB6E1E0EE3BC00A795AD /* ImageTableViewCell.swift */; };
@@ -84,7 +78,6 @@
 		D7AF28061E58971E00AFF9D6 /* G05F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF28051E58971E00AFF9D6 /* G05F00S02VC.swift */; };
 		D7AF28081E58974100AFF9D6 /* G05F00S02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF28071E58974100AFF9D6 /* G05F00S02MenuVC.swift */; };
 		D7D04E3D1E557B4000B3F8CF /* G05F01S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D04E3C1E557B4000B3F8CF /* G05F01S02VC.swift */; };
-		D7D04E3F1E557B5D00B3F8CF /* G05F01S02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D04E3E1E557B5D00B3F8CF /* G05F01S02MenuVC.swift */; };
 		D7D04E411E557E6900B3F8CF /* OrderVIPCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D04E401E557E6900B3F8CF /* OrderVIPCreateRequest.swift */; };
 		D7EF19411E10EFEC0054A3AF /* G00RegisterMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EF19401E10EFEC0054A3AF /* G00RegisterMenuVC.swift */; };
 		D7F0D4B61E6E9E50003BC15D /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F0D4B31E6E9E46003BC15D /* harpyframework.framework */; };
@@ -164,9 +157,7 @@
 		84284E311D40DF050079DEBC /* projectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectUITests.swift; sourceTree = "<group>"; };
 		84284E331D40DF050079DEBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		842B8EF81DB8C43C009BA6A9 /* G01F00S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F00S03VC.swift; sourceTree = "<group>"; };
-		842CA8E61D89045E003D9EFF /* G00AccountMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00AccountMenuVC.swift; sourceTree = "<group>"; };
 		8435C24B1D8A9E2B00F9903D /* G00ChangePassMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00ChangePassMenuVC.swift; sourceTree = "<group>"; };
-		8435C24D1D8ABED100F9903D /* G01F00S01MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F00S01MenuVC.swift; sourceTree = "<group>"; };
 		84459EDD1D9637DD0087F986 /* G01F00S02HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F00S02HistoryCell.swift; sourceTree = "<group>"; };
 		84459EDE1D9637DD0087F986 /* G01F00S02HistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = G01F00S02HistoryCell.xib; sourceTree = "<group>"; };
 		84459EE51D9649450087F986 /* G01F01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F01VC.swift; sourceTree = "<group>"; };
@@ -185,15 +176,12 @@
 		84E863531DC0E8BA00F18AA5 /* G00HomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00HomeCell.swift; sourceTree = "<group>"; };
 		84E863541DC0E8BA00F18AA5 /* G00HomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = G00HomeCell.xib; sourceTree = "<group>"; };
 		84EBBD241D8F8E7300FB4D25 /* G00InfomationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00InfomationVC.swift; sourceTree = "<group>"; };
-		84EDDFAF1D7D869000861ACB /* G00LoginMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00LoginMenuVC.swift; sourceTree = "<group>"; };
 		84EF50791D94352600EE41B4 /* G01F00S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F00S02VC.swift; sourceTree = "<group>"; };
 		84EF507B1D94371000EE41B4 /* G01F00S02InfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = G01F00S02InfoView.xib; sourceTree = "<group>"; };
 		84EF507F1D9437C200EE41B4 /* G01F00S02InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F00S02InfoView.swift; sourceTree = "<group>"; };
-		920555071DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00ConfigurationMenuVC.swift; sourceTree = "<group>"; };
 		924EABC31DF10CFC0056A303 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		926346411DC45263007CEBC6 /* G01F02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F02MenuVC.swift; sourceTree = "<group>"; };
 		9266385D1DCC72D7001A36BF /* RatingUpholdRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingUpholdRequest.swift; sourceTree = "<group>"; };
-		927573231DC0F1CC000289BA /* G01F01MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F01MenuVC.swift; sourceTree = "<group>"; };
 		92A5C7D21DCB4B3C00D6572F /* CreateUpholdRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUpholdRequest.swift; sourceTree = "<group>"; };
 		92A5C7D51DCB787300D6572F /* G01F03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F03VC.swift; sourceTree = "<group>"; };
 		92A5C7D71DCB792900D6572F /* G01F03S01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G01F03S01.swift; sourceTree = "<group>"; };
@@ -218,7 +206,6 @@
 		D706C2301E544E3600F89B8A /* OrderConfigRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderConfigRequest.swift; path = G05/OrderConfigRequest.swift; sourceTree = "<group>"; };
 		D706C2311E544E3600F89B8A /* OrderConfigRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderConfigRespModel.swift; path = G05/OrderConfigRespModel.swift; sourceTree = "<group>"; };
 		D706C2361E54529400F89B8A /* G05F01S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F01S01VC.swift; path = G05/G05F01S01VC.swift; sourceTree = "<group>"; };
-		D706C2381E5452E200F89B8A /* G05F01S01MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F01S01MenuVC.swift; path = G05/G05F01S01MenuVC.swift; sourceTree = "<group>"; };
 		D733730F1E22CCC6004F2781 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D76AFDAA1E26A58500E73E1D /* G01Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G01Const.swift; path = G01/G01Const.swift; sourceTree = "<group>"; };
 		D77FFB6E1E0EE3BC00A795AD /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -233,7 +220,6 @@
 		D7AF28051E58971E00AFF9D6 /* G05F00S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S02VC.swift; path = G05/G05F00S02VC.swift; sourceTree = "<group>"; };
 		D7AF28071E58974100AFF9D6 /* G05F00S02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S02MenuVC.swift; path = G05/G05F00S02MenuVC.swift; sourceTree = "<group>"; };
 		D7D04E3C1E557B4000B3F8CF /* G05F01S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F01S02VC.swift; path = G05/G05F01S02VC.swift; sourceTree = "<group>"; };
-		D7D04E3E1E557B5D00B3F8CF /* G05F01S02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F01S02MenuVC.swift; path = G05/G05F01S02MenuVC.swift; sourceTree = "<group>"; };
 		D7D04E401E557E6900B3F8CF /* OrderVIPCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPCreateRequest.swift; path = G05/OrderVIPCreateRequest.swift; sourceTree = "<group>"; };
 		D7EF19401E10EFEC0054A3AF /* G00RegisterMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G00RegisterMenuVC.swift; sourceTree = "<group>"; };
 		D7F0D4AD1E6E9E46003BC15D /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframeworkChangeMenu/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
@@ -390,7 +376,6 @@
 			isa = PBXGroup;
 			children = (
 				84284E131D40DF050079DEBC /* G00LoginVC.swift */,
-				84EDDFAF1D7D869000861ACB /* G00LoginMenuVC.swift */,
 				842782071DBC9BE600781206 /* G00HomeVC.swift */,
 				92BF0C1B1DC1ADD2009B1DA4 /* G00HomeMenuVC.swift */,
 				84E863531DC0E8BA00F18AA5 /* G00HomeCell.swift */,
@@ -398,11 +383,9 @@
 				84E1C4AB1D621A7B00ADD587 /* G00RegisterVC.swift */,
 				D7EF19401E10EFEC0054A3AF /* G00RegisterMenuVC.swift */,
 				84E7184A1D660859006F4995 /* G00AccountVC.swift */,
-				842CA8E61D89045E003D9EFF /* G00AccountMenuVC.swift */,
 				84E1E79F1D664CCD007710BD /* G00ChangePassVC.swift */,
 				8435C24B1D8A9E2B00F9903D /* G00ChangePassMenuVC.swift */,
 				8424683E1D86F9DA00356B20 /* G00ConfigurationVC.swift */,
-				920555071DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift */,
 				84EBBD241D8F8E7300FB4D25 /* G00InfomationVC.swift */,
 			);
 			name = G00;
@@ -444,7 +427,6 @@
 			isa = PBXGroup;
 			children = (
 				84459EE51D9649450087F986 /* G01F01VC.swift */,
-				927573231DC0F1CC000289BA /* G01F01MenuVC.swift */,
 				84459EE71D964B820087F986 /* G01F01S01VC.swift */,
 				84459EE91D964B930087F986 /* G01F01S02VC.swift */,
 				84459EEB1D964BA10087F986 /* G01F01S03VC.swift */,
@@ -456,7 +438,6 @@
 			isa = PBXGroup;
 			children = (
 				841273081D829E3A00BCC56D /* G01F00S01VC.swift */,
-				8435C24D1D8ABED100F9903D /* G01F00S01MenuVC.swift */,
 				84EF50791D94352600EE41B4 /* G01F00S02VC.swift */,
 				84D930D51DBA084A007A8F02 /* G01F00S02MenuVC.swift */,
 				84EF507F1D9437C200EE41B4 /* G01F00S02InfoView.swift */,
@@ -496,9 +477,7 @@
 			isa = PBXGroup;
 			children = (
 				D706C2361E54529400F89B8A /* G05F01S01VC.swift */,
-				D706C2381E5452E200F89B8A /* G05F01S01MenuVC.swift */,
 				D7D04E3C1E557B4000B3F8CF /* G05F01S02VC.swift */,
-				D7D04E3E1E557B5D00B3F8CF /* G05F01S02MenuVC.swift */,
 				D78E326B1E56B91E0035C40D /* OrderVIPSelectorView.swift */,
 			);
 			name = F01;
@@ -772,7 +751,6 @@
 				D78E32681E56A3220035C40D /* OrderVIPCreateRespModel.swift in Sources */,
 				D706C2371E54529400F89B8A /* G05F01S01VC.swift in Sources */,
 				92A5C7E01DCB83A900D6572F /* G01F03S04.swift in Sources */,
-				D7D04E3F1E557B5D00B3F8CF /* G05F01S02MenuVC.swift in Sources */,
 				92A5C7DE1DCB82AC00D6572F /* G01F03S03.swift in Sources */,
 				D706C22D1E544AC000F89B8A /* G05Const.swift in Sources */,
 				84459EEC1D964BA10087F986 /* G01F01S03VC.swift in Sources */,
@@ -781,7 +759,6 @@
 				841273091D829E3A00BCC56D /* G01F00S01VC.swift in Sources */,
 				8427820A1DBC9BE600781206 /* G00HomeVC.swift in Sources */,
 				D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */,
-				920555081DBA01A6002B32C0 /* G00ConfigurationMenuVC.swift in Sources */,
 				D706C2331E544E3600F89B8A /* OrderConfigRespModel.swift in Sources */,
 				D7D04E3D1E557B4000B3F8CF /* G05F01S02VC.swift in Sources */,
 				D7AF28081E58974100AFF9D6 /* G05F00S02MenuVC.swift in Sources */,
@@ -803,8 +780,6 @@
 				8435C24C1D8A9E2B00F9903D /* G00ChangePassMenuVC.swift in Sources */,
 				92BF0C1C1DC1ADD2009B1DA4 /* G00HomeMenuVC.swift in Sources */,
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
-				927573241DC0F1CC000289BA /* G01F01MenuVC.swift in Sources */,
-				D706C2391E5452E200F89B8A /* G05F01S01MenuVC.swift in Sources */,
 				D7AF27FC1E58579000AFF9D6 /* G05F00S01MenuVC.swift in Sources */,
 				84459EEA1D964B930087F986 /* G01F01S02VC.swift in Sources */,
 				D7AF28061E58971E00AFF9D6 /* G05F00S02VC.swift in Sources */,
@@ -825,15 +800,12 @@
 				92BF0C221DC1B51C009B1DA4 /* G01F02VC.swift in Sources */,
 				84459EE61D9649450087F986 /* G01F01VC.swift in Sources */,
 				92B021AF1DC333EB00BE8AD7 /* G01F02S01.swift in Sources */,
-				842CA8E71D89045E003D9EFF /* G00AccountMenuVC.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
 				842B8EFA1DB8C43C009BA6A9 /* G01F00S03VC.swift in Sources */,
 				84459EE81D964B820087F986 /* G01F01S01VC.swift in Sources */,
 				92C674C01DC526D200E8BFEA /* G01F02S04.swift in Sources */,
 				92A5C7D81DCB792900D6572F /* G01F03S01.swift in Sources */,
 				8424683F1D86F9DA00356B20 /* G00ConfigurationVC.swift in Sources */,
-				84EDDFB01D7D869000861ACB /* G00LoginMenuVC.swift in Sources */,
-				8435C24E1D8ABED100F9903D /* G01F00S01MenuVC.swift in Sources */,
 				92BF34CE1DC8576900DD3487 /* CreateUpholdReplyRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
