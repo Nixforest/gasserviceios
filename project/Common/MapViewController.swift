@@ -86,6 +86,12 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
 //        // Menu item tap
 //        asignNotifyForMenuItem()
         //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+        // Handle display color when training mode is on
+        if BaseModel.shared.checkTrainningMode() {
+            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+        } else {    // Training mode off
+            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+        }
         
         // Do any additional setup after loading the view.
         _location.requestAlwaysAuthorization()
