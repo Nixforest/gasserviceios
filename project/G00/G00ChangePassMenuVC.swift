@@ -9,32 +9,34 @@
 import UIKit
 import harpyframework
 
-class G00ChangePassMenuVC: BaseMenuViewController {
-    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G00ChangePassMenuVC: BaseMenuViewController {
+//    //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+////    /**
+////     * Override
+////     */
+////    override func configItemTapped(_ sender: AnyObject) {
+////        self.dismiss(animated: false) {
+////            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW), object: nil)
+////        }
+////    }
+//    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+//    
 //    /**
-//     * Override
+//     * View did load
 //     */
-//    override func configItemTapped(_ sender: AnyObject) {
-//        self.dismiss(animated: false) {
-//            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_COFIG_ITEM_CHANGEPASSVIEW), object: nil)
-//        }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        setItem(listValues: [false, false, false, true, true])
+//        setupMenuItem()
 //    }
-    //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
-    
-    /**
-     * View did load
-     */
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setItem(listValues: [false, false, false, true, true])
-        setupMenuItem()
-    }
-
-    /**
-     * Did receive memory warning.
-     */
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-}
+//
+//    /**
+//     * Did receive memory warning.
+//     */
+//    override func didReceiveMemoryWarning() {
+//        super.didReceiveMemoryWarning()
+//        // Dispose of any resources that can be recreated.
+//    }
+//}
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller

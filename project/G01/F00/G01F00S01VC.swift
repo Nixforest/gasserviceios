@@ -9,7 +9,11 @@
 import UIKit
 import harpyframework
 
-class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSource,
+class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataSource,
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+    UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     // MARK: Properties
     /** Current view type */
     var currentViewType     = DomainConst.TYPE_TROUBLE
@@ -273,7 +277,10 @@ class G01F00S01VC: BaseViewController, UIPickerViewDelegate, UIPickerViewDataSou
         problemTableView.isHidden = false
         
         //Navigation Bar
-        setupNavigationBar(title: DomainConst.CONTENT00129, isNotifyEnable: true)
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00129, isNotifyEnable: true)
+        createNavigationBar(title: DomainConst.CONTENT00129)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         
         // Notify set data
         //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion

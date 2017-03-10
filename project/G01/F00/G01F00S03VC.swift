@@ -9,7 +9,10 @@
 import UIKit
 import harpyframework
 
-class G01F00S03VC: BaseViewController {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G01F00S03VC: BaseViewController {
+class G01F00S03VC: ChildViewController {
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     // MARK: Properties
     let lblHeader0 = UILabel()
     let lblHeader1 = UILabel()
@@ -108,7 +111,10 @@ class G01F00S03VC: BaseViewController {
         self.view.layer.borderColor = GlobalConst.PARENT_BORDER_COLOR_GRAY.cgColor
         
         // MARK: - NavBar
-        setupNavigationBar(title: DomainConst.CONTENT00143, isNotifyEnable: true)
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00143, isNotifyEnable: true)
+        createNavigationBar(title: DomainConst.CONTENT00143)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
 //        NotificationCenter.default.addObserver(self, selector: #selector(G01F00S03VC.setData(_:)),
 //                                               name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_UPHOLD_DETAIL_VIEW),

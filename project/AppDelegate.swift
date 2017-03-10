@@ -28,12 +28,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //self.window?.makeKeyWindow()
  
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        SlideMenuOptions.leftViewWidth = GlobalConst.POPOVER_WIDTH
+        SlideMenuOptions.panGesturesEnabled = true
+        SlideMenuOptions.hideStatusBar = false
         
-        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: G05Const.G05_F01_S01_VIEW_CTRL)
+        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: G05Const.G05_F01_S01_VIEW_CTRL) as! ParentViewController
         rootNav = UINavigationController(rootViewController: firstVC)
         rootNav.isNavigationBarHidden = false
         
-        self.window?.rootViewController = rootNav
+        let slide = BaseSlideMenuViewController(mainViewController: rootNav,
+                                        leftMenuViewController: mainStoryboard.instantiateViewController(withIdentifier: "BaseMenuViewController"))
+        slide.delegate = firstVC
+        self.window?.rootViewController = slide
+        self.window?.makeKeyAndVisible()
  
         //----- Handle notification receive -----
         if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [String: AnyObject] {

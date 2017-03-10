@@ -9,7 +9,10 @@
 import UIKit
 import harpyframework
 
-class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
+class G01F00S02VC: ChildViewController, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     // MARK: Properties
     /** Segment ScrollView Control */
     @IBOutlet weak var sgmScrollViewChange: UISegmentedControl!
@@ -138,7 +141,10 @@ class G01F00S02VC: BaseViewController, UIScrollViewDelegate, UITableViewDelegate
         tblViewHistory.delegate     = self
         
         // MARK: - NavBar
-        setupNavigationBar(title: DomainConst.CONTENT00143, isNotifyEnable: true)
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00143, isNotifyEnable: true)
+        createNavigationBar(title: DomainConst.CONTENT00143)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         
         // MARK: - Notification Center
         //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion

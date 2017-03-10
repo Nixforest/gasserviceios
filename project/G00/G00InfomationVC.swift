@@ -10,18 +10,26 @@ import UIKit
 import harpyframework
 import GoogleMaps
 
-class G00InfomationVC: UIViewController {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G00InfomationVC: UIViewController {
+class G00InfomationVC: ChildViewController {
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     // MARK: Properties
-    /** Navigation bar */
-    @IBOutlet weak var infomationNavBar: UINavigationItem!
-    /** Back button */
-    @IBOutlet weak var backButton: UIButton!
+    //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//    /** Navigation bar */
+//    @IBOutlet weak var infomationNavBar: UINavigationItem!
+//    /** Back button */
+//    @IBOutlet weak var backButton: UIButton!
+    //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     /** Version */
     var lblVersion: UILabel = UILabel()
     var lblVersionValue: UILabel = UILabel()
     /** Email */
     var lblEmail: UILabel = UILabel()
-    var lblEmailValue: UILabel = UILabel()
+    //++ BUG0048-SPJ (NguyenPT 20170309) Use UIButton
+    //var lblEmailValue: UILabel = UILabel()
+    var btnEmail: UIButton = UIButton()
+    //-- BUG0048-SPJ (NguyenPT 20170309) Use UIButton
     /** Website */
     var lblWebsite: UILabel = UILabel()
     var lblWebsiteValue: UILabel = UILabel()
@@ -31,13 +39,15 @@ class G00InfomationVC: UIViewController {
     var imgLogoTappedCounter: Int = 0
     
     // MARK: Actions
-    /**
-     * Handle back buton tapped
-     * - parameter sender:AnyObject
-     */
-    @IBAction func backButtonTapped(_ sender: AnyObject) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
+    //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//    /**
+//     * Handle back buton tapped
+//     * - parameter sender:AnyObject
+//     */
+//    @IBAction func backButtonTapped(_ sender: AnyObject) {
+//        _ = self.navigationController?.popViewController(animated: true)
+//    }
+    //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     
     // MARK: Methods
     /**
@@ -51,9 +61,12 @@ class G00InfomationVC: UIViewController {
         imgLogoTappedCounter += 1
         if imgLogoTappedCounter == DomainConst.MAXIMUM_TAPPED {
             imgLogoTappedCounter = 0
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let view = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.INTERNAL_VIEW_CTRL)
-            self.navigationController?.pushViewController(view, animated: true)
+            //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//            let view = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.INTERNAL_VIEW_CTRL)
+//            self.navigationController?.pushViewController(view, animated: true)
+            self.pushToView(name: DomainConst.INTERNAL_VIEW_CTRL)
+            //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         }
     }
     
@@ -62,20 +75,23 @@ class G00InfomationVC: UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        infomationNavBar.title = DomainConst.CONTENT00072
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: GlobalConst.BUTTON_COLOR_RED]
-
-        let backOrigin = ImageManager.getImage(named: DomainConst.BACK_IMG_NAME)
-        let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        backButton.setImage(tintedBackLogo, for: UIControlState())
-        backButton.tintColor = GlobalConst.BUTTON_COLOR_RED
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
-        backButton.setTitle("", for: UIControlState())
-        let backNavBar = UIBarButtonItem()
-        backNavBar.customView = backButton
-        infomationNavBar.setLeftBarButton(backNavBar, animated: false)
+        
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//        infomationNavBar.title = DomainConst.CONTENT00072
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: GlobalConst.BUTTON_COLOR_RED]
+//
+//        let backOrigin = ImageManager.getImage(named: DomainConst.BACK_IMG_NAME)
+//        let tintedBackLogo = backOrigin?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+//        backButton.setImage(tintedBackLogo, for: UIControlState())
+//        backButton.tintColor = GlobalConst.BUTTON_COLOR_RED
+//        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//        //menuButton.addTarget(self, action: #selector(showPopOver), forControlEvents: .TouchUpInside)
+//        backButton.setTitle("", for: UIControlState())
+//        let backNavBar = UIBarButtonItem()
+//        backNavBar.customView = backButton
+//        infomationNavBar.setLeftBarButton(backNavBar, animated: false)
+        createNavigationBar(title: DomainConst.CONTENT00072)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         let heigh = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height
         var offset: CGFloat = heigh + GlobalConst.MARGIN
         
@@ -99,7 +115,7 @@ class G00InfomationVC: UIViewController {
             y: offset,
             width: GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN * 2,
             height: GlobalConst.LABEL_HEIGHT / 2)
-        lblVersionValue.text          = DomainConst.VERSION_CODE_NAME
+        lblVersionValue.text          = DomainConst.VERSION_CODE_FULL_NAME
         lblVersionValue.textAlignment = NSTextAlignment.left
         lblVersionValue.font          = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
         offset += GlobalConst.LABEL_HEIGHT / 2
@@ -116,16 +132,26 @@ class G00InfomationVC: UIViewController {
         lblEmail.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         lblEmail.textColor          = GlobalConst.INFOR_TITLE_COLOR
         offset += GlobalConst.LABEL_HEIGHT
+        //++ BUG0048-SPJ (NguyenPT 20170309) Use UIButton
         // Email value
-        lblEmailValue.translatesAutoresizingMaskIntoConstraints = true
-        lblEmailValue.frame = CGRect(
-            x: GlobalConst.MARGIN * 2,
-            y: offset,
-            width: GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN * 2,
-            height: GlobalConst.LABEL_HEIGHT / 2)
-        lblEmailValue.text          = DomainConst.EMAIL
-        lblEmailValue.textAlignment = NSTextAlignment.left
-        lblEmailValue.font          = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+//        lblEmailValue.translatesAutoresizingMaskIntoConstraints = true
+//        lblEmailValue.frame = CGRect(
+//            x: GlobalConst.MARGIN * 2,
+//            y: offset,
+//            width: GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN * 2,
+//            height: GlobalConst.LABEL_HEIGHT / 2)
+//        lblEmailValue.text          = DomainConst.EMAIL
+//        lblEmailValue.textAlignment = NSTextAlignment.left
+//        lblEmailValue.font          = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+        btnEmail.frame = CGRect(x: GlobalConst.MARGIN * 2, y: offset,
+                                width: GlobalConst.SCREEN_WIDTH - GlobalConst.MARGIN * 2,
+                                height: GlobalConst.LABEL_HEIGHT / 2)
+        btnEmail.setTitle(DomainConst.EMAIL, for: UIControlState())
+        btnEmail.setTitleColor(UIColor.blue, for: UIControlState())
+        btnEmail.contentHorizontalAlignment = .left
+        btnEmail.addTarget(self, action: #selector(sendEmail(_:)), for: .touchUpInside)
+        btnEmail.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Use UIButton
         offset += GlobalConst.LABEL_HEIGHT / 2
         
         // Website
@@ -168,7 +194,10 @@ class G00InfomationVC: UIViewController {
         self.view.addSubview(lblVersion)
         self.view.addSubview(lblVersionValue)
         self.view.addSubview(lblEmail)
-        self.view.addSubview(lblEmailValue)
+        //++ BUG0048-SPJ (NguyenPT 20170309) Use UIButton
+        //self.view.addSubview(lblEmailValue)
+        self.view.addSubview(btnEmail)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Use UIButton
         self.view.addSubview(lblWebsite)
         self.view.addSubview(lblWebsiteValue)
         self.view.addSubview(imgLogo)
@@ -194,6 +223,14 @@ class G00InfomationVC: UIViewController {
         marker.map = mapView
         self.view.addSubview(mapView)
     }
+    //++ BUG0048-SPJ (NguyenPT 20170309) Use UIButton
+    /**
+     * Handle send email
+     */
+    internal func sendEmail(_ sender: AnyObject) {
+        self.makeEmail(email: DomainConst.EMAIL)
+    }
+    //-- BUG0048-SPJ (NguyenPT 20170309) Use UIButton
     
     /**
      * Did receive memory warning

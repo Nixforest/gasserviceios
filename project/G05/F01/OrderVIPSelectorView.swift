@@ -189,11 +189,11 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         if self._checkBox.bChecked {
             if BaseModel.shared.getDebugShowNumPickerFlag() {
                 self._numberPicker.isHidden = false
-                var currentView: UIViewController? = nil
-                if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
-                    currentView = navigationController.visibleViewController
-                }
-                currentView?.view.addSubview(self._numberPicker)
+                var currentView = BaseViewController.getCurrentViewController()
+//                if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
+//                    currentView = navigationController.visibleViewController
+//                }
+                currentView.view.addSubview(self._numberPicker)
             }
         } else {
             if BaseModel.shared.getDebugShowNumPickerFlag() {
@@ -211,7 +211,7 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         return 1
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 20
+        return 100
     }
     
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {

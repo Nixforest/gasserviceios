@@ -9,7 +9,10 @@
 import UIKit
 import harpyframework
 
-class G00RegisterVC: BaseViewController, UITextFieldDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G00RegisterVC: BaseViewController, UITextFieldDelegate {
+class G00RegisterVC: ChildViewController, UITextFieldDelegate {
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     // MARK: Properties
     /** Logo image */
     @IBOutlet weak var imgCenter: UIImageView!
@@ -130,7 +133,10 @@ class G00RegisterVC: BaseViewController, UITextFieldDelegate {
         registerButton.imageView?.contentMode = .scaleAspectFit
                 
         //Navigation Bar customize
-        setupNavigationBar(title: DomainConst.CONTENT00052, isNotifyEnable: false)
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00052, isNotifyEnable: false)
+        createNavigationBar(title: DomainConst.CONTENT00052)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(G00RegisterVC.hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)

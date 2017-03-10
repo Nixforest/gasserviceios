@@ -9,7 +9,10 @@
 import UIKit
 import harpyframework
 
-class G05F01S02VC: BaseViewController, UITextViewDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G05F01S02VC: BaseViewController, UITextViewDelegate {
+class G05F01S02VC: ChildViewController, UITextViewDelegate {
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     /** List of selector */
     private var _lstSelector: [OrderVIPSelectorView] = [OrderVIPSelectorView]()
     /** Label */
@@ -32,7 +35,10 @@ class G05F01S02VC: BaseViewController, UITextViewDelegate {
         let orderInfo = BaseModel.shared.getOrderVipDescription()
 
         // Do any additional setup after loading the view.
-        setupNavigationBar(title: DomainConst.CONTENT00130, isNotifyEnable: true)
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00130, isNotifyEnable: true)
+        createNavigationBar(title: DomainConst.CONTENT00130)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         var offset = getTopHeight()
         let width = GlobalConst.SCREEN_WIDTH /*- 2 * GlobalConst.MARGIN*/
         // Title

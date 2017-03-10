@@ -9,7 +9,11 @@
 import UIKit
 import harpyframework
 
-class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelegate {
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+    // MARK: Properties
     /** Id */
     public static var _id:          String               = DomainConst.BLANK
     /** Parent view */
@@ -37,6 +41,10 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
     /** Note textview */
     private var _tbxNote: UITextView                     = UITextView()
     
+    // MARK: Methods
+    /**
+     * Setup list of materials
+     */
     func setupListMaterial(data: OrderVIPBean = OrderVIPBean()) {
         _listMaterial.removeAll()
         createMaterialTableHeader()
@@ -120,6 +128,11 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         self._listCylinder.append(cylinderHeader)
     }
     
+    /**
+     * Get status string from status number
+     * - parameter status: Value of status number
+     * - returns: Value of status string
+     */
     private func getStatusString(status: String) -> String {
         var retVal = DomainConst.BLANK
         switch status {
@@ -281,7 +294,10 @@ class G05F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
             height: offset)
         
         // NavBar setup
-        setupNavigationBar(title: DomainConst.CONTENT00232, isNotifyEnable: BaseModel.shared.checkIsLogin())
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00232, isNotifyEnable: BaseModel.shared.checkIsLogin())
+        createNavigationBar(title: DomainConst.CONTENT00232)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         self.view.addSubview(_scrollView)
         self.view.makeComponentsColor()
     }

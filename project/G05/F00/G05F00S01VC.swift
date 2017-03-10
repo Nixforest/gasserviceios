@@ -9,7 +9,10 @@
 import UIKit
 import harpyframework
 
-class G05F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G05F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDelegate {
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     /** Table view */
     @IBOutlet weak var _tableView:  UITableView!
     /** Icon image */
@@ -62,7 +65,10 @@ class G05F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         _tableView.delegate = self
         _tableView.contentInset = UIEdgeInsets.zero
         // NavBar setup
-        setupNavigationBar(title: DomainConst.CONTENT00231, isNotifyEnable: BaseModel.shared.checkIsLogin())
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00231, isNotifyEnable: BaseModel.shared.checkIsLogin())
+        createNavigationBar(title: DomainConst.CONTENT00231)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         OrderVIPListRequest.requestOrderVIPList(action: #selector(setData(_:)), view: self, page: self._page)
         self.view.makeComponentsColor()
     }

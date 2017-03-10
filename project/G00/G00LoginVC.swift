@@ -9,7 +9,10 @@
 import UIKit
 import harpyframework
 
-class G00LoginVC: BaseViewController, UITextFieldDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G00LoginVC: BaseViewController, UITextFieldDelegate {
+class G00LoginVC: ChildViewController, UITextFieldDelegate {
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     // MARK: Properties
     var bShowPassword:Bool!
     /** Logo image */
@@ -244,7 +247,10 @@ class G00LoginVC: BaseViewController, UITextFieldDelegate {
         //self.view.addSubview(btnForgotPass)
         
         // Navigation bar
-        setupNavigationBar(title: DomainConst.CONTENT00051, isNotifyEnable: false)
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00051, isNotifyEnable: false)
+        createNavigationBar(title: DomainConst.CONTENT00051)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         
         txtAccount.delegate     = self
         txtPassword.delegate    = self
