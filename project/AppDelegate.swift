@@ -28,17 +28,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //self.window?.makeKeyWindow()
  
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         SlideMenuOptions.leftViewWidth = GlobalConst.POPOVER_WIDTH
         SlideMenuOptions.panGesturesEnabled = true
         SlideMenuOptions.hideStatusBar = false
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         
         let firstVC = mainStoryboard.instantiateViewController(withIdentifier: G05Const.G05_F01_S01_VIEW_CTRL) as! ParentViewController
         rootNav = UINavigationController(rootViewController: firstVC)
         rootNav.isNavigationBarHidden = false
         
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         let slide = BaseSlideMenuViewController(mainViewController: rootNav,
                                         leftMenuViewController: mainStoryboard.instantiateViewController(withIdentifier: "BaseMenuViewController"))
         slide.delegate = firstVC
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         self.window?.rootViewController = slide
         self.window?.makeKeyAndVisible()
  
@@ -153,39 +157,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Save to setting
         BaseModel.shared.setNotificationData(id: id, notify_id: notifyId, notify_type: notifyType, type: type, reply_id: replyId, message: message)
-        
-        // Create alert
-        if isManual && BaseModel.shared.canHandleNotification() {
-            let alert = UIAlertController(title: DomainConst.CONTENT00044, message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: DomainConst.CONTENT00223, style: .default, handler: {
-                (alert: UIAlertAction!) in
-                ConfirmNotifyRequest.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
-                if let navigationController = self.window?.rootViewController as? UINavigationController {
-                    if navigationController.visibleViewController is G00HomeVC {
-                        navigationController.visibleViewController?.viewDidAppear(true)
-                    } else {
-                        navigationController.popToRootViewController(animated: true)
-                    }
-                }
-            })
-            alert.addAction(okAction)
-            let cancelAction = UIAlertAction(title: DomainConst.CONTENT00224, style: .cancel, handler: {
-                (alert: UIAlertAction!) in
-                if let navigationController = self.window?.rootViewController as? UINavigationController {
-                    //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
-//                    RequestAPI.requestNotificationCount(view: (navigationController.visibleViewController as! BaseViewController))
-                    let view = (navigationController.visibleViewController as! BaseViewController)
-                    NotificationCountRequest.requestNotificationCount(action: #selector(view.emptyMethod(_:)), view: view)
-                    //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
-                }
-                BaseModel.shared.clearNotificationData()
-            })
-            alert.addAction(cancelAction)
-            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-        } else {
-            // Reply confirm notify to server
-            ConfirmNotifyRequest.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
+        let notify = NotificationBean.init(id: id, notify_id: notifyId,
+                                           notify_type: notifyType, type: type,
+                                           reply_id: replyId, message: message)
+        if let currentView = BaseViewController.getCurrentViewController() {
+            currentView.handleNotification(notify: notify, isManual: isManual)
         }
+        
+        //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+//        // Create alert
+//        if isManual && BaseModel.shared.canHandleNotification() {
+//            let alert = UIAlertController(title: DomainConst.CONTENT00044, message: message, preferredStyle: .alert)
+//            let okAction = UIAlertAction(title: DomainConst.CONTENT00223, style: .default, handler: {
+//                (alert: UIAlertAction!) in
+//                ConfirmNotifyRequest.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
+//                if let navigationController = self.window?.rootViewController as? UINavigationController {
+//                    if navigationController.visibleViewController is G00HomeVC {
+//                        navigationController.visibleViewController?.viewDidAppear(true)
+//                    } else {
+//                        navigationController.popToRootViewController(animated: true)
+//                    }
+//                }
+//            })
+//            alert.addAction(okAction)
+//            let cancelAction = UIAlertAction(title: DomainConst.CONTENT00224, style: .cancel, handler: {
+//                (alert: UIAlertAction!) in
+//                if let navigationController = self.window?.rootViewController as? UINavigationController {
+//                    //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+////                    RequestAPI.requestNotificationCount(view: (navigationController.visibleViewController as! BaseViewController))
+//                    let view = (navigationController.visibleViewController as! BaseViewController)
+//                    NotificationCountRequest.requestNotificationCount(action: #selector(view.emptyMethod(_:)), view: view)
+//                    //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//                }
+//                BaseModel.shared.clearNotificationData()
+//            })
+//            alert.addAction(cancelAction)
+//            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+//        } else {
+//            // Reply confirm notify to server
+//            ConfirmNotifyRequest.requestConfirmNotify(notifyId: notifyId, type: type, objId: id)
+//        }
+        //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
         
         // Move to detail
         print(message)

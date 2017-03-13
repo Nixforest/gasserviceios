@@ -121,22 +121,29 @@ class G01F00S03VC: ChildViewController {
 //                                               object: nil)
         //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
 
-        // Do any additional setup after loading the view.// Set data
-        if BaseModel.shared.sharedInt != -1 {
-            // Check data is existed
-            if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
-                //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
-//                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id,
-//                                               replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id,
-//                                               view: self)
-                let bean = BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt]
-                UpholdDetailRequest.requestUpholdDetail(action: #selector(self.setData(_:)),
-                                                        view: self,
-                                                        upholdId: bean.id,
-                                                        replyId: bean.reply_id)
-                //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
-            }
-        }
+        // Do any additional setup after loading the view.
+        //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+//        // Set data
+//        if BaseModel.shared.sharedInt != -1 {
+//            // Check data is existed
+//            if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
+//                //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+////                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id,
+////                                               replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id,
+////                                               view: self)
+//                let bean = BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt]
+//                UpholdDetailRequest.requestUpholdDetail(action: #selector(self.setData(_:)),
+//                                                        view: self,
+//                                                        upholdId: bean.id,
+//                                                        replyId: bean.reply_id)
+//                //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            }
+//        }
+        UpholdDetailRequest.requestUpholdDetail(action: #selector(self.setData(_:)),
+                                                view: self,
+                                                upholdId: BaseModel.shared.sharedDoubleStr.0,
+                                                replyId: BaseModel.shared.sharedDoubleStr.1)
+        //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
         // Notification
         if BaseModel.shared.checkNotificationExist() {
             BaseModel.shared.clearNotificationData()

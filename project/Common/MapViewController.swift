@@ -412,6 +412,17 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
     }
     
     /**
+     * Handle create order.
+     */
+    private func createOrder() {
+        if BaseModel.shared.isCustomerUser() {
+            self.pushToView(name: G05Const.G05_F01_S02_VIEW_CTRL)
+        } else {
+            self.showAlert(message: DomainConst.CONTENT00279)
+        }
+    }
+    
+    /**
      * Handle when tap on category buttons
      * - parameter sender: Button object
      */
@@ -419,8 +430,9 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
         // Handle by button identify
         switch ((sender as! UIButton).accessibilityIdentifier!) {
         case DomainConst.CATEGORY_TYPE_ORDER_VIP:
-            self.showToast(message: "DomainConst.CATEGORY_TYPE_ORDER_VIP")
-            self.pushToView(name: G05Const.G05_F01_S02_VIEW_CTRL)
+//            self.showToast(message: "DomainConst.CATEGORY_TYPE_ORDER_VIP")
+//            self.pushToView(name: G05Const.G05_F01_S02_VIEW_CTRL)
+            createOrder()
             return
         case DomainConst.CATEGORY_TYPE_UPHOLD:
             self.showToast(message: "CATEGORY_TYPE_UPHOLD")

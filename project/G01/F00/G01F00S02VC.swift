@@ -153,15 +153,18 @@ class G01F00S02VC: ChildViewController, UIScrollViewDelegate, UITableViewDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(G01F00S02VC.reloadData(_:)), name:NSNotification.Name(rawValue: DomainConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: nil)
         
         // Set data
-        if BaseModel.shared.sharedInt != -1 {
-            // Check data is existed
-            if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
-                //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
-//                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
-                getUpholdDetail()
-                //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
-            }
-        }
+        //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+//        if BaseModel.shared.sharedInt != -1 {
+//            // Check data is existed
+//            if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
+//                //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+////                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
+//                getUpholdDetail()
+//                //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            }
+//        }
+        getUpholdDetail()
+        //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
         // Notification
         if BaseModel.shared.checkNotificationExist() {
             BaseModel.shared.clearNotificationData()
@@ -173,11 +176,17 @@ class G01F00S02VC: ChildViewController, UIScrollViewDelegate, UITableViewDelegat
      * Get uphold detail data from server
      */
     private func getUpholdDetail() {
-        let bean = BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt]
+        //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+//        let bean = BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt]
+//        UpholdDetailRequest.requestUpholdDetail(action: #selector(self.setData(_:)),
+//                                                view: self,
+//                                                upholdId: bean.id,
+//                                                replyId: bean.reply_id)
         UpholdDetailRequest.requestUpholdDetail(action: #selector(self.setData(_:)),
                                                 view: self,
-                                                upholdId: bean.id,
-                                                replyId: bean.reply_id)
+                                                upholdId: BaseModel.shared.sharedDoubleStr.0,
+                                                replyId: BaseModel.shared.sharedDoubleStr.1)
+        //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
     }
     //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     
@@ -187,15 +196,18 @@ class G01F00S02VC: ChildViewController, UIScrollViewDelegate, UITableViewDelegat
      */
     func reloadData(_ notification: Notification) {
         // Set data
-        if BaseModel.shared.sharedInt != -1 {
-            // Check data is existed
-            if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
-                //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
-//                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
-                getUpholdDetail()
-                //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
-            }
-        }
+        //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+//        if BaseModel.shared.sharedInt != -1 {
+//            // Check data is existed
+//            if BaseModel.shared.upholdList.getRecord().count > BaseModel.shared.sharedInt {
+//                //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+////                RequestAPI.requestUpholdDetail(upholdId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].id, replyId: BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].reply_id, view: self)
+//                getUpholdDetail()
+//                //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//            }
+//        }
+        getUpholdDetail()
+        //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
     }
     
     /**

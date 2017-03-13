@@ -292,16 +292,18 @@ class G00HomeVC: ParentViewController, UITableViewDataSource, UITableViewDelegat
             //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         }
         
+        //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
         // Check open by notification
-        if BaseModel.shared.checkNotificationExist() {
-            if BaseModel.shared.checkIsLogin() {
-                if BaseModel.shared.isUpholdNotification() {
-                    self.pushToView(name: DomainConst.G01_F00_S01_VIEW_CTRL)
-                }
-            } else {
-                moveToLoginVC()
-            }
-        }
+//        if BaseModel.shared.checkNotificationExist() {
+//            if BaseModel.shared.checkIsLogin() {
+//                if BaseModel.shared.isUpholdNotification() {
+//                    self.pushToView(name: DomainConst.G01_F00_S01_VIEW_CTRL)
+//                }
+//            } else {
+//                moveToLoginVC()
+//            }
+//        }
+        //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
         
         // Handle display color when training mode is on
         if BaseModel.shared.checkTrainningMode() {

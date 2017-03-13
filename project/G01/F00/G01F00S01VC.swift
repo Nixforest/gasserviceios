@@ -118,6 +118,7 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
      * - parameter animated:
      */
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         //notification button enable/disable
         self.updateNotificationStatus()
         if currentViewType == DomainConst.TYPE_TROUBLE {
@@ -316,24 +317,26 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
             periodTableView.reloadData()
         }
         //        CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+        //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
         // Check open by notification
-        if BaseModel.shared.checkNotificationExist() {
-            if BaseModel.shared.checkIsLogin() {
-                if BaseModel.shared.isUpholdNotification() {
-                    if BaseModel.shared.isCustomerUser() {
-                        // Save index
-                        BaseModel.shared.sharedInt = BaseModel.shared.getUpholdIndexById(id: BaseModel.shared.notify.getId())
-                        // Move to detail view
-                        self.pushToView(name: DomainConst.G01_F00_S03_VIEW_CTRL)
-                    } else {
-                        // Save index
-                        BaseModel.shared.sharedInt = BaseModel.shared.getUpholdIndexById(id: BaseModel.shared.notify.getId())
-                        // Move to detail view
-                        self.pushToView(name: DomainConst.G01_F00_S02_VIEW_CTRL)
-                    }
-                }
-            }
-        }
+//        if BaseModel.shared.checkNotificationExist() {
+//            if BaseModel.shared.checkIsLogin() {
+//                if BaseModel.shared.isUpholdNotification() {
+//                    if BaseModel.shared.isCustomerUser() {
+//                        // Save index
+//                        BaseModel.shared.sharedInt = BaseModel.shared.getUpholdIndexById(id: BaseModel.shared.notify.getId())
+//                        // Move to detail view
+//                        self.pushToView(name: DomainConst.G01_F00_S03_VIEW_CTRL)
+//                    } else {
+//                        // Save index
+//                        BaseModel.shared.sharedInt = BaseModel.shared.getUpholdIndexById(id: BaseModel.shared.notify.getId())
+//                        // Move to detail view
+//                        self.pushToView(name: DomainConst.G01_F00_S02_VIEW_CTRL)
+//                    }
+//                }
+//            }
+//        }
+        //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
     }
     
     /**
@@ -523,14 +526,22 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
             if BaseModel.shared.isCustomerUser() {
                 // Move to customer detail uphold G01F00S03
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
-                    BaseModel.shared.sharedInt = indexPath.row
+                    //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+//                    BaseModel.shared.sharedInt = indexPath.row
+                    BaseModel.shared.sharedDoubleStr.0 = BaseModel.shared.upholdList.getRecord()[indexPath.row].id
+                    BaseModel.shared.sharedDoubleStr.1 = BaseModel.shared.upholdList.getRecord()[indexPath.row].reply_id
+                    //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
                     // Move to detail view
                     self.pushToView(name: DomainConst.G01_F00_S03_VIEW_CTRL)
                 }
             } else {
                 // Move to customer detail uphold G01F00S02
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
-                    BaseModel.shared.sharedInt = indexPath.row
+                    //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+//                    BaseModel.shared.sharedInt = indexPath.row
+                    BaseModel.shared.sharedDoubleStr.0 = BaseModel.shared.upholdList.getRecord()[indexPath.row].id
+                    BaseModel.shared.sharedDoubleStr.1 = BaseModel.shared.upholdList.getRecord()[indexPath.row].reply_id
+                    //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
                     // Move to detail view
                     self.pushToView(name: DomainConst.G01_F00_S02_VIEW_CTRL)
                 }
@@ -540,7 +551,11 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
             if BaseModel.shared.isCustomerUser() {
                 // Move to customer detail uphold G01F00S03
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
-                    BaseModel.shared.sharedInt = indexPath.row
+                    //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+                    //BaseModel.shared.sharedInt = indexPath.row
+                    BaseModel.shared.sharedDoubleStr.0 = BaseModel.shared.upholdList.getRecord()[indexPath.row].id
+                    BaseModel.shared.sharedDoubleStr.1 = BaseModel.shared.upholdList.getRecord()[indexPath.row].reply_id
+                    //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
                     // Move to detail view
                     self.pushToView(name: DomainConst.G01_F00_S03_VIEW_CTRL)
                 }
@@ -548,7 +563,11 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
             } else {
                 // Move to customer detail uphold G01F00S02
                 if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
-                    BaseModel.shared.sharedInt = indexPath.row
+                    //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+                    //                    BaseModel.shared.sharedInt = indexPath.row
+                    BaseModel.shared.sharedDoubleStr.0 = BaseModel.shared.upholdList.getRecord()[indexPath.row].id
+                    BaseModel.shared.sharedDoubleStr.1 = BaseModel.shared.upholdList.getRecord()[indexPath.row].reply_id
+                    //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
                     // Move to detail view
                     self.pushToView(name: DomainConst.G01_F00_S02_VIEW_CTRL)
                 }

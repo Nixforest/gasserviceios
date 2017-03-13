@@ -41,10 +41,10 @@ class CreateUpholdReplyRequest: BaseRequest {
                         message: model.message,
                         okHandler: {
                             (alert: UIAlertAction!) in
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: model)
+                            BaseModel.shared.upholdList.updateStatus(id: BaseModel.shared.sharedDoubleStr.0, status: self.status)
                             _ = self.view.navigationController?.popViewController(animated: true)
                     })
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: model)
-                    BaseModel.shared.upholdList.getRecord()[BaseModel.shared.sharedInt].status = self.status
                 }
             } else {
                 self.showAlert(message: model.message)

@@ -12,6 +12,8 @@ import harpyframework
 class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource, CheckBoxDelegate {
     /** Checkbox */
     private var _checkBox:      CustomCheckBox  = CustomCheckBox()
+    /** Blur view */
+    private var _viewBlur:      UIView          = UIView()
     /** Number picker */
     private var _numberPicker:  UIPickerView    = UIPickerView()
     /** Value button */
@@ -112,6 +114,7 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         self._valButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         self._valButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.LARGE_FONT_SIZE)
         self._button.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        self._valButton.addTarget(self, action: #selector(btnValueTapped(_:)), for: .touchUpInside)
         self.addSubview(self._valButton)
         
         // Next Button
@@ -130,6 +133,7 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
 //                                                        left: GlobalConst.MARGIN,
 //                                                        bottom: GlobalConst.MARGIN,
 //                                                        right: GlobalConst.MARGIN)
+        
         self.addSubview(self._nextButton)
         
         // Number picker
@@ -140,8 +144,13 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         self._numberPicker.backgroundColor = UIColor.white
         self._numberPicker.delegate = self
         self._numberPicker.dataSource = self
-        self._numberPicker.isHidden = true
+        self._numberPicker.isHidden = false
         CommonProcess.setBorder(view: self._numberPicker)
+        // Blur view
+        self._viewBlur.frame = CGRect(x: 0, y: 0, width: GlobalConst.SCREEN_WIDTH,
+                                      height: GlobalConst.SCREEN_HEIGHT)
+        self._viewBlur.backgroundColor = UIColor(white: 0x444444, alpha: 0)
+        self._viewBlur.addSubview(self._numberPicker)
         self._config = config
         self.makeComponentsColor()
     }
@@ -154,8 +163,9 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         if value < 0 {
             value = 0
         }
-        self._config.name = String(value)
-        self._valButton.setTitle(self._config.name, for: UIControlState())
+        //self._config.name = String(value)
+        //self._valButton.setTitle(self._config.name, for: UIControlState())
+        updateValue(value: String(value))
     }
     
     /**
@@ -166,40 +176,68 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         if value < 0 {
             value = 0
         }
-        self._config.name = String(value)
-        self._valButton.setTitle(self._config.name, for: UIControlState())
+        //self._config.name = String(value)
+        //self._valButton.setTitle(self._config.name, for: UIControlState())
+        updateValue(value: String(value))
     }
     
     /**
      * Handle click event.
      */
     public func btnTapped(_ sender: AnyObject) {
-        self._numberPicker.isHidden = false
+        self._viewBlur.isHidden = false
         var currentView: UIViewController? = nil
         if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
             currentView = navigationController.visibleViewController
         }
-        currentView?.view.addSubview(self._numberPicker)
+        currentView?.view.addSubview(self._viewBlur)
         if !self._checkBox.bChecked {
             self._checkBox.bChecked = true
         }
     }
     
+    /**
+     * Show number picker
+     */
+    private func showNumberPicker() {
+        if BaseModel.shared.getDebugShowNumPickerFlag() {
+            // Show picker
+            self._viewBlur.isHidden = false
+            if let currentView = BaseViewController.getCurrentViewController() {
+                currentView.view.addSubview(self._viewBlur)
+            }
+        }
+    }
+    
+    /**
+     * Tap value button event handler
+     */
+    internal func btnValueTapped(_ sender: AnyObject) {
+        showNumberPicker()
+    }
+    
+    /**
+     * Update title of value button and selected row in number picker
+     * - parameter value: String value
+     */
+    private func updateValue(value: String) {
+        self._config.name = value
+        self._valButton.setTitle(value, for: UIControlState())
+        self._numberPicker.selectRow(Int(value)!, inComponent: 0, animated: true)
+    }
+    
+    
     func checkChanged(_ sender: AnyObject) {
         if self._checkBox.bChecked {
             if BaseModel.shared.getDebugShowNumPickerFlag() {
-                self._numberPicker.isHidden = false
-                var currentView = BaseViewController.getCurrentViewController()
-//                if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
-//                    currentView = navigationController.visibleViewController
-//                }
-                currentView.view.addSubview(self._numberPicker)
+                showNumberPicker()
             }
         } else {
             if BaseModel.shared.getDebugShowNumPickerFlag() {
-                self._numberPicker.removeFromSuperview()
+                self._viewBlur.removeFromSuperview()
             }
-            self._valButton.setTitle(DomainConst.NUMBER_ZERO_VALUE, for: UIControlState())
+            //self._valButton.setTitle(DomainConst.NUMBER_ZERO_VALUE, for: UIControlState())
+            updateValue(value: DomainConst.NUMBER_ZERO_VALUE)
         }
     }
     
@@ -229,7 +267,8 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        pickerView.removeFromSuperview()
+        //pickerView.removeFromSuperview()
+        self._viewBlur.removeFromSuperview()
         self._config.name = String(row)
         self._button.setTitle(String(row), for: UIControlState())
         self._valButton.setTitle(String(row), for: UIControlState())
