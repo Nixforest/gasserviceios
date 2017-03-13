@@ -9,7 +9,10 @@
 import UIKit
 import harpyframework
 
-class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
+//class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class G04F01S05VC: ChildViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+//-- BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
     /** Scroll view */
     @IBOutlet weak var _scrollView: UIScrollView!
     /** Material table view */
@@ -251,7 +254,10 @@ class G04F01S05VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        setupNavigationBar(title: DomainConst.CONTENT00217, isNotifyEnable: true)
+        //++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00217, isNotifyEnable: true)
+        createNavigationBar(title: DomainConst.CONTENT00217)
+        //++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
         setupListMaterial()
         setupListInfo()
         var offset: CGFloat = -getTopHeight()

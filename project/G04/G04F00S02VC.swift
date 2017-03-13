@@ -9,7 +9,10 @@
 import UIKit
 import harpyframework
 
-class G04F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
+//class G04F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class G04F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelegate {
+//-- BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
     // MARK: Properties
     /** Id */
     public static var _id: String           = DomainConst.BLANK
@@ -326,7 +329,10 @@ class G04F00S02VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         self.view.addSubview(_scrollView)
         
         // NavBar setup
-        setupNavigationBar(title: DomainConst.CONTENT00232, isNotifyEnable: BaseModel.shared.checkIsLogin())
+        //++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00232, isNotifyEnable: BaseModel.shared.checkIsLogin())
+        createNavigationBar(title: DomainConst.CONTENT00232)
+        //-- BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
         
         OrderViewRequest.requestOrderView(action: #selector(setData(_:)), view: self, id: G04F00S02VC._id)
         self.view.makeComponentsColor()

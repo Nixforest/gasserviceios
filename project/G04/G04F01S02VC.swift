@@ -16,7 +16,10 @@ class G04F01S02VC: MaterialSelectViewController {
 
         // Do any additional setup after loading the view.
         // NavBar setup
-        setupNavigationBar(title: DomainConst.CONTENT00237, isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: false)
+        //++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00237, isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: false)
+        createNavigationBar(title: DomainConst.CONTENT00237)
+        //-- BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
     }
     
     public static func setData(data: [MaterialBean]) {

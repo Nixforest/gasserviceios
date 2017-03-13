@@ -9,7 +9,10 @@
 import Foundation
 import harpyframework
 
-class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
+//class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class G04F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDelegate {
+//-- BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
     // MARK: Properties
     /** Icon image view */
     @IBOutlet weak var iconImg:     UIImageView!
@@ -65,7 +68,10 @@ class G04F00S01VC: BaseViewController, UITableViewDataSource, UITableViewDelegat
         tableView.delegate = self
         
         // NavBar setup
-        setupNavigationBar(title: DomainConst.CONTENT00231, isNotifyEnable: BaseModel.shared.checkIsLogin())
+        //++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00231, isNotifyEnable: BaseModel.shared.checkIsLogin())
+        createNavigationBar(title: DomainConst.CONTENT00231)
+        //-- BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
         
         //++ BUG0046-SPJ (NguyenPT 20170303) Use action for Request server completion
 //        // Notify set data

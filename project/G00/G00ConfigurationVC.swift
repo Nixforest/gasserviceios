@@ -9,7 +9,10 @@
 import UIKit
 import harpyframework
 
-class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableViewDataSource {
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     // MARK: Properties
     /** Search bar */
     @IBOutlet weak var searchBar: UISearchBar!
@@ -70,7 +73,10 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
             height: searchBar.frame.size.height)
         
         // Setup navigation
-        setupNavigationBar(title: DomainConst.CONTENT00128, isNotifyEnable: true)
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00128, isNotifyEnable: true)
+        createNavigationBar(title: DomainConst.CONTENT00128)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     }
 
     /**
@@ -112,7 +118,7 @@ class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDa
             case 0:             // Information
                 cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
                              name: DomainConst.CONTENT00139,
-                             value: DomainConst.VERSION_CODE)
+                             value: DomainConst.VERSION_CODE_WITH_NAME)
             default:
                 break
             

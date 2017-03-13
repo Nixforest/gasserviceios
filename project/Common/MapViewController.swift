@@ -11,7 +11,10 @@ import harpyframework
 import GoogleMaps
 import GooglePlaces
 
-class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
+//class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate {
+class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate {
+//-- BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
     // MARK: Properties
     /** Top view */
     private var _topView                = UIView()
@@ -53,6 +56,23 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
     
     
     // MARK: Actions
+    //++ BUG0048-SPJ (NguyenPT 20170309) Handle stop scroll map when open left menu
+    /**
+     * Handle left menu will open event
+     */
+    func leftWillOpen() {
+        // Disable scroll map
+        _mapView?.settings.scrollGestures   = false
+    }
+    
+    /**
+     * Handle left menu did closed event
+     */
+    func leftDidClose() {
+        // Enable scroll map
+        _mapView?.settings.scrollGestures   = true
+    }
+    //-- BUG0048-SPJ (NguyenPT 20170309) Handle stop scroll map when open left menu
     /**
      * Update agent information from server
      * - paramater data: AgentInfoBean object
@@ -117,7 +137,10 @@ class MapViewController: BaseViewController, CLLocationManagerDelegate, GMSMapVi
         setupBottomView()
         
         // NavBar setup
-        setupNavigationBar(title: BaseModel.shared.getAppName(), isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
+        //++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
+        //setupNavigationBar(title: BaseModel.shared.getAppName(), isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
+        createNavigationBar(title: BaseModel.shared.getAppName())
+        //-- BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
         self.view.makeComponentsColor()
     }
     

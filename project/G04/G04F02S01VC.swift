@@ -9,7 +9,10 @@
 import UIKit
 import harpyframework
 
-class G04F02S01VC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+//++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
+//class G04F02S01VC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class G04F02S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSource {
+//++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
     // MARK: Properties
     /** Icon image view */
     @IBOutlet weak var iconImg:     UIImageView!
@@ -82,7 +85,10 @@ class G04F02S01VC: BaseViewController, UITableViewDelegate, UITableViewDataSourc
         self.view.addSubview(self._btnAdd)
 
         // Do any additional setup after loading the view.
-        setupNavigationBar(title: DomainConst.CONTENT00247, isNotifyEnable: true)
+        //++ BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00247, isNotifyEnable: true)
+        createNavigationBar(title: DomainConst.CONTENT00247)
+        //-- BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
     }
     
     /**

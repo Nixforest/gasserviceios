@@ -9,7 +9,10 @@
 import UIKit
 import harpyframework
 
-class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
+class G00ChangePassVC: ChildViewController, UITextFieldDelegate {
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     // MARK: Properties
     /** Flag show password */
     var bShowPassword:Bool!
@@ -246,7 +249,10 @@ class G00ChangePassVC: BaseViewController, UITextFieldDelegate {
                                          tintedColor: UIColor.white)
         
         // Navigation Bar customize
-        setupNavigationBar(title: DomainConst.CONTENT00089, isNotifyEnable: true)
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00089, isNotifyEnable: true)
+        createNavigationBar(title: DomainConst.CONTENT00089)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
     }

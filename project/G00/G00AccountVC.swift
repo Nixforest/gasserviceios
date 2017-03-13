@@ -9,7 +9,10 @@
 import UIKit
 import harpyframework
 
-class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     // MARK: Properties
     /** Save button */
     @IBOutlet weak var saveButton: UIButton!
@@ -229,7 +232,10 @@ class G00AccountVC: BaseViewController, UITextFieldDelegate, UINavigationControl
         logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
         
         // Navigation Bar customize
-        setupNavigationBar(title: DomainConst.CONTENT00100, isNotifyEnable: true)
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00100, isNotifyEnable: true)
+        createNavigationBar(title: DomainConst.CONTENT00100)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
 
         // Do any additional setup after loading the view.
         let gesture = UITapGestureRecognizer(target: self, action: #selector(G00AccountVC.hideKeyboard(_:)))

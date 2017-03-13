@@ -10,7 +10,10 @@ import UIKit
 import harpyframework
 import GoogleMaps
 
-class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+//++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+//class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class G00HomeVC: ParentViewController, UITableViewDataSource, UITableViewDelegate {
+//-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     // MARK: Properties
     /** List text content */
     var aList:[String] = [DomainConst.CONTENT00130, DomainConst.CONTENT00041, DomainConst.CONTENT00099, DomainConst.CONTENT00098, DomainConst.CONTENT00100]
@@ -84,7 +87,10 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
         homeTableView.separatorStyle = .none
         
         // NavBar setup
-        setupNavigationBar(title: DomainConst.CONTENT00108, isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
+        //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //setupNavigationBar(title: DomainConst.CONTENT00108, isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
+        createNavigationBar(title: DomainConst.CONTENT00108)
+        //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         
         /** Cell register */
         self.homeTableView.register(UINib(nibName: DomainConst.G00_HOME_CELL, bundle: nil), forCellReuseIdentifier: DomainConst.G00_HOME_CELL)
@@ -286,16 +292,18 @@ class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate 
             //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         }
         
+        //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
         // Check open by notification
-        if BaseModel.shared.checkNotificationExist() {
-            if BaseModel.shared.checkIsLogin() {
-                if BaseModel.shared.isUpholdNotification() {
-                    self.pushToView(name: DomainConst.G01_F00_S01_VIEW_CTRL)
-                }
-            } else {
-                moveToLoginVC()
-            }
-        }
+//        if BaseModel.shared.checkNotificationExist() {
+//            if BaseModel.shared.checkIsLogin() {
+//                if BaseModel.shared.isUpholdNotification() {
+//                    self.pushToView(name: DomainConst.G01_F00_S01_VIEW_CTRL)
+//                }
+//            } else {
+//                moveToLoginVC()
+//            }
+//        }
+        //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
         
         // Handle display color when training mode is on
         if BaseModel.shared.checkTrainningMode() {
