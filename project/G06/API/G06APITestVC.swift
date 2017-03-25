@@ -13,8 +13,10 @@ class G06APITestVC: BaseAPITestViewController {
 
     override func viewDidLoad() {
         var listAPI: [ConfigBean] = [ConfigBean]()
-        listAPI.append(ConfigBean(id: "CustomerFamilyListRequest", name: "Request Customer List API"))
-        listAPI.append(ConfigBean(id: "CustomerFamilyViewRequest", name: "Request Customer View API"))
+        listAPI.append(ConfigBean(id: "CustomerFamilyListRequest", name: "Customer List API"))
+        listAPI.append(ConfigBean(id: "CustomerFamilyViewRequest", name: "Customer View API"))
+        listAPI.append(ConfigBean(id: "WorkingReportListRequest", name: "Working report list API"))
+        listAPI.append(ConfigBean(id: "WorkingReportViewRequest", name: "Working report View API"))
         setData(listAPI: listAPI)
         super.viewDidLoad()
 
@@ -42,6 +44,20 @@ class G06APITestVC: BaseAPITestViewController {
                 action: #selector(finishHandler(_:)),
                 view: self,
                 customer_id: getParam(idx: 0))
+            break
+        case "WorkingReportListRequest":
+            WorkingReportListRequest.requestWorkingReportList(
+                action: #selector(finishHandler(_:)),
+                view: self,
+                dateFrom: getParam(idx: 0),
+                dateTo: getParam(idx: 1),
+                page: getParam(idx: 2))
+            break
+        case "WorkingReportViewRequest":
+            WorkingReportViewRequest.requestWorkingReportView(
+                action: #selector(finishHandler(_:)),
+                view: self,
+                id: getParam(idx: 0))
             break
         default: break
         }

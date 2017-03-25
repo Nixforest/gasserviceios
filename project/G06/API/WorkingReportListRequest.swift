@@ -1,27 +1,25 @@
 //
-//  CustomerFamilyListRequest
+//  WorkingReportListRequest.swift
 //  project
 //
-//  Created by SPJ on 3/23/17.
+//  Created by SPJ on 3/26/17.
 //  Copyright © 2017 admin. All rights reserved.
 //
 
 import UIKit
 import harpyframework
 
-class CustomerFamilyListRequest: BaseRequest {
+class WorkingReportListRequest: BaseRequest {
     /**
      * Set data content
-     * - parameter buying:      Buying type
      * - parameter dateFrom:    From date value
      * - parameter dateTo:      To date value
      * - parameter page:        Page index
      */
-    func setData(buying: String, dateFrom: String, dateTo: String, page: String) {
+    func setData(dateFrom: String, dateTo: String, page: String) {
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
             DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
-            DomainConst.KEY_BUYING, buying,
             DomainConst.KEY_DATE_FROM, dateFrom,
             DomainConst.KEY_DATE_TO, dateTo,
             DomainConst.KEY_PAGE, page,
@@ -30,27 +28,24 @@ class CustomerFamilyListRequest: BaseRequest {
     }
     
     /**
-     * Request customer family list
+     * Request working report list
      * - parameter action:      Action execute when finish this task
      * - parameter view:        Current view
-     * - parameter buying:      Buying type
      * - parameter dateFrom:    From date value
      * - parameter dateTo:      To date value
      * - parameter page:        Page index
      */
-    public static func requestCustomerFamilyList(action: Selector,
-                                             view: BaseViewController,
-                                             buying: String,
-                                             dateFrom: String,
-                                             dateTo: String,
-                                             page: String) {
+    public static func requestWorkingReportList(action: Selector,
+                                                 view: BaseViewController,
+                                                 dateFrom: String,
+                                                 dateTo: String,
+                                                 page: String) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
-        let request = CustomerFamilyListRequest(url: G06Const.PATH_CUSTOMER_FAMILY_LIST,
-                                            reqMethod: DomainConst.HTTP_POST_REQUEST,
-                                            view: view)
-        request.setData(buying: buying,
-                        dateFrom: dateFrom,
+        let request = WorkingReportListRequest(url: G06Const.PATH_USER_WORKING_REPORT_LIST,
+                                                reqMethod: DomainConst.HTTP_POST_REQUEST,
+                                                view: view)
+        request.setData(dateFrom: dateFrom,
                         dateTo: dateTo,
                         page: page)
         NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
