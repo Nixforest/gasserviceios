@@ -99,6 +99,10 @@
 		D7BA68871E83B638001C675D /* G06APITestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA68861E83B638001C675D /* G06APITestVC.swift */; };
 		D7BE047D1E0586A400D37740 /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; };
 		D7BE047E1E0586A400D37740 /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7BE04781E0585F600D37740 /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D7CDBE281E88061E00B73877 /* CustomerFamilyViewRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CDBE271E88061E00B73877 /* CustomerFamilyViewRespModel.swift */; };
+		D7CDBE2B1E8807CB00B73877 /* CustomerFamilyCreateRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CDBE2A1E8807CB00B73877 /* CustomerFamilyCreateRespModel.swift */; };
+		D7CDBE2F1E880E5200B73877 /* WorkingReportListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CDBE2E1E880E5200B73877 /* WorkingReportListRespModel.swift */; };
+		D7CDBE311E88112100B73877 /* WorkingReportViewRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CDBE301E88112100B73877 /* WorkingReportViewRespModel.swift */; };
 		D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -257,6 +261,10 @@
 		D7BA68821E83A65B001C675D /* G06Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06Const.swift; path = G06/G06Const.swift; sourceTree = "<group>"; };
 		D7BA68861E83B638001C675D /* G06APITestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06APITestVC.swift; path = G06/API/G06APITestVC.swift; sourceTree = "<group>"; };
 		D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
+		D7CDBE271E88061E00B73877 /* CustomerFamilyViewRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerFamilyViewRespModel.swift; path = G06/Model/CustomerFamilyViewRespModel.swift; sourceTree = "<group>"; };
+		D7CDBE2A1E8807CB00B73877 /* CustomerFamilyCreateRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerFamilyCreateRespModel.swift; path = G06/Model/CustomerFamilyCreateRespModel.swift; sourceTree = "<group>"; };
+		D7CDBE2E1E880E5200B73877 /* WorkingReportListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkingReportListRespModel.swift; path = G06/Model/WorkingReportListRespModel.swift; sourceTree = "<group>"; };
+		D7CDBE301E88112100B73877 /* WorkingReportViewRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkingReportViewRespModel.swift; path = G06/Model/WorkingReportViewRespModel.swift; sourceTree = "<group>"; };
 		D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Common/MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -529,6 +537,10 @@
 			isa = PBXGroup;
 			children = (
 				D709FE9F1E86F93300F32A7E /* CustomerFamilyListRespModel.swift */,
+				D7CDBE271E88061E00B73877 /* CustomerFamilyViewRespModel.swift */,
+				D7CDBE2A1E8807CB00B73877 /* CustomerFamilyCreateRespModel.swift */,
+				D7CDBE2E1E880E5200B73877 /* WorkingReportListRespModel.swift */,
+				D7CDBE301E88112100B73877 /* WorkingReportViewRespModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -839,6 +851,7 @@
 				D77F06181E7175D000797A6B /* G00ChangePassMenuVC.swift in Sources */,
 				D77F06631E71772700797A6B /* G01F03S02.swift in Sources */,
 				D77F06161E7175D000797A6B /* G00AccountMenuVC.swift in Sources */,
+				D7CDBE2F1E880E5200B73877 /* WorkingReportListRespModel.swift in Sources */,
 				D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */,
 				D77F067F1E7177F500797A6B /* G05F00S01MenuVC.swift in Sources */,
 				D77F06191E7175D000797A6B /* G00ChangePassVC.swift in Sources */,
@@ -869,6 +882,7 @@
 				D77F06881E7177FE00797A6B /* G05F01S01MenuVC.swift in Sources */,
 				D709FE991E86F43600F32A7E /* WorkingReportViewRequest.swift in Sources */,
 				D77F068A1E7177FE00797A6B /* G05F01S02MenuVC.swift in Sources */,
+				D7CDBE281E88061E00B73877 /* CustomerFamilyViewRespModel.swift in Sources */,
 				D77F061E1E7175D000797A6B /* G00HomeMenuVC.swift in Sources */,
 				D77F062A1E7176DD00797A6B /* RatingUpholdRequest.swift in Sources */,
 				D77F06711E7177E000797A6B /* OrderConfigRequest.swift in Sources */,
@@ -893,11 +907,13 @@
 				D76AFDAB1E26A58500E73E1D /* G01Const.swift in Sources */,
 				D77F06891E7177FE00797A6B /* G05F01S01VC.swift in Sources */,
 				D77F061B1E7175D000797A6B /* G00ConfigurationVC.swift in Sources */,
+				D7CDBE2B1E8807CB00B73877 /* CustomerFamilyCreateRespModel.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
 				D77F06461E7176F700797A6B /* G01F01S02VC.swift in Sources */,
 				D77F061C1E7175D000797A6B /* G00HomeCell.swift in Sources */,
 				D77F06231E7175D000797A6B /* G00RegisterMenuVC.swift in Sources */,
 				D77F06661E71772700797A6B /* G01F03VC.swift in Sources */,
+				D7CDBE311E88112100B73877 /* WorkingReportViewRespModel.swift in Sources */,
 				D77F06811E7177F500797A6B /* G05F00S02MenuVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
