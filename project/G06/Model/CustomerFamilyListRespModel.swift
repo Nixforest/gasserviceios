@@ -19,6 +19,10 @@ class CustomerFamilyListRespModel: BaseRespModel {
     /** Record */
     var record: [CustomerFamilyListBean] = [CustomerFamilyListBean]()
     
+    override init() {
+        super.init()
+    }
+    
     /**
      * Initializer
      */
@@ -44,6 +48,9 @@ class CustomerFamilyListRespModel: BaseRespModel {
                 for item in recordList! {
                     self.record.append(CustomerFamilyListBean(jsonData: item))
                 }
+                
+                // Report
+                self.report = getString(json: json, key: DomainConst.KEY_HGD_REPORT)
             } catch let error as NSError {
                 print(DomainConst.JSON_ERR_FAILED_LOAD + "\(error.localizedDescription)")
             }
@@ -67,5 +74,14 @@ class CustomerFamilyListRespModel: BaseRespModel {
      */
     public func append(contentOf: [CustomerFamilyListBean]) {
         self.record.append(contentsOf: contentOf)
+    }
+    
+    /**
+     * Remove all data
+     */
+    public func clearData() {
+        self.record.removeAll()
+        self.total_page = 0
+        self.total_record = 0
     }
 }

@@ -31,7 +31,7 @@ class G06APITestVC: BaseAPITestViewController {
     override func execute() {
         switch getCurrentAPIId() {
         case "CustomerFamilyListRequest":
-            CustomerFamilyListRequest.requestCustomerFamilyList(
+            CustomerFamilyListRequest.request(
                 action: #selector(finishHandler(_:)),
                 view: self,
                 buying: getParam(idx: 0),

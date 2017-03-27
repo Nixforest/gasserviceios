@@ -38,7 +38,7 @@ class CustomerFamilyListRequest: BaseRequest {
      * - parameter dateTo:      To date value
      * - parameter page:        Page index
      */
-    public static func requestCustomerFamilyList(action: Selector,
+    public static func request(action: Selector,
                                              view: BaseViewController,
                                              buying: String,
                                              dateFrom: String,
