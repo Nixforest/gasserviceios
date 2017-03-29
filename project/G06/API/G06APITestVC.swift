@@ -40,13 +40,13 @@ class G06APITestVC: BaseAPITestViewController {
                 page: getParam(idx: 3))
             break
         case "CustomerFamilyViewRequest":
-            CustomerFamilyViewRequest.requestCustomerFamilyView(
+            CustomerFamilyViewRequest.request(
                 action: #selector(finishHandler(_:)),
                 view: self,
                 customer_id: getParam(idx: 0))
             break
         case "WorkingReportListRequest":
-            WorkingReportListRequest.requestWorkingReportList(
+            WorkingReportListRequest.request(
                 action: #selector(finishHandler(_:)),
                 view: self,
                 dateFrom: getParam(idx: 0),
@@ -54,7 +54,7 @@ class G06APITestVC: BaseAPITestViewController {
                 page: getParam(idx: 2))
             break
         case "WorkingReportViewRequest":
-            WorkingReportViewRequest.requestWorkingReportView(
+            WorkingReportViewRequest.request(
                 action: #selector(finishHandler(_:)),
                 view: self,
                 id: getParam(idx: 0))

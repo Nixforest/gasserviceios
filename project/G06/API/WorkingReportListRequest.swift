@@ -35,7 +35,7 @@ class WorkingReportListRequest: BaseRequest {
      * - parameter dateTo:      To date value
      * - parameter page:        Page index
      */
-    public static func requestWorkingReportList(action: Selector,
+    public static func request(action: Selector,
                                                  view: BaseViewController,
                                                  dateFrom: String,
                                                  dateTo: String,

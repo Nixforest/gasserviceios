@@ -29,7 +29,7 @@ class CustomerFamilyViewRequest: BaseRequest {
      * - parameter view:        Current view
      * - parameter customer_id: Id of customer
      */
-    public static func requestCustomerFamilyView(action: Selector,
+    public static func request(action: Selector,
                                                  view: BaseViewController,
                                                  customer_id: String) {
         // Show overlay

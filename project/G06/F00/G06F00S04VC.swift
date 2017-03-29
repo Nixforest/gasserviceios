@@ -1,21 +1,34 @@
 //
-//  G06F00S01VC.swift
+//  G06F00S04VC.swift
 //  project
 //
-//  Created by SPJ on 3/27/17.
+//  Created by SPJ on 3/29/17.
 //  Copyright © 2017 admin. All rights reserved.
 //
 
 import UIKit
 import harpyframework
 
-class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class G06F00S04VC: ParentViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+    // MARK: Properties
     /** Table view */
     @IBOutlet weak var _tableView:      UITableView!
     /** Icon image */
     @IBOutlet weak var iconImg:         UIImageView!
-    /** Report label */
-    @IBOutlet weak var lblReport:       UILabel!
+    /** Static data */
+    private static var _data:           WorkingReportListRespModel = WorkingReportListRespModel()
+    /** Current page */
+    private var _page = 0
+    /** From date value */
+    private var _fromDate:              String = CommonProcess.getFirstDateOfMonth(date: Date())
+    /** To date value */
+    private var _toDate:                String = CommonProcess.getCurrentDate()
+    /** Refrest control */
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        return refreshControl
+    }()
     /** Search view */
     private var _viewSearch:            UIView = UIView()
     /** Search input view */
@@ -28,22 +41,6 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
     private var _lblToDate:             UILabel = UILabel()
     /** Date textfield */
     private var _txtToDate:             UITextField = UITextField()
-    /** Customer type  */
-    private var _customerType:          String = DomainConst.CUSTOMER_FAMILY_BUYING_ALL
-    /** Static data */
-    private static var _data:           CustomerFamilyListRespModel = CustomerFamilyListRespModel()
-    /** Current page */
-    private var _page = 0
-    /** From date value */
-    private var _fromDate:              String = CommonProcess.getCurrentDate()
-    /** To date value */
-    private var _toDate:                String = CommonProcess.getCurrentDate()
-    /** Refrest control */
-    lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
-        return refreshControl
-    }()
     
     // MARK: Methods
     /**
@@ -51,12 +48,11 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      */
     private func resetData() {
         // Reset record
-        G06F00S01VC._data.clearData()
+        G06F00S04VC._data.clearData()
         // Reset current search value
         self._page      = 0
-        self._fromDate  = CommonProcess.getCurrentDate()
+        self._fromDate  = CommonProcess.getFirstDateOfMonth(date: Date())
         self._toDate    = CommonProcess.getCurrentDate()
-        _customerType   = DomainConst.CUSTOMER_FAMILY_BUYING_ALL
         // Reload table
         _tableView.reloadData()
     }
@@ -64,12 +60,11 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
     /**
      * Update data
      */
-    private func updateData(model: CustomerFamilyListRespModel) {
+    private func updateData(model: WorkingReportListRespModel) {
         if model.isSuccess() {
-            lblReport.text                  = model.report
-            G06F00S01VC._data.total_page    = model.total_page
-            G06F00S01VC._data.total_record  = model.total_record
-            G06F00S01VC._data.append(contentOf: model.getRecord())
+            G06F00S04VC._data.total_page    = model.total_page
+            G06F00S04VC._data.total_record  = model.total_record
+            G06F00S04VC._data.append(contentOf: model.getRecord())
             _tableView.reloadData()
         }
     }
@@ -79,9 +74,8 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      */
     internal func handleRefresh(_ sender: AnyObject) {
         self.resetData()
-        CustomerFamilyListRequest.request(action: #selector(finishHandleRefresh(_:)),
+        WorkingReportListRequest.request(action: #selector(finishHandleRefresh(_:)),
                                           view: self,
-                                          buying: self._customerType,
                                           dateFrom: self._fromDate,
                                           dateTo: self._toDate,
                                           page: String(self._page))
@@ -92,18 +86,18 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      */
     internal func finishHandleRefresh(_ notification: Notification) {
         let data = (notification.object as! String)
-        let model = CustomerFamilyListRespModel(jsonString: data)
-        G06F00S01VC._data.clearData()
+        let model = WorkingReportListRespModel(jsonString: data)
+        G06F00S04VC._data.clearData()
         self.updateData(model: model)
         refreshControl.endRefreshing()
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         // Navigation
-        createNavigationBar(title: DomainConst.CONTENT00281)
+        createNavigationBar(title: DomainConst.CONTENT00295)
         
         var offset: CGFloat = self.getTopHeight()
         if BaseModel.shared.getDebugShowTopIconFlag() {
@@ -120,28 +114,14 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
             iconImg.isHidden = true
         }
         
-        // Report label
-        lblReport.translatesAutoresizingMaskIntoConstraints = true
-        lblReport.frame = CGRect(x: 0, y: offset,
-                                 width: GlobalConst.SCREEN_WIDTH,
-                                 height: GlobalConst.LABEL_H * 2)
-        lblReport.text              = DomainConst.BLANK
-        lblReport.textAlignment     = NSTextAlignment.center
-        lblReport.font              = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        lblReport.textColor         = GlobalConst.BUTTON_COLOR_RED
-        lblReport.backgroundColor   = UIColor.white
-        self.view.addSubview(lblReport)
-        offset += lblReport.frame.height + GlobalConst.MARGIN
-        
         // Customer list view
         _tableView.translatesAutoresizingMaskIntoConstraints = true
         _tableView.frame = CGRect(x: 0,
-                                  y: offset - getTopHeight(),
+                                  y: offset,
                                   width: GlobalConst.SCREEN_WIDTH,
                                   height: GlobalConst.SCREEN_HEIGHT - offset)
         _tableView.separatorStyle = .singleLine
-//         _tableView.dataSource = self
-//        _tableView.delegate = self
+        
         _tableView.contentInset = UIEdgeInsets.zero
         _tableView.addSubview(self.refreshControl)
         
@@ -150,8 +130,8 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         CommonProcess.createButtonLayout(btn: btnCreateCustomer,
                                          x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                                          y:  GlobalConst.SCREEN_HEIGHT - GlobalConst.BUTTON_H - GlobalConst.MARGIN,
-                                         text: DomainConst.CONTENT00122.uppercased(),
-                                         action: #selector(btnSearchTapped(_:)),
+                                         text: DomainConst.CONTENT00168.uppercased(),
+                                         action: #selector(self.emptyMethod(_:)),
                                          target: self,
                                          img: DomainConst.ADD_ICON_IMG_NAME,
                                          tintedColor: UIColor.white)
@@ -162,13 +142,12 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         self.view.addSubview(btnCreateCustomer)
         
         // Get data from server
-        G06F00S01VC._data.clearData()
-        CustomerFamilyListRequest.request(action: #selector(setData(_:)),
-                                          view: self,
-                                          buying: _customerType,
-                                          dateFrom: _fromDate,
-                                          dateTo: _toDate,
-                                          page: String(self._page))
+        G06F00S04VC._data.clearData()
+        WorkingReportListRequest.request(action: #selector(setData(_:)),
+                                         view: self,
+                                         dateFrom: _fromDate,
+                                         dateTo: _toDate,
+                                         page: String(self._page))
         // Add search button to navigation bar
         self.createRightNavigationItem(icon: DomainConst.SEARCH_ICON_IMG_NAME,
                                        action: #selector(searchButtonTapped(_:)),
@@ -192,7 +171,7 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         _viewInput.frame = CGRect(x: GlobalConst.MARGIN,
                                   y: GlobalConst.MARGIN,
                                   width: GlobalConst.SCREEN_WIDTH - 2 * GlobalConst.MARGIN,
-                                  height: GlobalConst.LABEL_H * 2 + GlobalConst.EDITTEXT_H * 2 + GlobalConst.BUTTON_H * 2 + GlobalConst.MARGIN * 2)
+                                  height: GlobalConst.LABEL_H * 2 + GlobalConst.EDITTEXT_H * 2 + GlobalConst.BUTTON_H + GlobalConst.MARGIN)
         _viewInput.backgroundColor = UIColor.white
         _viewInput.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         _viewSearch.addSubview(_viewInput)
@@ -223,8 +202,8 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         
         // To label
         _lblToDate.frame = CGRect(x: leftMargin, y: offset,
-                                    width: _viewInput.frame.width - leftMargin,
-                                    height: GlobalConst.LABEL_H)
+                                  width: _viewInput.frame.width - leftMargin,
+                                  height: GlobalConst.LABEL_H)
         _lblToDate.text = DomainConst.CONTENT00283
         _lblToDate.textColor = UIColor.black
         _lblToDate.textAlignment = .left
@@ -233,8 +212,8 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         offset += GlobalConst.LABEL_H
         // To textfield
         _txtToDate.frame = CGRect(x: leftMargin, y: offset,
-                                    width: _viewInput.frame.width - leftMargin,
-                                    height: GlobalConst.EDITTEXT_H)
+                                  width: _viewInput.frame.width - leftMargin,
+                                  height: GlobalConst.EDITTEXT_H)
         _txtToDate.text = CommonProcess.getCurrentDate()
         _txtToDate.textColor = UIColor.black
         _txtToDate.textAlignment = .left
@@ -244,22 +223,6 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         _viewInput.addSubview(_txtToDate)
         offset += GlobalConst.EDITTEXT_H
         
-        // Customer type control
-        let items = [DomainConst.CONTENT00284, DomainConst.CONTENT00285, DomainConst.CONTENT00286]
-        let _segmCustomerType = UISegmentedControl(items: items)
-        let font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        _segmCustomerType.setTitleTextAttributes([NSFontAttributeName: font],
-                                                      for: UIControlState())
-        _segmCustomerType.selectedSegmentIndex = 0
-        _segmCustomerType.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
-        _segmCustomerType.tintColor = GlobalConst.BUTTON_COLOR_RED
-        _segmCustomerType.frame = CGRect(x: 0,
-                                        y: offset,
-                                        width: _viewInput.frame.width,
-                                        height: GlobalConst.BUTTON_H)
-        _segmCustomerType.addTarget(self, action: #selector(customerTypeChanged(_:)), for: .valueChanged)
-        _viewInput.addSubview(_segmCustomerType)
-        offset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
         // Search button
         let btnSearch = UIButton()
         btnSearch.frame = CGRect(x: 0, y: offset,
@@ -274,22 +237,38 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     /**
+     * Set left image for textfield
+     * - parameter textField: Current textField
+     * - parameter name: Image name
+     */
+    private func setLeftImgTextField(textField: UITextField, name: String) {
+        textField.leftViewMode = .always
+        let imgView = UIImageView(frame: CGRect(x: 0, y: 0,
+                                                width: GlobalConst.EDITTEXT_H - GlobalConst.MARGIN,
+                                                height: GlobalConst.EDITTEXT_H - GlobalConst.MARGIN))
+        let img = ImageManager.getImage(named: name)
+        let tinted = img?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        imgView.image = tinted
+        imgView.tintColor = UIColor.black
+        textField.leftView = imgView
+    }
+    
+    /**
      * Handle when tap button Search
      */
     internal func btnSearchTapped(_ sender: AnyObject) {
         self._fromDate  = self._txtFromDate.text!
         self._toDate    = self._txtToDate.text!
         self._page      = 0
-        CustomerFamilyListRequest.request(action: #selector(finishSearch(_:)),
+        WorkingReportListRequest.request(action: #selector(finishSearch(_:)),
                                           view: self,
-                                          buying: self._customerType,
                                           dateFrom: self._fromDate,
                                           dateTo: self._toDate,
                                           page: String(_page))
     }
     
     internal func finishSearch(_ notification: Notification) {
-        G06F00S01VC._data.clearData()
+        G06F00S04VC._data.clearData()
         _viewSearch.isHidden = true
         _txtFromDate.resignFirstResponder()
         _txtToDate.resignFirstResponder()
@@ -297,27 +276,10 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     /**
-     * Handle when change customer type
-     */
-    internal func customerTypeChanged(_ sender: AnyObject) {
-        switch (sender as! UISegmentedControl).selectedSegmentIndex {
-        case 0:
-            _customerType = DomainConst.CUSTOMER_FAMILY_BUYING_ALL
-        case 1:
-            _customerType = DomainConst.CUSTOMER_FAMILY_BUYING_BOUGHT
-        case 2:
-            _customerType = DomainConst.CUSTOMER_FAMILY_BUYING_NOTYET
-        default:
-            break
-        }
-    }
-    
-    /**
      * Handle tap on Search button
      * - parameter sender: AnyObject
      */
     internal func searchButtonTapped(_ sender: AnyObject) {
-        //showAlert(message: "Search button tapped")
         if _viewSearch.isHidden {
             _viewSearch.isHidden = false
             _txtFromDate.becomeFirstResponder()
@@ -333,7 +295,7 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      */
     override func setData(_ notification: Notification) {
         let data = (notification.object as! String)
-        let model = CustomerFamilyListRespModel(jsonString: data)
+        let model = WorkingReportListRespModel(jsonString: data)
         updateData(model: model)
     }
 
@@ -362,7 +324,7 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      * Tells the data source to return the number of rows in a given section of a table view.
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return G06F00S01VC._data.getRecord().count
+        return G06F00S04VC._data.getRecord().count
     }
     
     /**
@@ -370,9 +332,9 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
-            withIdentifier: DomainConst.CUSTOMER_FAMILY_LIST_TABLE_VIEW_CELL) as! CustomerFamilyListCell
-        if G06F00S01VC._data.getRecord().count > indexPath.row {
-            cell.setData(model: G06F00S01VC._data.getRecord()[indexPath.row])
+            withIdentifier: DomainConst.WORKING_REPORT_LIST_TABLE_VIEW_CELL) as! WorkingReportListCell
+        if G06F00S04VC._data.getRecord().count > indexPath.row {
+            cell.setData(model: G06F00S04VC._data.getRecord()[indexPath.row])
         }
         return cell
     }
@@ -381,16 +343,16 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      * Asks the delegate for the height to use for a row in a specified location.
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CustomerFamilyListCell.CELL_HEIGHT - GlobalConst.CELL_HEIGHT_SHOW / 4
+        return WorkingReportListCell.CELL_HEIGHT - GlobalConst.CELL_HEIGHT_SHOW / 3
     }
     
     /**
      * Tells the delegate that the specified row is now selected.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        G06F00S02VC._id = G06F00S01VC._data.getRecord()[indexPath.row].id
-        self.pushToView(name: G06Const.G06_F00_S02_VIEW_CTRL)
-//        self.showToast(message: "Open order detail: \(G05F00S02VC._id)")
+        G06F00S05VC._id = G06F00S04VC._data.getRecord()[indexPath.row].id
+        self.pushToView(name: G06Const.G06_F00_S05_VIEW_CTRL)
+        //        self.showToast(message: "Open order detail: \(G05F00S02VC._id)")
     }
     
     /**
@@ -398,16 +360,15 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      */
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Total page does not 1
-        if G06F00S01VC._data.total_page != 1 {
-            let lastElement = G06F00S01VC._data.getRecord().count - 1
+        if G06F00S04VC._data.total_page != 1 {
+            let lastElement = G06F00S04VC._data.getRecord().count - 1
             // Current is the last element
             if indexPath.row == lastElement {
                 self._page += 1
                 // Page less than total page
-                if self._page <= G06F00S01VC._data.total_page {
-                    CustomerFamilyListRequest.request(action: #selector(setData(_:)),
+                if self._page <= G06F00S04VC._data.total_page {
+                    WorkingReportListRequest.request(action: #selector(setData(_:)),
                                                       view: self,
-                                                      buying: self._customerType,
                                                       dateFrom: self._fromDate,
                                                       dateTo: self._toDate,
                                                       page: String(self._page))
@@ -494,22 +455,5 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         self._lblToDate.textColor = toColor
         self._txtToDate.textColor = toColor
         self._txtToDate.leftView?.tintColor = toColor
-    }
-    
-    /**
-     * Set left image for textfield
-     * - parameter textField: Current textField
-     * - parameter name: Image name
-     */
-    private func setLeftImgTextField(textField: UITextField, name: String) {
-        textField.leftViewMode = .always
-        let imgView = UIImageView(frame: CGRect(x: 0, y: 0,
-                                                width: GlobalConst.EDITTEXT_H - GlobalConst.MARGIN,
-                                                height: GlobalConst.EDITTEXT_H - GlobalConst.MARGIN))
-        let img = ImageManager.getImage(named: name)
-        let tinted = img?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        imgView.image = tinted
-        imgView.tintColor = UIColor.black
-        textField.leftView = imgView
     }
 }

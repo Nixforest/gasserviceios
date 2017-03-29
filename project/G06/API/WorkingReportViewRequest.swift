@@ -29,7 +29,7 @@ class WorkingReportViewRequest: BaseRequest {
      * - parameter view:        Current view
      * - parameter id: Id of Working report
      */
-    public static func requestWorkingReportView(action: Selector,
+    public static func request(action: Selector,
                                                  view: BaseViewController,
                                                  id: String) {
         // Show overlay

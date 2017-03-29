@@ -17,6 +17,10 @@ class WorkingReportListRespModel: BaseRespModel {
     /** Record */
     var record: [WorkingReportBean] = [WorkingReportBean]()
     
+    override init() {
+        super.init()
+    }
+    
     /**
      * Initializer
      */
@@ -65,5 +69,14 @@ class WorkingReportListRespModel: BaseRespModel {
      */
     public func append(contentOf: [WorkingReportBean]) {
         self.record.append(contentsOf: contentOf)
+    }
+    
+    /**
+     * Remove all data
+     */
+    public func clearData() {
+        self.record.removeAll()
+        self.total_page = 0
+        self.total_record = 0
     }
 }

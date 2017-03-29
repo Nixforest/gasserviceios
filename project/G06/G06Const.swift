@@ -12,6 +12,10 @@ import harpyframework
 class G06Const {
     /** Function identifier */
     public static let FUNC_IDENTIFIER                           = DomainConst.APPNAME + "g06"
+    /** Name of Customer detail view controller */
+    public static let G06_F00_S02_VIEW_CTRL                     = "G06F00S02VC"
+    /** Name of Working report detail view controller */
+    public static let G06_F00_S05_VIEW_CTRL                     = "G06F00S05VC"
     /** Path to connect with PHP server */
     public static let PATH_CUSTOMER_FAMILY_LIST                 = "customer/hgdList"
     /** Path to connect with PHP server */
