@@ -40,19 +40,50 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         return refreshControl
     }()
+    /** From date value */
+    private var _fromDate:              String = CommonProcess.getCurrentDate()
+    /** To date value */
+    private var _toDate:                String = CommonProcess.getCurrentDate()
+    
+    // MARK: Methods
+    /**
+     * Reset data
+     */
+    private func resetData() {
+        // Reset record
+        G06F00S01VC._data.clearData()
+        // Reset current search value
+        self._page      = 0
+        self._fromDate  = CommonProcess.getCurrentDate()
+        self._toDate    = CommonProcess.getCurrentDate()
+        _customerType   = DomainConst.CUSTOMER_FAMILY_BUYING_ALL
+        // Reload table
+        _tableView.reloadData()
+    }
+    
+    /**
+     * Update data
+     */
+    private func updateData(model: CustomerFamilyListRespModel) {
+        if model.isSuccess() {
+            lblReport.text                  = model.report
+            G06F00S01VC._data.total_page    = model.total_page
+            G06F00S01VC._data.total_record  = model.total_record
+            G06F00S01VC._data.append(contentOf: model.getRecord())
+            _tableView.reloadData()
+        }
+    }
     
     /**
      * Handle refresh
      */
     internal func handleRefresh(_ sender: AnyObject) {
-        G06F00S01VC._data.clearData()
-        self._page = 0
-        _tableView.reloadData()
+        self.resetData()
         CustomerFamilyListRequest.request(action: #selector(finishHandleRefresh(_:)),
                                           view: self,
-                                          buying: DomainConst.CUSTOMER_FAMILY_BUYING_ALL,
-                                          dateFrom: CommonProcess.getCurrentDate(),
-                                          dateTo: CommonProcess.getCurrentDate(),
+                                          buying: self._customerType,
+                                          dateFrom: self._fromDate,
+                                          dateTo: self._toDate,
                                           page: String(self._page))
     }
     
@@ -62,14 +93,8 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
     internal func finishHandleRefresh(_ notification: Notification) {
         let data = (notification.object as! String)
         let model = CustomerFamilyListRespModel(jsonString: data)
-        if model.isSuccess() {
-            G06F00S01VC._data.clearData()
-            G06F00S01VC._data.total_page = model.total_page
-            G06F00S01VC._data.total_record = model.total_record
-            G06F00S01VC._data.append(contentOf: model.getRecord())
-            lblReport.text = model.report
-            _tableView.reloadData()
-        }
+        G06F00S01VC._data.clearData()
+        self.updateData(model: model)
         refreshControl.endRefreshing()
     }
 
@@ -80,9 +105,7 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         // Navigation
         createNavigationBar(title: DomainConst.CONTENT00281)
         
-        // Get height of status bar + navigation bar
-        //let height = self.getTopHeight()
-        var offset: CGFloat = 0.0
+        var offset: CGFloat = self.getTopHeight()
         if BaseModel.shared.getDebugShowTopIconFlag() {
             iconImg.image = ImageManager.getImage(named: DomainConst.ORDER_ICON_IMG_NAME)
             iconImg.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W / 2) / 2,
@@ -92,27 +115,28 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
             iconImg.translatesAutoresizingMaskIntoConstraints = true
             offset += iconImg.frame.height
             iconImg.isHidden = false
+            self.view.addSubview(iconImg)
         } else {
             iconImg.isHidden = true
         }
         
         // Report label
         lblReport.translatesAutoresizingMaskIntoConstraints = true
-        lblReport.frame = CGRect(x: 0, y: self.getTopHeight() + GlobalConst.MARGIN,
+        lblReport.frame = CGRect(x: 0, y: offset,
                                  width: GlobalConst.SCREEN_WIDTH,
-                                 height: GlobalConst.LABEL_H)
-        lblReport.text               = DomainConst.BLANK
-        lblReport.textAlignment      = NSTextAlignment.center
-        lblReport.font               = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        lblReport.textColor = UIColor.black
-        lblReport.backgroundColor = UIColor.white
+                                 height: GlobalConst.LABEL_H * 2)
+        lblReport.text              = DomainConst.BLANK
+        lblReport.textAlignment     = NSTextAlignment.center
+        lblReport.font              = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        lblReport.textColor         = GlobalConst.BUTTON_COLOR_RED
+        lblReport.backgroundColor   = UIColor.white
         self.view.addSubview(lblReport)
         offset += lblReport.frame.height + GlobalConst.MARGIN
         
         // Customer list view
         _tableView.translatesAutoresizingMaskIntoConstraints = true
         _tableView.frame = CGRect(x: 0,
-                                  y: offset,
+                                  y: offset - getTopHeight(),
                                   width: GlobalConst.SCREEN_WIDTH,
                                   height: GlobalConst.SCREEN_HEIGHT - offset)
         _tableView.separatorStyle = .singleLine
@@ -125,9 +149,9 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         G06F00S01VC._data.clearData()
         CustomerFamilyListRequest.request(action: #selector(setData(_:)),
                                           view: self,
-                                          buying: DomainConst.CUSTOMER_FAMILY_BUYING_ALL,
-                                          dateFrom: CommonProcess.getCurrentDate(),
-                                          dateTo: CommonProcess.getCurrentDate(),
+                                          buying: _customerType,
+                                          dateFrom: _fromDate,
+                                          dateTo: _toDate,
                                           page: String(self._page))
         // Add search button to navigation bar
         self.createRightNavigationItem(icon: DomainConst.SEARCH_ICON_IMG_NAME,
@@ -162,7 +186,7 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         _lblFromDate.frame = CGRect(x: leftMargin, y: offset,
                                     width: _viewInput.frame.width - leftMargin,
                                     height: GlobalConst.LABEL_H)
-        _lblFromDate.text = "Từ ngày"
+        _lblFromDate.text = DomainConst.CONTENT00282
         _lblFromDate.textColor = UIColor.black
         _lblFromDate.textAlignment = .left
         _lblFromDate.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
@@ -185,7 +209,7 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         _lblToDate.frame = CGRect(x: leftMargin, y: offset,
                                     width: _viewInput.frame.width - leftMargin,
                                     height: GlobalConst.LABEL_H)
-        _lblToDate.text = "Đến ngày"
+        _lblToDate.text = DomainConst.CONTENT00283
         _lblToDate.textColor = UIColor.black
         _lblToDate.textAlignment = .left
         _lblToDate.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
@@ -205,7 +229,7 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         offset += GlobalConst.EDITTEXT_H
         
         // Customer type control
-        let items = ["Tất cả", "Đã mua", "Chưa mua"]
+        let items = [DomainConst.CONTENT00284, DomainConst.CONTENT00285, DomainConst.CONTENT00286]
         let _segmCustomerType = UISegmentedControl(items: items)
         let font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         _segmCustomerType.setTitleTextAttributes([NSFontAttributeName: font],
@@ -225,7 +249,7 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         btnSearch.frame = CGRect(x: 0, y: offset,
                                  width: _viewInput.frame.width,
                                  height: GlobalConst.BUTTON_H)
-        btnSearch.setTitle("Tìm kiếm", for: UIControlState())
+        btnSearch.setTitle(DomainConst.CONTENT00287, for: UIControlState())
         btnSearch.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnSearch.setTitleColor(UIColor.white, for: UIControlState())
         btnSearch.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
@@ -233,13 +257,19 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         self._viewInput.addSubview(btnSearch)
     }
     
+    /**
+     * Handle when tap button Search
+     */
     internal func btnSearchTapped(_ sender: AnyObject) {
+        self._fromDate  = self._txtFromDate.text!
+        self._toDate    = self._txtToDate.text!
+        self._page      = 0
         CustomerFamilyListRequest.request(action: #selector(finishSearch(_:)),
                                           view: self,
                                           buying: self._customerType,
-                                          dateFrom: self._txtFromDate.text!,
-                                          dateTo: self._txtToDate.text!,
-                                          page: "0")
+                                          dateFrom: self._fromDate,
+                                          dateTo: self._toDate,
+                                          page: String(_page))
     }
     
     internal func finishSearch(_ notification: Notification) {
@@ -367,9 +397,9 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
                 if self._page <= G06F00S01VC._data.total_page {
                     CustomerFamilyListRequest.request(action: #selector(setData(_:)),
                                                       view: self,
-                                                      buying: DomainConst.CUSTOMER_FAMILY_BUYING_ALL,
-                                                      dateFrom: CommonProcess.getCurrentDate(),
-                                                      dateTo: CommonProcess.getCurrentDate(),
+                                                      buying: self._customerType,
+                                                      dateFrom: self._fromDate,
+                                                      dateTo: self._toDate,
                                                       page: String(self._page))
                 }
             }
