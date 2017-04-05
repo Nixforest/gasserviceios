@@ -351,7 +351,7 @@ class G06F00S04VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         G06F00S05VC._id = G06F00S04VC._data.getRecord()[indexPath.row].id
-        self.pushToView(name: G06Const.G06_F00_S05_VIEW_CTRL)
+        self.pushToView(name: G06F00S05VC.theClassName)
         //        self.showToast(message: "Open order detail: \(G05F00S02VC._id)")
     }
     

@@ -12,15 +12,18 @@ import harpyframework
 class G06APITestVC: BaseAPITestViewController {
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+    
+    override func createData() {
         var listAPI: [ConfigBean] = [ConfigBean]()
         listAPI.append(ConfigBean(id: "CustomerFamilyListRequest", name: "Customer List API"))
         listAPI.append(ConfigBean(id: "CustomerFamilyViewRequest", name: "Customer View API"))
         listAPI.append(ConfigBean(id: "WorkingReportListRequest", name: "Working report list API"))
         listAPI.append(ConfigBean(id: "WorkingReportViewRequest", name: "Working report View API"))
         setData(listAPI: listAPI)
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {

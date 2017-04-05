@@ -511,14 +511,14 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
      * Mapview changing
      */
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        print("didChange: " + "\(position)")
+        //print("didChange: " + "\(position)")
     }
     
     /**
      * Handle event start drag map view
      */
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-        print("willMove: " + "\(gesture)")
+        //print("willMove: " + "\(gesture)")
         // Hide children
         if self._isShowChildren {
             self.showHideChildren(isHide: true)

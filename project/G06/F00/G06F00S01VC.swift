@@ -151,7 +151,7 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
                                          x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                                          y:  GlobalConst.SCREEN_HEIGHT - GlobalConst.BUTTON_H - GlobalConst.MARGIN,
                                          text: DomainConst.CONTENT00122.uppercased(),
-                                         action: #selector(btnSearchTapped(_:)),
+                                         action: #selector(btnCreateCustomerTapped(_:)),
                                          target: self,
                                          img: DomainConst.ADD_ICON_IMG_NAME,
                                          tintedColor: UIColor.white)
@@ -175,6 +175,10 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
                                        target: self)
         // Search view
         setupSearchView()
+    }
+    
+    internal func btnCreateCustomerTapped(_ sender: AnyObject) {
+        self.pushToView(name:G06F01VC.theClassName)
     }
     
     /**
@@ -389,7 +393,7 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         G06F00S02VC._id = G06F00S01VC._data.getRecord()[indexPath.row].id
-        self.pushToView(name: G06Const.G06_F00_S02_VIEW_CTRL)
+        self.pushToView(name: G06F00S02VC.theClassName)
 //        self.showToast(message: "Open order detail: \(G05F00S02VC._id)")
     }
     
