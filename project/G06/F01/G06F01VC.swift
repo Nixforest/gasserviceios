@@ -81,6 +81,12 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         let step3 = G06F01S03(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+        let step4 = G06F01S04(w: GlobalConst.SCREEN_WIDTH,
+                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+        let step5 = G06F01S05(w: GlobalConst.SCREEN_WIDTH,
+                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+        let step6 = G06F01S06(w: GlobalConst.SCREEN_WIDTH,
+                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         let summary = G06F01Sum(w: GlobalConst.SCREEN_WIDTH,
                                 h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         
@@ -90,6 +96,12 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         self.appendContent(stepContent: step2)
         step3.stepDoneDelegate = self
         self.appendContent(stepContent: step3)
+        step4.stepDoneDelegate = self
+        self.appendContent(stepContent: step4)
+        step5.stepDoneDelegate = self
+        self.appendContent(stepContent: step5)
+        step6.stepDoneDelegate = self
+        self.appendContent(stepContent: step6)
         appendSummary(summary: summary)
         // Set title
         self.setTitle(title: DomainConst.CONTENT00122)
@@ -137,6 +149,65 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     * Clear data before close view
+     */
+    override func clearData() {
+        G06F01S01._selectedValue = (DomainConst.BLANK, DomainConst.BLANK)
+        G06F01S02._selectedValue = ConfigBean.init()
+        G06F01S04._selectedValue = (DomainConst.BLANK, DomainConst.BLANK, DomainConst.BLANK, ConfigBean.init())
+        G06F01S06._selectedValue.removeAll()
+    }
+    
+    
+    
+    /**
+     * Handle send request create uphold
+     */
+    override func btnSendTapped() {
+        // Disable action handle notification from server
+        BaseModel.shared.enableHandleNotificationFlag(isEnabled: false)
+        // Create list investment
+        var invest: [String] = [String]()
+        for item in G06F01S06._selectedValue {
+            invest.append(String.init(format: "\"%@\"", item.id))
+        }
+        
+        CustomerFamilyCreateRequest.request(
+            action:         #selector(finishCreateCustomer(_:)),
+            view: self,
+            phone: G06F01S01._selectedValue.phone,
+            customerBrand: G06F01S04._selectedValue.brand,
+            province_id: G06F01S03._provinceId,
+            hgd_type: G06F01S05._selectedValue.id,
+            district_id: G06F01S03._districtId,
+            ward_id: G06F01S03._wardId,
+            agent_id: G06F01S02._selectedValue.id,
+            hgd_time_use: G06F01S04._selectedValue.timeUse.id,
+            version_code: DomainConst.VERSION_CODE_STR,
+            street_id: G06F01S03._streetId,
+            first_name: G06F01S01._selectedValue.name,
+            house_numbers: G06F01S03._houseNumber,
+            list_hgd_invest: invest.joined(separator: DomainConst.ADDRESS_SPLITER),
+            longitude: String(G06F01VC._currentPos.latitude),
+            latitude: String(G06F01VC._currentPos.longitude),
+            serial: G06F01S04._selectedValue.serial,
+            hgd_doi_thu: G06F01S04._selectedValue.competitor)
+    }
+    
+    internal func finishCreateCustomer(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CustomerFamilyCreateRespModel(jsonString: data)
+        if model.isSuccess() {
+            self.showAlert(message: model.message,
+                           okHandler: {
+                            (alert: UIAlertAction!) in
+//                            G06F00S02VC._id = model.id
+//                            self.pushToView(name: G06F00S02VC.theClassName)
+                            self.backButtonTapped(self)
+            })
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -147,15 +218,4 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-    
-    /**
-     * Update data in step content
-     * - parameter name: Name of notification
-     */
-    private func updateData(name: String) {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: name), object: nil)
-    }
-    private func updateData(name: String, model: AnyObject) {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: name), object: model)
-    }
 }

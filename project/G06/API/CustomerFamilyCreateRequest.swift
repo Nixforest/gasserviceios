@@ -40,7 +40,7 @@ class CustomerFamilyCreateRequest: BaseRequest {
                  latitude: String, serial: String,
                  hgd_doi_thu: String) {
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
             DomainConst.KEY_TOKEN,                  BaseModel.shared.getUserToken(),
             DomainConst.KEY_PHONE,                  phone,
             DomainConst.KEY_CUSTOMER_FAMILY_BRAND,  customerBrand,
@@ -85,7 +85,7 @@ class CustomerFamilyCreateRequest: BaseRequest {
      * - parameter serial:          Serial
      * - parameter hgd_doi_thu:     Opposite brand
      */
-    public static func requestCustomerFamilyCreate(action: Selector,
+    public static func request(action: Selector,
                                                  view: BaseViewController,
                                                  phone: String, customerBrand: String,
                                                  province_id: String, hgd_type: String,

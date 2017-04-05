@@ -61,7 +61,7 @@ class G06F00S02VC: ChildViewController {
             listValues.append((DomainConst.CONTENT00163, model.record.list_hgd_invest_text))
             listValues.append((DomainConst.CONTENT00095, model.record.created_by))
             listValues.append((DomainConst.CONTENT00096, model.record.created_date))
-            detailView.setData(listValues: listValues)
+            _ = detailView.setData(listValues: listValues)
             self.view.addSubview(detailView)
         }
     }

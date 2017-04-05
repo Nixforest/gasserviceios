@@ -40,6 +40,20 @@ class G06F01S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
         _pkView.backgroundColor = UIColor.white
         _pkView.dataSource      = self
         _pkView.delegate        = self
+        if BaseModel.shared.getListAgent().count > 0 {
+            if G06F01S02._selectedValue.isEmpty() {
+                _pkView.selectRow(0, inComponent: 0, animated: true)
+                G06F01S02._selectedValue = BaseModel.shared.getListAgent()[0]
+            } else {
+                for i in 0..<BaseModel.shared.getListAgent().count {
+                    if G06F01S02._selectedValue.id == BaseModel.shared.getListAgent()[i].id {
+                        _pkView.selectRow(i, inComponent: 0, animated: true)
+                        break
+                    }
+                }
+            }
+            
+        }
         contentView.addSubview(_pkView)
         
         // Set parent

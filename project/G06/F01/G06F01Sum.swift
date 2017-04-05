@@ -49,6 +49,16 @@ class G06F01Sum: StepSummary {
         listValues.append((DomainConst.CONTENT00054, G06F01S01._selectedValue.1))
         listValues.append((DomainConst.CONTENT00240, G06F01S02._selectedValue.name))
         listValues.append((DomainConst.CONTENT00088, G06F01S03._address))
+        listValues.append((DomainConst.CONTENT00109, G06F01S04._selectedValue.serial))
+        listValues.append((DomainConst.CONTENT00303, G06F01S04._selectedValue.brand))
+        listValues.append((DomainConst.CONTENT00116, G06F01S04._selectedValue.competitor))
+        listValues.append((DomainConst.CONTENT00304, G06F01S04._selectedValue.timeUse.name))
+        listValues.append((DomainConst.CONTENT00289, G06F01S05._selectedValue.name))
+        var investment: [String] = [String]()
+        for item in G06F01S06._selectedValue {
+            investment.append(item.name)
+        }
+        listValues.append((DomainConst.CONTENT00163, investment.joined(separator: DomainConst.ADDRESS_SPLITER_WITH_SPACE)))
         return _detailView.updateData(listValues: listValues)
         
     }

@@ -73,6 +73,7 @@ class G06F01S03: StepContent, AddressPickerViewDelegate {
                                     height: GlobalConst.BUTTON_H),
                       lbl: DomainConst.CONTENT00057,
                       data: [ConfigBean](), isPicker: false)
+        _pkrHouseNum.delegate = self
         contentView.addSubview(_pkrHouseNum)
         offset += GlobalConst.BUTTON_H
         
@@ -126,15 +127,33 @@ class G06F01S03: StepContent, AddressPickerViewDelegate {
             let model: (String, String, String, String, String) = (notification.object as!
                 (String, String, String, String, String))
             var bool = false
-            bool = _pkrProvince.setValue(value: model.0.normalizeProvinceStr())
+            bool = _pkrProvince.setValue(value: model.0.normalizeProvinceStr(), isRemoveSign: true)
             if bool {
                 valueChanged(_pkrProvince)
             }
-            _pkrDistrict.setValue(value: model.1.normalizeDistrictStr())
-            _pkrWard.setValue(value: model.2.normalizeWardStr())
-            _pkrStreet.setValue(value: model.3.normalizeStreetStr())
-            _pkrHouseNum.setValue(value: model.4)
+            bool = _pkrDistrict.setValue(value: model.1.normalizeDistrictStr())
+            if bool {
+                valueChanged(_pkrDistrict)
+            }
+            bool = _pkrWard.setValue(value: model.2.normalizeWardStr())
+            if bool {
+                valueChanged(_pkrWard)
+            }
+            bool = _pkrStreet.setValue(value: model.3.normalizeStreetStr(), isRemoveSign: true)
+            if bool {
+                valueChanged(_pkrStreet)
+            }
+            bool = _pkrHouseNum.setValue(value: model.4)
+            if bool {
+                valueChanged(_pkrHouseNum)
+            }
         }
+        let addressList = [_pkrHouseNum.getSelectedValue(),
+                           _pkrStreet.getSelectedValue(),
+                           _pkrWard.getSelectedValue(),
+                           _pkrDistrict.getSelectedValue(),
+                           _pkrProvince.getSelectedValue()]
+        G06F01S03._address = addressList.joined(separator: DomainConst.ADDRESS_SPLITER_WITH_SPACE)
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -163,6 +182,15 @@ class G06F01S03: StepContent, AddressPickerViewDelegate {
                                          view: getParentView(),
                                          provinceId: G06F01S03._provinceId,
                                          districtId: G06F01S03._districtId)
+        }  else {
+            //NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: nil)
+            if ((sender as! AddressPickerView) == _pkrWard) {
+                G06F01S03._wardId = _pkrWard.getSelectedID()
+            } else  if ((sender as! AddressPickerView) == _pkrStreet) {
+                G06F01S03._streetId = _pkrStreet.getSelectedID()
+            } else {
+                G06F01S03._houseNumber = _pkrHouseNum.getSelectedID()
+            }
         }
     }
     

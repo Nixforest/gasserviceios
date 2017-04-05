@@ -10,6 +10,7 @@ import UIKit
 import harpyframework
 
 class G06F01S01: StepContent, UITextFieldDelegate {
+    // MARK: Properties
     /** Selected value */
     static var _selectedValue: (name: String, phone: String) = ("", "")
     /** Name textfield */
@@ -109,6 +110,8 @@ class G06F01S01: StepContent, UITextFieldDelegate {
      */
     func textFieldPhoneDidChange(_ textField: UITextField) {
         G06F01S01._selectedValue.phone = _tbxPhone.text!
+        // Update Family type
+        NotificationCenter.default.post(name: Notification.Name(rawValue: G06F01S05.theClassName), object: nil)
     }
     
     /**
