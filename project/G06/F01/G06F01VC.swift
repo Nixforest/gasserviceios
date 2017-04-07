@@ -117,6 +117,10 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         }
     }
     
+    /**
+     * Finish request list provinces
+     * - parameter notification: Notification object
+     */
     internal func requestProvincesListFinish(_ notification: Notification) {
         let dataStr = (notification.object as! String)
         let model = ProvincesListRespModel(jsonString: dataStr)
@@ -126,6 +130,10 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         updateData(name: G06F01S03.theClassName)
     }
     
+    /**
+     * Finish request list districts
+     * - parameter notification: Notification object
+     */
     public func requestDistrictsListFinish(_ notification: Notification) {
         let dataStr = (notification.object as! String)
         let model = DistrictsListRespModel(jsonString: dataStr)
@@ -135,6 +143,10 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         updateData(name: G06F01S03.theClassName)
     }
     
+    /**
+     * Finish request list wards
+     * - parameter notification: Notification object
+     */
     public func requestWardsListFinish(_ notification: Notification) {
         let dataStr = (notification.object as! String)
         let model = WardsListRespModel(jsonString: dataStr)
@@ -166,7 +178,7 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
      */
     override func btnSendTapped() {
         // Disable action handle notification from server
-        BaseModel.shared.enableHandleNotificationFlag(isEnabled: false)
+//        BaseModel.shared.enableHandleNotificationFlag(isEnabled: false)
         // Create list investment
         var invest: [String] = [String]()
         for item in G06F01S06._selectedValue {
@@ -195,6 +207,10 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
             hgd_doi_thu: G06F01S04._selectedValue.competitor)
     }
     
+    /**
+     * Finish create customer
+     * - parameter notification: Notification object
+     */
     internal func finishCreateCustomer(_ notification: Notification) {
         let data = (notification.object as! String)
         let model = CustomerFamilyCreateRespModel(jsonString: data)
@@ -202,8 +218,6 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
             self.showAlert(message: model.message,
                            okHandler: {
                             (alert: UIAlertAction!) in
-//                            G06F00S02VC._id = model.id
-//                            self.pushToView(name: G06F00S02VC.theClassName)
                             self.backButtonTapped(self)
             })
         }

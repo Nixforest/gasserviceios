@@ -131,7 +131,7 @@ class G06F00S04VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
                                          x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                                          y:  GlobalConst.SCREEN_HEIGHT - GlobalConst.BUTTON_H - GlobalConst.MARGIN,
                                          text: DomainConst.CONTENT00168.uppercased(),
-                                         action: #selector(self.emptyMethod(_:)),
+                                         action: #selector(self.createReport(_:)),
                                          target: self,
                                          img: DomainConst.ADD_ICON_IMG_NAME,
                                          tintedColor: UIColor.white)
@@ -154,6 +154,10 @@ class G06F00S04VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
                                        target: self)
         // Search view
         setupSearchView()
+    }
+    
+    internal func createReport(_ sender: AnyObject) {
+        pushToView(name: G06F02VC.theClassName)
     }
     
     /**

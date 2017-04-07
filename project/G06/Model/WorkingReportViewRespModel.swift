@@ -39,4 +39,10 @@ class WorkingReportViewRespModel: BaseRespModel {
             print(DomainConst.JSON_ERR_WRONG_FORMAT)
         }
     }
+    /**
+     * Default constructor
+     */
+    override public init() {
+        super.init()
+    }
 }

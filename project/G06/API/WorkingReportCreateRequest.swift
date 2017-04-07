@@ -28,6 +28,17 @@ class WorkingReportCreateRequest: BaseRequest {
             DomainConst.KEY_VERSION_CODE,           version_code,
             DomainConst.KEY_PLATFORM,               DomainConst.PLATFORM_IOS
         )
+        self.param = [
+            "q": String.init(
+                format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
+                DomainConst.KEY_TOKEN,                  BaseModel.shared.getUserToken(),
+                DomainConst.KEY_CONTENT,                content,
+                DomainConst.KEY_LONGITUDE,              longitude,
+                DomainConst.KEY_LATITUDE,               latitude,
+                DomainConst.KEY_VERSION_CODE,           version_code,
+                DomainConst.KEY_PLATFORM,               DomainConst.PLATFORM_IOS
+            )
+        ]
     }
     /**
      * Request create Working report
@@ -37,11 +48,13 @@ class WorkingReportCreateRequest: BaseRequest {
      * - parameter longitude:       Longitude
      * - parameter latitude:        Latitude
      * - parameter version_code:    Version code
+     * - parameter listImage:       List images
      */
     public static func request(action: Selector,
                                view: BaseViewController,
                                content: String, longitude: String,
-                               latitude: String, version_code: String) {
+                               latitude: String, version_code: String,
+                               listImage: [UIImage]) {
         
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
@@ -52,6 +65,7 @@ class WorkingReportCreateRequest: BaseRequest {
                         latitude: latitude,
                         version_code: version_code)
         NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
-        request.execute()
+        //request.execute()
+        request.executeUploadFile(listImages: listImage)
     }
 }
