@@ -23,9 +23,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     private var _data:              OrderListRespModel  = OrderListRespModel()
     /** Page number */
     private var _page:              Int                 = 0
-    /**
-     * Type: New (0) or Finish (1)
-     */
+    /** Type: New (0) or Finish (1) */
     private var _type:              Int                 = 0
     /** Refrest control */
     lazy var refreshControl: UIRefreshControl = {
@@ -39,9 +37,17 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * Request data from server
      */
     private func requestData(action: Selector = #selector(setData(_:))) {
+        var status = "1"
+        switch _type {
+        case 1:
+            status = "2"
+        default:
+            status = "1"
+        }
         OrderFamilyListRequest.request(action: action,
                                        view: self,
-                                       page: String(_page))
+                                       page: String(_page),
+                                       status: status)
     }
     private func resetData() {
         _data.clearData()
@@ -78,6 +84,8 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         default:
             break
         }
+        resetData()
+        requestData()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +126,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         
         // Request data from server
         requestData()
+        self.view.makeComponentsColor()
     }
     
     override func setData(_ notification: Notification) {
@@ -170,5 +179,22 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return OrderEmployeeTableViewCell.CELL_HEIGHT
+    }
+    /**
+     * Tells the delegate the table view is about to draw a cell for a particular row.
+     */
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // Total page does not 1
+        if self._data.total_page != 1 {
+            let lastElement = self._data.getRecord().count - 1
+            // Current is the last element
+            if indexPath.row == lastElement {
+                self._page += 1
+                // Page less than total page
+                if self._page <= self._data.total_page {
+                    requestData()
+                }
+            }
+        }
     }
 }
