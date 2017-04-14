@@ -20,7 +20,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     /** Table view */
     private var _tblView:           UITableView         = UITableView()
     /** Data */
-    private var _data:              OrderListRespModel  = OrderListRespModel()
+    private var _data:              OrderFamilyListRespModel  = OrderFamilyListRespModel()
     /** Page number */
     private var _page:              Int                 = 0
     /** Type: New (0) or Finish (1) */
@@ -131,7 +131,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     
     override func setData(_ notification: Notification) {
         let data = (notification.object as! String)
-        let model = OrderListRespModel(jsonString: data)
+        let model = OrderFamilyListRespModel(jsonString: data)
         if model.isSuccess() {
             _data.total_page = model.total_page
             _data.total_record = model.total_record
@@ -174,12 +174,15 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
                 as! OrderEmployeeTableViewCell
             cell.setData(data: _data.getRecord()[indexPath.row])
             return cell
-    }/**
+    }
+    
+    /**
      * Asks the delegate for the height to use for a row in a specified location.
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return OrderEmployeeTableViewCell.CELL_HEIGHT
     }
+    
     /**
      * Tells the delegate the table view is about to draw a cell for a particular row.
      */
@@ -196,5 +199,13 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
                 }
             }
         }
+    }
+    
+    /**
+     * Tells the delegate that the specified row is now selected.
+     */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        G07F00S02VC._id = _data.getRecord()[indexPath.row].id
+        self.pushToView(name: G07F00S02VC.theClassName)
     }
 }

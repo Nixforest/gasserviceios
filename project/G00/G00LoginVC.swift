@@ -75,9 +75,22 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
      * Finish request login handler
      */
     func finishRequestHandler(_ notification: Notification) {
-        self.popToRootView()
+        //++ BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
+        //self.popToRootView()
+        UpdateConfigurationRequest.requestUpdateConfiguration(
+            action: #selector(finishUpdateConfigRequest(_:)),
+            view: self)
+        //-- BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
     }
     //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+    //++ BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
+    /**
+     * Finish request update config
+     */
+    func finishUpdateConfigRequest(_ notification: Notification) {
+        self.popToRootView()
+    }
+    //-- BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
     
     /**
      * Handle tap on Login button
@@ -260,7 +273,8 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
         
         // Fill data in training mode
         if BaseModel.shared.checkTrainningMode() {
-            txtAccount.text = "truongnd"
+//            txtAccount.text = "truongnd"
+            txtAccount.text = "hoantv"
             txtPassword.text = "123123"
         }
         // Handle waiting register code confirm

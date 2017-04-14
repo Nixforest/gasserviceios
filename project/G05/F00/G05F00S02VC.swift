@@ -214,6 +214,11 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //++ BUG0057-SPJ (NguyenPT 20170414) Handle notification VIP customer order
+        if G05F00S02VC._id.isEmpty {
+            G05F00S02VC._id = BaseModel.shared.sharedString
+        }
+        //-- BUG0057-SPJ (NguyenPT 20170414) Handle notification VIP customer order
         OrderVIPViewRequest.requestOrderVIPView(action: #selector(setData(_:)), view: self, id: G05F00S02VC._id)
 
         // Do any additional setup after loading the view.
