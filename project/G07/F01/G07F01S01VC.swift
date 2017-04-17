@@ -12,8 +12,6 @@ import harpyframework
 class G07F01S01VC: MaterialSelectViewController {
     /** Not select promotion button */
     private var _btnNotSelect: UIButton = UIButton()
-    /** Current select */
-    private static var _selected: MaterialBean = MaterialBean.init()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,14 +35,6 @@ class G07F01S01VC: MaterialSelectViewController {
                                                           right: GlobalConst.MARGIN)
         self.view.addSubview(self._btnNotSelect)
     }
-    
-    /**
-     * Set data for view
-     * - parameter data: List of material bean
-     */
-    public static func setData(data: [MaterialBean]) {
-        MaterialSelectViewController.setMaterialData(data: data)
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -62,32 +52,11 @@ class G07F01S01VC: MaterialSelectViewController {
     }
      */
     
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        G07F01S01VC._selected = self.getData(index: indexPath.row)
-        self.backButtonTapped(self)
-    }
-    
     /**
      * Handle tap on Not select button
      */
     internal func btnNotSelectTapped(_ sender: AnyObject) {
-        G07F01S01VC._selected = MaterialBean.init()
+        MaterialSelectViewController.setSelectedItem(item: OrderDetailBean.init())
         self.backButtonTapped(self)
-    }
-    
-    /**
-     * Get current select
-     * - returns: Current select item
-     */
-    public static func getCurrentSelected() -> MaterialBean {
-        return G07F01S01VC._selected
-    }
-    
-    /**
-     * Set current select
-     * - parameter data: Current select item
-     */
-    public static func setCurrentSelected(data: MaterialBean) {
-        G07F01S01VC._selected = data
     }
 }

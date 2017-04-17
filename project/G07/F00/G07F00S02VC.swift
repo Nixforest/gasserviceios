@@ -24,11 +24,13 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /** Current data */
     private var _data:              OrderFamilyViewRespModel    = OrderFamilyViewRespModel()
     /** Type when open a model VC */
-    private let TYPE_NONE:          String = DomainConst.NUMBER_ZERO_VALUE
-    private let TYPE_PROMOTE:       String = "1"
-    private let TYPE_CYLINDER:      String = "2"
-    private let TYPE_OTHERMATERIAL: String = "3"
-    private let TYPE_PROMOTE_ADD:   String = "4"
+    private let TYPE_NONE:              String = DomainConst.NUMBER_ZERO_VALUE
+    private let TYPE_PROMOTE:           String = "1"
+    private let TYPE_CYLINDER:          String = "2"
+    private let TYPE_OTHERMATERIAL:     String = "3"
+    private let TYPE_PROMOTE_ADD:       String = "4"
+    private let TYPE_CYLINDER_ADD:      String = "5"
+    private let TYPE_OTHERMATERIAL_ADD: String = "6"
     /** Current type when open model VC */
     private var _type:              String                  = DomainConst.NUMBER_ZERO_VALUE
     /** Height of bottom view */
@@ -89,30 +91,26 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             let selectedRow = (_tableView.indexPathForSelectedRow?.row)!
             
             switch _type {
-            case TYPE_PROMOTE:                  // Change promotion material
+            case TYPE_PROMOTE, TYPE_CYLINDER, TYPE_OTHERMATERIAL:                  // Change material
                 // Not select promotion material
-                if G07F01S01VC.getCurrentSelected().isEmpty() {
+                if MaterialSelectViewController.getSelectedItem().isEmpty() {
                     // Remove data
                     removeMaterial(at: selectedRow)
                     // Remove cell
                     _tableView.deleteRows(at: _tableView.indexPathsForSelectedRows!, with: .fade)
                 } else {    // Change promotion material
                     // Update data
-                    updateMaterial(at: selectedRow, material: G07F01S01VC.getCurrentSelected())
+                    updateMaterial(at: selectedRow, material: MaterialSelectViewController.getSelectedItem())
                     // Reload table with section 1
                     _tableView.reloadSections(IndexSet(integersIn: 1...1), with: .fade)
                 }
-            case TYPE_CYLINDER:                 // Add cylinder
-                print("TYPE_CYLINDER")
-            case TYPE_OTHERMATERIAL:            // Add the oher materials
-                print("TYPE_OTHERMATERIAL")
-            case TYPE_PROMOTE_ADD:              // Add promotion material
-                if !G07F01S01VC.getCurrentSelected().isEmpty() {
+            case TYPE_PROMOTE_ADD, TYPE_CYLINDER_ADD, TYPE_OTHERMATERIAL_ADD:              // Add material
+                if !MaterialSelectViewController.getSelectedItem().isEmpty() {
                     // Add data
-                    appendMaterial(material: G07F01S01VC.getCurrentSelected())
+                    appendMaterial(material: MaterialSelectViewController.getSelectedItem())
                     // Reload table with section 1,2
                     _tableView.reloadSections(IndexSet(integersIn: 1...2), with: .fade)
-                }                
+                }
             default:
                 break
             }
@@ -185,7 +183,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         CommonProcess.createButtonLayout(
             btn: btnSave, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2, y: botOffset,
             text: DomainConst.CONTENT00141.uppercased(), action: #selector(btnSaveTapped(_:)), target: self,
-            img: "reload-1.png", tintedColor: UIColor.white)
+            img: DomainConst.RELOAD_IMG_NAME, tintedColor: UIColor.white)
         
         btnSave.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
                                               left: GlobalConst.MARGIN,
@@ -270,17 +268,17 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         let promotion = UIAlertAction(title: DomainConst.CONTENT00313,
                                       style: .default, handler: {
                                         action in
-                                        self.selectPromotion()
+                                        self.selectMaterial(type: self.TYPE_PROMOTE_ADD)
         })
         let cylinder = UIAlertAction(title: DomainConst.CONTENT00315,
                                      style: .default, handler: {
                                         action in
-                                        self.selectCylinder()
+                                        self.selectMaterial(type: self.TYPE_CYLINDER_ADD)
         })
         let other = UIAlertAction(title: DomainConst.CONTENT00316,
                                      style: .default, handler: {
                                         action in
-                                        self.selectOtherMaterial()
+                                        self.selectMaterial(type: self.TYPE_OTHERMATERIAL_ADD)
         })
         alert.addAction(cancel)
         alert.addAction(promotion)
@@ -290,38 +288,26 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     }
     
     /**
-     * Handle select promotion
+     * Handle select material
+     * - parameter type: Type of material
      * - parameter data: Current selection
      */
-    internal func selectPromotion(data: MaterialBean = MaterialBean()) {
-        G07F01S01VC.setData(data: BaseModel.shared.getAgentMaterialPromotion(agentId: _data.getRecord().agent_id))
-        G07F01S01VC.setCurrentSelected(data: data)
-        if data.isEmpty() {
-            _type = TYPE_PROMOTE_ADD
-        } else {
-            _type = TYPE_PROMOTE
+    internal func selectMaterial(type: String, data: OrderDetailBean = OrderDetailBean.init()) {
+        MaterialSelectViewController.setSelectedItem(item: data)
+        self._type = type
+        switch _type {
+        case TYPE_PROMOTE, TYPE_PROMOTE_ADD:                // Promotion
+            MaterialSelectViewController.setMaterialData(data: BaseModel.shared.getAgentMaterialPromotion(agentId: _data.getRecord().agent_id))
+            self.pushToView(name: G07F01S01VC.theClassName)
+        case TYPE_CYLINDER, TYPE_CYLINDER_ADD:              // Cylinder
+            MaterialSelectViewController.setMaterialData(data: BaseModel.shared.getListCylinderInfo())
+            self.pushToView(name: G07F01S02VC.theClassName)
+        case TYPE_OTHERMATERIAL, TYPE_OTHERMATERIAL_ADD:    // The other material
+            MaterialSelectViewController.setMaterialData(data: BaseModel.shared.getListOtherMaterialInfo())
+            self.pushToView(name: G07F01S02VC.theClassName)
+        default:
+            break
         }
-        self.pushToView(name: G07F01S01VC.theClassName)
-    }
-    
-    internal func finishSelectPromotion() {
-        print(finishSelectPromotion)
-    }
-    
-    /**
-     * Handle select cylinder
-     */
-    internal func selectCylinder() {
-        _type = TYPE_CYLINDER
-        
-    }
-    
-    /**
-     * Handle select other material
-     */
-    internal func selectOtherMaterial() {
-        _type = TYPE_OTHERMATERIAL
-        
     }
     
     // MARK: Utility methods
@@ -389,7 +375,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             _listInfo[2].append(ConfigurationModel(
                 id: DomainConst.AGENT_PROMOTION_ID, name: DomainConst.CONTENT00219,
                 iconPath: DomainConst.DEFAULT_MATERIAL_IMG_NAME,
-                value: "-" + _data.getRecord().promotion_amount + DomainConst.VIETNAMDONG))
+                value: DomainConst.SPLITER_TYPE1 + _data.getRecord().promotion_amount + DomainConst.VIETNAMDONG))
         }
         
         // Discount
@@ -398,7 +384,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             _listInfo[2].append(ConfigurationModel(
                 id: DomainConst.AGENT_DISCOUNT_ID, name: DomainConst.CONTENT00239,
                 iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                value: "-" + _data.getRecord().discount_amount + DomainConst.VIETNAMDONG))
+                value: DomainConst.SPLITER_TYPE1 + _data.getRecord().discount_amount + DomainConst.VIETNAMDONG))
         }
         // Bu vo
         if !_data.getRecord().amount_bu_vo.isEmpty
@@ -406,7 +392,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             _listInfo[2].append(ConfigurationModel(
                 id: DomainConst.AGENT_BUVO_ID, name: DomainConst.CONTENT00246,
                 iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                value: "+" + _data.getRecord().amount_bu_vo + DomainConst.VIETNAMDONG))
+                value: DomainConst.PLUS_SPLITER + _data.getRecord().amount_bu_vo + DomainConst.VIETNAMDONG))
         }
         
         // Total money
@@ -463,7 +449,6 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             }
         }
     }
-    
     
     /**
      * Insert material at tail
@@ -532,15 +517,17 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                                      for: indexPath) as! ConfigurationTableViewCell
             cell.resetHighligh()
             switch indexPath.section {
-            case 0:
+            case 0:     // First section
                 if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_PHONE_ID {
+                    // Highlight phone number
                     cell.highlightValue()
                 }
                 break
-            case 1:
+            case 1:     // Material section
                 break
-            case 2:
+            case 2:     // Third section
                 if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_TOTAL_MONEY_ID {
+                    // Highlight total money
                     cell.highlightValue()
                 }
                 if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_MATERIAL_ADD_NEW
@@ -572,8 +559,16 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             self.makeACall(phone: _listInfo[indexPath.section][indexPath.row].getValue().normalizatePhoneString())
         }
         if indexPath.section == 1 {
-            if _listMaterials[indexPath.row].isPromotion() {
-                self.selectPromotion(data: _listMaterials[indexPath.row])
+            let data = _listMaterials[indexPath.row]
+            if data.isPromotion() {
+                self.selectMaterial(type: TYPE_PROMOTE,
+                                    data: data)
+            } else if data.isCylinder() {
+                self.selectMaterial(type: TYPE_CYLINDER,
+                                    data: data)
+            } else if !data.isGas() {
+                self.selectMaterial(type: TYPE_OTHERMATERIAL,
+                                    data: data)
             }
         }
     }
