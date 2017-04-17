@@ -23,6 +23,8 @@ class G06APITestVC: BaseAPITestViewController {
         listAPI.append(ConfigBean(id: "CustomerFamilyViewRequest", name: "Customer View API"))
         listAPI.append(ConfigBean(id: "WorkingReportListRequest", name: "Working report list API"))
         listAPI.append(ConfigBean(id: "WorkingReportViewRequest", name: "Working report View API"))
+        listAPI.append(ConfigBean(id: OrderVIPListRequest.theClassName,
+                                  name: OrderVIPListRequest.theClassName))
         setData(listAPI: listAPI)
     }
 
@@ -62,6 +64,11 @@ class G06APITestVC: BaseAPITestViewController {
                 view: self,
                 id: getParam(idx: 0))
             break
+        case OrderVIPListRequest.theClassName:
+            OrderVIPListRequest.requestOrderVIPList(
+                action: #selector(finishHandler(_:)),
+                view: self,
+                page: Int(getParam(idx: 0))!)
         default: break
         }
     }

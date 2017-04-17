@@ -153,7 +153,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let notifyId    = data["notify_id"] as? String ?? ""
         let type        = data["type"] as? String ?? ""
         let replyId     = data["reply_id"] as? String ?? ""
-        let message     = data["spj_message"] as? String ?? ""
+        var message     = DomainConst.BLANK
+        if let aps = data["aps"] as? NSDictionary {
+            if let alert = aps["alert"] as? NSDictionary {
+                if let msg = alert["message"] as? NSString {
+                    // Do stuff
+                    message = msg as String
+                }
+            } else if let alert = aps["alert"] as? NSString {
+                // Do stuff
+                message = alert as String
+            }
+        }
         
         // Save to setting
         BaseModel.shared.setNotificationData(id: id, notify_id: notifyId, notify_type: notifyType, type: type, reply_id: replyId, message: message)
