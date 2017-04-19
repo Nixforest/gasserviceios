@@ -137,16 +137,16 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         var retVal = DomainConst.BLANK
         switch status {
         case DomainConst.ORDER_STATUS_NEW:
-            retVal = "Đang xử lý đơn hàng"
+            retVal = DomainConst.CONTENT00329
             break
         case DomainConst.ORDER_STATUS_PROCESSING:
-            retVal = "Đang giao hàng"
+            retVal = DomainConst.CONTENT00328
             break
         case DomainConst.ORDER_STATUS_COMPLETE:
-            retVal = "Đã giao"
+            retVal = DomainConst.CONTENT00330
             break
         case DomainConst.ORDER_STATUS_CANCEL:
-            retVal = "Đã huỷ"
+            retVal = DomainConst.CONTENT00331
             break
         default:
             break
@@ -163,7 +163,7 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                             name: DomainConst.CONTENT00257,
                                             iconPath: DomainConst.ORDER_ID_ICON_IMG_NAME,
                                             value: "#" + data.code_no))
-        var status = "Đang giao hàng"
+        var status = DomainConst.CONTENT00328
         if !G05F00S01VC.getStatusNumber().isEmpty {
             status = getStatusString(status: G05F00S01VC.getStatusNumber())
         }

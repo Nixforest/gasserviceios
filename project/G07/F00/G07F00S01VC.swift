@@ -216,7 +216,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * Handle tapped event on action button
      */
     public func btnActionTapped(_ sender: AnyObject) {
-        OrderFamilyConfirmRequest.requestConfirm(
+        OrderFamilyHandleRequest.requestConfirm(
             action: #selector(finishConfirmHandler(_:)),
             view: self,
             lat: String(MapViewController._originPos.latitude),
@@ -252,7 +252,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * Handle tapped event on cancel button
      */
     public func btnCancelTapped(_ sender: AnyObject) {
-        OrderFamilyConfirmRequest.requestCancel(
+        OrderFamilyHandleRequest.requestCancelConfirm(
             action: #selector(finishCancelHandler(_:)),
             view: self,
             lat: String(MapViewController._originPos.latitude),

@@ -101,17 +101,32 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     _tableView.deleteRows(at: _tableView.indexPathsForSelectedRows!, with: .fade)
                 } else {    // Change promotion material
                     // Update data
-                    updateMaterial(at: selectedRow, material: MaterialSelectViewController.getSelectedItem())
+                    updateMaterial(at: selectedRow, material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
                     // Reload table with section 1
                     _tableView.reloadSections(IndexSet(integersIn: 1...1), with: .fade)
                 }
+                btnSaveTapped(self)
             case TYPE_PROMOTE_ADD, TYPE_CYLINDER_ADD, TYPE_OTHERMATERIAL_ADD:              // Add material
                 if !MaterialSelectViewController.getSelectedItem().isEmpty() {
                     // Add data
-                    appendMaterial(material: MaterialSelectViewController.getSelectedItem())
+                    appendMaterial(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
                     // Reload table with section 1,2
                     _tableView.reloadSections(IndexSet(integersIn: 1...2), with: .fade)
                 }
+                btnSaveTapped(self)
+            default:
+                break
+            }
+        } else {
+            switch _type {
+            case TYPE_PROMOTE_ADD, TYPE_CYLINDER_ADD, TYPE_OTHERMATERIAL_ADD:              // Add material
+                if !MaterialSelectViewController.getSelectedItem().isEmpty() {
+                    // Add data
+                    appendMaterial(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
+                    // Reload table with section 1,2
+                    _tableView.reloadSections(IndexSet(integersIn: 1...2), with: .fade)
+                }
+                btnSaveTapped(self)
             default:
                 break
             }
@@ -228,14 +243,77 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Handle when tap on save button
      */
     internal func btnSaveTapped(_ sender: AnyObject) {
-        
+        var orderDetail = [String]()
+        for item in self._listMaterials {
+            if !item.material_id.isEmpty {
+                orderDetail.append(item.createJsonDataForUpdateOrder())
+            }
+        }
+        OrderFamilyHandleRequest.requestUpdate(
+            action: #selector(finishUpdateOrder(_:)),
+            view: self,
+            lat: String(MapViewController._originPos.latitude),
+            long: String(MapViewController._originPos.longitude),
+            id: _data.getRecord().id,
+            statusCancel: _data.getRecord().status_cancel,
+            orderType: _data.getRecord().order_type,
+            discountType: _data.getRecord().discount_type,
+            amountDiscount: _data.getRecord().amount_discount,
+            typeAmount: _data.getRecord().type_amount,
+            orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2))
+    }
+    
+    internal func finishUpdateOrder(_ notification: Notification) {
+        setData(notification)
     }
     
     /**
      * Handle when tap on Action button
      */
     internal func btnActionHandler(_ sender: AnyObject) {
-        
+        var bIsExistCylinder = false
+        for item in _listMaterials {
+            if item.isCylinder() {
+                bIsExistCylinder = true
+                break
+            }
+        }
+        if bIsExistCylinder {
+            requestCompleteOrder()
+        } else {
+            showAlert(message: DomainConst.CONTENT00324,
+                      okTitle: DomainConst.CONTENT00326,
+                      cancelTitle: DomainConst.CONTENT00325,
+                      okHandler: {
+                        alert in
+                        self.requestCompleteOrder()
+            },
+                      cancelHandler: {
+                        alert in
+                        self.selectMaterial(type: self.TYPE_CYLINDER_ADD)
+            })
+        }
+    }
+    
+    private func requestCompleteOrder() {
+        var orderDetail = [String]()
+        for item in self._listMaterials {
+            if !item.material_id.isEmpty {
+                orderDetail.append(item.createJsonDataForUpdateOrder())
+            }
+        }
+        OrderFamilyHandleRequest.requestComplete(
+            action: #selector(finishUpdateOrder(_:)),
+            view: self,
+            lat: String(MapViewController._originPos.latitude),
+            long: String(MapViewController._originPos.longitude),
+            id: _data.getRecord().id,
+            statusCancel: _data.getRecord().status_cancel,
+            orderType: _data.getRecord().order_type,
+            discountType: _data.getRecord().discount_type,
+            amountDiscount: _data.getRecord().amount_discount,
+            typeAmount: _data.getRecord().type_amount,
+            orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2))
     }
     
     /**
@@ -266,7 +344,22 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter id: Id of cancel order reason
      */
     internal func handleCancelOrder(id: String) {
-        
+        showAlert(message: DomainConst.CONTENT00327,
+                  okTitle: DomainConst.CONTENT00008,
+                  cancelTitle: DomainConst.CONTENT00009,
+                  okHandler: {
+                    alert in
+                    OrderFamilyHandleRequest.requestCancelOrder(
+                        action: #selector(self.finishUpdateOrder(_:)),
+                        view: self,
+                        lat: String(MapViewController._originPos.latitude),
+                        long: String(MapViewController._originPos.longitude),
+                        id: self._data.getRecord().id,
+                        statusCancel: id)
+        },
+                  cancelHandler: {
+                    alert in
+        })
     }
     
     /**
@@ -352,6 +445,22 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _listInfo[0].append(ConfigurationModel(
             id: DomainConst.ORDER_INFO_ID_ID, name: DomainConst.CONTENT00257,
             iconPath: DomainConst.ORDER_ID_ICON_IMG_NAME, value: _data.getRecord().code_no))
+        var status = DomainConst.CONTENT00328
+        if !_data.getRecord().status_number.isEmpty {
+            status = getStatusString(status: _data.getRecord().status_number)
+        }
+        if _data.getRecord().status_number == DomainConst.ORDER_STATUS_CANCEL {
+            _listInfo[0].append(ConfigurationModel(id: DomainConst.ORDER_INFO_STATUS_ID,
+                                                   name: status,
+                                                   iconPath: DomainConst.ORDER_STATUS_ICON_IMG_NAME,
+                                                   value: BaseModel.shared.getOrderCancelReasonById(id: _data.getRecord().status_cancel)))
+        } else if _data.getRecord().status_number == DomainConst.ORDER_STATUS_COMPLETE {
+            _listInfo[0].append(ConfigurationModel(id: DomainConst.ORDER_INFO_STATUS_ID,
+                                                   name: DomainConst.CONTENT00092,
+                                                   iconPath: DomainConst.ORDER_STATUS_ICON_IMG_NAME,
+                                                   value: status))
+        }
+        
         // Customer name and phone
         _listInfo[0].append(ConfigurationModel(
             id: DomainConst.ORDER_INFO_PHONE_ID, name: _data.getRecord().first_name,
@@ -367,6 +476,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     private func setupListMaterialInfo() {
         _listInfo[1].removeAll()
+        _listMaterials.removeAll()
         
         // Add materials to table
         for item in _data.getRecord().order_detail {
@@ -437,7 +547,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter at: Index
      * - parameter material: Data to update
      */
-    private func updateMaterial(at: Int, material: MaterialBean) {
+    private func updateMaterial(at: Int, material: OrderDetailBean) {
         var idx: Int = -1
         // Search in lists
         for i in 0..<_listInfo[1].count {
@@ -450,10 +560,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         if idx == -1 {
             // Not found -> Update item
             if (at >= 0) && (at < _listInfo[1].count){
-                _listInfo[1][at] = ConfigurationModel(orderDetail: OrderDetailBean(data: material))
+                _listInfo[1][at] = ConfigurationModel(orderDetail: material)
             }
             if (at >= 0) && (at < _listMaterials.count) {
-                _listMaterials[at] = OrderDetailBean(data: material)
+                _listMaterials[at] = material
             }
         } else {
             // Found -> Update quantity
@@ -472,7 +582,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Insert material at tail
      * - parameter material: Data to update
      */
-    private func appendMaterial(material: MaterialBean) {
+    private func appendMaterial(material: OrderDetailBean) {
         var idx: Int = -1
         // Search in lists
         for i in 0..<_listInfo[1].count {
@@ -484,8 +594,8 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         if idx == -1 {
             // Not found -> Append
-            _listInfo[1].append(ConfigurationModel(orderDetail: OrderDetailBean(data: material)))
-            _listMaterials.append(OrderDetailBean(data: material))
+            _listInfo[1].append(ConfigurationModel(orderDetail: material))
+            _listMaterials.append(material)
         } else {
             // Found -> Update quantity
             if let qtyNumber = Int(_listMaterials[idx].qty) {
@@ -618,6 +728,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                             self.removeMaterial(at: indexPath.row)
                             self._tableView.deleteRows(at: [indexPath],
                                                        with: .fade)
+                            self.btnSaveTapped(self)
             },
                            cancelHandler: {
                             (alert: UIAlertAction!) in
@@ -625,5 +736,31 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         default:
             break
         }
+    }
+    
+    /**
+     * Get status string from status number
+     * - parameter status: Value of status number
+     * - returns: Value of status string
+     */
+    private func getStatusString(status: String) -> String {
+        var retVal = DomainConst.BLANK
+        switch status {
+        case DomainConst.ORDER_STATUS_NEW:
+            retVal = DomainConst.CONTENT00329
+            break
+        case DomainConst.ORDER_STATUS_PROCESSING:
+            retVal = DomainConst.CONTENT00328
+            break
+        case DomainConst.ORDER_STATUS_COMPLETE:
+            retVal = DomainConst.CONTENT00330
+            break
+        case DomainConst.ORDER_STATUS_CANCEL:
+            retVal = DomainConst.CONTENT00331
+            break
+        default:
+            break
+        }
+        return retVal
     }
 }
