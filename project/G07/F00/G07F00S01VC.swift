@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSource {
+class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSource, OrderConfirmDelegate {
     // MARK: Properties
     /** Segment button */
     private var _segment:           UISegmentedControl  = UISegmentedControl(
@@ -57,7 +57,6 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         _tblView.reloadData()
     }
     
-    
     /**
      * Handle refresh
      */
@@ -66,6 +65,9 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         requestData(action: #selector(finishHandleRefresh(_:)))
     }
     
+    /**
+     * Handle finish refresh
+     */
     internal func finishHandleRefresh(_ notification: Notification) {
         setData(notification)
         refreshControl.endRefreshing()
@@ -173,6 +175,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
                 withIdentifier: OrderEmployeeTableViewCell.theClassName)
                 as! OrderEmployeeTableViewCell
             cell.setData(data: _data.getRecord()[indexPath.row])
+            cell.delegate = self
             return cell
     }
     
@@ -207,5 +210,71 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         G07F00S02VC._id = _data.getRecord()[indexPath.row].id
         self.pushToView(name: G07F00S02VC.theClassName)
+    }
+    
+    /**
+     * Handle tapped event on action button
+     */
+    public func btnActionTapped(_ sender: AnyObject) {
+        OrderFamilyConfirmRequest.requestConfirm(
+            action: #selector(finishConfirmHandler(_:)),
+            view: self,
+            lat: String(MapViewController._originPos.latitude),
+            long: String(MapViewController._originPos.longitude),
+            id: (sender as! UIButton).accessibilityIdentifier!)
+    }
+    
+    /**
+     * Handle finish confirm order
+     */
+    internal func finishConfirmHandler(_ notification: Notification) {
+        NotificationCenter.default.removeObserver(self)
+        let data = (notification.object as! String)
+        let model = OrderFamilyViewRespModel(jsonString: data)
+        if model.isSuccess() {
+            showAlert(message: DomainConst.CONTENT00322,
+                      okHandler: {
+                        alert in
+                        self.handleRefresh(self)
+                        G07F00S02VC._id = model.getRecord().id
+                        self.pushToView(name: G07F00S02VC.theClassName)
+            },
+                      cancelHandler: {
+                        alert in
+                        self.handleRefresh(self)
+            })
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Handle tapped event on cancel button
+     */
+    public func btnCancelTapped(_ sender: AnyObject) {
+        OrderFamilyConfirmRequest.requestCancel(
+            action: #selector(finishCancelHandler(_:)),
+            view: self,
+            lat: String(MapViewController._originPos.latitude),
+            long: String(MapViewController._originPos.longitude),
+            id: (sender as! UIButton).accessibilityIdentifier!)
+    }
+    
+    /**
+     * Handle finish cancel order
+     */
+    internal func finishCancelHandler(_ notification: Notification) {
+        NotificationCenter.default.removeObserver(self)
+        let data = (notification.object as! String)
+        let model = OrderFamilyViewRespModel(jsonString: data)
+        if model.isSuccess() {
+            showAlert(message: DomainConst.CONTENT00323,
+                      okHandler: {
+                        alert in
+                        self.handleRefresh(self)
+            })
+        } else {
+            showAlert(message: model.message)
+        }
     }
 }

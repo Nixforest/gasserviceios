@@ -45,6 +45,10 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
     /** Save neares agent information */
     public static var _nearestAgent     = AgentInfoBean()
     public static var _currentAddress   = DomainConst.BLANK
+    //++ BUG0054-SPJ (NguyenPT 20170418) Add new function G07
+    /** Current position of user */
+    public static var _originPos        = CLLocationCoordinate2D.init()
+    //-- BUG0054-SPJ (NguyenPT 20170418) Add new function G07
     
     
     // MARK: Actions
@@ -238,6 +242,7 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
      */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         MapViewController._currentPos = (manager.location?.coordinate)!
+        MapViewController._originPos = MapViewController._currentPos
         let camera = GMSCameraPosition.camera(withLatitude: MapViewController._currentPos.latitude, longitude: MapViewController._currentPos.longitude, zoom: Float(self._zoomValue))
         _mapView = GMSMapView.map(withFrame: CGRect(x: 0,
                                                        y: self.getTopHeight(),

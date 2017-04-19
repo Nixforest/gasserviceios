@@ -67,6 +67,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _bottomView.frame = CGRect(x: 0, y: GlobalConst.SCREEN_HEIGHT - bottomHeight,
                                    width: GlobalConst.SCREEN_WIDTH,
                                    height: bottomHeight)
+        _bottomView.isHidden = true
         self.view.addSubview(_bottomView)
         createBottomView()
         self.view.makeComponentsColor()
@@ -137,6 +138,21 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             setupFirstListInfo()
             setupListMaterialInfo()
             setupListThirdListInfo()
+            if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+                self._bottomView.isHidden = false
+                
+                _tableView.frame = CGRect(x: 0,
+                                          y: 0,
+                                          width: GlobalConst.SCREEN_WIDTH,
+                                          height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
+            } else {
+                self._bottomView.isHidden = true
+                
+                _tableView.frame = CGRect(x: 0,
+                                          y: 0,
+                                          width: GlobalConst.SCREEN_WIDTH,
+                                          height: GlobalConst.SCREEN_HEIGHT)
+            }
             // Reload data in table view
             _tableView.reloadData()
         }
@@ -365,9 +381,11 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _listInfo[2].removeAll()
         
         // Add new material
-        _listInfo[2].append(ConfigurationModel(
-            id: DomainConst.ORDER_INFO_MATERIAL_ADD_NEW, name: DomainConst.CONTENT00312,
-            iconPath: DomainConst.ADD_ICON_IMG_NAME, value: DomainConst.BLANK))
+        if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+            _listInfo[2].append(ConfigurationModel(
+                id: DomainConst.ORDER_INFO_MATERIAL_ADD_NEW, name: DomainConst.CONTENT00312,
+                iconPath: DomainConst.ADD_ICON_IMG_NAME, value: DomainConst.BLANK))
+        }
         
         // Promote
         if !_data.getRecord().promotion_amount.isEmpty
@@ -552,13 +570,13 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL,
                                                  for: indexPath) as! ConfigurationTableViewCell
-        if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_MATERIAL_ADD_NEW {
+        if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_MATERIAL_ADD_NEW && (self._data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE) {
             self.addNewMaterialButtonTapped(cell)
         }
         if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_PHONE_ID {
             self.makeACall(phone: _listInfo[indexPath.section][indexPath.row].getValue().normalizatePhoneString())
         }
-        if indexPath.section == 1 {
+        if indexPath.section == 1 && (self._data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE) {
             let data = _listMaterials[indexPath.row]
             if data.isPromotion() {
                 self.selectMaterial(type: TYPE_PROMOTE,
@@ -581,7 +599,9 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             if _listMaterials[indexPath.row].isGas() {
                 return false
             }
-            return true
+            if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+                return true
+            }
         }
         return false
     }
