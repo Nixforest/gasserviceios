@@ -22,17 +22,30 @@ class G06F02VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
      * Tells the delegate that new location data is available.
      */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //++ BUG0059-SPJ (NguyenPT 20170420) Check if user move with distance > 100m
+        if manager.location != nil {
+            let position = CLLocation(latitude: G06F02VC._currentPos.latitude, longitude: G06F02VC._currentPos.longitude)
+            let distance: CLLocationDistance = manager.location!.distance(from: position)
+            if distance / 100 < 1 {
+                return
+            }
+        }
+        //-- BUG0059-SPJ (NguyenPT 20170420) Check if user move with distance > 100m
         G06F02VC._currentPos = (manager.location?.coordinate)!
     }
 
     override func viewDidLoad() {
-        _location.requestAlwaysAuthorization()
+        //++ BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
+        //_location.requestAlwaysAuthorization()
+        //-- BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
         _location.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             _location.delegate = self
             _location.desiredAccuracy = kCLLocationAccuracyKilometer
-            //_location.startUpdatingLocation()
-            _location.startMonitoringSignificantLocationChanges()
+            //++ BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
+            _location.startUpdatingLocation()
+            //_location.startMonitoringSignificantLocationChanges()
+            //-- BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
         }
         // Get height of status bar + navigation bar
         let height = self.getTopHeight()

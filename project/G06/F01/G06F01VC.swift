@@ -18,11 +18,19 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
     public static var _currentPos       = CLLocationCoordinate2D.init()
 
     // MARK: Method
-    
     /**
      * Tells the delegate that new location data is available.
      */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //++ BUG0059-SPJ (NguyenPT 20170420) Check if user move with distance > 100m
+        if manager.location != nil {
+            let position = CLLocation(latitude: G06F01VC._currentPos.latitude, longitude: G06F01VC._currentPos.longitude)
+            let distance: CLLocationDistance = manager.location!.distance(from: position)
+            if distance / 100 < 1 {
+                return
+            }
+        }
+        //-- BUG0059-SPJ (NguyenPT 20170420) Check if user move with distance > 100m
         G06F01VC._currentPos = (manager.location?.coordinate)!
         let loca: CLLocation = manager.location!
         CLGeocoder().reverseGeocodeLocation(loca, completionHandler: {
@@ -49,29 +57,23 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
             }
             
         })
-//        GMSGeocoder().reverseGeocodeCoordinate(G06F01VC._currentPos, completionHandler: { (response, error) in
-//            if error != nil {
-//                return
-//            }
-//            // Get address
-//            let gmsAddress: GMSAddress = response!.firstResult()!
-//            
-//            let address = response?.firstResult()?.lines?.joined(separator: DomainConst.ADDRESS_SPLITER)
-//            G06F01S03._address = address!
-//            //self.updateData(name: G06F01S03.theClassName)
-//            let model = (gmsAddress.locality, gmsAddress.subLocality, gmsAddress.administrativeArea, gmsAddress.thoroughfare)
-//            self.updateData(name: G06F01S03.theClassName, model: model as AnyObject)
-//        })
     }
     
+    /**
+     * Called after the controller's view is loaded into memory.
+     */
     override func viewDidLoad() {
-        _location.requestAlwaysAuthorization()
+        //++ BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
+        //_location.requestAlwaysAuthorization()
+        //-- BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
         _location.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             _location.delegate = self
             _location.desiredAccuracy = kCLLocationAccuracyKilometer
-            //_location.startUpdatingLocation()
-            _location.startMonitoringSignificantLocationChanges()
+            //++ BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
+            _location.startUpdatingLocation()
+            //_location.startMonitoringSignificantLocationChanges()
+            //-- BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
         }
         // Get height of status bar + navigation bar
         let height = self.getTopHeight()

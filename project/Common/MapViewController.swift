@@ -118,13 +118,17 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
         }
         
         // Do any additional setup after loading the view.
-        _location.requestAlwaysAuthorization()
+        //++ BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
+        //_location.requestAlwaysAuthorization()
+        //-- BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
         _location.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             _location.delegate = self
             _location.desiredAccuracy = kCLLocationAccuracyKilometer
-            //_location.startUpdatingLocation()
-            _location.startMonitoringSignificantLocationChanges()
+            //++ BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
+            _location.startUpdatingLocation()
+            //_location.startMonitoringSignificantLocationChanges()
+            //-- BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
         }
         // Setup layout
         var offset  = getTopHeight()
@@ -137,6 +141,8 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
         //setupNavigationBar(title: BaseModel.shared.getAppName(), isNotifyEnable: BaseModel.shared.checkIsLogin(), isHiddenBackBtn: true)
         createNavigationBar(title: BaseModel.shared.getAppName())
         //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        
+        
         self.view.makeComponentsColor()
     }
     
@@ -243,12 +249,17 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         MapViewController._currentPos = (manager.location?.coordinate)!
         MapViewController._originPos = MapViewController._currentPos
+        //++ BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
+        if _mapView != nil {
+            return
+        }
+        //-- BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
         let camera = GMSCameraPosition.camera(withLatitude: MapViewController._currentPos.latitude, longitude: MapViewController._currentPos.longitude, zoom: Float(self._zoomValue))
         _mapView = GMSMapView.map(withFrame: CGRect(x: 0,
-                                                       y: self.getTopHeight(),
-                                                       width:GlobalConst.SCREEN_WIDTH,
-                                                       height:GlobalConst.SCREEN_HEIGHT - self.getTopHeight()),
-                                     camera: camera)
+                                                    y: self.getTopHeight(),
+                                                    width:GlobalConst.SCREEN_WIDTH,
+                                                    height:GlobalConst.SCREEN_HEIGHT - self.getTopHeight()),
+                                  camera: camera)
         _mapView?.settings.compassButton    = true
         _mapView?.isMyLocationEnabled       = true
         _mapView?.settings.myLocationButton = true

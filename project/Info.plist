@@ -23,7 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0</string>
+	<string>1</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -47,8 +47,6 @@
 	<string></string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string></string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Use for detect location</string>
 	<key>NSLocationUsageDescription</key>
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
