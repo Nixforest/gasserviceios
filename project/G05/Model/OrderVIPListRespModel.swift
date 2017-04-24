@@ -73,4 +73,13 @@ class OrderVIPListRespModel: BaseRespModel {
     public func append(contentOf: [OrderVIPListBean]) {
         self.record.append(contentsOf: contentOf)
     }
+    
+    /**
+     * Remove all data
+     */
+    public func clearData() {
+        self.record.removeAll()
+        self.total_page     = 0
+        self.total_record   = 0
+    }
 }

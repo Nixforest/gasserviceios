@@ -1,15 +1,15 @@
 //
-//  G07F00S01VC.swift
+//  G05F00S03VC.swift
 //  project
 //
-//  Created by SPJ on 4/7/17.
+//  Created by SPJ on 4/21/17.
 //  Copyright © 2017 admin. All rights reserved.
 //
 
 import UIKit
 import harpyframework
 
-class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSource, OrderConfirmDelegate {
+class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDelegate, OrderConfirmDelegate {
     // MARK: Properties
     /** Segment button */
     private var _segment:           UISegmentedControl  = UISegmentedControl(
@@ -18,35 +18,39 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
             DomainConst.CONTENT00311
         ])
     /** Table view */
+    //@IBOutlet weak var _tblView:    UITableView!
+    /** Table view */
     private var _tblView:           UITableView         = UITableView()
-    /** Data */
-    private var _data:              OrderFamilyListRespModel  = OrderFamilyListRespModel()
-    /** Page number */
-    private var _page:              Int                 = 0
+    /** Static data */
+    private var _data:              OrderVIPListRespModel   = OrderVIPListRespModel()
+    /** Current page */
+    private var _page:              Int                     = 0
     /** Type: New (0) or Finish (1) */
-    private var _type:              Int                 = 0
+    private var _type:              Int                     = 0
     /** Refrest control */
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         return refreshControl
     }()
+    /** Current selection id */
+    private var _currentId:         String                  = DomainConst.BLANK
     
-    // MARK: Methods
+    // MARK: Utility methods
     /**
      * Request data from server
      */
     private func requestData(action: Selector = #selector(setData(_:))) {
-        var status = "1"
+        var status = DomainConst.ORDER_STATUS_TYPE_NEW
         switch _type {
         case 1:
-            status = "2"
+            status = DomainConst.ORDER_STATUS_TYPE_COMPLETE
         default:
-            status = "1"
+            status = DomainConst.ORDER_STATUS_TYPE_NEW
         }
-        OrderFamilyListRequest.request(action: action,
+        OrderVIPListRequest.request(action: action,
                                        view: self,
-                                       page: String(_page),
+                                       page: _page,
                                        status: status)
     }
     
@@ -61,22 +65,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         _tblView.reloadData()
     }
     
-    /**
-     * Handle refresh
-     */
-    internal func handleRefresh(_ sender: AnyObject) {
-        self.resetData()
-        requestData(action: #selector(finishHandleRefresh(_:)))
-    }
-    
-    /**
-     * Handle finish refresh
-     */
-    internal func finishHandleRefresh(_ notification: Notification) {
-        setData(notification)
-        refreshControl.endRefreshing()
-    }
-    
+    // MARK: Handle events
     /**
      * Handle change value of segment
      */
@@ -95,14 +84,103 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     /**
+     * Handle tapped event on action button
+     */
+    public func btnActionTapped(_ sender: AnyObject) {
+        _currentId = (sender as! UIButton).accessibilityIdentifier!
+        OrderVipSetEventRequest.request(
+            action: #selector(finishConfirmHandler(_:)),
+            view: self,
+            actionType: ActionTypeEnum.EMPLOYEE_NHAN_GIAO_HANG.rawValue,
+            lat: String(MapViewController._originPos.latitude),
+            long: String(MapViewController._originPos.longitude),
+            id: _currentId,
+            note: DomainConst.BLANK)
+    }
+    
+    /**
+     * Handle finish confirm order
+     */
+    internal func finishConfirmHandler(_ notification: Notification) {
+        NotificationCenter.default.removeObserver(self)
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            showAlert(message: DomainConst.CONTENT00322,
+                      okHandler: {
+                        alert in
+                        self.handleRefresh(self)
+                        G05F00S04VC._id = self._currentId
+                        self.pushToView(name: G05F00S04VC.theClassName)
+            },
+                      cancelHandler: {
+                        alert in
+                        self.handleRefresh(self)
+            })
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Handle tapped event on cancel button
+     */
+    public func btnCancelTapped(_ sender: AnyObject) {
+        _currentId = (sender as! UIButton).accessibilityIdentifier!
+        OrderVipSetEventRequest.request(
+            action: #selector(finishConfirmHandler(_:)),
+            view: self,
+            actionType: ActionTypeEnum.EMPLOYEE_HUY_GIAO_HANG.rawValue,
+            lat: String(MapViewController._originPos.latitude),
+            long: String(MapViewController._originPos.longitude),
+            id: _currentId,
+            note: DomainConst.BLANK)
+    }
+    
+    /**
+     * Handle finish cancel order
+     */
+    internal func finishCancelHandler(_ notification: Notification) {
+        NotificationCenter.default.removeObserver(self)
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            showAlert(message: DomainConst.CONTENT00323,
+                      okHandler: {
+                        alert in
+                        self.handleRefresh(self)
+            })
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Handle finish refresh
+     */
+    internal func finishHandleRefresh(_ notification: Notification) {
+        setData(notification)
+        refreshControl.endRefreshing()
+    }
+    
+    // MARK: Setup layout-control
+    /**
+     * Handle refresh
+     */
+    internal func handleRefresh(_ sender: AnyObject) {
+        self.resetData()
+        requestData(action: #selector(finishHandleRefresh(_:)))
+    }
+    
+    // MARK: Override from UIViewController
+    /**
      * Perform additional initialization on views that were loaded from nib files
      */
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        // Navigation
-        createNavigationBar(title: DomainConst.CONTENT00310)
+        createNavigationBar(title: DomainConst.CONTENT00332)
         
         // Create content
         var offset: CGFloat = getTopHeight()
@@ -123,9 +201,9 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         self.view.addSubview(_segment)
         
         // Table View
-        _tblView.register(UINib(nibName: OrderEmployeeTableViewCell.theClassName,
+        _tblView.register(UINib(nibName: TableCellOrderType.theClassName,
                                 bundle: Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)),
-                          forCellReuseIdentifier: OrderEmployeeTableViewCell.theClassName)
+                          forCellReuseIdentifier: TableCellOrderType.theClassName)
         _tblView.delegate = self
         _tblView.dataSource = self
         _tblView.frame = CGRect(x: 0, y: offset,
@@ -133,20 +211,24 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
                                 height: GlobalConst.SCREEN_HEIGHT - offset)
         _tblView.addSubview(refreshControl)
         self.view.addSubview(_tblView)
-        
         // Request data from server
-        requestData()
+        //requestData()
         self.view.makeComponentsColor()
     }
     
+    /**
+     * Set data for this view controller
+     */
     override func setData(_ notification: Notification) {
         let data = (notification.object as! String)
-        let model = OrderFamilyListRespModel(jsonString: data)
+        let model = OrderVIPListRespModel(jsonString: data)
         if model.isSuccess() {
             _data.total_page = model.total_page
             _data.total_record = model.total_record
             _data.append(contentOf: model.getRecord())
-            _tblView.reloadData()
+            DispatchQueue.main.async {
+                self._tblView.reloadData()
+            }            
         }
         
     }
@@ -154,6 +236,13 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    /**
+     * Notifies the view controller that its view is about to be added to a view hierarchy.
+     */
+    override func viewWillAppear(_ animated: Bool) {
+        requestData()
     }
     
 
@@ -166,7 +255,8 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         // Pass the selected object to the new view controller.
     }
     */
-    // MARK: - UITableViewDataSource
+    
+    // MARK: - UITableViewDataSource-Delegate
     /**
      * Tells the data source to return the number of rows in a given section of a table view.
      */
@@ -179,11 +269,14 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
         UITableViewCell {
-            let cell: OrderEmployeeTableViewCell = tableView.dequeueReusableCell(
-                withIdentifier: OrderEmployeeTableViewCell.theClassName)
-                as! OrderEmployeeTableViewCell
-            cell.setData(data: _data.getRecord()[indexPath.row])
-            cell.delegate = self
+            let cell: TableCellOrderType = tableView.dequeueReusableCell(
+                withIdentifier: TableCellOrderType.theClassName)
+                as! TableCellOrderType
+            //if _data.getRecord().count > indexPath.row {
+                cell.setData(vipData: _data.getRecord()[indexPath.row])
+                cell.delegate = self
+                //cell.selectionStyle = .none
+            //}
             return cell
     }
     
@@ -191,7 +284,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * Asks the delegate for the height to use for a row in a specified location.
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return OrderEmployeeTableViewCell.CELL_HEIGHT
+        return TableCellOrderType.CELL_HEIGHT
     }
     
     /**
@@ -209,6 +302,8 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
                     requestData()
                 }
             }
+        } else {
+            tableView.reloadData()
         }
     }
     
@@ -216,73 +311,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * Tells the delegate that the specified row is now selected.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        G07F00S02VC._id = _data.getRecord()[indexPath.row].id
-        self.pushToView(name: G07F00S02VC.theClassName)
-    }
-    
-    /**
-     * Handle tapped event on action button
-     */
-    public func btnActionTapped(_ sender: AnyObject) {
-        OrderFamilyHandleRequest.requestConfirm(
-            action: #selector(finishConfirmHandler(_:)),
-            view: self,
-            lat: String(MapViewController._originPos.latitude),
-            long: String(MapViewController._originPos.longitude),
-            id: (sender as! UIButton).accessibilityIdentifier!)
-    }
-    
-    /**
-     * Handle finish confirm order
-     */
-    internal func finishConfirmHandler(_ notification: Notification) {
-        NotificationCenter.default.removeObserver(self)
-        let data = (notification.object as! String)
-        let model = OrderFamilyViewRespModel(jsonString: data)
-        if model.isSuccess() {
-            showAlert(message: DomainConst.CONTENT00322,
-                      okHandler: {
-                        alert in
-                        self.handleRefresh(self)
-                        G07F00S02VC._id = model.getRecord().id
-                        self.pushToView(name: G07F00S02VC.theClassName)
-            },
-                      cancelHandler: {
-                        alert in
-                        self.handleRefresh(self)
-            })
-        } else {
-            showAlert(message: model.message)
-        }
-    }
-    
-    /**
-     * Handle tapped event on cancel button
-     */
-    public func btnCancelTapped(_ sender: AnyObject) {
-        OrderFamilyHandleRequest.requestCancelConfirm(
-            action: #selector(finishCancelHandler(_:)),
-            view: self,
-            lat: String(MapViewController._originPos.latitude),
-            long: String(MapViewController._originPos.longitude),
-            id: (sender as! UIButton).accessibilityIdentifier!)
-    }
-    
-    /**
-     * Handle finish cancel order
-     */
-    internal func finishCancelHandler(_ notification: Notification) {
-        NotificationCenter.default.removeObserver(self)
-        let data = (notification.object as! String)
-        let model = OrderFamilyViewRespModel(jsonString: data)
-        if model.isSuccess() {
-            showAlert(message: DomainConst.CONTENT00323,
-                      okHandler: {
-                        alert in
-                        self.handleRefresh(self)
-            })
-        } else {
-            showAlert(message: model.message)
-        }
+//        G05F00S04VC._id = _data.getRecord()[indexPath.row].id
+//        self.pushToView(name: G05F00S04VC.theClassName)
     }
 }

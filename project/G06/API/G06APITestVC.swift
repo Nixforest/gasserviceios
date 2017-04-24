@@ -65,7 +65,7 @@ class G06APITestVC: BaseAPITestViewController {
                 id: getParam(idx: 0))
             break
         case OrderVIPListRequest.theClassName:
-            OrderVIPListRequest.requestOrderVIPList(
+            OrderVIPListRequest.request(
                 action: #selector(finishHandler(_:)),
                 view: self,
                 page: Int(getParam(idx: 0))!)

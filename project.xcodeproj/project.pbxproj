@@ -121,6 +121,8 @@
 		D7CDBE2F1E880E5200B73877 /* WorkingReportListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CDBE2E1E880E5200B73877 /* WorkingReportListRespModel.swift */; };
 		D7CDBE311E88112100B73877 /* WorkingReportViewRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CDBE301E88112100B73877 /* WorkingReportViewRespModel.swift */; };
 		D7D1D43D1E8E353D000ADA78 /* G06F01Sum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D1D43C1E8E353D000ADA78 /* G06F01Sum.swift */; };
+		D7EBB7E71EA9B34E00BE6612 /* G05F00S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBB7E61EA9B34E00BE6612 /* G05F00S03VC.swift */; };
+		D7EBB7E91EA9B72200BE6612 /* G05F00S04VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBB7E81EA9B72200BE6612 /* G05F00S04VC.swift */; };
 		D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */; };
 		D7F82AB21EA517F300116B74 /* G07F01S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F82AB11EA517F300116B74 /* G07F01S02VC.swift */; };
 		D7FB47461E9751200082FA5E /* G07Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FB47451E9751200082FA5E /* G07Const.swift */; };
@@ -304,6 +306,8 @@
 		D7CDBE2E1E880E5200B73877 /* WorkingReportListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkingReportListRespModel.swift; path = G06/Model/WorkingReportListRespModel.swift; sourceTree = "<group>"; };
 		D7CDBE301E88112100B73877 /* WorkingReportViewRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkingReportViewRespModel.swift; path = G06/Model/WorkingReportViewRespModel.swift; sourceTree = "<group>"; };
 		D7D1D43C1E8E353D000ADA78 /* G06F01Sum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01Sum.swift; path = G06/F01/G06F01Sum.swift; sourceTree = "<group>"; };
+		D7EBB7E61EA9B34E00BE6612 /* G05F00S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S03VC.swift; path = G05/F00/G05F00S03VC.swift; sourceTree = "<group>"; };
+		D7EBB7E81EA9B72200BE6612 /* G05F00S04VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S04VC.swift; path = G05/F00/G05F00S04VC.swift; sourceTree = "<group>"; };
 		D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Common/MapViewController.swift; sourceTree = "<group>"; };
 		D7F82AB11EA517F300116B74 /* G07F01S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07F01S02VC.swift; path = G07/F01/G07F01S02VC.swift; sourceTree = "<group>"; };
 		D7FB47451E9751200082FA5E /* G07Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07Const.swift; path = G07/G07Const.swift; sourceTree = "<group>"; };
@@ -705,6 +709,8 @@
 				D77F067C1E7177F500797A6B /* G05F00S01VC.swift */,
 				D77F067D1E7177F500797A6B /* G05F00S02MenuVC.swift */,
 				D77F067E1E7177F500797A6B /* G05F00S02VC.swift */,
+				D7EBB7E61EA9B34E00BE6612 /* G05F00S03VC.swift */,
+				D7EBB7E81EA9B72200BE6612 /* G05F00S04VC.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -1031,6 +1037,7 @@
 				D77F06561E71771A00797A6B /* G01F02S04.swift in Sources */,
 				D77F06621E71772700797A6B /* G01F03S01.swift in Sources */,
 				D77F063C1E7176E900797A6B /* G01F00S02VC.swift in Sources */,
+				D7EBB7E71EA9B34E00BE6612 /* G05F00S03VC.swift in Sources */,
 				D709FEA01E86F93300F32A7E /* CustomerFamilyListRespModel.swift in Sources */,
 				D77F06591E71771A00797A6B /* G01F02S07.swift in Sources */,
 				D77F06171E7175D000797A6B /* G00AccountVC.swift in Sources */,
@@ -1052,6 +1059,7 @@
 				D77F061C1E7175D000797A6B /* G00HomeCell.swift in Sources */,
 				D77F06231E7175D000797A6B /* G00RegisterMenuVC.swift in Sources */,
 				D77F06661E71772700797A6B /* G01F03VC.swift in Sources */,
+				D7EBB7E91EA9B72200BE6612 /* G05F00S04VC.swift in Sources */,
 				D7766ECE1E949E0700BC137A /* G06F01S04.swift in Sources */,
 				D7CDBE311E88112100B73877 /* WorkingReportViewRespModel.swift in Sources */,
 				D77F06811E7177F500797A6B /* G05F00S02MenuVC.swift in Sources */,

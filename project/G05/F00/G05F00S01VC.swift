@@ -18,9 +18,20 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
     /** Icon image */
     @IBOutlet weak var iconImg:     UIImageView!
     /** Static data */
-    private static var _data:       OrderVIPListRespModel = OrderVIPListRespModel()
+    //++ BUG0060-SPJ (NguyenPT 20170421) Not use static variable
+    //private static var _data:              OrderVIPListRespModel = OrderVIPListRespModel()
+    private var _data:              OrderVIPListRespModel = OrderVIPListRespModel()
+    //-- BUG0060-SPJ (NguyenPT 20170421) Not use static variable
     /** Current page */
-    private var _page = 0
+    private var _page:              Int                   = 0
+    //++ BUG0060-SPJ (NguyenPT 20170421) Add refresh control
+    /** Refrest control */
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        return refreshControl
+    }()
+    //-- BUG0060-SPJ (NguyenPT 20170421) Add refresh control
     
     // MARK: Methods
     //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
@@ -31,6 +42,45 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
 //        NotificationCenter.default.addObserver(self, selector: #selector(configItemTap(_:)), name:NSNotification.Name(rawValue: G05Const.NOTIFY_NAME_G05_ORDER_LIST_CONFIG_ITEM), object: nil)
 //    }
     //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
+    //++ BUG0060-SPJ (NguyenPT 20170421) Add refresh control
+    /**
+     * Request data from server
+     */
+    private func requestData(action: Selector = #selector(setData(_:))) {
+        let status = DomainConst.ORDER_STATUS_TYPE_ALL
+        OrderVIPListRequest.request(action: action,
+                                       view: self,
+                                       page: _page,
+                                       status: status)
+    }
+    
+    /**
+     * Reset data
+     */
+    private func resetData() {
+        _data.clearData()
+        // Reset current search value
+        self._page      = 0
+        // Reload table
+        _tableView.reloadData()
+    }
+    
+    /**
+     * Handle refresh
+     */
+    internal func handleRefresh(_ sender: AnyObject) {
+        self.resetData()
+        requestData(action: #selector(finishHandleRefresh(_:)))
+    }
+    
+    /**
+     * Handle finish refresh
+     */
+    internal func finishHandleRefresh(_ notification: Notification) {
+        setData(notification)
+        refreshControl.endRefreshing()
+    }
+    //-- BUG0060-SPJ (NguyenPT 20170421) Add refresh control
     
     /**
      * View did load
@@ -64,12 +114,16 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         _tableView.dataSource = self
         _tableView.delegate = self
         _tableView.contentInset = UIEdgeInsets.zero
+        _tableView.addSubview(refreshControl)
         // NavBar setup
         //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         //setupNavigationBar(title: DomainConst.CONTENT00231, isNotifyEnable: BaseModel.shared.checkIsLogin())
         createNavigationBar(title: DomainConst.CONTENT00231)
         //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
-        OrderVIPListRequest.requestOrderVIPList(action: #selector(setData(_:)), view: self, page: self._page)
+        //++ BUG0060-SPJ (NguyenPT 20170421) Change name of request function
+        //OrderVIPListRequest.requestOrderVIPList(action: #selector(setData(_:)), view: self, page: self._page)
+        requestData()
+        //-- BUG0060-SPJ (NguyenPT 20170421) Change name of request function
         self.view.makeComponentsColor()
     }
 
@@ -82,10 +136,19 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
-        let data = (notification.object as! OrderVIPListRespModel)
-        G05F00S01VC._data.total_page    = data.total_page
-        G05F00S01VC._data.total_record  = data.total_record
-        G05F00S01VC._data.append(contentOf: data.getRecord())
+        //++ BUG0060-SPJ (NguyenPT 20170421) Add refresh control
+//        let data = (notification.object as! OrderVIPListRespModel)
+//        G05F00S01VC._data.total_page    = data.total_page
+//        G05F00S01VC._data.total_record  = data.total_record
+//        G05F00S01VC._data.append(contentOf: data.getRecord())
+        let data = (notification.object as! String)
+        let model = OrderVIPListRespModel(jsonString: data)
+        if model.isSuccess() {
+            _data.total_page = model.total_page
+            _data.total_record = model.total_record
+            _data.append(contentOf: model.getRecord())
+        }
+        //-- BUG0060-SPJ (NguyenPT 20170421) Add refresh control
         _tableView.reloadData()
     }
     
@@ -108,7 +171,7 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      * Tells the data source to return the number of rows in a given section of a table view.
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return G05F00S01VC._data.getRecord().count
+        return _data.getRecord().count
     }
     
     /**
@@ -117,8 +180,8 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: DomainConst.TABLE_VIEW_CELL_ORDER_TYPE) as! TableCellOrderType
-        if G05F00S01VC._data.getRecord().count > indexPath.row {
-            cell.setData(vipData: G05F00S01VC._data.getRecord()[indexPath.row])
+        if _data.getRecord().count > indexPath.row {
+            cell.setData(vipData: _data.getRecord()[indexPath.row])
         }
         return cell
     }
@@ -134,37 +197,42 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      * Tells the delegate that the specified row is now selected.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        G05F00S02VC._id = G05F00S01VC._data.getRecord()[indexPath.row].id
+        G05F00S02VC._id = _data.getRecord()[indexPath.row].id
         self.pushToView(name: G05Const.G05_F00_S02_VIEW_CTRL)
         self.showToast(message: "Open order detail: \(G05F00S02VC._id)")
     }
     
-    /**
-     * Get status number of item
-     * - returns: Status number value
-     */
-    public static func getStatusNumber() -> String {
-        for item in G05F00S01VC._data.getRecord() {
-            if item.id == G05F00S02VC._id {
-                return item.status_number
-            }
-        }
-        return DomainConst.BLANK
-    }
+//    /**
+//     * Get status number of item
+//     * - returns: Status number value
+//     */
+//    public static func getStatusNumber() -> String {
+//        for item in _data.getRecord() {
+//            if item.id == G05F00S02VC._id {
+//                return item.status_number
+//            }
+//        }
+//        return DomainConst.BLANK
+//    }
     
     /**
      * Tells the delegate the table view is about to draw a cell for a particular row.
      */
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Total page does not 1
-        if G05F00S01VC._data.total_page != 1 {
-            let lastElement = G05F00S01VC._data.getRecord().count - 1
+        if _data.total_page != 1 {
+            let lastElement = _data.getRecord().count - 1
             // Current is the last element
             if indexPath.row == lastElement {
                 self._page += 1
                 // Page less than total page
-                if self._page <= G05F00S01VC._data.total_page {
-                    OrderVIPListRequest.requestOrderVIPList(action: #selector(setData(_:)), view: self, page: self._page)
+                if self._page <= _data.total_page {
+                    //++ BUG0060-SPJ (NguyenPT 20170421) Change name of request function
+                    //OrderVIPListRequest.requestOrderVIPList(action: #selector(setData(_:)), view: self, page: self._page)
+                    OrderVIPListRequest.request(action: #selector(setData(_:)),
+                                                view: self,
+                                                page: self._page)
+                    //-- BUG0060-SPJ (NguyenPT 20170421) Change name of request function
                 }
             }
         }
@@ -185,6 +253,6 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      * Reset uphold list value
      */
     override func clearData() {
-        G05F00S01VC._data = OrderVIPListRespModel()
+        _data = OrderVIPListRespModel()
     }
 }

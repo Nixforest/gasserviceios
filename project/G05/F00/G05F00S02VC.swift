@@ -164,9 +164,9 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                             iconPath: DomainConst.ORDER_ID_ICON_IMG_NAME,
                                             value: "#" + data.code_no))
         var status = DomainConst.CONTENT00328
-        if !G05F00S01VC.getStatusNumber().isEmpty {
-            status = getStatusString(status: G05F00S01VC.getStatusNumber())
-        }
+//        if !G05F00S01VC.getStatusNumber().isEmpty {
+//            status = getStatusString(status: G05F00S01VC.getStatusNumber())
+//        }
         _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_STATUS_ID,
                                             name: DomainConst.CONTENT00092,
                                             iconPath: DomainConst.ORDER_STATUS_ICON_IMG_NAME,
