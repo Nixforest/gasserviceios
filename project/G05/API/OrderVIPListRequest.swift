@@ -10,7 +10,7 @@ import UIKit
 import harpyframework
 
 class OrderVIPListRequest: BaseRequest {
-    // BUG0060
+    //++ BUG0060-SPJ (NguyenPT 20170421) Remove completetion handler
 //    override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
 //        let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
 //            (
@@ -53,7 +53,9 @@ class OrderVIPListRequest: BaseRequest {
 //    override init(url: String, reqMethod: String, view: BaseViewController) {
 //        super.init(url: url, reqMethod: reqMethod, view: view)
 //    }
-
+    //-- BUG0060-SPJ (NguyenPT 20170421) Remove completetion handler
+    
+    //++ BUG0060-SPJ (NguyenPT 20170421) Add status parameter
     /**
      * Set data content
      * - parameter page:        Page index
@@ -68,9 +70,9 @@ class OrderVIPListRequest: BaseRequest {
             DomainConst.KEY_PAGE, String(page),
             DomainConst.KEY_STATUS, status,
             DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
-            // BUG0060
         )
     }
+    //-- BUG0060-SPJ (NguyenPT 20170421) Add status parameter
     
     /**
      * Request order list function
@@ -83,7 +85,9 @@ class OrderVIPListRequest: BaseRequest {
         let request = OrderVIPListRequest(url: G05Const.PATH_ORDER_VIP_LIST,
                                             reqMethod: DomainConst.HTTP_POST_REQUEST,
                                             view: view)
+        //++ BUG0060-SPJ (NguyenPT 20170421) Add status parameter
         //request.setData(page: page)
+        //-- BUG0060-SPJ (NguyenPT 20170421) Add status parameter
         request.setData(page: page, status: status)
         NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()

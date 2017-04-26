@@ -32,6 +32,7 @@
 		D7766ECE1E949E0700BC137A /* G06F01S04.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7766ECD1E949E0700BC137A /* G06F01S04.swift */; };
 		D7766ED11E94B17200BC137A /* G06F01S05.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7766ED01E94B17200BC137A /* G06F01S05.swift */; };
 		D7766ED31E94CF1800BC137A /* G06F01S06.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7766ED21E94CF1800BC137A /* G06F01S06.swift */; };
+		D7767C641EADB72A00D8FDA9 /* G05APITestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7767C631EADB72A00D8FDA9 /* G05APITestVC.swift */; };
 		D776BC9B1E8F858C00F5C883 /* G06F01S03.swift in Sources */ = {isa = PBXBuildFile; fileRef = D776BC9A1E8F858C00F5C883 /* G06F01S03.swift */; };
 		D77F06161E7175D000797A6B /* G00AccountMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F06071E7175D000797A6B /* G00AccountMenuVC.swift */; };
 		D77F06171E7175D000797A6B /* G00AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F06081E7175D000797A6B /* G00AccountVC.swift */; };
@@ -218,6 +219,7 @@
 		D7766ECD1E949E0700BC137A /* G06F01S04.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S04.swift; path = G06/F01/G06F01S04.swift; sourceTree = "<group>"; };
 		D7766ED01E94B17200BC137A /* G06F01S05.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S05.swift; path = G06/F01/G06F01S05.swift; sourceTree = "<group>"; };
 		D7766ED21E94CF1800BC137A /* G06F01S06.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S06.swift; path = G06/F01/G06F01S06.swift; sourceTree = "<group>"; };
+		D7767C631EADB72A00D8FDA9 /* G05APITestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05APITestVC.swift; path = G05/API/G05APITestVC.swift; sourceTree = "<group>"; };
 		D776BC9A1E8F858C00F5C883 /* G06F01S03.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S03.swift; path = G06/F01/G06F01S03.swift; sourceTree = "<group>"; };
 		D77F06071E7175D000797A6B /* G00AccountMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00AccountMenuVC.swift; path = G00/G00AccountMenuVC.swift; sourceTree = "<group>"; };
 		D77F06081E7175D000797A6B /* G00AccountVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00AccountVC.swift; path = G00/G00AccountVC.swift; sourceTree = "<group>"; };
@@ -564,6 +566,7 @@
 				D77F066E1E7177E000797A6B /* OrderVIPCreateRequest.swift */,
 				D77F066F1E7177E000797A6B /* OrderVIPListRequest.swift */,
 				D77F06701E7177E000797A6B /* OrderVIPViewRequest.swift */,
+				D7767C631EADB72A00D8FDA9 /* G05APITestVC.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -960,6 +963,7 @@
 			files = (
 				D77F06281E7176DD00797A6B /* CreateUpholdReplyRequest.swift in Sources */,
 				D77F06541E71771A00797A6B /* G01F02S02.swift in Sources */,
+				D7767C641EADB72A00D8FDA9 /* G05APITestVC.swift in Sources */,
 				D77F06611E71772700797A6B /* G01F03MenuVC.swift in Sources */,
 				D77F066A1E71775E00797A6B /* ImageTableViewCell.swift in Sources */,
 				D77F06201E7175D000797A6B /* G00InfomationVC.swift in Sources */,

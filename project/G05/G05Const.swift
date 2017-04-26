@@ -34,5 +34,8 @@ class G05Const {
     //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
 //    public static let NOTIFY_NAME_G05_ORDER_LIST_CONFIG_ITEM    = G05Const.FUNC_IDENTIFIER + ".orderlist.configitem"
     //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
-    
+    /** Weight of table column size */
+    public static let TABLE_COLUME_WEIGHT_GAS_INFO              = (3, 1, 1)
+    /** Weight of table column size */
+    public static let TABLE_COLUME_WEIGHT_CYLINDER_INFO         = (4, 1, 1, 1, 1)
 }

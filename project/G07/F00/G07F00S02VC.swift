@@ -493,7 +493,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Add new material
         if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
             _listInfo[2].append(ConfigurationModel(
-                id: DomainConst.ORDER_INFO_MATERIAL_ADD_NEW, name: DomainConst.CONTENT00312,
+                id: DomainConst.ORDER_INFO_MATERIAL_ADD_NEW, name: DomainConst.CONTENT00341,
                 iconPath: DomainConst.ADD_ICON_IMG_NAME, value: DomainConst.BLANK))
         }
         

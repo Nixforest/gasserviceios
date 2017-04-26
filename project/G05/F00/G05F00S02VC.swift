@@ -162,25 +162,45 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_ID_ID,
                                             name: DomainConst.CONTENT00257,
                                             iconPath: DomainConst.ORDER_ID_ICON_IMG_NAME,
-                                            value: "#" + data.code_no))
+                                            value: DomainConst.ORDER_CODE_PREFIX + data.code_no))
         var status = DomainConst.CONTENT00328
-//        if !G05F00S01VC.getStatusNumber().isEmpty {
-//            status = getStatusString(status: G05F00S01VC.getStatusNumber())
-//        }
+        if !data.status_number.isEmpty {
+            status = getStatusString(status: data.status_number)
+        }
+        // Order status
         _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_STATUS_ID,
                                             name: DomainConst.CONTENT00092,
                                             iconPath: DomainConst.ORDER_STATUS_ICON_IMG_NAME,
                                             value: status))
+        
+        // Created date
+        _listInfo.append(ConfigurationModel(
+            id: DomainConst.ORDER_INFO_CREATED_DATE_ID,
+            name: DomainConst.CONTENT00096,
+            iconPath: DomainConst.DATETIME_ICON_IMG_NAME,
+            value: data.created_date))
+        
+        // Delivery date
+        if data.status_number == DomainConst.ORDER_STATUS_COMPLETE {
+            _listInfo.append(ConfigurationModel(
+                id: DomainConst.ORDER_INFO_DELIVERY_DATE_ID,
+                name: DomainConst.CONTENT00340,
+                iconPath: DomainConst.DATETIME_ICON_IMG_NAME,
+                value: data.date_delivery))
+        }
+        
+        // Name of car
         if !data.name_car.isEmpty {
             _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_CAR_NUMBER_ID,
                                                 name: DomainConst.CONTENT00258,
                                                 iconPath: DomainConst.ORDER_CAR_NUMBER_ICON_IMG_NAME,
                                                 value: data.name_car))
         }
+        // Payment method
         _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_PAYMENT_METHOD_ID,
                                             name: DomainConst.CONTENT00259,
                                             iconPath: DomainConst.ORDER_PAYMENT_METHOD_ICON_IMG_NAME,
-                                            value: "Tiền mặt"))
+                                            value: DomainConst.CONTENT00342))
         _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_GAS_MONEY_ID,
                                             name: DomainConst.CONTENT00260,
                                             iconPath: DomainConst.MONEY_ICON_GREY_IMG_NAME,
@@ -219,7 +239,10 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             G05F00S02VC._id = BaseModel.shared.sharedString
         }
         //-- BUG0057-SPJ (NguyenPT 20170414) Handle notification VIP customer order
-        OrderVIPViewRequest.requestOrderVIPView(action: #selector(setData(_:)), view: self, id: G05F00S02VC._id)
+        //++ BUG0060-SPJ (NguyenPT 20170421) Change name of request
+        //OrderVIPViewRequest.requestOrderVIPView(action: #selector(setData(_:)), view: self, id: G05F00S02VC._id)
+        OrderVIPViewRequest.request(action: #selector(setData(_:)), view: self, id: G05F00S02VC._id)
+        //-- BUG0060-SPJ (NguyenPT 20170421) Change name of request
 
         // Do any additional setup after loading the view.
         setupListInfo()
@@ -313,7 +336,9 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     }
     
     override func setData(_ notification: Notification) {
-        let data = (notification.object as! OrderVIPCreateRespModel)
+//        let data = (notification.object as! OrderVIPCreateRespModel)
+        let dataStr = (notification.object as! String)
+        let data = OrderVIPCreateRespModel(jsonString: dataStr)
         setupListInfo(data: data.getRecord())
         setupListMaterial(data: data.getRecord())
         _lblCustomerName.text = data.getRecord().customer_name

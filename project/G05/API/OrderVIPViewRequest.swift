@@ -10,48 +10,50 @@ import UIKit
 import harpyframework
 
 class OrderVIPViewRequest: BaseRequest {
-    override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
-        let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
-            (
-            data, response, error) in
-            // Check error
-            guard error == nil else {
-                self.showAlert(message: DomainConst.CONTENT00196)
-                return
-            }
-            guard let data = data else {
-                self.showAlert(message: DomainConst.CONTENT00196)
-                return
-            }
-            // Convert to string
-            let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            print(dataString ?? "")
-            // Convert to object
-            let model: OrderVIPCreateRespModel = OrderVIPCreateRespModel(jsonString: dataString as! String)
-            if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
-                // Hide overlay
-                LoadingView.shared.hideOverlayView()
-                // Update data to MapViewController view (cross-thread)
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
-                }
-            } else {
-                self.showAlert(message: model.message)
-                return
-            }
-        })
-        return task
-    }
-    
-    /**
-     * Initializer
-     * - parameter url: URL
-     * - parameter reqMethod: Request method
-     * - parameter view: Root view
-     */
-    override init(url: String, reqMethod: String, view: BaseViewController) {
-        super.init(url: url, reqMethod: reqMethod, view: view)
-    }
+    //++ BUG0060-SPJ (NguyenPT 20170421) Remove completetion handler
+//    override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
+//        let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
+//            (
+//            data, response, error) in
+//            // Check error
+//            guard error == nil else {
+//                self.showAlert(message: DomainConst.CONTENT00196)
+//                return
+//            }
+//            guard let data = data else {
+//                self.showAlert(message: DomainConst.CONTENT00196)
+//                return
+//            }
+//            // Convert to string
+//            let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+//            print(dataString ?? "")
+//            // Convert to object
+//            let model: OrderVIPCreateRespModel = OrderVIPCreateRespModel(jsonString: dataString as! String)
+//            if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
+//                // Hide overlay
+//                LoadingView.shared.hideOverlayView()
+//                // Update data to MapViewController view (cross-thread)
+//                DispatchQueue.main.async {
+//                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
+//                }
+//            } else {
+//                self.showAlert(message: model.message)
+//                return
+//            }
+//        })
+//        return task
+//    }
+//    
+//    /**
+//     * Initializer
+//     * - parameter url: URL
+//     * - parameter reqMethod: Request method
+//     * - parameter view: Root view
+//     */
+//    override init(url: String, reqMethod: String, view: BaseViewController) {
+//        super.init(url: url, reqMethod: reqMethod, view: view)
+//    }
+    //++ BUG0060-SPJ (NguyenPT 20170421) Remove completetion handler
     
     /**
      * Set data content
@@ -69,7 +71,7 @@ class OrderVIPViewRequest: BaseRequest {
      * Request order list function
      * - parameter page:    Page index
      */
-    public static func requestOrderVIPView(action: Selector, view: BaseViewController,
+    public static func request(action: Selector, view: BaseViewController,
                                            id: String) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)

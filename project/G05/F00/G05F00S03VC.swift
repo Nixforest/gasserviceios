@@ -226,9 +226,7 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
             _data.total_page = model.total_page
             _data.total_record = model.total_record
             _data.append(contentOf: model.getRecord())
-            DispatchQueue.main.async {
-                self._tblView.reloadData()
-            }            
+            self._tblView.reloadData()
         }
         
     }
@@ -242,6 +240,7 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      * Notifies the view controller that its view is about to be added to a view hierarchy.
      */
     override func viewWillAppear(_ animated: Bool) {
+        resetData()
         requestData()
     }
     
@@ -302,8 +301,6 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
                     requestData()
                 }
             }
-        } else {
-            tableView.reloadData()
         }
     }
     
@@ -311,7 +308,7 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      * Tells the delegate that the specified row is now selected.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        G05F00S04VC._id = _data.getRecord()[indexPath.row].id
-//        self.pushToView(name: G05F00S04VC.theClassName)
+        G05F00S04VC._id = _data.getRecord()[indexPath.row].id
+        self.pushToView(name: G05F00S04VC.theClassName)
     }
 }
