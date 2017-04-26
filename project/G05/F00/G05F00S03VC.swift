@@ -240,8 +240,8 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      * Notifies the view controller that its view is about to be added to a view hierarchy.
      */
     override func viewWillAppear(_ animated: Bool) {
-        resetData()
-        requestData()
+//        resetData()
+//        requestData()
     }
     
 

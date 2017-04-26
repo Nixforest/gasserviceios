@@ -235,10 +235,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         for item in data.info_vo {
             var gasdu = DomainConst.BLANK
             // Check empty value
-            if (!item.kg_has_gas.isEmpty) && (!item.kg_empty.isEmpty) {
-                if let kgGas = Int(item.kg_has_gas), let kgEmpty = Int(item.kg_empty) {
-                    gasdu = String(kgGas - kgEmpty)
-                }
+            if let kgGas = Int(item.kg_has_gas), let kgEmpty = Int(item.kg_empty) {
+                gasdu = String(kgGas - kgEmpty)
             }
             let cylinderValue: [(String, Int)] = [
                 (item.material_name, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),

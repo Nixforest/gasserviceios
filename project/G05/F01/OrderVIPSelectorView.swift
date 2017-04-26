@@ -159,7 +159,13 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
      * Handle click event
      */
     public func prevButtonTapped(_ sender: AnyObject) {
-        var value = Int(self._config.name)! - 1
+        //++ BUG0070-SPJ (NguyenPT 20170426) Handle convert String -> Int
+        //var value = Int(self._config.name)! - 1
+        var value = 0
+        if let number = Int(self._config.name) {
+            value = number - 1
+        }
+        //-- BUG0070-SPJ (NguyenPT 20170426) Handle convert String -> Int
         if value < 0 {
             value = 0
         }
@@ -172,7 +178,13 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
      * Handle click event
      */
     public func nextButtonTapped(_ sender: AnyObject) {
-        var value = Int(self._config.name)! + 1
+        //++ BUG0070-SPJ (NguyenPT 20170426) Handle convert String -> Int
+        //var value = Int(self._config.name)! + 1
+        var value = 0
+        if let number = Int(self._config.name) {
+            value = number - 1
+        }
+        //-- BUG0070-SPJ (NguyenPT 20170426) Handle convert String -> Int
         if value < 0 {
             value = 0
         }

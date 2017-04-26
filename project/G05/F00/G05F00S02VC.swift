@@ -65,9 +65,14 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         createCylinderTableHeader()
         for item in data.info_vo {
             var gasdu = DomainConst.BLANK
-            if !item.kg_has_gas.isEmpty && !item.kg_empty.isEmpty{
-                gasdu = String(Int(item.kg_has_gas)! - Int(item.kg_empty)!)
+            //++ BUG0070-SPJ (NguyenPT 20170426) Handle convert String -> Int
+//            if !item.kg_has_gas.isEmpty && !item.kg_empty.isEmpty{
+//                gasdu = String(Int(item.kg_has_gas)! - Int(item.kg_empty)!)
+//            }
+            if let kgGas = Int(item.kg_has_gas), let kgEmpty = Int(item.kg_empty) {
+                gasdu = String(kgGas - kgEmpty)
             }
+            //-- BUG0070-SPJ (NguyenPT 20170426) Handle convert String -> Int
             let cylinderValue: [(String, Int)] = [
                 (item.material_name, 4),
                 (item.seri, 1),
