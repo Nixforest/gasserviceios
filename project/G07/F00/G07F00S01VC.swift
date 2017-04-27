@@ -240,17 +240,22 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         let data = (notification.object as! String)
         let model = OrderFamilyViewRespModel(jsonString: data)
         if model.isSuccess() {
-            showAlert(message: DomainConst.CONTENT00322,
-                      okHandler: {
-                        alert in
-                        self.handleRefresh(self)
-                        G07F00S02VC._id = model.getRecord().id
-                        self.pushToView(name: G07F00S02VC.theClassName)
-            },
-                      cancelHandler: {
-                        alert in
-                        self.handleRefresh(self)
-            })
+            //++ BUG0072-SPJ (NguyenPT 20170424) No need confirm message
+//            showAlert(message: DomainConst.CONTENT00322,
+//                      okHandler: {
+//                        alert in
+//                        self.handleRefresh(self)
+//                        G07F00S02VC._id = model.getRecord().id
+//                        self.pushToView(name: G07F00S02VC.theClassName)
+//            },
+//                      cancelHandler: {
+//                        alert in
+//                        self.handleRefresh(self)
+//            })
+            self.handleRefresh(self)
+            G07F00S02VC._id = model.getRecord().id
+            self.pushToView(name: G07F00S02VC.theClassName)
+            //-- BUG0072-SPJ (NguyenPT 20170424) No need confirm message
         } else {
             showAlert(message: model.message)
         }
@@ -276,11 +281,14 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         let data = (notification.object as! String)
         let model = OrderFamilyViewRespModel(jsonString: data)
         if model.isSuccess() {
-            showAlert(message: DomainConst.CONTENT00323,
-                      okHandler: {
-                        alert in
-                        self.handleRefresh(self)
-            })
+            //++ BUG0072-SPJ (NguyenPT 20170424) No need confirm message
+//            showAlert(message: DomainConst.CONTENT00323,
+//                      okHandler: {
+//                        alert in
+//                        self.handleRefresh(self)
+//            })            
+            self.handleRefresh(self)
+            //-- BUG0072-SPJ (NguyenPT 20170424) No need confirm message
         } else {
             showAlert(message: model.message)
         }

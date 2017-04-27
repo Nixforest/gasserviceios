@@ -33,9 +33,9 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private var _segment:           UISegmentedControl   = UISegmentedControl(
                                     items: [DomainConst.CONTENT00253, DomainConst.CONTENT00263])
     /** Order information view */
-    private var _viewOrderInfo:     UIView               = UIView()
+//    private var _viewOrderInfo:     UIView               = UIView()
     /** Order cylinder information view */
-    private var _viewOrderCylinderInfo: UIView           = UIView()
+//    private var _viewOrderCylinderInfo: UIView           = UIView()
     /** List of material information */
     private var _listMaterial: [[(String, Int)]]         = [[(String, Int)]]()
     /** Material info header */
@@ -94,14 +94,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                     action in
                                     self.selectMaterial(type: self.TYPE_GAS)
         })
-        let otherMaterial = UIAlertAction(title: DomainConst.CONTENT00316,
-                                   style: .default, handler: {
-                                    action in
-                                    self.selectMaterial(type: self.TYPE_OTHERMATERIAL)
-        })
+//        let otherMaterial = UIAlertAction(title: DomainConst.CONTENT00316,
+//                                   style: .default, handler: {
+//                                    action in
+//                                    self.selectMaterial(type: self.TYPE_OTHERMATERIAL)
+//        })
         alert.addAction(cancel)
         alert.addAction(gas)
-        alert.addAction(otherMaterial)
+        //alert.addAction(otherMaterial)
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -116,16 +116,89 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         switch _type {
         case TYPE_GAS:                      // Gas
             MaterialSelectViewController.setMaterialData(data: BaseModel.shared.getListGasMaterialInfo())
-            self.pushToView(name: G07F01S01VC.theClassName)
-        case TYPE_CYLINDER:              // Cylinder
+            self.pushToView(name: G05F02S01VC.theClassName)
+        case TYPE_CYLINDER:                 // Cylinder
             MaterialSelectViewController.setMaterialData(data: BaseModel.shared.getListCylinderInfo())
-            self.pushToView(name: G07F01S02VC.theClassName)
-        case TYPE_OTHERMATERIAL:    // The other material
+            self.pushToView(name: G05F02S01VC.theClassName)
+        case TYPE_OTHERMATERIAL:            // The other material
             MaterialSelectViewController.setMaterialData(data: BaseModel.shared.getListOtherMaterialInfo())
-            self.pushToView(name: G07F01S02VC.theClassName)
+            self.pushToView(name: G05F02S01VC.theClassName)
         default:
             break
         }
+    }
+    
+    /**
+     * Insert material at tail
+     * - parameter material: Data to update
+     */
+    private func appendMaterialGas(material: OrderDetailBean) {
+        var idx: Int = -1
+        // Search in lists
+        for i in 0..<_data.getRecord().info_gas.count {
+            if material.material_id == _data.getRecord().info_gas[i].material_id {
+                // Found
+                idx = i
+                break
+            }
+        }
+        if idx == -1 {
+            // Not found -> Append
+            let orderItem = OrderVIPDetailBean(orderDetail: material)
+            _data.getRecord().info_gas.append(orderItem)
+            let materialValue: [(String, Int)] = [
+                (orderItem.material_name,    G05Const.TABLE_COLUME_WEIGHT_GAS_INFO.0),
+                (orderItem.qty,              G05Const.TABLE_COLUME_WEIGHT_GAS_INFO.1),
+                (orderItem.qty_real,         G05Const.TABLE_COLUME_WEIGHT_GAS_INFO.2)
+            ]
+            _listMaterial.append(materialValue)
+            updateQtyMaterial(idx: _listMaterial.count - 1)
+        } else {
+            // Found -> Update
+            updateQtyMaterial(idx: idx)
+        }
+        updateLayout()
+    }
+    
+    /**
+     * Insert material at tail
+     * - parameter material: Data to update
+     */
+    private func appendMaterialCylinder(material: OrderDetailBean) {
+        var idx: Int = -1
+        // Search in lists
+        for i in 0..<_data.getRecord().info_vo.count {
+            if material.material_id == _data.getRecord().info_vo[i].material_id {
+                // Found
+                idx = i
+                break
+            }
+        }
+        if idx == -1 {
+            // Not found -> Append
+            let orderItem = OrderVIPDetailBean(orderDetail: material)
+            var gasdu = DomainConst.BLANK
+            // Check empty value
+            if !orderItem.kg_has_gas.isEmpty && !orderItem.kg_empty.isEmpty {
+                let fKgGas = (orderItem.kg_has_gas as NSString).floatValue
+                let fKgEmpty = (orderItem.kg_empty as NSString).floatValue
+                gasdu = String(fKgGas - fKgEmpty)
+            }
+            _data.getRecord().info_vo.append(orderItem)
+            let cylinderValue: [(String, Int)] = [
+                (orderItem.material_name, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
+                (orderItem.seri,          G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
+                (orderItem.kg_empty,      G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
+                (orderItem.kg_has_gas,    G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
+                (gasdu,                   G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4)
+            ]
+            _listCylinder.append(cylinderValue)
+            updateQtyCylinder(idx: _listCylinder.count - 1)
+        } else {
+            // Found -> Update
+            updateQtyCylinder(idx: idx)
+        }
+        updateLayout()
     }
     
     /**
@@ -140,10 +213,12 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         let indexPath: IndexPath = IndexPath(item: idx, section: 1)
         // Delete in table
         _tblViewGas.deleteRows(at: [indexPath], with: .fade)
+        updateLayout()
     }
     
     /**
      * Update quantity of material
+     * - parameter idx: Index of selected row
      */
     private func updateQtyMaterial(idx: Int) {
         let material = _data.getRecord().info_gas[idx]
@@ -170,8 +245,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Add ok action
         let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
             if let n = NumberFormatter().number(from: (tbxValue?.text)!) {
+                // Update data
                 self._data.getRecord().info_gas[idx].qty_real = String(describing: n)
+                // Update in table data
                 self._listMaterial[idx][2].0 = String(describing: n)
+                // Update table
                 self._tblViewGas.reloadRows(at: [IndexPath(item: idx, section: 1)], with: .automatic)
             } else {
                 self.showAlert(message: DomainConst.CONTENT00251, okTitle: DomainConst.CONTENT00251,
@@ -186,9 +264,85 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         alert.addAction(cancel)
         alert.addAction(ok)
-//        self.present(alert, animated: true, completion: { () -> Void in
-//            self.view.layoutIfNeeded()
-//        })
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Update quantity of cylinder
+     * - parameter idx: Index of selected row
+     */
+    private func updateQtyCylinder(idx: Int) {
+        let cylinder = self._data.getRecord().info_vo[idx]
+        var tbxSerial       : UITextField?
+        var tbxCylinderOnly : UITextField?
+        var tbxFull         : UITextField?
+        // Create alert
+        let alert = UIAlertController(title: cylinder.material_name,
+                                      message: DomainConst.CONTENT00345,
+                                      preferredStyle: .alert)
+        alert.addTextField(configurationHandler: {
+            textField -> Void in
+            tbxSerial = textField
+            tbxSerial?.placeholder       = DomainConst.CONTENT00109
+            tbxSerial?.clearButtonMode   = .whileEditing
+            tbxSerial?.returnKeyType     = .next
+            tbxSerial?.keyboardType      = .numberPad
+            tbxSerial?.text              = cylinder.seri
+            tbxSerial?.textAlignment     = .center
+        })
+        alert.addTextField(configurationHandler: {
+            textField -> Void in
+            tbxCylinderOnly = textField
+            tbxCylinderOnly?.placeholder       = DomainConst.CONTENT00346
+            tbxCylinderOnly?.clearButtonMode   = .whileEditing
+            tbxCylinderOnly?.returnKeyType     = .next
+            tbxCylinderOnly?.keyboardType      = .decimalPad
+            tbxCylinderOnly?.text              = cylinder.kg_empty
+            tbxCylinderOnly?.textAlignment     = .center
+        })
+        alert.addTextField(configurationHandler: {
+            textField -> Void in
+            tbxFull = textField
+            tbxFull?.placeholder       = DomainConst.CONTENT00347
+            tbxFull?.clearButtonMode   = .whileEditing
+            tbxFull?.returnKeyType     = .done
+            tbxFull?.keyboardType      = .decimalPad
+            tbxFull?.text              = cylinder.kg_has_gas
+            tbxFull?.textAlignment     = .center
+        })
+        
+        // Add cancel action
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
+        
+        // Add ok action
+        let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
+            if !(tbxCylinderOnly?.text?.isEmpty)! && !(tbxFull?.text?.isEmpty)! {
+                let cylinderOnly    = ((tbxCylinderOnly?.text)! as NSString).doubleValue
+                let full            = ((tbxFull?.text)! as NSString).doubleValue
+                // Update data
+                self._data.getRecord().info_vo[idx].kg_empty    = String(describing: cylinderOnly)
+                self._data.getRecord().info_vo[idx].seri        = (tbxSerial?.text)!
+                self._data.getRecord().info_vo[idx].kg_has_gas  = String(describing: full)
+                // Update in table data
+                self._listCylinder[idx][1].0 = (tbxSerial?.text)!
+                self._listCylinder[idx][2].0 = String(describing: cylinderOnly)
+                self._listCylinder[idx][3].0 = String(describing: full)
+                self._listCylinder[idx][4].0 = String(describing: (full - cylinderOnly))
+                // Update table
+                self._tblViewCylinder.reloadRows(at: [IndexPath(item: idx, section: 1)], with: .automatic)
+            } else {
+                self.showAlert(message: DomainConst.CONTENT00251, okTitle: DomainConst.CONTENT00251,
+                               okHandler: {_ in
+                                self.updateQtyCylinder(idx: idx)
+                },
+                               cancelHandler: {_ in
+                                
+                })
+            }
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -197,7 +351,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter at: Index
      */
     private func removeCylinder(at: Int) {
+        // Delete in data
+        _data.getRecord().info_vo.remove(at: at)
+        // Delete in table data
         _listCylinder.remove(at: at)
+        let indexPath: IndexPath = IndexPath(item: at, section: 1)
+        // Delete in table
+        _tblViewCylinder.deleteRows(at: [indexPath], with: .fade)
+        updateLayout()
     }
     
     /**
@@ -218,14 +379,16 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Option
         if (_listMaterialOption.count == 0) && (data.allow_update == DomainConst.NUMBER_ONE_VALUE) {
             _listMaterialOption.append(_addMaterialRow)
+        } else {
+            _listMaterialOption.removeAll()
         }
         // Update table
         var offset: CGFloat = _segment.frame.maxY
-        _viewOrderInfo.frame = CGRect(x: 0, y: offset,
-                                      width: GlobalConst.SCREEN_WIDTH,
-                                      height: CGFloat(_listMaterial.count + _listMaterialOption.count + 1) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
+//        _viewOrderInfo.frame = CGRect(x: 0, y: offset,
+//                                      width: GlobalConst.SCREEN_WIDTH,
+//                                      height: CGFloat(_listMaterial.count + _listMaterialOption.count + 1) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
         _tblViewGas.translatesAutoresizingMaskIntoConstraints = true
-        _tblViewGas.frame = CGRect(x: 0, y: 0,
+        _tblViewGas.frame = CGRect(x: 0, y: offset,
                                    width: GlobalConst.SCREEN_WIDTH,
                                    height: CGFloat(_listMaterial.count + _listMaterialOption.count + 1) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
         _tblViewGas.allowsSelectionDuringEditing = false
@@ -235,8 +398,10 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         for item in data.info_vo {
             var gasdu = DomainConst.BLANK
             // Check empty value
-            if let kgGas = Int(item.kg_has_gas), let kgEmpty = Int(item.kg_empty) {
-                gasdu = String(kgGas - kgEmpty)
+            if !item.kg_has_gas.isEmpty && !item.kg_empty.isEmpty {
+                let fKgGas = (item.kg_has_gas as NSString).floatValue
+                let fKgEmpty = (item.kg_empty as NSString).floatValue
+                gasdu = String(fKgGas - fKgEmpty)
             }
             let cylinderValue: [(String, Int)] = [
                 (item.material_name, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
@@ -250,13 +415,15 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Option
         if (_listCylinderOption.count == 0) && (data.allow_update == DomainConst.NUMBER_ONE_VALUE) {
             _listCylinderOption.append(_addCylinderRow)
+        } else {
+            _listCylinderOption.removeAll()
         }
         // Update table
-        _viewOrderCylinderInfo.frame = CGRect(x: 0, y: offset,
-                                              width: GlobalConst.SCREEN_WIDTH,
-                                              height: CGFloat(_listCylinder.count + _listCylinderOption.count + 1) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
+//        _viewOrderCylinderInfo.frame = CGRect(x: 0, y: offset,
+//                                              width: GlobalConst.SCREEN_WIDTH,
+//                                              height: CGFloat(_listCylinder.count + _listCylinderOption.count + 1) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
         _tblViewCylinder.translatesAutoresizingMaskIntoConstraints = true
-        _tblViewCylinder.frame = CGRect(x: 0, y: 0,
+        _tblViewCylinder.frame = CGRect(x: 0, y: offset,
                                         width: GlobalConst.SCREEN_WIDTH,
                                         height: CGFloat(_listCylinder.count + _listCylinderOption.count + 1) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
         _tblViewCylinder.allowsSelectionDuringEditing = false
@@ -409,12 +576,16 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     internal func segmentChange(_ sender: AnyObject) {
         switch _segment.selectedSegmentIndex {
         case 0:
-            self._viewOrderInfo.isHidden         = false
-            self._viewOrderCylinderInfo.isHidden = true
+//            self._viewOrderInfo.isHidden         = false
+//            self._viewOrderCylinderInfo.isHidden = true
+            self._tblViewGas.isHidden       = false
+            self._tblViewCylinder.isHidden  = true
             break
         case 1:
-            self._viewOrderInfo.isHidden         = true
-            self._viewOrderCylinderInfo.isHidden = false
+//            self._viewOrderInfo.isHidden         = true
+//            self._viewOrderCylinderInfo.isHidden = false
+            self._tblViewGas.isHidden       = true
+            self._tblViewCylinder.isHidden  = false
             break
         default:
             break
@@ -449,12 +620,30 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                       width: GlobalConst.SCREEN_WIDTH,
                                       height: GlobalConst.SCREEN_HEIGHT)
         }
+        updateLayout()
     }
     
     /**
      * Handle when tap on save button
      */
     internal func btnSaveTapped(_ sender: AnyObject) {
+        var orderDetail = [String]()
+        for item in self._data.getRecord().info_gas {
+            if !item.material_id.isEmpty {
+                orderDetail.append(item.createJsonDataForUpdateOrder())
+            }
+        }
+        for item in self._data.getRecord().info_vo {
+            if !item.material_id.isEmpty {
+                orderDetail.append(item.createJsonDataForUpdateOrder())
+            }
+        }
+        OrderVIPUpdateRequest.request(
+            action: #selector(finishUpdateOrder(_:)),
+            view: self,
+            id: G05F00S04VC._id,
+            note_employee: DomainConst.BLANK,
+            orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2))
     }
     
     internal func finishUpdateOrder(_ notification: Notification) {
@@ -465,10 +654,49 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Handle when tap on Action button
      */
     internal func btnActionHandler(_ sender: AnyObject) {
-        requestCompleteOrder()
+        showAlert(message: DomainConst.CONTENT00348,
+                  okHandler: {
+                    alert in
+                    self.requestCompleteOrder()
+        },
+                  cancelHandler: {
+                    alert in
+                    // Do nothing
+        })
     }
     
     private func requestCompleteOrder() {
+        var orderDetail = [String]()
+        for item in self._data.getRecord().info_gas {
+            if !item.material_id.isEmpty {
+                orderDetail.append(item.createJsonDataForUpdateOrder())
+            }
+        }
+        for item in self._data.getRecord().info_vo {
+            if !item.material_id.isEmpty {
+                orderDetail.append(item.createJsonDataForUpdateOrder())
+            }
+        }
+        OrderVipSetEventRequest.request(
+            action: #selector(finishCompleteOrder(_:)),
+            view: self,
+            actionType: ActionTypeVIPCustomerEnum.EMPLOYEE_COMPLETE.rawValue,
+            lat: String(MapViewController._originPos.latitude),
+            long: String(MapViewController._originPos.longitude),
+            id: G05F00S04VC._id,
+            note: DomainConst.BLANK,
+            statusCancel: DomainConst.BLANK,
+            orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2))
+    }
+    
+    internal func finishCompleteOrder(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            OrderVIPViewRequest.request(action: #selector(setData(_:)),
+                                        view: self,
+                                        id: G05F00S04VC._id)
+        }
     }
     
     /**
@@ -483,7 +711,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                    style: .cancel,
                                    handler: nil)
         alert.addAction(cancel)
-        for item in BaseModel.shared.getListCancelOrderReasons() {
+        for item in BaseModel.shared.getListCancelOrderVIPReasons() {
             let action = UIAlertAction(title: item.name,
                                        style: .default, handler: {
                                         action in
@@ -499,22 +727,32 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter id: Id of cancel order reason
      */
     internal func handleCancelOrder(id: String) {
-        showAlert(message: DomainConst.CONTENT00327,
+        showAlert(message: String.init(format: DomainConst.CONTENT00349, BaseModel.shared.getOrderVIPCancelReasonById(id: id)),
                   okTitle: DomainConst.CONTENT00008,
                   cancelTitle: DomainConst.CONTENT00009,
                   okHandler: {
                     alert in
-//                    OrderFamilyHandleRequest.requestCancelOrder(
-//                        action: #selector(self.finishUpdateOrder(_:)),
-//                        view: self,
-//                        lat: String(MapViewController._originPos.latitude),
-//                        long: String(MapViewController._originPos.longitude),
-//                        id: self._data.getRecord().id,
-//                        statusCancel: id)
+                    OrderVipSetEventRequest.request(
+                        action: #selector(self.finishCancelOrder(_:)),
+                        view: self,
+                        actionType: ActionTypeVIPCustomerEnum.EMPLOYEE_DROP.rawValue,
+                        lat: String(MapViewController._originPos.latitude),
+                        long: String(MapViewController._originPos.longitude),
+                        id: self._data.getRecord().id,
+                        note: DomainConst.BLANK,
+                        statusCancel: id)
         },
                   cancelHandler: {
                     alert in
         })
+    }
+    
+    internal func finishCancelOrder(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            self.backButtonTapped(self)
+        }
     }
     
     // MARK: Override from UIViewController
@@ -578,13 +816,13 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         self._scrollView.addSubview(_segment)
         
         // Order information view
-        _viewOrderInfo.addSubview(_tblViewGas)
-        _viewOrderCylinderInfo.addSubview(_tblViewCylinder)
-        _viewOrderInfo.isHidden = false
-        _viewOrderCylinderInfo.isHidden = true
-        _scrollView.addSubview(_viewOrderInfo)
-        _scrollView.addSubview(_viewOrderCylinderInfo)
-        offset = offset + _viewOrderInfo.frame.height + GlobalConst.MARGIN
+//        _viewOrderInfo.addSubview(_tblViewGas)
+//        _viewOrderCylinderInfo.addSubview(_tblViewCylinder)
+        _tblViewGas.isHidden = false
+        _tblViewCylinder.isHidden = true
+        _scrollView.addSubview(_tblViewGas)
+        _scrollView.addSubview(_tblViewCylinder)
+        offset = offset + _tblViewGas.frame.height + GlobalConst.MARGIN
         
         // Note
         _tbxNote.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
@@ -627,6 +865,25 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        switch _type {
+        case TYPE_GAS:
+            if !MaterialSelectViewController.getSelectedItem().isEmpty() {
+                // Add data
+                appendMaterialGas(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
+                _tblViewGas.reloadSections(IndexSet(1...2), with: .automatic)
+            }
+        case TYPE_CYLINDER:
+            if !MaterialSelectViewController.getSelectedItem().isEmpty() {
+                // Add data
+                appendMaterialCylinder(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
+                _tblViewCylinder.reloadSections(IndexSet(1...2), with: .automatic)
+            }
+        default:
+            break
+        }
+    }
+    
     // MARK: Setup layout-control
     /**
      * Setup button for this view
@@ -658,6 +915,36 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                               right: GlobalConst.MARGIN)
     }
     
+    private func updateLayout() {
+        var offset: CGFloat = _segment.frame.maxY
+        _tblViewGas.frame = CGRect(x: 0, y: offset,
+                                   width: GlobalConst.SCREEN_WIDTH,
+                                   height: CGFloat(_listMaterial.count + _listMaterialOption.count + 1) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
+        _tblViewCylinder.frame = CGRect(x: 0, y: offset,
+                                       width: GlobalConst.SCREEN_WIDTH,
+                                       height: CGFloat(_listCylinder.count + _listCylinderOption.count + 1) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
+        var height = _tblViewGas.frame.height
+        if _listMaterial.count < _listCylinder.count {
+            height = _tblViewCylinder.frame.height
+        }
+        offset = offset + height + GlobalConst.MARGIN
+        // Note textfield
+        if !_data.getRecord().note_customer.isEmpty {
+            _tbxNote.isHidden = false
+            _tbxNote.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
+                                    y: offset,
+                                    width: GlobalConst.EDITTEXT_W,
+                                    height: GlobalConst.EDITTEXT_H * 5)
+            offset += _tbxNote.frame.height + GlobalConst.MARGIN
+        } else {
+            _tbxNote.isHidden = true
+        }
+        // Scrollview content
+        self._scrollView.contentSize = CGSize(
+            width: GlobalConst.SCREEN_WIDTH,
+            height: offset)
+    }
+    
     /**
      * Create bottom view
      */
@@ -681,7 +968,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         let btnAction = UIButton()
         let btnCancel = UIButton()
         setupButton(button: btnAction, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
-                    y: botOffset, title: DomainConst.CONTENT00318,
+                    y: botOffset, title: DomainConst.CONTENT00311,
                     icon: DomainConst.CONFIRM_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
                     action: #selector(btnActionHandler(_:)))
         setupButton(button: btnCancel, x: GlobalConst.SCREEN_WIDTH / 2,
@@ -772,38 +1059,34 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             }
             
             retCell = cell
-        case _tblViewGas:
+        case _tblViewGas:           // Gas material table
             let cell = tableView.dequeueReusableCell(withIdentifier: OrderDetailTableViewCell.theClassName,
                                                      for: indexPath) as! OrderDetailTableViewCell
-            if indexPath.section == 0 {
+            if indexPath.section == 0 {             // Header
                 cell.setup(data: _materialHeader, color: GlobalConst.BUTTON_COLOR_GRAY)
-            } else if (indexPath.section == 2) {
+            } else if (indexPath.section == 2) {    // Add new
                 if _listMaterialOption.count > indexPath.row  {
                     cell.setup(config: _listMaterialOption[indexPath.row])
                 }
-            } else {
+            } else {                                // Material
                 cell.setup(data: _listMaterial[indexPath.row], color: UIColor.white, highlighColumn: [2])
             }
             retCell = cell
-        case _tblViewCylinder:
+        case _tblViewCylinder:      // Cylinder material table
             let cell = tableView.dequeueReusableCell(withIdentifier: OrderDetailTableViewCell.theClassName,
                                                      for: indexPath) as! OrderDetailTableViewCell
-            if indexPath.section == 0 {
+            if indexPath.section == 0 {             // Header
                 cell.setup(data: _cylinderHeader, color: GlobalConst.BUTTON_COLOR_GRAY)
-            } else if (indexPath.section == 2) {
+            } else if (indexPath.section == 2) {    // Add new
                 if _listCylinderOption.count > indexPath.row  {
                     cell.setup(config: _listCylinderOption[indexPath.row])
                 }
-            } else {
+            } else {                                // Material
                 cell.setup(data: _listCylinder[indexPath.row], color: UIColor.white, highlighColumn: [1, 2, 3])
             }
             retCell = cell
         default:
             break
-        }
-        for view in retCell.contentView.subviews {
-            view.removeFromSuperview()
-            //view = nil
         }
         return retCell
     }
@@ -834,7 +1117,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             break
         case _tblViewCylinder:
             if indexPath.section == 1 {
-                //
+                updateQtyCylinder(idx: indexPath.row)
             } else if indexPath.section == 2 {
                 self.selectMaterial(type: self.TYPE_CYLINDER)
             }
@@ -899,9 +1182,6 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                    okHandler: {
                                     (alert: UIAlertAction!) in
                                     self.removeCylinder(at: indexPath.row)
-                                    self._tblViewCylinder.deleteRows(at: [indexPath],
-                                                                with: .fade)
-                                    //self.btnSaveTapped(self)
                     },
                                    cancelHandler: {
                                     (alert: UIAlertAction!) in

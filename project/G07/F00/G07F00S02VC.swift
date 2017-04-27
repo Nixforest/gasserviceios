@@ -105,7 +105,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     // Reload table with section 1
                     _tableView.reloadSections(IndexSet(integersIn: 1...1), with: .fade)
                 }
-                btnSaveTapped(self)
+                //btnSaveTapped(self)
             case TYPE_PROMOTE_ADD, TYPE_CYLINDER_ADD, TYPE_OTHERMATERIAL_ADD:              // Add material
                 if !MaterialSelectViewController.getSelectedItem().isEmpty() {
                     // Add data
@@ -113,7 +113,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     // Reload table with section 1,2
                     _tableView.reloadSections(IndexSet(integersIn: 1...2), with: .fade)
                 }
-                btnSaveTapped(self)
+                //btnSaveTapped(self)
             default:
                 break
             }
@@ -126,7 +126,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     // Reload table with section 1,2
                     _tableView.reloadSections(IndexSet(integersIn: 1...2), with: .fade)
                 }
-                btnSaveTapped(self)
+                //btnSaveTapped(self)
             default:
                 break
             }
@@ -344,7 +344,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter id: Id of cancel order reason
      */
     internal func handleCancelOrder(id: String) {
-        showAlert(message: DomainConst.CONTENT00327,
+        showAlert(message: String.init(format: DomainConst.CONTENT00349, BaseModel.shared.getOrderCancelReasonById(id: id)),
                   okTitle: DomainConst.CONTENT00008,
                   cancelTitle: DomainConst.CONTENT00009,
                   okHandler: {
@@ -728,7 +728,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                             self.removeMaterial(at: indexPath.row)
                             self._tableView.deleteRows(at: [indexPath],
                                                        with: .fade)
-                            self.btnSaveTapped(self)
+                            //self.btnSaveTapped(self)
             },
                            cancelHandler: {
                             (alert: UIAlertAction!) in

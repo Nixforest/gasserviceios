@@ -91,7 +91,7 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         OrderVipSetEventRequest.request(
             action: #selector(finishConfirmHandler(_:)),
             view: self,
-            actionType: ActionTypeEnum.EMPLOYEE_NHAN_GIAO_HANG.rawValue,
+            actionType: ActionTypeVIPCustomerEnum.EMPLOYEE_NHAN_GIAO_HANG.rawValue,
             lat: String(MapViewController._originPos.latitude),
             long: String(MapViewController._originPos.longitude),
             id: _currentId,
@@ -106,17 +106,22 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         let data = (notification.object as! String)
         let model = BaseRespModel(jsonString: data)
         if model.isSuccess() {
-            showAlert(message: DomainConst.CONTENT00322,
-                      okHandler: {
-                        alert in
-                        self.handleRefresh(self)
-                        G05F00S04VC._id = self._currentId
-                        self.pushToView(name: G05F00S04VC.theClassName)
-            },
-                      cancelHandler: {
-                        alert in
-                        self.handleRefresh(self)
-            })
+            //++ BUG0072-SPJ (NguyenPT 20170424) No need confirm message
+//            showAlert(message: DomainConst.CONTENT00322,
+//                      okHandler: {
+//                        alert in
+//                        self.handleRefresh(self)
+//                        G05F00S04VC._id = self._currentId
+//                        self.pushToView(name: G05F00S04VC.theClassName)
+//            },
+//                      cancelHandler: {
+//                        alert in
+//                        self.handleRefresh(self)
+//            })
+            self.handleRefresh(self)
+            G05F00S04VC._id = self._currentId
+            self.pushToView(name: G05F00S04VC.theClassName)
+            //-- BUG0072-SPJ (NguyenPT 20170424) No need confirm message
         } else {
             showAlert(message: model.message)
         }
@@ -128,9 +133,9 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
     public func btnCancelTapped(_ sender: AnyObject) {
         _currentId = (sender as! UIButton).accessibilityIdentifier!
         OrderVipSetEventRequest.request(
-            action: #selector(finishConfirmHandler(_:)),
+            action: #selector(finishCancelHandler(_:)),
             view: self,
-            actionType: ActionTypeEnum.EMPLOYEE_HUY_GIAO_HANG.rawValue,
+            actionType: ActionTypeVIPCustomerEnum.EMPLOYEE_HUY_GIAO_HANG.rawValue,
             lat: String(MapViewController._originPos.latitude),
             long: String(MapViewController._originPos.longitude),
             id: _currentId,
@@ -145,11 +150,14 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         let data = (notification.object as! String)
         let model = BaseRespModel(jsonString: data)
         if model.isSuccess() {
-            showAlert(message: DomainConst.CONTENT00323,
-                      okHandler: {
-                        alert in
-                        self.handleRefresh(self)
-            })
+            //++ BUG0072-SPJ (NguyenPT 20170424) No need confirm message
+//            showAlert(message: DomainConst.CONTENT00323,
+//                      okHandler: {
+//                        alert in
+//                        self.handleRefresh(self)
+//            })
+            self.handleRefresh(self)
+            //-- BUG0072-SPJ (NguyenPT 20170424) No need confirm message
         } else {
             showAlert(message: model.message)
         }
@@ -212,7 +220,7 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         _tblView.addSubview(refreshControl)
         self.view.addSubview(_tblView)
         // Request data from server
-        //requestData()
+        requestData()
         self.view.makeComponentsColor()
     }
     
