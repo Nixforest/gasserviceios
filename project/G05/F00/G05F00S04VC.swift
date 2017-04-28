@@ -548,6 +548,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                             name: DomainConst.CONTENT00259,
                                             iconPath: DomainConst.ORDER_PAYMENT_METHOD_ICON_IMG_NAME,
                                             value: DomainConst.CONTENT00342))
+        //++ BUG0062-SPJ (NguyenPT 20170421) Add new item gas price information
+        if !data.info_price.isEmpty {
+            _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_GAS_PRICE_ID,
+                                                name: data.info_price + DomainConst.VIETNAMDONG,
+                                                iconPath: DomainConst.MONEY_ICON_GREY_IMG_NAME,
+                                                value: DomainConst.BLANK))
+        }
+        //-- BUG0062-SPJ (NguyenPT 20170421) Add new item gas price information
         _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_GAS_MONEY_ID,
                                             name: DomainConst.CONTENT00260,
                                             iconPath: DomainConst.MONEY_ICON_GREY_IMG_NAME,
