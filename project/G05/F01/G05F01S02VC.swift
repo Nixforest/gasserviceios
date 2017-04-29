@@ -29,6 +29,10 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate {
     private var _btnCancel: UIButton        = UIButton()
     /** Note textfield */
     var _tbxNote = UITextView()
+    //++ BUG0063-SPJ (NguyenPT 20170421) Use stepper
+    /** Width of quantity colum */
+    private let qtyColWidth: CGFloat        = GlobalConst.SCREEN_WIDTH / 7 + GlobalConst.STEPPER_LAYOUT_WIDTH + GlobalConst.MARGIN
+    //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,10 +77,14 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate {
         self.view.addSubview(_lblType)
         
         // Quantity label
-        _lblQuantity.frame = CGRect(x: width * 2 / 3,
-                                y: offset,
-                                width: width / 3,
-                                height: GlobalConst.BUTTON_H)
+        //++ BUG0063-SPJ (NguyenPT 20170421) Use stepper
+        //_lblQuantity.frame = CGRect(x: width * 2 / 3,
+        _lblQuantity.frame = CGRect(x: width - qtyColWidth,
+                                    y: offset,
+                                    //width: width / 3,
+                                    width: qtyColWidth,
+                                    height: GlobalConst.BUTTON_H)
+        //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
         _lblQuantity.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         _lblQuantity.textColor = UIColor.black
         _lblQuantity.textAlignment = .center
@@ -326,5 +334,4 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-
 }

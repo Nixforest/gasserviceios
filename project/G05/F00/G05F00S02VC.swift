@@ -202,10 +202,10 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                                 value: data.name_car))
         }
         // Payment method
-        _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_PAYMENT_METHOD_ID,
-                                            name: DomainConst.CONTENT00259,
-                                            iconPath: DomainConst.ORDER_PAYMENT_METHOD_ICON_IMG_NAME,
-                                            value: DomainConst.CONTENT00342))
+//        _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_PAYMENT_METHOD_ID,
+//                                            name: DomainConst.CONTENT00259,
+//                                            iconPath: DomainConst.ORDER_PAYMENT_METHOD_ICON_IMG_NAME,
+//                                            value: DomainConst.CONTENT00342))
         //++ BUG0062-SPJ (NguyenPT 20170421) Add new item gas price information
         if !data.info_price.isEmpty {
             _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_GAS_PRICE_ID,
