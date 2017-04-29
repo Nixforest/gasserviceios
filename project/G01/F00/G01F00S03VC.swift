@@ -401,6 +401,9 @@ class G01F00S03VC: ChildViewController {
                         height: GlobalConst.LABEL_HEIGHT
                     )
                     lblReportWrong.font = UIFont.boldSystemFont(ofSize: 15.0)
+                    //++ BUG0068-SPJ (NguyenPT 20170429) Add rating button
+                    offset = self.lblReportWrong.frame.maxY
+                    //-- BUG0068-SPJ (NguyenPT 20170429) Add rating button
                     scrollView.addSubview(lblReportWrong)
                     
 //                    // Report icon
@@ -471,81 +474,101 @@ class G01F00S03VC: ChildViewController {
             }
         }
         
+        //++ BUG0068-SPJ (NguyenPT 20170429) Add rating button
+        let _btnRating: UIButton = UIButton()
+        // Button Rating
+        CommonProcess.createButtonLayout(btn: _btnRating,
+                                         x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                         y: offset + 2 * getTopHeight() + GlobalConst.MARGIN,
+                                         text: DomainConst.CONTENT00098.uppercased(),
+                                         action: #selector(btnRatingTapped),
+                                         target: self,
+                                         img: DomainConst.CANCEL_IMG_NAME,
+                                         tintedColor: UIColor.white)
+        _btnRating.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
+                                                  left: GlobalConst.MARGIN,
+                                                  bottom: GlobalConst.MARGIN,
+                                                  right: GlobalConst.MARGIN)
+        if BaseModel.shared.currentUpholdDetail.status_number == DomainConst.UPHOLD_STATUS_COMPLETE && BaseModel.shared.currentUpholdDetail.rating_status.isEmpty {
+            self.view.addSubview(_btnRating)
+        }
+        //-- BUG0068-SPJ (NguyenPT 20170429) Add rating button
+        
         // Rating
-//        if !BaseModel.shared.currentUpholdDetail.rating_status.isEmpty {
-//            // Add controls
-//            if BaseModel.shared.listRatingType.count > 0 {
-//                for i in 0..<BaseModel.shared.listRatingType.count {
-//                    // Label title
-//                    let label = UILabel()
-//                    label.translatesAutoresizingMaskIntoConstraints = true
-//                    label.frame = CGRect(
-//                        x: GlobalConst.MARGIN_CELL_X,
-//                        y: offset,
-//                        width: self.view.frame.width,
-//                        height: GlobalConst.LABEL_HEIGHT)
-//                    label.text               = BaseModel.shared.listRatingType[i].name
-//                    //label.textAlignment      = NSTextAlignment.center
-//                    label.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-//                    scrollView.addSubview(label)
-//                    offset += GlobalConst.LABEL_HEIGHT
-//                    
-//                    // Rating bar
-//                    let ratingBar = RatingBar()
-//                    ratingBar.translatesAutoresizingMaskIntoConstraints = true
-//                    let size = GlobalConst.LABEL_HEIGHT
-//                    let width = size * (CGFloat)(ratingBar._starCount) + (ratingBar._spacing * (CGFloat)(ratingBar._starCount - 1))
-//                    ratingBar.frame = CGRect(
-//                        x: (self.view.frame.width - width) / 2,
-//                        y: offset,
-//                        width: width,
-//                        height: size)
-//                    ratingBar.setBackgroundColor(color: UIColor.white)
-//                    ratingBar.setEnabled(isEnabled: true)
-//                    ratingBar.isUserInteractionEnabled = false
-//                    if BaseModel.shared.currentUpholdDetail.rating_type.count > i {
-//                        let ratingValue = Int(BaseModel.shared.currentUpholdDetail.rating_type[i].name)
-//                        ratingBar.setRatingValue(value: ratingValue!)
-//                    }
-//                    scrollView.addSubview(ratingBar)
-//                    offset += size
-//                }
-//            }
-//            
-//            // Label Feeling
-//            CommonProcess.setLayoutLeft(lbl: lblFeeling, offset: offset,
-//                                        width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) / 3,
-//                                        height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00210)
-//            lblFeeling.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-//            // Feeling value
-//            var statusString: String = DomainConst.BLANK
-//            for status in BaseModel.shared.listRatingStatus {
-//                if status.id == BaseModel.shared.currentUpholdDetail.rating_status {
-//                    statusString = status.name
-//                    break
-//                }
-//            }
-//            CommonProcess.setLayoutRight(lbl: tbxFeeling, x: lblFeeling.frame.maxX, y: offset,
-//                                         width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
-//                                         height: GlobalConst.LABEL_HEIGHT, text: statusString)
-//            tbxFeeling.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-//            
-//            offset += GlobalConst.LABEL_HEIGHT
-//            
-//            if !BaseModel.shared.currentUpholdDetail.rating_note.isEmpty {
-//                // Label Content
-//                CommonProcess.setLayoutLeft(lbl: lblContentRating, offset: offset,
-//                                            width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) / 3,
-//                                            height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00063)
-//                lblContentRating.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-//                // Content value
-//                CommonProcess.setLayoutRight(lbl: tbxContent, x: lblContent.frame.maxX, y: offset,
-//                                             width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
-//                                             height: GlobalConst.LABEL_HEIGHT * 2, text: BaseModel.shared.currentUpholdDetail.rating_note)
-//                tbxContent.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-//                offset += GlobalConst.LABEL_HEIGHT * 2
-//            }
-//        }
+        if !BaseModel.shared.currentUpholdDetail.rating_status.isEmpty {
+            // Add controls
+            if BaseModel.shared.listRatingType.count > 0 {
+                for i in 0..<BaseModel.shared.listRatingType.count {
+                    // Label title
+                    let label = UILabel()
+                    label.translatesAutoresizingMaskIntoConstraints = true
+                    label.frame = CGRect(
+                        x: GlobalConst.MARGIN_CELL_X,
+                        y: offset,
+                        width: self.view.frame.width,
+                        height: GlobalConst.LABEL_HEIGHT)
+                    label.text               = BaseModel.shared.listRatingType[i].name
+                    //label.textAlignment      = NSTextAlignment.center
+                    label.font               = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+                    scrollView.addSubview(label)
+                    offset += GlobalConst.LABEL_HEIGHT
+                    
+                    // Rating bar
+                    let ratingBar = RatingBar()
+                    ratingBar.translatesAutoresizingMaskIntoConstraints = true
+                    let size = GlobalConst.LABEL_HEIGHT
+                    let width = size * (CGFloat)(ratingBar._starCount) + (ratingBar._spacing * (CGFloat)(ratingBar._starCount - 1))
+                    ratingBar.frame = CGRect(
+                        x: (self.view.frame.width - width) / 2,
+                        y: offset,
+                        width: width,
+                        height: size)
+                    ratingBar.setBackgroundColor(color: UIColor.white)
+                    ratingBar.setEnabled(isEnabled: true)
+                    ratingBar.isUserInteractionEnabled = false
+                    if BaseModel.shared.currentUpholdDetail.rating_type.count > i {
+                        let ratingValue = Int(BaseModel.shared.currentUpholdDetail.rating_type[i].name)
+                        ratingBar.setRatingValue(value: ratingValue!)
+                    }
+                    scrollView.addSubview(ratingBar)
+                    offset += size
+                }
+            }
+            
+            // Label Feeling
+            CommonProcess.setLayoutLeft(lbl: lblFeeling, offset: offset,
+                                        width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) / 3,
+                                        height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00210)
+            lblFeeling.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+            // Feeling value
+            var statusString: String = DomainConst.BLANK
+            for status in BaseModel.shared.listRatingStatus {
+                if status.id == BaseModel.shared.currentUpholdDetail.rating_status {
+                    statusString = status.name
+                    break
+                }
+            }
+            CommonProcess.setLayoutRight(lbl: tbxFeeling, x: lblFeeling.frame.maxX, y: offset,
+                                         width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
+                                         height: GlobalConst.LABEL_HEIGHT, text: statusString)
+            tbxFeeling.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+            
+            offset += GlobalConst.LABEL_HEIGHT
+            
+            if !BaseModel.shared.currentUpholdDetail.rating_note.isEmpty {
+                // Label Content
+                CommonProcess.setLayoutLeft(lbl: lblContentRating, offset: offset,
+                                            width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) / 3,
+                                            height: GlobalConst.LABEL_HEIGHT * 2, text: DomainConst.CONTENT00063)
+                lblContentRating.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+                // Content value
+                CommonProcess.setLayoutRight(lbl: tbxContent, x: lblContent.frame.maxX, y: offset,
+                                             width: (self.view.frame.width - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
+                                             height: GlobalConst.LABEL_HEIGHT * 2, text: BaseModel.shared.currentUpholdDetail.rating_note)
+                tbxContent.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+                offset += GlobalConst.LABEL_HEIGHT * 2
+            }
+        }
         
         // Add control
         scrollView.addSubview(self.imgCustomerNameIcon)
@@ -667,6 +690,16 @@ class G01F00S03VC: ChildViewController {
         header.textAlignment = .left
         scrollView.addSubview(header)
     }
+    
+    //++ BUG0068-SPJ (NguyenPT 20170429) Add rating button
+    /**
+     * Handle tap on rating button
+     */
+    internal func btnRatingTapped(_ sender: AnyObject) {
+        BaseModel.shared.sharedString = BaseModel.shared.currentUpholdDetail.id
+        self.pushToView(name: G01F03VC.theClassName)
+    }
+    //-- BUG0068-SPJ (NguyenPT 20170429) Add rating button
     
     
     /**
