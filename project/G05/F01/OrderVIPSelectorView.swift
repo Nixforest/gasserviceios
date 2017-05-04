@@ -55,7 +55,8 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
         self.frame = frame
         // Check box
-        self._checkBox.frame = CGRect(x: GlobalConst.MARGIN,
+        //self._checkBox.frame = CGRect(x: GlobalConst.MARGIN,
+        self._checkBox.frame = CGRect(x: 0,
                                       y: 0,
                                       //++ BUG0063-SPJ (NguyenPT 20170421) Use stepper
                                       //width: GlobalConst.BUTTON_W,
@@ -119,7 +120,7 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         // Value button
         //self._valButton.frame = CGRect(x: self._prevButton.frame.maxX,
         let btnWidth: CGFloat = frame.width / 7
-        self._valButton.frame = CGRect(x: frame.maxX - GlobalConst.STEPPER_LAYOUT_WIDTH - GlobalConst.MARGIN - btnWidth,
+        self._valButton.frame = CGRect(x: frame.maxX - GlobalConst.STEPPER_LAYOUT_WIDTH - GlobalConst.MARGIN * 2 - btnWidth,
                                        y: 0,
                                        //width: frame.width / 7,
                                        width: btnWidth,
@@ -167,7 +168,7 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
 //                                      height: GlobalConst.SCREEN_HEIGHT)
 //        self._viewBlur.backgroundColor = UIColor(white: 0x444444, alpha: 0)
 //        self._viewBlur.addSubview(self._numberPicker)
-        _stepper.frame = CGRect(x: frame.maxX - GlobalConst.STEPPER_LAYOUT_WIDTH,
+        _stepper.frame = CGRect(x: frame.maxX - GlobalConst.STEPPER_LAYOUT_WIDTH - GlobalConst.MARGIN,
                                 y: (frame.height - GlobalConst.STEPPER_LAYOUT_HEIGHT) / 2,
                                 width: 0,
                                 height: 0)

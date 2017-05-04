@@ -144,9 +144,14 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate {
         _tbxNote.translatesAutoresizingMaskIntoConstraints = true
         _tbxNote.returnKeyType      = .done
         _tbxNote.tag                = 0
-        _tbxNote.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        //++ BUG0063-SPJ (NguyenPT 20170421) Use stepper
+        //_tbxNote.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
         _tbxNote.text = orderInfo.4
-        CommonProcess.setBorder(view: _tbxNote)
+        //++ BUG0063-SPJ (NguyenPT 20170421) Use stepper
+        //CommonProcess.setBorder(view: _tbxNote)
+        CommonProcess.setBorder(view: _tbxNote, radius: GlobalConst.BUTTON_CORNER_RADIUS)
+        //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         self.view.addGestureRecognizer(gesture)
         _tbxNote.delegate = self
