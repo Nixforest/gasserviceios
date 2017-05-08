@@ -1,28 +1,28 @@
 //
-//  G01F02S05.swift
+//  G08F01S04.swift
 //  project
 //
-//  Created by Nixforest on 10/29/16.
-//  Copyright © 2016 admin. All rights reserved.
+//  Created by SPJ on 5/8/17.
+//  Copyright © 2017 admin. All rights reserved.
 //
 
 import UIKit
 import harpyframework
 
-class G01F02S05: StepContent, UITextViewDelegate {
+class G08F01S04: StepContent, UITextViewDelegate {
     /** Selected value */
-    static var _selectedValue: String = ""
+    static var _selectedValue: String = DomainConst.BLANK
     /** Note textfield */
     var _tbxNote = UITextView()
     /** Flag show keyboard */
     var _isKeyboardShow: Bool = false
-    
+
     /*
-     // Only override draw() if you perform custom drawing.
-     // An empty implementation adversely affects performance during animation.
-     override func draw(_ rect: CGRect) {
-     // Drawing code
-     }
+    // Only override draw() if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func draw(_ rect: CGRect) {
+        // Drawing code
+    }
      */
     /**
      * Default initializer.
@@ -44,19 +44,18 @@ class G01F02S05: StepContent, UITextViewDelegate {
         _tbxNote.translatesAutoresizingMaskIntoConstraints = true
         _tbxNote.returnKeyType      = .done
         _tbxNote.tag                = 0
-        //_tbxNote.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         CommonProcess.setBorder(view: _tbxNote, radius: GlobalConst.BUTTON_CORNER_RADIUS)
         offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
         contentView.addSubview(_tbxNote)
         
         // Set parent
         self.setParentView(parent: parent)
-        self.setup(mainView: contentView, title: DomainConst.CONTENT00188,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00368,
                    contentHeight: offset,
                    width: w, height: h)
         // Set data
-        if !G01F02S05._selectedValue.isEmpty {
-            _tbxNote.text = G01F02S05._selectedValue
+        if !G08F01S04._selectedValue.isEmpty {
+            _tbxNote.text = G08F01S04._selectedValue
         }
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         self.addGestureRecognizer(gesture)
@@ -68,9 +67,12 @@ class G01F02S05: StepContent, UITextViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     * Handle when finish change textview value
+     */
     func textViewDidChange(_ textView: UITextView) {
-        G01F02S05._selectedValue = textView.text
-        NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)
+        G08F01S04._selectedValue = textView.text
+        NotificationCenter.default.post(name: Notification.Name(rawValue: G08Const.NOTIFY_NAME_SET_DATA_G08_F01), object: nil)
     }
     
     /**
@@ -108,12 +110,6 @@ class G01F02S05: StepContent, UITextViewDelegate {
      * Handle validate data
      */
     override func checkDone() -> Bool {
-//        if G01F02S05._selectedValue.isEmpty {
-//            self._parent?.showAlert(message: DomainConst.CONTENT00188)
-//            return false
-//        } else {
-//            return true
-//        }
         return true
     }
 }

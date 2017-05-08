@@ -110,7 +110,7 @@ class CustomerFamilyCreateRequest: BaseRequest {
                         list_hgd_invest: list_hgd_invest,
                         longitude: longitude, latitude: latitude,
                         serial: serial, hgd_doi_thu: hgd_doi_thu)
-        NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
+        NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
 }

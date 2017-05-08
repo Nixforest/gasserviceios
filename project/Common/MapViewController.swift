@@ -199,7 +199,10 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
             print(info.agent_name)
             let marker      = GMSMarker()
             // Set icon
-            marker.icon     = ImageManager.getImage(named: BaseModel.shared.getAppAgentIcon())
+            //++ BUG0074-SPJ (NguyenPT 20170505) Change icon Gas Service on Map screen to Gas 24h
+            //marker.icon     = ImageManager.getImage(named: BaseModel.shared.getAppAgentIcon())
+            marker.icon     = ImageManager.getImage(named: DomainConst.LOGO_AGENT_GAS_24H_IMG_NAME)
+            //-- BUG0074-SPJ (NguyenPT 20170505) Change icon Gas Service on Map screen to Gas 24h
             // Set marker position
             marker.position = location
             marker.title    = info.agent_name

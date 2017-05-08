@@ -38,7 +38,7 @@ class CustomerFamilyViewRequest: BaseRequest {
                                                 reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                 view: view)
         request.setData(customer_id: customer_id)
-        NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
+        NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
 }

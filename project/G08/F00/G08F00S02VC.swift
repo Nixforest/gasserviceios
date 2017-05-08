@@ -31,6 +31,10 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         return refreshControl
     }()
+    /** Bottom view */
+    private var _bottomView:        UIView                      = UIView()
+    /** Height of bottom view */
+    private let bottomHeight:       CGFloat                     = (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
     
     // MARK: Methods
     /**
@@ -69,7 +73,10 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             self._data = model
             setupListInfo()
             setupListMaterial()
-            _tableView.reloadData()
+            _bottomView.isHidden = (model.record.allow_update == DomainConst.NUMBER_ZERO_VALUE)
+            DispatchQueue.main.async {
+                self._tableView.reloadData()
+            }
         }
     }
     
@@ -86,8 +93,80 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _tableView.frame = CGRect(x: 0,
                                 y: 0,
                                 width: GlobalConst.SCREEN_WIDTH,
-                                height: GlobalConst.SCREEN_HEIGHT)
+                                height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
+        // Bottom view
+        _bottomView.frame = CGRect(x: 0, y: GlobalConst.SCREEN_HEIGHT - bottomHeight,
+                                   width: GlobalConst.SCREEN_WIDTH,
+                                   height: bottomHeight)
+        _bottomView.isHidden = true
+        self.view.addSubview(_bottomView)
+        createBottomView()
         requestData()
+    }
+    
+    /**
+     * Create bottom view
+     */
+    private func createBottomView() {
+        var botOffset: CGFloat = 0.0
+        // Create update button
+        let btnUpdate = UIButton()
+        CommonProcess.createButtonLayout(
+            btn: btnUpdate,
+            x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+            y: botOffset,
+            text: DomainConst.CONTENT00141.uppercased(),
+            action: #selector(btnUpdateTapped(_:)), target: self,
+            img: DomainConst.RELOAD_IMG_NAME, tintedColor: UIColor.white)
+        
+        btnUpdate.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
+                                               left: GlobalConst.MARGIN,
+                                               bottom: GlobalConst.MARGIN,
+                                               right: GlobalConst.MARGIN)
+        botOffset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
+        _bottomView.addSubview(btnUpdate)
+    }
+    
+    /**
+     * Handle start create store card
+     */
+    private func openUpdateStoreCardScreen() {
+        G08F01VC._typeId    = _data.record.type_in_out
+        G08F01VC._mode      = DomainConst.NUMBER_ONE_VALUE
+        G08F01VC._id        = _data.record.id
+        G08F01S01._target   = CustomerBean(id: _data.record.customer_id,
+                                           name: _data.record.customer_name,
+                                           phone: DomainConst.BLANK,
+                                           address: _data.record.customer_address)
+        G08F01S02._selectedValue = _data.record.date_delivery
+        G08F01S03._data          = _data.record.order_detail
+        G08F01S04._selectedValue = _data.record.note
+        self.pushToView(name: G08F01VC.theClassName)
+    }
+    
+    /**
+     * Handle when finish request cache data
+     */
+    internal func finishRequestCacheData(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CacheDataRespModel(jsonString: data)
+        if model.isSuccess() {
+            openUpdateStoreCardScreen()
+        }
+    }
+    
+    /**
+     * Handle when tap on save button
+     */
+    internal func btnUpdateTapped(_ sender: AnyObject) {
+        // Check cache data is exist
+        if CacheDataRespModel.record.isEmpty() {
+            // Request server cache data
+            CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
+                                     view: self)
+        } else {
+            openUpdateStoreCardScreen()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -185,6 +264,7 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
+    
     /**
      * Tells the data source to return the number of rows in a given section of a table view.
      */

@@ -64,7 +64,7 @@ class WorkingReportCreateRequest: BaseRequest {
         request.setData(content: content, longitude: longitude,
                         latitude: latitude,
                         version_code: version_code)
-        NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
+        NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         //request.execute()
         request.executeUploadFile(listImages: listImage)
     }

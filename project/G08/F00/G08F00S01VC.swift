@@ -24,7 +24,7 @@ class G08F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     /** Data */
     private var _data:              StoreCardListRespModel  = StoreCardListRespModel()
     /** Page number */
-    private var _page:              Int                 = 0
+    private var _page:              Int                     = 0
     
     // MARK: Methods
     /**
@@ -63,6 +63,9 @@ class G08F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         refreshControl.endRefreshing()
     }
     
+    /**
+     * Finish request, set data to control
+     */
     override func setData(_ notification: Notification) {
         let data = (notification.object as! String)
         let model = StoreCardListRespModel(jsonString: data)
@@ -75,8 +78,63 @@ class G08F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         
     }
     
+    /**
+     * Handle event when tap create new button
+     */
     internal func btnCreateNewTapped(_ sender: AnyObject) {
-        self.pushToView(name:G06F01VC.theClassName)
+        // Check cache data is exist
+        if CacheDataRespModel.record.isEmpty() {
+            // Request server cache data
+            CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
+                                     view: self)
+        } else {
+            // Open create store card view controller
+            openCreateStoreCardScreen()
+        }
+    }
+    
+    /**
+     * Handle when finish request cache data
+     */
+    internal func finishRequestCacheData(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CacheDataRespModel(jsonString: data)
+        if model.isSuccess() {
+            // Open create store card view controller
+            openCreateStoreCardScreen()
+        }
+    }
+    
+    /**
+     * Handle start create store card
+     */
+    private func openCreateStoreCardScreen() {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00357,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        for item in CacheDataRespModel.record.getListStoreCardType() {
+            let action = UIAlertAction(title: item.name,
+                                       style: .default, handler: {
+                                        action in
+                                        self.handleCreateStoreCard(id: item.id)
+            })
+            alert.addAction(action)
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Handle create store card with Type id
+     * - parameter id: Type id of store card
+     */
+    internal func handleCreateStoreCard(id: String) {
+        G08F01VC._typeId = id
+        self.pushToView(name:G08F01VC.theClassName)
     }
     
     /**
@@ -139,29 +197,27 @@ class G08F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
         UITableViewCell {
             var cell = tableView.dequeueReusableCell(
-                withIdentifier: G08Const.G08S00S01_TABLE_VIEW_CELL_ID)
+                withIdentifier: G08Const.G08F00S01_TABLE_VIEW_CELL_ID)
             if cell == nil {
-                cell = UITableViewCell(style: .subtitle, reuseIdentifier: G08Const.G08S00S01_TABLE_VIEW_CELL_ID)
+                cell = UITableViewCell(style: .subtitle, reuseIdentifier: G08Const.G08F00S01_TABLE_VIEW_CELL_ID)
                 cell?.selectionStyle = .none
             }
-            
-            cell?.textLabel?.text = _data.getRecord()[indexPath.row].code_no
-            cell?.textLabel?.textColor = GlobalConst.MAIN_COLOR
-            cell?.textLabel?.numberOfLines = 0
-            cell?.textLabel?.lineBreakMode = .byWordWrapping
+            // Set title
+            cell?.textLabel?.text           = _data.getRecord()[indexPath.row].code_no
+            cell?.textLabel?.textColor      = GlobalConst.MAIN_COLOR
+            cell?.textLabel?.numberOfLines  = 0
+            cell?.textLabel?.lineBreakMode  = .byWordWrapping
+            // Set description
             cell?.detailTextLabel?.text = _data.getRecord()[indexPath.row].customer_name
             cell?.detailTextLabel?.numberOfLines = 0
             cell?.detailTextLabel?.lineBreakMode = .byWordWrapping
-//            cell?.textLabel?.attributedText = makeAttributedString(
-//                title: _data.getRecord()[indexPath.row].code_no,
-//                subtitle: _data.getRecord()[indexPath.row].customer_name)
-            
+            // Set image
              cell?.imageView?.image = textToImage(
                 drawText: _data.getRecord()[indexPath.row].date_delivery,
                 inImage: UIImage(
                     color: UIColor.white,
-                    size: CGSize(width: 33,
-                                 height: 33)
+                    size: CGSize(width: G08Const.G08F00S01_TABLE_VIEW_CELL_MIN_SIZE,
+                                 height: G08Const.G08F00S01_TABLE_VIEW_CELL_MIN_SIZE)
                     )!)
             return cell!
     }
@@ -206,11 +262,17 @@ class G08F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         return UITableViewAutomaticDimension
     }
     
+    /**
+     * Convert text to image
+     * - parameter sText: String of text
+     * - parameter image: Image object
+     */
     func textToImage(drawText sText: String, inImage image: UIImage) -> UIImage {
         let text = sText as NSString
         // Setup the font specific variables
         let textColor = UIColor.black
-        let textFont = UIFont(name: "Helvetica Bold", size: 12)!
+        let textFont = UIFont(name: G08Const.G08F00S01_TABLE_VIEW_CELL_FONT,
+                              size: G08Const.G08F00S01_TABLE_VIEW_CELL_FONT_SIZE)!
         
         // Setup the image context using the passed image
         let scale = UIScreen.main.scale
@@ -240,16 +302,5 @@ class G08F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         
         // Pass the image back up to the caller
         return newImage!
-    }
-    func makeAttributedString(title: String, subtitle: String) -> NSAttributedString {
-        let titleAttributes = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline), NSForegroundColorAttributeName: UIColor.purple]
-        let subtitleAttributes = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: .subheadline)]
-        
-        let titleString = NSMutableAttributedString(string: "\(title)\n", attributes: titleAttributes)
-        let subtitleString = NSAttributedString(string: subtitle, attributes: subtitleAttributes)
-        
-        titleString.append(subtitleString)
-        
-        return titleString
     }
 }

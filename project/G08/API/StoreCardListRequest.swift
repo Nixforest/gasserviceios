@@ -37,7 +37,7 @@ class StoreCardListRequest: BaseRequest {
                                              reqMethod: DomainConst.HTTP_POST_REQUEST,
                                              view: view)
         request.setData(page: page)
-        NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
+        NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
 }

@@ -48,7 +48,7 @@ class WorkingReportListRequest: BaseRequest {
         request.setData(dateFrom: dateFrom,
                         dateTo: dateTo,
                         page: page)
-        NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
+        NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
 }

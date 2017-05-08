@@ -47,7 +47,7 @@ class OrderVIPUpdateRequest: BaseRequest {
                                                  view: view)
         request.setData(id: id, note_employee: note_employee,
                         orderDetail: orderDetail)
-        NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
+        NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
 

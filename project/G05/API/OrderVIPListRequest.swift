@@ -89,7 +89,7 @@ class OrderVIPListRequest: BaseRequest {
         //request.setData(page: page)
         //-- BUG0060-SPJ (NguyenPT 20170421) Add status parameter
         request.setData(page: page, status: status)
-        NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
+        NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
 }

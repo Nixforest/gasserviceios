@@ -529,11 +529,13 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             value: DomainConst.BLANK))
         
         // Contact
+        if !data.customer_contact.isEmpty {
         _listInfo.append(ConfigurationModel(
             id: DomainConst.ORDER_INFO_CONTACT_ID,
             name: data.customer_contact,
             iconPath: DomainConst.PHONE_IMG_NAME,
             value: DomainConst.BLANK))
+        }
         // Employee name
         if !BaseModel.shared.isNVGNUser() {
             _listInfo.append(ConfigurationModel(
@@ -1070,27 +1072,51 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         case _tblViewGas:           // Gas material table
             let cell = tableView.dequeueReusableCell(withIdentifier: OrderDetailTableViewCell.theClassName,
                                                      for: indexPath) as! OrderDetailTableViewCell
-            if indexPath.section == 0 {             // Header
+            switch indexPath.section {
+            case 0:             // Header
                 cell.setup(data: _materialHeader, color: GlobalConst.BUTTON_COLOR_GRAY)
-            } else if (indexPath.section == 2) {    // Add new
+            case 1:             // Material
+                cell.setup(data: _listMaterial[indexPath.row], color: UIColor.white, highlighColumn: [2])
+            case 2:             // Add new
                 if _listMaterialOption.count > indexPath.row  {
                     cell.setup(config: _listMaterialOption[indexPath.row])
                 }
-            } else {                                // Material
-                cell.setup(data: _listMaterial[indexPath.row], color: UIColor.white, highlighColumn: [2])
+            default:
+                break
             }
+//            if indexPath.section == 0 {             // Header
+//                cell.setup(data: _materialHeader, color: GlobalConst.BUTTON_COLOR_GRAY)
+//            } else if (indexPath.section == 2) {    // Add new
+//                if _listMaterialOption.count > indexPath.row  {
+//                    cell.setup(config: _listMaterialOption[indexPath.row])
+//                }
+//            } else {                                // Material
+//                cell.setup(data: _materialHeader, color: GlobalConst.BUTTON_COLOR_GRAY)
+//            }
             retCell = cell
         case _tblViewCylinder:      // Cylinder material table
             let cell = tableView.dequeueReusableCell(withIdentifier: OrderDetailTableViewCell.theClassName,
                                                      for: indexPath) as! OrderDetailTableViewCell
-            if indexPath.section == 0 {             // Header
+//            if indexPath.section == 0 {             // Header
+//                cell.setup(data: _cylinderHeader, color: GlobalConst.BUTTON_COLOR_GRAY)
+//            } else if (indexPath.section == 2) {    // Add new
+//                if _listCylinderOption.count > indexPath.row  {
+//                    cell.setup(config: _listCylinderOption[indexPath.row])
+//                }
+//            } else {                                // Material
+//                cell.setup(data: _listCylinder[indexPath.row], color: UIColor.white, highlighColumn: [1, 2, 3])
+//            }
+            switch indexPath.section {
+            case 0:             // Header
                 cell.setup(data: _cylinderHeader, color: GlobalConst.BUTTON_COLOR_GRAY)
-            } else if (indexPath.section == 2) {    // Add new
+            case 1:             // Material
+                cell.setup(data: _listCylinder[indexPath.row], color: UIColor.white, highlighColumn: [1, 2, 3])
+            case 2:             // Add new
                 if _listCylinderOption.count > indexPath.row  {
                     cell.setup(config: _listCylinderOption[indexPath.row])
                 }
-            } else {                                // Material
-                cell.setup(data: _listCylinder[indexPath.row], color: UIColor.white, highlighColumn: [1, 2, 3])
+            default:
+                break
             }
             retCell = cell
         default:
