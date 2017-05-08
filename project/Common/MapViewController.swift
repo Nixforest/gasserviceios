@@ -183,6 +183,11 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
             NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
             //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         }
+        //++ BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+        if BaseModel.shared.getNeedChangePassFlag() {
+            self.pushToView(name: G00ChangePassVC.theClassName)
+        }
+        //-- BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
     }
     //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     

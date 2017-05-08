@@ -89,6 +89,11 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
      */
     func finishUpdateConfigRequest(_ notification: Notification) {
         self.popToRootView()
+        //++ BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+        if BaseModel.shared.getNeedChangePassFlag() {
+            self.pushToView(name: G00ChangePassVC.theClassName)
+        }
+        //-- BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
     }
     //-- BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
     
