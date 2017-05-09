@@ -35,6 +35,37 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private var _type:              String                  = DomainConst.NUMBER_ZERO_VALUE
     /** Height of bottom view */
     private let bottomHeight:       CGFloat                 = 2 * (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
+    /** Refrest control */
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        return refreshControl
+    }()
+    
+    // MARK: Methods
+    /**
+     * Request data from server
+     */
+    private func requestData(action: Selector = #selector(setData(_:))) {
+        if !G07F00S02VC._id.isEmpty {
+            OrderFamilyViewRequest.request(action: action, view: self, id: G07F00S02VC._id)
+        }
+    }
+    
+    /**
+     * Handle finish refresh
+     */
+    internal func finishHandleRefresh(_ notification: Notification) {
+        setData(notification)
+        refreshControl.endRefreshing()
+    }
+    
+    /**
+     * Handle refresh
+     */
+    internal func handleRefresh(_ sender: AnyObject) {
+        requestData(action: #selector(finishHandleRefresh(_:)))
+    }
     
     // MARK: Override from UIViewController
     /**
@@ -55,6 +86,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                   width: GlobalConst.SCREEN_WIDTH,
                                   height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
         _tableView.allowsMultipleSelectionDuringEditing = false
+        _tableView.addSubview(refreshControl)
         offset = offset + _tableView.frame.height + GlobalConst.MARGIN
         self.view.addSubview(_tableView)
         
@@ -497,6 +529,17 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 iconPath: DomainConst.ADD_ICON_IMG_NAME, value: DomainConst.BLANK))
         }
         
+        //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
+        if (_data.getRecord().support_id != DomainConst.NUMBER_ZERO_VALUE)
+            && !BaseModel.shared.isCustomerUser() {
+            _listInfo[2].append(ConfigurationModel(
+                id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
+                name: DomainConst.CONTENT00370,
+                iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                value: _data.getRecord().support_text))
+        }
+        //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
+        
         // Promote
         if !_data.getRecord().promotion_amount.isEmpty
             && _data.getRecord().promotion_amount != DomainConst.NUMBER_ZERO_VALUE {
@@ -522,6 +565,15 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 iconPath: DomainConst.MONEY_ICON_IMG_NAME,
                 value: DomainConst.PLUS_SPLITER + _data.getRecord().amount_bu_vo + DomainConst.VIETNAMDONG))
         }
+        //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
+        if _data.getRecord().order_type != DomainConst.NUMBER_ONE_VALUE {
+            _listInfo[2].append(ConfigurationModel(
+                id: DomainConst.ORDER_INFO_ORDER_TYPE_ID,
+                name: _data.getRecord().order_type_text,
+                iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                value: DomainConst.PLUS_SPLITER + _data.getRecord().order_type_amount))
+        }
+        //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
         
         // Total money
         _listInfo[2].append(ConfigurationModel(

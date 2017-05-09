@@ -73,6 +73,12 @@ class G00ChangePassVC: ChildViewController, UITextFieldDelegate {
             showAlert(message: DomainConst.CONTENT00025)
             return
         }
+        //++ BUG0080-SPJ (NguyenPT 20170509) Check if new password is equal with old password in Change Password screen
+        else if (txtOldPassword.text == txtNewPassword.text) {
+            showAlert(message: DomainConst.CONTENT00369)
+            return
+        }
+        //-- BUG0080-SPJ (NguyenPT 20170509) Check if new password is equal with old password in Change Password screen
         // Check if password is correct
         if (txtNewPassword.text == txtNewPasswordRetype.text){
             self.showToast(message: "password update successfully")

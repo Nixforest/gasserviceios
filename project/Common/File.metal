@@ -16,4 +16,6 @@ using namespace metal;
 // - BUG0073: Add new function G08
 // - BUG0078: Fix bug reload table view make data overlapping
 // - BUG0077: Need change password
+// Version: 1.11.0
+// - BUG0079: Add order type and support type in Family order
 
