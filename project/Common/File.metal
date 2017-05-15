@@ -18,4 +18,6 @@ using namespace metal;
 // - BUG0077: Need change password
 // Version: 1.11.0
 // - BUG0079: Add order type and support type in Family order
+// - BUG0080: Check if new password is equal with old password in Change Password screen
+// - BUG0082: Change BaseRequest handle completion mechanism
 

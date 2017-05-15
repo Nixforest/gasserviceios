@@ -31,12 +31,20 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         return refreshControl
     }()
+    //++ BUG0081-SPJ (NguyenPT 20170510) UITableView not reload until scroll
+    /** Flag check need reload table view at viewDidAppear first time */
+    private var _isFirstReload:     Bool                = false
+    //++ BUG0081-SPJ (NguyenPT 20170510) UITableView not reload until scroll
     
     // MARK: Methods
+    
     /**
      * Request data from server
+     * - paramter comletionHandler: Handler when finish request
      */
-    private func requestData(action: Selector = #selector(setData(_:))) {
+    //++ BUG0082-SPJ (NguyenPT 20170510) Change BaseRequest handle completion mechanism
+    //private func requestData(action: Selector = #selector(setData(_:))) {
+    private func requestData(completionHandler: ((Any?)->Void)?) {
         var status = "1"
         switch _type {
         case 1:
@@ -44,11 +52,22 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         default:
             status = "1"
         }
-        OrderFamilyListRequest.request(action: action,
-                                       view: self,
-                                       page: String(_page),
-                                       status: status)
+//        OrderFamilyListRequest.request(action: action,
+//                                       view: self,
+//                                       page: String(_page),
+//                                       status: status)
+        OrderFamilyListRequest.request(view: self, page: String(_page),
+                                       status: status,
+                                       completionHandler: completionHandler)
     }
+    
+    /**
+     * Request data from server
+     */
+    private func requestData() {
+        requestData(completionHandler: finishRequest)
+    }
+    //-- BUG0082-SPJ (NguyenPT 20170510) Change BaseRequest handle completion mechanism
     
     /**
      * Reset data
@@ -66,14 +85,21 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      */
     internal func handleRefresh(_ sender: AnyObject) {
         self.resetData()
-        requestData(action: #selector(finishHandleRefresh(_:)))
+        //++ BUG0082-SPJ (NguyenPT 20170510) Change BaseRequest handle completion mechanism
+        //requestData(action: #selector(finishHandleRefresh(_:)))
+        requestData(completionHandler: finishHandleRefresh)
+        //-- BUG0082-SPJ (NguyenPT 20170510) Change BaseRequest handle completion mechanism
     }
     
     /**
      * Handle finish refresh
      */
-    internal func finishHandleRefresh(_ notification: Notification) {
-        setData(notification)
+    //++ BUG0082-SPJ (NguyenPT 20170510) Change BaseRequest handle completion mechanism
+    //internal func finishHandleRefresh(_ notification: Notification) {
+        //setData(notification)
+    internal func finishHandleRefresh(_ model: Any?) {
+        finishRequest(model)
+    //-- BUG0082-SPJ (NguyenPT 20170510) Change BaseRequest handle completion mechanism
         refreshControl.endRefreshing()
     }
     
@@ -139,8 +165,20 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         self.view.makeComponentsColor()
     }
     
-    override func setData(_ notification: Notification) {
-        let data = (notification.object as! String)
+    //++ BUG0081-SPJ (NguyenPT 20170510) UITableView not reload until scroll
+    /**
+     * Notifies the view controller that its view was added to a view hierarchy.
+     */
+    override func viewDidAppear(_ animated: Bool) {
+        if !_isFirstReload {
+            _isFirstReload = true
+            _tblView.reloadData()
+        }
+    }
+    //-- BUG0081-SPJ (NguyenPT 20170510) UITableView not reload until scroll
+    
+    override func finishRequest(_ model: Any?) {
+        let data = model as! String
         let model = OrderFamilyListRespModel(jsonString: data)
         if model.isSuccess() {
             _data.total_page = model.total_page
@@ -148,8 +186,20 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
             _data.append(contentOf: model.getRecord())
             _tblView.reloadData()
         }
-        
     }
+    
+    //++ BUG0082-SPJ (NguyenPT 20170510) Change BaseRequest handle completion mechanism
+//    override func setData(_ notification: Notification) {
+//        let data = (notification.object as! String)
+//        let model = OrderFamilyListRespModel(jsonString: data)
+//        if model.isSuccess() {
+//            _data.total_page = model.total_page
+//            _data.total_record = model.total_record
+//            _data.append(contentOf: model.getRecord())
+//            _tblView.reloadData()
+//        }
+    //    }
+    //-- BUG0082-SPJ (NguyenPT 20170510) Change BaseRequest handle completion mechanism
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

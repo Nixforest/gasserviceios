@@ -94,7 +94,7 @@ class G06F02VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
      */
     override func btnSendTapped() {
         WorkingReportCreateRequest.request(
-            action: #selector(finishRequest(_:)),
+            action: #selector(finishRequestCreateWorkingReport(_:)),
             view: self,
             content: G06F02S01._selectedValue,
             longitude: String(G06F02VC._currentPos.latitude),
@@ -107,7 +107,7 @@ class G06F02VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
      * Finish request create working report
      * - parameter notification: Notification object
      */
-    internal func finishRequest(_ notification: Notification) {
+    internal func finishRequestCreateWorkingReport(_ notification: Notification) {
         let data = (notification.object as! String)
         let model = CustomerFamilyCreateRespModel(jsonString: data)
         if model.isSuccess() {

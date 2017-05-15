@@ -135,7 +135,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     // Update data
                     updateMaterial(at: selectedRow, material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
                     // Reload table with section 1
-                    _tableView.reloadSections(IndexSet(integersIn: 1...1), with: .fade)
+                    //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
+                    //_tableView.reloadSections(IndexSet(integersIn: 1...1), with: .fade)
+                    _tableView.reloadData()
+                    //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
                 }
                 //btnSaveTapped(self)
             case TYPE_PROMOTE_ADD, TYPE_CYLINDER_ADD, TYPE_OTHERMATERIAL_ADD:              // Add material
@@ -143,7 +146,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     // Add data
                     appendMaterial(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
                     // Reload table with section 1,2
-                    _tableView.reloadSections(IndexSet(integersIn: 1...2), with: .fade)
+                    //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
+                    //_tableView.reloadSections(IndexSet(integersIn: 1...2), with: .fade)
+                    _tableView.reloadData()
+                    //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
                 }
                 //btnSaveTapped(self)
             default:
@@ -156,7 +162,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     // Add data
                     appendMaterial(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
                     // Reload table with section 1,2
-                    _tableView.reloadSections(IndexSet(integersIn: 1...2), with: .fade)
+                    //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
+                    //_tableView.reloadSections(IndexSet(integersIn: 1...2), with: .fade)
+                    _tableView.reloadData()
+                    //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
                 }
                 //btnSaveTapped(self)
             default:
@@ -201,7 +210,12 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                           height: GlobalConst.SCREEN_HEIGHT)
             }
             // Reload data in table view
-            _tableView.reloadData()
+            //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
+            //self._tableView.reloadData()
+            DispatchQueue.main.async {
+                self._tableView.reloadData()
+            }
+            //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
         }
     }
     
@@ -292,13 +306,13 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             discountType: _data.getRecord().discount_type,
             amountDiscount: _data.getRecord().amount_discount,
             typeAmount: _data.getRecord().type_amount,
+            support_id: _data.getRecord().support_id,
             orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2))
     }
     
     internal func finishUpdateOrder(_ notification: Notification) {
         setData(notification)
     }
-    
     /**
      * Handle when tap on Action button
      */
@@ -345,6 +359,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             discountType: _data.getRecord().discount_type,
             amountDiscount: _data.getRecord().amount_discount,
             typeAmount: _data.getRecord().type_amount,
+            support_id: _data.getRecord().support_id,
             orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2))
     }
     
@@ -393,6 +408,113 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     alert in
         })
     }
+    
+    //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
+    /**
+     * Handle when tap support type
+     */
+    internal func updateSupportType() {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00370,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        for item in BaseModel.shared.getListSupportTypes() {
+            let action = UIAlertAction(title: item.name,
+                                       style: .default, handler: {
+                                        action in
+                                        self.handleUpdateSupportOrder(id: item.id)
+            })
+            alert.addAction(action)
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Handle change support type
+     * - parameter id: Id of support type
+     */
+    internal func handleUpdateSupportOrder(id: String) {
+        if id != _data.getRecord().support_id {
+            _data.getRecord().support_id = id
+            for item in _listInfo[2] {  // Loop in section 2 data
+                if item.id == DomainConst.ORDER_INFO_SUPPORT_TYPE_ID {  // Support item
+                    if (_data.getRecord().support_id != DomainConst.NUMBER_ZERO_VALUE) {    // Support type is not default
+                        // Update value
+                        item.updateData(id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
+                                        name: DomainConst.CONTENT00370,
+                                        iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                                        value: BaseModel.shared.getSupportNameById(id: id))
+                    } else {        // Default value
+                        // Update value
+                        item.updateData(
+                            id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
+                            name: BaseModel.shared.getSupportNameById(id: _data.getRecord().support_id),
+                            iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                            value: DomainConst.BLANK)
+                    }
+                    break
+                }
+            }
+            _tableView.reloadData()
+        }
+    }
+    
+    /**
+     * Handle when tap Order type
+     */
+    internal func updateOrderType() {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00371,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        for item in BaseModel.shared.getListOrderTypes() {
+            let action = UIAlertAction(title: item.name,
+                                       style: .default, handler: {
+                                        action in
+                                        self.handleUpdateOrderType(id: item.id)
+            })
+            alert.addAction(action)
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Handle update order type
+     * - parameter id: Id of order type
+     */
+    internal func handleUpdateOrderType(id: String) {
+        if id != _data.getRecord().order_type {
+            _data.getRecord().order_type = id
+            for item in _listInfo[2] {  // Loop in section 2 data
+                if item.id == DomainConst.ORDER_INFO_ORDER_TYPE_ID {  // Order type item
+                    if (_data.getRecord().order_type != DomainConst.NUMBER_ZERO_VALUE) {    // Order type is not default
+                        // Update value
+                        item.updateData(id: DomainConst.ORDER_INFO_ORDER_TYPE_ID,
+                                        name: BaseModel.shared.getOrderTypeNameById(id: id),
+                                        iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                                        value: DomainConst.BLANK)
+                    } else {        // Default value
+                        // Update value
+                        item.updateData(id: DomainConst.ORDER_INFO_ORDER_TYPE_ID,
+                                        name: DomainConst.CONTENT00371,
+                                        iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                                        value: BaseModel.shared.getOrderTypeNameById(id: id))
+                    }
+                    break
+                }
+            }
+            _tableView.reloadData()
+        }
+    }
+    //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
     
     /**
      * Handle when tap on add new material item/buton
@@ -530,13 +652,30 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         
         //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
-        if (_data.getRecord().support_id != DomainConst.NUMBER_ZERO_VALUE)
-            && !BaseModel.shared.isCustomerUser() {
-            _listInfo[2].append(ConfigurationModel(
-                id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
-                name: DomainConst.CONTENT00370,
-                iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                value: _data.getRecord().support_text))
+        if BaseModel.shared.isNVGNUser() {      // User is NVGN
+            if (_data.getRecord().support_id != DomainConst.NUMBER_ZERO_VALUE) {
+                _listInfo[2].append(ConfigurationModel(
+                    id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
+                    name: DomainConst.CONTENT00370,
+                    iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                    value: _data.getRecord().support_text))
+            } else {        // Default value
+                if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+                    _listInfo[2].append(ConfigurationModel(
+                        id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
+                        name: BaseModel.shared.getSupportNameById(id: _data.getRecord().support_id),
+                        iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                        value: DomainConst.BLANK))
+                }
+            }
+        } else if !BaseModel.shared.isCustomerUser() {  // User is not customer
+            if (_data.getRecord().support_id != DomainConst.NUMBER_ZERO_VALUE) {
+                _listInfo[2].append(ConfigurationModel(
+                    id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
+                    name: DomainConst.CONTENT00370,
+                    iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                    value: _data.getRecord().support_text))
+            }
         }
         //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
         
@@ -566,12 +705,25 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 value: DomainConst.PLUS_SPLITER + _data.getRecord().amount_bu_vo + DomainConst.VIETNAMDONG))
         }
         //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
-        if _data.getRecord().order_type != DomainConst.NUMBER_ONE_VALUE {
+        if _data.getRecord().order_type != DomainConst.NUMBER_ONE_VALUE {    // Order type is not default
+            var orderTypeAmount = DomainConst.BLANK
+            if !_data.getRecord().order_type_amount.isEmpty
+                && _data.getRecord().order_type_amount != DomainConst.NUMBER_ZERO_VALUE {
+                orderTypeAmount = DomainConst.PLUS_SPLITER + _data.getRecord().order_type_amount
+            }
             _listInfo[2].append(ConfigurationModel(
                 id: DomainConst.ORDER_INFO_ORDER_TYPE_ID,
                 name: _data.getRecord().order_type_text,
                 iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                value: DomainConst.PLUS_SPLITER + _data.getRecord().order_type_amount))
+                value: orderTypeAmount))
+        } else {        // Default value
+            if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+                _listInfo[2].append(ConfigurationModel(
+                    id: DomainConst.ORDER_INFO_ORDER_TYPE_ID,
+                    name: DomainConst.CONTENT00371,
+                    iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                    value: BaseModel.shared.getOrderTypeNameById(id: _data.getRecord().order_type)))
+            }
         }
         //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
         
@@ -714,11 +866,28 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     || (!_listInfo[indexPath.section][indexPath.row].isNotMaterial()) {
                     cell.highlightName()
                 }
+                if (_listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_SUPPORT_TYPE_ID) {
+                    if _data.getRecord().support_id == DomainConst.NUMBER_ZERO_VALUE {
+                        cell.highlightName()
+                    } else {
+                        // Highlight total money
+                        if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+                            cell.highlightValue()
+                        }
+                    }
+                }
+                if (_listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_ORDER_TYPE_ID) {
+                    // Highlight total money
+                    if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+                        cell.highlightValue()
+                    }
+                }
                 break
             default:
                 break
             }
             cell.setData(data: _listInfo[indexPath.section][indexPath.row])
+            cell.setNeedsDisplay()
             
             retCell = cell
         }
@@ -750,6 +919,15 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 self.selectMaterial(type: TYPE_OTHERMATERIAL,
                                     data: data)
             }
+        }
+        if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_SUPPORT_TYPE_ID
+            && (self._data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE) {
+            self.updateSupportType()
+        }
+        
+        if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_ORDER_TYPE_ID
+            && (self._data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE) {
+            self.updateOrderType()
         }
     }
     
