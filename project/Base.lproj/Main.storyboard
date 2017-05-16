@@ -697,9 +697,10 @@
                                     <action selector="Register:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NtM-D2-azc"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HuI-gc-aJa" customClass="CustomCheckBox" customModule="harpyframework">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HuI-gc-aJa" customClass="CustomCheckBox" customModule="harpyframework">
                                 <rect key="frame" x="40" y="321" width="34" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="CheckBox" image="checkbox-unchecked.png">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>

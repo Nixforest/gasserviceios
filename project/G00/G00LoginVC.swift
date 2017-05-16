@@ -200,7 +200,10 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
         // Show password check box
         chbShowPassword.frame = CGRect(x: txtPassword.frame.minX,
                                        y: txtPassword.frame.maxY + GlobalConst.MARGIN,
-                                       width: GlobalConst.CHECKBOX_W + GlobalConst.LABEL_W,
+                                       //++ BUG0084-SPJ (NguyenPT 20170515) Show "Show password" checkbox on Login screen
+                                       //width: GlobalConst.CHECKBOX_W + GlobalConst.LABEL_W,
+                                       width: GlobalConst.SCREEN_WIDTH,
+                                       //-- BUG0084-SPJ (NguyenPT 20170515) Show "Show password" checkbox on Login screen
                                        height: GlobalConst.CHECKBOX_H)
         chbShowPassword.tintColor = UIColor.black
         chbShowPassword.translatesAutoresizingMaskIntoConstraints = true
@@ -286,6 +289,7 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
         if !BaseModel.shared.getTempToken().isEmpty {
             self.processInputConfirmCode(message: DomainConst.BLANK)
         }
+        self.view.makeComponentsColor()
     }
     
     /**
