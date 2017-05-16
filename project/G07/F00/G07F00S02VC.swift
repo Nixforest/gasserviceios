@@ -31,6 +31,9 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private let TYPE_PROMOTE_ADD:       String = "4"
     private let TYPE_CYLINDER_ADD:      String = "5"
     private let TYPE_OTHERMATERIAL_ADD: String = "6"
+    //++ BUG0088-SPJ (NguyenPT 20170516) Can change gas material
+    private let TYPE_GAS:               String = "7"
+    //-- BUG0088-SPJ (NguyenPT 20170516) Can change gas material
     /** Current type when open model VC */
     private var _type:              String                  = DomainConst.NUMBER_ZERO_VALUE
     /** Height of bottom view */
@@ -124,7 +127,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             let selectedRow = (_tableView.indexPathForSelectedRow?.row)!
             
             switch _type {
-            case TYPE_PROMOTE, TYPE_CYLINDER, TYPE_OTHERMATERIAL:                  // Change material
+            case TYPE_PROMOTE, TYPE_CYLINDER, TYPE_OTHERMATERIAL, TYPE_GAS:                  // Change material
                 // Not select promotion material
                 if MaterialSelectViewController.getSelectedItem().isEmpty() {
                     // Remove data
@@ -572,6 +575,11 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         case TYPE_OTHERMATERIAL, TYPE_OTHERMATERIAL_ADD:    // The other material
             MaterialSelectViewController.setMaterialData(data: BaseModel.shared.getListOtherMaterialInfo())
             self.pushToView(name: G07F01S02VC.theClassName)
+        //++ BUG0088-SPJ (NguyenPT 20170516) Can change gas material
+        case TYPE_GAS:
+            MaterialSelectViewController.setMaterialData(data: BaseModel.shared.getAgentMaterialGas(agentId: _data.getRecord().agent_id))
+            self.pushToView(name: G07F01S02VC.theClassName)
+        //-- BUG0088-SPJ (NguyenPT 20170516) Can change gas material
         default:
             break
         }
@@ -860,7 +868,11 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 }
                 break
             case 1:     // Material section
-                break
+                //++ BUG0088-SPJ (NguyenPT 20170516) Can change gas material
+                cell.setData(data: _listInfo[indexPath.section][indexPath.row], isShowFullValue: true)
+                cell.setNeedsDisplay()
+                return cell
+                //-- BUG0088-SPJ (NguyenPT 20170516) Can change gas material
             case 2:     // Third section
                 if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_TOTAL_MONEY_ID {
                     // Highlight total money
@@ -933,6 +945,14 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             && (self._data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE) {
             self.updateOrderType()
         }
+        //++ BUG0088-SPJ (NguyenPT 20170516) Can change gas material
+        if indexPath.section == 1 {
+            if _listMaterials[indexPath.row].isGas()
+                && (self._data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE) {
+                selectMaterial(type: TYPE_GAS, data: _listMaterials[indexPath.row])
+            }
+        }
+        //-- BUG0088-SPJ (NguyenPT 20170516) Can change gas material
     }
     
     /**

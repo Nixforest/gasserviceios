@@ -22,5 +22,9 @@ using namespace metal;
 // - BUG0081: UITableView not reload until scroll
 // - BUG0082: Change BaseRequest handle completion mechanism (OrderFamilyListRequest)
 // - BUG0083: Add Cylinder in VIP Order bug
+// - BUG0084: Show "Show password" checkbox on Login screen
+// - BUG0085: Change label of Action button on Order Family detail screen
+// - BUG0087: Remove message Logout success
+// - BUG0088: Can change gas material in Order Family detail screen
 // - BUG0089: Fix bug move up view when focus text view
 
