@@ -19,5 +19,8 @@ using namespace metal;
 // Version: 1.11.0
 // - BUG0079: Add order type and support type in Family order
 // - BUG0080: Check if new password is equal with old password in Change Password screen
-// - BUG0082: Change BaseRequest handle completion mechanism
+// - BUG0081: UITableView not reload until scroll
+// - BUG0082: Change BaseRequest handle completion mechanism (OrderFamilyListRequest)
+// - BUG0083: Add Cylinder in VIP Order bug
+// - BUG0089: Fix bug move up view when focus text view
 

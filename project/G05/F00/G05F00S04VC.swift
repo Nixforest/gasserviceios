@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelegate {
+class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
     // MARK: Properties
     /** Information table view */
     @IBOutlet weak var _tableView:  UITableView!
@@ -165,40 +165,60 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter material: Data to update
      */
     private func appendMaterialCylinder(material: OrderDetailBean) {
-        var idx: Int = -1
-        // Search in lists
-        for i in 0..<_data.getRecord().info_vo.count {
-            if material.material_id == _data.getRecord().info_vo[i].material_id {
-                // Found
-                idx = i
-                break
-            }
+        //++ BUG0083-SPJ (NguyenPT 20170515) Add Cylinder in VIP Order bug
+//        var idx: Int = -1
+//        // Search in lists
+//        for i in 0..<_data.getRecord().info_vo.count {
+//            if material.material_id == _data.getRecord().info_vo[i].material_id {
+//                // Found
+//                idx = i
+//                break
+//            }
+//        }
+//        if idx == -1 {
+//            // Not found -> Append
+//            let orderItem = OrderVIPDetailBean(orderDetail: material)
+//            var gasdu = DomainConst.BLANK
+//            // Check empty value
+//            if !orderItem.kg_has_gas.isEmpty && !orderItem.kg_empty.isEmpty {
+//                let fKgGas = (orderItem.kg_has_gas as NSString).floatValue
+//                let fKgEmpty = (orderItem.kg_empty as NSString).floatValue
+//                gasdu = String(fKgGas - fKgEmpty)
+//            }
+//            _data.getRecord().info_vo.append(orderItem)
+//            let cylinderValue: [(String, Int)] = [
+//                (orderItem.material_name, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
+//                (orderItem.seri,          G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
+//                (orderItem.kg_empty,      G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
+//                (orderItem.kg_has_gas,    G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
+//                (gasdu,                   G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4)
+//            ]
+//            _listCylinder.append(cylinderValue)
+//            updateQtyCylinder(idx: _listCylinder.count - 1)
+//        } else {
+//            // Found -> Update
+//            updateQtyCylinder(idx: idx)
+//        }
+        let orderItem = OrderVIPDetailBean(orderDetail: material)
+        var gasdu = DomainConst.BLANK
+        // Check empty value
+        if !orderItem.kg_has_gas.isEmpty && !orderItem.kg_empty.isEmpty {
+            let fKgGas = (orderItem.kg_has_gas as NSString).floatValue
+            let fKgEmpty = (orderItem.kg_empty as NSString).floatValue
+            gasdu = String(fKgGas - fKgEmpty)
         }
-        if idx == -1 {
-            // Not found -> Append
-            let orderItem = OrderVIPDetailBean(orderDetail: material)
-            var gasdu = DomainConst.BLANK
-            // Check empty value
-            if !orderItem.kg_has_gas.isEmpty && !orderItem.kg_empty.isEmpty {
-                let fKgGas = (orderItem.kg_has_gas as NSString).floatValue
-                let fKgEmpty = (orderItem.kg_empty as NSString).floatValue
-                gasdu = String(fKgGas - fKgEmpty)
-            }
-            _data.getRecord().info_vo.append(orderItem)
-            let cylinderValue: [(String, Int)] = [
-                (orderItem.material_name, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
-                (orderItem.seri,          G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
-                (orderItem.kg_empty,      G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
-                (orderItem.kg_has_gas,    G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
-                (gasdu,                   G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4)
-            ]
-            _listCylinder.append(cylinderValue)
-            updateQtyCylinder(idx: _listCylinder.count - 1)
-        } else {
-            // Found -> Update
-            updateQtyCylinder(idx: idx)
-        }
+        _data.getRecord().info_vo.append(orderItem)
+        let cylinderValue: [(String, Int)] = [
+            (orderItem.material_name, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
+            (orderItem.seri,          G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
+            (orderItem.kg_empty,      G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
+            (orderItem.kg_has_gas,    G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
+            (gasdu,                   G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4)
+        ]
+        _listCylinder.append(cylinderValue)
+        updateQtyCylinder(idx: _listCylinder.count - 1)
         updateLayout()
+        //-- BUG0083-SPJ (NguyenPT 20170515) Add Cylinder in VIP Order bug
     }
     
     /**
@@ -608,29 +628,32 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     override func setData(_ notification: Notification) {
         let dataStr = (notification.object as! String)
         _data = OrderVIPCreateRespModel(jsonString: dataStr)
-        setupListInfo(data: _data.getRecord())
-        setupListMaterial(data: _data.getRecord())
-        _lblCustomerName.text = _data.getRecord().customer_name
-        _tableView.reloadData()
-        _tblViewGas.reloadData()
-        _tblViewCylinder.reloadData()
-        _tbxNote.text = _data.getRecord().note_customer
-        if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
-            self._bottomView.isHidden = false
-            
-            _scrollView.frame = CGRect(x: 0,
-                                      y: 0,
-                                      width: GlobalConst.SCREEN_WIDTH,
-                                      height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
-        } else {
-            self._bottomView.isHidden = true
-            
-            _scrollView.frame = CGRect(x: 0,
-                                      y: 0,
-                                      width: GlobalConst.SCREEN_WIDTH,
-                                      height: GlobalConst.SCREEN_HEIGHT)
+        if _data.isSuccess() {
+            setupListInfo(data: _data.getRecord())
+            setupListMaterial(data: _data.getRecord())
+            _lblCustomerName.text = _data.getRecord().customer_name
+            _tableView.reloadData()
+            _tblViewGas.reloadData()
+            _tblViewCylinder.reloadData()
+            _tbxNote.text = _data.getRecord().note_customer
+            if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+                self._bottomView.isHidden = false
+                
+                _scrollView.frame = CGRect(x: 0,
+                                           y: 0,
+                                           width: GlobalConst.SCREEN_WIDTH,
+                                           height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
+            } else {
+                self._bottomView.isHidden = true
+                
+                _scrollView.frame = CGRect(x: 0,
+                                           y: 0,
+                                           width: GlobalConst.SCREEN_WIDTH,
+                                           height: GlobalConst.SCREEN_HEIGHT)
+            }
+            _tbxNote.isEditable = (_data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE)
+            updateLayout()
         }
-        updateLayout()
     }
     
     /**
@@ -846,7 +869,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _tbxNote.returnKeyType      = .done
         _tbxNote.tag                = 0
         _tbxNote.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
-        CommonProcess.setBorder(view: _tbxNote)
+        CommonProcess.setBorder(view: _tbxNote, radius: GlobalConst.BUTTON_CORNER_RADIUS)
+         _tbxNote.delegate = self
         offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
         self._scrollView.addSubview(_tbxNote)
         
@@ -1229,4 +1253,88 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             break
         }
     }
+    
+    //++ BUG0089-SPJ (NguyenPT 20170515) Fix bug move up view when focus text view
+    // MARK: UITableViewDelegate
+    /**
+     * Add a done button when keyboard show
+     */
+    func addDoneButtonOnKeyboard() {
+        // Create toolbar
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle       = UIBarStyle.default
+        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(hideKeyboard(_:)))
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        // Add toolbar to keyboard
+        self._tbxNote.inputAccessoryView = doneToolbar
+        self.keyboardTopY -= doneToolbar.frame.height
+    }
+    
+    /**
+     * Hide keyboard
+     */
+    func hideKeyboard() {
+        // Hide keyboard
+        self.view.endEditing(true)
+        // Move back view to previous location
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.frame = CGRect(x: self.view.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        })
+        // Turn off flag
+        isKeyboardShow = false
+    }
+    
+    /**
+     * Handle when focus edittext
+     * - parameter textField: Textfield will be focusing
+     */
+    internal func textViewShouldBeginEditing(_ textView: UITextView) -> Bool{
+        isKeyboardShow = true
+        // Making A toolbar
+        if textView == self._tbxNote {
+            addDoneButtonOnKeyboard()
+        }
+        return true
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        return true
+    }
+    
+    /**
+     * Hide keyboard
+     * - parameter sender: Gesture
+     */
+    func hideKeyboard(_ sender:UITapGestureRecognizer){
+        hideKeyboard()
+    }
+    
+    /**
+     * Handle move textview when keyboard overloading
+     */
+    override func keyboardWillShow(_ notification: Notification) {
+        super.keyboardWillShow(notification)
+        if _tbxNote.isFirstResponder {
+            // Get bottom offset of scrollview
+            let bottomOffset = CGPoint(x: 0.0,
+                                       y: _scrollView.contentSize.height - _scrollView.bounds.size.height)
+            // Move content of scrollview to bottom
+            _scrollView.setContentOffset(bottomOffset, animated: true)
+            // Get delta of bottom of note textview and top of keyboard
+            let delta = _scrollView.frame.maxY - self.keyboardTopY
+            if delta > 0 {      // Need to move up view
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame = CGRect(x: self.view.frame.origin.x, y: -delta, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                })
+            }
+        }
+    }
+    //++ BUG0089-SPJ (NguyenPT 20170515) Fix bug move up view when focus text view
 }

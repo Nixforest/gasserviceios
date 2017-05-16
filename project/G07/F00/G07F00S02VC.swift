@@ -273,7 +273,11 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         let btnAction = UIButton()
         let btnCancel = UIButton()
         setupButton(button: btnAction, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
-                    y: botOffset, title: DomainConst.CONTENT00318,
+                    y: botOffset,
+                    //++ BUG0085-SPJ (NguyenPT 20170515) Change label of Action button on Order Family detail screen
+                    //title: DomainConst.CONTENT00318,
+                    title: DomainConst.CONTENT00311,
+                    //-- BUG0085-SPJ (NguyenPT 20170515) Change label of Action button on Order Family detail screen
                     icon: DomainConst.CONFIRM_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
                     action: #selector(btnActionHandler(_:)))
         setupButton(button: btnCancel, x: GlobalConst.SCREEN_WIDTH / 2,
