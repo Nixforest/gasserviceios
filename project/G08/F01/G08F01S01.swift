@@ -225,6 +225,11 @@ class G08F01S01: StepContent, UISearchBarDelegate,
             //self.bringSubview(toFront: _tblSearchBar)
             _tblSearchBar.layer.zPosition = 1
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
     /**

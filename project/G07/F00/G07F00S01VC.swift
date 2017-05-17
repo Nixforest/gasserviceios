@@ -186,6 +186,11 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
             _data.append(contentOf: model.getRecord())
             _tblView.reloadData()
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
     //++ BUG0082-SPJ (NguyenPT 20170510) Change BaseRequest handle completion mechanism

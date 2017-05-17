@@ -129,6 +129,11 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         if model.isSuccess() {
             BaseModel.shared.setListProvinces(data: model.getRecord())
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
         updateData(name: G06F01S03.theClassName)
     }
     
@@ -142,6 +147,11 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         if model.isSuccess() {
             BaseModel.shared.setListDistricts(provinceId: G06F01S03._provinceId, data: model.getRecord())
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
         updateData(name: G06F01S03.theClassName)
     }
     
@@ -155,6 +165,11 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         if model.isSuccess() {
             BaseModel.shared.setListWards(districtId: G06F01S03._districtId, data: model.getRecord())
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
         updateData(name: G06F01S03.theClassName)
     }
 
@@ -223,6 +238,11 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
                             self.backButtonTapped(self)
             })
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
 
     /*

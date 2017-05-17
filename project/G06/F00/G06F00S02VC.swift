@@ -64,6 +64,11 @@ class G06F00S02VC: ChildViewController {
             _ = detailView.setData(listValues: listValues)
             self.view.addSubview(detailView)
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
 

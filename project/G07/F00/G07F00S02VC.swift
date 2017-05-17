@@ -220,6 +220,11 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             }
             //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
     // MARK: Setup layout-control

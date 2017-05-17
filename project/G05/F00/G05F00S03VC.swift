@@ -236,7 +236,11 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
             _data.append(contentOf: model.getRecord())
             self._tblView.reloadData()
         }
-        
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message        
     }
 
     override func didReceiveMemoryWarning() {

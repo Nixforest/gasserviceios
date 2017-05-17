@@ -72,6 +72,11 @@ class G06F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
             G06F00S01VC._data.append(contentOf: model.getRecord())
             _tableView.reloadData()
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
     /**

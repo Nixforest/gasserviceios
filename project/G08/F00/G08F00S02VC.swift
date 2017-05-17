@@ -78,6 +78,11 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 self._tableView.reloadData()
             }
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
     // MARK: Override from UIViewController
@@ -153,6 +158,11 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         if model.isSuccess() {
             openUpdateStoreCardScreen()
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
     /**

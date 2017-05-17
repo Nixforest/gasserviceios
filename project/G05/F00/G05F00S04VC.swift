@@ -654,6 +654,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             _tbxNote.isEditable = (_data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE)
             updateLayout()
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: _data.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
     /**
@@ -730,6 +735,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                         view: self,
                                         id: G05F00S04VC._id)
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
     /**
@@ -786,6 +796,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         if model.isSuccess() {
             self.backButtonTapped(self)
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
     // MARK: Override from UIViewController

@@ -113,6 +113,11 @@ class G06F00S05VC: ChildViewController, UICollectionViewDataSource, UICollection
             detailView.addSubview(cltImg)
             self.view.addSubview(detailView)
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
     

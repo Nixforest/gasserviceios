@@ -75,7 +75,11 @@ class G08F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
             _data.append(contentOf: model.getRecord())
             _tblView.reloadData()
         }
-        
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
     /**
@@ -103,6 +107,11 @@ class G08F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
             // Open create store card view controller
             openCreateStoreCardScreen()
         }
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
     /**

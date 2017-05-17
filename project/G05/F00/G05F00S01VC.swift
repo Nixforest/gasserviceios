@@ -149,6 +149,11 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
             _data.append(contentOf: model.getRecord())
         }
         //-- BUG0060-SPJ (NguyenPT 20170421) Add refresh control
+        //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
+        else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
         _tableView.reloadData()
     }
     
