@@ -1,15 +1,15 @@
 //
-//  StoreCardViewRequest.swift
+//  EmployeeCashBookViewRequest.swift
 //  project
 //
-//  Created by SPJ on 5/4/17.
+//  Created by SPJ on 5/17/17.
 //  Copyright © 2017 admin. All rights reserved.
 //
 
 import UIKit
 import harpyframework
 
-class StoreCardViewRequest: BaseRequest {
+class EmployeeCashBookViewRequest: BaseRequest {
     /**
      * Set data content
      * - parameter id:        Id of store card
@@ -33,7 +33,7 @@ class StoreCardViewRequest: BaseRequest {
                                id: String) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
-        let request = StoreCardViewRequest(url: G08Const.PATH_VIP_CUSTOMER_STORE_CARD_VIEW,
+        let request = EmployeeCashBookViewRequest(url: G09Const.PATH_VIP_CUSTOMER_CASHBOOK_VIEW,
                                            reqMethod: DomainConst.HTTP_POST_REQUEST,
                                            view: view)
         request.setData(id: id)
