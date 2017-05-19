@@ -441,6 +441,10 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
     private func createOrder() {
         if BaseModel.shared.isCustomerUser() {
             self.pushToView(name: G05Const.G05_F01_S02_VIEW_CTRL)
+        //++ BUG0094-SPJ (NguyenPT 20170519) Add function create order by Coordinator
+        } else if BaseModel.shared.isCoordinator() {
+            self.pushToView(name: G05F03VC.theClassName)
+        //-- BUG0094-SPJ (NguyenPT 20170519) Add function create order by Coordinator
         } else {
             self.showAlert(message: DomainConst.CONTENT00279)
         }

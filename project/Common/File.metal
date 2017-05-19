@@ -9,6 +9,7 @@
 #include <metal_stdlib>
 using namespace metal;
 // Version: 1.12.0
+// - BUG0094: Add function create order by Coordinator
 // - BUG0092: Handle error when request API -> Show message
 // Version: 1.11.0
 // - BUG0079: Add order type and support type in Family order

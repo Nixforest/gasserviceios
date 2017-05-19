@@ -1,7 +1,7 @@
 //
 //  G05Const.swift
 //  project
-//
+//  
 //  Created by SPJ on 2/15/17.
 //  Copyright © 2017 admin. All rights reserved.
 //
@@ -24,6 +24,10 @@ class G05Const {
     public static let PATH_ORDER_VIP_DRIVER_UPDATE              = "boMoi/boMoiDriverUpdate"
     /** Path to connect with PHP server */
     public static let PATH_ORDER_VIP_SET_EVENT                  = "boMoi/boMoiSetEvent"
+    /** Path to connect with PHP server */
+    public static let PATH_SEARCH_CUSTOMER                      = "default/getCustomerByKeyword"
+    /** Path to connect with PHP server */
+    public static let PATH_ORDER_VIP_CREATE_BY_COORDINATOR      = "default/windowStoreCardCreate"
     /** Name of Order delivery address view controller */
     public static let G05_F01_S01_VIEW_CTRL                     = "G05F01S01VC"
     /** Name of Order delivery address view controller */
@@ -38,4 +42,6 @@ class G05Const {
     public static let TABLE_COLUME_WEIGHT_GAS_INFO              = (3, 1, 1)
     /** Weight of table column size */
     public static let TABLE_COLUME_WEIGHT_CYLINDER_INFO         = (4, 1, 1, 1, 1)
+    /** Notification name */
+    public static let NOTIFY_NAME_UPDATE_DATA_G05_F03           = FUNC_IDENTIFIER + "f03"
 }
