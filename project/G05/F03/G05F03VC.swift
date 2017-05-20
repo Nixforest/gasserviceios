@@ -1,9 +1,11 @@
+
 //
 //  G05F03VC.swift
 //  project
 //
 //  Created by SPJ on 5/18/17.
 //  Copyright © 2017 admin. All rights reserved.
+
 //
 
 import UIKit
@@ -142,7 +144,7 @@ class G05F03VC: StepVC, StepDoneDelegate {
             action: #selector(finishHandler(_:)),
             view: self,
             customer_id: G05F03S01._target.id,
-            agent_id: G05F03S03._selectedValue.agent_id,
+            agent_id: G05F03S03._selectedValue.id,
             date: CommonProcess.getCurrentDate(),
             type: DomainConst.NUMBER_ONE_VALUE,
             b50: b50, b45: b45, b12: b12, b6: b6,
@@ -172,6 +174,6 @@ class G05F03VC: StepVC, StepDoneDelegate {
     override func clearData() {
         G05F03S01._target = G05CustomerBean()
         G05F03S02._lstSelector.removeAll()
-        G05F03S03._selectedValue = BaseAgentInfoBean()
+        G05F03S03._selectedValue = ConfigBean()
     }
 }

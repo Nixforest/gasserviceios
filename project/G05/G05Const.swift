@@ -28,6 +28,8 @@ class G05Const {
     public static let PATH_SEARCH_CUSTOMER                      = "default/getCustomerByKeyword"
     /** Path to connect with PHP server */
     public static let PATH_ORDER_VIP_CREATE_BY_COORDINATOR      = "default/windowStoreCardCreate"
+    /** Path to connect with PHP server */
+    public static let PATH_WINDOW_GET_CONFIG                    = "default/windowGetConfig"
     /** Name of Order delivery address view controller */
     public static let G05_F01_S01_VIEW_CTRL                     = "G05F01S01VC"
     /** Name of Order delivery address view controller */

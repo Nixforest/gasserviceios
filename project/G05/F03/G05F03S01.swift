@@ -340,9 +340,9 @@ UITableViewDataSource, UITableViewDelegate {
             _btnClearTarget.isHidden = G05F03S01._target.isEmpty()
             // Update agent selection
             if G05F03S01._target.customer_delivery_agent_id.isEmpty {
-                G05F03S03._selectedValue = BaseAgentInfoBean(id: G05F03S01._target.agent_id)
+                G05F03S03._selectedValue = ConfigBean(id: G05F03S01._target.agent_id, name: DomainConst.BLANK)
             } else {
-                G05F03S03._selectedValue = BaseAgentInfoBean(id: G05F03S01._target.customer_delivery_agent_id)
+                G05F03S03._selectedValue = ConfigBean(id: G05F03S01._target.customer_delivery_agent_id, name: DomainConst.BLANK)
             }
             // Reload table target data
             _tblTarget.reloadData()

@@ -12,7 +12,14 @@ import harpyframework
 class OrderVIPCreateByCoordinatorRequest: BaseRequest {
     /**
      * Set data content
-     * - parameter page:    Page index
+     * - parameter customer_id:     Id of customer
+     * - parameter agent_id:        Id of agent
+     * - parameter date:            Delivery date
+     * - parameter b50:             50kg quantity
+     * - parameter b45:             45kg quantity
+     * - parameter b12:             12kg quantity
+     * - parameter b6:              6kg quantity
+     * - parameter note:            Note
      */
     func setData(customer_id: String, agent_id: String, date: String, type: String,
                  b50: String, b45: String, b12: String, b6: String, note: String) {
@@ -33,7 +40,16 @@ class OrderVIPCreateByCoordinatorRequest: BaseRequest {
     
     /**
      * Request order list function
-     * - parameter page:    Page index
+     * - parameter action:          Action
+     * - parameter view:            Current View controller
+     * - parameter customer_id:     Id of customer
+     * - parameter agent_id:        Id of agent
+     * - parameter date:            Delivery date
+     * - parameter b50:             50kg quantity
+     * - parameter b45:             45kg quantity
+     * - parameter b12:             12kg quantity
+     * - parameter b6:              6kg quantity
+     * - parameter note:            Note
      */
     public static func request(action: Selector, view: BaseViewController,
                                              customer_id: String, agent_id: String,

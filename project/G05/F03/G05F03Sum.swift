@@ -85,7 +85,7 @@ class G05F03Sum: StepSummary {
             listValues.append((DomainConst.CONTENT00387, b6))
         }
         listValues.append((DomainConst.CONTENT00081, G05F03S02._note))
-        listValues.append((DomainConst.CONTENT00240, G05F03S03._selectedValue.agent_name))
+        listValues.append((DomainConst.CONTENT00240, G05F03S03._selectedValue.name))
         var phone = DomainConst.BLANK
         if !G05F03S04._selectedValue.isBlank {
             phone = G05F03S04._selectedValue

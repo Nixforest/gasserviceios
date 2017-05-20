@@ -33,7 +33,7 @@ class G05SearchCustomerRequest: BaseRequest {
                                currentView: UIView,
                                keyword: String) {
         // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+        //LoadingView.shared.showOverlay(view: view.view)
         let request = G05SearchCustomerRequest(url: G05Const.PATH_SEARCH_CUSTOMER,
                                           reqMethod: DomainConst.HTTP_POST_REQUEST,
                                           view: view)
@@ -41,5 +41,4 @@ class G05SearchCustomerRequest: BaseRequest {
         NotificationCenter.default.addObserver(currentView, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
-
 }

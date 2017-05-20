@@ -443,12 +443,30 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
             self.pushToView(name: G05Const.G05_F01_S02_VIEW_CTRL)
         //++ BUG0094-SPJ (NguyenPT 20170519) Add function create order by Coordinator
         } else if BaseModel.shared.isCoordinator() {
-            self.pushToView(name: G05F03VC.theClassName)
+            if TempDataRespModel.isEmpty() {
+                TempDataRequest.request(action: #selector(finishTempDataRequest(_:)),
+                                        view: self,
+                                        agent_id: DomainConst.BLANK)
+            } else {
+                self.pushToView(name: G05F03VC.theClassName)
+            }
         //-- BUG0094-SPJ (NguyenPT 20170519) Add function create order by Coordinator
         } else {
             self.showAlert(message: DomainConst.CONTENT00279)
         }
     }
+    
+    //++ BUG0094-SPJ (NguyenPT 20170519) Add function create order by Coordinator
+    internal func finishTempDataRequest(_ notification: Notification) {
+        let dataStr = (notification.object as! String)
+        let model = TempDataRespModel(jsonString: dataStr)
+        if model.isSuccess() {
+            self.pushToView(name: G05F03VC.theClassName)
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    //-- BUG0094-SPJ (NguyenPT 20170519) Add function create order by Coordinator
     
     /**
      * Handle when tap on category buttons
