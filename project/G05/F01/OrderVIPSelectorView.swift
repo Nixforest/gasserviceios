@@ -172,8 +172,12 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
                                 y: (frame.height - GlobalConst.STEPPER_LAYOUT_HEIGHT) / 2,
                                 width: 0,
                                 height: 0)
-        _stepper.wraps = true
-        _stepper.autorepeat = false
+        //++ BUG0063-SPJ (NguyenPT 20170520) Fix bug
+//        _stepper.wraps = true
+//        _stepper.autorepeat = false
+        _stepper.wraps = false
+        _stepper.autorepeat = true
+        //-- BUG0063-SPJ (NguyenPT 20170520) Fix bug
         _stepper.maximumValue = 999
         _stepper.addTarget(self, action: #selector(stepperValueChanged(_:)), for: .valueChanged)
         self.addSubview(_stepper)
@@ -188,6 +192,9 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
      */
     internal func stepperValueChanged(_ sender: UIStepper) {
         updateValue(value: String(describing: Int(sender.value)))
+        //++ BUG0063-SPJ (NguyenPT 20170520) Fix bug: Set check when value is not zero
+        self._checkBox.bChecked = (Int(sender.value) != 0)
+        //-- BUG0063-SPJ (NguyenPT 20170520) Fix bug: Set check when value is not zero
     }
     //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
     
@@ -297,6 +304,17 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
 //            updateValue(value: DomainConst.NUMBER_ZERO_VALUE)
 //        }
         //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
+        //++ BUG0063-SPJ (NguyenPT 20170520) Fix bug: Set check when value is not zero
+        if _checkBox.bChecked  {    // Checked
+            if self._config.name == DomainConst.NUMBER_ZERO_VALUE { // Value = 0
+                updateValue(value: DomainConst.NUMBER_ONE_VALUE)    // Set value = 1
+            }
+        } else {                    // Unchecked
+            if self._config.name != DomainConst.NUMBER_ZERO_VALUE { // Value != 0
+                updateValue(value: DomainConst.NUMBER_ZERO_VALUE)   // Set value = 0
+            }
+        }
+        //-- BUG0063-SPJ (NguyenPT 20170520) Fix bug: Set check when value is not zero
     }
     
     required init?(coder aDecoder: NSCoder) {
