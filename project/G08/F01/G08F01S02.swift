@@ -40,6 +40,9 @@ class G08F01S02: StepContent {
                                                    width: GlobalConst.EDITTEXT_W,
                                                    height: GlobalConst.SCREEN_HEIGHT - getTitleHeight()))
         _datePicker.setTitle(title: DomainConst.CONTENT00364)
+        if !G08F01S02._selectedValue.isBlank {
+            _datePicker.setValue(value: G08F01S02._selectedValue)
+        }
         contentView.addSubview(_datePicker)
         offset += DatePickerView.STATIC_HEIGHT
         

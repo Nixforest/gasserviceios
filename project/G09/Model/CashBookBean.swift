@@ -32,6 +32,8 @@ class CashBookBean: ConfigBean {
     var created_date:           String = DomainConst.BLANK
     /** Flag allow update */
     var allow_update:           String = DomainConst.BLANK
+    /** Lookup type text */
+    var lookup_type_text:       String = DomainConst.BLANK
     
     /**
      * Initializer
@@ -60,6 +62,7 @@ class CashBookBean: ConfigBean {
         self.master_lookup_text = getString(json: jsonData, key: DomainConst.KEY_MASTER_LOOKUP_TEXT)
         self.created_date       = getString(json: jsonData, key: DomainConst.KEY_CREATED_DATE)
         self.allow_update       = getString(json: jsonData, key: DomainConst.KEY_ALLOW_UPDATE)
+        self.lookup_type_text   = getString(json: jsonData, key: DomainConst.KEY_LOOKUP_TYPE_TEXT)
     }
     
     /**

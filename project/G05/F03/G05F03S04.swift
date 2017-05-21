@@ -77,7 +77,7 @@ class G05F03S04: StepContent, UITextFieldDelegate {
         // Set parent
         self.setParentView(parent: parent)
         
-        self.setup(mainView: contentView, title: DomainConst.CONTENT00377,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00393,
                    contentHeight: offset,
                    width: w, height: h)
         NotificationCenter.default.addObserver(self,

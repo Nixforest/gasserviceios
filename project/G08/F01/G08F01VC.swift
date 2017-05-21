@@ -46,7 +46,12 @@ class G08F01VC: StepVC, StepDoneDelegate {
         
         appendSummary(summary: summary)
         // Set title
-        self.setTitle(title: DomainConst.CONTENT00353)
+        if G08F01VC._mode == DomainConst.NUMBER_ZERO_VALUE {
+            self.setTitle(title: DomainConst.CONTENT00353)
+        } else {
+            self.setTitle(title: DomainConst.CONTENT00396)
+        }
+        
         super.viewDidLoad()
     }
 
@@ -183,6 +188,7 @@ class G08F01VC: StepVC, StepDoneDelegate {
      * Clear data
      */
     override func clearData() {
+        G08F01VC._mode                  = DomainConst.NUMBER_ZERO_VALUE
         G08F01S01._target               = CustomerBean.init()
         G08F01S02._selectedValue        = DomainConst.BLANK
         G08F01S03._data                 = [OrderDetailBean].init()

@@ -165,6 +165,7 @@ class G08F01S01: StepContent, UISearchBarDelegate,
             break
         }
     }
+    
     /**
      * Hide keyboard.
      */

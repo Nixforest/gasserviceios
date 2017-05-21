@@ -11,7 +11,7 @@ import harpyframework
 
 class G08F01S04: StepContent, UITextViewDelegate {
     /** Selected value */
-    static var _selectedValue: String = DomainConst.BLANK
+    public static var _selectedValue: String = DomainConst.BLANK
     /** Note textfield */
     var _tbxNote = UITextView()
     /** Flag show keyboard */

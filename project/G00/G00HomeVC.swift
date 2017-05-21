@@ -65,11 +65,11 @@ class G00HomeVC: ParentViewController, UITableViewDataSource, UITableViewDelegat
         //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         
         // Handle display color when training mode is on
-        if BaseModel.shared.checkTrainningMode() {
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
-        } else {    // Training mode off
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
-        }
+//        if BaseModel.shared.checkTrainningMode() {
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+//        } else {    // Training mode off
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+//        }
         
         // Background
         self.view.layer.borderWidth = GlobalConst.PARENT_BORDER_WIDTH
@@ -306,11 +306,11 @@ class G00HomeVC: ParentViewController, UITableViewDataSource, UITableViewDelegat
         //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
         
         // Handle display color when training mode is on
-        if BaseModel.shared.checkTrainningMode() {
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
-        } else {    // Training mode off
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
-        }
+//        if BaseModel.shared.checkTrainningMode() {
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+//        } else {    // Training mode off
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+//        }
     }
     
     /**
