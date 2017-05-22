@@ -157,6 +157,8 @@
 		D7C491431ECC79B900CEF98C /* EmployeeCashBookListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C491421ECC79B900CEF98C /* EmployeeCashBookListRequest.swift */; };
 		D7C491451ECC7BEE00CEF98C /* EmployeeCashBookViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C491441ECC7BEE00CEF98C /* EmployeeCashBookViewRequest.swift */; };
 		D7C491481ECC7C9D00CEF98C /* EmployeeCashBookCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C491471ECC7C9D00CEF98C /* EmployeeCashBookCreateRequest.swift */; };
+		D7C812101ED2721F0014EF51 /* G09F01S06.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8120F1ED2721F0014EF51 /* G09F01S06.swift */; };
+		D7C812131ED2784D0014EF51 /* G09F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C812121ED2784D0014EF51 /* G09F00S02VC.swift */; };
 		D7CBD06F1E8F673F00FB3BD6 /* G06F01S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD06E1E8F673F00FB3BD6 /* G06F01S02.swift */; };
 		D7CC15131EB05A98002F8434 /* G05F02S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC15121EB05A98002F8434 /* G05F02S01VC.swift */; };
 		D7CC15151EB098AA002F8434 /* OrderVIPUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC15141EB098AA002F8434 /* OrderVIPUpdateRequest.swift */; };
@@ -397,6 +399,8 @@
 		D7C491421ECC79B900CEF98C /* EmployeeCashBookListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmployeeCashBookListRequest.swift; path = G09/API/EmployeeCashBookListRequest.swift; sourceTree = "<group>"; };
 		D7C491441ECC7BEE00CEF98C /* EmployeeCashBookViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmployeeCashBookViewRequest.swift; path = G09/API/EmployeeCashBookViewRequest.swift; sourceTree = "<group>"; };
 		D7C491471ECC7C9D00CEF98C /* EmployeeCashBookCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmployeeCashBookCreateRequest.swift; path = G09/API/EmployeeCashBookCreateRequest.swift; sourceTree = "<group>"; };
+		D7C8120F1ED2721F0014EF51 /* G09F01S06.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G09F01S06.swift; path = G09/F01/G09F01S06.swift; sourceTree = "<group>"; };
+		D7C812121ED2784D0014EF51 /* G09F00S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G09F00S02VC.swift; path = G09/F00/G09F00S02VC.swift; sourceTree = "<group>"; };
 		D7CBD06E1E8F673F00FB3BD6 /* G06F01S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S02.swift; path = G06/F01/G06F01S02.swift; sourceTree = "<group>"; };
 		D7CC15121EB05A98002F8434 /* G05F02S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F02S01VC.swift; path = G05/F02/G05F02S01VC.swift; sourceTree = "<group>"; };
 		D7CC15141EB098AA002F8434 /* OrderVIPUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPUpdateRequest.swift; path = G05/API/OrderVIPUpdateRequest.swift; sourceTree = "<group>"; };
@@ -902,6 +906,7 @@
 			isa = PBXGroup;
 			children = (
 				D78F99EB1ECD52F9003CB814 /* G09F00S01VC.swift */,
+				D7C812121ED2784D0014EF51 /* G09F00S02VC.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -939,6 +944,7 @@
 				D78B04601ED13D470064DE88 /* G09F01S04.swift */,
 				D78B04641ED191750064DE88 /* G09F01S05.swift */,
 				D78B045C1ED12E950064DE88 /* G09F01Sum.swift */,
+				D7C8120F1ED2721F0014EF51 /* G09F01S06.swift */,
 			);
 			name = F01;
 			sourceTree = "<group>";
@@ -1305,11 +1311,13 @@
 				D77F061F1E7175D000797A6B /* G00HomeVC.swift in Sources */,
 				D709FE971E86EF5400F32A7E /* WorkingReportListRequest.swift in Sources */,
 				D77F068B1E7177FE00797A6B /* G05F01S02VC.swift in Sources */,
+				D7C812131ED2784D0014EF51 /* G09F00S02VC.swift in Sources */,
 				D77F068C1E7177FE00797A6B /* OrderVIPSelectorView.swift in Sources */,
 				D77F06391E7176E900797A6B /* G01F00S02InfoView.swift in Sources */,
 				D7BA68871E83B638001C675D /* G06APITestVC.swift in Sources */,
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
 				D77F06881E7177FE00797A6B /* G05F01S01MenuVC.swift in Sources */,
+				D7C812101ED2721F0014EF51 /* G09F01S06.swift in Sources */,
 				D7DA31FD1EC0782A00E06FFB /* StoreCardUpdateRequest.swift in Sources */,
 				D78F99F71ECDA9BD003CB814 /* G05CustomerBean.swift in Sources */,
 				D791A3B91ECDE533004A7C01 /* OrderVIPCreateByCoordinatorRespModel.swift in Sources */,

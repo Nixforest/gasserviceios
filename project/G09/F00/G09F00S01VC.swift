@@ -454,16 +454,18 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
             // Request data from server
             requestData()
         } else if tableView == _tblView {
-            if _data.getRecord()[indexPath.row].allow_update == DomainConst.NUMBER_ONE_VALUE {
-                // Check cache data is exist
-                if CacheDataRespModel.record.isEmpty() {
-                    // Request server cache data
-                    CacheDataRequest.request(action: #selector(finishRequestCacheDataForUpdate(_:)),
-                                             view: self)
-                } else {
-                    openUpdateCashBookScreen(data: _data.getRecord()[indexPath.row])
-                }
-            }
+//            if _data.getRecord()[indexPath.row].allow_update == DomainConst.NUMBER_ONE_VALUE {
+//                // Check cache data is exist
+//                if CacheDataRespModel.record.isEmpty() {
+//                    // Request server cache data
+//                    CacheDataRequest.request(action: #selector(finishRequestCacheDataForUpdate(_:)),
+//                                             view: self)
+//                } else {
+//                    openUpdateCashBookScreen(data: _data.getRecord()[indexPath.row])
+//                }
+//            }
+            G09F00S02VC._id = _data.getRecord()[indexPath.row].id
+            self.pushToView(name: G09F00S02VC.theClassName)
         }
     }
     

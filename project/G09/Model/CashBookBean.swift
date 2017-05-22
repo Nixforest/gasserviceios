@@ -34,6 +34,8 @@ class CashBookBean: ConfigBean {
     var allow_update:           String = DomainConst.BLANK
     /** Lookup type text */
     var lookup_type_text:       String = DomainConst.BLANK
+    /** List images */
+    var images:                 [UpholdImageInfoItem] = [UpholdImageInfoItem]()
     
     /**
      * Initializer
@@ -63,6 +65,11 @@ class CashBookBean: ConfigBean {
         self.created_date       = getString(json: jsonData, key: DomainConst.KEY_CREATED_DATE)
         self.allow_update       = getString(json: jsonData, key: DomainConst.KEY_ALLOW_UPDATE)
         self.lookup_type_text   = getString(json: jsonData, key: DomainConst.KEY_LOOKUP_TYPE_TEXT)
+        if let dataArr = jsonData[DomainConst.KEY_LIST_IMAGE] as? [[String: AnyObject]] {
+            for listItem in dataArr {
+                self.images.append(UpholdImageInfoItem(jsonData: listItem))
+            }
+        }
     }
     
     /**

@@ -30,6 +30,8 @@ class G09F01VC: StepVC, StepDoneDelegate {
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         let step5 = G09F01S05(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+        let step6 = G09F01S06(w: GlobalConst.SCREEN_WIDTH,
+                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         let summary = G09F01Sum(w: GlobalConst.SCREEN_WIDTH,
                                 h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         step1.stepDoneDelegate = self
@@ -37,12 +39,15 @@ class G09F01VC: StepVC, StepDoneDelegate {
         step3.stepDoneDelegate = self
         step4.stepDoneDelegate = self
         step5.stepDoneDelegate = self
+        step6.stepDoneDelegate = self
         appendContent(stepContent: step1)
         appendContent(stepContent: step2)
         appendContent(stepContent: step3)
         appendContent(stepContent: step4)
         if G09F01VC._mode == DomainConst.NUMBER_ONE_VALUE {
             appendContent(stepContent: step5)
+        } else {            
+            appendContent(stepContent: step6)
         }
         appendSummary(summary: summary)
         // Set title
@@ -83,7 +88,8 @@ class G09F01VC: StepVC, StepDoneDelegate {
                 master_lookup_id:   G09F01VC._typeId,
                 date:               G09F01S01.getSelectValue(),
                 amount:             G09F01S03._selectedValue,
-                note:               G09F01S04.getSelectValue())
+                note:               G09F01S04.getSelectValue(),
+                images:             G09F01S06._selectedValue)
         } else {    // Update
             EmployeeCashBookUpdateRequest.request(
                 action: #selector(finishCreateCashBook(_:)),
@@ -127,5 +133,6 @@ class G09F01VC: StepVC, StepDoneDelegate {
         G09F01S02._target        = CustomerBean.init()
         G09F01S03._selectedValue = DomainConst.BLANK
         G09F01S04._selectedValue = DomainConst.BLANK
+        G09F01S06._selectedValue.removeAll()
     }
 }

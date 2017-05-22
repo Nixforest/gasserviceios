@@ -33,6 +33,17 @@ class EmployeeCashBookCreateRequest: BaseRequest {
             DomainConst.KEY_NOTE,               note,
             DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
         )
+        
+        self.param = ["q": String.init(
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
+            DomainConst.KEY_TOKEN,              BaseModel.shared.getUserToken(),
+            DomainConst.KEY_CUSTOMER_ID,        customerId,
+            DomainConst.KEY_MASTER_LOOKUP_ID,   master_lookup_id,
+            DomainConst.KEY_DATE_INPUT,         date,
+            DomainConst.KEY_AMOUNT,             amount,
+            DomainConst.KEY_NOTE,               note,
+            DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
+        )]
     }
     
     /**
@@ -50,7 +61,8 @@ class EmployeeCashBookCreateRequest: BaseRequest {
                                master_lookup_id: String,
                                date: String,
                                amount: String,
-                               note: String) {
+                               note: String,
+                               images: [UIImage]) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = EmployeeCashBookCreateRequest(url: G09Const.PATH_VIP_CUSTOMER_CASHBOOK_CREATE,
@@ -62,6 +74,7 @@ class EmployeeCashBookCreateRequest: BaseRequest {
                         amount: amount,
                         note: note)
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
-        request.execute()
+        //request.execute()
+        request.executeUploadFile(listImages: images)
     }
 }

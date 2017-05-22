@@ -13,6 +13,7 @@ using namespace metal;
 // - BUG0093: Add new function G09
 // - BUG0092: Handle error when request API -> Show message
 // - BUG0090: Show confirm alert when back from create screen
+// - BUG0063: Fix bug in Create order (By customer) screen
 // Version: 1.11.0
 // - BUG0079: Add order type and support type in Family order
 // - BUG0080: Check if new password is equal with old password in Change Password screen
