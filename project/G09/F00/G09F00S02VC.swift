@@ -128,7 +128,7 @@ class G09F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _bottomView.frame = CGRect(x: 0, y: GlobalConst.SCREEN_HEIGHT - bottomHeight,
                                    width: GlobalConst.SCREEN_WIDTH,
                                    height: bottomHeight)
-        _bottomView.isHidden = true
+        // _bottomView.isHidden = true
         self.view.addSubview(_bottomView)
         createBottomView()
         requestData()
@@ -243,10 +243,10 @@ class G09F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Handle start create store card
      */
     private func openUpdateCashBookScreen() {
-        G09F01VC._typeId    = _data.record.master_lookup_id
-        G09F01VC._mode      = DomainConst.NUMBER_ONE_VALUE
-        G09F01VC._id        = _data.record.id
-        G09F01S01._selectedValue   = _data.record.date_input
+        G09F01VC._typeId            = _data.record.master_lookup_id
+        G09F01VC._mode              = DomainConst.NUMBER_ONE_VALUE
+        G09F01VC._updateData        = _data.record
+        G09F01S01._selectedValue    = _data.record.date_input
         
         G09F01S02._target   = CustomerBean(id: _data.record.customer_id,
                                            name: _data.record.customer_name,

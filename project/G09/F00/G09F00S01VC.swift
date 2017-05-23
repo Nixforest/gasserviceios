@@ -51,6 +51,9 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
     private var _isKeyboardShow:    Bool                            = false
     /** Customer name label */
     private var _lblSummary:        UILabel                         = UILabel()
+    /** Cashbook list type: (1) Manage, (2) Schedule */
+    public static var _cashBookType:    String                      = DomainConst.CASHBOOK_TYPE_LIST
+    
     
     // MARK: Utility methods
     /**
@@ -129,7 +132,7 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
         if model.isSuccess() {
             G09F01VC._typeId    = model.record.master_lookup_id
             G09F01VC._mode      = DomainConst.NUMBER_ONE_VALUE
-            G09F01VC._id        = model.record.id
+            G09F01VC._updateData        = model.record
             G09F01S01._selectedValue   = model.record.date_input
             
             G09F01S02._target   = CustomerBean(id: model.record.customer_id,
@@ -198,7 +201,7 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
             view:           self,
             page:           String(_page),
             lookup_type:    String(_lookup_type),
-            type:           DomainConst.CASHBOOK_TYPE_LIST,
+            type:           G09F00S01VC._cashBookType,
             customer_id:    _customerId)
     }
     
@@ -242,15 +245,20 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
         let data = (notification.object as! String)
         let model = EmployeeCashBookListRespModel(jsonString: data)
         if model.isSuccess() {
-            // Update summary text
-            if (_lblSummary.text?.isBlank)! {
-                _lblSummary.text = model.message
+            if G09F00S01VC._cashBookType == DomainConst.CASHBOOK_TYPE_LIST {
+                // Update summary text
+                if (_lblSummary.text?.isBlank)! {
+                    _lblSummary.text = model.message
+                }
             }
+            
             // Update data
             _data.total_page = model.total_page
             _data.total_record = model.total_record
             _data.append(contentOf: model.getRecord())
-            _tblView.reloadData()
+            DispatchQueue.main.async {
+                self._tblView.reloadData()
+            }
         } else {
             showAlert(message: model.message)
         }
@@ -273,8 +281,15 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if !BaseModel.shared.sharedString.isEmpty {
+            G09F00S01VC._cashBookType = BaseModel.shared.sharedString
+        }
         // Navigation
-        createNavigationBar(title: DomainConst.CONTENT00388)
+        if G09F00S01VC._cashBookType == DomainConst.CASHBOOK_TYPE_LIST {
+            createNavigationBar(title: DomainConst.CONTENT00388)
+        } else {
+            createNavigationBar(title: DomainConst.CONTENT00400)
+        }
         let height = self.getTopHeight()
         var offset: CGFloat = height
         _searchBar.delegate = self
@@ -291,33 +306,35 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
         self.view.addSubview(_searchBar)
         offset += _searchBar.frame.height
         
-        // Summary information label
-        _lblSummary.frame = CGRect(x: 0, y: offset,
-                                        width: GlobalConst.SCREEN_WIDTH,
-                                        height: GlobalConst.LABEL_H * 2)
-        _lblSummary.text = DomainConst.BLANK
-        _lblSummary.font = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
-        _lblSummary.textColor = GlobalConst.BUTTON_COLOR_RED
-        _lblSummary.textAlignment = .center
-        _lblSummary.lineBreakMode = .byWordWrapping
-        _lblSummary.numberOfLines = 0
-        self.view.addSubview(_lblSummary)
-        offset = offset + _lblSummary.frame.height
-        
-        // Segment
-        let font = UIFont.systemFont(ofSize: GlobalConst.BASE_FONT_SIZE)
-        _segment.frame = CGRect(x: 0, y: offset,
-                                width: GlobalConst.SCREEN_WIDTH,
-                                height: GlobalConst.BUTTON_H)
-        _segment.setTitleTextAttributes([NSFontAttributeName: font],
-                                        for: UIControlState())
-        _segment.selectedSegmentIndex = 0
-        _segment.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        _segment.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
-        _segment.tintColor = GlobalConst.BUTTON_COLOR_RED
-        _segment.addTarget(self, action: #selector(segmentChange(_:)), for: .valueChanged)
-        offset = offset + _segment.frame.height
-        self.view.addSubview(_segment)
+        if G09F00S01VC._cashBookType == DomainConst.CASHBOOK_TYPE_LIST {
+            // Summary information label
+            _lblSummary.frame = CGRect(x: 0, y: offset,
+                                       width: GlobalConst.SCREEN_WIDTH,
+                                       height: GlobalConst.LABEL_H * 2)
+            _lblSummary.text = DomainConst.BLANK
+            _lblSummary.font = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
+            _lblSummary.textColor = GlobalConst.BUTTON_COLOR_RED
+            _lblSummary.textAlignment = .center
+            _lblSummary.lineBreakMode = .byWordWrapping
+            _lblSummary.numberOfLines = 0
+            self.view.addSubview(_lblSummary)
+            offset = offset + _lblSummary.frame.height
+            
+            // Segment
+            let font = UIFont.systemFont(ofSize: GlobalConst.BASE_FONT_SIZE)
+            _segment.frame = CGRect(x: 0, y: offset,
+                                    width: GlobalConst.SCREEN_WIDTH,
+                                    height: GlobalConst.BUTTON_H)
+            _segment.setTitleTextAttributes([NSFontAttributeName: font],
+                                            for: UIControlState())
+            _segment.selectedSegmentIndex = 0
+            _segment.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+            _segment.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
+            _segment.tintColor = GlobalConst.BUTTON_COLOR_RED
+            _segment.addTarget(self, action: #selector(segmentChange(_:)), for: .valueChanged)
+            offset = offset + _segment.frame.height
+            self.view.addSubview(_segment)
+        }
         
         // Table View
         _tblView.register(UINib(nibName: CashBookCell.theClassName,
@@ -360,7 +377,25 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
         self.view.addSubview(btnCreate)
         // Request data from server
         requestData()
+        // Check cache data is exist
+        if CacheDataRespModel.record.isEmpty() {
+            // Request server cache data
+            CacheDataRequest.request(action: #selector(finishCacheData(_:)),
+                                     view: self)
+        }
         self.view.makeComponentsColor()
+    }
+    
+    
+    /**
+     * Handle when finish request cache data
+     */
+    internal func finishCacheData(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CacheDataRespModel(jsonString: data)
+        if !model.isSuccess() {
+            showAlert(message: model.message)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -404,7 +439,10 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
             let cell: CashBookCell = tableView.dequeueReusableCell(
                 withIdentifier: CashBookCell.theClassName)
                 as! CashBookCell
-            cell.setData(data: _data.getRecord()[indexPath.row])
+            if _data.getRecord().count > indexPath.row {
+                cell.setData(data: _data.getRecord()[indexPath.row])
+            }
+            
             return cell
     }
     

@@ -16,6 +16,7 @@ class G09F01VC: StepVC, StepDoneDelegate {
     public static var _mode:        String  = DomainConst.NUMBER_ZERO_VALUE
     /** Id of cashbook updating */
     public static var _id:          String  = DomainConst.BLANK
+    public static var _updateData:  CashBookBean = CashBookBean()
 
     override func viewDidLoad() {
         // Do any additional setup after loading the view.
@@ -94,12 +95,13 @@ class G09F01VC: StepVC, StepDoneDelegate {
             EmployeeCashBookUpdateRequest.request(
                 action: #selector(finishCreateCashBook(_:)),
                 view: self,
-                id: G09F01VC._id,
+                id: G09F01VC._updateData.id,
                 customerId: G09F01S02.getTarget().id,
                 master_lookup_id: G09F01VC._typeId,
                 date: G09F01S01.getSelectValue(),
                 amount: G09F01S03._selectedValue,
-                note: G09F01S04.getSelectValue())
+                note: G09F01S04.getSelectValue(),
+                app_order_id: G09F01VC._updateData.app_order_id)
         }
     }
     
@@ -128,7 +130,7 @@ class G09F01VC: StepVC, StepDoneDelegate {
     override func clearData() {
         G09F01VC._mode           = DomainConst.NUMBER_ZERO_VALUE
         G09F01VC._typeId         = DomainConst.BLANK
-        G09F01VC._id             = DomainConst.BLANK
+        G09F01VC._updateData     = CashBookBean()
         G09F01S01._selectedValue = DomainConst.BLANK
         G09F01S02._target        = CustomerBean.init()
         G09F01S03._selectedValue = DomainConst.BLANK

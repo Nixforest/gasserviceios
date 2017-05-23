@@ -9,6 +9,9 @@
 #include <metal_stdlib>
 using namespace metal;
 // Version: 1.12.0
+// - BUG0097: Add sub-function G09 - Schedule cashbook
+// - BUG0096: Add image when create Cashbook (G09)
+// - BUG0095: Fix bug show human icon in VIP order
 // - BUG0094: Add function create order by Coordinator
 // - BUG0093: Add new function G09
 // - BUG0092: Handle error when request API -> Show message

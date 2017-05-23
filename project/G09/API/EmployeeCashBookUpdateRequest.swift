@@ -24,11 +24,13 @@ class EmployeeCashBookUpdateRequest: BaseRequest {
                  master_lookup_id: String,
                  date: String,
                  amount: String,
-                 note: String) {
+                 note: String,
+                 app_order_id: String) {
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
             DomainConst.KEY_TOKEN,              BaseModel.shared.getUserToken(),
             DomainConst.KEY_ID,                 id,
+            DomainConst.KEY_APP_ORDER_ID,       app_order_id,
             DomainConst.KEY_CUSTOMER_ID,        customerId,
             DomainConst.KEY_MASTER_LOOKUP_ID,   master_lookup_id,
             DomainConst.KEY_DATE_INPUT,         date,
@@ -54,7 +56,8 @@ class EmployeeCashBookUpdateRequest: BaseRequest {
                                master_lookup_id: String,
                                date: String,
                                amount: String,
-                               note: String) {
+                               note: String,
+                               app_order_id: String) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = EmployeeCashBookUpdateRequest(url: G09Const.PATH_VIP_CUSTOMER_CASHBOOK_UPDATE,
@@ -64,7 +67,8 @@ class EmployeeCashBookUpdateRequest: BaseRequest {
                         master_lookup_id: master_lookup_id,
                         date: date,
                         amount: amount,
-                        note: note)
+                        note: note,
+                        app_order_id: app_order_id)
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }

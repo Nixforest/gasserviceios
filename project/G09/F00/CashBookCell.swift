@@ -38,6 +38,10 @@ class CashBookCell: UITableViewCell {
     private var lookupLabel:        UILabel = UILabel()
     /** Height of top */
     private let topHeight: CGFloat = GlobalConst.CONFIGURATION_ITEM_HEIGHT - GlobalConst.MARGIN_CELL_X * 3
+    /** Long press gesture */
+    private var longPress:          UILongPressGestureRecognizer = UILongPressGestureRecognizer()
+    /** Data */
+    private var _data:              CashBookBean = CashBookBean()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -131,6 +135,9 @@ class CashBookCell: UITableViewCell {
         self.lookupLabel.numberOfLines = 0
         self.lookupLabel.lineBreakMode = .byWordWrapping
         
+        longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler(_:)))
+        self.addGestureRecognizer(longPress)
+        
         
         self.topView.addSubview(self.customerLabel)
         
@@ -151,6 +158,101 @@ class CashBookCell: UITableViewCell {
         self.addSubview(self.bottomView)
         self.makeComponentsColor()
     }
+    
+    /**
+     * Handle swipe gesture
+     */
+    func longPressHandler(_ sender: UIGestureRecognizer) {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00401,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        
+        let ticket = UIAlertAction(title: DomainConst.CONTENT00402,
+                                   style: .default,
+                                   handler: {
+                                    action in
+                                    self.createTicket()
+        })
+        
+        let collectMoney = UIAlertAction(title: DomainConst.CONTENT00318,
+                                         style: .default,
+                                         handler: {
+                                            action in
+                                            self.createCashBook()
+        })
+        
+        alert.addAction(cancel)
+        alert.addAction(ticket)
+        if G09F00S01VC._cashBookType == DomainConst.CASHBOOK_TYPE_SCHEDULE
+            && (_data.allow_update == DomainConst.NUMBER_ONE_VALUE) {
+            // Show collect money item when cashbook type is Schedule and allow update flag is ON
+            alert.addAction(collectMoney)
+        }
+        // Show alert
+        if self.parentViewController != nil {
+            self.parentViewController?.present(alert, animated: true, completion: nil)
+        }        
+    }
+    
+    /**
+     * Handle create ticket
+     */
+    private func createTicket() {
+        if self.parentViewController != nil {
+            (self.parentViewController as! BaseViewController).showAlert(message: DomainConst.CONTENT00362)
+        }
+    }
+    
+    /**
+     * Handle create cashbook
+     */
+    private func createCashBook() {
+        openUpdateCashBookScreen()
+    }
+    
+    /**
+     * Handle start create cashbook
+     */
+    private func openUpdateCashBookScreen() {
+        if self.parentViewController != nil {
+            EmployeeCashBookViewRequest.request(
+                action: #selector(finishRequestCashBookView(_:)),
+                view: (self.parentViewController as! BaseViewController),
+                id: _data.id)
+        }
+    }
+    
+    /**
+     * Finish request cashbook view
+     */
+    internal func finishRequestCashBookView(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = EmployeeCashBookViewRespModel(jsonString: data)
+        if model.isSuccess() {
+            G09F01VC._typeId    = model.record.master_lookup_id
+            G09F01VC._mode      = DomainConst.NUMBER_ONE_VALUE
+            G09F01VC._updateData        = model.record
+            G09F01S01._selectedValue   = model.record.date_input
+            
+            G09F01S02._target   = CustomerBean(id: model.record.customer_id,
+                                               name: model.record.customer_name,
+                                               phone: model.record.customer_phone,
+                                               address: model.record.customer_address)
+            G09F01S03._selectedValue = model.record.amount
+            G09F01S04._selectedValue = model.record.note
+            if self.parentViewController != nil {
+                (self.parentViewController as! BaseViewController).pushToView(name: G09F01VC.theClassName)
+            }
+        } else {
+            if self.parentViewController != nil {
+                (self.parentViewController as! BaseViewController).showAlert(message: model.message)
+            }
+        }
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -163,6 +265,7 @@ class CashBookCell: UITableViewCell {
      * - parameter data: Cashbook
      */
     open func setData(data: CashBookBean) {
+        _data = data
         self.dateTime.setValue(dateTime: data.date_input)
         self.customerLabel.text = data.customer_name
         self.typeLabel.text     = data.lookup_type_text
