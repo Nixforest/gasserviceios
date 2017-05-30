@@ -11,29 +11,34 @@ import harpyframework
 
 //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
 //class G05F01S02VC: BaseViewController, UITextViewDelegate {
-class G05F01S02VC: ChildViewController, UITextViewDelegate {
+class G05F01S02VC: ChildViewController, UITextViewDelegate, UITextFieldDelegate {
 //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     /** List of selector */
-    private var _lstSelector: [OrderVIPSelectorView] = [OrderVIPSelectorView]()
+    private var _lstSelector:       [OrderVIPSelectorView]  = [OrderVIPSelectorView]()
     /** Label */
-    private var _lblTitle: UILabel = UILabel()
+    private var _lblTitle:          UILabel                 = UILabel()
     /** Title view */
-    private var _viewTitle: UIView = UIView()
+    private var _viewTitle:         UIView                  = UIView()
     /** Label */
-    private var _lblType: UILabel = UILabel()
+    private var _lblType:           UILabel                 = UILabel()
     /** Label */
-    private var _lblQuantity: UILabel = UILabel()
+    private var _lblQuantity:       UILabel                 = UILabel()
     /** Button confirm */
-    private var _btnConfirm: UIButton       = UIButton()
+    private var _btnConfirm:        UIButton                = UIButton()
     /** Button cancel */
-    private var _btnCancel: UIButton        = UIButton()
+    private var _btnCancel:         UIButton                = UIButton()
     /** Note textfield */
-    var _tbxNote = UITextView()
+    private var _tbxNote:           UITextView              = UITextView()
     //++ BUG0063-SPJ (NguyenPT 20170421) Use stepper
     /** Width of quantity colum */
-    private let qtyColWidth: CGFloat        = GlobalConst.SCREEN_WIDTH / 7 + GlobalConst.STEPPER_LAYOUT_WIDTH + GlobalConst.MARGIN
+    private let qtyColWidth: CGFloat                        = GlobalConst.SCREEN_WIDTH / 7 + GlobalConst.STEPPER_LAYOUT_WIDTH + GlobalConst.MARGIN
     //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
+    /** Textfield */
+    private var _txtPhone:          UITextField             = UITextField()
 
+    /**
+     * Perform additional initialization on views that were loaded from nib files
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         let orderInfo = BaseModel.shared.getOrderVipDescription()
@@ -121,7 +126,7 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate {
                          config: ConfigBean(id: DomainConst.KEY_B12, name: orderInfo.2))
         _lstSelector.append(selector12)
         self.view.addSubview(selector12)
-        offset = offset + selector12.frame.height + GlobalConst.MARGIN_CELL_X
+        offset = offset + selector12.frame.height + GlobalConst.MARGIN
         
         let selector6 = OrderVIPSelectorView()
         selector6.setup(frame: CGRect(x: 0, y: offset,
@@ -131,7 +136,30 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate {
                         config: ConfigBean(id: DomainConst.KEY_B6, name: orderInfo.3))
         _lstSelector.append(selector6)
         self.view.addSubview(selector6)
-        offset = offset + selector6.frame.height + GlobalConst.MARGIN_CELL_X
+        offset = offset + selector6.frame.height + GlobalConst.MARGIN
+        
+        //++ BUG0086-SPJ (NguyenPT 20170530) Add phone
+        // Phone number input
+        _txtPhone.frame = CGRect(x: (width - GlobalConst.EDITTEXT_W) / 2,
+                               y: offset,
+                               width: GlobalConst.EDITTEXT_W,
+                               height: GlobalConst.EDITTEXT_H)
+        _txtPhone.font = UIFont.boldSystemFont(ofSize: GlobalConst.LARGE_FONT_SIZE)
+        _txtPhone.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
+        _txtPhone.placeholder = DomainConst.CONTENT00054
+        _txtPhone.textAlignment = .center
+        _txtPhone.layer.borderWidth = 1
+        _txtPhone.layer.borderColor = GlobalConst.MAIN_COLOR.cgColor
+        _txtPhone.textColor = GlobalConst.MAIN_COLOR
+        _txtPhone.returnKeyType = .default
+        _txtPhone.keyboardType = .numberPad
+        _txtPhone.delegate       = self
+        if !orderInfo.4.isEmpty {
+            _txtPhone.text = orderInfo.4
+        }
+        self.view.addSubview(_txtPhone)
+        offset = offset + _txtPhone.frame.height + GlobalConst.MARGIN
+        //-- BUG0086-SPJ (NguyenPT 20170530) Add phone
         
         // Note textfield
         _tbxNote.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
@@ -147,7 +175,7 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate {
         //++ BUG0063-SPJ (NguyenPT 20170421) Use stepper
         //_tbxNote.layer.cornerRadius = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
-        _tbxNote.text = orderInfo.4
+        _tbxNote.text = orderInfo.5
         //++ BUG0063-SPJ (NguyenPT 20170421) Use stepper
         //CommonProcess.setBorder(view: _tbxNote)
         CommonProcess.setBorder(view: _tbxNote, radius: GlobalConst.BUTTON_CORNER_RADIUS)
@@ -304,8 +332,9 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate {
             action: #selector(finishCreateRequest(_:)),
             view: self,
             b50: b50, b45: b45, b12: b12, b6: b6,
+            customerPhone: _txtPhone.text!,
             note: self._tbxNote.text)
-        BaseModel.shared.setOrderVipDescription(b50: b50, b45: b45, b12: b12, b6: b6, note: self._tbxNote.text)
+        BaseModel.shared.setOrderVipDescription(b50: b50, b45: b45, b12: b12, b6: b6, customerPhone: _txtPhone.text!, note: self._tbxNote.text)
     }
     
     /**
@@ -339,4 +368,35 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    /**
+     * Add a done button when keyboard show
+     */
+    func addDoneButtonOnKeyboardTextField() {
+        // Create toolbar
+        let doneToolbar = createDoneToolbar()
+        // Add toolbar to keyboard
+        _txtPhone.inputAccessoryView = doneToolbar
+        self.keyboardTopY -= doneToolbar.frame.height
+    }
+    
+    /**
+     * Create done toolbar
+     * - returns: Done toolbar
+     */
+    private func createDoneToolbar() -> UIToolbar {
+        // Create toolbar
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle       = UIBarStyle.default
+        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(hideKeyboard(_:)))
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        return doneToolbar
+    }
 }

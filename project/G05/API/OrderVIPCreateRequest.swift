@@ -57,14 +57,21 @@ class OrderVIPCreateRequest: BaseRequest {
      * Set data content
      * - parameter page:    Page index
      */
-    func setData(b50: String, b45: String, b12: String, b6: String, note: String) {
+    func setData(b50: String, b45: String, b12: String, b6: String,
+                 //++ BUG0086-SPJ (NguyenPT 20170530) Add phone
+                 customerPhone: String,
+                 //-- BUG0086-SPJ (NguyenPT 20170530) Add phone
+                 note: String) {
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\"}",
             DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
             DomainConst.KEY_B50, String(b50),
             DomainConst.KEY_B45, String(b45),
             DomainConst.KEY_B12, String(b12),
             DomainConst.KEY_B6, String(b6),
+            //++ BUG0086-SPJ (NguyenPT 20170530) Add phone
+            DomainConst.KEY_CUSTOMER_CONTACT, customerPhone,
+            //-- BUG0086-SPJ (NguyenPT 20170530) Add phone
             DomainConst.KEY_NOTE_CUSTOMER, note
         )
     }
@@ -75,13 +82,13 @@ class OrderVIPCreateRequest: BaseRequest {
      */
     public static func requestOrderVIPCreate(action: Selector, view: BaseViewController,
                                           b50: String, b45: String, b12: String,
-                                          b6: String, note: String) {
+                                          b6: String, customerPhone: String, note: String) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = OrderVIPCreateRequest(url: G05Const.PATH_ORDER_VIP_CREATE,
                                             reqMethod: DomainConst.HTTP_POST_REQUEST,
                                             view: view)
-        request.setData(b50: b50, b45: b45, b12: b12, b6: b6, note: note)
+        request.setData(b50: b50, b45: b45, b12: b12, b6: b6, customerPhone: customerPhone, note: note)
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }

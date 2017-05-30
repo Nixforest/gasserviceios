@@ -201,6 +201,17 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                                 iconPath: DomainConst.ORDER_CAR_NUMBER_ICON_IMG_NAME,
                                                 value: data.name_car))
         }
+        //++ BUG0086-SPJ (NguyenPT 20170530) Add phone
+        // Contact
+        if !data.customer_contact.isEmpty {
+            _listInfo.append(ConfigurationModel(
+                id: DomainConst.ORDER_INFO_CONTACT_ID,
+                name: data.customer_contact,
+                iconPath: DomainConst.PHONE_IMG_NAME,
+                value: DomainConst.BLANK))
+        }
+        //-- BUG0086-SPJ (NguyenPT 20170530) Add phone
+        
         // Payment method
 //        _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_PAYMENT_METHOD_ID,
 //                                            name: DomainConst.CONTENT00259,

@@ -8,7 +8,9 @@
 
 #include <metal_stdlib>
 using namespace metal;
-// Version: 1.12.0
+// Version: 1.13.0
+// - BUG0086: Add phone number to Order VIP create screen
+// Version: 1.12.2
 // - BUG0097: Add sub-function G09 - Schedule cashbook
 // - BUG0096: Add image when create Cashbook (G09)
 // - BUG0095: Fix bug show human icon in VIP order

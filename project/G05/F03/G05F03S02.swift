@@ -49,7 +49,9 @@ class G05F03S02: StepContent, UITextViewDelegate {
         contentView.translatesAutoresizingMaskIntoConstraints = true
         // --- Create content view ---
         G05F03S02._lstSelector.removeAll()
-        let orderInfo = BaseModel.shared.getOrderVipDescription()
+        let orderInfo = (DomainConst.NUMBER_ZERO_VALUE, DomainConst.NUMBER_ZERO_VALUE,
+                         DomainConst.NUMBER_ZERO_VALUE, DomainConst.NUMBER_ZERO_VALUE,
+                         DomainConst.BLANK, DomainConst.BLANK)//BaseModel.shared.getOrderVipDescription()
         let width = GlobalConst.SCREEN_WIDTH
         // Title view
         _viewTitle.frame = CGRect(x: 0, y: offset,
@@ -135,7 +137,7 @@ class G05F03S02: StepContent, UITextViewDelegate {
         _tbxNote.translatesAutoresizingMaskIntoConstraints = true
         _tbxNote.returnKeyType      = .default
         _tbxNote.tag                = 0
-        _tbxNote.text = orderInfo.4
+        _tbxNote.text = orderInfo.5
         CommonProcess.setBorder(view: _tbxNote, radius: GlobalConst.BUTTON_CORNER_RADIUS)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         contentView.addGestureRecognizer(gesture)
