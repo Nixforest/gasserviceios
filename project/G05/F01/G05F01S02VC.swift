@@ -328,6 +328,13 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate, UITextFieldDelegate 
                 break
             }
         }
+        //++ BUG0086-SPJ (NguyenPT 20170530) Add phone
+        // Check if user not input phone number yet
+        if (_txtPhone.text?.isBlank)! {
+            showAlert(message: DomainConst.CONTENT00030)
+            return
+        }
+        //-- BUG0086-SPJ (NguyenPT 20170530) Add phone
         OrderVIPCreateRequest.requestOrderVIPCreate(
             action: #selector(finishCreateRequest(_:)),
             view: self,

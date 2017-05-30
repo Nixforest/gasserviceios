@@ -127,6 +127,11 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
                                        height: frame.height)
         
         self._valButton.setTitle(config.name, for: UIControlState())
+        //++ BUG0086-SPJ (NguyenPT 20170530) Add phone
+        if config.name != DomainConst.NUMBER_ZERO_VALUE {
+            self._checkBox.bChecked = true
+        }
+        //-- BUG0086-SPJ (NguyenPT 20170530) Add phone
         self._valButton.setTitleColor(UIColor.white, for: UIControlState())
         self._valButton.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         self._valButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.LARGE_FONT_SIZE)
