@@ -57,4 +57,11 @@ class ReportListRespModel: BaseRespModel {
     public func getRecord() -> [ReportListItem] {
         return self.record
     }
+    
+    /**
+     * Remove all data
+     */
+    public func clearData() {
+        self.record.removeAll()
+    }
 }

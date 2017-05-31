@@ -39,11 +39,17 @@
 		D76E7E721EDE6734005D5585 /* ReportCashbookBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76E7E711EDE6734005D5585 /* ReportCashbookBean.swift */; };
 		D76E7E741EDE67F9005D5585 /* ReportCashbookRespBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76E7E731EDE67F9005D5585 /* ReportCashbookRespBean.swift */; };
 		D76E7E761EDE7125005D5585 /* ReportCashbookRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76E7E751EDE7125005D5585 /* ReportCashbookRespModel.swift */; };
+		D76E7E781EDE72B0005D5585 /* G10F00S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76E7E771EDE72B0005D5585 /* G10F00S01VC.swift */; };
 		D7766ECE1E949E0700BC137A /* G06F01S04.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7766ECD1E949E0700BC137A /* G06F01S04.swift */; };
 		D7766ED11E94B17200BC137A /* G06F01S05.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7766ED01E94B17200BC137A /* G06F01S05.swift */; };
 		D7766ED31E94CF1800BC137A /* G06F01S06.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7766ED21E94CF1800BC137A /* G06F01S06.swift */; };
 		D7767C641EADB72A00D8FDA9 /* G05APITestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7767C631EADB72A00D8FDA9 /* G05APITestVC.swift */; };
 		D776BC9B1E8F858C00F5C883 /* G06F01S03.swift in Sources */ = {isa = PBXBuildFile; fileRef = D776BC9A1E8F858C00F5C883 /* G06F01S03.swift */; };
+		D77824961EDEA339002AB15A /* G10F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77824951EDEA338002AB15A /* G10F00S02VC.swift */; };
+		D77824991EDEA549002AB15A /* G10F00S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77824981EDEA549002AB15A /* G10F00S03VC.swift */; };
+		D778249B1EDEA5AD002AB15A /* G10F00S04VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778249A1EDEA5AD002AB15A /* G10F00S04VC.swift */; };
+		D778249E1EDEAD8E002AB15A /* ContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778249C1EDEAD8E002AB15A /* ContentCollectionViewCell.swift */; };
+		D778249F1EDEAD8E002AB15A /* ContentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D778249D1EDEAD8E002AB15A /* ContentCollectionViewCell.xib */; };
 		D77E62BB1EDD6A5E00FD5512 /* G10Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E62BA1EDD6A5E00FD5512 /* G10Const.swift */; };
 		D77E62BF1EDD6AC200FD5512 /* ReportListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E62BE1EDD6AC200FD5512 /* ReportListRequest.swift */; };
 		D77E62C31EDD6F6500FD5512 /* ReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E62C21EDD6F6500FD5512 /* ReportRequest.swift */; };
@@ -297,11 +303,17 @@
 		D76E7E711EDE6734005D5585 /* ReportCashbookBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportCashbookBean.swift; path = G10/Model/ReportCashbookBean.swift; sourceTree = "<group>"; };
 		D76E7E731EDE67F9005D5585 /* ReportCashbookRespBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportCashbookRespBean.swift; path = G10/Model/ReportCashbookRespBean.swift; sourceTree = "<group>"; };
 		D76E7E751EDE7125005D5585 /* ReportCashbookRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportCashbookRespModel.swift; path = G10/Model/ReportCashbookRespModel.swift; sourceTree = "<group>"; };
+		D76E7E771EDE72B0005D5585 /* G10F00S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G10F00S01VC.swift; path = G10/F00/G10F00S01VC.swift; sourceTree = "<group>"; };
 		D7766ECD1E949E0700BC137A /* G06F01S04.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S04.swift; path = G06/F01/G06F01S04.swift; sourceTree = "<group>"; };
 		D7766ED01E94B17200BC137A /* G06F01S05.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S05.swift; path = G06/F01/G06F01S05.swift; sourceTree = "<group>"; };
 		D7766ED21E94CF1800BC137A /* G06F01S06.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S06.swift; path = G06/F01/G06F01S06.swift; sourceTree = "<group>"; };
 		D7767C631EADB72A00D8FDA9 /* G05APITestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05APITestVC.swift; path = G05/API/G05APITestVC.swift; sourceTree = "<group>"; };
 		D776BC9A1E8F858C00F5C883 /* G06F01S03.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S03.swift; path = G06/F01/G06F01S03.swift; sourceTree = "<group>"; };
+		D77824951EDEA338002AB15A /* G10F00S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G10F00S02VC.swift; path = G10/F00/G10F00S02VC.swift; sourceTree = "<group>"; };
+		D77824981EDEA549002AB15A /* G10F00S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G10F00S03VC.swift; path = G10/F00/G10F00S03VC.swift; sourceTree = "<group>"; };
+		D778249A1EDEA5AD002AB15A /* G10F00S04VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G10F00S04VC.swift; path = G10/F00/G10F00S04VC.swift; sourceTree = "<group>"; };
+		D778249C1EDEAD8E002AB15A /* ContentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentCollectionViewCell.swift; path = G10/F00/ContentCollectionViewCell.swift; sourceTree = "<group>"; };
+		D778249D1EDEAD8E002AB15A /* ContentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContentCollectionViewCell.xib; path = G10/F00/ContentCollectionViewCell.xib; sourceTree = "<group>"; };
 		D77E62BA1EDD6A5E00FD5512 /* G10Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G10Const.swift; path = G10/G10Const.swift; sourceTree = "<group>"; };
 		D77E62BE1EDD6AC200FD5512 /* ReportListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportListRequest.swift; path = G10/API/ReportListRequest.swift; sourceTree = "<group>"; };
 		D77E62C21EDD6F6500FD5512 /* ReportRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportRequest.swift; path = G10/API/ReportRequest.swift; sourceTree = "<group>"; };
@@ -849,6 +861,12 @@
 		D77E62BD1EDD6A8500FD5512 /* F00 */ = {
 			isa = PBXGroup;
 			children = (
+				D778249C1EDEAD8E002AB15A /* ContentCollectionViewCell.swift */,
+				D778249D1EDEAD8E002AB15A /* ContentCollectionViewCell.xib */,
+				D76E7E771EDE72B0005D5585 /* G10F00S01VC.swift */,
+				D77824951EDEA338002AB15A /* G10F00S02VC.swift */,
+				D77824981EDEA549002AB15A /* G10F00S03VC.swift */,
+				D778249A1EDEA5AD002AB15A /* G10F00S04VC.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -1223,6 +1241,7 @@
 			files = (
 				D77F066B1E71775E00797A6B /* ImageTableViewCell.xib in Resources */,
 				D77F061D1E7175D000797A6B /* G00HomeCell.xib in Resources */,
+				D778249F1EDEAD8E002AB15A /* ContentCollectionViewCell.xib in Resources */,
 				D73373101E22CCC6004F2781 /* Podfile in Resources */,
 				84284E1C1D40DF050079DEBC /* LaunchScreen.storyboard in Resources */,
 				84A4C06B1D6311D000C0B84C /* example.txt in Resources */,
@@ -1349,6 +1368,7 @@
 				D7CDBE2F1E880E5200B73877 /* WorkingReportListRespModel.swift in Sources */,
 				D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */,
 				D77F067F1E7177F500797A6B /* G05F00S01MenuVC.swift in Sources */,
+				D77824961EDEA339002AB15A /* G10F00S02VC.swift in Sources */,
 				D77F06191E7175D000797A6B /* G00ChangePassVC.swift in Sources */,
 				D780C9821E963C0C0004B5C4 /* G06F02Sum.swift in Sources */,
 				D77E62C51EDD746100FD5512 /* ReportListItem.swift in Sources */,
@@ -1398,6 +1418,7 @@
 				D7C812131ED2784D0014EF51 /* G09F00S02VC.swift in Sources */,
 				D77F068C1E7177FE00797A6B /* OrderVIPSelectorView.swift in Sources */,
 				D77F06391E7176E900797A6B /* G01F00S02InfoView.swift in Sources */,
+				D778249E1EDEAD8E002AB15A /* ContentCollectionViewCell.swift in Sources */,
 				D7BA68871E83B638001C675D /* G06APITestVC.swift in Sources */,
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
 				D77F06881E7177FE00797A6B /* G05F01S01MenuVC.swift in Sources */,
@@ -1416,6 +1437,7 @@
 				D7CDBE281E88061E00B73877 /* CustomerFamilyViewRespModel.swift in Sources */,
 				D77F061E1E7175D000797A6B /* G00HomeMenuVC.swift in Sources */,
 				D78F99F11ECD82F3003CB814 /* G05F03S01.swift in Sources */,
+				D76E7E781EDE72B0005D5585 /* G10F00S01VC.swift in Sources */,
 				D77F062A1E7176DD00797A6B /* RatingUpholdRequest.swift in Sources */,
 				D77F06711E7177E000797A6B /* OrderConfigRequest.swift in Sources */,
 				D77E62C71EDD759300FD5512 /* ReportListRespModel.swift in Sources */,
@@ -1451,6 +1473,7 @@
 				D77F06581E71771A00797A6B /* G01F02S06.swift in Sources */,
 				D77F06221E7175D000797A6B /* G00LoginVC.swift in Sources */,
 				D78B04631ED13E0C0064DE88 /* G09F01S03.swift in Sources */,
+				D778249B1EDEA5AD002AB15A /* G10F00S04VC.swift in Sources */,
 				D7885B4C1E88C7DC00F8F87A /* G06F00S01VC.swift in Sources */,
 				D77F06371E7176E900797A6B /* G01F00S02HistoryCell.swift in Sources */,
 				D77F06291E7176DD00797A6B /* CreateUpholdRequest.swift in Sources */,
@@ -1464,6 +1487,7 @@
 				D77E62CB1EDD7BBD00FD5512 /* ReportInventoryRespModel.swift in Sources */,
 				D7CBD06F1E8F673F00FB3BD6 /* G06F01S02.swift in Sources */,
 				D79C31771E9B8506006F3683 /* G07F00S02VC.swift in Sources */,
+				D77824991EDEA549002AB15A /* G10F00S03VC.swift in Sources */,
 				D78A2C9A1EBBABE8007FD27B /* G08F01VC.swift in Sources */,
 				D7CDBE2B1E8807CB00B73877 /* CustomerFamilyCreateRespModel.swift in Sources */,
 				84DC0D821D494D0E00E52249 /* SWRevealViewController.m in Sources */,
@@ -1636,7 +1660,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = project/project.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dung Nguyen Tien (PZV5YS9B34)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Dung Nguyen Tien (34EVHPESK8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = PZV5YS9B34;
@@ -1662,7 +1686,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = project/project.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dung Nguyen Tien (PZV5YS9B34)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Dung Nguyen Tien (34EVHPESK8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = PZV5YS9B34;

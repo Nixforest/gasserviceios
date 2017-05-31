@@ -146,6 +146,7 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
             showAlert(message: model.message)
         }
     }
+    
     /**
      * Create new event handler
      */
