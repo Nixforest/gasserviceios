@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G10F00S02VC: ChildViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class G10F00S02VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewDelegate {
     // MARK: Properties
     /** Content cell identify */
     private let contentCellIdentifier:  String                   = ContentCollectionViewCell.theClassName
@@ -211,7 +211,7 @@ class G10F00S02VC: ChildViewController, UICollectionViewDataSource, UICollection
      * - returns: Number of columns
      */
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return _arrHeaderText.count + 1
     }
     
     /**

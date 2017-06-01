@@ -203,6 +203,9 @@
 		D7EBB7E91EA9B72200BE6612 /* G05F00S04VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBB7E81EA9B72200BE6612 /* G05F00S04VC.swift */; };
 		D7F0FF311EDFF435007FDC81 /* ReportInventoryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F0FF301EDFF435007FDC81 /* ReportInventoryLayout.swift */; };
 		D7F0FF331EE02934007FDC81 /* UpdateStoreCardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F0FF321EE02934007FDC81 /* UpdateStoreCardRequest.swift */; };
+		D7F0FF351EE02F3B007FDC81 /* G10F00ReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F0FF341EE02F3B007FDC81 /* G10F00ReportVC.swift */; };
+		D7F0FF371EE036DB007FDC81 /* ReportOrderFamilyLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F0FF361EE036DB007FDC81 /* ReportOrderFamilyLayout.swift */; };
+		D7F0FF391EE03911007FDC81 /* ReportCashbookLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F0FF381EE03911007FDC81 /* ReportCashbookLayout.swift */; };
 		D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */; };
 		D7F82AB21EA517F300116B74 /* G07F01S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F82AB11EA517F300116B74 /* G07F01S02VC.swift */; };
 		D7FB47461E9751200082FA5E /* G07Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FB47451E9751200082FA5E /* G07Const.swift */; };
@@ -468,6 +471,9 @@
 		D7EBB7E81EA9B72200BE6612 /* G05F00S04VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S04VC.swift; path = G05/F00/G05F00S04VC.swift; sourceTree = "<group>"; };
 		D7F0FF301EDFF435007FDC81 /* ReportInventoryLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportInventoryLayout.swift; path = G10/Controls/ReportInventoryLayout.swift; sourceTree = "<group>"; };
 		D7F0FF321EE02934007FDC81 /* UpdateStoreCardRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateStoreCardRequest.swift; path = G10/API/UpdateStoreCardRequest.swift; sourceTree = "<group>"; };
+		D7F0FF341EE02F3B007FDC81 /* G10F00ReportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G10F00ReportVC.swift; path = G10/F00/G10F00ReportVC.swift; sourceTree = "<group>"; };
+		D7F0FF361EE036DB007FDC81 /* ReportOrderFamilyLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportOrderFamilyLayout.swift; path = G10/Controls/ReportOrderFamilyLayout.swift; sourceTree = "<group>"; };
+		D7F0FF381EE03911007FDC81 /* ReportCashbookLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportCashbookLayout.swift; path = G10/Controls/ReportCashbookLayout.swift; sourceTree = "<group>"; };
 		D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Common/MapViewController.swift; sourceTree = "<group>"; };
 		D7F82AB11EA517F300116B74 /* G07F01S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07F01S02VC.swift; path = G07/F01/G07F01S02VC.swift; sourceTree = "<group>"; };
 		D7FB47451E9751200082FA5E /* G07Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07Const.swift; path = G07/G07Const.swift; sourceTree = "<group>"; };
@@ -873,6 +879,7 @@
 				D77824951EDEA338002AB15A /* G10F00S02VC.swift */,
 				D77824981EDEA549002AB15A /* G10F00S03VC.swift */,
 				D778249A1EDEA5AD002AB15A /* G10F00S04VC.swift */,
+				D7F0FF341EE02F3B007FDC81 /* G10F00ReportVC.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -1087,6 +1094,8 @@
 			isa = PBXGroup;
 			children = (
 				D7F0FF301EDFF435007FDC81 /* ReportInventoryLayout.swift */,
+				D7F0FF361EE036DB007FDC81 /* ReportOrderFamilyLayout.swift */,
+				D7F0FF381EE03911007FDC81 /* ReportCashbookLayout.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -1378,11 +1387,13 @@
 				D780C97E1E95ED1E0004B5C4 /* G06F02S02.swift in Sources */,
 				D791A3B51ECDD6D9004A7C01 /* G05F03S03.swift in Sources */,
 				D77F06161E7175D000797A6B /* G00AccountMenuVC.swift in Sources */,
+				D7F0FF351EE02F3B007FDC81 /* G10F00ReportVC.swift in Sources */,
 				D74F016E1E8CBE94008DAA59 /* G06F01S01.swift in Sources */,
 				D7C2552C1E8BA9AD00941E31 /* G06F00S05VC.swift in Sources */,
 				D791A3B21ECDCD16004A7C01 /* G05F03S02.swift in Sources */,
 				D7CDBE2F1E880E5200B73877 /* WorkingReportListRespModel.swift in Sources */,
 				D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */,
+				D7F0FF371EE036DB007FDC81 /* ReportOrderFamilyLayout.swift in Sources */,
 				D77F067F1E7177F500797A6B /* G05F00S01MenuVC.swift in Sources */,
 				D77824961EDEA339002AB15A /* G10F00S02VC.swift in Sources */,
 				D77F06191E7175D000797A6B /* G00ChangePassVC.swift in Sources */,
@@ -1433,6 +1444,7 @@
 				D77F068B1E7177FE00797A6B /* G05F01S02VC.swift in Sources */,
 				D7C812131ED2784D0014EF51 /* G09F00S02VC.swift in Sources */,
 				D77F068C1E7177FE00797A6B /* OrderVIPSelectorView.swift in Sources */,
+				D7F0FF391EE03911007FDC81 /* ReportCashbookLayout.swift in Sources */,
 				D77F06391E7176E900797A6B /* G01F00S02InfoView.swift in Sources */,
 				D778249E1EDEAD8E002AB15A /* ContentCollectionViewCell.swift in Sources */,
 				D7BA68871E83B638001C675D /* G06APITestVC.swift in Sources */,

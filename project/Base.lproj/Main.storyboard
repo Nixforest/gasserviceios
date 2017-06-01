@@ -2692,10 +2692,29 @@
                     <view key="view" contentMode="scaleToFill" id="5P3-0O-MwW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8rE-5o-4Gr">
+                                <rect key="frame" x="0.0" y="27" width="375" height="613"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewLayout key="collectionViewLayout" id="Vm6-Mk-Uqt" customClass="ReportOrderFamilyLayout" customModule="project"/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ContentCollectionViewCell" reuseIdentifier="ContentCollectionViewCell" id="IPX-SZ-rgs" customClass="ContentCollectionViewCell" customModule="project">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="IjG-rP-9hj"/>
                     <connections>
+                        <outlet property="collectionView" destination="8rE-5o-4Gr" id="tZ0-fM-s0P"/>
                         <outlet property="navigationBar" destination="IjG-rP-9hj" id="cqN-6a-nqp"/>
                     </connections>
                 </viewController>
@@ -2714,10 +2733,29 @@
                     <view key="view" contentMode="scaleToFill" id="GjM-kX-afH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9lP-y1-tro">
+                                <rect key="frame" x="0.0" y="27" width="375" height="613"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewLayout key="collectionViewLayout" id="iLF-rb-kNh" customClass="ReportCashbookLayout" customModule="project"/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ContentCollectionViewCell" reuseIdentifier="ContentCollectionViewCell" id="WPt-s2-UhW" customClass="ContentCollectionViewCell" customModule="project">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="5kk-2a-2MA"/>
                     <connections>
+                        <outlet property="collectionView" destination="9lP-y1-tro" id="iWJ-0b-DVp"/>
                         <outlet property="navigationBar" destination="5kk-2a-2MA" id="CXg-iw-tCr"/>
                     </connections>
                 </viewController>

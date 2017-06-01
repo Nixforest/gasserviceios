@@ -45,4 +45,8 @@ class ReportOrderFamilyBean: ConfigBean {
             }
         }
     }
+    
+    public override init() {
+        super.init()
+    }
 }
