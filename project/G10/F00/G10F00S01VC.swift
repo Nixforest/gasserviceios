@@ -78,7 +78,10 @@ class G10F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     override func clearData() {
         _data.clearData()
     }
-
+    
+    /**
+     * Perform additional initialization on views that were loaded from nib files
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -11,16 +11,8 @@ import harpyframework
 
 class ReportInventoryLayout: ReportCollectionViewLayout {
     override func sizeForItemWithColumnIndex(_ columnIndex: Int) -> CGSize {
-        // Get single weight width
         // Update weights value
-        setWeights(value: [40, 10, 10, 10, 10])
-        var widthOfWeight = ReportCollectionViewLayout.SINGLE_WEIGHT_WIDTH
-        // If single weight width not calculated yet
-        if widthOfWeight == 0.0 {
-            // Update value of single weight width
-            updateSingleWeightWidth()
-            widthOfWeight = getSingleWeightWidth()
-        }
-        return CGSize(width: CGFloat(getWeightByColumnIdx(idx: columnIndex)) * widthOfWeight, height: GlobalConst.CONFIGURATION_ITEM_HEIGHT)
+        setWeights(value: [40, 15, 15, 15, 15])
+        return CGSize(width: getWidthByColumnIdx(idx: columnIndex), height: GlobalConst.CONFIGURATION_ITEM_HEIGHT)
     }
 }

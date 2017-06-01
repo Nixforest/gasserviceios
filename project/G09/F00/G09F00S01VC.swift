@@ -558,9 +558,9 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
             _searchActive = true
             // Start count
             /** Timer for search auto complete */
-            var timer = Timer()
-            timer.invalidate()
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(beginSearching), userInfo: nil, repeats: false)
+//            var timer = Timer()
+//            timer.invalidate()
+//            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(beginSearching), userInfo: nil, repeats: false)
             
         } else {
             _beginSearch            = false

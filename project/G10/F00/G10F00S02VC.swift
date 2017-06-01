@@ -10,16 +10,64 @@ import UIKit
 import harpyframework
 
 class G10F00S02VC: ChildViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    let contentCellIdentifier = "ContentCellIdentifier"
-    @IBOutlet weak var collectionView: UICollectionView!
+    // MARK: Properties
+    /** Content cell identify */
+    private let contentCellIdentifier:  String                   = ContentCollectionViewCell.theClassName
+    /** Report collection view */
+    @IBOutlet weak var collectionView:  UICollectionView!
     /** Static data */
-    private var _data:              ReportInventoryRespModel   = ReportInventoryRespModel()
-    private var _arrHeaderText: [(Int, String)] = [
-        (0, "T.Đầu"),
-        (1, "Nhập"),
-        (2, "Xuất"),
-        (3, "T.Cuối")
+    private var _data:                  ReportInventoryRespModel = ReportInventoryRespModel()
+    /** Header text array */
+    private var _arrHeaderText:         [String]                 = [
+        DomainConst.CONTENT00406,
+        DomainConst.CONTENT00407,
+        DomainConst.CONTENT00408,
+        DomainConst.CONTENT00409
     ]
+    /** Label from date */
+    private var lblFromDate:            UILabel                  = UILabel()
+    /** Label to date */
+    private var lblToDate:              UILabel                  = UILabel()
+    /** Label store card information */
+    private var lblStoreCardInfo:       UILabel                  = UILabel()
+    /** Update store card button */
+    private var btnUpdateStoreCard:     UIButton                 = UIButton()
+    /** Reload data button */
+    private var btnReload:              UIButton                 = UIButton()
+    
+    // MARK: Event handlers
+    /**
+     * Handle when tap on update store card button
+     */
+    internal func btnUpdateStoreCardTapped(_ sender: AnyObject) {
+        UpdateStoreCardRequest.request(action: #selector(finishUpdateStoreCard(_:)),
+                                       view: self)
+    }
+    
+    /**
+     * Handle when update store card request finish
+     */
+    internal func finishUpdateStoreCard(_ notification: Notification) {
+        let dataStr = (notification.object as! String)
+        let model = BaseRespModel(jsonString: dataStr)
+        if model.isSuccess() {
+            showAlert(message: model.message,
+                      okHandler: {
+                        alert in
+                        self.requestData()
+            })
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Handle when tap on reload button
+     */
+    internal func btnReloadTapped(_ sender: AnyObject) {
+        requestData()
+    }
+    
     // MARK: Utility methods
     /**
      * Request data from server
@@ -27,10 +75,15 @@ class G10F00S02VC: ChildViewController, UICollectionViewDataSource, UICollection
     private func requestData(action: Selector = #selector(setData(_:))) {
         ReportRequest.request(action: action,
                               view: self,
-                              from: CommonProcess.getCurrentDate(), to: CommonProcess.getCurrentDate(),
+                              from: CommonProcess.getCurrentDate(),
+                              to: CommonProcess.getCurrentDate(),
                               url: G10Const.PATH_APP_REPORT_INVENTORY)
     }
     
+    /**
+     * Update data
+     * - parameter bean: ReportInventoryRespBean
+     */
     private func updateData(bean: ReportInventoryRespBean) {
         _data.record.rows.removeAll()
         for item in bean.rows {
@@ -49,28 +102,79 @@ class G10F00S02VC: ChildViewController, UICollectionViewDataSource, UICollection
         let data = (notification.object as! String)
         let model = ReportInventoryRespModel(jsonString: data)
         if model.isSuccess() {
-            //_data.record = model.record
             updateData(bean: model.record)
+            btnUpdateStoreCard.isEnabled = (_data.record.allow_update_storecard_hgd == DomainConst.NUMBER_ONE_VALUE)
+            lblStoreCardInfo.text = model.record.next_time_update_storecard_hgd
             self.collectionView.collectionViewLayout.invalidateLayout()
             self.collectionView.reloadData()
-//            let indexSet = IndexSet(integersIn: 0...(_data.record.rows.count - 1))
-//            collectionView.reloadSections(indexSet)
         } else {
             showAlert(message: model.message)
         }
     }
     
+    /**
+     * Perform additional initialization on views that were loaded from nib files
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Create navigation bar
         createNavigationBar(title: DomainConst.CONTENT00403)
+        var offset = getTopHeight() + GlobalConst.MARGIN
+        
+        // From date label
+        updateLabel(lbl: lblFromDate, x: 0, y: offset,
+                    w: GlobalConst.SCREEN_WIDTH / 2,
+                    h: GlobalConst.LABEL_H,
+                    text: DomainConst.CONTENT00412 + CommonProcess.getCurrentDate(withSpliter: DomainConst.SPLITER_TYPE3),
+                    textAlignment: .center)
+        self.view.addSubview(lblFromDate)
+        
+        // To date label
+        updateLabel(lbl: lblToDate, x: lblFromDate.frame.maxX, y: offset,
+                    w: GlobalConst.SCREEN_WIDTH / 2,
+                    h: GlobalConst.LABEL_H,
+                    text: DomainConst.CONTENT00413 + CommonProcess.getCurrentDate(withSpliter: DomainConst.SPLITER_TYPE3),
+                    textAlignment: .center)
+        self.view.addSubview(lblToDate)
+        offset += GlobalConst.LABEL_H + GlobalConst.MARGIN / 2
+        
+        // Store card information label
+        updateLabel(lbl: lblStoreCardInfo,
+                    x: 0.0,
+                    y: offset,
+                    w: GlobalConst.SCREEN_WIDTH,
+                    h: GlobalConst.LABEL_H * 2,
+                    text: DomainConst.BLANK,
+                    textAlignment: .center)
+        self.view.addSubview(lblStoreCardInfo)
+        offset += lblStoreCardInfo.frame.height + GlobalConst.MARGIN / 2
+        
+        // Collection view
+        // Register collection cell
         collectionView.register(ContentCollectionViewCell.self, forCellWithReuseIdentifier: contentCellIdentifier)
-        collectionView.frame = CGRect(x: 0, y: self.getTopHeight(),
+        // Update frame
+        collectionView.frame = CGRect(x: 0, y: offset,
                                 width: GlobalConst.SCREEN_WIDTH,
-                                height: GlobalConst.SCREEN_HEIGHT - self.getTopHeight())
+                                height: GlobalConst.SCREEN_HEIGHT - offset - GlobalConst.BUTTON_H - GlobalConst.MARGIN * 2)
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
+        offset += collectionView.frame.height + GlobalConst.MARGIN
+        
+        // Button update store card
+        setupButton(button: btnUpdateStoreCard, x: 0.0,
+                    y: offset, title: DomainConst.CONTENT00396,
+                    icon: DomainConst.STATUS_ICON_IMG_NAME,
+                    color: GlobalConst.BUTTON_COLOR_RED,
+                    action: #selector(btnUpdateStoreCardTapped(_:)))
+        setupButton(button: btnReload, x: GlobalConst.SCREEN_WIDTH / 2,
+                    y: offset, title: DomainConst.CONTENT00410,
+                    icon: DomainConst.RELOAD_IMG_NAME,
+                    color: GlobalConst.BUTTON_COLOR_YELLOW,
+                    action: #selector(btnReloadTapped(_:)))
+        self.view.addSubview(btnUpdateStoreCard)
+        self.view.addSubview(btnReload)
+        
         requestData()
         self.view.makeComponentsColor()
     }
@@ -91,7 +195,10 @@ class G10F00S02VC: ChildViewController, UICollectionViewDataSource, UICollection
     }
     */
     // MARK - UICollectionViewDataSource
-    
+    /**
+     * Asks your data source object for the number of sections in the collection view.
+     * - returns: Number of rows
+     */
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if _data.record.rows.count != 0 {
             return _data.record.rows.count + 1
@@ -99,69 +206,43 @@ class G10F00S02VC: ChildViewController, UICollectionViewDataSource, UICollection
         return 2
     }
     
-    
+    /**
+     * Asks your data source object for the number of items in the specified section.
+     * - returns: Number of columns
+     */
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        /* Step 1 for a first row with twice the width:
-         if section == 0 {
-         // first row
-         return 4
-         } else {
-         return 7
-         }*/
-        
         return 5
     }
     
-    
+    /**
+     * Asks your data source object for the cell that corresponds to the specified item in the collection view.
+     */
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: contentCellIdentifier,
+            for: indexPath) as! ContentCollectionViewCell
         // This is the first row
         if (indexPath as NSIndexPath).section == 0 {
-            if (indexPath as NSIndexPath).row == 0 {
-                // This is the first cell of the first row. Label it.
-                let dateCell = collectionView.dequeueReusableCell(withReuseIdentifier: contentCellIdentifier, for: indexPath) as! ContentCollectionViewCell
-                dateCell.backgroundColor = UIColor.white
-                dateCell.updateValue(value: "Vật tư")
-                
-                return dateCell
-            } else {
-                // This is the rest of the first row.
-                let contentCell : ContentCollectionViewCell = collectionView .dequeueReusableCell(withReuseIdentifier: contentCellIdentifier, for: indexPath) as! ContentCollectionViewCell
-//                contentCell.contentLabel.font = UIFont.systemFont(ofSize: 13)
-//                contentCell.contentLabel.textColor = UIColor.black
-//                contentCell.contentLabel.text = "Section"
-                
-                contentCell.updateValue(value: _arrHeaderText[indexPath.row - 1].1)
-                if (indexPath as NSIndexPath).section % 2 != 0 {
-                    contentCell.backgroundColor = UIColor(white: 242/255.0, alpha: 1.0)
-                } else {
-                    contentCell.backgroundColor = UIColor.white
-                }
-                
-                return contentCell
-            }
+            cell.updateValueHeader(index: indexPath, topLeftText: DomainConst.CONTENT00411,
+                                   arrHeader: _arrHeaderText)
         } else {
             // These are the remaining rows
             if (indexPath as NSIndexPath).row == 0 {
                 // This is the first column of each row. Label it accordingly.
-                let dateCell : ContentCollectionViewCell = collectionView .dequeueReusableCell(withReuseIdentifier: contentCellIdentifier, for: indexPath) as! ContentCollectionViewCell
-                if _data.record.rows.count > indexPath.section - 1 {
+                if _data.record.rows.count > (indexPath.section - 1) {
                     let data = _data.record.rows[indexPath.section - 1]
                     if !data.children.isEmpty {
-                        dateCell.updateValue(value: data.name, alignment: .left, bkgColor: GlobalConst.REPORT_PARENT_COLOR)
+                        cell.updateValue(value: data.name, alignment: .left, bkgColor: GlobalConst.REPORT_PARENT_COLOR)
                     } else {
                         var background = UIColor.white
                         if indexPath.section % 2 != 0 {
                             background = GlobalConst.BACKGROUND_COLOR_GRAY
                         }
-                        dateCell.updateValue(value: data.name, alignment: .left, bkgColor: background, leftMargin: 10)
+                        cell.updateValue(value: data.name, alignment: .left, bkgColor: background, leftMargin: 10)
                     }
                 }
-                
-                return dateCell
             } else {
                 // These are all the remaining content cells (neither first column nor first row)
-                let contentCell : ContentCollectionViewCell = collectionView .dequeueReusableCell(withReuseIdentifier: contentCellIdentifier, for: indexPath) as! ContentCollectionViewCell
-                
                 if _data.record.rows.count > indexPath.section - 1 {
                     let data = _data.record.rows[indexPath.section - 1]
                     var value = DomainConst.BLANK
@@ -178,22 +259,79 @@ class G10F00S02VC: ChildViewController, UICollectionViewDataSource, UICollection
                         value = DomainConst.BLANK
                     }
                     if !data.children.isEmpty {
-                        contentCell.updateValue(value: value, alignment: .center, bkgColor: GlobalConst.REPORT_PARENT_COLOR)
+                        cell.updateValue(value: value, alignment: .center, bkgColor: GlobalConst.REPORT_PARENT_COLOR)
                     } else {
                         var background = UIColor.white
                         if indexPath.section % 2 != 0 {
                             background = GlobalConst.BACKGROUND_COLOR_GRAY
                         }
-                        contentCell.updateValue(value: value, alignment: .center, bkgColor: background)
+                        cell.updateValue(value: value, alignment: .center, bkgColor: background)
                     }
                 }
-                
-                return contentCell
             }
         }
+        return cell
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    // MARK: Setup layout-control
+    /**
+     * Setup button for this view
+     * - parameter button:  Button to setup
+     * - parameter x:       X position of button
+     * - parameter y:       Y position of button
+     * - parameter title:   Title of button
+     * - parameter icon:    Icon of button
+     * - parameter color:   Color of button
+     * - parameter action:  Action of button
+     */
+    private func setupButton(button: UIButton, x: CGFloat, y: CGFloat, title: String,
+                             icon: String, color: UIColor, action: Selector) {
+        button.frame = CGRect(x: x,
+                              y: y,
+                              width: GlobalConst.SCREEN_WIDTH / 2,
+                              height: GlobalConst.BUTTON_H)
+        button.setTitle(title, for: UIControlState())
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(GlobalConst.BUTTON_COLOR_DISABLE, for: .disabled)
+        button.backgroundColor          = color
+        button.titleLabel?.font         = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        button.layer.cornerRadius       = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
+        button.imageView?.contentMode   = .scaleAspectFit
+        let img = ImageManager.getImage(named: icon)
+        let tintedImg = img?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        button.tintColor = UIColor.white
+        button.setImage(tintedImg, for: UIControlState())
+        //button.setImage(ImageManager.getImage(named: icon), for: UIControlState())
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
+                                              left: GlobalConst.MARGIN / 2,
+                                              bottom: GlobalConst.MARGIN,
+                                              right: GlobalConst.MARGIN)
+    }
+    
+    /**
+     * Update label control
+     * - parameter lbl:             Label control
+     * - parameter x:               X position
+     * - parameter y:               Y position
+     * - parameter w:               Width
+     * - parameter h:               Height
+     * - parameter text:            Text value
+     * - parameter textAlignment:   Text alignment value
+     */
+    private func updateLabel(lbl: UILabel, x: CGFloat, y: CGFloat,
+                             w: CGFloat, h: CGFloat,
+                             text: String, textAlignment: NSTextAlignment) {
+        lbl.frame = CGRect(x: x, y: y, width: w, height: h)
+        lbl.text = text
+        lbl.textAlignment = textAlignment
+        lbl.font = GlobalConst.BASE_FONT
+        lbl.lineBreakMode = .byWordWrapping
+        lbl.numberOfLines = 0
+        lbl.textColor = UIColor.black
     }
 }

@@ -48,4 +48,45 @@ class ContentCollectionViewCell: UICollectionViewCell {
         lbl.textAlignment       = alignment
         self.backgroundColor    = bkgColor
     }
+    
+    /**
+     * Update value of content
+     * - parameter value: Value of content
+     * - parameter textColor: Color of content
+     * - parameter leftMargin: Left margin of content (default value is 0)
+     */
+    public func updateValue(value: String, textColor: UIColor, leftMargin: CGFloat = 0.0) {
+        updateValue(value: value, leftMargin: leftMargin)
+        lbl.textColor = textColor
+    }
+    
+    /**
+     * Update value of content (header)
+     * - parameter value: Value of content
+     */
+    public func updateValueHeader(value: String) {
+        updateValue(value: value)
+        lbl.textColor = .white
+        self.backgroundColor = UIColor.gray
+    }
+    
+    /**
+     * Update value of header
+     * - parameter index:       IndexPath of cell
+     * - parameter topLeftText: Value of top-left cell
+     * - parameter arrHeader:   Header array value
+     */
+    public func updateValueHeader(index: IndexPath, topLeftText: String, arrHeader: [String]) {
+        if index.section == 0 {     // First row
+            if index.row == 0 {     // First column
+                // This is the first cell of the first row
+                updateValueHeader(value: topLeftText)
+            } else {    // The other columns
+                // The rest of first row
+                if arrHeader.count > (index.row - 1) {
+                    updateValueHeader(value: arrHeader[index.row - 1])
+                }
+            }
+        }
+    }
 }

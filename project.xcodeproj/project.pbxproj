@@ -201,6 +201,8 @@
 		D7DA31FD1EC0782A00E06FFB /* StoreCardUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA31FC1EC0782A00E06FFB /* StoreCardUpdateRequest.swift */; };
 		D7EBB7E71EA9B34E00BE6612 /* G05F00S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBB7E61EA9B34E00BE6612 /* G05F00S03VC.swift */; };
 		D7EBB7E91EA9B72200BE6612 /* G05F00S04VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBB7E81EA9B72200BE6612 /* G05F00S04VC.swift */; };
+		D7F0FF311EDFF435007FDC81 /* ReportInventoryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F0FF301EDFF435007FDC81 /* ReportInventoryLayout.swift */; };
+		D7F0FF331EE02934007FDC81 /* UpdateStoreCardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F0FF321EE02934007FDC81 /* UpdateStoreCardRequest.swift */; };
 		D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */; };
 		D7F82AB21EA517F300116B74 /* G07F01S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F82AB11EA517F300116B74 /* G07F01S02VC.swift */; };
 		D7FB47461E9751200082FA5E /* G07Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FB47451E9751200082FA5E /* G07Const.swift */; };
@@ -464,6 +466,8 @@
 		D7DA31FC1EC0782A00E06FFB /* StoreCardUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreCardUpdateRequest.swift; path = G08/API/StoreCardUpdateRequest.swift; sourceTree = "<group>"; };
 		D7EBB7E61EA9B34E00BE6612 /* G05F00S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S03VC.swift; path = G05/F00/G05F00S03VC.swift; sourceTree = "<group>"; };
 		D7EBB7E81EA9B72200BE6612 /* G05F00S04VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S04VC.swift; path = G05/F00/G05F00S04VC.swift; sourceTree = "<group>"; };
+		D7F0FF301EDFF435007FDC81 /* ReportInventoryLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportInventoryLayout.swift; path = G10/Controls/ReportInventoryLayout.swift; sourceTree = "<group>"; };
+		D7F0FF321EE02934007FDC81 /* UpdateStoreCardRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateStoreCardRequest.swift; path = G10/API/UpdateStoreCardRequest.swift; sourceTree = "<group>"; };
 		D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Common/MapViewController.swift; sourceTree = "<group>"; };
 		D7F82AB11EA517F300116B74 /* G07F01S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07F01S02VC.swift; path = G07/F01/G07F01S02VC.swift; sourceTree = "<group>"; };
 		D7FB47451E9751200082FA5E /* G07Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07Const.swift; path = G07/G07Const.swift; sourceTree = "<group>"; };
@@ -826,6 +830,7 @@
 				D77E62BA1EDD6A5E00FD5512 /* G10Const.swift */,
 				D77E62B91EDD69A700FD5512 /* API */,
 				D77E62BC1EDD6A7E00FD5512 /* Model */,
+				D7F0FF2E1EDFF38A007FDC81 /* Controls */,
 				D77E62BD1EDD6A8500FD5512 /* F00 */,
 			);
 			name = G10;
@@ -836,6 +841,7 @@
 			children = (
 				D77E62BE1EDD6AC200FD5512 /* ReportListRequest.swift */,
 				D77E62C21EDD6F6500FD5512 /* ReportRequest.swift */,
+				D7F0FF321EE02934007FDC81 /* UpdateStoreCardRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -1075,6 +1081,14 @@
 				D7D3BDB21EBC95BA00C85E93 /* CustomerListRespModel.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		D7F0FF2E1EDFF38A007FDC81 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				D7F0FF301EDFF435007FDC81 /* ReportInventoryLayout.swift */,
+			);
+			name = Controls;
 			sourceTree = "<group>";
 		};
 		D7FB47431E9750E70082FA5E /* G07 */ = {
@@ -1338,9 +1352,11 @@
 				D77F067A1E7177EA00797A6B /* OrderVIPListRespModel.swift in Sources */,
 				D706C22D1E544AC000F89B8A /* G05Const.swift in Sources */,
 				D77F06211E7175D000797A6B /* G00LoginMenuVC.swift in Sources */,
+				D7F0FF311EDFF435007FDC81 /* ReportInventoryLayout.swift in Sources */,
 				D70AC2C71EB65DF5003F1673 /* G08Const.swift in Sources */,
 				D7D1D43D1E8E353D000ADA78 /* G06F01Sum.swift in Sources */,
 				D77F06471E7176F700797A6B /* G01F01S03VC.swift in Sources */,
+				D7F0FF331EE02934007FDC81 /* UpdateStoreCardRequest.swift in Sources */,
 				D78B045F1ED137C50064DE88 /* G09F01S02.swift in Sources */,
 				D7D28B6F1EB98EED006DDF83 /* G08F00S01VC.swift in Sources */,
 				D7C491411ECC636E00CEF98C /* G09Const.swift in Sources */,

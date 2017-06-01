@@ -20,5 +20,7 @@ class G10Const: NSObject {
     public static let PATH_APP_REPORT_ORDER_FAMILY              = "appReport/hgd"
     /** Path to connect with PHP server */
     public static let PATH_APP_REPORT_CASHBOOK                  = "appReport/cashbook"
+    /** Path to connect with PHP server */
+    public static let PATH_APP_REPORT_UPDATE_STORECARD          = "appReport/autoMakeStorecard"
     
 }
