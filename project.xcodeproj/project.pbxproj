@@ -33,6 +33,13 @@
 		D74F016C1E8CB934008DAA59 /* G06F01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74F016B1E8CB934008DAA59 /* G06F01VC.swift */; };
 		D74F016E1E8CBE94008DAA59 /* G06F01S01.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74F016D1E8CBE94008DAA59 /* G06F01S01.swift */; };
 		D76AFDAB1E26A58500E73E1D /* G01Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76AFDAA1E26A58500E73E1D /* G01Const.swift */; };
+		D76C17A51EE15F2600B71FAE /* FamilyUpholdListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76C17A41EE15F2600B71FAE /* FamilyUpholdListRequest.swift */; };
+		D76C17A81EE160CA00B71FAE /* FamilyUpholdViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76C17A71EE160CA00B71FAE /* FamilyUpholdViewRequest.swift */; };
+		D76C17AA1EE161EE00B71FAE /* FamilyUpholdUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76C17A91EE161EE00B71FAE /* FamilyUpholdUpdateRequest.swift */; };
+		D76C17AD1EE1660400B71FAE /* FamilyUpholdBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76C17AC1EE1660400B71FAE /* FamilyUpholdBean.swift */; };
+		D76C17AF1EE16F9600B71FAE /* FamilyUpholdListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76C17AE1EE16F9600B71FAE /* FamilyUpholdListRespModel.swift */; };
+		D76C17B11EE1704E00B71FAE /* FamilyUpholdViewRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76C17B01EE1704E00B71FAE /* FamilyUpholdViewRespModel.swift */; };
+		D76C17B31EE1732200B71FAE /* G01F00S04VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76C17B21EE1732200B71FAE /* G01F00S04VC.swift */; };
 		D76E7E6B1EDE59A3005D5585 /* ReportOrderFamilyBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76E7E6A1EDE59A3005D5585 /* ReportOrderFamilyBean.swift */; };
 		D76E7E6E1EDE5FAB005D5585 /* ReportOrderFamilyRespBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76E7E6D1EDE5FAB005D5585 /* ReportOrderFamilyRespBean.swift */; };
 		D76E7E701EDE653A005D5585 /* ReportOrderFamilyRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76E7E6F1EDE653A005D5585 /* ReportOrderFamilyRespModel.swift */; };
@@ -302,6 +309,13 @@
 		D74F016B1E8CB934008DAA59 /* G06F01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01VC.swift; path = G06/F01/G06F01VC.swift; sourceTree = "<group>"; };
 		D74F016D1E8CBE94008DAA59 /* G06F01S01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S01.swift; path = G06/F01/G06F01S01.swift; sourceTree = "<group>"; };
 		D76AFDAA1E26A58500E73E1D /* G01Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G01Const.swift; path = G01/G01Const.swift; sourceTree = "<group>"; };
+		D76C17A41EE15F2600B71FAE /* FamilyUpholdListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyUpholdListRequest.swift; path = G01/API/FamilyUpholdListRequest.swift; sourceTree = "<group>"; };
+		D76C17A71EE160CA00B71FAE /* FamilyUpholdViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyUpholdViewRequest.swift; path = G01/API/FamilyUpholdViewRequest.swift; sourceTree = "<group>"; };
+		D76C17A91EE161EE00B71FAE /* FamilyUpholdUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyUpholdUpdateRequest.swift; path = G01/API/FamilyUpholdUpdateRequest.swift; sourceTree = "<group>"; };
+		D76C17AC1EE1660400B71FAE /* FamilyUpholdBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyUpholdBean.swift; path = G01/Model/FamilyUpholdBean.swift; sourceTree = "<group>"; };
+		D76C17AE1EE16F9600B71FAE /* FamilyUpholdListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyUpholdListRespModel.swift; path = G01/Model/FamilyUpholdListRespModel.swift; sourceTree = "<group>"; };
+		D76C17B01EE1704E00B71FAE /* FamilyUpholdViewRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyUpholdViewRespModel.swift; path = G01/Model/FamilyUpholdViewRespModel.swift; sourceTree = "<group>"; };
+		D76C17B21EE1732200B71FAE /* G01F00S04VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G01F00S04VC.swift; path = G01/F00/G01F00S04VC.swift; sourceTree = "<group>"; };
 		D76E7E6A1EDE59A3005D5585 /* ReportOrderFamilyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportOrderFamilyBean.swift; path = G10/Model/ReportOrderFamilyBean.swift; sourceTree = "<group>"; };
 		D76E7E6D1EDE5FAB005D5585 /* ReportOrderFamilyRespBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportOrderFamilyRespBean.swift; path = G10/Model/ReportOrderFamilyRespBean.swift; sourceTree = "<group>"; };
 		D76E7E6F1EDE653A005D5585 /* ReportOrderFamilyRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportOrderFamilyRespModel.swift; path = G10/Model/ReportOrderFamilyRespModel.swift; sourceTree = "<group>"; };
@@ -678,6 +692,7 @@
 			children = (
 				D76AFDAA1E26A58500E73E1D /* G01Const.swift */,
 				D791F6A91E2379FE009CBBED /* API */,
+				D76C17AB1EE1658200B71FAE /* Model */,
 				92C1C95E1DBD4A1E005A10C8 /* F00 */,
 				92C1C95C1DBD28E6005A10C8 /* F01 */,
 				92BF0C201DC1B4C6009B1DA4 /* F02 */,
@@ -711,6 +726,7 @@
 				D77F06321E7176E900797A6B /* G01F00S02VC.swift */,
 				D77F06331E7176E900797A6B /* G01F00S03MenuVC.swift */,
 				D77F06341E7176E900797A6B /* G01F00S03VC.swift */,
+				D76C17B21EE1732200B71FAE /* G01F00S04VC.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -830,6 +846,16 @@
 			name = F01;
 			sourceTree = "<group>";
 		};
+		D76C17AB1EE1658200B71FAE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D76C17AC1EE1660400B71FAE /* FamilyUpholdBean.swift */,
+				D76C17AE1EE16F9600B71FAE /* FamilyUpholdListRespModel.swift */,
+				D76C17B01EE1704E00B71FAE /* FamilyUpholdViewRespModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		D77E62B71EDD699800FD5512 /* G10 */ = {
 			isa = PBXGroup;
 			children = (
@@ -947,6 +973,9 @@
 				D77F06251E7176DD00797A6B /* CreateUpholdReplyRequest.swift */,
 				D77F06261E7176DD00797A6B /* CreateUpholdRequest.swift */,
 				D77F06271E7176DD00797A6B /* RatingUpholdRequest.swift */,
+				D76C17A41EE15F2600B71FAE /* FamilyUpholdListRequest.swift */,
+				D76C17A71EE160CA00B71FAE /* FamilyUpholdViewRequest.swift */,
+				D76C17A91EE161EE00B71FAE /* FamilyUpholdUpdateRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -1359,6 +1388,7 @@
 				D77F06201E7175D000797A6B /* G00InfomationVC.swift in Sources */,
 				D77F06741E7177E000797A6B /* OrderVIPViewRequest.swift in Sources */,
 				D77F067A1E7177EA00797A6B /* OrderVIPListRespModel.swift in Sources */,
+				D76C17A81EE160CA00B71FAE /* FamilyUpholdViewRequest.swift in Sources */,
 				D706C22D1E544AC000F89B8A /* G05Const.swift in Sources */,
 				D77F06211E7175D000797A6B /* G00LoginMenuVC.swift in Sources */,
 				D7F0FF311EDFF435007FDC81 /* ReportInventoryLayout.swift in Sources */,
@@ -1433,6 +1463,7 @@
 				D780C97C1E95ECD30004B5C4 /* G06F02VC.swift in Sources */,
 				D78B04611ED13D470064DE88 /* G09F01S04.swift in Sources */,
 				D7D3BDB31EBC95BA00C85E93 /* CustomerListRespModel.swift in Sources */,
+				D76C17B31EE1732200B71FAE /* G01F00S04VC.swift in Sources */,
 				D7C255231E8B63C700941E31 /* G06F00S02VC.swift in Sources */,
 				D77F063D1E7176E900797A6B /* G01F00S03MenuVC.swift in Sources */,
 				D7B0B6EA1E9E067900FB537A /* G07F01S01VC.swift in Sources */,
@@ -1458,6 +1489,7 @@
 				D7DA31FB1EC0502800E06FFB /* StoreCardCreateRequest.swift in Sources */,
 				D78F99E81ECD4D9B003CB814 /* EmployeeCashBookListRespModel.swift in Sources */,
 				D77F068A1E7177FE00797A6B /* G05F01S02MenuVC.swift in Sources */,
+				D76C17AA1EE161EE00B71FAE /* FamilyUpholdUpdateRequest.swift in Sources */,
 				D7ADCBC91ED020A800226523 /* TempDataRequest.swift in Sources */,
 				D78F99EC1ECD52F9003CB814 /* G09F00S01VC.swift in Sources */,
 				D7D28B7D1EB9BF9E006DDF83 /* StoreCardListResponseModel.swift in Sources */,
@@ -1472,6 +1504,7 @@
 				D77F063B1E7176E900797A6B /* G01F00S02MenuVC.swift in Sources */,
 				D74F016C1E8CB934008DAA59 /* G06F01VC.swift in Sources */,
 				D77F06441E7176F700797A6B /* G01F01MenuVC.swift in Sources */,
+				D76C17AD1EE1660400B71FAE /* FamilyUpholdBean.swift in Sources */,
 				D77F06241E7175D000797A6B /* G00RegisterVC.swift in Sources */,
 				D77E62BB1EDD6A5E00FD5512 /* G10Const.swift in Sources */,
 				D78F99F31ECD858C003CB814 /* G05F03Sum.swift in Sources */,
@@ -1498,12 +1531,14 @@
 				D79AC2311EBF4BFE00798514 /* G08F01S03.swift in Sources */,
 				D7ADCBCE1ED0268100226523 /* TempDataRespModel.swift in Sources */,
 				D77F06171E7175D000797A6B /* G00AccountVC.swift in Sources */,
+				D76C17A51EE15F2600B71FAE /* FamilyUpholdListRequest.swift in Sources */,
 				D77F06581E71771A00797A6B /* G01F02S06.swift in Sources */,
 				D77F06221E7175D000797A6B /* G00LoginVC.swift in Sources */,
 				D78B04631ED13E0C0064DE88 /* G09F01S03.swift in Sources */,
 				D778249B1EDEA5AD002AB15A /* G10F00S04VC.swift in Sources */,
 				D7885B4C1E88C7DC00F8F87A /* G06F00S01VC.swift in Sources */,
 				D77F06371E7176E900797A6B /* G01F00S02HistoryCell.swift in Sources */,
+				D76C17AF1EE16F9600B71FAE /* FamilyUpholdListRespModel.swift in Sources */,
 				D77F06291E7176DD00797A6B /* CreateUpholdRequest.swift in Sources */,
 				D77F06571E71771A00797A6B /* G01F02S05.swift in Sources */,
 				D7C255281E8B908800941E31 /* G06F00S04VC.swift in Sources */,
@@ -1514,6 +1549,7 @@
 				D77E62BF1EDD6AC200FD5512 /* ReportListRequest.swift in Sources */,
 				D77E62CB1EDD7BBD00FD5512 /* ReportInventoryRespModel.swift in Sources */,
 				D7CBD06F1E8F673F00FB3BD6 /* G06F01S02.swift in Sources */,
+				D76C17B11EE1704E00B71FAE /* FamilyUpholdViewRespModel.swift in Sources */,
 				D79C31771E9B8506006F3683 /* G07F00S02VC.swift in Sources */,
 				D77824991EDEA549002AB15A /* G10F00S03VC.swift in Sources */,
 				D78A2C9A1EBBABE8007FD27B /* G08F01VC.swift in Sources */,
