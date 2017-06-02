@@ -240,11 +240,16 @@ class G10F00S02VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
                         }
                         cell.updateValue(value: data.name, alignment: .left, bkgColor: background, leftMargin: 10)
                     }
+                    //cell.layer.addBorder(edge: .right, color: .black, thickness: 1.0)
                 }
             } else {
                 // These are all the remaining content cells (neither first column nor first row)
                 if _data.record.rows.count > indexPath.section - 1 {
                     let data = _data.record.rows[indexPath.section - 1]
+                    var textColor = UIColor.black
+                    if data.isChanged() {
+                        textColor = UIColor.red
+                    }
                     var value = DomainConst.BLANK
                     switch indexPath.row - 1 {
                     case 0:
@@ -265,7 +270,7 @@ class G10F00S02VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
                         if indexPath.section % 2 != 0 {
                             background = GlobalConst.BACKGROUND_COLOR_GRAY
                         }
-                        cell.updateValue(value: value, alignment: .center, bkgColor: background)
+                        cell.updateValue(value: value, alignment: .center, bkgColor: background, textColor: textColor)
                     }
                 }
             }

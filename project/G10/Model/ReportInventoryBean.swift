@@ -39,4 +39,12 @@ class ReportInventoryBean: ConfigBean {
             }
         }
     }
+    
+    /**
+     * Check if quantity is changed
+     * - returns: True if begin quantity is not equal end quantity, False otherwise
+     */
+    public func isChanged() -> Bool {
+        return (inQty != DomainConst.NUMBER_ZERO_VALUE) || (outQty != DomainConst.NUMBER_ZERO_VALUE)
+    }
 }

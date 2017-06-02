@@ -202,6 +202,8 @@ class G10F00S03VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
                         }
                         cell.updateValue(value: data.name, alignment: .left, bkgColor: background, leftMargin: 10)
                     }
+                    
+                    //cell.layer.addBorder(edge: .right, color: .black, thickness: 1.0)
                 }
             } else {
                 // These are all the remaining content cells (neither first column nor first row)

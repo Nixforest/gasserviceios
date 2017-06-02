@@ -61,6 +61,17 @@ class ContentCollectionViewCell: UICollectionViewCell {
     }
     
     /**
+     * Update value of content
+     * - parameter value: Value of content
+     * - parameter textColor: Color of content
+     * - parameter leftMargin: Left margin of content (default value is 0)
+     */
+    public func updateValue(value: String, alignment: NSTextAlignment, bkgColor: UIColor, textColor: UIColor, leftMargin: CGFloat = 0.0) {
+        updateValue(value: value, alignment: alignment, bkgColor: bkgColor, leftMargin: leftMargin)
+        lbl.textColor = textColor
+    }
+    
+    /**
      * Update value of content (header)
      * - parameter value: Value of content
      */
@@ -81,6 +92,7 @@ class ContentCollectionViewCell: UICollectionViewCell {
             if index.row == 0 {     // First column
                 // This is the first cell of the first row
                 updateValueHeader(value: topLeftText)
+                //self.layer.addBorder(edge: .right, color: .black, thickness: 1.0)
             } else {    // The other columns
                 // The rest of first row
                 if arrHeader.count > (index.row - 1) {

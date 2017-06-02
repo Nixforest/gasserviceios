@@ -27,6 +27,10 @@ class G10F00S04VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
     ]
     /** Label to date */
     private var lblToDate:              UILabel                  = UILabel()
+    /** Label to date */
+    private var lblCashMoney:           UILabel                  = UILabel()
+    /** Label to date */
+    private var lblOpeningBalance:      UILabel                  = UILabel()
     /** Reload data button */
     private var btnReload:              UIButton                 = UIButton()
     
@@ -48,6 +52,8 @@ class G10F00S04VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
         for item in bean.rows {
             _data.record.rows.append(item)
         }
+        _data.record.ending_balance = bean.ending_balance
+        _data.record.opening_balance = bean.opening_balance
     }
     /**
      * Request data from server
@@ -69,6 +75,8 @@ class G10F00S04VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
         let model = ReportCashbookRespModel(jsonString: data)
         if model.isSuccess() {
             updateData(bean: model.record)
+            lblCashMoney.text = _data.record.ending_balance
+            lblOpeningBalance.text = _data.record.opening_balance
             self.collectionView.collectionViewLayout.invalidateLayout()
             self.collectionView.reloadData()
         } else {
@@ -93,6 +101,25 @@ class G10F00S04VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
                     text: DomainConst.CONTENT00413 + CommonProcess.getCurrentDate(withSpliter: DomainConst.SPLITER_TYPE3),
                     textAlignment: .center)
         self.view.addSubview(lblToDate)
+        offset += GlobalConst.LABEL_H + GlobalConst.MARGIN / 2
+        
+        // Cash money label
+        updateLabel(lbl: lblCashMoney, x: 0, y: offset,
+                    w: GlobalConst.SCREEN_WIDTH,
+                    h: GlobalConst.LABEL_H,
+                    text: DomainConst.BLANK,
+                    textAlignment: .center)
+        lblCashMoney.textColor = GlobalConst.MAIN_COLOR
+        self.view.addSubview(lblCashMoney)
+        offset += GlobalConst.LABEL_H + GlobalConst.MARGIN / 2
+        // Opeining balance label
+        updateLabel(lbl: lblOpeningBalance, x: 0, y: offset,
+                    w: GlobalConst.SCREEN_WIDTH,
+                    h: GlobalConst.LABEL_H,
+                    text: DomainConst.BLANK,
+                    textAlignment: .center)
+        lblOpeningBalance.textColor = GlobalConst.MAIN_COLOR
+        self.view.addSubview(lblOpeningBalance)
         offset += GlobalConst.LABEL_H + GlobalConst.MARGIN / 2
         
         // Collection view
@@ -170,11 +197,12 @@ class G10F00S04VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
                 // This is the first column of each row. Label it accordingly.
                 if _data.record.rows.count > (indexPath.section - 1) {
                     let data = _data.record.rows[indexPath.section - 1]
-                    var background = UIColor.white
+                    var background = GlobalConst.REPORT_PARENT_COLOR
                     if indexPath.section % 2 != 0 {
-                        background = GlobalConst.BACKGROUND_COLOR_GRAY
+                        background = GlobalConst.REPORT_PARENT_COLOR_1
                     }
-                    cell.updateValue(value: data.name, alignment: .left, bkgColor: background, leftMargin: 10)
+                    cell.updateValue(value: data.name, alignment: .left, bkgColor: background, textColor: .white)
+                    //cell.layer.addBorder(edge: .right, color: .black, thickness: 1.0)
                 }
             } else {
                 // These are all the remaining content cells (neither first column nor first row)
@@ -195,11 +223,12 @@ class G10F00S04VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
                     default:
                         value = DomainConst.BLANK
                     }
-                    var background = UIColor.white
+                    var background = GlobalConst.REPORT_PARENT_COLOR
                     if indexPath.section % 2 != 0 {
-                        background = GlobalConst.BACKGROUND_COLOR_GRAY
+                        background = GlobalConst.REPORT_PARENT_COLOR_1
                     }
-                    cell.updateValue(value: value, alignment: .center, bkgColor: background)
+                    //cell.updateValue(value: value, alignment: .center, bkgColor: background)
+                    cell.updateValue(value: value, alignment: .center, bkgColor: background, textColor: .white)
                 }
             }
         }

@@ -9,6 +9,8 @@
 #include <metal_stdlib>
 using namespace metal;
 // Version: 1.14.0
+// - BUG0099: Fix bug when Logout failed
+// - BUG0098: Add new function G10
 // - BUG0086: Change place holder on field phone number in Order VIP create screen
 // Version: 1.13.0
 // - BUG0086: Add phone number to Order VIP create screen
