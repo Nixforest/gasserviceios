@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G01F00S04VC: ParentViewController {
+class G01F00S04VC: ParentViewController, UITableViewDataSource, UITableViewDelegate, OrderConfirmDelegate {
     // MARK: Properties
     /** Summary information label */
     private var _lblSum:            UILabel                 = UILabel()
@@ -27,6 +27,8 @@ class G01F00S04VC: ParentViewController {
     private var _page:              Int                     = 0
     /** Table view */
     private var _tblView:           UITableView             = UITableView()
+    /** Current selected index */
+    private var _currentId:         String                  = DomainConst.BLANK
     /** Refrest control */
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -122,11 +124,9 @@ class G01F00S04VC: ParentViewController {
         self.view.addSubview(_segment)
         
         // Table View
-//        _tblView.register(UINib(nibName: TableCellOrderType.theClassName,
-//                                bundle: Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)),
-//                          forCellReuseIdentifier: TableCellOrderType.theClassName)
-//        _tblView.delegate = self
-//        _tblView.dataSource = self
+        _tblView.register(UINib(nibName: G01F00S04Cell.theClassName, bundle: nil), forCellReuseIdentifier: G01F00S04Cell.theClassName)
+        _tblView.delegate = self
+        _tblView.dataSource = self
         _tblView.frame = CGRect(x: 0, y: offset,
                                 width: GlobalConst.SCREEN_WIDTH,
                                 height: GlobalConst.SCREEN_HEIGHT - offset)
@@ -148,6 +148,7 @@ class G01F00S04VC: ParentViewController {
             _data.total_page = model.total_page
             _data.total_record = model.total_record
             _data.append(contentOf: model.getRecord())
+            _lblSum.text = model.message
             self._tblView.reloadData()
         } else {
             showAlert(message: model.message)
@@ -169,5 +170,119 @@ class G01F00S04VC: ParentViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    // MARK: - UITableViewDataSource-Delegate
+    /**
+     * Tells the data source to return the number of rows in a given section of a table view.
+     */
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return _data.getRecord().count
+    }
+    
+    /**
+     * Asks the data source for a cell to insert in a particular location of the table view.
+     */
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
+        UITableViewCell {
+            let cell: G01F00S04Cell = tableView.dequeueReusableCell(
+                withIdentifier: G01F00S04Cell.theClassName)
+                as! G01F00S04Cell
+            if _data.getRecord().count > indexPath.row {
+                cell.setData(data: _data.getRecord()[indexPath.row])
+                cell.delegate = self
+            }
+            return cell
+    }
+    
+    /**
+     * Asks the delegate for the height to use for a row in a specified location.
+     */
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return G01F00S04Cell.CELL_HEIGHT
+    }
+    
+    /**
+     * Tells the delegate the table view is about to draw a cell for a particular row.
+     */
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // Total page does not 1
+        if self._data.total_page != 1 {
+            let lastElement = self._data.getRecord().count - 1
+            // Current is the last element
+            if indexPath.row == lastElement {
+                self._page += 1
+                // Page less than total page
+                if self._page <= self._data.total_page {
+                    requestData()
+                }
+            }
+        }
+    }
+    
+    /**
+     * Tells the delegate that the specified row is now selected.
+     */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        G01F00S05VC._id = _data.getRecord()[indexPath.row].id
+        self.pushToView(name: G01F00S05VC.theClassName)
+    }
+    
+    /**
+     * Handle tapped event on action button
+     */
+    public func btnActionTapped(_ sender: AnyObject) {
+        _currentId = (sender as! UIButton).accessibilityIdentifier!
+        FamilyUpholdUpdateRequest.request(
+            action: #selector(finishConfirmHandler(_:)),
+            view: self,
+            actionType: FamilyUpholdStatusEnum.STATUS_CONFIRM.rawValue,
+            lat: String(MapViewController._originPos.latitude),
+            long: String(MapViewController._originPos.longitude),
+            id: _currentId,
+            note: DomainConst.BLANK)
+    }
+    
+    /**
+     * Handle tapped event on cancel button
+     */
+    public func btnCancelTapped(_ sender: AnyObject) {
+        _currentId = (sender as! UIButton).accessibilityIdentifier!
+        FamilyUpholdUpdateRequest.request(
+            action: #selector(finishCancelConfirmHandler(_:)),
+            view: self,
+            actionType: FamilyUpholdStatusEnum.STATUS_UNCONFIRM.rawValue,
+            lat: String(MapViewController._originPos.latitude),
+            long: String(MapViewController._originPos.longitude),
+            id: _currentId,
+            note: DomainConst.BLANK)
+    }
+    
+    /**
+     * Handle finish confirm
+     */
+    internal func finishConfirmHandler(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            self.handleRefresh(self)
+            // Move to detail
+            G01F00S05VC._id = _currentId
+            self.pushToView(name: G01F00S05VC.theClassName)
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Handle finish cancel confirm
+     */
+    internal func finishCancelConfirmHandler(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            self.handleRefresh(self)
+        } else {
+            showAlert(message: model.message)
+        }
+    }
 }

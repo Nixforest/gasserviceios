@@ -27,6 +27,9 @@
 		D70AC2C01EB6535C003F1673 /* File.metal in Sources */ = {isa = PBXBuildFile; fileRef = D70AC2BF1EB6535C003F1673 /* File.metal */; };
 		D70AC2C71EB65DF5003F1673 /* G08Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70AC2C61EB65DF5003F1673 /* G08Const.swift */; };
 		D70AC2C91EB65E56003F1673 /* StoreCardListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70AC2C81EB65E56003F1673 /* StoreCardListRequest.swift */; };
+		D70ECECE1EE298FE00997F1A /* G01F00S04Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70ECECC1EE298FE00997F1A /* G01F00S04Cell.swift */; };
+		D70ECECF1EE298FE00997F1A /* G01F00S04Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D70ECECD1EE298FE00997F1A /* G01F00S04Cell.xib */; };
+		D70ECED11EE2B79800997F1A /* G01F00S05VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70ECED01EE2B79800997F1A /* G01F00S05VC.swift */; };
 		D715BB6D1EBE2D810097BDA8 /* G08F01S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = D715BB6C1EBE2D810097BDA8 /* G08F01S02.swift */; };
 		D71DB0E01E84D25100BED724 /* CustomerFamilyViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71DB0DF1E84D25100BED724 /* CustomerFamilyViewRequest.swift */; };
 		D73373101E22CCC6004F2781 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D733730F1E22CCC6004F2781 /* Podfile */; };
@@ -303,6 +306,9 @@
 		D70AC2BF1EB6535C003F1673 /* File.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = File.metal; path = Common/File.metal; sourceTree = "<group>"; };
 		D70AC2C61EB65DF5003F1673 /* G08Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08Const.swift; path = G08/G08Const.swift; sourceTree = "<group>"; };
 		D70AC2C81EB65E56003F1673 /* StoreCardListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreCardListRequest.swift; path = G08/API/StoreCardListRequest.swift; sourceTree = "<group>"; };
+		D70ECECC1EE298FE00997F1A /* G01F00S04Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G01F00S04Cell.swift; path = G01/Controls/G01F00S04Cell.swift; sourceTree = "<group>"; };
+		D70ECECD1EE298FE00997F1A /* G01F00S04Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G01F00S04Cell.xib; path = G01/Controls/G01F00S04Cell.xib; sourceTree = "<group>"; };
+		D70ECED01EE2B79800997F1A /* G01F00S05VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G01F00S05VC.swift; path = G01/F00/G01F00S05VC.swift; sourceTree = "<group>"; };
 		D715BB6C1EBE2D810097BDA8 /* G08F01S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S02.swift; path = G08/F01/G08F01S02.swift; sourceTree = "<group>"; };
 		D71DB0DF1E84D25100BED724 /* CustomerFamilyViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerFamilyViewRequest.swift; path = G06/API/CustomerFamilyViewRequest.swift; sourceTree = "<group>"; };
 		D733730F1E22CCC6004F2781 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -693,6 +699,7 @@
 				D76AFDAA1E26A58500E73E1D /* G01Const.swift */,
 				D791F6A91E2379FE009CBBED /* API */,
 				D76C17AB1EE1658200B71FAE /* Model */,
+				D70ECECB1EE298C200997F1A /* Controls */,
 				92C1C95E1DBD4A1E005A10C8 /* F00 */,
 				92C1C95C1DBD28E6005A10C8 /* F01 */,
 				92BF0C201DC1B4C6009B1DA4 /* F02 */,
@@ -727,6 +734,7 @@
 				D77F06331E7176E900797A6B /* G01F00S03MenuVC.swift */,
 				D77F06341E7176E900797A6B /* G01F00S03VC.swift */,
 				D76C17B21EE1732200B71FAE /* G01F00S04VC.swift */,
+				D70ECED01EE2B79800997F1A /* G01F00S05VC.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -829,6 +837,15 @@
 				D78A2C9D1EBBAF20007FD27B /* G08F01Sum.swift */,
 			);
 			name = F01;
+			sourceTree = "<group>";
+		};
+		D70ECECB1EE298C200997F1A /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				D70ECECC1EE298FE00997F1A /* G01F00S04Cell.swift */,
+				D70ECECD1EE298FE00997F1A /* G01F00S04Cell.xib */,
+			);
+			name = Controls;
 			sourceTree = "<group>";
 		};
 		D74F01691E8CB3AF008DAA59 /* F01 */ = {
@@ -1298,6 +1315,7 @@
 				84284E1C1D40DF050079DEBC /* LaunchScreen.storyboard in Resources */,
 				84A4C06B1D6311D000C0B84C /* example.txt in Resources */,
 				84284E191D40DF050079DEBC /* Assets.xcassets in Resources */,
+				D70ECECF1EE298FE00997F1A /* G01F00S04Cell.xib in Resources */,
 				D77F063A1E7176E900797A6B /* G01F00S02InfoView.xib in Resources */,
 				D7D233391ECF451D0063CA04 /* CashBookCell.xib in Resources */,
 				84284E171D40DF050079DEBC /* Main.storyboard in Resources */,
@@ -1503,6 +1521,7 @@
 				D77E62C71EDD759300FD5512 /* ReportListRespModel.swift in Sources */,
 				D77F063B1E7176E900797A6B /* G01F00S02MenuVC.swift in Sources */,
 				D74F016C1E8CB934008DAA59 /* G06F01VC.swift in Sources */,
+				D70ECECE1EE298FE00997F1A /* G01F00S04Cell.swift in Sources */,
 				D77F06441E7176F700797A6B /* G01F01MenuVC.swift in Sources */,
 				D76C17AD1EE1660400B71FAE /* FamilyUpholdBean.swift in Sources */,
 				D77F06241E7175D000797A6B /* G00RegisterVC.swift in Sources */,
@@ -1561,6 +1580,7 @@
 				D77F06661E71772700797A6B /* G01F03VC.swift in Sources */,
 				D7EBB7E91EA9B72200BE6612 /* G05F00S04VC.swift in Sources */,
 				D78B04581ED12D520064DE88 /* G09F01VC.swift in Sources */,
+				D70ECED11EE2B79800997F1A /* G01F00S05VC.swift in Sources */,
 				D7C812151ED2A7B30014EF51 /* G09F00S03VC.swift in Sources */,
 				D7766ECE1E949E0700BC137A /* G06F01S04.swift in Sources */,
 				D77E62C31EDD6F6500FD5512 /* ReportRequest.swift in Sources */,
@@ -1724,7 +1744,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = project/project.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Dung Nguyen Tien (34EVHPESK8)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Dung Nguyen Tien (PZV5YS9B34)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = PZV5YS9B34;
@@ -1750,7 +1770,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = project/project.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Dung Nguyen Tien (34EVHPESK8)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Dung Nguyen Tien (PZV5YS9B34)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = PZV5YS9B34;
