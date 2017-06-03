@@ -25,8 +25,12 @@ class G10F00S04VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
         DomainConst.CONTENT00373,
         DomainConst.CONTENT00418
     ]
-    /** Label to date */
-    private var lblToDate:              UILabel                  = UILabel()
+    //++ BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens
+//    /** Label to date */
+//    private var lblToDate:              UILabel                  = UILabel()
+    /** Date picker */
+    private var _datePickerTo:            DatePickerView  = DatePickerView()
+    //-- BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens
     /** Label to date */
     private var lblCashMoney:           UILabel                  = UILabel()
     /** Label to date */
@@ -61,8 +65,10 @@ class G10F00S04VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
     private func requestData(action: Selector = #selector(setData(_:))) {
         ReportRequest.request(action: action,
                               view: self,
-                              from: CommonProcess.getCurrentDate(),
-                              to: CommonProcess.getCurrentDate(),
+                              from: DomainConst.BLANK,
+                              //++ BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens
+                              to: _datePickerTo.getValue(),//CommonProcess.getCurrentDate(),
+                              //-- BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens
                               url: G10Const.PATH_APP_REPORT_CASHBOOK)
     }
     
@@ -92,16 +98,28 @@ class G10F00S04VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
 
         // Do any additional setup after loading the view.
         createNavigationBar(title: DomainConst.CONTENT00405)
-        var offset = getTopHeight() + GlobalConst.MARGIN
+        var offset = getTopHeight() - GlobalConst.MARGIN
         
-        // To date label
-        updateLabel(lbl: lblToDate, x: 0, y: offset,
-                    w: GlobalConst.SCREEN_WIDTH,
-                    h: GlobalConst.LABEL_H,
-                    text: DomainConst.CONTENT00413 + CommonProcess.getCurrentDate(withSpliter: DomainConst.SPLITER_TYPE3),
-                    textAlignment: .center)
-        self.view.addSubview(lblToDate)
-        offset += GlobalConst.LABEL_H + GlobalConst.MARGIN / 2
+        // To date
+        //++ BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens
+//        updateLabel(lbl: lblToDate, x: 0, y: offset,
+//                    w: GlobalConst.SCREEN_WIDTH,
+//                    h: GlobalConst.LABEL_H,
+//                    text: DomainConst.CONTENT00413 + CommonProcess.getCurrentDate(withSpliter: DomainConst.SPLITER_TYPE3),
+//                    textAlignment: .center)
+//        self.view.addSubview(lblToDate)
+//        offset += GlobalConst.LABEL_H + GlobalConst.MARGIN / 2
+        _datePickerTo = DatePickerView(frame: CGRect(x: GlobalConst.SCREEN_WIDTH / 4,
+                                                     y: offset,
+                                                     width: GlobalConst.SCREEN_WIDTH / 2,
+                                                     height: GlobalConst.LABEL_H * 2))
+        _datePickerTo.setTitle(title: DomainConst.CONTENT00413)
+        _datePickerTo.setValue(value: CommonProcess.getCurrentDate())
+        _datePickerTo.showTodayButton(isShow: false)
+        _datePickerTo.setTextAlignment(alignment: .center)
+        self.view.addSubview(_datePickerTo)
+        offset += DatePickerView.STATIC_HEIGHT - GlobalConst.MARGIN
+        //-- BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens
         
         // Cash money label
         updateLabel(lbl: lblCashMoney, x: 0, y: offset,

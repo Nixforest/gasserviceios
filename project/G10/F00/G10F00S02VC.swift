@@ -24,10 +24,16 @@ class G10F00S02VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
         DomainConst.CONTENT00408,
         DomainConst.CONTENT00409
     ]
-    /** Label from date */
-    private var lblFromDate:            UILabel                  = UILabel()
-    /** Label to date */
-    private var lblToDate:              UILabel                  = UILabel()
+    //++ BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens
+//    /** Label from date */
+//    private var lblFromDate:            UILabel                  = UILabel()
+//    /** Label to date */
+//    private var lblToDate:              UILabel                  = UILabel()
+    /** Date picker */
+    private var _datePickerFrom:            DatePickerView  = DatePickerView()
+    /** Date picker */
+    private var _datePickerTo:            DatePickerView  = DatePickerView()
+    //-- BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens
     /** Label store card information */
     private var lblStoreCardInfo:       UILabel                  = UILabel()
     /** Update store card button */
@@ -75,8 +81,10 @@ class G10F00S02VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
     private func requestData(action: Selector = #selector(setData(_:))) {
         ReportRequest.request(action: action,
                               view: self,
-                              from: CommonProcess.getCurrentDate(),
-                              to: CommonProcess.getCurrentDate(),
+                              //++ BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens
+                              from: _datePickerFrom.getValue(),//CommonProcess.getCurrentDate(),
+                              to: _datePickerTo.getValue(),//CommonProcess.getCurrentDate(),
+                              //-- BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens
                               url: G10Const.PATH_APP_REPORT_INVENTORY)
     }
     
@@ -120,24 +128,44 @@ class G10F00S02VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
 
         // Create navigation bar
         createNavigationBar(title: DomainConst.CONTENT00403)
-        var offset = getTopHeight() + GlobalConst.MARGIN
+        var offset = getTopHeight() - GlobalConst.MARGIN
         
-        // From date label
-        updateLabel(lbl: lblFromDate, x: 0, y: offset,
-                    w: GlobalConst.SCREEN_WIDTH / 2,
-                    h: GlobalConst.LABEL_H,
-                    text: DomainConst.CONTENT00412 + CommonProcess.getCurrentDate(withSpliter: DomainConst.SPLITER_TYPE3),
-                    textAlignment: .center)
-        self.view.addSubview(lblFromDate)
+        // From date
+        //++ BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens
+//        updateLabel(lbl: lblFromDate, x: 0, y: offset,
+//                    w: GlobalConst.SCREEN_WIDTH / 2,
+//                    h: GlobalConst.LABEL_H,
+//                    text: DomainConst.CONTENT00412 + CommonProcess.getCurrentDate(withSpliter: DomainConst.SPLITER_TYPE3),
+//                    textAlignment: .center)
+//        self.view.addSubview(lblFromDate)
+        _datePickerFrom = DatePickerView(frame: CGRect(x: 0,
+                                                   y: offset,
+                                                   width: GlobalConst.SCREEN_WIDTH / 2,
+                                                   height: GlobalConst.LABEL_H * 2))
+        _datePickerFrom.setTitle(title: DomainConst.CONTENT00412)
+        _datePickerFrom.setValue(value: CommonProcess.getCurrentDate())
+        _datePickerFrom.showTodayButton(isShow: false)
+        _datePickerFrom.setTextAlignment(alignment: .center)
+        self.view.addSubview(_datePickerFrom)
         
-        // To date label
-        updateLabel(lbl: lblToDate, x: lblFromDate.frame.maxX, y: offset,
-                    w: GlobalConst.SCREEN_WIDTH / 2,
-                    h: GlobalConst.LABEL_H,
-                    text: DomainConst.CONTENT00413 + CommonProcess.getCurrentDate(withSpliter: DomainConst.SPLITER_TYPE3),
-                    textAlignment: .center)
-        self.view.addSubview(lblToDate)
-        offset += GlobalConst.LABEL_H + GlobalConst.MARGIN / 2
+        // To date
+//        updateLabel(lbl: lblToDate, x: lblFromDate.frame.maxX, y: offset,
+//                    w: GlobalConst.SCREEN_WIDTH / 2,
+//                    h: GlobalConst.LABEL_H,
+//                    text: DomainConst.CONTENT00413 + CommonProcess.getCurrentDate(withSpliter: DomainConst.SPLITER_TYPE3),
+//                    textAlignment: .center)
+//        self.view.addSubview(lblToDate)
+        _datePickerTo = DatePickerView(frame: CGRect(x: GlobalConst.SCREEN_WIDTH / 2,
+                                                       y: offset,
+                                                       width: GlobalConst.SCREEN_WIDTH / 2,
+                                                       height: GlobalConst.LABEL_H * 2))
+        _datePickerTo.setTitle(title: DomainConst.CONTENT00413)
+        _datePickerTo.setValue(value: CommonProcess.getCurrentDate())
+        _datePickerTo.showTodayButton(isShow: false)
+        _datePickerTo.setTextAlignment(alignment: .center)
+        self.view.addSubview(_datePickerTo)
+        offset += DatePickerView.STATIC_HEIGHT - GlobalConst.MARGIN
+        //-- BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens
         
         // Store card information label
         updateLabel(lbl: lblStoreCardInfo,

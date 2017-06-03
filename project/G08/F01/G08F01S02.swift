@@ -51,6 +51,7 @@ class G08F01S02: StepContent {
         self.setup(mainView: contentView, title: DomainConst.CONTENT00363,
                    contentHeight: offset,
                    width: w, height: h)
+        self.makeComponentsColor()
     }
     
     required init(coder aDecoder: NSCoder) {
