@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19D74A831EE465E300B7DE47 /* G11F01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D74A821EE465E300B7DE47 /* G11F01VC.swift */; };
+		19D74A851EE466D200B7DE47 /* G11F01S01.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D74A841EE466D200B7DE47 /* G11F01S01.swift */; };
+		19D74A871EE46C0A00B7DE47 /* G11F01S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D74A861EE46C0A00B7DE47 /* G11F01S02.swift */; };
+		19D74A891EE4716C00B7DE47 /* G11F01Sum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D74A881EE4716C00B7DE47 /* G11F01Sum.swift */; };
 		84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E111D40DF050079DEBC /* AppDelegate.swift */; };
 		84284E171D40DF050079DEBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84284E151D40DF050079DEBC /* Main.storyboard */; };
 		84284E191D40DF050079DEBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84284E181D40DF050079DEBC /* Assets.xcassets */; };
@@ -35,7 +39,6 @@
 		D73373101E22CCC6004F2781 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D733730F1E22CCC6004F2781 /* Podfile */; };
 		D74F016C1E8CB934008DAA59 /* G06F01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74F016B1E8CB934008DAA59 /* G06F01VC.swift */; };
 		D74F016E1E8CBE94008DAA59 /* G06F01S01.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74F016D1E8CBE94008DAA59 /* G06F01S01.swift */; };
-		D765687A1EE448F400A9D041 /* G11F00S02Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76568791EE448F400A9D041 /* G11F00S02Cell.swift */; };
 		D76AFDAB1E26A58500E73E1D /* G01Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76AFDAA1E26A58500E73E1D /* G01Const.swift */; };
 		D76C17A51EE15F2600B71FAE /* FamilyUpholdListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76C17A41EE15F2600B71FAE /* FamilyUpholdListRequest.swift */; };
 		D76C17A81EE160CA00B71FAE /* FamilyUpholdViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76C17A71EE160CA00B71FAE /* FamilyUpholdViewRequest.swift */; };
@@ -290,6 +293,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		19D74A821EE465E300B7DE47 /* G11F01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G11F01VC.swift; path = G11/F01/G11F01VC.swift; sourceTree = "<group>"; };
+		19D74A841EE466D200B7DE47 /* G11F01S01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G11F01S01.swift; path = G11/F01/G11F01S01.swift; sourceTree = "<group>"; };
+		19D74A861EE46C0A00B7DE47 /* G11F01S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G11F01S02.swift; path = G11/F01/G11F01S02.swift; sourceTree = "<group>"; };
+		19D74A881EE4716C00B7DE47 /* G11F01Sum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G11F01Sum.swift; path = G11/F01/G11F01Sum.swift; sourceTree = "<group>"; };
 		1FD94308087296BAEC6FCDC9 /* libPods-project.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-project.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E8B0DD035E0DE82F30F828 /* Pods-project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project.release.xcconfig"; path = "project/Pods/Target Support Files/Pods-project/Pods-project.release.xcconfig"; sourceTree = "<group>"; };
 		84284E0E1D40DF050079DEBC /* project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -329,7 +336,6 @@
 		D733730F1E22CCC6004F2781 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D74F016B1E8CB934008DAA59 /* G06F01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01VC.swift; path = G06/F01/G06F01VC.swift; sourceTree = "<group>"; };
 		D74F016D1E8CBE94008DAA59 /* G06F01S01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S01.swift; path = G06/F01/G06F01S01.swift; sourceTree = "<group>"; };
-		D76568791EE448F400A9D041 /* G11F00S02Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G11F00S02Cell.swift; path = G11/Controls/G11F00S02Cell.swift; sourceTree = "<group>"; };
 		D76AFDAA1E26A58500E73E1D /* G01Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G01Const.swift; path = G01/G01Const.swift; sourceTree = "<group>"; };
 		D76C17A41EE15F2600B71FAE /* FamilyUpholdListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyUpholdListRequest.swift; path = G01/API/FamilyUpholdListRequest.swift; sourceTree = "<group>"; };
 		D76C17A71EE160CA00B71FAE /* FamilyUpholdViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FamilyUpholdViewRequest.swift; path = G01/API/FamilyUpholdViewRequest.swift; sourceTree = "<group>"; };
@@ -1204,6 +1210,10 @@
 		D7EA53B61EE3C977004CFE1F /* F01 */ = {
 			isa = PBXGroup;
 			children = (
+				19D74A821EE465E300B7DE47 /* G11F01VC.swift */,
+				19D74A841EE466D200B7DE47 /* G11F01S01.swift */,
+				19D74A861EE46C0A00B7DE47 /* G11F01S02.swift */,
+				19D74A881EE4716C00B7DE47 /* G11F01Sum.swift */,
 			);
 			name = F01;
 			sourceTree = "<group>";
@@ -1224,7 +1234,6 @@
 			children = (
 				D7EA53D31EE408F6004CFE1F /* G11F00S01Cell.swift */,
 				D7EA53D41EE408F6004CFE1F /* G11F00S01Cell.xib */,
-				D76568791EE448F400A9D041 /* G11F00S02Cell.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -1550,12 +1559,14 @@
 				D7EA53CB1EE3E98F004CFE1F /* TicketViewRespModel.swift in Sources */,
 				D77F06781E7177EA00797A6B /* OrderConfigRespModel.swift in Sources */,
 				D7F82AB21EA517F300116B74 /* G07F01S02VC.swift in Sources */,
+				19D74A871EE46C0A00B7DE47 /* G11F01S02.swift in Sources */,
 				D76E7E761EDE7125005D5585 /* ReportCashbookRespModel.swift in Sources */,
 				D78F99EA1ECD510A003CB814 /* EmployeeCashBookViewRespModel.swift in Sources */,
 				D7D233381ECF451D0063CA04 /* CashBookCell.swift in Sources */,
 				D77F06801E7177F500797A6B /* G05F00S01VC.swift in Sources */,
 				D78F99F51ECD87D3003CB814 /* G05SearchCustomerRequest.swift in Sources */,
 				D7D3BDB11EBC935B00C85E93 /* CustomerBean.swift in Sources */,
+				19D74A891EE4716C00B7DE47 /* G11F01Sum.swift in Sources */,
 				D776BC9B1E8F858C00F5C883 /* G06F01S03.swift in Sources */,
 				D715BB6D1EBE2D810097BDA8 /* G08F01S02.swift in Sources */,
 				D7EA53C51EE3D0A8004CFE1F /* TicketBean.swift in Sources */,
@@ -1579,12 +1590,14 @@
 				D78B04611ED13D470064DE88 /* G09F01S04.swift in Sources */,
 				D7EA53C71EE3D132004CFE1F /* TicketReplyBean.swift in Sources */,
 				D7D3BDB31EBC95BA00C85E93 /* CustomerListRespModel.swift in Sources */,
+				19D74A831EE465E300B7DE47 /* G11F01VC.swift in Sources */,
 				D76C17B31EE1732200B71FAE /* G01F00S04VC.swift in Sources */,
 				D7C255231E8B63C700941E31 /* G06F00S02VC.swift in Sources */,
 				D77F063D1E7176E900797A6B /* G01F00S03MenuVC.swift in Sources */,
 				D7B0B6EA1E9E067900FB537A /* G07F01S01VC.swift in Sources */,
 				D77F06361E7176E900797A6B /* G01F00S01VC.swift in Sources */,
 				D78A2C9E1EBBAF20007FD27B /* G08F01Sum.swift in Sources */,
+				19D74A851EE466D200B7DE47 /* G11F01S01.swift in Sources */,
 				D76E7E741EDE67F9005D5585 /* ReportCashbookRespBean.swift in Sources */,
 				D77F061F1E7175D000797A6B /* G00HomeVC.swift in Sources */,
 				D709FE971E86EF5400F32A7E /* WorkingReportListRequest.swift in Sources */,
@@ -1611,7 +1624,6 @@
 				D7ADCBC91ED020A800226523 /* TempDataRequest.swift in Sources */,
 				D7EA53CD1EE3EAC1004CFE1F /* G11F00S01VC.swift in Sources */,
 				D78F99EC1ECD52F9003CB814 /* G09F00S01VC.swift in Sources */,
-				D765687A1EE448F400A9D041 /* G11F00S02Cell.swift in Sources */,
 				D7D28B7D1EB9BF9E006DDF83 /* StoreCardListResponseModel.swift in Sources */,
 				D79254461ECE8DDF00982781 /* G05F03S04.swift in Sources */,
 				D7CDBE281E88061E00B73877 /* CustomerFamilyViewRespModel.swift in Sources */,

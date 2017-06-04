@@ -72,7 +72,7 @@ class G11F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * Handle when tap on create button
      */
     internal func btnCreateTapped(_ sender: AnyObject) {
-        
+        self.pushToView(name: G11F01VC.theClassName)
     }
     
     /**

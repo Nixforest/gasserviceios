@@ -24,7 +24,7 @@ class G01F00S05VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /** List of information data */
     private var _listInfo:          [ConfigurationModel]        = [ConfigurationModel]()
     /** Note textview */
-    private var _tbxNote: UITextView                            = UITextView()
+    private var _tbxNote:           UITextView                  = UITextView()
     /** Height of bottom view */
     private let bottomHeight:       CGFloat                     = 2 * (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
     /** Action button */
@@ -432,6 +432,7 @@ class G01F00S05VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             })
         }
     }
+    
     /**
      * Setup button for this view
      * - parameter button:  Button to setup

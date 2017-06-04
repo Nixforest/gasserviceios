@@ -12,7 +12,7 @@ import harpyframework
 class G11F00S02VC: ChildViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: Properties
     /** Summary information label */
-    private var _lblSum:            UILabel                 = UILabel()
+    private var _lblSum:            UILabel             = UILabel()
     /** Id */
     public static var _id:          String              = DomainConst.BLANK
     /** Current data */
@@ -22,10 +22,119 @@ class G11F00S02VC: ChildViewController, UITableViewDelegate, UITableViewDataSour
     /** Refrest control */
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        //refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         return refreshControl
     }()
+    /** Answer button */
+    private var _btnAnswer:         UIButton            = UIButton()
+    /** Close button */
+    private var _btnClose:          UIButton            = UIButton()
+    
     // MARK: Methods
+    /**
+     * Handle button answer tap event
+     */
+    internal func btnAnswerTapped(_ sender: AnyObject) {
+        var txtAnswerContent: UITextField?
+        // Create alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00427,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .alert)
+        // Add textfield
+        alert.addTextField(configurationHandler: { textField -> Void in
+            txtAnswerContent = textField
+            txtAnswerContent?.placeholder       = DomainConst.CONTENT00428
+            txtAnswerContent?.clearButtonMode   = .whileEditing
+            txtAnswerContent?.returnKeyType     = .done
+            txtAnswerContent?.textAlignment     = .left
+        })
+        
+        // Add cancel action
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
+        // Add ok action
+        let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
+            if (txtAnswerContent?.text?.isBlank)! {
+                self.showAlert(message: DomainConst.CONTENT00429, okTitle: DomainConst.CONTENT00251,
+                               okHandler: {_ in
+                                self.btnAnswerTapped(self)
+                },
+                               cancelHandler: {_ in
+                                
+                })
+            } else {
+                self.requestAnswer(content: (txtAnswerContent?.text)!)
+            }
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Handle button close tap event
+     */
+    internal func btnCloseTapped(_ sender: AnyObject) {
+        showAlert(message: DomainConst.CONTENT00430, okHandler: {
+            alert in
+            self.requestClose()
+        }, cancelHandler: {
+            alert in
+            // Do nothing
+        })
+    }
+    
+    /**
+     * Handle request close ticket
+     */
+    internal func requestClose() {
+        TicketCloseRequest.request(action: #selector(finishCloseRequest(_:)),
+                                   view: self,
+                                   id: G11F00S02VC._id)
+    }
+    
+    /**
+     * Handle request reply ticket
+     */
+    internal func requestAnswer(content: String) {
+        TicketReplyRequest.request(action: #selector(finishReplyRequest(_:)),
+                                   view: self,
+                                   id: G11F00S02VC._id,
+                                   message: content)
+    }
+    
+    /**
+     * Handle when finish reply request
+     */
+    internal func finishReplyRequest(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            showAlert(message: model.message, okHandler: {
+                alert in
+                self.requestData()
+            })
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Handle when finish close request
+     */
+    internal func finishCloseRequest(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            showAlert(message: model.message, okHandler: {
+                alert in
+                self.backButtonTapped(self)
+            })
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+        
     /**
      * Request data from server
      */
@@ -62,6 +171,8 @@ class G11F00S02VC: ChildViewController, UITableViewDelegate, UITableViewDataSour
         if model.isSuccess() {
             self._data = model
             self._lblSum.text = model.record.title.capitalizingFirstLetter()
+            _btnAnswer.isEnabled = model.record.can_reply == DomainConst.NUMBER_ONE_VALUE
+            _btnClose.isEnabled = model.record.can_close == DomainConst.NUMBER_ONE_VALUE
             self._tblView.reloadData()
         } else {
             showAlert(message: model.message)
@@ -91,6 +202,21 @@ class G11F00S02VC: ChildViewController, UITableViewDelegate, UITableViewDataSour
         self.view.addSubview(_lblSum)
         offset = offset + _lblSum.frame.height
         
+        // Answer button
+        setupButton(button: _btnAnswer,
+                    x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                    y: offset, title: DomainConst.CONTENT00311,
+                    icon: DomainConst.TICKET_REPLY_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
+                    action: #selector(btnAnswerTapped(_:)))
+        setupButton(button: _btnClose, x: GlobalConst.SCREEN_WIDTH / 2,
+                    y: offset, title: DomainConst.CONTENT00220,
+                    icon: DomainConst.TICKET_CLOSE_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_YELLOW,
+                    action: #selector(btnCloseTapped(_:)))
+        offset += _btnAnswer.frame.height
+        self.view.addSubview(_btnAnswer)
+        self.view.addSubview(_btnClose
+        )
+        
         // Table View
         _tblView.register(UINib(nibName: G11F00S01Cell.theClassName, bundle: nil), forCellReuseIdentifier: G11F00S01Cell.theClassName)
         _tblView.delegate = self
@@ -110,6 +236,27 @@ class G11F00S02VC: ChildViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     * Setup button for this view
+     * - parameter button:  Button to setup
+     * - parameter x:       X position of button
+     * - parameter y:       Y position of button
+     * - parameter title:   Title of button
+     * - parameter icon:    Icon of button
+     * - parameter color:   Color of button
+     * - parameter action:  Action of button
+     */
+    private func setupButton(button: UIButton, x: CGFloat, y: CGFloat, title: String,
+                             icon: String, color: UIColor, action: Selector) {
+        button.clipsToBounds = true
+        button.frame = CGRect(x: x,
+                              y: y,
+                              width: GlobalConst.BUTTON_W / 2,
+                              height: GlobalConst.BUTTON_H)
+        button.imageView?.contentMode   = .scaleAspectFit
+        button.setImage(ImageManager.getImage(named: icon), for: UIControlState())
+        button.addTarget(self, action: action, for: .touchUpInside)
+    }
 
     /*
     // MARK: - Navigation
