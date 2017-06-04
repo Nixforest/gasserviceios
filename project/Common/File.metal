@@ -8,6 +8,8 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.16.0
+// - BUG0102: Add new function G11
 // Version: 1.15.0
 // - BUG0101: Fix bug change value of from date and to date in Report screens
 // - BUG0100: Update func G01: add Family Uphold sub-function

@@ -87,7 +87,6 @@ class G10F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
 
         // Do any additional setup after loading the view.
         createNavigationBar(title: DomainConst.CONTENT00159)
-        let height = self.getTopHeight()
         
         // Table View
         _tblView.register(UITableViewCell.self,
