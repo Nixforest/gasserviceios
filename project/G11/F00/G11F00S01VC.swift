@@ -72,7 +72,62 @@ class G11F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * Handle when tap on create button
      */
     internal func btnCreateTapped(_ sender: AnyObject) {
+        // Check cache data is exist
+        if CacheDataRespModel.record.isEmpty() {
+            // Request server cache data
+            CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
+                                     view: self)
+        } else {
+            // Start create ticket
+            createTicket()
+        }
+    }
+    
+    /**
+     * Handle when finish request cache data
+     */
+    internal func finishRequestCacheData(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CacheDataRespModel(jsonString: data)
+        if model.isSuccess() {
+            // Start create ticket
+            createTicket()
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Start create ticket
+     */
+    private func createTicket() {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00433,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        for item in CacheDataRespModel.record.getListTicketHandler() {
+            let action = UIAlertAction(title: item.name,
+                                       style: .default, handler: {
+                                        action in
+                                        self.handleCreateTicket(id: item.id)
+            })
+            alert.addAction(action)
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Open create ticket view controller
+     * - parameter id: Id of ticket handler
+     */
+    internal func handleCreateTicket(id: String) {
+        G11F01VC._handlerId = id
         self.pushToView(name: G11F01VC.theClassName)
+        
     }
     
     /**

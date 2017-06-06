@@ -66,7 +66,7 @@ class G11F01S01: StepContent, UITextViewDelegate, UITextFieldDelegate {
         _tbxNote.translatesAutoresizingMaskIntoConstraints = true
         _tbxNote.returnKeyType      = .done
         _tbxNote.tag                = 0
-        //CommonProcess.setBorder(view: _tbxNote, radius: GlobalConst.BUTTON_CORNER_RADIUS)
+        CommonProcess.setBorder(view: _tbxNote, radius: 5.0, borderColor: GlobalConst.TEXTVIEW_BORDER_COLOR)
         offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
         contentView.addSubview(_tbxNote)
         
@@ -98,7 +98,7 @@ class G11F01S01: StepContent, UITextViewDelegate, UITextFieldDelegate {
      * - parameter textField: Textfield is focusing
      */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        _tbxNote.becomeFirstResponder()
+        //_tbxNote.becomeFirstResponder()
         return true
     }
     

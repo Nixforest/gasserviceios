@@ -47,7 +47,7 @@ class G11F01Sum: StepSummary {
         var listValues = [(String, String)]()
         listValues.append((DomainConst.CONTENT00062, G11F01S01._selectedValue.title))
         listValues.append((DomainConst.CONTENT00063, G11F01S01._selectedValue.content))
-        listValues.append((DomainConst.CONTENT00433, G11F01S02._selectedValue.name))
+        listValues.append((DomainConst.CONTENT00433, CacheDataRespModel.record.getTicketHandlerById(id: G11F01VC._handlerId)))
         return _detailView.updateData(listValues: listValues)
         
     }
