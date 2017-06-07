@@ -44,6 +44,16 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         return refreshControl
     }()
+    //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
+    /** Save button */
+    private var btnSave:            UIButton                = UIButton()
+    /** Action button */
+    private var btnAction:          UIButton                = UIButton()
+    /** Cancel button */
+    private var btnCancel:          UIButton                = UIButton()
+    /** Create ticket button */
+    private var _btnTicket:         UIButton                = UIButton()
+    //-- BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
     
     // MARK: Methods
     /**
@@ -212,6 +222,12 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                           width: GlobalConst.SCREEN_WIDTH,
                                           height: GlobalConst.SCREEN_HEIGHT)
             }
+            
+            //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
+            btnSave.isEnabled = (_data.getRecord().show_button_save == DomainConst.NUMBER_ONE_VALUE)
+            btnAction.isEnabled = (_data.getRecord().show_button_complete == DomainConst.NUMBER_ONE_VALUE)
+            //-- BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
+            
             // Reload data in table view
             //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
             //self._tableView.reloadData()
@@ -244,9 +260,14 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                               y: y,
                               width: GlobalConst.BUTTON_W / 2,
                               height: GlobalConst.BUTTON_H)
-        button.setTitle(title.uppercased(), for: UIControlState())
+        button.setTitle(title, for: UIControlState())
         button.setTitleColor(UIColor.white, for: UIControlState())
         button.backgroundColor          = color
+        //++ BUG0103-SPJ (NguyenPT 20170606) Update new flag
+        button.clipsToBounds            = true
+        button.setBackgroundColor(color: color, forState: .normal)
+        button.setBackgroundColor(color: GlobalConst.BUTTON_COLOR_GRAY, forState: .disabled)
+        //-- BUG0103-SPJ (NguyenPT 20170606) Update new flag
         button.titleLabel?.font         = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         button.layer.cornerRadius       = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         button.imageView?.contentMode   = .scaleAspectFit
@@ -264,22 +285,36 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private func createBottomView() {
         var botOffset: CGFloat = 0.0
         // Create save button
-        let btnSave = UIButton()
-        CommonProcess.createButtonLayout(
-            btn: btnSave, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2, y: botOffset,
-            text: DomainConst.CONTENT00141.uppercased(), action: #selector(btnSaveTapped(_:)), target: self,
-            img: DomainConst.RELOAD_IMG_NAME, tintedColor: UIColor.white)
-        
-        btnSave.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
-                                              left: GlobalConst.MARGIN,
-                                              bottom: GlobalConst.MARGIN,
-                                              right: GlobalConst.MARGIN)
-        botOffset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
+        //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
+//        let btnSave = UIButton()
+//        CommonProcess.createButtonLayout(
+//            btn: btnSave, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2, y: botOffset,
+//            text: DomainConst.CONTENT00086, action: #selector(btnSaveTapped(_:)), target: self,
+//            img: DomainConst.SAVE_ICON_IMG_NAME, tintedColor: UIColor.white)
+//        
+//        btnSave.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
+//                                              left: GlobalConst.MARGIN,
+//                                              bottom: GlobalConst.MARGIN,
+//                                              right: GlobalConst.MARGIN)
+        setupButton(button: btnSave, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                    y: botOffset, title: DomainConst.CONTENT00086,
+                    icon: DomainConst.SAVE_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
+                    action: #selector(btnSaveTapped(_:)))
         _bottomView.addSubview(btnSave)
+        setupButton(button: _btnTicket, x:  GlobalConst.SCREEN_WIDTH / 2,
+                    y: botOffset, title: DomainConst.CONTENT00402,
+                    icon: DomainConst.TICKET_ICON_IMG_NAME,
+                    color: GlobalConst.BUTTON_COLOR_YELLOW,
+                    action: #selector(btnCreateTicketTapped(_:)))
+        _bottomView.addSubview(_btnTicket)
+        botOffset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
+        //-- BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
         
         // Button action
-        let btnAction = UIButton()
-        let btnCancel = UIButton()
+        //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
+//        let btnAction = UIButton()
+//        let btnCancel = UIButton()
+        //-- BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
         setupButton(button: btnAction, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                     y: botOffset,
                     //++ BUG0085-SPJ (NguyenPT 20170515) Change label of Action button on Order Family detail screen
@@ -297,6 +332,78 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     }
     
     // MARK: Handle events
+    //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
+    /**
+     * Handle when tap on create button
+     */
+    internal func btnCreateTicketTapped(_ sender: AnyObject) {
+        // Check cache data is exist
+        if CacheDataRespModel.record.isEmpty() {
+            // Request server cache data
+            CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
+                                     view: self)
+        } else {
+            // Start create ticket
+            createTicket()
+        }
+    }
+    
+    /**
+     * Handle when finish request cache data
+     */
+    internal func finishRequestCacheData(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CacheDataRespModel(jsonString: data)
+        if model.isSuccess() {
+            // Start create ticket
+            createTicket()
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Start create ticket
+     */
+    private func createTicket() {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00433,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        for item in CacheDataRespModel.record.getListTicketHandler() {
+            let action = UIAlertAction(title: item.name,
+                                       style: .default, handler: {
+                                        action in
+                                        self.handleCreateTicket(id: item.id)
+            })
+            alert.addAction(action)
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Open create ticket view controller
+     * - parameter id: Id of ticket handler
+     */
+    internal func handleCreateTicket(id: String) {
+        G11F01VC._handlerId = id
+        G11F01S01._selectedValue.content = String.init(format: "Đơn hàng HGĐ - %@ - %@ - %@\n",
+                    _data.getRecord().created_date,
+                    _data.getRecord().code_no,
+                    _data.getRecord().first_name)
+//        G11F01S01._selectedValue.content = "Đơn hàng HGĐ - "
+//            + _data.getRecord().created_date + " - "
+//            + _data.getRecord().code_no + " - "
+//            + _data.getRecord().first_name + "\n"
+        self.pushToView(name: G11F01VC.theClassName)
+        
+    }
+    //-- BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
+    
     /**
      * Handle when tap on save button
      */
@@ -669,31 +776,31 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         
         //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
-        if BaseModel.shared.isNVGNUser() {      // User is NVGN
-            if (_data.getRecord().support_id != DomainConst.NUMBER_ZERO_VALUE) {
-                _listInfo[2].append(ConfigurationModel(
-                    id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
-                    name: DomainConst.CONTENT00370,
-                    iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                    value: _data.getRecord().support_text))
-            } else {        // Default value
-                if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
-                    _listInfo[2].append(ConfigurationModel(
-                        id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
-                        name: BaseModel.shared.getSupportNameById(id: _data.getRecord().support_id),
-                        iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                        value: DomainConst.BLANK))
-                }
-            }
-        } else if !BaseModel.shared.isCustomerUser() {  // User is not customer
-            if (_data.getRecord().support_id != DomainConst.NUMBER_ZERO_VALUE) {
-                _listInfo[2].append(ConfigurationModel(
-                    id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
-                    name: DomainConst.CONTENT00370,
-                    iconPath: DomainConst.MONEY_ICON_IMG_NAME,
-                    value: _data.getRecord().support_text))
-            }
-        }
+//        if BaseModel.shared.isNVGNUser() {      // User is NVGN
+//            if (_data.getRecord().support_id != DomainConst.NUMBER_ZERO_VALUE) {
+//                _listInfo[2].append(ConfigurationModel(
+//                    id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
+//                    name: DomainConst.CONTENT00370,
+//                    iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+//                    value: _data.getRecord().support_text))
+//            } else {        // Default value
+//                if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+//                    _listInfo[2].append(ConfigurationModel(
+//                        id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
+//                        name: BaseModel.shared.getSupportNameById(id: _data.getRecord().support_id),
+//                        iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+//                        value: DomainConst.BLANK))
+//                }
+//            }
+//        } else if !BaseModel.shared.isCustomerUser() {  // User is not customer
+//            if (_data.getRecord().support_id != DomainConst.NUMBER_ZERO_VALUE) {
+//                _listInfo[2].append(ConfigurationModel(
+//                    id: DomainConst.ORDER_INFO_SUPPORT_TYPE_ID,
+//                    name: DomainConst.CONTENT00370,
+//                    iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+//                    value: _data.getRecord().support_text))
+//            }
+//        }
         //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
         
         // Promote
@@ -887,16 +994,16 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     || (!_listInfo[indexPath.section][indexPath.row].isNotMaterial()) {
                     cell.highlightName()
                 }
-                if (_listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_SUPPORT_TYPE_ID) {
-                    if _data.getRecord().support_id == DomainConst.NUMBER_ZERO_VALUE {
-                        cell.highlightName()
-                    } else {
-                        // Highlight total money
-                        if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
-                            cell.highlightValue()
-                        }
-                    }
-                }
+//                if (_listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_SUPPORT_TYPE_ID) {
+//                    if _data.getRecord().support_id == DomainConst.NUMBER_ZERO_VALUE {
+//                        cell.highlightName()
+//                    } else {
+//                        // Highlight total money
+//                        if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+//                            cell.highlightValue()
+//                        }
+//                    }
+//                }
                 if (_listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_ORDER_TYPE_ID) {
                     // Highlight total money
                     if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
@@ -941,10 +1048,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                     data: data)
             }
         }
-        if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_SUPPORT_TYPE_ID
-            && (self._data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE) {
-            self.updateSupportType()
-        }
+//        if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_SUPPORT_TYPE_ID
+//            && (self._data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE) {
+//            self.updateSupportType()
+//        }
         
         if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_ORDER_TYPE_ID
             && (self._data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE) {

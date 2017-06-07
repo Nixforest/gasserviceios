@@ -30,7 +30,7 @@ class G10F00S02VC: G10F00ReportVC, UICollectionViewDataSource, UICollectionViewD
 //    /** Label to date */
 //    private var lblToDate:              UILabel                  = UILabel()
     /** Date picker */
-    private var _datePickerFrom:            DatePickerView  = DatePickerView()
+    private var _datePickerFrom:          DatePickerView  = DatePickerView()
     /** Date picker */
     private var _datePickerTo:            DatePickerView  = DatePickerView()
     //-- BUG0101-SPJ (NguyenPT 20170603) Fix bug change value of from date and to date in Report screens

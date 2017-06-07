@@ -582,10 +582,13 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                             name: DomainConst.CONTENT00260,
                                             iconPath: DomainConst.MONEY_ICON_GREY_IMG_NAME,
                                             value: data.total_gas + DomainConst.VIETNAMDONG))
-        _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_GAS_DU_ID,
-                                            name: DomainConst.CONTENT00261,
-                                            iconPath: DomainConst.MONEY_ICON_GREY_IMG_NAME,
-                                            value: data.total_gas_du + DomainConst.VIETNAMDONG))
+        if data.total_gas_du != DomainConst.NUMBER_ZERO_VALUE {
+            _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_GAS_DU_ID,
+                                                name: DomainConst.CONTENT00261,
+                                                iconPath: DomainConst.MONEY_ICON_GREY_IMG_NAME,
+                                                value: DomainConst.SPLITER_TYPE1 + data.total_gas_du + DomainConst.VIETNAMDONG))
+        }
+        
         _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_TOTAL_MONEY_ID,
                                             name: DomainConst.CONTENT00262,
                                             iconPath: DomainConst.MONEY_ICON_PAPER_IMG_NAME,

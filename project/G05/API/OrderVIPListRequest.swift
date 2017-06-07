@@ -60,26 +60,61 @@ class OrderVIPListRequest: BaseRequest {
      * Set data content
      * - parameter page:        Page index
      * - parameter status:      Status of request
+     * - parameter from:        From date
+     * - parameter to:          To date
+     * - parameter customerId:  Id of customer
      */
     //func setData(page: Int) {
-    func setData(page: Int, status: String) {
+    func setData(page: Int, status: String, from: String, to: String, customerId: String) {
         self.data = "q=" + String.init(
             //format: "{\"%@\":\"%@\",\"%@\":\"%@\"}",
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
-            DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
-            DomainConst.KEY_PAGE, String(page),
-            DomainConst.KEY_STATUS, status,
-            DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
+            DomainConst.KEY_TOKEN,          BaseModel.shared.getUserToken(),
+            DomainConst.KEY_PAGE,           String(page),
+            DomainConst.KEY_STATUS,         status,
+            DomainConst.KEY_DATE_FROM,      from,
+            DomainConst.KEY_DATE_TO,        to,
+            DomainConst.KEY_CUSTOMER_ID,    customerId,
+            DomainConst.KEY_PLATFORM,       DomainConst.PLATFORM_IOS
         )
     }
     //-- BUG0060-SPJ (NguyenPT 20170421) Add status parameter
     
     /**
      * Request order list function
-     * - parameter page:    Page index
+     * - parameter page:        Page index
+     * - parameter status:      Status of request
+     * - parameter from:        From date
+     * - parameter to:          To date
+     * - parameter customerId:  Id of customer
      */
     public static func request(action: Selector, view: BaseViewController,
-                                          page: Int, status: String = DomainConst.ORDER_STATUS_TYPE_ALL) {
+                               page: Int, status: String = DomainConst.ORDER_STATUS_TYPE_ALL) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view.view)
+        let request = OrderVIPListRequest(url: G05Const.PATH_ORDER_VIP_LIST,
+                                          reqMethod: DomainConst.HTTP_POST_REQUEST,
+                                          view: view)
+        //++ BUG0060-SPJ (NguyenPT 20170421) Add status parameter
+        //request.setData(page: page)
+        //-- BUG0060-SPJ (NguyenPT 20170421) Add status parameter
+        request.setData(page: page, status: status,
+                        from: "", to: "", customerId: "")
+        NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
+        request.execute()
+    }
+    
+    /**
+     * Request order list function
+     * - parameter page:        Page index
+     * - parameter status:      Status of request
+     * - parameter from:        From date
+     * - parameter to:          To date
+     * - parameter customerId:  Id of customer
+     */
+    public static func request(action: Selector, view: BaseViewController,
+                                          page: Int, status: String,
+                                          from: String, to: String, customerId: String) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = OrderVIPListRequest(url: G05Const.PATH_ORDER_VIP_LIST,
@@ -88,7 +123,8 @@ class OrderVIPListRequest: BaseRequest {
         //++ BUG0060-SPJ (NguyenPT 20170421) Add status parameter
         //request.setData(page: page)
         //-- BUG0060-SPJ (NguyenPT 20170421) Add status parameter
-        request.setData(page: page, status: status)
+        request.setData(page: page, status: status,
+                        from: from, to: to, customerId: customerId)
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }

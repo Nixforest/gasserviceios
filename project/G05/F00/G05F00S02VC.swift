@@ -232,7 +232,7 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_GAS_DU_ID,
                                             name: DomainConst.CONTENT00261,
                                             iconPath: DomainConst.MONEY_ICON_GREY_IMG_NAME,
-                                            value: data.total_gas_du + DomainConst.VIETNAMDONG))
+                                            value: DomainConst.SPLITER_TYPE1 + data.total_gas_du + DomainConst.VIETNAMDONG))
         _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_TOTAL_MONEY_ID,
                                             name: DomainConst.CONTENT00262,
                                             iconPath: DomainConst.MONEY_ICON_PAPER_IMG_NAME,

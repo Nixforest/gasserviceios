@@ -37,7 +37,11 @@ class G05APITestVC: BaseAPITestViewController {
             OrderVIPListRequest.request(
                 action: #selector(finishHandler(_:)),
                 view: self,
-                page: Int(getParam(idx: 0))!)
+                page: Int(getParam(idx: 0))!,
+                status: "1",
+                from: CommonProcess.getCurrentDate(),
+                to: CommonProcess.getCurrentDate(),
+                customerId: DomainConst.NUMBER_ZERO_VALUE)
         case OrderVIPViewRequest.theClassName:
             OrderVIPViewRequest.request(
                 action: #selector(finishHandler(_:)),

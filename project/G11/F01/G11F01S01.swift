@@ -69,6 +69,9 @@ class G11F01S01: StepContent, UITextViewDelegate, UITextFieldDelegate {
         CommonProcess.setBorder(view: _tbxNote, radius: 5.0, borderColor: GlobalConst.TEXTVIEW_BORDER_COLOR)
         offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
         contentView.addSubview(_tbxNote)
+        if !G11F01S01._selectedValue.content.isBlank {
+            _tbxNote.text = G11F01S01._selectedValue.content
+        }
         
         // Set parent
         self.setParentView(parent: parent)
