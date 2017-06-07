@@ -262,8 +262,8 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                               height: GlobalConst.BUTTON_H)
         button.setTitle(title, for: UIControlState())
         button.setTitleColor(UIColor.white, for: UIControlState())
-        button.backgroundColor          = color
         //++ BUG0103-SPJ (NguyenPT 20170606) Update new flag
+//        button.backgroundColor          = color
         button.clipsToBounds            = true
         button.setBackgroundColor(color: color, forState: .normal)
         button.setBackgroundColor(color: GlobalConst.BUTTON_COLOR_GRAY, forState: .disabled)

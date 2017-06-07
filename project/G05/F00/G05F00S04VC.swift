@@ -67,7 +67,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /** Note textview */
     private var _tbxNote: UITextView                     = UITextView()
     /** Height of bottom view */
-    private let bottomHeight:       CGFloat              = 2 * (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
+    private let bottomHeight:       CGFloat              = 3 * (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
     /** Type when open a model VC */
     private let TYPE_NONE:              String = DomainConst.NUMBER_ZERO_VALUE
     private let TYPE_GAS:               String = "1"
@@ -75,6 +75,19 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private let TYPE_CYLINDER:          String = "3"
     /** Current type when open model VC */
     private var _type:              String                  = DomainConst.NUMBER_ZERO_VALUE
+    
+    //++ BUG0104-SPJ (NguyenPT 20170606) Handle action buttons
+    /** Save button */
+    private var btnSave:            UIButton                = UIButton()
+    /** Action button */
+    private var btnAction:          UIButton                = UIButton()
+    /** Cancel button */
+    private var btnCancel:          UIButton                = UIButton()
+    /** Create ticket button */
+    private var _btnTicket:         UIButton                = UIButton()
+    /** Other actions button */
+    private var _btnOtherAction:    UIButton                = UIButton()
+    //-- BUG0104-SPJ (NguyenPT 20170606) Handle action buttons
     
     // MARK: Methods
     // MARK: Data prepare
@@ -654,6 +667,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                            width: GlobalConst.SCREEN_WIDTH,
                                            height: GlobalConst.SCREEN_HEIGHT)
             }
+            //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
+            btnSave.isEnabled = (_data.getRecord().show_button_save == 1)
+            btnAction.isEnabled = (_data.getRecord().show_button_complete == 1)
+            btnCancel.isEnabled = (_data.getRecord().show_button_cancel == 1)
+            //-- BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
             _tbxNote.isEditable = (_data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE)
             updateLayout()
         }
@@ -662,6 +680,53 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             showAlert(message: _data.message)
         }
         //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
+    }
+    /**
+     * Handle when tap on save button
+     */
+    internal func btnOtherActionTapped(_ sender: AnyObject) {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00436,
+                                      message: DomainConst.CONTENT00437,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        if _data.getRecord().show_thu_tien == 1 {
+            let actionMoneyCollect = UIAlertAction(title: "Thu tiền",
+                                                   style: .default, handler: {
+                                                    action in
+                                                    
+            })
+            alert.addAction(actionMoneyCollect)
+        }
+        if _data.getRecord().show_chi_gas_du == 1 {
+            let action = UIAlertAction(title: "Chi gas dư",
+                                                   style: .default, handler: {
+                                                    action in
+                                                    
+            })
+            alert.addAction(action)
+        }
+        if _data.getRecord().show_button_debit == 1 {
+            let action = UIAlertAction(title: "Đơn hàng nợ",
+                                                   style: .default, handler: {
+                                                    action in
+                                                    
+            })
+            alert.addAction(action)
+        }
+        
+//        for item in CacheDataRespModel.record.getListTicketHandler() {
+//            let action = UIAlertAction(title: item.name,
+//                                       style: .default, handler: {
+//                                        action in
+//                                        self.handleCreateTicket(id: item.id)
+//            })
+//            alert.addAction(action)
+//        }
+        self.present(alert, animated: true, completion: nil)
     }
     
     /**
@@ -805,6 +870,74 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
+    //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
+    /**
+     * Handle when tap on create button
+     */
+    internal func btnCreateTicketTapped(_ sender: AnyObject) {
+        // Check cache data is exist
+        if CacheDataRespModel.record.isEmpty() {
+            // Request server cache data
+            CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
+                                     view: self)
+        } else {
+            // Start create ticket
+            createTicket()
+        }
+    }
+    
+    /**
+     * Handle when finish request cache data
+     */
+    internal func finishRequestCacheData(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CacheDataRespModel(jsonString: data)
+        if model.isSuccess() {
+            // Start create ticket
+            createTicket()
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Start create ticket
+     */
+    private func createTicket() {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00433,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        for item in CacheDataRespModel.record.getListTicketHandler() {
+            let action = UIAlertAction(title: item.name,
+                                       style: .default, handler: {
+                                        action in
+                                        self.handleCreateTicket(id: item.id)
+            })
+            alert.addAction(action)
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Open create ticket view controller
+     * - parameter id: Id of ticket handler
+     */
+    internal func handleCreateTicket(id: String) {
+        G11F01VC._handlerId = id
+        G11F01S01._selectedValue.content = String.init(
+            format: "Đơn hàng Bò/Mối - %@ - %@ - %@\n",
+            _data.getRecord().created_date,
+            _data.getRecord().code_no,
+            _data.getRecord().customer_name)
+        self.pushToView(name: G11F01VC.theClassName)
+        
+    }
+    //-- BUG0104-SPJ (NguyenPT 20170606) Handle action buttons
     
     // MARK: Override from UIViewController
     /**
@@ -948,18 +1081,28 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter action:  Action of button
      */
     private func setupButton(button: UIButton, x: CGFloat, y: CGFloat, title: String,
-                             icon: String, color: UIColor, action: Selector) {
+                             icon: String, color: UIColor, action: Selector, width: CGFloat = GlobalConst.BUTTON_W / 2) {
         button.frame = CGRect(x: x,
                               y: y,
-                              width: GlobalConst.BUTTON_W / 2,
+                              //width: GlobalConst.BUTTON_W / 2,
+                              width: width,
                               height: GlobalConst.BUTTON_H)
-        button.setTitle(title.uppercased(), for: UIControlState())
+        button.setTitle(title, for: UIControlState())
         button.setTitleColor(UIColor.white, for: UIControlState())
-        button.backgroundColor          = color
+        //++ BUG0103-SPJ (NguyenPT 20170606) Update new flag
+//        button.backgroundColor          = color
+        button.clipsToBounds            = true
+        button.setBackgroundColor(color: color, forState: .normal)
+        button.setBackgroundColor(color: GlobalConst.BUTTON_COLOR_GRAY, forState: .disabled)
+        //-- BUG0103-SPJ (NguyenPT 20170606) Update new flag
         button.titleLabel?.font         = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         button.layer.cornerRadius       = GlobalConst.LOGIN_BUTTON_CORNER_RADIUS
         button.imageView?.contentMode   = .scaleAspectFit
-        button.setImage(ImageManager.getImage(named: icon), for: UIControlState())
+        let img = ImageManager.getImage(named: icon)
+        let tintedImg = img?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        button.tintColor = UIColor.white
+        button.setImage(tintedImg, for: UIControlState())
+        //button.setImage(ImageManager.getImage(named: icon), for: UIControlState())
         button.addTarget(self, action: action, for: .touchUpInside)
         button.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
                                               left: GlobalConst.MARGIN,
@@ -1002,23 +1145,46 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     private func createBottomView() {
         var botOffset: CGFloat = 0.0
+        // Other action button
+        setupButton(button: _btnOtherAction, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                    y: botOffset, title: "Tác vụ khác",
+                    icon: DomainConst.SAVE_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
+                    action: #selector(btnOtherActionTapped(_:)),
+                    width: GlobalConst.BUTTON_W)
+        _bottomView.addSubview(_btnOtherAction)
+        botOffset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
         // Create save button
-        let btnSave = UIButton()
-        CommonProcess.createButtonLayout(
-            btn: btnSave, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2, y: botOffset,
-            text: DomainConst.CONTENT00141.uppercased(), action: #selector(btnSaveTapped(_:)), target: self,
-            img: DomainConst.RELOAD_IMG_NAME, tintedColor: UIColor.white)
-        
-        btnSave.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
-                                               left: GlobalConst.MARGIN,
-                                               bottom: GlobalConst.MARGIN,
-                                               right: GlobalConst.MARGIN)
+        //++ BUG0104-SPJ (NguyenPT 20170606) Handle action buttons
+//        let btnSave = UIButton()
+//        CommonProcess.createButtonLayout(
+//            btn: btnSave, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2, y: botOffset,
+//            text: DomainConst.CONTENT00141.uppercased(), action: #selector(btnSaveTapped(_:)), target: self,
+//            img: DomainConst.RELOAD_IMG_NAME, tintedColor: UIColor.white)
+//        
+//        btnSave.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
+//                                               left: GlobalConst.MARGIN,
+//                                               bottom: GlobalConst.MARGIN,
+//                                               right: GlobalConst.MARGIN)
+        setupButton(button: btnSave, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                    y: botOffset, title: DomainConst.CONTENT00086,
+                    icon: DomainConst.SAVE_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
+                    action: #selector(btnSaveTapped(_:)))
+        setupButton(button: _btnTicket, x:  GlobalConst.SCREEN_WIDTH / 2,
+                    y: botOffset, title: DomainConst.CONTENT00402,
+                    icon: DomainConst.TICKET_ICON_IMG_NAME,
+                    color: GlobalConst.BUTTON_COLOR_YELLOW,
+                    action: #selector(btnCreateTicketTapped(_:)))
+        _bottomView.addSubview(_btnTicket)
+        //-- BUG0104-SPJ (NguyenPT 20170606) Handle action buttons
         botOffset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
         _bottomView.addSubview(btnSave)
         
+        
         // Button action
-        let btnAction = UIButton()
-        let btnCancel = UIButton()
+        //++ BUG0104-SPJ (NguyenPT 20170606) Handle action buttons
+//        let btnAction = UIButton()
+//        let btnCancel = UIButton()
+        //-- BUG0104-SPJ (NguyenPT 20170606) Handle action buttons
         setupButton(button: btnAction, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                     y: botOffset, title: DomainConst.CONTENT00311,
                     icon: DomainConst.CONFIRM_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
