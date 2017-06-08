@@ -50,5 +50,4 @@ class OrderVIPUpdateRequest: BaseRequest {
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
-
 }

@@ -246,7 +246,9 @@ class G09F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         G09F01VC._typeId            = _data.record.master_lookup_id
         G09F01VC._mode              = DomainConst.NUMBER_ONE_VALUE
         G09F01VC._updateData        = _data.record
-        G09F01S01._selectedValue    = _data.record.date_input
+        G09F01S01._selectedValue    = _data.record.date_input.replacingOccurrences(
+            of: DomainConst.SPLITER_TYPE3,
+            with: DomainConst.SPLITER_TYPE1)
         
         G09F01S02._target   = CustomerBean(id: _data.record.customer_id,
                                            name: _data.record.customer_name,
@@ -333,6 +335,7 @@ class G09F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return GlobalConst.CONFIGURATION_ITEM_HEIGHT
     }
+    
     /**
      * Asks your data source object for the number of items in the specified section.
      */

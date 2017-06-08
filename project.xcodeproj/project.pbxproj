@@ -229,6 +229,11 @@
 		D7EA53DA1EE41A9B004CFE1F /* G11F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA53D91EE41A9B004CFE1F /* G11F00S02VC.swift */; };
 		D7EBB7E71EA9B34E00BE6612 /* G05F00S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBB7E61EA9B34E00BE6612 /* G05F00S03VC.swift */; };
 		D7EBB7E91EA9B72200BE6612 /* G05F00S04VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBB7E81EA9B72200BE6612 /* G05F00S04VC.swift */; };
+		D7ED37D91EE9318D008522BC /* G05F04VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ED37D81EE9318D008522BC /* G05F04VC.swift */; };
+		D7ED37DB1EE931D6008522BC /* G05F04S01.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ED37DA1EE931D6008522BC /* G05F04S01.swift */; };
+		D7ED37DD1EE93275008522BC /* G05F04Sum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ED37DC1EE93275008522BC /* G05F04Sum.swift */; };
+		D7ED37DF1EE94014008522BC /* OrderVIPSetDebitRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ED37DE1EE94014008522BC /* OrderVIPSetDebitRequest.swift */; };
+		D7ED37E11EE9552B008522BC /* G05F04S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ED37E01EE9552B008522BC /* G05F04S02.swift */; };
 		D7F0FF311EDFF435007FDC81 /* ReportInventoryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F0FF301EDFF435007FDC81 /* ReportInventoryLayout.swift */; };
 		D7F0FF331EE02934007FDC81 /* UpdateStoreCardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F0FF321EE02934007FDC81 /* UpdateStoreCardRequest.swift */; };
 		D7F0FF351EE02F3B007FDC81 /* G10F00ReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F0FF341EE02F3B007FDC81 /* G10F00ReportVC.swift */; };
@@ -525,6 +530,11 @@
 		D7EA53D91EE41A9B004CFE1F /* G11F00S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G11F00S02VC.swift; path = G11/F00/G11F00S02VC.swift; sourceTree = "<group>"; };
 		D7EBB7E61EA9B34E00BE6612 /* G05F00S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S03VC.swift; path = G05/F00/G05F00S03VC.swift; sourceTree = "<group>"; };
 		D7EBB7E81EA9B72200BE6612 /* G05F00S04VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S04VC.swift; path = G05/F00/G05F00S04VC.swift; sourceTree = "<group>"; };
+		D7ED37D81EE9318D008522BC /* G05F04VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F04VC.swift; path = G05/F04/G05F04VC.swift; sourceTree = "<group>"; };
+		D7ED37DA1EE931D6008522BC /* G05F04S01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F04S01.swift; path = G05/F04/G05F04S01.swift; sourceTree = "<group>"; };
+		D7ED37DC1EE93275008522BC /* G05F04Sum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F04Sum.swift; path = G05/F04/G05F04Sum.swift; sourceTree = "<group>"; };
+		D7ED37DE1EE94014008522BC /* OrderVIPSetDebitRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPSetDebitRequest.swift; path = G05/API/OrderVIPSetDebitRequest.swift; sourceTree = "<group>"; };
+		D7ED37E01EE9552B008522BC /* G05F04S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F04S02.swift; path = G05/F04/G05F04S02.swift; sourceTree = "<group>"; };
 		D7F0FF301EDFF435007FDC81 /* ReportInventoryLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportInventoryLayout.swift; path = G10/Controls/ReportInventoryLayout.swift; sourceTree = "<group>"; };
 		D7F0FF321EE02934007FDC81 /* UpdateStoreCardRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateStoreCardRequest.swift; path = G10/API/UpdateStoreCardRequest.swift; sourceTree = "<group>"; };
 		D7F0FF341EE02F3B007FDC81 /* G10F00ReportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G10F00ReportVC.swift; path = G10/F00/G10F00ReportVC.swift; sourceTree = "<group>"; };
@@ -786,6 +796,7 @@
 				D706C2351E54525200F89B8A /* F01 */,
 				D7CC15101EB05A15002F8434 /* F02 */,
 				D78F99ED1ECD8265003CB814 /* F03 */,
+				D7ED37D61EE93151008522BC /* F04 */,
 			);
 			name = G05;
 			sourceTree = "<group>";
@@ -802,6 +813,7 @@
 				D78F99F41ECD87D3003CB814 /* G05SearchCustomerRequest.swift */,
 				D791A3B61ECDE05E004A7C01 /* OrderVIPCreateByCoordinatorRequest.swift */,
 				D7ADCBC81ED020A800226523 /* TempDataRequest.swift */,
+				D7ED37DE1EE94014008522BC /* OrderVIPSetDebitRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -1238,6 +1250,17 @@
 			name = Controls;
 			sourceTree = "<group>";
 		};
+		D7ED37D61EE93151008522BC /* F04 */ = {
+			isa = PBXGroup;
+			children = (
+				D7ED37D81EE9318D008522BC /* G05F04VC.swift */,
+				D7ED37DA1EE931D6008522BC /* G05F04S01.swift */,
+				D7ED37E01EE9552B008522BC /* G05F04S02.swift */,
+				D7ED37DC1EE93275008522BC /* G05F04Sum.swift */,
+			);
+			name = F04;
+			sourceTree = "<group>";
+		};
 		D7F0FF2E1EDFF38A007FDC81 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
@@ -1529,6 +1552,7 @@
 				D7DA31F81EC04C3900E06FFB /* G08F01S04.swift in Sources */,
 				D78F99EF1ECD82C6003CB814 /* G05F03VC.swift in Sources */,
 				D77F063E1E7176E900797A6B /* G01F00S03VC.swift in Sources */,
+				D7ED37DB1EE931D6008522BC /* G05F04S01.swift in Sources */,
 				D77F06521E71771A00797A6B /* G01F02MenuVC.swift in Sources */,
 				D77F061A1E7175D000797A6B /* G00ConfigurationMenuVC.swift in Sources */,
 				D77F06181E7175D000797A6B /* G00ChangePassMenuVC.swift in Sources */,
@@ -1609,6 +1633,8 @@
 				D7F0FF391EE03911007FDC81 /* ReportCashbookLayout.swift in Sources */,
 				D77F06391E7176E900797A6B /* G01F00S02InfoView.swift in Sources */,
 				D778249E1EDEAD8E002AB15A /* ContentCollectionViewCell.swift in Sources */,
+				D7ED37DD1EE93275008522BC /* G05F04Sum.swift in Sources */,
+				D7ED37E11EE9552B008522BC /* G05F04S02.swift in Sources */,
 				D7BA68871E83B638001C675D /* G06APITestVC.swift in Sources */,
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
 				D77F06881E7177FE00797A6B /* G05F01S01MenuVC.swift in Sources */,
@@ -1669,6 +1695,7 @@
 				D7ADCBCE1ED0268100226523 /* TempDataRespModel.swift in Sources */,
 				D77F06171E7175D000797A6B /* G00AccountVC.swift in Sources */,
 				D76C17A51EE15F2600B71FAE /* FamilyUpholdListRequest.swift in Sources */,
+				D7ED37DF1EE94014008522BC /* OrderVIPSetDebitRequest.swift in Sources */,
 				D77F06581E71771A00797A6B /* G01F02S06.swift in Sources */,
 				D77F06221E7175D000797A6B /* G00LoginVC.swift in Sources */,
 				D78B04631ED13E0C0064DE88 /* G09F01S03.swift in Sources */,
@@ -1702,6 +1729,7 @@
 				D7C812151ED2A7B30014EF51 /* G09F00S03VC.swift in Sources */,
 				D7766ECE1E949E0700BC137A /* G06F01S04.swift in Sources */,
 				D77E62C31EDD6F6500FD5512 /* ReportRequest.swift in Sources */,
+				D7ED37D91EE9318D008522BC /* G05F04VC.swift in Sources */,
 				D7EA53C91EE3E934004CFE1F /* TicketListRespModel.swift in Sources */,
 				D7CDBE311E88112100B73877 /* WorkingReportViewRespModel.swift in Sources */,
 				D7D28B7B1EB9BCDA006DDF83 /* StoreCardBean.swift in Sources */,

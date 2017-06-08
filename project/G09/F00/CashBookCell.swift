@@ -236,7 +236,9 @@ class CashBookCell: UITableViewCell {
             G09F01VC._typeId    = model.record.master_lookup_id
             G09F01VC._mode      = DomainConst.NUMBER_ONE_VALUE
             G09F01VC._updateData        = model.record
-            G09F01S01._selectedValue   = model.record.date_input
+            G09F01S01._selectedValue   = model.record.date_input.replacingOccurrences(
+                of: DomainConst.SPLITER_TYPE3,
+                with: DomainConst.SPLITER_TYPE1)
             
             G09F01S02._target   = CustomerBean(id: model.record.customer_id,
                                                name: model.record.customer_name,

@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
+class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     // MARK: Properties
     /** Information table view */
     @IBOutlet weak var _tableView:  UITableView!
@@ -87,6 +87,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private var _btnTicket:         UIButton                = UIButton()
     /** Other actions button */
     private var _btnOtherAction:    UIButton                = UIButton()
+    /** Image collection view */
+    private var cltImg:             UICollectionView!       = nil
     //-- BUG0104-SPJ (NguyenPT 20170606) Handle action buttons
     
     // MARK: Methods
@@ -681,6 +683,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
+    
     /**
      * Handle when tap on save button
      */
@@ -694,39 +697,132 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                    handler: nil)
         alert.addAction(cancel)
         if _data.getRecord().show_thu_tien == 1 {
-            let actionMoneyCollect = UIAlertAction(title: "Thu tiền",
+            let actionMoneyCollect = UIAlertAction(title: DomainConst.CONTENT00318,
                                                    style: .default, handler: {
                                                     action in
-                                                    
+                                                    self.handleSelectPayMoney()
             })
             alert.addAction(actionMoneyCollect)
         }
         if _data.getRecord().show_chi_gas_du == 1 {
-            let action = UIAlertAction(title: "Chi gas dư",
+            let action = UIAlertAction(title: DomainConst.CONTENT00440,
                                                    style: .default, handler: {
                                                     action in
-                                                    
+                                                    self.handleSelectPayGasRemain()
             })
             alert.addAction(action)
         }
         if _data.getRecord().show_button_debit == 1 {
-            let action = UIAlertAction(title: "Đơn hàng nợ",
+            let action = UIAlertAction(title: DomainConst.CONTENT00438,
                                                    style: .default, handler: {
                                                     action in
-                                                    
+                                                    self.handleSelectSetDebit()
             })
             alert.addAction(action)
         }
-        
-//        for item in CacheDataRespModel.record.getListTicketHandler() {
-//            let action = UIAlertAction(title: item.name,
-//                                       style: .default, handler: {
-//                                        action in
-//                                        self.handleCreateTicket(id: item.id)
-//            })
-//            alert.addAction(action)
-//        }
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Handle select set debit action
+     */
+    internal func handleSelectSetDebit() {
+        G05F04VC._id = _data.getRecord().id
+        G05F04VC._orderInfo = String.init(
+            format: "Đơn hàng Bò/Mối - %@ - %@ - %@\n",
+            _data.getRecord().created_date,
+            _data.getRecord().code_no,
+            _data.getRecord().customer_name)
+        self.pushToView(name: G05F04VC.theClassName)
+    }
+    
+    /**
+     * Handle select pay gas remain action
+     */
+    internal func handlePayGasRemain() {
+        G09F01S02._target = CustomerBean(id: _data.getRecord().customer_id,
+                                         name: _data.getRecord().customer_name,
+                                         phone: _data.getRecord().customer_contact,
+                                         address: _data.getRecord().customer_address)
+        G09F01VC._mode      = DomainConst.NUMBER_ZERO_VALUE
+        G09F01VC._typeId = "24"
+        G09F01VC._appOrderId = _data.getRecord().id
+        G09F01S03._selectedValue = _data.getRecord().total_gas_du
+        G09F01S04._selectedValue = _data.getRecord().total_gas_du_kg + "Kg"
+        self.pushToView(name: G09F01VC.theClassName)
+    }
+    
+    /**
+     * Handle select pay money action
+     */
+    internal func handlePayMoney() {
+        G09F01S02._target = CustomerBean(id: _data.getRecord().customer_id,
+                                         name: _data.getRecord().customer_name,
+                                         phone: _data.getRecord().customer_contact,
+                                         address: _data.getRecord().customer_address)
+        G09F01VC._mode      = DomainConst.NUMBER_ZERO_VALUE
+        G09F01VC._typeId = "43"
+        G09F01VC._appOrderId = _data.getRecord().id
+        G09F01S03._selectedValue = _data.getRecord().grand_total
+        self.pushToView(name: G09F01VC.theClassName)
+    }
+    
+    /**
+     * Handle when tap on create button
+     */
+    internal func handleSelectPayMoney() {
+        // Check cache data is exist
+        if CacheDataRespModel.record.isEmpty() {
+            // Request server cache data
+            CacheDataRequest.request(action: #selector(finishRequestCacheDataPayMoney(_:)),
+                                     view: self)
+        } else {
+            // Start create ticket
+            handlePayMoney()
+        }
+    }
+    
+    /**
+     * Handle when finish request cache data
+     */
+    internal func finishRequestCacheDataPayMoney(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CacheDataRespModel(jsonString: data)
+        if model.isSuccess() {
+            // Start create ticket
+            handlePayMoney()
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Handle when tap on create button
+     */
+    internal func handleSelectPayGasRemain() {
+        // Check cache data is exist
+        if CacheDataRespModel.record.isEmpty() {
+            // Request server cache data
+            CacheDataRequest.request(action: #selector(finishRequestCacheDataPayGasRemain(_:)),
+                                     view: self)
+        } else {
+            // Start create ticket
+            handlePayGasRemain()
+        }
+    }
+    
+    /**
+     * Handle when finish request cache data
+     */
+    internal func finishRequestCacheDataPayGasRemain(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CacheDataRespModel(jsonString: data)
+        if model.isSuccess() {
+            // Start create ticket
+            handlePayGasRemain()
+        } else {
+            showAlert(message: model.message)
+        }
     }
     
     /**
@@ -870,6 +966,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
+    
     //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
     /**
      * Handle when tap on create button
@@ -1025,6 +1122,31 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
         self._scrollView.addSubview(_tbxNote)
         
+        // Create layout for image collection control
+        let layout          = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize     = CGSize(width: GlobalConst.ACCOUNT_AVATAR_W / 2,
+                                     height: GlobalConst.ACCOUNT_AVATAR_W / 2)
+        
+        // Create image collection controll
+        self.cltImg         = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
+        self.cltImg.register(UINib(nibName: DomainConst.COLLECTION_IMAGE_VIEW_CELL,
+                                   bundle: frameworkBundle),
+                             forCellWithReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL)
+        self.cltImg.alwaysBounceHorizontal = true
+        self.cltImg.delegate    = self
+        self.cltImg.dataSource  = self
+        self.cltImg.bounces = true
+        
+        // Set scroll direction
+        if let layout = self.cltImg.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+        offset += GlobalConst.ACCOUNT_AVATAR_W / 2
+        // Add image collection to main view
+        _scrollView.addSubview(self.cltImg)
+        
         // Scrollview content
         self._scrollView.contentSize = CGSize(
             width: GlobalConst.SCREEN_WIDTH,
@@ -1041,6 +1163,16 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         // Request data from server
         OrderVIPViewRequest.request(action: #selector(setData(_:)),
+                                    view: self,
+                                    id: G05F00S04VC._id)
+    }
+    
+    
+    /**
+     * Request data from server
+     */
+    private func requestData(action: Selector = #selector(setData(_:))) {
+        OrderVIPViewRequest.request(action: action,
                                     view: self,
                                     id: G05F00S04VC._id)
     }
@@ -1065,6 +1197,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 _tblViewCylinder.reloadSections(IndexSet(1...2), with: .automatic)
             }
         default:
+//            requestData()
             break
         }
     }
@@ -1134,6 +1267,21 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         } else {
             _tbxNote.isHidden = true
         }
+        if cltImg != nil {
+            cltImg.translatesAutoresizingMaskIntoConstraints = true
+            cltImg.frame = CGRect(x: GlobalConst.MARGIN_CELL_X * 2,
+                                  y: offset,
+                                  width: self.view.frame.width - 4 * GlobalConst.MARGIN_CELL_X,
+                                  height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+            cltImg.backgroundColor = UIColor.white
+            cltImg.contentSize = CGSize(
+                width: GlobalConst.ACCOUNT_AVATAR_H / 2 * (CGFloat)(_data.record.images.count),
+                height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+            
+            cltImg.reloadData()
+        }
+        offset += GlobalConst.ACCOUNT_AVATAR_H / 2 + GlobalConst.MARGIN
+        
         // Scrollview content
         self._scrollView.contentSize = CGSize(
             width: GlobalConst.SCREEN_WIDTH,
@@ -1521,4 +1669,35 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     //++ BUG0089-SPJ (NguyenPT 20170515) Fix bug move up view when focus text view
+    
+    /**
+     * Asks your data source object for the number of items in the specified section.
+     */
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return _data.record.images.count
+    }
+    
+    /**
+     * Asks your data source object for the cell that corresponds to the specified item in the collection view.
+     */
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Get current cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
+        
+        cell.imageView.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+        cell.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].thumb, contentMode: cell.imageView.contentMode)
+        return cell
+    }
+    
+    /**
+     * Tells the delegate that the item at the specified index path was selected.
+     */
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
+        /** push to zoomIMGVC */
+        zoomIMGViewController.imgPicked = cell.imageView.image
+        zoomIMGViewController.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].large, contentMode: cell.imageView.contentMode)
+        // Move to rating view
+        self.pushToView(name: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
+    }
 }

@@ -17,6 +17,8 @@ class G09F01VC: StepVC, StepDoneDelegate {
     /** Id of cashbook updating */
     public static var _id:          String  = DomainConst.BLANK
     public static var _updateData:  CashBookBean = CashBookBean()
+    /** App order id */
+    public static var _appOrderId:  String  = DomainConst.BLANK
 
     override func viewDidLoad() {
         // Do any additional setup after loading the view.
@@ -90,7 +92,8 @@ class G09F01VC: StepVC, StepDoneDelegate {
                 date:               G09F01S01.getSelectValue(),
                 amount:             G09F01S03._selectedValue,
                 note:               G09F01S04.getSelectValue(),
-                images:             G09F01S06._selectedValue)
+                images:             G09F01S06._selectedValue,
+                appOrderId:         G09F01VC._appOrderId)
         } else {    // Update
             EmployeeCashBookUpdateRequest.request(
                 action: #selector(finishCreateCashBook(_:)),
