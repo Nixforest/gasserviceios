@@ -49,9 +49,10 @@ class G09F01VC: StepVC, StepDoneDelegate {
         appendContent(stepContent: step4)
         if G09F01VC._mode == DomainConst.NUMBER_ONE_VALUE {
             appendContent(stepContent: step5)
-        } else {            
-            appendContent(stepContent: step6)
+//        } else {            
+//            appendContent(stepContent: step6)
         }
+        appendContent(stepContent: step6)
         appendSummary(summary: summary)
         // Set title
         self.setTitle(title: DomainConst.CONTENT00390)
@@ -95,6 +96,12 @@ class G09F01VC: StepVC, StepDoneDelegate {
                 images:             G09F01S06._selectedValue,
                 appOrderId:         G09F01VC._appOrderId)
         } else {    // Update
+            var imgDeleted = [String]()
+            for item in G09F01S06._originPreviousImage {
+                if !G09F01S06._previousImage.contains(item) {
+                    imgDeleted.append(item.id)
+                }
+            }
             EmployeeCashBookUpdateRequest.request(
                 action: #selector(finishCreateCashBook(_:)),
                 view: self,
@@ -104,7 +111,11 @@ class G09F01VC: StepVC, StepDoneDelegate {
                 date: G09F01S01.getSelectValue(),
                 amount: G09F01S03._selectedValue,
                 note: G09F01S04.getSelectValue(),
-                app_order_id: G09F01VC._updateData.app_order_id)
+                app_order_id: G09F01VC._updateData.app_order_id,
+                //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
+                images:         G09F01S06._selectedValue,
+                listImgDelete:  imgDeleted.joined(separator: DomainConst.SPLITER_TYPE2))
+            //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         }
     }
     

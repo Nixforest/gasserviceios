@@ -18,15 +18,19 @@ class StoreCardUpdateRequest: BaseRequest {
      * - parameter date:            Delivery date
      * - parameter note:            Note
      * - parameter orderDetail:     Detail of order
+     * - parameter listImgDelete:   List images to delete
      */
     func setData(id: String,
                  customerId: String,
                  storeCardType: String,
                  date: String,
                  note: String,
-                 orderDetail: String) {
+                 orderDetail: String,
+                 //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
+                 listImgDelete: String) {
+                 //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":\"%d\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":[%@],\"%@\":\"%d\"}",
             DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
             DomainConst.KEY_ID, id,
             DomainConst.KEY_CUSTOMER_ID, customerId,
@@ -34,11 +38,12 @@ class StoreCardUpdateRequest: BaseRequest {
             DomainConst.KEY_DATE_DELIVERY, date,
             DomainConst.KEY_NOTE, note,
             DomainConst.KEY_ORDER_DETAIL, orderDetail,
+            DomainConst.KEY_LIST_ID_IMAGE, listImgDelete,
             DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
         )
         //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         self.param = ["q": String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":\"%d\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":[%@],\"%@\":\"%d\"}",
             DomainConst.KEY_TOKEN,          BaseModel.shared.getUserToken(),
             DomainConst.KEY_ID,             id,
             DomainConst.KEY_CUSTOMER_ID,    customerId,
@@ -46,6 +51,7 @@ class StoreCardUpdateRequest: BaseRequest {
             DomainConst.KEY_DATE_DELIVERY,  date,
             DomainConst.KEY_NOTE,           note,
             DomainConst.KEY_ORDER_DETAIL,   orderDetail,
+            DomainConst.KEY_LIST_ID_IMAGE, listImgDelete,
             DomainConst.KEY_PLATFORM,       DomainConst.PLATFORM_IOS
             )]
         //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
@@ -70,7 +76,8 @@ class StoreCardUpdateRequest: BaseRequest {
                                note: String,
                                orderDetail: String,
                                //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
-                               images: [UIImage]) {
+                               images: [UIImage],
+                               listImgDelete: String) {
                                //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
@@ -82,7 +89,8 @@ class StoreCardUpdateRequest: BaseRequest {
                         storeCardType: storeCardType,
                         date: date,
                         note: note,
-                        orderDetail: orderDetail)
+                        orderDetail: orderDetail,
+                        listImgDelete: listImgDelete)
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         //request.execute()

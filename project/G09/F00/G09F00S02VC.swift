@@ -256,9 +256,11 @@ class G09F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                            address: _data.record.customer_address)
         G09F01S03._selectedValue = _data.record.amount
         G09F01S04._selectedValue = _data.record.note
-        for image in images {
-            G09F01S06._selectedValue.append(image.1)
-        }
+        G09F01S06._previousImage = _data.record.images
+        G09F01S06._originPreviousImage = _data.record.images
+//        for image in images {
+//            G09F01S06._selectedValue.append(image.1)
+//        }
         self.pushToView(name: G09F01VC.theClassName)
     }
     /**

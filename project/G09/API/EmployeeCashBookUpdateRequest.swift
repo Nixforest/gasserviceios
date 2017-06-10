@@ -18,6 +18,7 @@ class EmployeeCashBookUpdateRequest: BaseRequest {
      * - parameter date:                Delivery date
      * - parameter amount:              Amount of money
      * - parameter note:                Note
+     * - parameter listImgDelete:   List images to delete
      */
     func setData(id: String,
                  customerId: String,
@@ -25,9 +26,10 @@ class EmployeeCashBookUpdateRequest: BaseRequest {
                  date: String,
                  amount: String,
                  note: String,
-                 app_order_id: String) {
+                 app_order_id: String,
+                 listImgDelete: String) {
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":\"%d\"}",
             DomainConst.KEY_TOKEN,              BaseModel.shared.getUserToken(),
             DomainConst.KEY_ID,                 id,
             DomainConst.KEY_APP_ORDER_ID,       app_order_id,
@@ -36,8 +38,24 @@ class EmployeeCashBookUpdateRequest: BaseRequest {
             DomainConst.KEY_DATE_INPUT,         date,
             DomainConst.KEY_AMOUNT,             amount,
             DomainConst.KEY_NOTE,               note,
+            DomainConst.KEY_LIST_ID_IMAGE,      listImgDelete,
             DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
         )
+        //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
+        self.param = ["q": String.init(
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":\"%d\"}",
+            DomainConst.KEY_TOKEN,              BaseModel.shared.getUserToken(),
+            DomainConst.KEY_ID,                 id,
+            DomainConst.KEY_APP_ORDER_ID,       app_order_id,
+            DomainConst.KEY_CUSTOMER_ID,        customerId,
+            DomainConst.KEY_MASTER_LOOKUP_ID,   master_lookup_id,
+            DomainConst.KEY_DATE_INPUT,         date,
+            DomainConst.KEY_AMOUNT,             amount,
+            DomainConst.KEY_NOTE,               note,
+            DomainConst.KEY_LIST_ID_IMAGE,      listImgDelete,
+            DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
+            )]
+        //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
     }
     
     /**
@@ -57,7 +75,11 @@ class EmployeeCashBookUpdateRequest: BaseRequest {
                                date: String,
                                amount: String,
                                note: String,
-                               app_order_id: String) {
+                               app_order_id: String,
+                               //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
+                               images: [UIImage],
+                               listImgDelete: String) {
+                               //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = EmployeeCashBookUpdateRequest(url: G09Const.PATH_VIP_CUSTOMER_CASHBOOK_UPDATE,
@@ -68,8 +90,12 @@ class EmployeeCashBookUpdateRequest: BaseRequest {
                         date: date,
                         amount: amount,
                         note: note,
-                        app_order_id: app_order_id)
+                        app_order_id: app_order_id,
+                        listImgDelete: listImgDelete)
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
-        request.execute()
+        //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
+        //request.execute()
+        request.executeUploadFile(listImages: images)
+        //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
     }
 }

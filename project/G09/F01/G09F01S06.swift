@@ -8,7 +8,7 @@
 
 import UIKit
 
-class G09F01S06: G01F02S06 {
+class G09F01S06: G08F01S05 {
 
     /*
     // Only override draw() if you perform custom drawing.

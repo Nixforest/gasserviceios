@@ -9,7 +9,8 @@
 import UIKit
 import harpyframework
 
-class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelegate {
+class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelegate,
+UICollectionViewDataSource, UICollectionViewDelegate {
     // MARK: Properties
     /** Id */
     public static var _id:          String                      = DomainConst.BLANK
@@ -34,9 +35,11 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /** Bottom view */
     private var _bottomView:        UIView                      = UIView()
     /** Height of bottom view */
-    private let bottomHeight:       CGFloat                     = (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
+    private var bottomHeight:       CGFloat                     = (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
     /** Images collection */
     private var cltImg:             UICollectionView!           = nil
+    /** Update button */
+    private var btnUpdate:          UIButton                    = UIButton()
     
     // MARK: Methods
     /**
@@ -76,6 +79,8 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             setupListInfo()
             setupListMaterial()
             _bottomView.isHidden = (model.record.allow_update == DomainConst.NUMBER_ZERO_VALUE)
+            btnUpdate.isHidden = (model.record.allow_update == DomainConst.NUMBER_ZERO_VALUE)
+            hideImageCollection(isHidden: (_data.record.images.count == 0))
             DispatchQueue.main.async {
                 self._tableView.reloadData()
             }
@@ -105,7 +110,7 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _bottomView.frame = CGRect(x: 0, y: GlobalConst.SCREEN_HEIGHT - bottomHeight,
                                    width: GlobalConst.SCREEN_WIDTH,
                                    height: bottomHeight)
-        _bottomView.isHidden = true
+        //_bottomView.isHidden = true
         self.view.addSubview(_bottomView)
         createBottomView()
         requestData()
@@ -116,8 +121,33 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     private func createBottomView() {
         var botOffset: CGFloat = 0.0
+        // Create layout for image collection control
+        let layout          = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize     = CGSize(width: GlobalConst.ACCOUNT_AVATAR_W / 2,
+                                     height: GlobalConst.ACCOUNT_AVATAR_W / 2)
+        
+        // Create image collection controll
+        self.cltImg         = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
+        self.cltImg.register(UINib(nibName: DomainConst.COLLECTION_IMAGE_VIEW_CELL,
+                                   bundle: frameworkBundle),
+                             forCellWithReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL)
+        self.cltImg.alwaysBounceHorizontal = true
+        self.cltImg.delegate    = self
+        self.cltImg.dataSource  = self
+        self.cltImg.bounces = true
+        
+        // Set scroll direction
+        if let layout = self.cltImg.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+        botOffset += GlobalConst.ACCOUNT_AVATAR_W / 2
+        // Add image collection to main view
+        _bottomView.addSubview(self.cltImg)
+        
         // Create update button
-        let btnUpdate = UIButton()
+        //let btnUpdate = UIButton()
         CommonProcess.createButtonLayout(
             btn: btnUpdate,
             x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
@@ -150,24 +180,10 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             with: DomainConst.SPLITER_TYPE1)
         G08F01S03._data          = _data.record.order_detail
         G08F01S04._selectedValue = _data.record.note
+        G08F01S05._previousImage = _data.record.images
+        G08F01S05._originPreviousImage = _data.record.images
         self.pushToView(name: G08F01VC.theClassName)
-        
-//        G08F01S05._updateValue = _data.record.images
-//        if G08F01S05._updateValue.count != 0 {
-//            for item in G01F02S06._updateValue {
-//                ImageRequest.request(action: #selector(finishRequestImage(_:)),
-//                                     view: self, url: item.large)
-//            }
-//        }
     }
-    
-//    internal func finishRequestImage(_ notification: Notification) {
-//        let img = (notification.object as! UIImage)
-//        G08F01S05._selectedValue.append(img)
-//        if G08F01S05._selectedValue.count == G08F01S05._updateValue.count {
-//            self.pushToView(name: G08F01VC.theClassName)
-//        }
-//    }
     
     
     /**
@@ -217,6 +233,45 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     */
     
     // MARK: Utility methods
+    /**
+     * Hide image collection.
+     */
+    private func hideImageCollection(isHidden: Bool) {
+        var botOffset: CGFloat = 0.0
+        
+        if isHidden {
+            bottomHeight = (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
+        } else {
+            bottomHeight = (GlobalConst.BUTTON_H + GlobalConst.MARGIN + GlobalConst.ACCOUNT_AVATAR_H / 2)
+            if cltImg != nil {
+                cltImg.translatesAutoresizingMaskIntoConstraints = true
+                cltImg.frame = CGRect(x: GlobalConst.MARGIN_CELL_X * 2,
+                                      y: botOffset,
+                                      width: self.view.frame.width - 4 * GlobalConst.MARGIN_CELL_X,
+                                      height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+                cltImg.backgroundColor = UIColor.white
+                cltImg.contentSize = CGSize(
+                    width: GlobalConst.ACCOUNT_AVATAR_H / 2 * (CGFloat)(_data.record.images.count),
+                    height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+                
+                cltImg.reloadData()
+            }
+            botOffset += self.cltImg.frame.height
+        }
+        self.cltImg.isHidden = isHidden
+        _tableView.frame = CGRect(x: 0,
+                                  y: 0,
+                                  width: GlobalConst.SCREEN_WIDTH,
+                                  height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
+        _bottomView.frame = CGRect(x: 0, y: GlobalConst.SCREEN_HEIGHT - bottomHeight,
+                                   width: GlobalConst.SCREEN_WIDTH,
+                                   height: bottomHeight)
+        btnUpdate.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                 y: botOffset,
+                                 width: btnUpdate.frame.width,
+                                 height: btnUpdate.frame.height)
+    }
+    
     /**
      * Set up list information
      */
@@ -355,5 +410,36 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 showAlert(message: _listMaterial[indexPath.row][1].0)
             }
         }
+    }
+    
+    /**
+     * Asks your data source object for the number of items in the specified section.
+     */
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return _data.record.images.count
+    }
+    
+    /**
+     * Asks your data source object for the cell that corresponds to the specified item in the collection view.
+     */
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Get current cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
+        
+        cell.imageView.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+        cell.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].thumb, contentMode: cell.imageView.contentMode)
+        return cell
+    }
+    
+    /**
+     * Tells the delegate that the item at the specified index path was selected.
+     */
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
+        /** push to zoomIMGVC */
+        zoomIMGViewController.imgPicked = cell.imageView.image
+        zoomIMGViewController.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].large, contentMode: cell.imageView.contentMode)
+        // Move to rating view
+        self.pushToView(name: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
     }
 }

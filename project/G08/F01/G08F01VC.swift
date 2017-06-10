@@ -142,6 +142,12 @@ class G08F01VC: StepVC, StepDoneDelegate {
                 images:         G08F01S05._selectedValue)
                 //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         } else {    // Update
+            var imgDeleted = [String]()
+            for item in G08F01S05._originPreviousImage {
+                if !G08F01S05._previousImage.contains(item) {
+                    imgDeleted.append(item.id)
+                }
+            }
             StoreCardUpdateRequest.request(
                 action:         #selector(finishUpdateStoreCard(_:)),
                 view:           self,
@@ -152,7 +158,8 @@ class G08F01VC: StepVC, StepDoneDelegate {
                 note:           G08F01S04._selectedValue,
                 orderDetail:    orderDetail.joined(separator: DomainConst.SPLITER_TYPE2),
                 //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
-                images:         G08F01S05._selectedValue)
+                images:         G08F01S05._selectedValue,
+                listImgDelete:  imgDeleted.joined(separator: DomainConst.SPLITER_TYPE2))
             //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         }
     }
