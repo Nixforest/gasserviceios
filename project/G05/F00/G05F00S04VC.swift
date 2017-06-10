@@ -412,11 +412,21 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             _listMaterial.append(materialValue)
         }
         // Option
-        if (_listMaterialOption.count == 0) && (data.allow_update == DomainConst.NUMBER_ONE_VALUE) {
-            _listMaterialOption.append(_addMaterialRow)
-        } else {
+        //++ BUG0106-SPJ (NguyenPT 20170610) Fix bug Add item vanish
+//        if (_listMaterialOption.count == 0) && (data.allow_update == DomainConst.NUMBER_ONE_VALUE) {
+//            _listMaterialOption.append(_addMaterialRow)
+//        } else {
+//            _listMaterialOption.removeAll()
+//        }
+        if data.allow_update == DomainConst.NUMBER_ONE_VALUE {  // Allow update
+            if _listMaterialOption.count == 0 {                 // Not add "Add item" yet
+                _listMaterialOption.append(_addMaterialRow)     // Add "Add item"
+            }
+        } else {  // Not allow update
             _listMaterialOption.removeAll()
         }
+        //-- BUG0106-SPJ (NguyenPT 20170610) Fix bug Add item vanish
+        
         // Update table
         var offset: CGFloat = _segment.frame.maxY
 //        _viewOrderInfo.frame = CGRect(x: 0, y: offset,
@@ -448,11 +458,21 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             self._listCylinder.append(cylinderValue)
         }
         // Option
-        if (_listCylinderOption.count == 0) && (data.allow_update == DomainConst.NUMBER_ONE_VALUE) {
-            _listCylinderOption.append(_addCylinderRow)
-        } else {
+        //++ BUG0106-SPJ (NguyenPT 20170610) Fix bug Add item vanish
+//        if (_listCylinderOption.count == 0) && (data.allow_update == DomainConst.NUMBER_ONE_VALUE) {
+//            _listCylinderOption.append(_addCylinderRow)
+//        } else {
+//            _listCylinderOption.removeAll()
+//        }
+        if data.allow_update == DomainConst.NUMBER_ONE_VALUE {  // Allow update
+            if _listCylinderOption.count == 0 {                 // Not add "Add item" yet
+                _listCylinderOption.append(_addMaterialRow)     // Add "Add item"
+            }
+        } else {  // Not allow update
             _listCylinderOption.removeAll()
         }
+        //-- BUG0106-SPJ (NguyenPT 20170610) Fix bug Add item vanish
+        
         // Update table
 //        _viewOrderCylinderInfo.frame = CGRect(x: 0, y: offset,
 //                                              width: GlobalConst.SCREEN_WIDTH,

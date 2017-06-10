@@ -83,6 +83,7 @@ class G09F01VC: StepVC, StepDoneDelegate {
      * Handle send request cashbook
      */
     override func btnSendTapped() {
+        let money = G09F01S03._selectedValue.currencyValue()
         // Create new
         if G09F01VC._mode == DomainConst.NUMBER_ZERO_VALUE {
             EmployeeCashBookCreateRequest.request(
@@ -91,7 +92,8 @@ class G09F01VC: StepVC, StepDoneDelegate {
                 customerId:         G09F01S02.getTarget().id,
                 master_lookup_id:   G09F01VC._typeId,
                 date:               G09F01S01.getSelectValue(),
-                amount:             G09F01S03._selectedValue,
+                //amount:             G09F01S03._selectedValue,
+                amount:             money.stringValue,
                 note:               G09F01S04.getSelectValue(),
                 images:             G09F01S06._selectedValue,
                 appOrderId:         G09F01VC._appOrderId)
@@ -103,18 +105,19 @@ class G09F01VC: StepVC, StepDoneDelegate {
                 }
             }
             EmployeeCashBookUpdateRequest.request(
-                action: #selector(finishCreateCashBook(_:)),
-                view: self,
-                id: G09F01VC._updateData.id,
-                customerId: G09F01S02.getTarget().id,
-                master_lookup_id: G09F01VC._typeId,
-                date: G09F01S01.getSelectValue(),
-                amount: G09F01S03._selectedValue,
-                note: G09F01S04.getSelectValue(),
-                app_order_id: G09F01VC._updateData.app_order_id,
+                action:             #selector(finishCreateCashBook(_:)),
+                view:               self,
+                id:                 G09F01VC._updateData.id,
+                customerId:         G09F01S02.getTarget().id,
+                master_lookup_id:   G09F01VC._typeId,
+                date:               G09F01S01.getSelectValue(),
+                //amount:             G09F01S03._selectedValue,
+                amount:             money.stringValue,
+                note:               G09F01S04.getSelectValue(),
+                app_order_id:       G09F01VC._updateData.app_order_id,
                 //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
-                images:         G09F01S06._selectedValue,
-                listImgDelete:  imgDeleted.joined(separator: DomainConst.SPLITER_TYPE2))
+                images:             G09F01S06._selectedValue,
+                listImgDelete:      imgDeleted.joined(separator: DomainConst.SPLITER_TYPE2))
             //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         }
     }
