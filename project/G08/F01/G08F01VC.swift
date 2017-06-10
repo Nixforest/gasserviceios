@@ -31,7 +31,11 @@ class G08F01VC: StepVC, StepDoneDelegate {
         _step3 = G08F01S03(w: GlobalConst.SCREEN_WIDTH,
                            h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         let step4 = G08F01S04(w: GlobalConst.SCREEN_WIDTH,
-                           h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+        //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
+        let step5 = G08F01S05(w: GlobalConst.SCREEN_WIDTH,
+                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+        //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         let summary = G08F01Sum(w: GlobalConst.SCREEN_WIDTH,
                                 h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         
@@ -43,6 +47,10 @@ class G08F01VC: StepVC, StepDoneDelegate {
         self.appendContent(stepContent: step1)
         self.appendContent(stepContent: _step3!)
         self.appendContent(stepContent: step4)
+        //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
+        step5.stepDoneDelegate = self
+        self.appendContent(stepContent: step5)
+        //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         
         appendSummary(summary: summary)
         // Set title
@@ -129,7 +137,10 @@ class G08F01VC: StepVC, StepDoneDelegate {
                 storeCardType:  G08F01VC._typeId,
                 date:           G08F01S02._selectedValue,
                 note:           G08F01S04._selectedValue,
-                orderDetail:    orderDetail.joined(separator: DomainConst.SPLITER_TYPE2))
+                orderDetail:    orderDetail.joined(separator: DomainConst.SPLITER_TYPE2),
+                //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
+                images:         G08F01S05._selectedValue)
+                //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         } else {    // Update
             StoreCardUpdateRequest.request(
                 action:         #selector(finishUpdateStoreCard(_:)),
@@ -139,9 +150,11 @@ class G08F01VC: StepVC, StepDoneDelegate {
                 storeCardType:  G08F01VC._typeId,
                 date:           G08F01S02._selectedValue,
                 note:           G08F01S04._selectedValue,
-                orderDetail:    orderDetail.joined(separator: DomainConst.SPLITER_TYPE2))
+                orderDetail:    orderDetail.joined(separator: DomainConst.SPLITER_TYPE2),
+                //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
+                images:         G08F01S05._selectedValue)
+            //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         }
-        
     }
     
     /**
@@ -193,5 +206,8 @@ class G08F01VC: StepVC, StepDoneDelegate {
         G08F01S02._selectedValue        = DomainConst.BLANK
         G08F01S03._data                 = [OrderDetailBean].init()
         G08F01S04._selectedValue        = DomainConst.BLANK
+        //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
+        G08F01S05._selectedValue.removeAll()
+        //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
     }
 }

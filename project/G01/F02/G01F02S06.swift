@@ -20,6 +20,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
     var _viewPickImg = UIView()
     /** Table view list image */
     var _tblListImg = UITableView()
+    static var _updateValue: [UpholdImageInfoItem] = [UpholdImageInfoItem]()
     
     /*
      // Only override draw() if you perform custom drawing.
@@ -80,6 +81,7 @@ class G01F02S06: StepContent, UITableViewDelegate, UITableViewDataSource, UIImag
         _tblListImg.backgroundColor = GlobalConst.BACKGROUND_COLOR_GRAY
         _tblListImg.dataSource = self
         _tblListImg.delegate = self
+        
         return
     }
     

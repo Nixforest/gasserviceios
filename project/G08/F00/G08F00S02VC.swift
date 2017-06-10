@@ -35,6 +35,8 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private var _bottomView:        UIView                      = UIView()
     /** Height of bottom view */
     private let bottomHeight:       CGFloat                     = (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
+    /** Images collection */
+    private var cltImg:             UICollectionView!           = nil
     
     // MARK: Methods
     /**
@@ -143,11 +145,30 @@ class G08F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                            name: _data.record.customer_name,
                                            phone: DomainConst.BLANK,
                                            address: _data.record.customer_address)
-        G08F01S02._selectedValue = _data.record.date_delivery
+        G08F01S02._selectedValue = _data.record.date_delivery.replacingOccurrences(
+            of: DomainConst.SPLITER_TYPE3,
+            with: DomainConst.SPLITER_TYPE1)
         G08F01S03._data          = _data.record.order_detail
         G08F01S04._selectedValue = _data.record.note
         self.pushToView(name: G08F01VC.theClassName)
+        
+//        G08F01S05._updateValue = _data.record.images
+//        if G08F01S05._updateValue.count != 0 {
+//            for item in G01F02S06._updateValue {
+//                ImageRequest.request(action: #selector(finishRequestImage(_:)),
+//                                     view: self, url: item.large)
+//            }
+//        }
     }
+    
+//    internal func finishRequestImage(_ notification: Notification) {
+//        let img = (notification.object as! UIImage)
+//        G08F01S05._selectedValue.append(img)
+//        if G08F01S05._selectedValue.count == G08F01S05._updateValue.count {
+//            self.pushToView(name: G08F01VC.theClassName)
+//        }
+//    }
+    
     
     /**
      * Handle when finish request cache data

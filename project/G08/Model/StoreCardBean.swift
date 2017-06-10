@@ -32,6 +32,8 @@ class StoreCardBean: ConfigBean {
     public var total_qty:           String = DomainConst.BLANK
     /** Order detail */
     public var order_detail:        [OrderDetailBean] = [OrderDetailBean]()
+    /** List images */
+    public var images:              [UpholdImageInfoItem] = [UpholdImageInfoItem]()
     
     /**
      * Initializer
@@ -52,6 +54,11 @@ class StoreCardBean: ConfigBean {
         if let dataArr = jsonData[DomainConst.KEY_ORDER_DETAIL] as? [[String: AnyObject]] {
             for item in dataArr {
                 self.order_detail.append(OrderDetailBean(jsonData: item))
+            }
+        }
+        if let dataArr = jsonData[DomainConst.KEY_LIST_IMAGE] as? [[String: AnyObject]] {
+            for listItem in dataArr {
+                self.images.append(UpholdImageInfoItem(jsonData: listItem))
             }
         }
     }

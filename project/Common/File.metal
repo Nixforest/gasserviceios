@@ -8,6 +8,11 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.18.0
+// - BUG0107: Handle image in store card
+// Version: 1.17.0
+// - BUG0104: Update function G05
+// - BUG0103: Update function G07
 // Version: 1.16.0
 // - BUG0102: Add new function G11
 // Version: 1.15.0
