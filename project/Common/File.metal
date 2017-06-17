@@ -9,6 +9,8 @@
 #include <metal_stdlib>
 using namespace metal;
 // Version: 1.20.0
+// - BUG0111: G06 - CCS code
+// - BUG0110: G03 - Add new function
 // - BUG0008: G00_Account update
 // Version: 1.19.0
 // - BUG0109: HarpyFramework: Fix bug UI StepVC

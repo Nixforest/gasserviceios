@@ -1,5 +1,5 @@
 //
-//  G03F00S01VC.swift
+//  G06F00S06VC.swift
 //  project
 //
 //  Created by SPJ on 6/17/17.
@@ -9,20 +9,12 @@
 import UIKit
 import harpyframework
 
-class G03F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSource {
+class G06F00S06VC: ParentViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: Properties
-    /** Segment button */
-    private var _segment:           UISegmentedControl  = UISegmentedControl(
-        items: [
-            DomainConst.CONTENT00074,
-            DomainConst.CONTENT00075
-        ])
     /** Static data */
-    private var _data:              NotifyListRespModel = NotifyListRespModel()
+    private var _data:              CCSCodeListRespModel = CCSCodeListRespModel()
     /** Current page */
     private var _page:              Int                 = 0
-    /** List type: (1) New, (2) Read */
-    public var _type:               String              = DomainConst.NOTIFY_LIST_TYPE_NEW
     /** Table view */
     @IBOutlet weak var _tblView: UITableView!
     /** Refrest control */
@@ -48,10 +40,9 @@ class G03F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * Request data from server
      */
     private func requestData(action: Selector = #selector(setData(_:))) {
-        NotifyListRequest.request(action: action,
-                                  view: self,
-                                  page: String(_page),
-                                  type: _type)
+        CCSCodeListRequest.request(action: action,
+                                   view: self,
+                                   page: String(_page))
     }
     
     /**
@@ -70,29 +61,13 @@ class G03F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         refreshControl.endRefreshing()
     }
     
-    /**
-     * Handle change value of segment
-     */
-    internal func segmentChange(_ sender: AnyObject) {
-        switch _segment.selectedSegmentIndex {
-        case 0:
-            _type = DomainConst.NOTIFY_LIST_TYPE_NEW
-        case 1:
-            _type = DomainConst.NOTIFY_LIST_TYPE_READ
-        default:
-            break
-        }
-        resetData()
-        requestData()
-    }
-    
     // MARK: Override methods
     /**
      * Handle finish request data
      */
     override func setData(_ notification: Notification) {
         let data = (notification.object as! String)
-        let model = NotifyListRespModel(jsonString: data)
+        let model = CCSCodeListRespModel(jsonString: data)
         if model.isSuccess() {
             // Update data
             _data.total_page    = model.total_page
@@ -123,30 +98,14 @@ class G03F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        createNavigationBar(title: DomainConst.CONTENT00044)
+        createNavigationBar(title: DomainConst.CONTENT00445)
         var offset: CGFloat = self.getTopHeight()
-        // Segment
-        let font = UIFont.systemFont(ofSize: GlobalConst.BASE_FONT_SIZE)
-        _segment.frame = CGRect(x: 0, y: offset,
-                                width: GlobalConst.SCREEN_WIDTH,
-                                height: GlobalConst.BUTTON_H)
-        _segment.setTitleTextAttributes([NSFontAttributeName: font],
-                                        for: UIControlState())
-        _segment.selectedSegmentIndex = 0
-        _segment.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        _segment.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
-        _segment.tintColor = GlobalConst.BUTTON_COLOR_RED
-        _segment.addTarget(self, action: #selector(segmentChange(_:)), for: .valueChanged)
-        _segment.backgroundColor = UIColor.white
-        offset = offset + _segment.frame.height
-        self.view.addSubview(_segment)
-        
         // Table
         _tblView.addSubview(refreshControl)
         _tblView.frame = CGRect(x: 0,
-                                y: _segment.frame.height,
+                                y: 0,
                                 width: GlobalConst.SCREEN_WIDTH,
-                                height: GlobalConst.SCREEN_HEIGHT - _segment.frame.height)
+                                height: GlobalConst.SCREEN_HEIGHT)
         _tblView.rowHeight = UITableViewAutomaticDimension
         _tblView.estimatedRowHeight = 500
         requestData()
@@ -168,6 +127,7 @@ class G03F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     }
     */
     
+    
     // MARK: - UITableViewDataSource
     /**
      * Tells the data source to return the number of rows in a given section of a table view.
@@ -182,18 +142,15 @@ class G03F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
         UITableViewCell {
             var cell = tableView.dequeueReusableCell(
-                withIdentifier: G03Const.G03F00S01_TABLE_VIEW_CELL_ID)
+                withIdentifier: G06Const.G06F00S06_TABLE_VIEW_CELL_ID)
             if cell == nil {
-                cell = UITableViewCell(style: .subtitle, reuseIdentifier: G03Const.G03F00S01_TABLE_VIEW_CELL_ID)
+                cell = UITableViewCell(style: .subtitle, reuseIdentifier: G06Const.G06F00S06_TABLE_VIEW_CELL_ID)
                 cell?.selectionStyle = .none
             }
             // Set title
-            cell?.textLabel?.text           = _data.getRecord()[indexPath.row].created_date_on_history
+            cell?.textLabel?.text           = _data.getRecord()[indexPath.row].name
             cell?.textLabel?.textColor      = GlobalConst.MAIN_COLOR
-            // Set description
-            cell?.detailTextLabel?.text = _data.getRecord()[indexPath.row].name
-            cell?.detailTextLabel?.numberOfLines = 0
-            cell?.detailTextLabel?.lineBreakMode = .byWordWrapping
+            cell?.textLabel?.textAlignment = .center
             
             return cell!
     }
@@ -220,9 +177,6 @@ class G03F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * Asks the delegate for the height to use for a row in a specified location.
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return UITableViewAutomaticDimension
     }
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableViewAutomaticDimension
-//    }
 }

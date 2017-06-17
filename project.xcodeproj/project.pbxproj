@@ -41,6 +41,10 @@
 		D71112A31EF51FAB002CBDFE /* NotifyBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112A21EF51FAB002CBDFE /* NotifyBean.swift */; };
 		D71112A51EF52149002CBDFE /* NotifyListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112A41EF52149002CBDFE /* NotifyListRespModel.swift */; };
 		D71112A71EF521CA002CBDFE /* G03F00S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112A61EF521CA002CBDFE /* G03F00S01VC.swift */; };
+		D71112A91EF52E9F002CBDFE /* G06F00S06VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112A81EF52E9F002CBDFE /* G06F00S06VC.swift */; };
+		D71112AB1EF52F6D002CBDFE /* CCSCodeListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112AA1EF52F6D002CBDFE /* CCSCodeListRequest.swift */; };
+		D71112AD1EF52FCA002CBDFE /* CCSCodeListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112AC1EF52FC9002CBDFE /* CCSCodeListRespModel.swift */; };
+		D71112AF1EF53017002CBDFE /* CCSCodeBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112AE1EF53017002CBDFE /* CCSCodeBean.swift */; };
 		D712BE881EEA791D00F679CE /* G08F01S05.swift in Sources */ = {isa = PBXBuildFile; fileRef = D712BE871EEA791D00F679CE /* G08F01S05.swift */; };
 		D715BB6D1EBE2D810097BDA8 /* G08F01S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = D715BB6C1EBE2D810097BDA8 /* G08F01S02.swift */; };
 		D71DB0E01E84D25100BED724 /* CustomerFamilyViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71DB0DF1E84D25100BED724 /* CustomerFamilyViewRequest.swift */; };
@@ -356,6 +360,10 @@
 		D71112A21EF51FAB002CBDFE /* NotifyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotifyBean.swift; path = G03/Model/NotifyBean.swift; sourceTree = "<group>"; };
 		D71112A41EF52149002CBDFE /* NotifyListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotifyListRespModel.swift; path = G03/Model/NotifyListRespModel.swift; sourceTree = "<group>"; };
 		D71112A61EF521CA002CBDFE /* G03F00S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G03F00S01VC.swift; path = G03/F00/G03F00S01VC.swift; sourceTree = "<group>"; };
+		D71112A81EF52E9F002CBDFE /* G06F00S06VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F00S06VC.swift; path = G06/F00/G06F00S06VC.swift; sourceTree = "<group>"; };
+		D71112AA1EF52F6D002CBDFE /* CCSCodeListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCSCodeListRequest.swift; path = G06/API/CCSCodeListRequest.swift; sourceTree = "<group>"; };
+		D71112AC1EF52FC9002CBDFE /* CCSCodeListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCSCodeListRespModel.swift; path = G06/Model/CCSCodeListRespModel.swift; sourceTree = "<group>"; };
+		D71112AE1EF53017002CBDFE /* CCSCodeBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCSCodeBean.swift; path = G06/Model/CCSCodeBean.swift; sourceTree = "<group>"; };
 		D712BE871EEA791D00F679CE /* G08F01S05.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S05.swift; path = G08/F01/G08F01S05.swift; sourceTree = "<group>"; };
 		D715BB6C1EBE2D810097BDA8 /* G08F01S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S02.swift; path = G08/F01/G08F01S02.swift; sourceTree = "<group>"; };
 		D71DB0DF1E84D25100BED724 /* CustomerFamilyViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerFamilyViewRequest.swift; path = G06/API/CustomerFamilyViewRequest.swift; sourceTree = "<group>"; };
@@ -854,6 +862,8 @@
 				D7CDBE2A1E8807CB00B73877 /* CustomerFamilyCreateRespModel.swift */,
 				D7CDBE2E1E880E5200B73877 /* WorkingReportListRespModel.swift */,
 				D7CDBE301E88112100B73877 /* WorkingReportViewRespModel.swift */,
+				D71112AC1EF52FC9002CBDFE /* CCSCodeListRespModel.swift */,
+				D71112AE1EF53017002CBDFE /* CCSCodeBean.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1055,6 +1065,7 @@
 				D7C255221E8B63C700941E31 /* G06F00S02VC.swift */,
 				D7C255271E8B908800941E31 /* G06F00S04VC.swift */,
 				D7C2552B1E8BA9AD00941E31 /* G06F00S05VC.swift */,
+				D71112A81EF52E9F002CBDFE /* G06F00S06VC.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -1140,6 +1151,7 @@
 				D709FE961E86EF5400F32A7E /* WorkingReportListRequest.swift */,
 				D709FE981E86F43600F32A7E /* WorkingReportViewRequest.swift */,
 				D709FE9A1E86F68B00F32A7E /* WorkingReportCreateRequest.swift */,
+				D71112AA1EF52F6D002CBDFE /* CCSCodeListRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -1633,6 +1645,7 @@
 				D7F0FF311EDFF435007FDC81 /* ReportInventoryLayout.swift in Sources */,
 				D70AC2C71EB65DF5003F1673 /* G08Const.swift in Sources */,
 				D7D1D43D1E8E353D000ADA78 /* G06F01Sum.swift in Sources */,
+				D71112AB1EF52F6D002CBDFE /* CCSCodeListRequest.swift in Sources */,
 				D77F06471E7176F700797A6B /* G01F01S03VC.swift in Sources */,
 				D7F0FF331EE02934007FDC81 /* UpdateStoreCardRequest.swift in Sources */,
 				D78B045F1ED137C50064DE88 /* G09F01S02.swift in Sources */,
@@ -1665,6 +1678,7 @@
 				D791A3B21ECDCD16004A7C01 /* G05F03S02.swift in Sources */,
 				D7CDBE2F1E880E5200B73877 /* WorkingReportListRespModel.swift in Sources */,
 				D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */,
+				D71112AD1EF52FCA002CBDFE /* CCSCodeListRespModel.swift in Sources */,
 				D7F0FF371EE036DB007FDC81 /* ReportOrderFamilyLayout.swift in Sources */,
 				D71112A71EF521CA002CBDFE /* G03F00S01VC.swift in Sources */,
 				D77F067F1E7177F500797A6B /* G05F00S01MenuVC.swift in Sources */,
@@ -1709,6 +1723,7 @@
 				D7D24D041EF4E8FE00FF1D0C /* G00F01S01.swift in Sources */,
 				D7766ED31E94CF1800BC137A /* G06F01S06.swift in Sources */,
 				D77F06651E71772700797A6B /* G01F03S04.swift in Sources */,
+				D71112AF1EF53017002CBDFE /* CCSCodeBean.swift in Sources */,
 				D7CC15151EB098AA002F8434 /* OrderVIPUpdateRequest.swift in Sources */,
 				D780C97C1E95ECD30004B5C4 /* G06F02VC.swift in Sources */,
 				D78B04611ED13D470064DE88 /* G09F01S04.swift in Sources */,
@@ -1833,6 +1848,7 @@
 				D78B04581ED12D520064DE88 /* G09F01VC.swift in Sources */,
 				D70ECED11EE2B79800997F1A /* G01F00S05VC.swift in Sources */,
 				D71112971EF514D1002CBDFE /* ChangeProfileRequest.swift in Sources */,
+				D71112A91EF52E9F002CBDFE /* G06F00S06VC.swift in Sources */,
 				D7C812151ED2A7B30014EF51 /* G09F00S03VC.swift in Sources */,
 				D7766ECE1E949E0700BC137A /* G06F01S04.swift in Sources */,
 				D77E62C31EDD6F6500FD5512 /* ReportRequest.swift in Sources */,

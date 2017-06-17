@@ -26,5 +26,8 @@ class G06Const {
     public static let PATH_USER_WORKING_REPORT_VIEW             = "user/workingReportView"
     /** Path to connect with PHP server */
     public static let PATH_USER_WORKING_REPORT_CREATE           = "user/workingReportCreate"
+    /** Path to connect with PHP server */
+    public static let PATH_CCS_CODE_LIST                        = "customer/ptttCodeList"
+    public static let G06F00S06_TABLE_VIEW_CELL_ID              = "G06S00S06Cell"
 
 }
