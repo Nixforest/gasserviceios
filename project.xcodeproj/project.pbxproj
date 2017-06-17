@@ -36,6 +36,11 @@
 		D70ECED11EE2B79800997F1A /* G01F00S05VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70ECED01EE2B79800997F1A /* G01F00S05VC.swift */; };
 		D71112971EF514D1002CBDFE /* ChangeProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112961EF514D1002CBDFE /* ChangeProfileRequest.swift */; };
 		D71112991EF51505002CBDFE /* G00Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112981EF51505002CBDFE /* G00Const.swift */; };
+		D711129F1EF51B33002CBDFE /* G03Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711129E1EF51B33002CBDFE /* G03Const.swift */; };
+		D71112A11EF51D76002CBDFE /* NotifyListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112A01EF51D76002CBDFE /* NotifyListRequest.swift */; };
+		D71112A31EF51FAB002CBDFE /* NotifyBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112A21EF51FAB002CBDFE /* NotifyBean.swift */; };
+		D71112A51EF52149002CBDFE /* NotifyListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112A41EF52149002CBDFE /* NotifyListRespModel.swift */; };
+		D71112A71EF521CA002CBDFE /* G03F00S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112A61EF521CA002CBDFE /* G03F00S01VC.swift */; };
 		D712BE881EEA791D00F679CE /* G08F01S05.swift in Sources */ = {isa = PBXBuildFile; fileRef = D712BE871EEA791D00F679CE /* G08F01S05.swift */; };
 		D715BB6D1EBE2D810097BDA8 /* G08F01S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = D715BB6C1EBE2D810097BDA8 /* G08F01S02.swift */; };
 		D71DB0E01E84D25100BED724 /* CustomerFamilyViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71DB0DF1E84D25100BED724 /* CustomerFamilyViewRequest.swift */; };
@@ -346,6 +351,11 @@
 		D70ECED01EE2B79800997F1A /* G01F00S05VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G01F00S05VC.swift; path = G01/F00/G01F00S05VC.swift; sourceTree = "<group>"; };
 		D71112961EF514D1002CBDFE /* ChangeProfileRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChangeProfileRequest.swift; path = G00/API/ChangeProfileRequest.swift; sourceTree = "<group>"; };
 		D71112981EF51505002CBDFE /* G00Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00Const.swift; path = G00/G00Const.swift; sourceTree = "<group>"; };
+		D711129E1EF51B33002CBDFE /* G03Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G03Const.swift; path = G03/G03Const.swift; sourceTree = "<group>"; };
+		D71112A01EF51D76002CBDFE /* NotifyListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotifyListRequest.swift; path = G03/API/NotifyListRequest.swift; sourceTree = "<group>"; };
+		D71112A21EF51FAB002CBDFE /* NotifyBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotifyBean.swift; path = G03/Model/NotifyBean.swift; sourceTree = "<group>"; };
+		D71112A41EF52149002CBDFE /* NotifyListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotifyListRespModel.swift; path = G03/Model/NotifyListRespModel.swift; sourceTree = "<group>"; };
+		D71112A61EF521CA002CBDFE /* G03F00S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G03F00S01VC.swift; path = G03/F00/G03F00S01VC.swift; sourceTree = "<group>"; };
 		D712BE871EEA791D00F679CE /* G08F01S05.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S05.swift; path = G08/F01/G08F01S05.swift; sourceTree = "<group>"; };
 		D715BB6C1EBE2D810097BDA8 /* G08F01S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S02.swift; path = G08/F01/G08F01S02.swift; sourceTree = "<group>"; };
 		D71DB0DF1E84D25100BED724 /* CustomerFamilyViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerFamilyViewRequest.swift; path = G06/API/CustomerFamilyViewRequest.swift; sourceTree = "<group>"; };
@@ -628,6 +638,7 @@
 				92D05F711DEB215C00DA87C3 /* project.entitlements */,
 				92BF0C1D1DC1B2D1009B1DA4 /* G00 */,
 				92C1C95B1DBD28D0005A10C8 /* G01 */,
+				D711129A1EF51A8C002CBDFE /* G03 */,
 				D706C22B1E544A8D00F89B8A /* G05 */,
 				D7BA687D1E83A2E4001C675D /* G06 */,
 				D7FB47431E9750E70082FA5E /* G07 */,
@@ -907,6 +918,42 @@
 			isa = PBXGroup;
 			children = (
 				D71112961EF514D1002CBDFE /* ChangeProfileRequest.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		D711129A1EF51A8C002CBDFE /* G03 */ = {
+			isa = PBXGroup;
+			children = (
+				D711129E1EF51B33002CBDFE /* G03Const.swift */,
+				D711129D1EF51B1D002CBDFE /* API */,
+				D711129C1EF51B16002CBDFE /* Model */,
+				D711129B1EF51B10002CBDFE /* F00 */,
+			);
+			name = G03;
+			sourceTree = "<group>";
+		};
+		D711129B1EF51B10002CBDFE /* F00 */ = {
+			isa = PBXGroup;
+			children = (
+				D71112A61EF521CA002CBDFE /* G03F00S01VC.swift */,
+			);
+			name = F00;
+			sourceTree = "<group>";
+		};
+		D711129C1EF51B16002CBDFE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D71112A21EF51FAB002CBDFE /* NotifyBean.swift */,
+				D71112A41EF52149002CBDFE /* NotifyListRespModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		D711129D1EF51B1D002CBDFE /* API */ = {
+			isa = PBXGroup;
+			children = (
+				D71112A01EF51D76002CBDFE /* NotifyListRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -1614,10 +1661,12 @@
 				D7F0FF351EE02F3B007FDC81 /* G10F00ReportVC.swift in Sources */,
 				D74F016E1E8CBE94008DAA59 /* G06F01S01.swift in Sources */,
 				D7C2552C1E8BA9AD00941E31 /* G06F00S05VC.swift in Sources */,
+				D711129F1EF51B33002CBDFE /* G03Const.swift in Sources */,
 				D791A3B21ECDCD16004A7C01 /* G05F03S02.swift in Sources */,
 				D7CDBE2F1E880E5200B73877 /* WorkingReportListRespModel.swift in Sources */,
 				D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */,
 				D7F0FF371EE036DB007FDC81 /* ReportOrderFamilyLayout.swift in Sources */,
+				D71112A71EF521CA002CBDFE /* G03F00S01VC.swift in Sources */,
 				D77F067F1E7177F500797A6B /* G05F00S01MenuVC.swift in Sources */,
 				D77824961EDEA339002AB15A /* G10F00S02VC.swift in Sources */,
 				D77F06191E7175D000797A6B /* G00ChangePassVC.swift in Sources */,
@@ -1737,7 +1786,9 @@
 				D7ADCBCC1ED024BB00226523 /* TempDataModel.swift in Sources */,
 				D77F063C1E7176E900797A6B /* G01F00S02VC.swift in Sources */,
 				D7CC15131EB05A98002F8434 /* G05F02S01VC.swift in Sources */,
+				D71112A11EF51D76002CBDFE /* NotifyListRequest.swift in Sources */,
 				D7EBB7E71EA9B34E00BE6612 /* G05F00S03VC.swift in Sources */,
+				D71112A31EF51FAB002CBDFE /* NotifyBean.swift in Sources */,
 				D70AC2C91EB65E56003F1673 /* StoreCardListRequest.swift in Sources */,
 				D78B045B1ED12E700064DE88 /* G09F01S01.swift in Sources */,
 				D78A2C921EBB7F55007FD27B /* G08F00S02VC.swift in Sources */,
@@ -1756,6 +1807,7 @@
 				D7885B4C1E88C7DC00F8F87A /* G06F00S01VC.swift in Sources */,
 				D77F06371E7176E900797A6B /* G01F00S02HistoryCell.swift in Sources */,
 				D76C17AF1EE16F9600B71FAE /* FamilyUpholdListRespModel.swift in Sources */,
+				D71112A51EF52149002CBDFE /* NotifyListRespModel.swift in Sources */,
 				D77F06291E7176DD00797A6B /* CreateUpholdRequest.swift in Sources */,
 				D77F06571E71771A00797A6B /* G01F02S05.swift in Sources */,
 				D7C255281E8B908800941E31 /* G06F00S04VC.swift in Sources */,
