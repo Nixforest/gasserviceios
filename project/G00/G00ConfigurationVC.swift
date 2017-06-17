@@ -95,7 +95,7 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return 2
     }
     
     /**
@@ -115,10 +115,15 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL, for: indexPath) as! ConfigurationTableViewCell
         // Custom cell
         switch (indexPath as NSIndexPath).row {
-            case 0:             // Information
-                cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
-                             name: DomainConst.CONTENT00139,
-                             value: DomainConst.VERSION_CODE_WITH_NAME)
+        case 0:             // Information
+            cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
+                         name: DomainConst.CONTENT00139,
+                         value: DomainConst.VERSION_CODE_WITH_NAME)
+            
+        case 1:             // Information
+            cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
+                         name: DomainConst.CONTENT00441,
+                         value: DomainConst.BLANK)
             default:
                 break
             
@@ -131,6 +136,8 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
         switch indexPath.row {
         case 0:
             self.pushToView(name: DomainConst.G00_INFORMATION_VIEW_CTRL)
+        case 1:
+            self.updateVersionAppStore()
         default:
             break
         }

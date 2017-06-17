@@ -36,7 +36,7 @@ class G06F01S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
         _pkView.translatesAutoresizingMaskIntoConstraints = true
         _pkView.frame = CGRect(x: 0, y: 0,
                                width: w,
-                               height: GlobalConst.SCREEN_HEIGHT / 3)
+                               height: GlobalConst.SCREEN_HEIGHT)
         _pkView.backgroundColor = UIColor.white
         _pkView.dataSource      = self
         _pkView.delegate        = self
@@ -58,7 +58,7 @@ class G06F01S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
         
         // Set parent
         self.setParentView(parent: parent)
-        self.setup(mainView: contentView, title: DomainConst.CONTENT00240, contentHeight: GlobalConst.SCREEN_HEIGHT / 3,
+        self.setup(mainView: contentView, title: DomainConst.CONTENT00240, contentHeight: GlobalConst.SCREEN_HEIGHT,
                    width: w, height: h)
         return
     }

@@ -8,6 +8,11 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.20.0
+// - BUG0008: G00_Account update
+// Version: 1.19.0
+// - BUG0109: HarpyFramework: Fix bug UI StepVC
+// - BUG0078: Fix bug reload table view make data overlapping
 // Version: 1.18.0
 // - BUG0107: Handle image in store card
 // Version: 1.17.0

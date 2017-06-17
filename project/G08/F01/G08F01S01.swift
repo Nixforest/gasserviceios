@@ -391,4 +391,18 @@ class G08F01S01: StepContent, UISearchBarDelegate,
             return DomainConst.CONTENT00360
         }
     }
+    
+    public func setTargetType(title: String, type: String) {
+        G08F01S01._type = type
+        switch G08F01S01._type {
+        case DomainConst.SEARCH_TARGET_TYPE_AGENT:
+            self._segment.selectedSegmentIndex = 1
+        case DomainConst.SEARCH_TARGET_TYPE_CUSTOMER:
+            self._segment.selectedSegmentIndex = 0
+        default:
+            break
+        }
+        self._segment.isUserInteractionEnabled = false
+        self.setTitle(title: title)
+    }
 }

@@ -38,6 +38,12 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
     var userAvatarPicker = UIImagePickerController()
     /** Current text field */
     private var _currentTextField: UITextField? = nil
+    //++ BUG0008-SPJ (NguyenPT 20170616) Update G00Account
+    /** Agent icon */
+    @IBOutlet weak var imgAgent:           UIImageView!
+    /** Agent textfield */
+    @IBOutlet weak var txtAgent:           UITextField!
+    //-- BUG0008-SPJ (NguyenPT 20170616) Update G00Account
     
     // MARK: Actions
     /**
@@ -73,14 +79,22 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
      * - parameter sender:AnyObject
      */
     @IBAction func saveButtonTapped(_ sender: AnyObject) {
-        // Check the value of text field
-        if (((txtName.text?.isEmpty)! || (txtPhone.text?.isEmpty)!
-            || (txtAddress.text?.isEmpty)!)) {
-            // Call alert
-            showAlert(message: DomainConst.CONTENT00025)
-        } else {
-            self.showToast(message: "Save successfully")
-        }
+//        // Check the value of text field
+//        if (((txtName.text?.isEmpty)! || (txtPhone.text?.isEmpty)!
+//            || (txtAddress.text?.isEmpty)!)) {
+//            // Call alert
+//            showAlert(message: DomainConst.CONTENT00025)
+//        } else {
+//            self.showToast(message: "Save successfully")
+//        }
+        G00F01S01._selectedValue.name = (BaseModel.shared.user_info?.getName())!
+        G00F01S01._selectedValue.email = (BaseModel.shared.user_info?.getEmail())!
+        G00F01S02._target = CustomerBean(id: (BaseModel.shared.user_info?.getAgentId())!,
+                                         name: (BaseModel.shared.user_info?.getAgentName())!,
+                                         phone: DomainConst.BLANK,
+                                         address: DomainConst.BLANK)
+        G00F01S03._address = (BaseModel.shared.user_info?.getAddress())!
+        self.pushToView(name: G00F01VC.theClassName)
     }
     
     /**
@@ -180,6 +194,7 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         txtName.placeholder = DomainConst.CONTENT00055
         txtName.translatesAutoresizingMaskIntoConstraints = true
         txtName.delegate = self
+        txtName.isUserInteractionEnabled = false
         
         // Phone textfield
         txtPhone.frame = CGRect(x: txtName.frame.minX,
@@ -190,6 +205,7 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
         txtPhone.textColor = GlobalConst.BUTTON_COLOR_RED
         txtPhone.delegate = self
+        txtPhone.isUserInteractionEnabled = false
         
         // Address textfield
         txtAddress.frame = CGRect(x: txtName.frame.minX,
@@ -199,12 +215,40 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         txtAddress.placeholder = DomainConst.CONTENT00088
         txtAddress.translatesAutoresizingMaskIntoConstraints = true
         txtAddress.delegate = self
+        txtAddress.isUserInteractionEnabled = false
+        
+        //++ BUG0008-SPJ (NguyenPT 20170616) Update G00Account
+        // Agent
+        var offset = imgAddress.frame.maxY + GlobalConst.MARGIN
+        imgAgent.frame = CGRect(x: GlobalConst.MARGIN,
+                                  y: offset,
+                                  width: GlobalConst.ACCOUNT_ICON_SIZE,
+                                  height: GlobalConst.ACCOUNT_ICON_SIZE)
+        imgAgent.image = ImageManager.getImage(named: DomainConst.AGENT_ICON_IMG_NAME)
+        imgAgent.translatesAutoresizingMaskIntoConstraints = true
+        
+        txtAgent.frame = CGRect(x: txtName.frame.minX,
+                                  y: txtAddress.frame.maxY + GlobalConst.MARGIN,
+                                  width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
+                                  height: GlobalConst.ACCOUNT_ICON_SIZE)
+        txtAgent.placeholder = DomainConst.CONTENT00240
+        txtAgent.translatesAutoresizingMaskIntoConstraints = true
+        txtAgent.delegate = self
+        txtAgent.isUserInteractionEnabled = false
+        offset += GlobalConst.ACCOUNT_ICON_SIZE + GlobalConst.MARGIN
+        self.view.addSubview(imgAgent)
+        self.view.addSubview(txtAgent)
+        //-- BUG0008-SPJ (NguyenPT 20170616) Update G00Account
         
         // Save Button customize
         CommonProcess.createButtonLayout(btn: saveButton,
                                          x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
-                                         y: txtAddress.frame.maxY + GlobalConst.MARGIN,
-                                         text: DomainConst.CONTENT00229.uppercased(),
+                                         //++ BUG0008-SPJ (NguyenPT 20170616) Update G00Account
+                                         //y: txtAddress.frame.maxY + GlobalConst.MARGIN,
+                                         //text: DomainConst.CONTENT00229.uppercased(),
+                                         y: offset,                                         
+                                         text: DomainConst.CONTENT00442,
+                                         //-- BUG0008-SPJ (NguyenPT 20170616) Update G00Account
                                          action: #selector(saveButtonTapped(_:)),
                                          target: self,
                                          img: DomainConst.SAVE_INFO_IMG_NAME,
@@ -214,7 +258,7 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         CommonProcess.createButtonLayout(btn: changePasswordButton,
                                          x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                                          y: saveButton.frame.maxY + GlobalConst.MARGIN,
-                                         text: DomainConst.CONTENT00089.uppercased(),
+                                         text: DomainConst.CONTENT00089,
                                          action: #selector(changePasswordTapped(_:)),
                                          target: self,
                                          img: DomainConst.CHANGE_PASS_IMG_NAME,
@@ -224,7 +268,7 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         CommonProcess.createButtonLayout(btn: logoutButton,
                                          x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                                          y: changePasswordButton.frame.maxY + GlobalConst.MARGIN,
-                                         text: DomainConst.CONTENT00090.uppercased(),
+                                         text: DomainConst.CONTENT00090,
                                          action: #selector(logoutButtonTapped(_:)),
                                          target: self,
                                          img: DomainConst.LOGOUT_IMG_NAME,
@@ -252,6 +296,9 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
             txtName.text    = BaseModel.shared.user_info?.getName()
             txtPhone.text   = BaseModel.shared.user_info?.getPhone()
             txtAddress.text = BaseModel.shared.user_info?.getAddress()
+            //++ BUG0008-SPJ (NguyenPT 20170616) Update G00Account
+            txtAgent.text   = BaseModel.shared.user_info?.getAgentName()
+            //-- BUG0008-SPJ (NguyenPT 20170616) Update G00Account
             if let url      = NSURL(string: String(BaseModel.shared.getServerURL() + (BaseModel.shared.user_info?.getAvatarImage())!)!) {
                 if let data = NSData(contentsOf: url as URL) {
                     imgAvatar.image = UIImage(data: data as Data)
@@ -268,6 +315,9 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         txtName.text    = BaseModel.shared.user_info?.getName()
         txtPhone.text   = BaseModel.shared.user_info?.getPhone()
         txtAddress.text = BaseModel.shared.user_info?.getAddress()
+        //++ BUG0008-SPJ (NguyenPT 20170616) Update G00Account
+        txtAgent.text   = BaseModel.shared.user_info?.getAgentName()
+        //-- BUG0008-SPJ (NguyenPT 20170616) Update G00Account
         // Load image
         if let url = NSURL(string: String(BaseModel.shared.getServerURL() + (BaseModel.shared.user_info?.getAvatarImage())!)!) {
             if let data = NSData(contentsOf: url as URL) {

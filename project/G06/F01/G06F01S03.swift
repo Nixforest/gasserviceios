@@ -35,6 +35,7 @@ class G06F01S03: StepContent, AddressPickerViewDelegate {
     /** House number */
     private var _pkrHouseNum:           AddressPickerView = AddressPickerView()
     let contentView     = UIView()
+    private var fullAddress:            FullAddressPicker = FullAddressPicker()
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -52,30 +53,33 @@ class G06F01S03: StepContent, AddressPickerViewDelegate {
         super.init()
         var offset: CGFloat = GlobalConst.MARGIN
         contentView.translatesAutoresizingMaskIntoConstraints = true
+        fullAddress.setup()
+        offset += fullAddress.frame.height
+        contentView.addSubview(fullAddress)
         // Province control
-        offset = addAddressControl(control: _pkrProvince, offset: offset,
-                                   label: DomainConst.CONTENT00298,
-                                   data: BaseModel.shared.getListProvinces())
-        // District control
-        offset = addAddressControl(control: _pkrDistrict, offset: offset,
-                                   label: DomainConst.CONTENT00299,
-                                   data: [ConfigBean]())
-        // Ward control
-        offset = addAddressControl(control: _pkrWard, offset: offset,
-                                   label: DomainConst.CONTENT00300,
-                                   data: [ConfigBean]())
-        // Street control
-        offset = addAddressControl(control: _pkrStreet, offset: offset,
-                                   label: DomainConst.CONTENT00058,
-                                   data: BaseModel.shared.getListStreets())
-        _pkrHouseNum.setup(frame: CGRect(x: 0, y: offset,
-                                    width: GlobalConst.SCREEN_WIDTH,
-                                    height: GlobalConst.BUTTON_H),
-                      lbl: DomainConst.CONTENT00057,
-                      data: [ConfigBean](), isPicker: false)
-        _pkrHouseNum.delegate = self
-        contentView.addSubview(_pkrHouseNum)
-        offset += GlobalConst.BUTTON_H
+//        offset = addAddressControl(control: _pkrProvince, offset: offset,
+//                                   label: DomainConst.CONTENT00298,
+//                                   data: BaseModel.shared.getListProvinces())
+//        // District control
+//        offset = addAddressControl(control: _pkrDistrict, offset: offset,
+//                                   label: DomainConst.CONTENT00299,
+//                                   data: [ConfigBean]())
+//        // Ward control
+//        offset = addAddressControl(control: _pkrWard, offset: offset,
+//                                   label: DomainConst.CONTENT00300,
+//                                   data: [ConfigBean]())
+//        // Street control
+//        offset = addAddressControl(control: _pkrStreet, offset: offset,
+//                                   label: DomainConst.CONTENT00058,
+//                                   data: BaseModel.shared.getListStreets())
+//        _pkrHouseNum.setup(frame: CGRect(x: 0, y: offset,
+//                                    width: GlobalConst.SCREEN_WIDTH,
+//                                    height: GlobalConst.BUTTON_H),
+//                      lbl: DomainConst.CONTENT00057,
+//                      data: [ConfigBean](), isPicker: false)
+//        _pkrHouseNum.delegate = self
+//        contentView.addSubview(_pkrHouseNum)
+//        offset += GlobalConst.BUTTON_H
         
         // Set parent
         self.setParentView(parent: parent)
@@ -164,6 +168,7 @@ class G06F01S03: StepContent, AddressPickerViewDelegate {
      * Handle validate data
      */
     override func checkDone() -> Bool {
+        G06F01S03._address = fullAddress.getData().getFullAddress()
         return true
     }
     
