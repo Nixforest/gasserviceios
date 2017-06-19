@@ -169,6 +169,9 @@ class G06F01S03: StepContent, AddressPickerViewDelegate {
      */
     override func checkDone() -> Bool {
         G06F01S03._address = fullAddress.getData().getFullAddress()
+        //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+        G06F01VC._fullAddress = fullAddress.getData()
+        //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         return true
     }
     

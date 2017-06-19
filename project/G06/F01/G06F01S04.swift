@@ -12,8 +12,8 @@ import harpyframework
 class G06F01S04: StepContent, UITextFieldDelegate, AddressPickerViewDelegate {
     // MARK: Properties
     /** Selected value */
-    static var _selectedValue: (serial: String, brand: String, competitor: String, timeUse: ConfigBean)
-        = (DomainConst.BLANK, DomainConst.BLANK, DomainConst.BLANK, ConfigBean(id: "", name: ""))
+    static var _selectedValue: (serial: String, brand: String, competitor: String, timeUse: ConfigBean, ccsCode: String)
+        = (DomainConst.BLANK, DomainConst.BLANK, DomainConst.BLANK, ConfigBean(id: "", name: ""), DomainConst.BLANK)
     /** Time use */
     public static var _timeUse: [ConfigBean] = [ConfigBean]()
     /** Serial textfield */
@@ -24,6 +24,10 @@ class G06F01S04: StepContent, UITextFieldDelegate, AddressPickerViewDelegate {
     var _tbxCompetitor = UITextField()
     /** Time use Picker */
     private var _pkrTimeUse = AddressPickerView()
+    //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+    /** CCS code textfield */
+    var _tbxCCSCode = UITextField()
+    //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
     /** Flag show keyboard */
     var _isKeyboardShow: Bool = false
 
@@ -118,6 +122,26 @@ class G06F01S04: StepContent, UITextFieldDelegate, AddressPickerViewDelegate {
         offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
         contentView.addSubview(_pkrTimeUse)
         
+        //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+        // CCS Code textfield
+        _tbxCCSCode.frame = CGRect(x: (w - GlobalConst.EDITTEXT_W) / 2,
+                                      y: GlobalConst.MARGIN + offset,
+                                      width: GlobalConst.EDITTEXT_W,
+                                      height: GlobalConst.EDITTEXT_H)
+        _tbxCCSCode.font                  = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
+        _tbxCCSCode.borderStyle           = .roundedRect
+        _tbxCCSCode.autocorrectionType    = .no
+        _tbxCCSCode.clearButtonMode       = .whileEditing
+        _tbxCCSCode.autocapitalizationType  = .allCharacters
+        _tbxCCSCode.placeholder           = DomainConst.CONTENT00445
+        _tbxCCSCode.translatesAutoresizingMaskIntoConstraints = true
+        _tbxCCSCode.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        _tbxCCSCode.returnKeyType         = .done
+        _tbxCCSCode.tag = 3
+        offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
+        contentView.addSubview(_tbxCCSCode)
+        //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+        
         // Set parent
         self.setParentView(parent: parent)
         self.setup(mainView: contentView, title: DomainConst.CONTENT00302,
@@ -133,11 +157,19 @@ class G06F01S04: StepContent, UITextFieldDelegate, AddressPickerViewDelegate {
         if !G06F01S04._selectedValue.competitor.isEmpty {
             _tbxCompetitor.text = G06F01S04._selectedValue.competitor
         }
+        //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+        if !G06F01S04._selectedValue.ccsCode.isEmpty {
+            _tbxCCSCode.text = G06F01S04._selectedValue.ccsCode
+        }
+        //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         let gesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         self.addGestureRecognizer(gesture)
         _tbxSerial.delegate     = self
         _tbxBrand.delegate      = self
         _tbxCompetitor.delegate = self
+        //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+        _tbxCCSCode.delegate    = self
+        //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         return
     }
     
@@ -153,6 +185,10 @@ class G06F01S04: StepContent, UITextFieldDelegate, AddressPickerViewDelegate {
             G06F01S04._selectedValue.brand = textField.text!
         case _tbxCompetitor:
             G06F01S04._selectedValue.competitor = textField.text!
+        //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+        case _tbxCCSCode:
+            G06F01S04._selectedValue.ccsCode = textField.text!
+        //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         default:
             break
         }

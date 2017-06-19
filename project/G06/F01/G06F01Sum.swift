@@ -52,6 +52,9 @@ class G06F01Sum: StepSummary {
         listValues.append((DomainConst.CONTENT00109, G06F01S04._selectedValue.serial))
         listValues.append((DomainConst.CONTENT00303, G06F01S04._selectedValue.brand))
         listValues.append((DomainConst.CONTENT00116, G06F01S04._selectedValue.competitor))
+        //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+        listValues.append((DomainConst.CONTENT00445, G06F01S04._selectedValue.ccsCode))
+        //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         listValues.append((DomainConst.CONTENT00304, G06F01S04._selectedValue.timeUse.name))
         listValues.append((DomainConst.CONTENT00289, G06F01S05._selectedValue.name))
         var investment: [String] = [String]()

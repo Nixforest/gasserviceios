@@ -16,6 +16,10 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
     private let _location               =  CLLocationManager()
     /** Current position of map view */
     public static var _currentPos       = CLLocationCoordinate2D.init()
+    //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+    /** Full address */
+    public static var _fullAddress:     FullAddressBean = FullAddressBean()
+    //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
 
     // MARK: Method
     /**
@@ -184,7 +188,7 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
     override func clearData() {
         G06F01S01._selectedValue = (DomainConst.BLANK, DomainConst.BLANK)
         G06F01S02._selectedValue = ConfigBean.init()
-        G06F01S04._selectedValue = (DomainConst.BLANK, DomainConst.BLANK, DomainConst.BLANK, ConfigBean.init())
+        G06F01S04._selectedValue = (DomainConst.BLANK, DomainConst.BLANK, DomainConst.BLANK, ConfigBean.init(), DomainConst.BLANK)
         G06F01S06._selectedValue.removeAll()
     }
     
@@ -204,24 +208,25 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         
         CustomerFamilyCreateRequest.request(
             action:         #selector(finishCreateCustomer(_:)),
-            view: self,
-            phone: G06F01S01._selectedValue.phone,
-            customerBrand: G06F01S04._selectedValue.brand,
-            province_id: G06F01S03._provinceId,
-            hgd_type: G06F01S05._selectedValue.id,
-            district_id: G06F01S03._districtId,
-            ward_id: G06F01S03._wardId,
-            agent_id: G06F01S02._selectedValue.id,
-            hgd_time_use: G06F01S04._selectedValue.timeUse.id,
-            version_code: DomainConst.VERSION_CODE_STR,
-            street_id: G06F01S03._streetId,
-            first_name: G06F01S01._selectedValue.name,
-            house_numbers: G06F01S03._houseNumber,
+            view:           self,
+            phone:          G06F01S01._selectedValue.phone,
+            customerBrand:  G06F01S04._selectedValue.brand,
+            province_id:    G06F01VC._fullAddress.provinceId,
+            hgd_type:       G06F01S05._selectedValue.id,
+            district_id:    G06F01VC._fullAddress.districtId,
+            ward_id:        G06F01VC._fullAddress.wardId,
+            agent_id:       G06F01S02._selectedValue.id,
+            hgd_time_use:   G06F01S04._selectedValue.timeUse.id,
+            version_code:   DomainConst.VERSION_CODE_STR,
+            street_id:      G06F01VC._fullAddress.streetId,
+            first_name:     G06F01S01._selectedValue.name,
+            house_numbers:  G06F01VC._fullAddress.houseNumber,
             list_hgd_invest: invest.joined(separator: DomainConst.ADDRESS_SPLITER),
-            longitude: String(G06F01VC._currentPos.latitude),
-            latitude: String(G06F01VC._currentPos.longitude),
-            serial: G06F01S04._selectedValue.serial,
-            hgd_doi_thu: G06F01S04._selectedValue.competitor)
+            longitude:      String(G06F01VC._currentPos.latitude),
+            latitude:       String(G06F01VC._currentPos.longitude),
+            serial:         G06F01S04._selectedValue.serial,
+            hgd_doi_thu:    G06F01S04._selectedValue.competitor,
+            ccsCode:        G06F01S04._selectedValue.ccsCode)
     }
     
     /**
