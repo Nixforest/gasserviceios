@@ -40,5 +40,22 @@ class CCSCodeListRequest: BaseRequest {
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
-
+    
+    
+    /**
+     * Request VIP customer store card list
+     * - parameter action:      Action execute when finish this task
+     * - parameter view:        Current view
+     * - parameter page:        Page index
+     */
+    public static func requestCCSCode(action: Selector, view: UIView,
+                               page: String) {
+        // Show overlay
+        LoadingView.shared.showOverlay(view: view)
+        let request = CCSCodeListRequest(url: G06Const.PATH_CCS_CODE_LIST,
+                                         reqMethod: DomainConst.HTTP_POST_REQUEST)
+        request.setData(page: page)
+        NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
+        request.execute()
+    }
 }

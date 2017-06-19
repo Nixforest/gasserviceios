@@ -168,10 +168,23 @@ class G06F01S03: StepContent, AddressPickerViewDelegate {
      * Handle validate data
      */
     override func checkDone() -> Bool {
-        G06F01S03._address = fullAddress.getData().getFullAddress()
         //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+        if fullAddress.getData().provinceId.isEmpty {
+            fullAddress.getData().provinceId = G06F01VC._fullAddress.provinceId
+        }
+        if fullAddress.getData().districtId.isEmpty {
+            fullAddress.getData().districtId = G06F01VC._fullAddress.districtId
+        }
+        if fullAddress.getData().wardId.isEmpty {
+            fullAddress.getData().wardId = G06F01VC._fullAddress.wardId
+        }
+        if fullAddress.getData().streetId.isEmpty {
+            fullAddress.getData().streetId = G06F01VC._fullAddress.streetId
+        }
         G06F01VC._fullAddress = fullAddress.getData()
         //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+        
+        G06F01S03._address = fullAddress.getData().getFullAddress()
         return true
     }
     
@@ -215,5 +228,13 @@ class G06F01S03: StepContent, AddressPickerViewDelegate {
      */
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         hideKeyboard()
+    }
+    
+    /**
+     * Set address
+     * - parameter address: Address to set
+     */
+    public func setAddress(address: FullAddressBean) {
+        self.fullAddress.setData(bean: address)
     }
 }

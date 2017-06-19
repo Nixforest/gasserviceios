@@ -30,6 +30,7 @@ class CustomerFamilyUpdateRequest: BaseRequest {
      * - parameter serial:          Serial
      * - parameter hgd_doi_thu:     Opposite brand
      * - parameter customer_id:     Id of customer
+     * - parameter ccsCode:         CCS code
      */
     func setData(phone: String, customerBrand: String,
                  province_id: String, hgd_type: String,
@@ -39,9 +40,12 @@ class CustomerFamilyUpdateRequest: BaseRequest {
                  first_name: String, house_numbers: String,
                  list_hgd_invest: String, longitude: String,
                  latitude: String, serial: String,
-                 hgd_doi_thu: String, customer_id: String) {
+                 hgd_doi_thu: String, customer_id: String,
+                 //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+                 ccsCode: String) {
+                 //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@,\"%@\":\"%d\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@,\"%@\":\"%@,\"%@\":\"%d\"}",
             DomainConst.KEY_TOKEN,                  BaseModel.shared.getUserToken(),
             DomainConst.KEY_PHONE,                  phone,
             DomainConst.KEY_CUSTOMER_FAMILY_BRAND,  customerBrand,
@@ -61,6 +65,9 @@ class CustomerFamilyUpdateRequest: BaseRequest {
             DomainConst.KEY_SERIAL,                 serial,
             DomainConst.KEY_HGD_DOI_THU,            hgd_doi_thu,
             DomainConst.KEY_CUSTOMER_ID,            customer_id,
+            //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+            DomainConst.KEY_MENU_CCS_CODE,          ccsCode,
+            //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
             DomainConst.KEY_PLATFORM,               DomainConst.PLATFORM_IOS
         )
     }
@@ -87,6 +94,7 @@ class CustomerFamilyUpdateRequest: BaseRequest {
      * - parameter serial:          Serial
      * - parameter hgd_doi_thu:     Opposite brand
      * - parameter customer_id:     Id of customer
+     * - parameter ccsCode:         CCS code
      */
     public static func requestCustomerFamilyUpdate(action: Selector,
                                                    view: BaseViewController,
@@ -98,7 +106,10 @@ class CustomerFamilyUpdateRequest: BaseRequest {
                                                    first_name: String, house_numbers: String,
                                                    list_hgd_invest: String, longitude: String,
                                                    latitude: String, serial: String,
-                                                   hgd_doi_thu: String, customer_id: String) {
+                                                   hgd_doi_thu: String, customer_id: String,
+                                                   //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+                                                   ccsCode: String) {
+                                                   //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = CustomerFamilyUpdateRequest(url: G06Const.PATH_CUSTOMER_FAMILY_UPDATE,
@@ -112,7 +123,10 @@ class CustomerFamilyUpdateRequest: BaseRequest {
                         first_name: first_name, house_numbers: house_numbers,
                         list_hgd_invest: list_hgd_invest,
                         longitude: longitude, latitude: latitude,
-                        serial: serial, hgd_doi_thu: hgd_doi_thu, customer_id: customer_id)
+                        serial: serial, hgd_doi_thu: hgd_doi_thu, customer_id: customer_id,
+                        //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+                        ccsCode: ccsCode)
+                        //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }

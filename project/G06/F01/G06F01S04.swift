@@ -27,6 +27,8 @@ class G06F01S04: StepContent, UITextFieldDelegate, AddressPickerViewDelegate {
     //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
     /** CCS code textfield */
     var _tbxCCSCode = UITextField()
+    private var _pkrCCSCode = AddressPickerView()
+    public static var _CCSCodeList: [ConfigBean] = [ConfigBean]()
     //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
     /** Flag show keyboard */
     var _isKeyboardShow: Bool = false
@@ -138,8 +140,22 @@ class G06F01S04: StepContent, UITextFieldDelegate, AddressPickerViewDelegate {
         _tbxCCSCode.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         _tbxCCSCode.returnKeyType         = .done
         _tbxCCSCode.tag = 3
+        //offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
+        //contentView.addSubview(_tbxCCSCode)
+        _pkrCCSCode.setup(frame: CGRect(x: (w - GlobalConst.EDITTEXT_W) / 2,
+                                        y: GlobalConst.MARGIN + offset,
+                                        width: GlobalConst.EDITTEXT_W,
+                                        height: GlobalConst.EDITTEXT_H),
+                          lbl: DomainConst.CONTENT00445,
+                          data: G06F01S04._CCSCodeList,
+                          isPicker: true, isStreet: true)
+        _pkrCCSCode.layer.borderWidth = 0.5
+        _pkrCCSCode.layer.borderColor = GlobalConst.BORDER_TEXTFIELD_COLOR.cgColor
+        _pkrCCSCode.layer.cornerRadius = 5
+        _pkrCCSCode.delegate = self
+        G06F01S04._selectedValue.ccsCode = DomainConst.BLANK
         offset += GlobalConst.EDITTEXT_H + GlobalConst.MARGIN
-        contentView.addSubview(_tbxCCSCode)
+        contentView.addSubview(_pkrCCSCode)
         //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         
         // Set parent
@@ -169,8 +185,25 @@ class G06F01S04: StepContent, UITextFieldDelegate, AddressPickerViewDelegate {
         _tbxCompetitor.delegate = self
         //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         _tbxCCSCode.delegate    = self
+        CCSCodeListRequest.requestCCSCode(action: #selector(finishRequestCCSCode(_:)),
+                                          view: self, page: "1")
         //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         return
+    }
+    internal func finishRequestCCSCode(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CCSCodeListRespModel(jsonString: data)
+        if model.isSuccess() {
+            // Update data
+            for item in model.getRecord() {
+                let code = item
+                code.data.append(ConfigBean(id: DomainConst.BLANK, name: item.name.removeSign().lowercased()))
+                G06F01S04._CCSCodeList.append(code)
+            }
+            _pkrCCSCode.setData(data: G06F01S04._CCSCodeList)
+        } else {
+            showAlert(message: model.message)
+        }
     }
     
     /**
@@ -253,6 +286,11 @@ class G06F01S04: StepContent, UITextFieldDelegate, AddressPickerViewDelegate {
      * Handle validate data
      */
     override func checkDone() -> Bool {
+        if _pkrCCSCode.getSelectedValue().isBlank {
+            G06F01S04._selectedValue.ccsCode = _pkrCCSCode.getTextValue()
+        } else {
+            G06F01S04._selectedValue.ccsCode = _pkrCCSCode.getSelectedValue()
+        }
         return true
     }
     
@@ -260,6 +298,10 @@ class G06F01S04: StepContent, UITextFieldDelegate, AddressPickerViewDelegate {
      * Handle when change address value
      */
     func valueChanged(_ sender: AnyObject) {
+        if (sender as! AddressPickerView) == _pkrCCSCode {
+            G06F01S04._selectedValue.ccsCode = _pkrCCSCode.getSelectedValue()
+            return
+        }
         G06F01S04._selectedValue.timeUse
             = ConfigBean(id: _pkrTimeUse.getSelectedID(),
                          name: _pkrTimeUse.getSelectedValue())

@@ -13,6 +13,10 @@ class CustomerFamilyViewRespModel: BaseRespModel {
     /** Record */
     var record: CustomerFamilyBean = CustomerFamilyBean()
     
+    override init() {
+        super.init()
+    }
+    
     /**
      * Initializer
      */

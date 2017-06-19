@@ -76,9 +76,9 @@ class G06F01S02: StepContent, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     public func pickerView(_ pkviewStep1: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if G06F01S02._selectedValue.id == BaseModel.shared.getListAgent()[row].id {
-            _pkView.selectedRow(inComponent: row)
-        }
+//        if G06F01S02._selectedValue.id == BaseModel.shared.getListAgent()[row].id {
+//            _pkView.selectedRow(inComponent: row)
+//        }
         return BaseModel.shared.getListAgent()[row].name
     }
     

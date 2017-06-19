@@ -19,6 +19,10 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
     //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
     /** Full address */
     public static var _fullAddress:     FullAddressBean = FullAddressBean()
+    /** Mode: 0 - Create, 1 - Update */
+    public static var _mode:        String  = DomainConst.NUMBER_ZERO_VALUE
+    /** Id of store card updating */
+    public static var _id:          String = DomainConst.BLANK
     //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
 
     // MARK: Method
@@ -57,7 +61,7 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
                              pm.subLocality ?? DomainConst.BLANK,
                              pm.thoroughfare ?? DomainConst.BLANK,
                              pm.subThoroughfare ?? DomainConst.BLANK)
-                self.updateData(name: G06F01S03.theClassName, model: model as AnyObject)
+                //self.updateData(name: G06F01S03.theClassName, model: model as AnyObject)
             }
             
         })
@@ -109,8 +113,14 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         step6.stepDoneDelegate = self
         self.appendContent(stepContent: step6)
         appendSummary(summary: summary)
+        step3.setAddress(address: G06F01VC._fullAddress)
         // Set title
-        self.setTitle(title: DomainConst.CONTENT00122)
+        //self.setTitle(title: DomainConst.CONTENT00122)
+        if G06F01VC._mode == DomainConst.NUMBER_ZERO_VALUE {
+            self.setTitle(title: DomainConst.CONTENT00122)
+        } else {
+            self.setTitle(title: DomainConst.CONTENT00154)
+        }
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -190,9 +200,10 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         G06F01S02._selectedValue = ConfigBean.init()
         G06F01S04._selectedValue = (DomainConst.BLANK, DomainConst.BLANK, DomainConst.BLANK, ConfigBean.init(), DomainConst.BLANK)
         G06F01S06._selectedValue.removeAll()
+        G06F01VC._fullAddress = FullAddressBean.init()
+        G06F01S03._address = DomainConst.BLANK
+        G06F01S05._selectedValue = ConfigBean.init()
     }
-    
-    
     
     /**
      * Handle send request create uphold
@@ -206,6 +217,8 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
             invest.append(String.init(format: "\"%@\"", item.id))
         }
         
+        // Create new
+        if G06F01VC._mode == DomainConst.NUMBER_ZERO_VALUE {
         CustomerFamilyCreateRequest.request(
             action:         #selector(finishCreateCustomer(_:)),
             view:           self,
@@ -226,7 +239,31 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
             latitude:       String(G06F01VC._currentPos.longitude),
             serial:         G06F01S04._selectedValue.serial,
             hgd_doi_thu:    G06F01S04._selectedValue.competitor,
-            ccsCode:        G06F01S04._selectedValue.ccsCode)
+            ccsCode:        G06F01S04._selectedValue.ccsCode.uppercased())
+        } else {    // Update
+            CustomerFamilyUpdateRequest.requestCustomerFamilyUpdate(
+                action:         #selector(finishCreateCustomer(_:)),
+                view: self,
+                phone: G06F01S01._selectedValue.phone,
+                customerBrand: G06F01S04._selectedValue.brand,
+                province_id: G06F01VC._fullAddress.provinceId,
+                hgd_type: G06F01S05._selectedValue.id,
+                district_id:    G06F01VC._fullAddress.districtId,
+                ward_id:        G06F01VC._fullAddress.wardId,
+                agent_id:       G06F01S02._selectedValue.id,
+                hgd_time_use:   G06F01S04._selectedValue.timeUse.id,
+                version_code:   DomainConst.VERSION_CODE_STR,
+                street_id:      G06F01VC._fullAddress.streetId,
+                first_name:     G06F01S01._selectedValue.name,
+                house_numbers:  G06F01VC._fullAddress.houseNumber,
+                list_hgd_invest: invest.joined(separator: DomainConst.ADDRESS_SPLITER),
+                longitude:      String(G06F01VC._currentPos.latitude),
+                latitude:       String(G06F01VC._currentPos.longitude),
+                serial:         G06F01S04._selectedValue.serial,
+                hgd_doi_thu:    G06F01S04._selectedValue.competitor,
+                customer_id:    G06F01VC._id,
+                ccsCode:        G06F01S04._selectedValue.ccsCode.uppercased())
+        }
     }
     
     /**
@@ -237,6 +274,8 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         let data = (notification.object as! String)
         let model = CustomerFamilyCreateRespModel(jsonString: data)
         if model.isSuccess() {
+            // Clear data at steps
+            self.clearData()
             self.showAlert(message: model.message,
                            okHandler: {
                             (alert: UIAlertAction!) in
@@ -258,5 +297,5 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+     */
 }
