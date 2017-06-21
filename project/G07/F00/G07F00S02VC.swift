@@ -426,7 +426,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             amountDiscount: _data.getRecord().amount_discount,
             typeAmount: _data.getRecord().type_amount,
             support_id: _data.getRecord().support_id,
-            orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2))
+            orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2),
+            //++ BUG0111-SPJ (NguyenPT 20170617) Update function G06
+            ccsCode: _data.getRecord().ccsCode)
+            //-- BUG0111-SPJ (NguyenPT 20170617) Update function G06
     }
     
     internal func finishUpdateOrder(_ notification: Notification) {
@@ -479,7 +482,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             amountDiscount: _data.getRecord().amount_discount,
             typeAmount: _data.getRecord().type_amount,
             support_id: _data.getRecord().support_id,
-            orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2))
+            orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2),
+            //++ BUG0111-SPJ (NguyenPT 20170617) Update function G06
+            ccsCode: _data.getRecord().ccsCode)
+            //-- BUG0111-SPJ (NguyenPT 20170617) Update function G06
     }
     
     /**
@@ -747,6 +753,13 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _listInfo[0].append(ConfigurationModel(
             id: DomainConst.ORDER_INFO_ADDRESS_ID, name: _data.getRecord().address,
             iconPath: DomainConst.ADDRESS_ICON_IMG_NAME, value: DomainConst.BLANK))
+        
+        //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+        // CCS code
+        _listInfo[0].append(ConfigurationModel(
+            id: DomainConst.ORDER_INFO_CCS_CODE_ID, name: DomainConst.CONTENT00445,
+            iconPath: DomainConst.ADDRESS_ICON_IMG_NAME, value: _data.getRecord().ccsCode))
+        //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
     }
     
     /**
@@ -933,6 +946,69 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         
     }
+    
+    //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+    /**
+     * Update value of ccs code
+     */
+    private func updateCCSCode() {
+        var tbxValue: UITextField?
+        // Create alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00445,
+                                      message: DomainConst.CONTENT00445,
+                                      preferredStyle: .alert)
+        // Add textfield
+        alert.addTextField(configurationHandler: { textField -> Void in
+            tbxValue = textField
+            tbxValue?.placeholder       = DomainConst.CONTENT00445
+            tbxValue?.clearButtonMode   = .whileEditing
+            tbxValue?.returnKeyType     = .done
+            tbxValue?.keyboardType      = .default
+            tbxValue?.text              = self._data.getRecord().ccsCode
+            tbxValue?.autocapitalizationType = .allCharacters
+            tbxValue?.textAlignment     = .center
+        })
+        // Add cancel action
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
+        
+        // Add ok action
+        let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
+            if let value = tbxValue?.text {
+                // Update data
+                self._data.getRecord().ccsCode = value
+                // Loop for all the first list info
+                for i in 0..<self._listInfo[0].count {
+                    // Get current item
+                    let item = self._listInfo[0][i]
+                    // Check if ccs code item
+                    if item.id == DomainConst.ORDER_INFO_CCS_CODE_ID {
+                        // Update value
+                        self._listInfo[0][i].updateData(id: item.id,
+                                                        name: item.name,
+                                                        iconPath: item.getIconPath(),
+                                                        value: value)
+                        // Stop loop statement
+                        break
+                    }
+                }
+                // Reload tableview
+                self._tableView.reloadData()
+            } else {
+                self.showAlert(message: DomainConst.CONTENT00251, okTitle: DomainConst.CONTENT00251,
+                               okHandler: {_ in
+                                self.updateCCSCode()
+                },
+                               cancelHandler: {_ in
+                                
+                })
+            }
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+    }
+    //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
 
     /*
     // MARK: - Navigation
@@ -978,6 +1054,12 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     // Highlight phone number
                     cell.highlightValue()
                 }
+                //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+                if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_CCS_CODE_ID  {
+                    // Highlight CCS code
+                    cell.highlightValue()
+                }
+                //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
                 break
             case 1:     // Material section
                 //++ BUG0088-SPJ (NguyenPT 20170516) Can change gas material
@@ -1065,6 +1147,12 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         //-- BUG0088-SPJ (NguyenPT 20170516) Can change gas material
+        
+        //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+        if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_CCS_CODE_ID && (self._data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE) {
+            self.updateCCSCode()
+        }
+        //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
     }
     
     /**

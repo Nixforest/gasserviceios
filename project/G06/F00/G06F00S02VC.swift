@@ -27,6 +27,12 @@ class G06F00S02VC: ChildViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //++ BUG0049-SPJ (NguyenPT 20170622) Handle notification
+        if G06F00S02VC._id.isEmpty {
+            G06F00S02VC._id = BaseModel.shared.sharedString
+        }
+        //-- BUG0049-SPJ (NguyenPT 20170622) Handle notification
+        
         // Do any additional setup after loading the view.
         // Navigation
         createNavigationBar(title: DomainConst.CONTENT00288)

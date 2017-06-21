@@ -311,6 +311,13 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         var tbxSerial       : UITextField?
         var tbxCylinderOnly : UITextField?
         var tbxFull         : UITextField?
+        
+        //++ BUG0113-SPJ (NguyenPT 20170622) Bug when input "," inside number field
+        let df = NumberFormatter()
+        df.locale = Locale.current
+        let decimal = df.decimalSeparator ?? DomainConst.SPLITER_TYPE4
+        //-- BUG0113-SPJ (NguyenPT 20170622) Bug when input "," inside number field
+        
         // Create alert
         let alert = UIAlertController(title: cylinder.material_name,
                                       message: DomainConst.CONTENT00345,
@@ -352,8 +359,16 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Add ok action
         let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
             if !(tbxCylinderOnly?.text?.isEmpty)! && !(tbxFull?.text?.isEmpty)! {
-                let cylinderOnly    = ((tbxCylinderOnly?.text)! as NSString).doubleValue
-                let full            = ((tbxFull?.text)! as NSString).doubleValue
+                //++ BUG0113-SPJ (NguyenPT 20170622) Bug when input "," inside number field
+                let cylinderOnlyStr = (tbxCylinderOnly?.text)!.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
+                let fullStr = (tbxFull?.text)!.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
+                
+                //let cylinderOnly    = ((tbxCylinderOnly?.text)! as NSString).doubleValue
+                //let full            = ((tbxFull?.text)! as NSString).doubleValue
+                let cylinderOnly    = (cylinderOnlyStr as NSString).doubleValue
+                let full            = (fullStr as NSString).doubleValue
+                //-- BUG0113-SPJ (NguyenPT 20170622) Bug when input "," inside number field
+                
                 // Update data
                 self._data.getRecord().info_vo[idx].kg_empty    = String(describing: cylinderOnly)
                 self._data.getRecord().info_vo[idx].seri        = (tbxSerial?.text)!

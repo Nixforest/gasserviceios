@@ -184,7 +184,11 @@ class G11F00S02VC: ChildViewController, UITableViewDelegate, UITableViewDataSour
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //++ BUG0049-SPJ (NguyenPT 20170622) Handle notification
+        if G11F00S02VC._id.isEmpty {
+            G11F00S02VC._id = BaseModel.shared.sharedString
+        }
+        //-- BUG0049-SPJ (NguyenPT 20170622) Handle notification
         // Do any additional setup after loading the view.
         createNavigationBar(title: DomainConst.CONTENT00426)
         var offset: CGFloat = getTopHeight()
