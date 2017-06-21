@@ -9,6 +9,8 @@
 #include <metal_stdlib>
 using namespace metal;
 // Version: 1.21.0
+// - BUG0113: G05F00S04VC: Bug when input "," inside number field
+// - BUG0112: Create load screen
 // - BUG0111: G06 - CCS code for G07F00S02VC
 // - BUG0049: Handle notification for Order family, Ticket and SPJ code comeback
 // Version: 1.20.0

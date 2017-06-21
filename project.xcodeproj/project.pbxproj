@@ -76,6 +76,8 @@
 		D778249B1EDEA5AD002AB15A /* G10F00S04VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778249A1EDEA5AD002AB15A /* G10F00S04VC.swift */; };
 		D778249E1EDEAD8E002AB15A /* ContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778249C1EDEAD8E002AB15A /* ContentCollectionViewCell.swift */; };
 		D778249F1EDEAD8E002AB15A /* ContentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D778249D1EDEAD8E002AB15A /* ContentCollectionViewCell.xib */; };
+		D77A0B3A1EFAC82500E66E70 /* gas_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D77A0B391EFAC82500E66E70 /* gas_logo.png */; };
+		D77A0B3C1EFAC86A00E66E70 /* bg1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D77A0B3B1EFAC86A00E66E70 /* bg1.jpg */; };
 		D77E62BB1EDD6A5E00FD5512 /* G10Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E62BA1EDD6A5E00FD5512 /* G10Const.swift */; };
 		D77E62BF1EDD6AC200FD5512 /* ReportListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E62BE1EDD6AC200FD5512 /* ReportListRequest.swift */; };
 		D77E62C31EDD6F6500FD5512 /* ReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E62C21EDD6F6500FD5512 /* ReportRequest.swift */; };
@@ -395,6 +397,8 @@
 		D778249A1EDEA5AD002AB15A /* G10F00S04VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G10F00S04VC.swift; path = G10/F00/G10F00S04VC.swift; sourceTree = "<group>"; };
 		D778249C1EDEAD8E002AB15A /* ContentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentCollectionViewCell.swift; path = G10/F00/ContentCollectionViewCell.swift; sourceTree = "<group>"; };
 		D778249D1EDEAD8E002AB15A /* ContentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContentCollectionViewCell.xib; path = G10/F00/ContentCollectionViewCell.xib; sourceTree = "<group>"; };
+		D77A0B391EFAC82500E66E70 /* gas_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gas_logo.png; sourceTree = "<group>"; };
+		D77A0B3B1EFAC86A00E66E70 /* bg1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg1.jpg; sourceTree = "<group>"; };
 		D77E62BA1EDD6A5E00FD5512 /* G10Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G10Const.swift; path = G10/G10Const.swift; sourceTree = "<group>"; };
 		D77E62BE1EDD6AC200FD5512 /* ReportListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportListRequest.swift; path = G10/API/ReportListRequest.swift; sourceTree = "<group>"; };
 		D77E62C21EDD6F6500FD5512 /* ReportRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportRequest.swift; path = G10/API/ReportRequest.swift; sourceTree = "<group>"; };
@@ -620,6 +624,8 @@
 		84284E051D40DF050079DEBC = {
 			isa = PBXGroup;
 			children = (
+				D77A0B3B1EFAC86A00E66E70 /* bg1.jpg */,
+				D77A0B391EFAC82500E66E70 /* gas_logo.png */,
 				D7BE04721E0585F600D37740 /* harpyframework.xcodeproj */,
 				84284E101D40DF050079DEBC /* project */,
 				84284E251D40DF050079DEBC /* projectTests */,
@@ -1549,7 +1555,9 @@
 				84A4C06B1D6311D000C0B84C /* example.txt in Resources */,
 				84284E191D40DF050079DEBC /* Assets.xcassets in Resources */,
 				D70ECECF1EE298FE00997F1A /* G01F00S04Cell.xib in Resources */,
+				D77A0B3C1EFAC86A00E66E70 /* bg1.jpg in Resources */,
 				D77F063A1E7176E900797A6B /* G01F00S02InfoView.xib in Resources */,
+				D77A0B3A1EFAC82500E66E70 /* gas_logo.png in Resources */,
 				D7D233391ECF451D0063CA04 /* CashBookCell.xib in Resources */,
 				84284E171D40DF050079DEBC /* Main.storyboard in Resources */,
 				D77F06381E7176E900797A6B /* G01F00S02HistoryCell.xib in Resources */,
@@ -2043,7 +2051,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = project/project.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = PZV5YS9B34;
 				INFOPLIST_FILE = project/Info.plist;
