@@ -8,6 +8,8 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.23.0
+// - BUG0066: Show full code label in VIP Order list
 // Version: 1.22.0
 // - BUG0115: Handle add version code when request server
 // - BUG0114: Handle show note in Order Family and Order VIP

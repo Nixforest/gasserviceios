@@ -35,6 +35,7 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate, UITextFieldDelegate 
     //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
     /** Textfield */
     private var _txtPhone:          UITextField             = UITextField()
+    private var NOTE_MAX_Y:         CGFloat                 = 0.0
 
     /**
      * Perform additional initialization on views that were loaded from nib files
@@ -166,6 +167,7 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate, UITextFieldDelegate 
                                 y: offset,
                                 width: GlobalConst.EDITTEXT_W,
                                 height: GlobalConst.EDITTEXT_H * 5)
+        NOTE_MAX_Y = _tbxNote.frame.maxY
         _tbxNote.font               = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         _tbxNote.backgroundColor    = UIColor.white
         _tbxNote.autocorrectionType = .no
@@ -271,7 +273,11 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate, UITextFieldDelegate 
      */
     override func keyboardWillShow(_ notification: Notification) {
         super.keyboardWillShow(notification)
+        UIView.animate(withDuration: 0.0, animations: {
+            self.view.frame = CGRect(x: self.view.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        })
         let delta = self._tbxNote.frame.maxY - self.keyboardTopY
+        //let delta = NOTE_MAX_Y - self.keyboardTopY
         if delta > 0 {
             UIView.animate(withDuration: 0.3, animations: {
                 self.view.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y - delta, width: self.view.frame.size.width, height: self.view.frame.size.height)
@@ -298,6 +304,85 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate, UITextFieldDelegate 
      * Handle when tap confirm button
      */
     func btnConfirmTapped(_ sender: AnyObject) {
+//        var b50 = DomainConst.NUMBER_ZERO_VALUE
+//        var b45 = DomainConst.NUMBER_ZERO_VALUE
+//        var b12 = DomainConst.NUMBER_ZERO_VALUE
+//        var b6 = DomainConst.NUMBER_ZERO_VALUE
+//        for item in self._lstSelector {
+//            switch item.getSelectorValue().id {
+//            case DomainConst.KEY_B50:
+//                if item.getCheckValue() {
+//                    b50 = item.getSelectorValue().name
+//                }
+//                break
+//            case DomainConst.KEY_B45:
+//                if item.getCheckValue() {
+//                    b45 = item.getSelectorValue().name
+//                }
+//                break
+//            case DomainConst.KEY_B12:
+//                if item.getCheckValue() {
+//                    b12 = item.getSelectorValue().name
+//                }
+//                break
+//            case DomainConst.KEY_B6:
+//                if item.getCheckValue() {
+//                    b6 = item.getSelectorValue().name
+//                }
+//                break
+//            default:
+//                break
+//            }
+//        }
+//        //++ BUG0086-SPJ (NguyenPT 20170530) Add phone
+//        // Check if user not input phone number yet
+//        if (_txtPhone.text?.isBlank)! {
+//            showAlert(message: DomainConst.CONTENT00030)
+//            return
+//        }
+//        //-- BUG0086-SPJ (NguyenPT 20170530) Add phone
+//        OrderVIPCreateRequest.requestOrderVIPCreate(
+//            action: #selector(finishCreateRequest(_:)),
+//            view: self,
+//            b50: b50, b45: b45, b12: b12, b6: b6,
+//            customerPhone: _txtPhone.text!,
+//            note: self._tbxNote.text)
+//        BaseModel.shared.setOrderVipDescription(b50: b50, b45: b45, b12: b12, b6: b6, customerPhone: _txtPhone.text!, note: self._tbxNote.text)
+        if BaseModel.shared.getListVipCustomerStores().count != 0 {
+            selectSubStore()
+        } else {
+            handleStartCreateOrder(id: DomainConst.NUMBER_ZERO_VALUE)
+        }
+    }
+    
+    //++ BUG0116-SPJ (NguyenPT 20170628) Handle VIP customer order: select sub-agent
+    /**
+     * Select sub store
+     */
+    private func selectSubStore() {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00446,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        for item in BaseModel.shared.getListVipCustomerStores() {
+            let action = UIAlertAction(title: item.name,
+                                       style: .default, handler: {
+                                        action in
+                                        self.handleStartCreateOrder(id: item.id)
+            })
+            alert.addAction(action)
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    /**
+     * Handle start create order
+     * - parameter id: Id of sub-store
+     */
+    private func handleStartCreateOrder(id: String) {
         var b50 = DomainConst.NUMBER_ZERO_VALUE
         var b45 = DomainConst.NUMBER_ZERO_VALUE
         var b12 = DomainConst.NUMBER_ZERO_VALUE
@@ -328,36 +413,48 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate, UITextFieldDelegate 
                 break
             }
         }
-        //++ BUG0086-SPJ (NguyenPT 20170530) Add phone
         // Check if user not input phone number yet
         if (_txtPhone.text?.isBlank)! {
             showAlert(message: DomainConst.CONTENT00030)
             return
         }
-        //-- BUG0086-SPJ (NguyenPT 20170530) Add phone
         OrderVIPCreateRequest.requestOrderVIPCreate(
             action: #selector(finishCreateRequest(_:)),
             view: self,
             b50: b50, b45: b45, b12: b12, b6: b6,
             customerPhone: _txtPhone.text!,
-            note: self._tbxNote.text)
+            note: self._tbxNote.text,
+            store_id: id)
         BaseModel.shared.setOrderVipDescription(b50: b50, b45: b45, b12: b12, b6: b6, customerPhone: _txtPhone.text!, note: self._tbxNote.text)
     }
+    //-- BUG0116-SPJ (NguyenPT 20170628) Handle VIP customer order: select sub-agent
     
     /**
      * Handle when finish request create
      */
     func finishCreateRequest(_ notification: Notification) {
-        let object = (notification.object as! OrderVIPCreateRespModel)
-        self.showAlert(message: object.message,
-                       okHandler: {
-                        (alert: UIAlertAction!) in
-//                        // Back to previous view
-//                        self.backButtonTapped(self)
-                        G05F00S02VC._id = object.getRecord().id
-                        self.pushToView(name: G05Const.G05_F00_S02_VIEW_CTRL)
-        })
+//        let object = (notification.object as! OrderVIPCreateRespModel)
+//        self.showAlert(message: object.message,
+//                       okHandler: {
+//                        (alert: UIAlertAction!) in
+////                        // Back to previous view
+////                        self.backButtonTapped(self)
+//                        G05F00S02VC._id = object.getRecord().id
+//                        self.pushToView(name: G05Const.G05_F00_S02_VIEW_CTRL)
+//        })
         
+        let data = (notification.object as! String)
+        let model = OrderVIPCreateRespModel(jsonString: data)
+        if model.isSuccess() {
+            self.showAlert(message: model.message,
+                           okHandler: {
+                            (alert: UIAlertAction!) in
+                            G05F00S02VC._id = model.getRecord().id
+                            self.pushToView(name: G05Const.G05_F00_S02_VIEW_CTRL)
+            })
+        } else {
+            self.showAlert(message: model.message)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -405,5 +502,10 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate, UITextFieldDelegate 
         doneToolbar.items = items
         doneToolbar.sizeToFit()
         return doneToolbar
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        isKeyboardShow = true
+        addDoneButtonOnKeyboardTextField()
     }
 }

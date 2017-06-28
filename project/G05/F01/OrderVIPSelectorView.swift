@@ -186,6 +186,9 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         _stepper.maximumValue = 999
         _stepper.addTarget(self, action: #selector(stepperValueChanged(_:)), for: .valueChanged)
         self.addSubview(_stepper)
+        if !config.name.isBlank {
+            _stepper.value = Double(config.name)!
+        }
         //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
         self._config = config
         self.makeComponentsColor()
@@ -289,6 +292,7 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
     private func updateValue(value: String) {
         self._config.name = value
         self._valButton.setTitle(value, for: UIControlState())
+        _stepper.value = Double(value)!
         //++ BUG0063-SPJ (NguyenPT 20170421) Use stepper
 //        self._numberPicker.selectRow(Int(value)!, inComponent: 0, animated: true)
         //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
