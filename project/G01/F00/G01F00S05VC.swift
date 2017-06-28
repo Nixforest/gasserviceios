@@ -167,7 +167,68 @@ class G01F00S05VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Handle when tap on save button
      */
     internal func btnSaveTapped(_ sender: AnyObject) {
-        showAlert(message: DomainConst.CONTENT00362)
+        //showAlert(message: DomainConst.CONTENT00362)
+        // Check cache data is exist
+        if CacheDataRespModel.record.isEmpty() {
+            // Request server cache data
+            CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
+                                             view: self)
+        } else {
+            // Start create ticket
+            startCreateTicket()
+        }
+    }
+    
+    /**
+     * Handle when finish request cache data
+     */
+    internal func finishRequestCacheData(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CacheDataRespModel(jsonString: data)
+        if model.isSuccess() {
+            // Start create ticket
+            startCreateTicket()
+        } else {
+            self.showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Start create ticket
+     */
+    private func startCreateTicket() {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00433,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        for item in CacheDataRespModel.record.getListTicketHandler() {
+            let action = UIAlertAction(title: item.name,
+                                       style: .default, handler: {
+                                        action in
+                                        self.handleCreateTicket(id: item.id)
+            })
+            alert.addAction(action)
+        }
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Open create ticket view controller
+     * - parameter id: Id of ticket handler
+     */
+    internal func handleCreateTicket(id: String) {
+        G11F01VC._handlerId = id
+        G11F01S01._selectedValue.content = String.init(
+            format: "Bảo trì HGĐ - %@ - %@ - %@\n",
+            _data.record.created_date,
+            _data.record.name,
+            _data.record.customer_name)
+        self.pushToView(name: G11F01VC.theClassName)
     }
     
     /**
@@ -359,6 +420,16 @@ class G01F00S05VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         return cell
     }
+    
+    /**
+     * Tells the delegate that the specified row is now selected.
+     */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if _listInfo[indexPath.row].id == DomainConst.UPHOLD_INFO_CUSTOMER_NOTE_ID {
+            self.showAlert(message: _data.record.note_create)
+        }
+    }
+    
     // MARK: UITableViewDelegate
     /**
      * Add a done button when keyboard show

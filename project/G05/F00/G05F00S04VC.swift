@@ -615,6 +615,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 value: data.name_employee_maintain))
         }
         
+        //++ BUG0114-SPJ (NguyenPT 20170624) Add note field
+        if !data.note_employee.isBlank {
+            _listInfo.append(ConfigurationModel(
+                id: DomainConst.ORDER_INFO_NOTE_ID, name: data.note_employee,
+                iconPath: DomainConst.PROBLEM_TYPE_IMG_NAME, value: DomainConst.BLANK))
+        }
+        //-- BUG0114-SPJ (NguyenPT 20170624) Add note field
+        
         // Payment method
 //        _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_PAYMENT_METHOD_ID,
 //                                            name: DomainConst.CONTENT00259,
@@ -1520,6 +1528,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Tells the delegate that the specified row is now selected.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //++ BUG0114-SPJ (NguyenPT 20170624) Add note field
+        if _listInfo[indexPath.row].id == DomainConst.ORDER_INFO_NOTE_ID
+            && (tableView == _tableView) {
+            self.showAlert(message: _listInfo[indexPath.row].name)
+            return
+        }
+        //-- BUG0114-SPJ (NguyenPT 20170624) Add note field
+        
         // Check if current data allow update
         if self._data.getRecord().allow_update == DomainConst.NUMBER_ZERO_VALUE {
             return

@@ -754,6 +754,14 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             id: DomainConst.ORDER_INFO_ADDRESS_ID, name: _data.getRecord().address,
             iconPath: DomainConst.ADDRESS_ICON_IMG_NAME, value: DomainConst.BLANK))
         
+        //++ BUG0114-SPJ (NguyenPT 20170624) Add note field
+        if !_data.getRecord().note.isBlank {
+            _listInfo[0].append(ConfigurationModel(
+                id: DomainConst.ORDER_INFO_NOTE_ID, name: _data.getRecord().note,
+                iconPath: DomainConst.PROBLEM_TYPE_IMG_NAME, value: DomainConst.BLANK))
+        }
+        //-- BUG0114-SPJ (NguyenPT 20170624) Add note field
+        
         //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         // CCS code
         _listInfo[0].append(ConfigurationModel(
@@ -1153,6 +1161,12 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             self.updateCCSCode()
         }
         //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+        
+        //++ BUG0114-SPJ (NguyenPT 20170624) Add note field
+        if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_NOTE_ID {
+            self.showAlert(message: _data.getRecord().note)
+        }
+        //-- BUG0114-SPJ (NguyenPT 20170624) Add note field
     }
     
     /**

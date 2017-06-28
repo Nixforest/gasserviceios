@@ -110,7 +110,7 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
      * - parameter sender:AnyObject
      */
     @IBAction func forgotPass(_ sender: AnyObject) {
-        showAlert(message: DomainConst.CONTENT00197)
+        showAlert(message: DomainConst.CONTENT00362)
     }
     
     // MARK: Methods

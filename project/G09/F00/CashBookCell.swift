@@ -202,8 +202,71 @@ class CashBookCell: UITableViewCell {
      * Handle create ticket
      */
     private func createTicket() {
+        // Check cache data is exist
+        if CacheDataRespModel.record.isEmpty() {
+            // Request server cache data
+            CacheDataRequest.requestCashBook(action: #selector(finishRequestCacheData(_:)),
+                                     view: self)
+        } else {
+            // Start create ticket
+            startCreateTicket()
+        }
+    }
+    
+    /**
+     * Handle when finish request cache data
+     */
+    internal func finishRequestCacheData(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CacheDataRespModel(jsonString: data)
+        if model.isSuccess() {
+            // Start create ticket
+            startCreateTicket()
+        } else {
+            if self.parentViewController != nil {
+                (self.parentViewController as! BaseViewController).showAlert(message: model.message)
+            }
+        }
+    }
+    
+    /**
+     * Start create ticket
+     */
+    private func startCreateTicket() {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00433,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        for item in CacheDataRespModel.record.getListTicketHandler() {
+            let action = UIAlertAction(title: item.name,
+                                       style: .default, handler: {
+                                        action in
+                                        self.handleCreateTicket(id: item.id)
+            })
+            alert.addAction(action)
+        }
+        
         if self.parentViewController != nil {
-            (self.parentViewController as! BaseViewController).showAlert(message: DomainConst.CONTENT00362)
+            (self.parentViewController as! BaseViewController).present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    /**
+     * Open create ticket view controller
+     * - parameter id: Id of ticket handler
+     */
+    internal func handleCreateTicket(id: String) {
+        G11F01VC._handlerId = id
+        G11F01S01._selectedValue.content = String.init(
+            format: "Quỹ tiền mặt - %@ - %@\n",
+            _data.created_date,
+            _data.customer_name)
+        if self.parentViewController != nil {
+            (self.parentViewController as! BaseViewController).pushToView(name: G11F01VC.theClassName)
         }
     }
     

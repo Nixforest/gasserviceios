@@ -8,6 +8,9 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.22.0
+// - BUG0115: Handle add version code when request server
+// - BUG0114: Handle show note in Order Family and Order VIP
 // Version: 1.21.0
 // - BUG0113: G05F00S04VC: Bug when input "," inside number field
 // - BUG0112: Create load screen
