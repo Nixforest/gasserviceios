@@ -698,24 +698,33 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             _tblViewCylinder.reloadData()
             _tbxNote.text = _data.getRecord().note_customer
             if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
-                self._bottomView.isHidden = false
-                
-                _scrollView.frame = CGRect(x: 0,
-                                           y: 0,
-                                           width: GlobalConst.SCREEN_WIDTH,
-                                           height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
+                //++ BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
+                //self._bottomView.isHidden = false
+                showHideBottomView(isShow: true)
+//                _scrollView.frame = CGRect(x: 0,
+//                                           y: 0,
+//                                           width: GlobalConst.SCREEN_WIDTH,
+//                                           height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
+                //-- BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
             } else {
-                self._bottomView.isHidden = true
+                //++ BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
+                //self._bottomView.isHidden = true
+                showHideBottomView(isShow: false)
                 
-                _scrollView.frame = CGRect(x: 0,
-                                           y: 0,
-                                           width: GlobalConst.SCREEN_WIDTH,
-                                           height: GlobalConst.SCREEN_HEIGHT)
+//                _scrollView.frame = CGRect(x: 0,
+//                                           y: 0,
+//                                           width: GlobalConst.SCREEN_WIDTH,
+//                                           height: GlobalConst.SCREEN_HEIGHT)
+                //-- BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
             }
+            _scrollView.frame = CGRect(x: 0,
+                                       y: 0,
+                                       width: GlobalConst.SCREEN_WIDTH,
+                                       height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
             //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
-            btnSave.isEnabled = (_data.getRecord().show_button_save == 1)
-            btnAction.isEnabled = (_data.getRecord().show_button_complete == 1)
-            btnCancel.isEnabled = (_data.getRecord().show_button_cancel == 1)
+//            btnSave.isEnabled = (_data.getRecord().show_button_save == 1)
+//            btnAction.isEnabled = (_data.getRecord().show_button_complete == 1)
+//            btnCancel.isEnabled = (_data.getRecord().show_button_cancel == 1)
             //-- BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
             _tbxNote.isEditable = (_data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE)
             updateLayout()
@@ -726,6 +735,25 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
+    
+    //++ BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
+    /**
+     * Handle show/hide bottom view
+     * - parameter isShow: True is show bottom view, False is hide
+     */
+    private func showHideBottomView(isShow: Bool) {
+        if isShow {
+            btnSave.isEnabled   = (_data.getRecord().show_button_save == 1)
+            btnAction.isEnabled = (_data.getRecord().show_button_complete == 1)
+            btnCancel.isEnabled = (_data.getRecord().show_button_cancel == 1)
+        } else {
+            btnCancel.isEnabled = false
+            btnSave.isEnabled   = false
+            btnAction.isEnabled = false
+            _btnOtherAction.isEnabled     = false
+        }
+    }
+    //-- BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
     
     /**
      * Handle when tap on save button
@@ -1198,7 +1226,9 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _bottomView.frame = CGRect(x: 0, y: GlobalConst.SCREEN_HEIGHT - bottomHeight,
                                    width: GlobalConst.SCREEN_WIDTH,
                                    height: bottomHeight)
-        _bottomView.isHidden = true
+        //++ BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
+        //_bottomView.isHidden = true
+        //-- BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
         self.view.addSubview(_bottomView)
         createBottomView()
         self.view.addSubview(_scrollView)

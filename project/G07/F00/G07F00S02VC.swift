@@ -34,6 +34,9 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     //++ BUG0088-SPJ (NguyenPT 20170516) Can change gas material
     private let TYPE_GAS:               String = "7"
     //-- BUG0088-SPJ (NguyenPT 20170516) Can change gas material
+    //++ BUG0117-SPJ (NguyenPT 20170629) Can Add/Change/Delete Gas Family Order
+    private let TYPE_GAS_ADD:           String = "8"
+    //-- BUG0117-SPJ (NguyenPT 20170629) Can Add/Change/Delete Gas Family Order
     /** Current type when open model VC */
     private var _type:              String                  = DomainConst.NUMBER_ZERO_VALUE
     /** Height of bottom view */
@@ -112,7 +115,9 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _bottomView.frame = CGRect(x: 0, y: GlobalConst.SCREEN_HEIGHT - bottomHeight,
                                    width: GlobalConst.SCREEN_WIDTH,
                                    height: bottomHeight)
-        _bottomView.isHidden = true
+        //++ BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
+        //_bottomView.isHidden = true
+        //-- BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
         self.view.addSubview(_bottomView)
         createBottomView()
         self.view.makeComponentsColor()
@@ -154,7 +159,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
                 }
                 //btnSaveTapped(self)
-            case TYPE_PROMOTE_ADD, TYPE_CYLINDER_ADD, TYPE_OTHERMATERIAL_ADD:              // Add material
+            case TYPE_PROMOTE_ADD, TYPE_CYLINDER_ADD, TYPE_OTHERMATERIAL_ADD, TYPE_GAS_ADD:              // Add material
                 if !MaterialSelectViewController.getSelectedItem().isEmpty() {
                     // Add data
                     appendMaterial(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
@@ -170,7 +175,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             }
         } else {
             switch _type {
-            case TYPE_PROMOTE_ADD, TYPE_CYLINDER_ADD, TYPE_OTHERMATERIAL_ADD:              // Add material
+            case TYPE_PROMOTE_ADD, TYPE_CYLINDER_ADD, TYPE_OTHERMATERIAL_ADD, TYPE_GAS_ADD:              // Add material
                 if !MaterialSelectViewController.getSelectedItem().isEmpty() {
                     // Add data
                     appendMaterial(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
@@ -208,24 +213,34 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             setupListMaterialInfo()
             setupListThirdListInfo()
             if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
-                self._bottomView.isHidden = false
+                //++ BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
+                //self._bottomView.isHidden = false
+                showHideBottomView(isShow: true)
                 
-                _tableView.frame = CGRect(x: 0,
-                                          y: 0,
-                                          width: GlobalConst.SCREEN_WIDTH,
-                                          height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
+//                _tableView.frame = CGRect(x: 0,
+//                                          y: 0,
+//                                          width: GlobalConst.SCREEN_WIDTH,
+//                                          height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
+                //-- BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
             } else {
-                self._bottomView.isHidden = true
+                //++ BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
+                //self._bottomView.isHidden = true
+                showHideBottomView(isShow: false)
                 
-                _tableView.frame = CGRect(x: 0,
-                                          y: 0,
-                                          width: GlobalConst.SCREEN_WIDTH,
-                                          height: GlobalConst.SCREEN_HEIGHT)
+//                _tableView.frame = CGRect(x: 0,
+//                                          y: 0,
+//                                          width: GlobalConst.SCREEN_WIDTH,
+//                                          height: GlobalConst.SCREEN_HEIGHT)
+                //-- BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
             }
             
+            _tableView.frame = CGRect(x: 0,
+                                      y: 0,
+                                      width: GlobalConst.SCREEN_WIDTH,
+                                      height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
             //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
-            btnSave.isEnabled = (_data.getRecord().show_button_save == DomainConst.NUMBER_ONE_VALUE)
-            btnAction.isEnabled = (_data.getRecord().show_button_complete == DomainConst.NUMBER_ONE_VALUE)
+//            btnSave.isEnabled = (_data.getRecord().show_button_save == DomainConst.NUMBER_ONE_VALUE)
+//            btnAction.isEnabled = (_data.getRecord().show_button_complete == DomainConst.NUMBER_ONE_VALUE)
             //-- BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
             
             // Reload data in table view
@@ -278,6 +293,23 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                               bottom: GlobalConst.MARGIN,
                                               right: GlobalConst.MARGIN)
     }
+    
+    //++ BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
+    /**
+     * Handle show/hide bottom view
+     * - parameter isShow: True is show bottom view, False is hide
+     */
+    private func showHideBottomView(isShow: Bool) {
+        if isShow {
+            btnSave.isEnabled = (_data.getRecord().show_button_save == DomainConst.NUMBER_ONE_VALUE)
+            btnAction.isEnabled = (_data.getRecord().show_button_complete == DomainConst.NUMBER_ONE_VALUE)
+        } else {
+            btnCancel.isEnabled = false
+            btnSave.isEnabled = false
+            btnAction.isEnabled = false
+        }
+    }
+    //-- BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
     
     /**
      * Create bottom view
@@ -668,6 +700,15 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                         action in
                                         self.selectMaterial(type: self.TYPE_OTHERMATERIAL_ADD)
         })
+        //++ BUG0117-SPJ (NguyenPT 20170629) Can Add/Change/Delete Gas Family Order
+        let gas = UIAlertAction(title: DomainConst.CONTENT00333,
+                                  style: .default, handler: {
+                                    action in
+                                    self.selectMaterial(type: self.TYPE_GAS_ADD)
+        })
+        alert.addAction(gas)
+        //-- BUG0117-SPJ (NguyenPT 20170629) Can Add/Change/Delete Gas Family Order
+        
         alert.addAction(cancel)
         alert.addAction(promotion)
         alert.addAction(cylinder)
@@ -694,7 +735,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             MaterialSelectViewController.setMaterialData(data: BaseModel.shared.getListOtherMaterialInfo())
             self.pushToView(name: G07F01S02VC.theClassName)
         //++ BUG0088-SPJ (NguyenPT 20170516) Can change gas material
-        case TYPE_GAS:
+        case TYPE_GAS, TYPE_GAS_ADD:
             MaterialSelectViewController.setMaterialData(data: BaseModel.shared.getAgentMaterialGas(agentId: _data.getRecord().agent_id))
             self.pushToView(name: G07F01S02VC.theClassName)
         //-- BUG0088-SPJ (NguyenPT 20170516) Can change gas material
@@ -1174,9 +1215,11 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if indexPath.section == 1 {
-            if _listMaterials[indexPath.row].isGas() {
-                return false
-            }
+            //++ BUG0117-SPJ (NguyenPT 20170629) Can Add/Change/Delete Gas Family Order
+//            if _listMaterials[indexPath.row].isGas() {
+//                return false
+//            }
+            //-- BUG0117-SPJ (NguyenPT 20170629) Can Add/Change/Delete Gas Family Order
             if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
                 return true
             }
