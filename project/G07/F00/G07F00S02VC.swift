@@ -54,8 +54,12 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private var btnAction:          UIButton                = UIButton()
     /** Cancel button */
     private var btnCancel:          UIButton                = UIButton()
-    /** Create ticket button */
-    private var _btnTicket:         UIButton                = UIButton()
+    //++ BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
+//    /** Create ticket button */
+//    private var _btnTicket:         UIButton                = UIButton()
+    /** Other actions button */
+    private var _btnOtherAction:    UIButton                = UIButton()
+    //-- BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
     //-- BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
     
     // MARK: Methods
@@ -333,12 +337,20 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     icon: DomainConst.SAVE_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
                     action: #selector(btnSaveTapped(_:)))
         _bottomView.addSubview(btnSave)
-        setupButton(button: _btnTicket, x:  GlobalConst.SCREEN_WIDTH / 2,
-                    y: botOffset, title: DomainConst.CONTENT00402,
-                    icon: DomainConst.TICKET_ICON_IMG_NAME,
-                    color: GlobalConst.BUTTON_COLOR_YELLOW,
-                    action: #selector(btnCreateTicketTapped(_:)))
-        _bottomView.addSubview(_btnTicket)
+        //++ BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
+//        setupButton(button: _btnTicket, x:  GlobalConst.SCREEN_WIDTH / 2,
+//                    y: botOffset, title: DomainConst.CONTENT00402,
+//                    icon: DomainConst.TICKET_ICON_IMG_NAME,
+//                    color: GlobalConst.BUTTON_COLOR_YELLOW,
+//                    action: #selector(btnCreateTicketTapped(_:)))
+        //        _bottomView.addSubview(_btnTicket)
+        // Other action button
+        setupButton(button: _btnOtherAction, x: GlobalConst.SCREEN_WIDTH / 2,
+                    y: botOffset, title: "Tác vụ khác",
+                    icon: DomainConst.SAVE_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
+                    action: #selector(btnOtherActionTapped(_:)))
+        _bottomView.addSubview(_btnOtherAction)
+        //-- BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
         botOffset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
         //-- BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
         
@@ -364,6 +376,37 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     }
     
     // MARK: Handle events
+    /**
+     * Handle when tap on save button
+     */
+    internal func btnOtherActionTapped(_ sender: AnyObject) {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00436,
+                                      message: DomainConst.CONTENT00437,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        if _data.getRecord().show_button_update_customer == 1 {
+            let updateCustomer = UIAlertAction(title: DomainConst.CONTENT00154,
+                                                   style: .default, handler: {
+                                                    action in
+                                                    self.handleUpdateCustomer()
+            })
+            alert.addAction(updateCustomer)
+        }
+        let ticket = UIAlertAction(title: DomainConst.CONTENT00402,
+                                   style: .default, handler: {
+                                    action in
+                                    self.btnCreateTicketTapped(self)
+        })
+        alert.addAction(ticket)
+        self.present(alert, animated: true, completion: nil)
+    }
+    internal func handleUpdateCustomer() {
+        
+    }
     //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
     /**
      * Handle when tap on create button

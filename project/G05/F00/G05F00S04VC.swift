@@ -67,7 +67,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /** Note textview */
     private var _tbxNote: UITextView                     = UITextView()
     /** Height of bottom view */
-    private let bottomHeight:       CGFloat              = 3 * (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
+    private let bottomHeight:       CGFloat              = 2 * (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
     /** Type when open a model VC */
     private let TYPE_NONE:              String = DomainConst.NUMBER_ZERO_VALUE
     private let TYPE_GAS:               String = "1"
@@ -83,8 +83,10 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private var btnAction:          UIButton                = UIButton()
     /** Cancel button */
     private var btnCancel:          UIButton                = UIButton()
-    /** Create ticket button */
-    private var _btnTicket:         UIButton                = UIButton()
+    //++ BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
+//    /** Create ticket button */
+//    private var _btnTicket:         UIButton                = UIButton()
+    //-- BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
     /** Other actions button */
     private var _btnOtherAction:    UIButton                = UIButton()
     /** Image collection view */
@@ -750,7 +752,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             btnCancel.isEnabled = false
             btnSave.isEnabled   = false
             btnAction.isEnabled = false
-            _btnOtherAction.isEnabled     = false
+            //_btnOtherAction.isEnabled     = false
         }
     }
     //-- BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
@@ -791,6 +793,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             })
             alert.addAction(action)
         }
+        //++ BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
+        let ticket = UIAlertAction(title: DomainConst.CONTENT00402,
+                                   style: .default, handler: {
+                                    action in
+                                    self.btnCreateTicketTapped(self)
+        })
+        alert.addAction(ticket)
+        //-- BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -1367,13 +1377,13 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private func createBottomView() {
         var botOffset: CGFloat = 0.0
         // Other action button
-        setupButton(button: _btnOtherAction, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+        setupButton(button: _btnOtherAction, x: GlobalConst.SCREEN_WIDTH / 2,
                     y: botOffset, title: "Tác vụ khác",
                     icon: DomainConst.SAVE_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
                     action: #selector(btnOtherActionTapped(_:)),
-                    width: GlobalConst.BUTTON_W)
+                    width: GlobalConst.BUTTON_W / 2)
         _bottomView.addSubview(_btnOtherAction)
-        botOffset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
+        //botOffset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
         // Create save button
         //++ BUG0104-SPJ (NguyenPT 20170606) Handle action buttons
 //        let btnSave = UIButton()
@@ -1390,12 +1400,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     y: botOffset, title: DomainConst.CONTENT00086,
                     icon: DomainConst.SAVE_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
                     action: #selector(btnSaveTapped(_:)))
-        setupButton(button: _btnTicket, x:  GlobalConst.SCREEN_WIDTH / 2,
-                    y: botOffset, title: DomainConst.CONTENT00402,
-                    icon: DomainConst.TICKET_ICON_IMG_NAME,
-                    color: GlobalConst.BUTTON_COLOR_YELLOW,
-                    action: #selector(btnCreateTicketTapped(_:)))
-        _bottomView.addSubview(_btnTicket)
+        //++ BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
+//        setupButton(button: _btnTicket, x:  GlobalConst.SCREEN_WIDTH / 2,
+//                    y: botOffset, title: DomainConst.CONTENT00402,
+//                    icon: DomainConst.TICKET_ICON_IMG_NAME,
+//                    color: GlobalConst.BUTTON_COLOR_YELLOW,
+//                    action: #selector(btnCreateTicketTapped(_:)))
+//        _bottomView.addSubview(_btnTicket)
+        //-- BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
         //-- BUG0104-SPJ (NguyenPT 20170606) Handle action buttons
         botOffset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
         _bottomView.addSubview(btnSave)
