@@ -1,7 +1,7 @@
 //
 //  CustomerFamilyCreateRequest.swift
 //  project
-//
+//  P032_CustomerFamilyCreate_API
 //  Created by SPJ on 3/25/17.
 //  Copyright © 2017 admin. All rights reserved.
 //
@@ -20,7 +20,6 @@ class CustomerFamilyCreateRequest: BaseRequest {
      * - parameter ward_id:         Id of Ward
      * - parameter agent_id:        Id of Agent
      * - parameter hgd_time_use:    Time use gas
-     * - parameter version_code:    Version code
      * - parameter street_id:       Id of Street
      * - parameter first_name:      Name of customer
      * - parameter house_numbers:   House number
@@ -35,7 +34,10 @@ class CustomerFamilyCreateRequest: BaseRequest {
                  province_id: String, hgd_type: String,
                  district_id: String, ward_id: String,
                  agent_id: String, hgd_time_use: String,
-                 version_code: String, street_id: String,
+                 //++ BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
+                 //version_code: String,
+                 //-- BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
+                 street_id: String,
                  first_name: String, house_numbers: String,
                  list_hgd_invest: String, longitude: String,
                  latitude: String, serial: String,
@@ -44,7 +46,7 @@ class CustomerFamilyCreateRequest: BaseRequest {
                  ccsCode: String) {
                  //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
             DomainConst.KEY_TOKEN,                  BaseModel.shared.getUserToken(),
             DomainConst.KEY_PHONE,                  phone,
             DomainConst.KEY_CUSTOMER_FAMILY_BRAND,  customerBrand,
@@ -54,7 +56,9 @@ class CustomerFamilyCreateRequest: BaseRequest {
             DomainConst.KEY_WARD_ID,                ward_id,
             DomainConst.KEY_AGENT_ID,               agent_id,
             DomainConst.KEY_HGD_TIME_USE,           hgd_time_use,
-            DomainConst.KEY_VERSION_CODE,           version_code,
+            //++ BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
+            //DomainConst.KEY_VERSION_CODE,           version_code,
+            //-- BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
             DomainConst.KEY_STREET_ID,              street_id,
             DomainConst.KEY_FIRST_NAME,             first_name,
             DomainConst.KEY_HOUSE_NUMBER,           house_numbers,
@@ -82,7 +86,6 @@ class CustomerFamilyCreateRequest: BaseRequest {
      * - parameter ward_id:         Id of Ward
      * - parameter agent_id:        Id of Agent
      * - parameter hgd_time_use:    Time use gas
-     * - parameter version_code:    Version code
      * - parameter street_id:       Id of Street
      * - parameter first_name:      Name of customer
      * - parameter house_numbers:   House number
@@ -99,7 +102,10 @@ class CustomerFamilyCreateRequest: BaseRequest {
                                                  province_id: String, hgd_type: String,
                                                  district_id: String, ward_id: String,
                                                  agent_id: String, hgd_time_use: String,
-                                                 version_code: String, street_id: String,
+                                                 //++ BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
+                                                 //version_code: String,
+                                                 //-- BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
+                                                 street_id: String,
                                                  first_name: String, house_numbers: String,
                                                  list_hgd_invest: String, longitude: String,
                                                  latitude: String, serial: String,
@@ -116,7 +122,10 @@ class CustomerFamilyCreateRequest: BaseRequest {
                         province_id: province_id, hgd_type: hgd_type,
                         district_id: district_id, ward_id: ward_id,
                         agent_id: agent_id, hgd_time_use: hgd_time_use,
-                        version_code: version_code, street_id: street_id,
+                        //++ BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
+                        //version_code: version_code,
+                        //-- BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
+                        street_id: street_id,
                         first_name: first_name, house_numbers: house_numbers,
                         list_hgd_invest: list_hgd_invest,
                         longitude: longitude, latitude: latitude,

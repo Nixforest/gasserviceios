@@ -230,7 +230,9 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
             ward_id:        G06F01VC._fullAddress.wardId,
             agent_id:       G06F01S02._selectedValue.id,
             hgd_time_use:   G06F01S04._selectedValue.timeUse.id,
-            version_code:   DomainConst.VERSION_CODE_STR,
+            //++ BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
+            //version_code:   DomainConst.VERSION_CODE_STR,
+            //-- BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
             street_id:      G06F01VC._fullAddress.streetId,
             first_name:     G06F01S01._selectedValue.name,
             house_numbers:  G06F01VC._fullAddress.houseNumber,
@@ -252,7 +254,9 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
                 ward_id:        G06F01VC._fullAddress.wardId,
                 agent_id:       G06F01S02._selectedValue.id,
                 hgd_time_use:   G06F01S04._selectedValue.timeUse.id,
-                version_code:   DomainConst.VERSION_CODE_STR,
+                //++ BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
+                //version_code:   DomainConst.VERSION_CODE_STR,
+                //-- BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
                 street_id:      G06F01VC._fullAddress.streetId,
                 first_name:     G06F01S01._selectedValue.name,
                 house_numbers:  G06F01VC._fullAddress.houseNumber,

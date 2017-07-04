@@ -177,4 +177,13 @@ class G06F01S01: StepContent, UITextFieldDelegate {
         //        }
         return true
     }
+    
+    //++ BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
+    /**
+     * Disable phone input
+     */
+    public func disablePhone() {
+        self._tbxPhone.isHidden = true
+    }
+    //-- BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
 }

@@ -50,9 +50,9 @@ class G06F01S06: StepContent {
                 button.translatesAutoresizingMaskIntoConstraints = true
                 button.addTarget(self, action: #selector(btnTapped), for: .touchUpInside)
                 // Mark button
-                //                if G06F01S05._selectedValue.id == BaseModel.shared.getListFamilyTypes()[i].id {
-                //                    CommonProcess.markButton(button: button)
-                //                }
+                                if G06F01S05._selectedValue.id == BaseModel.shared.getListFamilyInvestments()[i].id {
+                                    CommonProcess.markButton(button: button)
+                                }
                 _listButton.append(button)
                 contentView.addSubview(button)
                 offset += GlobalConst.BUTTON_H + GlobalConst.MARGIN

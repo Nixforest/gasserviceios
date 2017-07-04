@@ -171,6 +171,9 @@
 		D78B04611ED13D470064DE88 /* G09F01S04.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78B04601ED13D470064DE88 /* G09F01S04.swift */; };
 		D78B04631ED13E0C0064DE88 /* G09F01S03.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78B04621ED13E0C0064DE88 /* G09F01S03.swift */; };
 		D78B04651ED191750064DE88 /* G09F01S05.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78B04641ED191750064DE88 /* G09F01S05.swift */; };
+		D78CD9FF1F0A1F8D007EF608 /* G07F02S01.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78CD9FE1F0A1F8D007EF608 /* G07F02S01.swift */; };
+		D78CDA021F0A1FB3007EF608 /* G07F02S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78CDA011F0A1FB3007EF608 /* G07F02S02.swift */; };
+		D78CDA041F0A20F1007EF608 /* G07F02Sum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78CDA031F0A20F1007EF608 /* G07F02Sum.swift */; };
 		D78F99E31ECD47C8003CB814 /* EmployeeCashBookUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F99E21ECD47C8003CB814 /* EmployeeCashBookUpdateRequest.swift */; };
 		D78F99E61ECD494B003CB814 /* CashBookBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F99E51ECD494B003CB814 /* CashBookBean.swift */; };
 		D78F99E81ECD4D9B003CB814 /* EmployeeCashBookListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78F99E71ECD4D9B003CB814 /* EmployeeCashBookListRespModel.swift */; };
@@ -229,6 +232,7 @@
 		D7D3BDAE1EBC91B200C85E93 /* CustomerListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D3BDAD1EBC91B200C85E93 /* CustomerListRequest.swift */; };
 		D7D3BDB11EBC935B00C85E93 /* CustomerBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D3BDB01EBC935A00C85E93 /* CustomerBean.swift */; };
 		D7D3BDB31EBC95BA00C85E93 /* CustomerListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D3BDB21EBC95BA00C85E93 /* CustomerListRespModel.swift */; };
+		D7D6FD761F0A081B001369D9 /* G07F02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D6FD751F0A081B001369D9 /* G07F02VC.swift */; };
 		D7DA31F81EC04C3900E06FFB /* G08F01S04.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA31F71EC04C3900E06FFB /* G08F01S04.swift */; };
 		D7DA31FB1EC0502800E06FFB /* StoreCardCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA31FA1EC0502800E06FFB /* StoreCardCreateRequest.swift */; };
 		D7DA31FD1EC0782A00E06FFB /* StoreCardUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA31FC1EC0782A00E06FFB /* StoreCardUpdateRequest.swift */; };
@@ -492,6 +496,9 @@
 		D78B04601ED13D470064DE88 /* G09F01S04.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G09F01S04.swift; path = G09/F01/G09F01S04.swift; sourceTree = "<group>"; };
 		D78B04621ED13E0C0064DE88 /* G09F01S03.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G09F01S03.swift; path = G09/F01/G09F01S03.swift; sourceTree = "<group>"; };
 		D78B04641ED191750064DE88 /* G09F01S05.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G09F01S05.swift; path = G09/F01/G09F01S05.swift; sourceTree = "<group>"; };
+		D78CD9FE1F0A1F8D007EF608 /* G07F02S01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07F02S01.swift; path = G07/F02/G07F02S01.swift; sourceTree = "<group>"; };
+		D78CDA011F0A1FB3007EF608 /* G07F02S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07F02S02.swift; path = G07/F02/G07F02S02.swift; sourceTree = "<group>"; };
+		D78CDA031F0A20F1007EF608 /* G07F02Sum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07F02Sum.swift; path = G07/F02/G07F02Sum.swift; sourceTree = "<group>"; };
 		D78F99E21ECD47C8003CB814 /* EmployeeCashBookUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmployeeCashBookUpdateRequest.swift; path = G09/API/EmployeeCashBookUpdateRequest.swift; sourceTree = "<group>"; };
 		D78F99E51ECD494B003CB814 /* CashBookBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CashBookBean.swift; path = G09/Model/CashBookBean.swift; sourceTree = "<group>"; };
 		D78F99E71ECD4D9B003CB814 /* EmployeeCashBookListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmployeeCashBookListRespModel.swift; path = G09/Model/EmployeeCashBookListRespModel.swift; sourceTree = "<group>"; };
@@ -549,6 +556,7 @@
 		D7D3BDAD1EBC91B200C85E93 /* CustomerListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerListRequest.swift; path = G08/API/CustomerListRequest.swift; sourceTree = "<group>"; };
 		D7D3BDB01EBC935A00C85E93 /* CustomerBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerBean.swift; path = G08/Model/CustomerBean.swift; sourceTree = "<group>"; };
 		D7D3BDB21EBC95BA00C85E93 /* CustomerListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerListRespModel.swift; path = G08/Model/CustomerListRespModel.swift; sourceTree = "<group>"; };
+		D7D6FD751F0A081B001369D9 /* G07F02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07F02VC.swift; path = G07/F02/G07F02VC.swift; sourceTree = "<group>"; };
 		D7DA31F71EC04C3900E06FFB /* G08F01S04.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S04.swift; path = G08/F01/G08F01S04.swift; sourceTree = "<group>"; };
 		D7DA31FA1EC0502800E06FFB /* StoreCardCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreCardCreateRequest.swift; path = G08/API/StoreCardCreateRequest.swift; sourceTree = "<group>"; };
 		D7DA31FC1EC0782A00E06FFB /* StoreCardUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreCardUpdateRequest.swift; path = G08/API/StoreCardUpdateRequest.swift; sourceTree = "<group>"; };
@@ -1298,6 +1306,17 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		D7D6FD731F0A0706001369D9 /* F02 */ = {
+			isa = PBXGroup;
+			children = (
+				D7D6FD751F0A081B001369D9 /* G07F02VC.swift */,
+				D78CD9FE1F0A1F8D007EF608 /* G07F02S01.swift */,
+				D78CDA011F0A1FB3007EF608 /* G07F02S02.swift */,
+				D78CDA031F0A20F1007EF608 /* G07F02Sum.swift */,
+			);
+			name = F02;
+			sourceTree = "<group>";
+		};
 		D7EA53B31EE3C95B004CFE1F /* G11 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1391,6 +1410,7 @@
 				D790BF841EA6F92800841CC5 /* API */,
 				D7FB47471E9751450082FA5E /* F00 */,
 				D7B0B6E71E9E065800FB537A /* F01 */,
+				D7D6FD731F0A0706001369D9 /* F02 */,
 			);
 			name = G07;
 			sourceTree = "<group>";
@@ -1697,6 +1717,7 @@
 				D77F06551E71771A00797A6B /* G01F02S03.swift in Sources */,
 				D77F06641E71772700797A6B /* G01F03S03.swift in Sources */,
 				D76E7E721EDE6734005D5585 /* ReportCashbookBean.swift in Sources */,
+				D78CD9FF1F0A1F8D007EF608 /* G07F02S01.swift in Sources */,
 				D78A2C9C1EBBAC50007FD27B /* G08F01S01.swift in Sources */,
 				D712BE881EEA791D00F679CE /* G08F01S05.swift in Sources */,
 				D78B04651ED191750064DE88 /* G09F01S05.swift in Sources */,
@@ -1789,6 +1810,7 @@
 				D74F016C1E8CB934008DAA59 /* G06F01VC.swift in Sources */,
 				D70ECECE1EE298FE00997F1A /* G01F00S04Cell.swift in Sources */,
 				D77F06441E7176F700797A6B /* G01F01MenuVC.swift in Sources */,
+				D7D6FD761F0A081B001369D9 /* G07F02VC.swift in Sources */,
 				D76C17AD1EE1660400B71FAE /* FamilyUpholdBean.swift in Sources */,
 				D77F06241E7175D000797A6B /* G00RegisterVC.swift in Sources */,
 				D77E62BB1EDD6A5E00FD5512 /* G10Const.swift in Sources */,
@@ -1826,6 +1848,7 @@
 				D77F06581E71771A00797A6B /* G01F02S06.swift in Sources */,
 				D77F06221E7175D000797A6B /* G00LoginVC.swift in Sources */,
 				D78B04631ED13E0C0064DE88 /* G09F01S03.swift in Sources */,
+				D78CDA041F0A20F1007EF608 /* G07F02Sum.swift in Sources */,
 				D778249B1EDEA5AD002AB15A /* G10F00S04VC.swift in Sources */,
 				D7885B4C1E88C7DC00F8F87A /* G06F00S01VC.swift in Sources */,
 				D77F06371E7176E900797A6B /* G01F00S02HistoryCell.swift in Sources */,
@@ -1844,6 +1867,7 @@
 				D76C17B11EE1704E00B71FAE /* FamilyUpholdViewRespModel.swift in Sources */,
 				D7D24D0B1EF4E98D00FF1D0C /* G00F01Sum.swift in Sources */,
 				D79C31771E9B8506006F3683 /* G07F00S02VC.swift in Sources */,
+				D78CDA021F0A1FB3007EF608 /* G07F02S02.swift in Sources */,
 				D77824991EDEA549002AB15A /* G10F00S03VC.swift in Sources */,
 				D78A2C9A1EBBABE8007FD27B /* G08F01VC.swift in Sources */,
 				D7CDBE2B1E8807CB00B73877 /* CustomerFamilyCreateRespModel.swift in Sources */,

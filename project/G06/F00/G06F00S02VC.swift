@@ -153,6 +153,9 @@ class G06F00S02VC: ChildViewController {
 //                                    _data.record.ccsCode)
 //        G06F01S05._selectedValue = ConfigBean(id: _data.record.hgd_type,
 //                                              name: DomainConst.BLANK)
+//        for item in _data.record.list_hgd_invest {
+//            G06F01S06._selectedValue.append(ConfigBean(id: item, name: DomainConst.BLANK))
+//        }
 //        G06F01VC._id = _data.record.id
 //        self.pushToView(name: G06F01VC.theClassName)
     }

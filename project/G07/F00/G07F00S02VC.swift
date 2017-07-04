@@ -61,6 +61,9 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private var _btnOtherAction:    UIButton                = UIButton()
     //-- BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
     //-- BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
+    //++ BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
+    private var _customerModel:     CustomerFamilyBean      = CustomerFamilyBean()
+    //-- BUG0119-SPJ (NguyenPT 20170704) Handle update customer in Order Family
     
     // MARK: Methods
     /**
@@ -376,6 +379,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     }
     
     // MARK: Handle events
+    //++ BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
     /**
      * Handle when tap on save button
      */
@@ -404,9 +408,72 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         alert.addAction(ticket)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    /**
+     * Handle update customer information
+     */
     internal func handleUpdateCustomer() {
-        
+        if !_data.getRecord().customer_id.isEmpty {
+            CustomerFamilyViewRequest.request(
+                action: #selector(finishRequestCustomerInfo(_:)),
+                view: self,
+                customer_id: _data.getRecord().customer_id)
+        } else {
+            showAlert(message: DomainConst.CONTENT00447)
+        }
     }
+    
+    /**
+     * Handle when finish request customer information
+     */
+    internal func finishRequestCustomerInfo(_ notification: Notification) {
+        let data = (notification.object as? String)
+        let model = CustomerFamilyViewRespModel(jsonString: data!)
+        if model.isSuccess() {
+            _customerModel = model.record
+            if BaseModel.shared.getListDistricts(provinceId: model.record.province_id) != nil {
+                updateCustomer()
+            } else {
+                // Request data from server
+                DistrictsListRequest.request(
+                    action: #selector(finishRequestDistrictList(_:)),
+                    view: self,
+                    provinceId: model.record.province_id)
+            }
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Handle when finish request district list from server
+     */
+    internal func finishRequestDistrictList(_ notification: Notification) {
+        let data = (notification.object as? String)
+        let model = DistrictsListRespModel(jsonString: data!)
+        if model.isSuccess() {
+            updateCustomer()
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Open update customer information screen
+     */
+    private func updateCustomer() {
+        G07F02VC._data = _customerModel
+        G07F02S01._selectedValue = (_customerModel.name, _customerModel.phone)
+        G07F02S02._fullAddress.setData(bean: FullAddressBean(
+            provinceId:     _customerModel.province_id,
+            districtId:     _customerModel.district_id,
+            wardId:         _customerModel.ward_id,
+            streetId:       _customerModel.street_id,
+            houseNumber:    _customerModel.house_numbers))
+        self.pushToView(name: G07F02VC.theClassName)
+    }
+    //-- BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
+    
     //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
     /**
      * Handle when tap on create button
