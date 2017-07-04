@@ -8,7 +8,13 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.24.0
+// - BUG0120: Show username in Account screen
+// - BUG0119: G07F00S02: Handle update customer in Order Family
 // Version: 1.23.0
+// - BUG0118: Make Ticket always show on order
+// - BUG0117: G07F00S02: Can Add/Change/Delete Gas Family Order
+// - BUG0116: Handle VIP customer order: select sub-agent
 // - BUG0066: Show full code label in VIP Order list
 // Version: 1.22.0
 // - BUG0115: Handle add version code when request server

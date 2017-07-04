@@ -1069,6 +1069,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ks-77-e6l">
+                                <rect key="frame" x="166" y="323" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -1080,6 +1087,7 @@
                         <outlet property="imgAvatar" destination="E61-VU-x5g" id="L1R-j9-wVc"/>
                         <outlet property="imgName" destination="b64-vd-c5g" id="8lj-Ph-sUJ"/>
                         <outlet property="imgPhone" destination="UgH-IR-KPZ" id="AUg-Qa-pq5"/>
+                        <outlet property="lblName" destination="5Ks-77-e6l" id="lk7-bq-tTS"/>
                         <outlet property="logoutButton" destination="zyS-LC-AqQ" id="Gky-ii-pye"/>
                         <outlet property="navigationBar" destination="TBh-2w-e41" id="QyD-gz-fhu"/>
                         <outlet property="saveButton" destination="Flz-c9-Q5S" id="bdN-8z-imN"/>

@@ -44,6 +44,9 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
     /** Agent textfield */
     @IBOutlet weak var txtAgent:           UITextField!
     //-- BUG0008-SPJ (NguyenPT 20170616) Update G00Account
+    //++ BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
+    @IBOutlet weak var lblName: UILabel!
+    //-- BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
     
     // MARK: Actions
     /**
@@ -87,6 +90,10 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
 //        } else {
 //            self.showToast(message: "Save successfully")
 //        }
+        if BaseModel.shared.isCustomerUser() {
+            showAlert(message: DomainConst.CONTENT00362)
+            return
+        }
         G00F01S01._selectedValue.name = (BaseModel.shared.user_info?.getName())!
         G00F01S01._selectedValue.email = (BaseModel.shared.user_info?.getEmail())!
         G00F01S02._target = CustomerBean(id: (BaseModel.shared.user_info?.getAgentId())!,
@@ -162,9 +169,24 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         imgAvatar.translatesAutoresizingMaskIntoConstraints = true
         imgAvatar.isUserInteractionEnabled = true
         
+        //++ BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
+        // Label name
+        lblName.translatesAutoresizingMaskIntoConstraints = true
+        lblName.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
+                               y: imgAvatar.frame.maxY + GlobalConst.MARGIN_CELL_Y,
+                               width: GlobalConst.EDITTEXT_W,
+                               height: GlobalConst.EDITTEXT_H / 2)
+        lblName.text = BaseModel.shared.getUserInfoLogin(id: DomainConst.KEY_USERNAME)
+        lblName.textAlignment = .center
+        lblName.textColor = GlobalConst.BUTTON_COLOR_RED
+        //-- BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
+        
         // Image name
         imgName.frame = CGRect(x: GlobalConst.MARGIN,
-                               y: imgAvatar.frame.maxY + GlobalConst.MARGIN,
+                               //++ BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
+                               //y: imgAvatar.frame.maxY + GlobalConst.MARGIN,
+                               y: lblName.frame.maxY + GlobalConst.MARGIN,
+                               //-- BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
                                width: GlobalConst.ACCOUNT_ICON_SIZE,
                                height: GlobalConst.ACCOUNT_ICON_SIZE)
         imgName.image = ImageManager.getImage(named: DomainConst.USER_NAME_IMG_NAME)
@@ -188,7 +210,10 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         
         // Name Textfield customize
         txtName.frame = CGRect(x: imgName.frame.maxX + GlobalConst.MARGIN,
-                               y: imgAvatar.frame.maxY + GlobalConst.MARGIN,
+                               //++ BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
+                               //y: imgAvatar.frame.maxY + GlobalConst.MARGIN,
+                               y: imgName.frame.minY,
+                               //-- BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
                                width: GlobalConst.SCREEN_WIDTH - (GlobalConst.MARGIN * 3 + GlobalConst.ACCOUNT_ICON_SIZE),
                                height: GlobalConst.ACCOUNT_ICON_SIZE)
         txtName.placeholder = DomainConst.CONTENT00055
@@ -293,6 +318,9 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
             UserProfileRequest.requestUserProfile(action: #selector(setData(_:)), view: self)
             //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
         } else {
+            //++ BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
+            lblName.text = BaseModel.shared.getUserInfoLogin(id: DomainConst.KEY_USERNAME)
+            //-- BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
             txtName.text    = BaseModel.shared.user_info?.getName()
             txtPhone.text   = BaseModel.shared.user_info?.getPhone()
             txtAddress.text = BaseModel.shared.user_info?.getAddress()
@@ -312,6 +340,9 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
+        //++ BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
+        lblName.text = BaseModel.shared.getUserInfoLogin(id: DomainConst.KEY_USERNAME)
+        //-- BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
         txtName.text    = BaseModel.shared.user_info?.getName()
         txtPhone.text   = BaseModel.shared.user_info?.getPhone()
         txtAddress.text = BaseModel.shared.user_info?.getAddress()
