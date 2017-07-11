@@ -159,7 +159,7 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
         if BaseModel.shared.checkIsLogin() {
             //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
 //            RequestAPI.requestUpdateConfiguration(view: self)
-            UpdateConfigurationRequest.requestUpdateConfiguration(action: #selector(finishRequestUpdateConfig(_:)),
+            UpdateConfigurationRequest.requestUpdateConfiguration(action: #selector(self.finishRequestUpdateConfig(_:)),
                                                                   view: self)
             //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         } else {
@@ -617,6 +617,19 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
     }
+    
+    //++ BUG0121-SPJ (NguyenPT 20170712) Add menu to Home
+    /**
+     * Handle enable/disable content of view
+     * - parameter isEnabled: True if enable, false otherwise
+     */
+    public func enableContent(isEnabled: Bool) {
+        self._topView.isHidden = !isEnabled
+        self._bottomView.isHidden = !isEnabled
+        self._topView.isUserInteractionEnabled = isEnabled
+        self._bottomView.isUserInteractionEnabled = isEnabled
+    }
+    //-- BUG0121-SPJ (NguyenPT 20170712) Add menu to Home
 }
 
 /**
@@ -666,5 +679,4 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
     func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
-    
 }

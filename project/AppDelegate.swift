@@ -34,7 +34,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SlideMenuOptions.hideStatusBar = false
         //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         
-        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: G05Const.G05_F01_S01_VIEW_CTRL) as! ParentViewController
+        //++ BUG0121-SPJ (NguyenPT 20170712) Add menu to Home
+        //let firstVC = mainStoryboard.instantiateViewController(withIdentifier: G05Const.G05_F01_S01_VIEW_CTRL) as! ParentViewController
+        var homePage = G05Const.G05_F01_S01_VIEW_CTRL
+        if BaseModel.shared.isNVGNUser() {
+            homePage = DomainConst.G00_HOME_VIEW_CTRL
+        }
+        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: homePage) as! ParentViewController
+        //-- BUG0121-SPJ (NguyenPT 20170712) Add menu to Home
+        
         rootNav = UINavigationController(rootViewController: firstVC)
         rootNav.isNavigationBarHidden = false
         

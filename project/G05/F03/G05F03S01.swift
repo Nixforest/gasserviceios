@@ -36,6 +36,10 @@ UITableViewDataSource, UITableViewDelegate {
     private var _btnClearTarget:        UIButton            = UIButton()
     /** Value of keyword */
     public static var keyword:          String              = DomainConst.BLANK
+    //++ BUG0094-SPJ (NguyenPT 20170701) Add history order
+    /** Data of table view */
+    private var _dataTableView:         [(String, String)]    = [(String, String)]()
+    //-- BUG0094-SPJ (NguyenPT 20170701) Add history order
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -72,7 +76,10 @@ UITableViewDataSource, UITableViewDelegate {
         // Target table
         _tblTarget.frame = CGRect(x: 0, y: offset,
                                   width: GlobalConst.SCREEN_WIDTH,
-                                  height: GlobalConst.CONFIGURATION_ITEM_HEIGHT * CGFloat(TARGET_TBL_VIEW_ROW + 1))
+                                  //++ BUG0094-SPJ (NguyenPT 20170701) Add history order
+                                  //height: GlobalConst.CONFIGURATION_ITEM_HEIGHT * CGFloat(TARGET_TBL_VIEW_ROW + 1))
+                                  height: h - offset - GlobalConst.BUTTON_H - GlobalConst.LABEL_HEIGHT - GlobalConst.MARGIN)
+                                  //-- BUG0094-SPJ (NguyenPT 20170701) Add history order
         _tblTarget.delegate = self
         _tblTarget.dataSource = self
         _tblTarget.isHidden = G08F01S01._target.isEmpty()
@@ -82,7 +89,10 @@ UITableViewDataSource, UITableViewDelegate {
         // Button clear target
         CommonProcess.createButtonLayout(btn: _btnClearTarget,
                                          x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                         //++ BUG0094-SPJ (NguyenPT 20170701) Add history order
+                                         //y: h - offset - GlobalConst.BUTTON_H,
                                          y: offset + GlobalConst.MARGIN,
+                                         //-- BUG0094-SPJ (NguyenPT 20170701) Add history order
                                          text: DomainConst.CONTENT00361.uppercased(),
                                          action: #selector(btnClearTargetTapped),
                                          target: self,
@@ -267,9 +277,12 @@ UITableViewDataSource, UITableViewDelegate {
         if tableView == _tblSearchBar {
             return _data.count
         } else  if tableView == _tblTarget {
-            if !G05F03S01._target.isEmpty() {
-                return TARGET_TBL_VIEW_ROW
-            }
+            //++ BUG0094-SPJ (NguyenPT 20170701) Add history order
+//            if !G05F03S01._target.isEmpty() {
+//                return TARGET_TBL_VIEW_ROW
+//            }
+            return _dataTableView.count
+            //-- BUG0094-SPJ (NguyenPT 20170701) Add history order
         }
         return 0
     }
@@ -307,19 +320,26 @@ UITableViewDataSource, UITableViewDelegate {
                     cell.detailTextLabel?.numberOfLines = 0
                     cell.detailTextLabel?.lineBreakMode = .byWordWrapping
                     cell.detailTextLabel?.font = GlobalConst.BASE_FONT
-                    switch indexPath.row {
-                    case 0:
-                        cell.textLabel?.text = DomainConst.CONTENT00360
-                        cell.detailTextLabel?.text = G05F03S01._target.name
-                    case 1:
-                        cell.textLabel?.text = DomainConst.CONTENT00152
-                        cell.detailTextLabel?.text = G05F03S01._target.customer_phone
-                    case 2:
-                        cell.textLabel?.text = DomainConst.CONTENT00088
-                        cell.detailTextLabel?.text = G05F03S01._target.customer_address
-                    default:
-                        break
+                    //++ BUG0094-SPJ (NguyenPT 20170701) Add history order
+//                    switch indexPath.row {
+//                    case 0:
+//                        cell.textLabel?.text = DomainConst.CONTENT00360
+//                        cell.detailTextLabel?.text = G05F03S01._target.name
+//                    case 1:
+//                        cell.textLabel?.text = DomainConst.CONTENT00152
+//                        cell.detailTextLabel?.text = G05F03S01._target.customer_phone
+//                    case 2:
+//                        cell.textLabel?.text = DomainConst.CONTENT00088
+//                        cell.detailTextLabel?.text = G05F03S01._target.customer_address
+//                    default:
+//                        break
+//                    }
+                    
+                    if _dataTableView.count > indexPath.row {
+                        cell.textLabel?.text = _dataTableView[indexPath.row].0
+                        cell.detailTextLabel?.text = _dataTableView[indexPath.row].1
                     }
+                    //-- BUG0094-SPJ (NguyenPT 20170701) Add history order
                 }
             }
             return cell
@@ -344,14 +364,61 @@ UITableViewDataSource, UITableViewDelegate {
             } else {
                 G05F03S03._selectedValue = ConfigBean(id: G05F03S01._target.customer_delivery_agent_id, name: DomainConst.BLANK)
             }
+            //++ BUG0094-SPJ (NguyenPT 20170701) Add history order
             // Reload table target data
-            _tblTarget.reloadData()
+            //_tblTarget.reloadData()
             // Move to next step
-            self.stepDoneDelegate?.stepDone()
+            //self.stepDoneDelegate?.stepDone()
+            //-- BUG0094-SPJ (NguyenPT 20170701) Add history order
             // Save keyword
             G05F03S01.keyword = self._searchBar.text!
             // Update data notification
             NotificationCenter.default.post(name: Notification.Name(rawValue: G05Const.NOTIFY_NAME_UPDATE_DATA_G05_F03), object: nil)
+            //++ BUG0094-SPJ (NguyenPT 20170701) Add history order
+            OrderVIPHistoryListRequest.request(
+                action: #selector(finishRequestHistory(_:)),
+                view: self,
+                id: G05F03S01._target.id,
+                type: DomainConst.NUMBER_TWO_VALUE)
+            //-- BUG0094-SPJ (NguyenPT 20170701) Add history order
         }
     }
+    
+    //++ BUG0094-SPJ (NguyenPT 20170701) Add history order
+    /**
+     * Handle when finish request history
+     */
+    internal func finishRequestHistory(_ notification: Notification) {
+        let data = (notification.object as! String)
+        //print(data)
+        let model = OrderVIPHistoryRespModel(jsonString: data)
+        if model.isSuccess() {
+            setupData(history: model.record)
+            _tblTarget.reloadData()
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Setup data for history table
+     *  - parameter history: History data
+     */
+    private func setupData(history: [OrderVIPHistoryBean]) {
+        _dataTableView.removeAll()
+        _dataTableView.append((DomainConst.CONTENT00360, G05F03S01._target.name))
+        _dataTableView.append((DomainConst.CONTENT00152, G05F03S01._target.customer_phone))
+        _dataTableView.append((DomainConst.CONTENT00088, G05F03S01._target.customer_address))
+        for item in history {
+            if item.order_detail.count > 0 {
+                let name = BaseModel.shared.getMaterialNameFromId(id: item.order_detail[0].material_id)
+                _dataTableView.append((item.created_date.substring(to: 5) + ": " + item.order_detail[0].qty.replacingOccurrences(of: ".00", with: DomainConst.BLANK) + " bình", name))
+            }
+            for i in 1..<item.order_detail.count {
+                let name = BaseModel.shared.getMaterialNameFromId(id: item.order_detail[i].material_id)
+                _dataTableView.append((item.order_detail[i].qty.replacingOccurrences(of: ".00", with: DomainConst.BLANK) + " bình", name))
+            }
+        }
+    }
+    //-- BUG0094-SPJ (NguyenPT 20170701) Add history order
 }
