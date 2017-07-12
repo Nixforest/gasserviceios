@@ -930,7 +930,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         // Add materials to table
         for item in _data.getRecord().order_detail {
-            appendMaterial(material: item)
+            //++ BUG0125-SPJ (NguyenPT 20170712) Handle input quantity of material when edit Family Customer Order
+            //appendMaterial(material: item)
+            appendMaterial(material: item, isUpdateQty: false)
+            //-- BUG0125-SPJ (NguyenPT 20170712) Handle input quantity of material when edit Family Customer Order
         }
     }
     
@@ -1082,7 +1085,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Insert material at tail
      * - parameter material: Data to update
      */
-    private func appendMaterial(material: OrderDetailBean) {
+    private func appendMaterial(material: OrderDetailBean, isUpdateQty: Bool = true) {
         var idx: Int = -1
         // Search in lists
         for i in 0..<_listInfo[1].count {
@@ -1096,15 +1099,77 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             // Not found -> Append
             _listInfo[1].append(ConfigurationModel(orderDetail: material))
             _listMaterials.append(material)
+            //++ BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
+            if isUpdateQty {
+                updateQtyMaterial(idx: _listMaterials.count - 1)
+            }
+            //-- BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
         } else {
             // Found -> Update quantity
-            if let qtyNumber = Int(_listMaterials[idx].qty) {
-                _listMaterials[idx].qty = String(qtyNumber + 1)
-                _listInfo[1][idx] = ConfigurationModel(orderDetail: _listMaterials[idx])
+            //++ BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
+//            if let qtyNumber = Int(_listMaterials[idx].qty) {
+//                _listMaterials[idx].qty = String(qtyNumber + 1)
+//                _listInfo[1][idx] = ConfigurationModel(orderDetail: _listMaterials[idx])
+            //            }
+            if isUpdateQty {
+                updateQtyMaterial(idx: idx)
+            }
+            //-- BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
+        }
+    }
+    
+    //++ BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
+    /**
+     * Update quantity of material
+     * - parameter idx: Index of selected row
+     */
+    private func updateQtyMaterial(idx: Int) {
+        let material = _listMaterials[idx]
+        var tbxValue: UITextField?
+        
+        // Create alert
+        let alert = UIAlertController(title: material.material_name,
+                                      message: DomainConst.CONTENT00344,
+                                      preferredStyle: .alert)
+        // Add textfield
+        alert.addTextField(configurationHandler: { textField -> Void in
+            tbxValue = textField
+            tbxValue?.placeholder       = DomainConst.CONTENT00255
+            tbxValue?.clearButtonMode   = .whileEditing
+            tbxValue?.returnKeyType     = .done
+            tbxValue?.keyboardType      = .numberPad
+            tbxValue?.text              = material.qty
+            tbxValue?.textAlignment     = .center
+        })
+        
+        // Add cancel action
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
+        
+        // Add ok action
+        let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
+            if let n = NumberFormatter().number(from: (tbxValue?.text)!) {
+                // Update data
+                self._listMaterials[idx].qty = String(describing: n)
+                // Update in table data
+                self._listInfo[1][idx] = ConfigurationModel(orderDetail: self._listMaterials[idx])
+                // Update table
+                self._tableView.reloadRows(at: [IndexPath(item: idx, section: 1)], with: .automatic)
+            } else {
+                self.showAlert(message: DomainConst.CONTENT00251, okTitle: DomainConst.CONTENT00251,
+                               okHandler: {_ in
+                                self.updateQtyMaterial(idx: idx)
+                },
+                               cancelHandler: {_ in
+                                
+                })
             }
         }
         
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
     }
+    //-- BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
     
     //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
     /**
