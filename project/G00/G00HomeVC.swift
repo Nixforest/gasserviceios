@@ -98,7 +98,7 @@ class G00HomeVC: MapViewController, UITableViewDataSource, UITableViewDelegate {
         homeTableView.separatorStyle = .none
         //++ BUG0121-SPJ (NguyenPT 20170712) Add menu to Home
         // Move to front
-        homeTableView.layer.zPosition = 1
+        //homeTableView.layer.zPosition = 1
         //-- BUG0121-SPJ (NguyenPT 20170712) Add menu to Home
         
         // NavBar setup

@@ -83,6 +83,9 @@ class G00F01VC: StepVC, StepDoneDelegate {
             showAlert(message: model.message,
                       okHandler: {
                         alert in
+                        //++ BUG0123-SPJ (NguyenPT 20170711) Handle update Agent id after change on Account screen
+                        BaseModel.shared.user_info = nil
+                        //-- BUG0123-SPJ (NguyenPT 20170711) Handle update Agent id after change on Account screen
                         self.backButtonTapped(self)
             })
         } else {    // Error

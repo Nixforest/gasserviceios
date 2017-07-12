@@ -204,8 +204,18 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
         
         // Label status list + action
         lblStatusList.textAlignment = .center
+        //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+        var offset = searchBox.frame.maxY
+        if BaseModel.shared.isCustomerUser() {
+            offset = heigh
+            searchBox.isHidden = true
+        }
+        //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
         lblStatusList.frame = CGRect(x: marginX,
-                                     y: searchBox.frame.maxY,
+                                     //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+                                     //y: searchBox.frame.maxY,
+                                     y: offset,
+                                     //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
                                      width: GlobalConst.SCREEN_WIDTH - marginX * 2,
                                      height: GlobalConst.LABEL_HEIGHT)
         lblStatusList.translatesAutoresizingMaskIntoConstraints = true
@@ -260,17 +270,29 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
         upholdListButton.translatesAutoresizingMaskIntoConstraints = true
         // Uphold list view
         problemTableView.translatesAutoresizingMaskIntoConstraints = true
+        //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+        var heightOfTable = GlobalConst.SCREEN_HEIGHT - upholdListButton.frame.maxY - GlobalConst.PARENT_BORDER_WIDTH * 2
+        if BaseModel.shared.isCustomerUser() {
+            heightOfTable = heightOfTable + GlobalConst.SEARCH_BOX_HEIGHT - GlobalConst.BUTTON_H - GlobalConst.MARGIN
+        }
+        //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
         problemTableView.frame = CGRect(x: marginX,
                                         y: upholdListButton.frame.maxY,
                                         width: GlobalConst.SCREEN_WIDTH - marginX * 2,
-                                        height: GlobalConst.SCREEN_HEIGHT - upholdListButton.frame.maxY - GlobalConst.PARENT_BORDER_WIDTH * 2)
+                                        //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+                                        //height: GlobalConst.SCREEN_HEIGHT - upholdListButton.frame.maxY - GlobalConst.PARENT_BORDER_WIDTH * 2)
+                                        height: heightOfTable)
+                                        //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
         problemTableView.separatorStyle = .singleLine
         
         periodTableView.translatesAutoresizingMaskIntoConstraints = true
         periodTableView.frame = CGRect(x: marginX,
                                        y: upholdListButton.frame.maxY,
                                        width: GlobalConst.SCREEN_WIDTH - marginX * 2,
-                                       height: GlobalConst.SCREEN_HEIGHT - upholdListButton.frame.maxY - GlobalConst.PARENT_BORDER_WIDTH * 2)
+                                       //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+                                       //height: GlobalConst.SCREEN_HEIGHT - upholdListButton.frame.maxY - GlobalConst.PARENT_BORDER_WIDTH * 2)
+                                       height: heightOfTable)
+                                       //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
         periodTableView.separatorStyle = .singleLine
         
         // Show-hide UpholdList
@@ -294,6 +316,26 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
         // Do any additional setup after loading the view.
         gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(G01F00S01VC.hideKeyboard))
         //view.addGestureRecognizer(tap)
+        
+        //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+        if BaseModel.shared.isCustomerUser() {
+            let btnCreate = UIButton()
+            CommonProcess.createButtonLayout(btn: btnCreate,
+                                             x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                             y:  GlobalConst.SCREEN_HEIGHT - GlobalConst.BUTTON_H - GlobalConst.MARGIN,
+                                             text: DomainConst.CONTENT00065.uppercased(),
+                                             action: #selector(btnCreateTapped(_:)),
+                                             target: self,
+                                             img: DomainConst.ADD_ICON_IMG_NAME,
+                                             tintedColor: UIColor.white)
+            btnCreate.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
+                                                     left: GlobalConst.MARGIN,
+                                                     bottom: GlobalConst.MARGIN,
+                                                     right: GlobalConst.MARGIN)
+            self.view.addSubview(btnCreate)
+        }
+        //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+        
         //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
 //        RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType,
 //                                     customerId: currentCustomerId, status: currentStatus,
@@ -301,6 +343,24 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
         getUpholdList()
         //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     }
+    
+    //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+    /**
+     * Create new event handler
+     */
+    internal func btnCreateTapped(_ sender: AnyObject) {
+        if BaseModel.shared.user_info == nil {
+            // User information does not exist
+            UserProfileRequest.requestUserProfile(action: #selector(finishRequestUserProfile(_:)), view: self)
+        } else {
+            self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
+        }
+    }
+    
+    internal func finishRequestUserProfile(_ notification: Notification) {
+        self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
+    }
+    //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
     
 //    func reloadData(_ notification: Notification) {
 //        CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)

@@ -624,10 +624,12 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
      * - parameter isEnabled: True if enable, false otherwise
      */
     public func enableContent(isEnabled: Bool) {
-        self._topView.isHidden = !isEnabled
-        self._bottomView.isHidden = !isEnabled
-        self._topView.isUserInteractionEnabled = isEnabled
-        self._bottomView.isUserInteractionEnabled = isEnabled
+        self._topView.isHidden      = !isEnabled
+        self._bottomView.isHidden   = !isEnabled
+        self._centerMark.isHidden   = !isEnabled
+        self._topView.isUserInteractionEnabled      = isEnabled
+        self._bottomView.isUserInteractionEnabled   = isEnabled
+        self._centerMark.isUserInteractionEnabled   = isEnabled
     }
     //-- BUG0121-SPJ (NguyenPT 20170712) Add menu to Home
 }

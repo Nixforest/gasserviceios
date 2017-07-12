@@ -32,6 +32,10 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         return refreshControl
     }()
     //-- BUG0060-SPJ (NguyenPT 20170421) Add refresh control
+    //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+    /** Customer name label */
+    private var _lblCustomerName:   UILabel              = UILabel()
+    //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
     
     // MARK: Methods
     //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
@@ -96,18 +100,38 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         
         // Get height of status bar + navigation bar
         let heigh = self.getTopHeight()
-        iconImg.image = ImageManager.getImage(named: DomainConst.ORDER_ICON_IMG_NAME)
-        iconImg.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W / 2) / 2,
-                               y: heigh + GlobalConst.MARGIN,
-                               width: GlobalConst.LOGIN_LOGO_W / 2,
-                               height: GlobalConst.LOGIN_LOGO_H / 2)
-        iconImg.translatesAutoresizingMaskIntoConstraints = true
+        
+        //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+        // Customer name label
+        _lblCustomerName.frame = CGRect(x: 0, y: heigh,
+                                        width: GlobalConst.SCREEN_WIDTH,
+                                        height: GlobalConst.LABEL_H * 3)
+        _lblCustomerName.text = BaseModel.shared.getUserInfoLogin(id: DomainConst.KEY_FIRST_NAME)
+        _lblCustomerName.font = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
+        _lblCustomerName.textColor = GlobalConst.BUTTON_COLOR_RED
+        _lblCustomerName.textAlignment = .center
+        _lblCustomerName.lineBreakMode = .byWordWrapping
+        _lblCustomerName.numberOfLines = 0
+        self.view.addSubview(_lblCustomerName)
+        
+//        iconImg.image = ImageManager.getImage(named: DomainConst.ORDER_ICON_IMG_NAME)
+//        iconImg.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.LOGIN_LOGO_W / 2) / 2,
+//                               y: heigh + GlobalConst.MARGIN,
+//                               width: GlobalConst.LOGIN_LOGO_W / 2,
+//                               height: GlobalConst.LOGIN_LOGO_H / 2)
+//        iconImg.translatesAutoresizingMaskIntoConstraints = true
+        iconImg.isHidden = true
+        //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
         // Order list view
         _tableView.translatesAutoresizingMaskIntoConstraints = true
         _tableView.frame = CGRect(x: 0,
-                                 y: iconImg.frame.maxY,
-                                 width: GlobalConst.SCREEN_WIDTH,
-                                 height: GlobalConst.SCREEN_HEIGHT - iconImg.frame.maxY)
+                                  //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+                                  //y: iconImg.frame.maxY,
+                                  y: _lblCustomerName.frame.maxY,
+                                  width: GlobalConst.SCREEN_WIDTH,
+                                  //height: GlobalConst.SCREEN_HEIGHT - iconImg.frame.maxY)
+                                  height: GlobalConst.SCREEN_HEIGHT - _lblCustomerName.frame.maxY - GlobalConst.BUTTON_H - GlobalConst.MARGIN)
+                                  //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
         _tableView.separatorStyle = .singleLine
         let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
         _tableView.register(UINib(nibName: DomainConst.TABLE_VIEW_CELL_ORDER_TYPE, bundle: frameworkBundle), forCellReuseIdentifier: DomainConst.TABLE_VIEW_CELL_ORDER_TYPE)
@@ -120,12 +144,38 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         //setupNavigationBar(title: DomainConst.CONTENT00231, isNotifyEnable: BaseModel.shared.checkIsLogin())
         createNavigationBar(title: DomainConst.CONTENT00231)
         //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+        // Button create
+        let btnCreate = UIButton()
+        CommonProcess.createButtonLayout(btn: btnCreate,
+                                         x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                         y:  GlobalConst.SCREEN_HEIGHT - GlobalConst.BUTTON_H - GlobalConst.MARGIN,
+                                         text: DomainConst.CONTENT00065.uppercased(),
+                                         action: #selector(btnCreateTapped(_:)),
+                                         target: self,
+                                         img: DomainConst.ADD_ICON_IMG_NAME,
+                                         tintedColor: UIColor.white)
+        btnCreate.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
+                                                 left: GlobalConst.MARGIN,
+                                                 bottom: GlobalConst.MARGIN,
+                                                 right: GlobalConst.MARGIN)
+        self.view.addSubview(btnCreate)
+        //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
         //++ BUG0060-SPJ (NguyenPT 20170421) Change name of request function
         //OrderVIPListRequest.requestOrderVIPList(action: #selector(setData(_:)), view: self, page: self._page)
         requestData()
         //-- BUG0060-SPJ (NguyenPT 20170421) Change name of request function
         self.view.makeComponentsColor()
     }
+    
+    //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
+    /**
+     * Create new event handler
+     */
+    internal func btnCreateTapped(_ sender: AnyObject) {
+        self.pushToView(name: G05Const.G05_F01_S02_VIEW_CTRL)
+    }
+    //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

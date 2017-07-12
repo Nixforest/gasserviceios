@@ -435,4 +435,13 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         }
         return true
     }
+    
+    //++ BUG0123-SPJ (NguyenPT 20170711) Handle update Agent id after change on Account screen
+    override func viewDidAppear(_ animated: Bool) {
+        if BaseModel.shared.user_info == nil {
+            // User information does not exist
+            UserProfileRequest.requestUserProfile(action: #selector(setData(_:)), view: self)
+        }
+    }
+    //-- BUG0123-SPJ (NguyenPT 20170711) Handle update Agent id after change on Account screen
 }

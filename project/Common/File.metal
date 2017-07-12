@@ -8,6 +8,11 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.25.0
+// - BUG0124: Add button Add new in VIP Customer order list, VIP Customer uphold list
+// - BUG0123: Handle update Agent id after change on Account screen
+// - BUG0122: Handle back to previous after finish send handle in StepVC screen
+// - BUG0121: Handle show icon on Home screen for NVGN
 // Version: 1.24.0
 // - BUG0120: Show username in Account screen
 // - BUG0119: G07F00S02: Handle update customer in Order Family
