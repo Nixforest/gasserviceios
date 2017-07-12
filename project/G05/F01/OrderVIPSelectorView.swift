@@ -283,7 +283,77 @@ class OrderVIPSelectorView: UIView, UIPickerViewDelegate, UIPickerViewDataSource
         //++ BUG0063-SPJ (NguyenPT 20170421) Use stepper
 //        showNumberPicker()
         //-- BUG0063-SPJ (NguyenPT 20170421) Use stepper
+        //++ BUG0126-SPJ (NguyenPT 20170712) Input quantity
+        updateQty()
+        //-- BUG0126-SPJ (NguyenPT 20170712) Input quantity
     }
+    
+    //++ BUG0126-SPJ (NguyenPT 20170712) Input quantity
+    /**
+     * Hide keyboard
+     */
+    func hideKeyboard() {
+        if let currentView = BaseViewController.getCurrentViewController() {
+            currentView.view.endEditing(true)
+            UIView.animate(withDuration: 0.3, animations: {
+                currentView.view.frame = CGRect(x: currentView.view.frame.origin.x, y: 0, width: currentView.view.frame.size.width, height: currentView.view.frame.size.height)
+            })
+        }
+    }
+    
+    /**
+     * Handle input quantity
+     */
+    private func updateQty() {
+        var tbxValue: UITextField?
+        
+        // Create alert
+        let alert = UIAlertController(title: _checkboxLabel,
+                                      message: DomainConst.CONTENT00344,
+                                      preferredStyle: .alert)
+        // Add textfield
+        alert.addTextField(configurationHandler: { textField -> Void in
+            tbxValue = textField
+            tbxValue?.placeholder       = DomainConst.CONTENT00255
+            tbxValue?.clearButtonMode   = .whileEditing
+            tbxValue?.returnKeyType     = .done
+            tbxValue?.keyboardType      = .numberPad
+            tbxValue?.text              = self._config.name
+            tbxValue?.textAlignment     = .center
+        })
+        
+        // Add cancel action
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: {
+                _ in
+            self.hideKeyboard()
+        })
+        
+        // Add ok action
+        let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
+            if let n = NumberFormatter().number(from: (tbxValue?.text)!) {
+                self.updateValue(value: (tbxValue?.text)!)
+                self._checkBox.bChecked = (n != 0)
+                self.hideKeyboard()
+            } else {
+                if let currentView = BaseViewController.getCurrentViewController() {
+                    currentView.showAlert(message: DomainConst.CONTENT00251, okTitle: DomainConst.CONTENT00251,
+                                           okHandler: {_ in
+                                            self.updateQty()
+                    },
+                                           cancelHandler: {_ in
+                                            self.hideKeyboard()
+                    })
+                }
+            }
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        if let currentView = BaseViewController.getCurrentViewController() {
+            currentView.present(alert, animated: true, completion: nil)
+        }
+    }
+    //-- BUG0126-SPJ (NguyenPT 20170712) Input quantity
     
     /**
      * Update title of value button and selected row in number picker

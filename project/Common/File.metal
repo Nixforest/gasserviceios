@@ -9,6 +9,8 @@
 #include <metal_stdlib>
 using namespace metal;
 // Version: 1.25.0
+// - BUG0126: Handle input quantity of material when create VIP Customer order
+// - BUG0125: Handle input quantity of material when edit Family Customer Order
 // - BUG0124: Add button Add new in VIP Customer order list, VIP Customer uphold list
 // - BUG0123: Handle update Agent id after change on Account screen
 // - BUG0122: Handle back to previous after finish send handle in StepVC screen
