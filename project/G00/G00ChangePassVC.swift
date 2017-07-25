@@ -58,7 +58,7 @@ class G00ChangePassVC: ChildViewController, UITextFieldDelegate {
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
         //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
         //RequestAPI.requestLogout(view: self)
-        LogoutRequest.requestLogout(action: #selector(self.finishRequestLogout(_:)), view: self)
+//        LogoutRequest.requestLogout(action: #selector(self.finishRequestLogout(_:)), view: self)
         //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     }
     
@@ -103,7 +103,16 @@ class G00ChangePassVC: ChildViewController, UITextFieldDelegate {
      * Finish request change password handler
      */
     func finishRequestChangePassword(_ notification: Notification) {
-        super.backButtonTapped(self)
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        super.backButtonTapped(self)
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            super.backButtonTapped(self)
+        } else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     

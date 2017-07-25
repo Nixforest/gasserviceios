@@ -54,8 +54,69 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
     @IBOutlet weak var lblStatusList: UILabel!
     /** Status list view */
     @IBOutlet weak var statusListView: UIView!
+    //++ BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
+    /** Static data */
+    private var _data:              UpholdListRespModel = UpholdListRespModel()
+    /** Refrest control */
+    lazy var refreshControl:        UIRefreshControl                = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        return refreshControl
+    }()
+    /** Refrest control */
+    lazy var refreshControlPeriod:        UIRefreshControl                = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        return refreshControl
+    }()
+    //-- BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
     
     // MARK: Actions
+    //++ BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
+    /**
+     * Handle refresh
+     */
+    internal func handleRefresh(_ sender: AnyObject) {
+        self.resetData()
+        requestData(action: #selector(finishHandleRefresh(_:)))
+    }
+    
+    /**
+     * Reset data
+     */
+    private func resetData() {
+        _data.clearData()
+        // Reset current search value
+        self.currentPage      = 0
+        // Reload table
+        if currentViewType == DomainConst.TYPE_TROUBLE {
+            problemTableView.reloadData()
+        } else {
+            periodTableView.reloadData()
+        }
+    }
+    
+    /**
+     * Request data from server
+     */
+    private func requestData(action: Selector = #selector(setData(_:))) {
+        UpholdListRequest.requestUpholdList(action: action,
+                                            view: self, page: currentPage,
+                                            type: currentViewType,
+                                            customerId: currentCustomerId,
+                                            status: currentStatus)
+    }
+    
+    /**
+     * Handle finish refresh
+     */
+    internal func finishHandleRefresh(_ notification: Notification) {
+        setData(notification)
+        refreshControl.endRefreshing()
+        refreshControlPeriod.endRefreshing()
+    }
+    //-- BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
+    
     /**
      * Handle change tab.
      * - parameter sender: AnyObject
@@ -83,7 +144,9 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
             // Save current status
             currentStatus = aStatusList[0].id
         }
-        
+        //++ BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
+        resetData()
+        //-- BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
         //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
 //        RequestAPI.requestUpholdList(page: currentPage, type: currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
         getUpholdList()
@@ -133,12 +196,25 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
      * - parameter notification: Notification
      */
     func showSearchBarTableView(_ notification: Notification) {
-        // Load data for search bar table view
-        searchBarTableView.reloadData()
-        // Show
-        searchBarTableView.isHidden = !searchActive
-        // Move to front
-        searchBarTableView.layer.zPosition = 1
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        // Load data for search bar table view
+//        searchBarTableView.reloadData()
+//        // Show
+//        searchBarTableView.isHidden = !searchActive
+//        // Move to front
+//        searchBarTableView.layer.zPosition = 1
+        let data = (notification.object as! String)
+        let model = SearchCustomerRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.saveSearchCustomerResult(result: model)
+            // Load data for search bar table view
+            searchBarTableView.reloadData()
+            // Show
+            searchBarTableView.isHidden = !searchActive
+            // Move to front
+            searchBarTableView.layer.zPosition = 1
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     
     //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
@@ -284,6 +360,9 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
                                         height: heightOfTable)
                                         //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
         problemTableView.separatorStyle = .singleLine
+        //++ BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
+        problemTableView.addSubview(refreshControl)
+        //-- BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
         
         periodTableView.translatesAutoresizingMaskIntoConstraints = true
         periodTableView.frame = CGRect(x: marginX,
@@ -294,6 +373,9 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
                                        height: heightOfTable)
                                        //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
         periodTableView.separatorStyle = .singleLine
+        //++ BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
+        periodTableView.addSubview(refreshControlPeriod)
+        //-- BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
         
         // Show-hide UpholdList
         periodTableView.isHidden = true
@@ -358,6 +440,16 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     internal func finishRequestUserProfile(_ notification: Notification) {
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+        let data = (notification.object as! String)
+        let model = UserProfileRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.setUserInfo(userInfo: model.record)
+        } else {
+            showAlert(message: model.message)
+            return
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
     }
     //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
@@ -370,12 +462,31 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
-        self.updateNotificationStatus()
-        if currentViewType == DomainConst.TYPE_TROUBLE {
-            problemTableView.reloadData()
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        self.updateNotificationStatus()
+//        if currentViewType == DomainConst.TYPE_TROUBLE {
+//            problemTableView.reloadData()
+//        } else {
+//            periodTableView.reloadData()
+//        }
+        let data = (notification.object as! String)
+        let model = UpholdListRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.saveUpholdList(upholdListModel: model)
+            // Update data
+            _data.total_page    = model.total_page
+            _data.total_record  = model.total_record
+            _data.append(contentOf: model.getRecord())
+            self.updateNotificationStatus()
+            if currentViewType == DomainConst.TYPE_TROUBLE {
+                problemTableView.reloadData()
+            } else {
+                periodTableView.reloadData()
+            }
         } else {
-            periodTableView.reloadData()
+            showAlert(message: model.message)
         }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         //        CommonProcess.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
         //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
         // Check open by notification
@@ -497,11 +608,17 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
         var count = NSInteger()
         // Current view is periodically uphold
         if tableView == periodTableView {
-            count = BaseModel.shared.upholdList.getRecord().count
+            //++ BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
+            //count = BaseModel.shared.upholdList.getRecord().count
+            count = _data.getRecord().count
+            //-- BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
         }
         // Current view is problem uphold
         if tableView == problemTableView {
-            count = BaseModel.shared.upholdList.getRecord().count
+            //++ BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
+            //count = BaseModel.shared.upholdList.getRecord().count
+            count = _data.getRecord().count
+            //-- BUG0005-SPJ (NguyenPT 20170724) Remake G01 func6tion
         }
         
         // Search bar is showing
@@ -522,9 +639,14 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
             if tableView == periodTableView {
                 let cell:TableCellUpholdType = tableView.dequeueReusableCell(
                     withIdentifier: DomainConst.G01_F00_S01_PERIOD_CELL) as! TableCellUpholdType
-                if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
-                    cell.setData(model: BaseModel.shared.upholdList.getRecord()[indexPath.row])
+                //++ BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
+//                if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
+//                    cell.setData(model: BaseModel.shared.upholdList.getRecord()[indexPath.row])
+//                }
+                if _data.getRecord().count > indexPath.row {
+                    cell.setData(model: _data.getRecord()[indexPath.row])
                 }
+                //-- BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
                 cellReturn = cell
             }
             
@@ -532,9 +654,14 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
             if tableView == problemTableView {
                 let cell:TableCellUpholdType = tableView.dequeueReusableCell(
                     withIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL) as! TableCellUpholdType
-                if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
-                    cell.setData(model: BaseModel.shared.upholdList.getRecord()[indexPath.row])
+                //++ BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
+//                if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
+//                    cell.setData(model: BaseModel.shared.upholdList.getRecord()[indexPath.row])
+//                }
+                if _data.getRecord().count > indexPath.row {
+                    cell.setData(model: _data.getRecord()[indexPath.row])
                 }
+                //-- BUG0005-SPJ (NguyenPT 20170724) Remake G01 function
                 //cell.delegate = self
                 cellReturn = cell
             }
@@ -585,52 +712,79 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
         if tableView == periodTableView {
             if BaseModel.shared.isCustomerUser() {
                 // Move to customer detail uphold G01F00S03
-                if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
-                    //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
-//                    BaseModel.shared.sharedInt = indexPath.row
-                    BaseModel.shared.sharedDoubleStr.0 = BaseModel.shared.upholdList.getRecord()[indexPath.row].id
-                    BaseModel.shared.sharedDoubleStr.1 = BaseModel.shared.upholdList.getRecord()[indexPath.row].reply_id
-                    //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
-                    // Move to detail view
+                //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//                if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
+//                    //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+////                    BaseModel.shared.sharedInt = indexPath.row
+//                    BaseModel.shared.sharedDoubleStr.0 = BaseModel.shared.upholdList.getRecord()[indexPath.row].id
+//                    BaseModel.shared.sharedDoubleStr.1 = BaseModel.shared.upholdList.getRecord()[indexPath.row].reply_id
+//                    //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+//                    // Move to detail view
+//                    self.pushToView(name: DomainConst.G01_F00_S03_VIEW_CTRL)
+//                }
+                if (_data.getRecord().count > indexPath.row) {
+                    BaseModel.shared.sharedDoubleStr.0 = _data.getRecord()[indexPath.row].id
+                    BaseModel.shared.sharedDoubleStr.1 = _data.getRecord()[indexPath.row].reply_id
                     self.pushToView(name: DomainConst.G01_F00_S03_VIEW_CTRL)
                 }
+                //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
             } else {
                 // Move to customer detail uphold G01F00S02
-                if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
-                    //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
-//                    BaseModel.shared.sharedInt = indexPath.row
-                    BaseModel.shared.sharedDoubleStr.0 = BaseModel.shared.upholdList.getRecord()[indexPath.row].id
-                    BaseModel.shared.sharedDoubleStr.1 = BaseModel.shared.upholdList.getRecord()[indexPath.row].reply_id
-                    //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
-                    // Move to detail view
+                //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//                if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
+//                    //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+////                    BaseModel.shared.sharedInt = indexPath.row
+//                    BaseModel.shared.sharedDoubleStr.0 = BaseModel.shared.upholdList.getRecord()[indexPath.row].id
+//                    BaseModel.shared.sharedDoubleStr.1 = BaseModel.shared.upholdList.getRecord()[indexPath.row].reply_id
+//                    //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+//                    // Move to detail view
+//                    self.pushToView(name: DomainConst.G01_F00_S02_VIEW_CTRL)
+//                }
+                if (_data.getRecord().count > indexPath.row) {
+                    BaseModel.shared.sharedDoubleStr.0 = _data.getRecord()[indexPath.row].id
+                    BaseModel.shared.sharedDoubleStr.1 = _data.getRecord()[indexPath.row].reply_id
                     self.pushToView(name: DomainConst.G01_F00_S02_VIEW_CTRL)
                 }
+                //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
             }
         }
         if tableView == problemTableView {
             if BaseModel.shared.isCustomerUser() {
                 // Move to customer detail uphold G01F00S03
-                if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
-                    //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
-                    //BaseModel.shared.sharedInt = indexPath.row
-                    BaseModel.shared.sharedDoubleStr.0 = BaseModel.shared.upholdList.getRecord()[indexPath.row].id
-                    BaseModel.shared.sharedDoubleStr.1 = BaseModel.shared.upholdList.getRecord()[indexPath.row].reply_id
-                    //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
-                    // Move to detail view
+                //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//                if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
+//                    //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+//                    //BaseModel.shared.sharedInt = indexPath.row
+//                    BaseModel.shared.sharedDoubleStr.0 = BaseModel.shared.upholdList.getRecord()[indexPath.row].id
+//                    BaseModel.shared.sharedDoubleStr.1 = BaseModel.shared.upholdList.getRecord()[indexPath.row].reply_id
+//                    //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+//                    // Move to detail view
+//                    self.pushToView(name: DomainConst.G01_F00_S03_VIEW_CTRL)
+//                }
+                if (_data.getRecord().count > indexPath.row) {
+                    BaseModel.shared.sharedDoubleStr.0 = _data.getRecord()[indexPath.row].id
+                    BaseModel.shared.sharedDoubleStr.1 = _data.getRecord()[indexPath.row].reply_id
                     self.pushToView(name: DomainConst.G01_F00_S03_VIEW_CTRL)
                 }
-
+                //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
             } else {
                 // Move to customer detail uphold G01F00S02
-                if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
-                    //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
-                    //                    BaseModel.shared.sharedInt = indexPath.row
-                    BaseModel.shared.sharedDoubleStr.0 = BaseModel.shared.upholdList.getRecord()[indexPath.row].id
-                    BaseModel.shared.sharedDoubleStr.1 = BaseModel.shared.upholdList.getRecord()[indexPath.row].reply_id
-                    //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
-                    // Move to detail view
+                //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//                if (BaseModel.shared.upholdList.getRecord().count > indexPath.row) {
+//                    //++ BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+////                    BaseModel.shared.sharedInt = indexPath.row
+//                    BaseModel.shared.sharedDoubleStr.0 = BaseModel.shared.upholdList.getRecord()[indexPath.row].id
+//                    BaseModel.shared.sharedDoubleStr.1 = BaseModel.shared.upholdList.getRecord()[indexPath.row].reply_id
+//                    //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+//                    // Move to detail view
+//                    self.pushToView(name: DomainConst.G01_F00_S02_VIEW_CTRL)
+//                }
+                if (_data.getRecord().count > indexPath.row) {
+                    BaseModel.shared.sharedDoubleStr.0 = _data.getRecord()[indexPath.row].id
+                    BaseModel.shared.sharedDoubleStr.1 = _data.getRecord()[indexPath.row].reply_id
                     self.pushToView(name: DomainConst.G01_F00_S02_VIEW_CTRL)
                 }
+                //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
             }
 //            let cell:TableCellUpholdType = tableView.dequeueReusableCell(
 //                withIdentifier: DomainConst.G01_F00_S01_PROBLEM_CELL) as! TableCellUpholdType
@@ -666,26 +820,40 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
      * Tells the delegate the table view is about to draw a cell for a particular row.
      */
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         // If current view is Uphold table view
         //++ BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
         //if (BaseModel.shared.upholdList.getRecord().count >= 15) {
-        if BaseModel.shared.upholdList.getTotalPage() != 1 {
-        //-- BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
-            let lastElement = BaseModel.shared.upholdList.getRecord().count - 1
+//        if BaseModel.shared.upholdList.getTotalPage() != 1 {
+//        //-- BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
+//            let lastElement = BaseModel.shared.upholdList.getRecord().count - 1
+//            if indexPath.row == lastElement {
+//                currentPage += 1
+//                //++ BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
+////                RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+//                // Page less than total page
+//                if currentPage <= BaseModel.shared.upholdList.getTotalPage() {
+//                    //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+////                    RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+//                    getUpholdList()
+//                    //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//                }
+//                //-- BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
+//            }
+//        }
+        // Total page does not 1
+        if self._data.total_page != 1 {
+            let lastElement = self._data.getRecord().count - 1
+            // Current is the last element
             if indexPath.row == lastElement {
-                currentPage += 1
-                //++ BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
-//                RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
+                self.currentPage += 1
                 // Page less than total page
-                if currentPage <= BaseModel.shared.upholdList.getTotalPage() {
-                    //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
-//                    RequestAPI.requestUpholdList(page: currentPage, type: self.currentViewType, customerId: currentCustomerId, status: currentStatus, view: self)
-                    getUpholdList()
-                    //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+                if self.currentPage <= self._data.total_page {
+                    requestData()
                 }
-                //-- BUG0044-SPJ (NguyenPT 20170301) Load more in Uphold list screen
             }
         }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         // If current view is search bar table view
         if tableView == searchBarTableView {
             return

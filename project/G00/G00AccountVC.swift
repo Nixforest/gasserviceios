@@ -340,6 +340,16 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+        let data = (notification.object as! String)
+        let model = UserProfileRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.setUserInfo(userInfo: model.record)
+        } else {
+            showAlert(message: model.message)
+            return
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         //++ BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
         lblName.text = BaseModel.shared.getUserInfoLogin(id: DomainConst.KEY_USERNAME)
         //-- BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen

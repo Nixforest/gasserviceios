@@ -150,6 +150,18 @@ class G01F00S03VC: ChildViewController {
         }
     }
     
+    internal func finishRequestUpholdDetail(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = UpholdDetailRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.saveCurrentUpholdDetail(model: model.model_uphold)
+            setData(notification)
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    
     /**
      * Set data for controls
      */

@@ -75,12 +75,25 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
      * Finish request login handler
      */
     func finishRequestHandler(_ notification: Notification) {
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         //++ BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
         //self.popToRootView()
-        UpdateConfigurationRequest.requestUpdateConfiguration(
-            action: #selector(finishUpdateConfigRequest(_:)),
-            view: self)
+//        UpdateConfigurationRequest.requestUpdateConfiguration(
+//            action: #selector(finishUpdateConfigRequest(_:)),
+//            view: self)
         //-- BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
+        let data = (notification.object as! String)
+        let model = LoginRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.loginSuccess(model.token)
+            BaseModel.shared.saveTempData(loginModel: model)
+            UpdateConfigurationRequest.requestUpdateConfiguration(
+                action: #selector(finishUpdateConfigRequest(_:)),
+                view: self)
+        } else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     //++ BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
@@ -88,12 +101,25 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
      * Finish request update config
      */
     func finishUpdateConfigRequest(_ notification: Notification) {
-        self.popToRootView()
-        //++ BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
-        if BaseModel.shared.getNeedChangePassFlag() {
-            self.pushToView(name: G00ChangePassVC.theClassName)
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        self.popToRootView()
+//        //++ BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+//        if BaseModel.shared.getNeedChangePassFlag() {
+//            self.pushToView(name: G00ChangePassVC.theClassName)
+//        }
+//        //-- BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+        let data = (notification.object as! String)
+        let model = LoginRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.saveTempData(loginModel: model)
+            self.popToRootView()
+            if BaseModel.shared.getNeedChangePassFlag() {
+                self.pushToView(name: G00ChangePassVC.theClassName)
+            }
+        } else {
+            showAlert(message: model.message)
         }
-        //-- BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     //-- BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
     

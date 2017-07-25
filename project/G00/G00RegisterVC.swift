@@ -51,8 +51,18 @@ class G00RegisterVC: ChildViewController, UITextFieldDelegate {
      * Finish request register handler
      */
     internal func finishRequestRegister(_ notification: Notification) {
-        let obj = (notification.object as! BaseRespModel)
-        self.processInputConfirmCode(message: obj.message)
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        let obj = (notification.object as! BaseRespModel)
+//        self.processInputConfirmCode(message: obj.message)
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.setTempToken(token: model.token)
+            self.processInputConfirmCode(message: model.message)
+        } else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     

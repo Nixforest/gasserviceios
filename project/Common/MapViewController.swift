@@ -174,20 +174,36 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
      * Finish request update config handler
      */
     func finishRequestUpdateConfig(_ notification: Notification) {
-        self.updateNotificationStatus()
-        
-        // Get notification count from server
-        if BaseModel.shared.checkIsLogin() {
-            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
-//            RequestAPI.requestNotificationCount(view: self)
-            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
-            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        self.updateNotificationStatus()
+//        
+//        // Get notification count from server
+//        if BaseModel.shared.checkIsLogin() {
+//            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+////            RequestAPI.requestNotificationCount(view: self)
+//            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+//            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//        }
+//        //++ BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+//        if BaseModel.shared.getNeedChangePassFlag() {
+//            self.pushToView(name: G00ChangePassVC.theClassName)
+//        }
+//        //-- BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+        let data = (notification.object as! String)
+        let model = LoginRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.saveTempData(loginModel: model)
+            self.updateNotificationStatus()
+            if BaseModel.shared.checkIsLogin() {
+                NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+            }
+            if BaseModel.shared.getNeedChangePassFlag() {
+                self.pushToView(name: G00ChangePassVC.theClassName)
+            }
+        } else {
+            showAlert(message: model.message)
         }
-        //++ BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
-        if BaseModel.shared.getNeedChangePassFlag() {
-            self.pushToView(name: G00ChangePassVC.theClassName)
-        }
-        //-- BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     
@@ -504,6 +520,16 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
     }
     
     internal func finishRequestUserProfile(_ notification: Notification) {
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+        let data = (notification.object as! String)
+        let model = UserProfileRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.setUserInfo(userInfo: model.record)
+        } else {
+            showAlert(message: model.message)
+            return
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         self.pushToView(name: DomainConst.G01_F01_VIEW_CTRL)
     }
     

@@ -215,10 +215,22 @@ class G01F00S02VC: ChildViewController, UIScrollViewDelegate, UITableViewDelegat
      * - parameter notification: Notification
      */
     override func setData(_ notification: Notification) {
-        viewInformation.setData(model: BaseModel.shared.currentUpholdDetail)
-        
-        tblViewHistory.reloadData()
-        self.updateNotificationStatus()
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        viewInformation.setData(model: BaseModel.shared.currentUpholdDetail)
+//        
+//        tblViewHistory.reloadData()
+//        self.updateNotificationStatus()
+        let data = (notification.object as! String)
+        let model = UpholdDetailRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.saveCurrentUpholdDetail(model: model.model_uphold)
+            viewInformation.setData(model: BaseModel.shared.currentUpholdDetail)
+            tblViewHistory.reloadData()
+            self.updateNotificationStatus()
+        } else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     
     /**
