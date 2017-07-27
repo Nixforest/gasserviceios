@@ -59,9 +59,13 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
             // Call alert
             showAlert(message: DomainConst.CONTENT00023)
         } else {
+            //++ BUG0132-SPJ (NguyenPT 20170724) Remember username after login
+            BaseModel.shared.setCurrentUsername(username: txtAccount.text!)
+            //-- BUG0132-SPJ (NguyenPT 20170724) Remember username after login
             // Start login process
             //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
             //RequestAPI.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
+            
             LoginRequest.requestLogin(action: #selector(finishRequestHandler),
                                       view: self,
                                       username: txtAccount.text!,
@@ -206,6 +210,9 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
                                   height: GlobalConst.EDITTEXT_H)
         txtAccount.placeholder = DomainConst.CONTENT00049
         txtAccount.translatesAutoresizingMaskIntoConstraints = true
+        //++ BUG0132-SPJ (NguyenPT 20170724) Remember username after login
+        txtAccount.text = BaseModel.shared.getCurrentUsername()
+        //-- BUG0132-SPJ (NguyenPT 20170724) Remember username after login
         // Set icon
         setLeftViewForTextField(textField: txtAccount, named: DomainConst.USERNAME_IMG_NAME)
         
