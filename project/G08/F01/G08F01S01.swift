@@ -143,7 +143,7 @@ class G08F01S01: StepContent, UISearchBarDelegate,
      */
     override func checkDone() -> Bool {
         if G08F01S01._target.isEmpty() {
-            self.showAlert(message: DomainConst.CONTENT00359)
+            self.showAlert(message: self.getTitleText())
             return false
         }
         return true

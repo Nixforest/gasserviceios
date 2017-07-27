@@ -392,6 +392,16 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                    style: .cancel,
                                    handler: nil)
         alert.addAction(cancel)
+        //++ BUG0133-SPJ (NguyenPT 20170724) Family order: change agent delivery
+        if _data.getRecord().show_button_change_agent == 1 {
+            let updateAgent = UIAlertAction(title: DomainConst.CONTENT00458,
+                                               style: .default, handler: {
+                                                action in
+                                                self.handleUpdateAgent()
+            })
+            alert.addAction(updateAgent)
+        }
+        //-- BUG0133-SPJ (NguyenPT 20170724) Family order: change agent delivery
         if _data.getRecord().show_button_update_customer == 1 {
             let updateCustomer = UIAlertAction(title: DomainConst.CONTENT00154,
                                                    style: .default, handler: {
@@ -408,6 +418,17 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         alert.addAction(ticket)
         self.present(alert, animated: true, completion: nil)
     }
+    //++ BUG0133-SPJ (NguyenPT 20170724) Family order: change agent delivery
+    /**
+     * Handle update agent delivery
+     */
+    internal func handleUpdateAgent() {
+        G07F03VC._currentAgent.id = self._data.getRecord().agent_id
+        G07F03VC._currentAgent.name = self._data.getRecord().agent_name
+        G07F03VC._currentAgent.phone = self._data.getRecord().agent_phone
+        self.pushToView(name: G07F03VC.theClassName)
+    }
+    //-- BUG0133-SPJ (NguyenPT 20170724) Family order: change agent delivery
     
     /**
      * Handle update customer information
