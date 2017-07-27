@@ -10,39 +10,40 @@ import UIKit
 import harpyframework
 
 class OrderConfigRequest: BaseRequest {
-    override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
-        let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
-            (
-            data, response, error) in
-            // Check error
-            guard error == nil else {
-                self.showAlert(message: DomainConst.CONTENT00196)
-                return
-            }
-            guard let data = data else {
-                self.showAlert(message: DomainConst.CONTENT00196)
-                return
-            }
-            // Convert to string
-            let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            print(dataString ?? "")
-            // Convert to object
-            let model: OrderConfigRespModel = OrderConfigRespModel(jsonString: dataString as! String)
-            if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
-                // Hide overlay
-                LoadingView.shared.hideOverlayView()
-                BaseModel.shared.saveOrderConfig(config: model.getRecord())
-                // Update data to MapViewController view (cross-thread)
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
-                }
-            } else {
-                self.showAlert(message: model.message)
-                return
-            }
-        })
-        return task
-    }
+    //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//    override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
+//        let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
+//            (
+//            data, response, error) in
+//            // Check error
+//            guard error == nil else {
+//                self.showAlert(message: DomainConst.CONTENT00196)
+//                return
+//            }
+//            guard let data = data else {
+//                self.showAlert(message: DomainConst.CONTENT00196)
+//                return
+//            }
+//            // Convert to string
+//            let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+//            print(dataString ?? "")
+//            // Convert to object
+//            let model: OrderConfigRespModel = OrderConfigRespModel(jsonString: dataString as! String)
+//            if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
+//                // Hide overlay
+//                LoadingView.shared.hideOverlayView()
+//                BaseModel.shared.saveOrderConfig(config: model.getRecord())
+//                // Update data to MapViewController view (cross-thread)
+//                DispatchQueue.main.async {
+//                    NotificationCenter.default.post(name: Notification.Name(rawValue: self.theClassName), object: model)
+//                }
+//            } else {
+//                self.showAlert(message: model.message)
+//                return
+//            }
+//        })
+//        return task
+//    }
     
     override func execute() {
         let serverUrl: URL = URL(string: DomainConst.SERVER_URL + self.url)!
@@ -55,15 +56,16 @@ class OrderConfigRequest: BaseRequest {
         task.resume()
     }
     
-    /**
-     * Initializer
-     * - parameter url: URL
-     * - parameter reqMethod: Request method
-     * - parameter view: Root view
-     */
-    override init(url: String, reqMethod: String, view: BaseViewController) {
-        super.init(url: url, reqMethod: reqMethod, view: view)
-    }
+//    /**
+//     * Initializer
+//     * - parameter url: URL
+//     * - parameter reqMethod: Request method
+//     * - parameter view: Root view
+//     */
+//    override init(url: String, reqMethod: String, view: BaseViewController) {
+//        super.init(url: url, reqMethod: reqMethod, view: view)
+//    }
+    //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     
     /**
      * Set data content

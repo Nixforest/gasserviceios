@@ -126,6 +126,9 @@ class G01F01VC: StepVC, StepDoneDelegate {
         // Disable action handle notification from server
         BaseModel.shared.enableHandleNotificationFlag(isEnabled: false)
         CreateUpholdRequest.requestCreateUphold(
+            //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+            action: #selector(finishHandleRequest(_:)),
+            //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
             customerId: BaseModel.shared.user_id,
             employeeId: "",
             typeUphold: G01F01S01._selectedValue.id,
@@ -134,6 +137,23 @@ class G01F01VC: StepVC, StepDoneDelegate {
             contactTel: G01F01S02._phone,
             requestBy: G01F01S02._selectedValue.id, view: self)
     }
+    //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+    internal func finishHandleRequest(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            // Enable action handle notification from server
+            BaseModel.shared.enableHandleNotificationFlag(isEnabled: true)
+            self.clearData()
+            showAlert(message: model.message, okHandler: {
+                alert in
+                self.backButtonTapped(self)
+            })
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     
     /*
      // MARK: - Navigation

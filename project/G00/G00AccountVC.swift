@@ -327,11 +327,12 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
             //++ BUG0008-SPJ (NguyenPT 20170616) Update G00Account
             txtAgent.text   = BaseModel.shared.user_info?.getAgentName()
             //-- BUG0008-SPJ (NguyenPT 20170616) Update G00Account
-            if let url      = NSURL(string: String(BaseModel.shared.getServerURL() + (BaseModel.shared.user_info?.getAvatarImage())!)!) {
-                if let data = NSData(contentsOf: url as URL) {
-                    imgAvatar.image = UIImage(data: data as Data)
-                }
-            }
+//            if let url      = NSURL(string: String(BaseModel.shared.getServerURL() + (BaseModel.shared.user_info?.getAvatarImage())!)!) {
+//                if let data = NSData(contentsOf: url as URL) {
+//                    imgAvatar.image = UIImage(data: data as Data)
+//                }
+//            }
+            imgAvatar.getImgFromUrl(link: (BaseModel.shared.user_info?.getAvatarImage())!, contentMode: imgAvatar.contentMode)
         }
         self.view.makeComponentsColor()
     }
@@ -360,11 +361,12 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         txtAgent.text   = BaseModel.shared.user_info?.getAgentName()
         //-- BUG0008-SPJ (NguyenPT 20170616) Update G00Account
         // Load image
-        if let url = NSURL(string: String(BaseModel.shared.getServerURL() + (BaseModel.shared.user_info?.getAvatarImage())!)!) {
-            if let data = NSData(contentsOf: url as URL) {
-                imgAvatar.image = UIImage(data: data as Data)
-            }        
-        }
+//        if let url = NSURL(string: String(BaseModel.shared.getServerURL() + (BaseModel.shared.user_info?.getAvatarImage())!)!) {
+//            if let data = NSData(contentsOf: url as URL) {
+//                imgAvatar.image = UIImage(data: data as Data)
+//            }        
+//        }
+        imgAvatar.getImgFromUrl(link: (BaseModel.shared.user_info?.getAvatarImage())!, contentMode: imgAvatar.contentMode)
     }
 
     /**

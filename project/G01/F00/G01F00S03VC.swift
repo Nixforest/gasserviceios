@@ -11,7 +11,7 @@ import harpyframework
 
 //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
 //class G01F00S03VC: BaseViewController {
-class G01F00S03VC: ChildViewController {
+class G01F00S03VC: ChildViewController, RatingViewDelegate {
 //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     // MARK: Properties
     let lblHeader0 = UILabel()
@@ -68,6 +68,10 @@ class G01F00S03VC: ChildViewController {
         NSForegroundColorAttributeName : UIColor.blue,
         NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue,
         ]
+    //++ BUG0127-SPJ (NguyenPT 20170724) Uphold rating: merge to 1 step
+    /** Rating view */
+    private var rating: RatingView?
+    //-- BUG0127-SPJ (NguyenPT 20170724) Uphold rating: merge to 1 step
     
     // ScrollView
     @IBOutlet weak var scrollView: UIScrollView!
@@ -139,7 +143,7 @@ class G01F00S03VC: ChildViewController {
 //                //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
 //            }
 //        }
-        UpholdDetailRequest.requestUpholdDetail(action: #selector(self.setData(_:)),
+        UpholdDetailRequest.requestUpholdDetail(action: #selector(self.finishRequestUpholdDetail(_:)),
                                                 view: self,
                                                 upholdId: BaseModel.shared.sharedDoubleStr.0,
                                                 replyId: BaseModel.shared.sharedDoubleStr.1)
@@ -664,7 +668,76 @@ class G01F00S03VC: ChildViewController {
         lblReport.text         = BaseModel.shared.currentUpholdDetail.last_reply_message
         lblReportWrong.text         = BaseModel.shared.currentUpholdDetail.report_wrong
         self.updateNotificationStatus()
+        
+        //++ BUG0127-SPJ (NguyenPT 20170724) Uphold rating: merge to 1 step
+        // Show rating view
+        if BaseModel.shared.currentUpholdDetail.status_number == DomainConst.UPHOLD_STATUS_COMPLETE && BaseModel.shared.currentUpholdDetail.rating_status.isEmpty {
+            // Create rating view
+            rating = RatingView(frame: CGRect(x: 0, y: getTopHeight(),
+                                                  width: GlobalConst.SCREEN_WIDTH,
+                                                  height: GlobalConst.SCREEN_HEIGHT * 2))
+            if BaseModel.shared.currentUpholdDetail.reply_item.count > 0 {
+                // Set value
+                rating?.setLabels(time: BaseModel.shared.currentUpholdDetail.reply_item[0].date_time_handle,
+                                 first: DomainConst.CONTENT00147,
+                                 firstValue: BaseModel.shared.currentUpholdDetail.type_uphold,
+                                 second: DomainConst.CONTENT00158,
+                                 secondValue: BaseModel.shared.currentUpholdDetail.status)
+                rating?.setHotline(hotline: BaseModel.shared.currentUpholdDetail.employee_phone)
+                rating?.delegate = self
+            }
+            
+            self.view.addSubview(rating!)
+        }
+        //-- BUG0127-SPJ (NguyenPT 20170724) Uphold rating: merge to 1 step
     }
+    
+    //++ BUG0127-SPJ (NguyenPT 20170724) Uphold rating: merge to 1 step
+    /**
+     * Request rating to server
+     */
+    func requestRating(_ sender: AnyObject) {
+        let ratingValue = rating?.getRatingValue()
+        var ratingStatusId = DomainConst.BLANK
+        if ratingValue! > 3 {
+            if BaseModel.shared.listRatingStatus.count != 0 {
+                ratingStatusId = BaseModel.shared.listRatingStatus[BaseModel.shared.listRatingStatus.count - 1].id
+            }
+        } else {
+            if BaseModel.shared.listRatingStatus.count != 0 {
+            ratingStatusId = BaseModel.shared.listRatingStatus[0].id
+            }
+        }
+        var listRating: [Int] = [Int]()
+        for _ in BaseModel.shared.listRatingType {
+            listRating.append(ratingValue!)
+        }
+        RatingUpholdRequest.requestRatingUphold(
+            action: #selector(finishRequestRating(_:)),
+            id: BaseModel.shared.currentUpholdDetail.id,
+            ratingStatusId: ratingStatusId,
+            listRating: listRating,
+            content: (rating?.getContent())!,
+            view: self)
+    }
+    
+    /**
+     * Handle when finish request rating
+     */
+    internal func finishRequestRating(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            self.clearData()
+            showAlert(message: model.message, okHandler: {
+                alert in
+                self.rating?.isHidden = true
+            })
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    //-- BUG0127-SPJ (NguyenPT 20170724) Uphold rating: merge to 1 step
     
     func phonetap() {
         self.makeACall(phone: BaseModel.shared.currentUpholdDetail.employee_phone)
@@ -708,8 +781,13 @@ class G01F00S03VC: ChildViewController {
      * Handle tap on rating button
      */
     internal func btnRatingTapped(_ sender: AnyObject) {
-        BaseModel.shared.sharedString = BaseModel.shared.currentUpholdDetail.id
-        self.pushToView(name: G01F03VC.theClassName)
+        //++ BUG0127-SPJ (NguyenPT 20170724) Uphold rating: merge to 1 step
+//        BaseModel.shared.sharedString = BaseModel.shared.currentUpholdDetail.id
+//        self.pushToView(name: G01F03VC.theClassName)
+        if rating != nil {
+            rating?.isHidden = false
+        }
+        //-- BUG0127-SPJ (NguyenPT 20170724) Uphold rating: merge to 1 step
     }
     //-- BUG0068-SPJ (NguyenPT 20170429) Add rating button
     

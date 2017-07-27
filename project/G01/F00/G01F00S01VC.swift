@@ -349,7 +349,7 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
         //++ BUG0124-SPJ (NguyenPT 20170711) Add button Add new
         var heightOfTable = GlobalConst.SCREEN_HEIGHT - upholdListButton.frame.maxY - GlobalConst.PARENT_BORDER_WIDTH * 2
         if BaseModel.shared.isCustomerUser() {
-            heightOfTable = heightOfTable + GlobalConst.SEARCH_BOX_HEIGHT - GlobalConst.BUTTON_H - GlobalConst.MARGIN
+            heightOfTable = heightOfTable + GlobalConst.SEARCH_BOX_HEIGHT - GlobalConst.BUTTON_H * 2 - GlobalConst.MARGIN
         }
         //-- BUG0124-SPJ (NguyenPT 20170711) Add button Add new
         problemTableView.frame = CGRect(x: marginX,

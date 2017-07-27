@@ -81,6 +81,9 @@ class G01F02VC: StepVC, StepDoneDelegate {
         // Disable action handle notification from server
         BaseModel.shared.enableHandleNotificationFlag(isEnabled: false)
         CreateUpholdReplyRequest.requestCreateUpholdReply(
+            //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+            action: #selector(finishHandleRequest(_:)),
+            //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
             upholdId: BaseModel.shared.currentUpholdDetail.id,
             status: G01F02S01._selectedValue.id, statusText: G01F02S01._selectedValue.name,
             hoursHandle: G01F02S02._selectedValue.id,
@@ -92,6 +95,21 @@ class G01F02VC: StepVC, StepDoneDelegate {
             noteInternal: G01F02S05._selectedValue,
             view: self)
     }
+    //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+    internal func finishHandleRequest(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.upholdList.updateStatus(id: BaseModel.shared.sharedDoubleStr.0, status: G01F02S01._selectedValue.name)
+            self.clearData()
+            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: model)
+            self.backButtonTapped(self)
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+    
     /*
     // MARK: - Navigation
 

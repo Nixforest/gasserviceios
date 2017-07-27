@@ -146,6 +146,19 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
         self.view.makeComponentsColor()
     }
     
+    //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+    internal func finishRequestOrderConfig(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = OrderConfigRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.saveOrderConfig(config: model.getRecord())
+            setData(notification)
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+    
     /**
      * Set data event handler
      */
@@ -304,7 +317,10 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
             MapViewController._distance = BaseModel.shared.getOrderConfig().distance_1
         } else {
             // Request from server
-            OrderConfigRequest.requestOrderConfig(action: #selector(setData(_:)), view: self)
+            //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+            //OrderConfigRequest.requestOrderConfig(action: #selector(setData(_:)), view: self)
+            OrderConfigRequest.requestOrderConfig(action: #selector(finishRequestOrderConfig(_:)), view: self)
+            //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         }
     }
     

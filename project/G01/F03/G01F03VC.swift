@@ -72,10 +72,25 @@ class G01F03VC: StepVC, StepDoneDelegate {
      * Handle send request rating uphold
      */
     override func btnSendTapped() {
-        RatingUpholdRequest.requestRatingUphold(id: BaseModel.shared.sharedString,
+        RatingUpholdRequest.requestRatingUphold(action: #selector(finishRequestRating(_:)),
+                                          id: BaseModel.shared.sharedString,
                                           ratingStatusId: G01F03S01._selectedValue.id,
                                           listRating: G01F03S02._selectedValue,
                                           content: G01F03S03._selectedValue, view: self)
+    }
+    
+    internal func finishRequestRating(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            self.clearData()
+            showAlert(message: model.message, okHandler: {
+                alert in
+                self.backButtonTapped(self)
+            })
+        } else {
+            showAlert(message: model.message)
+        }
     }
     
     /*

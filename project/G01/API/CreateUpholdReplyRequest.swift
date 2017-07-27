@@ -10,63 +10,65 @@ import Foundation
 import harpyframework
 
 class CreateUpholdReplyRequest: BaseRequest {
-    override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
-        let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
-            (
-            data, response, error) in
-            // Check error
-            guard error == nil else {
-                self.showAlert(message: DomainConst.CONTENT00196)
-                return
-            }
-            guard let data = data else {
-                self.showAlert(message: DomainConst.CONTENT00196)
-                return
-            }
-            // Convert to string
-            let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-            print(dataString ?? "")
-            // Convert to object
-            let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
-            // Enable action handle notification from server
-            BaseModel.shared.enableHandleNotificationFlag(isEnabled: true)
-            if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
-                // Hide overlay
-                LoadingView.shared.hideOverlayView()
-                // Clear data
-                (self.view as! G01F02VC).clearData()
-                // Back to home page (cross-thread)
-                DispatchQueue.main.async {
-                    self.view.showAlert(
-                        message: model.message,
-                        okHandler: {
-                            (alert: UIAlertAction!) in
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: model)
-                            BaseModel.shared.upholdList.updateStatus(id: BaseModel.shared.sharedDoubleStr.0, status: self.status)
-                            _ = self.view.navigationController?.popViewController(animated: true)
-                    })
-                }
-            } else {
-                self.showAlert(message: model.message)
-                return
-            }
-            // Hide overlay
-            LoadingView.shared.hideOverlayView()
-        })
-        return task
-    }
-    
-    /**
-     * Initializer
-     * - parameter url: URL
-     * - parameter reqMethod: Request method
-     * - parameter view: Root view
-     */
-    override init(url: String, reqMethod: String, view: BaseViewController) {
-        super.init(url: url, reqMethod: reqMethod, view: view)
-    }
-    
-    var status: String = String()
+    //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//    override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
+//        let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
+//            (
+//            data, response, error) in
+//            // Check error
+//            guard error == nil else {
+//                self.showAlert(message: DomainConst.CONTENT00196)
+//                return
+//            }
+//            guard let data = data else {
+//                self.showAlert(message: DomainConst.CONTENT00196)
+//                return
+//            }
+//            // Convert to string
+//            let dataString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+//            print(dataString ?? "")
+//            // Convert to object
+//            let model: BaseRespModel = BaseRespModel(jsonString: dataString as! String)
+//            // Enable action handle notification from server
+//            BaseModel.shared.enableHandleNotificationFlag(isEnabled: true)
+//            if model.status == DomainConst.RESPONSE_STATUS_SUCCESS {
+//                // Hide overlay
+//                LoadingView.shared.hideOverlayView()
+//                // Clear data
+//                (self.view as! G01F02VC).clearData()
+//                // Back to home page (cross-thread)
+//                DispatchQueue.main.async {
+//                    self.view.showAlert(
+//                        message: model.message,
+//                        okHandler: {
+//                            (alert: UIAlertAction!) in
+//                            NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_RELOAD_DATA_UPHOLD_DETAIL_VIEW), object: model)
+//                            BaseModel.shared.upholdList.updateStatus(id: BaseModel.shared.sharedDoubleStr.0, status: self.status)
+//                            _ = self.view.navigationController?.popViewController(animated: true)
+//                    })
+//                }
+//            } else {
+//                self.showAlert(message: model.message)
+//                return
+//            }
+//            // Hide overlay
+//            LoadingView.shared.hideOverlayView()
+//        })
+//        return task
+//    }
+//    
+//    /**
+//     * Initializer
+//     * - parameter url: URL
+//     * - parameter reqMethod: Request method
+//     * - parameter view: Root view
+//     */
+//    override init(url: String, reqMethod: String, view: BaseViewController) {
+//        super.init(url: url, reqMethod: reqMethod, view: view)
+//    }
+//    
+//    var status: String = String()
+    //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     
     /**
      * Set data content
@@ -77,7 +79,9 @@ class CreateUpholdReplyRequest: BaseRequest {
                  note: String, contact_phone: String, reportWrong: String,
                  listPostReplyImage: [UIImage], customerId: String,
                  noteInternal: String) {
-        self.status = statusText
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        self.status = statusText
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":\"%@\"}",
             DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
@@ -124,7 +128,8 @@ class CreateUpholdReplyRequest: BaseRequest {
      * - parameter noteInternal:        Note internal
      * - parameter view:                View controller
      */
-    public static func requestCreateUpholdReply(upholdId: String,
+    public static func requestCreateUpholdReply(action: Selector,
+                                         upholdId: String,
                                          status: String, statusText: String,
                                          hoursHandle: String,
                                          note: String, contact_phone: String,
@@ -143,6 +148,9 @@ class CreateUpholdReplyRequest: BaseRequest {
                         listPostReplyImage: listPostReplyImage,
                         customerId: customerId,
                         noteInternal: noteInternal)
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+        NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         //request.execute()
         request.executeUploadFile(listImages: listPostReplyImage)
     }

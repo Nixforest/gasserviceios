@@ -192,6 +192,8 @@
 		D79254461ECE8DDF00982781 /* G05F03S04.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79254451ECE8DDF00982781 /* G05F03S04.swift */; };
 		D79AC2311EBF4BFE00798514 /* G08F01S03.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AC2301EBF4BFE00798514 /* G08F01S03.swift */; };
 		D79C31771E9B8506006F3683 /* G07F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C31761E9B8506006F3683 /* G07F00S02VC.swift */; };
+		D7A5930D1F26DF1400A01853 /* RatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7A5930C1F26DF1400A01853 /* RatingView.xib */; };
+		D7A593121F26E4E200A01853 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A593111F26E4E200A01853 /* RatingView.swift */; };
 		D7ADCBC91ED020A800226523 /* TempDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ADCBC81ED020A800226523 /* TempDataRequest.swift */; };
 		D7ADCBCC1ED024BB00226523 /* TempDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ADCBCB1ED024BB00226523 /* TempDataModel.swift */; };
 		D7ADCBCE1ED0268100226523 /* TempDataRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7ADCBCD1ED0268100226523 /* TempDataRespModel.swift */; };
@@ -520,6 +522,8 @@
 		D79254451ECE8DDF00982781 /* G05F03S04.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F03S04.swift; path = G05/F03/G05F03S04.swift; sourceTree = "<group>"; };
 		D79AC2301EBF4BFE00798514 /* G08F01S03.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S03.swift; path = G08/F01/G08F01S03.swift; sourceTree = "<group>"; };
 		D79C31761E9B8506006F3683 /* G07F00S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07F00S02VC.swift; path = G07/F00/G07F00S02VC.swift; sourceTree = "<group>"; };
+		D7A5930C1F26DF1400A01853 /* RatingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RatingView.xib; path = G01/Controls/RatingView.xib; sourceTree = "<group>"; };
+		D7A593111F26E4E200A01853 /* RatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RatingView.swift; path = G01/Controls/RatingView.swift; sourceTree = "<group>"; };
 		D7ADCBC81ED020A800226523 /* TempDataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TempDataRequest.swift; path = G05/API/TempDataRequest.swift; sourceTree = "<group>"; };
 		D7ADCBCB1ED024BB00226523 /* TempDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TempDataModel.swift; path = G05/API/TempDataModel.swift; sourceTree = "<group>"; };
 		D7ADCBCD1ED0268100226523 /* TempDataRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TempDataRespModel.swift; path = G05/Model/TempDataRespModel.swift; sourceTree = "<group>"; };
@@ -941,6 +945,8 @@
 			children = (
 				D70ECECC1EE298FE00997F1A /* G01F00S04Cell.swift */,
 				D70ECECD1EE298FE00997F1A /* G01F00S04Cell.xib */,
+				D7A5930C1F26DF1400A01853 /* RatingView.xib */,
+				D7A593111F26E4E200A01853 /* RatingView.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -1590,6 +1596,7 @@
 				D7D233391ECF451D0063CA04 /* CashBookCell.xib in Resources */,
 				84284E171D40DF050079DEBC /* Main.storyboard in Resources */,
 				D77F06381E7176E900797A6B /* G01F00S02HistoryCell.xib in Resources */,
+				D7A5930D1F26DF1400A01853 /* RatingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1827,6 +1834,7 @@
 				D77E62BB1EDD6A5E00FD5512 /* G10Const.swift in Sources */,
 				D78F99F31ECD858C003CB814 /* G05F03Sum.swift in Sources */,
 				D77E62C91EDD76A500FD5512 /* ReportInventoryBean.swift in Sources */,
+				D7A593121F26E4E200A01853 /* RatingView.swift in Sources */,
 				D77F065A1E71771A00797A6B /* G01F02VC.swift in Sources */,
 				D7C491431ECC79B900CEF98C /* EmployeeCashBookListRequest.swift in Sources */,
 				D709FE921E86BCA600F32A7E /* CustomerFamilyCreateRequest.swift in Sources */,
