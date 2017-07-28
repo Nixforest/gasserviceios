@@ -58,7 +58,7 @@ class G00ChangePassVC: ChildViewController, UITextFieldDelegate {
     @IBAction func logoutButtonTapped(_ sender: AnyObject) {
         //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
         //RequestAPI.requestLogout(view: self)
-//        LogoutRequest.requestLogout(action: #selector(self.finishRequestLogout(_:)), view: self)
+        LogoutRequest.requestLogout(action: #selector(self.finishRequestLogout(_:)), view: self)
         //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     }
     
@@ -267,8 +267,12 @@ class G00ChangePassVC: ChildViewController, UITextFieldDelegate {
                                          text: DomainConst.CONTENT00090.uppercased(),
                                          action: #selector(logoutButtonTapped(_:)),
                                          target: self,
-                                         img: DomainConst.SAVE_INFO_IMG_NAME,
+                                         img: DomainConst.LOGOUT_IMG_NAME,
                                          tintedColor: UIColor.white)
+        //++ BUG0134-SPJ (NguyenPT 20170727) Change pass screen: Add logout button
+        logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
+        logoutButton.isHidden = !BaseModel.shared.getNeedChangePassFlag()
+        //-- BUG0134-SPJ (NguyenPT 20170727) Change pass screen: Add logout button
         
         // Navigation Bar customize
         //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller

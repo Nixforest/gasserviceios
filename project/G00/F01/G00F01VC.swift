@@ -27,9 +27,9 @@ class G00F01VC: StepVC, StepDoneDelegate {
         step1.stepDoneDelegate = self
         step2.stepDoneDelegate = self
         step3.stepDoneDelegate = self
-        appendContent(stepContent: step1)
+//        appendContent(stepContent: step1)
         appendContent(stepContent: step2)
-        appendContent(stepContent: step3)
+//        appendContent(stepContent: step3)
         appendSummary(summary: summary)
         step2.setTargetType(title: DomainConst.CONTENT00377,
                             type: DomainConst.SEARCH_TARGET_TYPE_AGENT)

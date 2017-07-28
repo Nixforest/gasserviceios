@@ -8,8 +8,13 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.27.0
+// - BUG0134: Change pass screen: Add logout button
 // Version: 1.26.0
-// - BUG0047: Refactor BaseRequest class
+// - BUG0133: Family order: change agent delivery
+// - BUG0132: Remember username after login
+// - BUG0130: Remove Signout menu
+// - BUG0127: Uphold rating - merge to 1 step
 // - BUG0047: Refactor BaseRequest class
 // Version: 1.25.0
 // - BUG0126: Handle input quantity of material when create VIP Customer order
