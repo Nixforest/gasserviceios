@@ -423,9 +423,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Handle update agent delivery
      */
     internal func handleUpdateAgent() {
-        G07F03VC._currentAgent.id = self._data.getRecord().agent_id
-        G07F03VC._currentAgent.name = self._data.getRecord().agent_name
+        G07F03VC._currentAgent.id    = self._data.getRecord().agent_id
+        G07F03VC._currentAgent.name  = self._data.getRecord().agent_name
         G07F03VC._currentAgent.phone = self._data.getRecord().agent_phone
+        G07F03VC._orderId            = self._data.getRecord().id
         self.pushToView(name: G07F03VC.theClassName)
     }
     //-- BUG0133-SPJ (NguyenPT 20170724) Family order: change agent delivery

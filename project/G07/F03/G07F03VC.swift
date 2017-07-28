@@ -11,7 +11,9 @@ import harpyframework
 
 class G07F03VC: StepVC, StepDoneDelegate {
     /** Current agent */
-    public static var _currentAgent: CustomerBean    = CustomerBean()
+    public static var _currentAgent:    CustomerBean    = CustomerBean()
+    /** Order id */
+    public static var _orderId:         String          = DomainConst.BLANK
 
     override func viewDidLoad() {
         // Get height of status bar + navigation bar
@@ -46,5 +48,47 @@ class G07F03VC: StepVC, StepDoneDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-
+    override func btnSendTapped() {
+        if G07F03S01._target.isEmpty() {
+            showAlert(message: DomainConst.CONTENT00462)
+            return
+        }
+        if G07F03S01._target.id == G07F03VC._currentAgent.id {
+            showAlert(message: DomainConst.CONTENT00463)
+            return
+        }
+        OrderFamilyHandleRequest.requestChangeAgentOrder(
+            action: #selector(finishRequestHandler(_:)),
+            view: self,
+            lat: String(MapViewController._originPos.latitude),
+            long: String(MapViewController._originPos.longitude),
+            id: G07F03VC._orderId,
+            agentId: G07F03S01._target.id)
+    }
+    
+    /**
+     * Handle when finish request
+     */
+    internal func finishRequestHandler(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            self.clearData()
+            showAlert(message: model.message, okHandler: {
+                alert in
+                self.backButtonTapped(self)
+            })
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Clear data
+     */
+    override func clearData() {
+        G07F03VC._currentAgent = CustomerBean.init()
+        G07F03VC._orderId = DomainConst.BLANK
+        G07F03S01._target = CustomerBean.init()
+    }
 }

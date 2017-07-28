@@ -202,6 +202,7 @@ class G08F01S01: StepContent, UISearchBarDelegate,
         if _searchBar.text != nil {
             // Get keyword
             let keyword = _searchBar.text!.removeSign().lowercased()
+            _searchBar.isUserInteractionEnabled = false
             CustomerListRequest.request(action: #selector(finishSearch(_:)),
                                         view: self.getParentView(),
                                         currentView: self,
@@ -231,6 +232,7 @@ class G08F01S01: StepContent, UISearchBarDelegate,
             showAlert(message: model.message)
         }
         //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
+        _searchBar.isUserInteractionEnabled = true
     }
     
     /**
@@ -336,7 +338,10 @@ class G08F01S01: StepContent, UISearchBarDelegate,
         UITableViewCell {
             var cell = UITableViewCell()
             if tableView == _tblSearchBar {
-                cell.textLabel?.text = _data[indexPath.row].name
+                if _data.count > indexPath.row {
+                    cell.textLabel?.text = _data[indexPath.row].name
+                }
+                //cell.textLabel?.text = _data[indexPath.row].name
             } else  if tableView == _tblTarget {
                 if !G08F01S01._target.isEmpty() {
                     cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: UITableViewCellStyle.value2, reuseIdentifier: "cell")
