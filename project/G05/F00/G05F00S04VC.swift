@@ -53,10 +53,12 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private var _listCylinder: [[(String, Int)]]         = [[(String, Int)]]()
     /** Cylinder info header */
     private let _cylinderHeader:    [(String, Int)]      = [(DomainConst.CONTENT00335, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
-                                                            (DomainConst.CONTENT00336, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
-                                                            (DomainConst.CONTENT00337, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
-                                                            (DomainConst.CONTENT00338, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
-                                                            (DomainConst.CONTENT00339, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4)]
+                                                            //(DomainConst.CONTENT00336, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
+                                                            (DomainConst.CONTENT00466, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
+                                                            (DomainConst.CONTENT00415, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
+                                                            (DomainConst.CONTENT00337, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
+                                                            (DomainConst.CONTENT00338, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4),
+                                                            (DomainConst.CONTENT00339, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.5)]
     /** Add cylinder row data */
     private var _listCylinderOption: [ConfigurationModel] = [ConfigurationModel]()
     private let _addCylinderRow:    ConfigurationModel   = ConfigurationModel(
@@ -64,6 +66,13 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                                             name: DomainConst.CONTENT00325,
                                                             iconPath: DomainConst.ADD_ICON_IMG_NAME,
                                                             value: DomainConst.BLANK)
+    //++ BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
+    private let _clearAllCylinderRow: ConfigurationModel   = ConfigurationModel(
+                                                            id: DomainConst.ORDER_INFO_MATERIAL_CLEAR_ALL_CYLINDER,
+                                                            name: DomainConst.CONTENT00464,
+                                                            iconPath: DomainConst.CLEAR_ALL_ICON_IMG_NAME,
+                                                            value: DomainConst.BLANK)
+    //-- BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
     /** Note textview */
     private var _tbxNote: UITextView                     = UITextView()
     /** Height of bottom view */
@@ -95,6 +104,25 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     
     // MARK: Methods
     // MARK: Data prepare
+    //++ BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
+    /**
+     * Clear all cylinders
+     */
+    private func clearAllCylinders() {
+        showAlert(message: DomainConst.CONTENT00465,
+                  okHandler: {
+                    alert in
+                    self._data.getRecord().info_vo.removeAll()
+                    self._listCylinder.removeAll()
+                    self._tblViewCylinder.reloadData()
+                    self.updateLayout()
+        },
+                  cancelHandler: {
+                    alert in
+        })
+    }
+    //-- BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
+    
     /**
      * Add material
      */
@@ -181,7 +209,10 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Insert material at tail
      * - parameter material: Data to update
      */
-    private func appendMaterialCylinder(material: OrderDetailBean) {
+    //++ BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
+    //private func appendMaterialCylinder(material: OrderDetailBean) {
+    private func appendMaterialCylinder(material: OrderDetailBean, isUpdateQty: Bool = true) {
+    //-- BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
         //++ BUG0083-SPJ (NguyenPT 20170515) Add Cylinder in VIP Order bug
 //        var idx: Int = -1
 //        // Search in lists
@@ -228,12 +259,20 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         let cylinderValue: [(String, Int)] = [
             (orderItem.material_name, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
             (orderItem.seri,          G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
-            (orderItem.kg_empty,      G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
-            (orderItem.kg_has_gas,    G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
-            (gasdu,                   G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4)
+            (orderItem.qty,           G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
+            (orderItem.kg_empty,      G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
+            (orderItem.kg_has_gas,    G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4),
+            (gasdu,                   G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.5)
         ]
         _listCylinder.append(cylinderValue)
-        updateQtyCylinder(idx: _listCylinder.count - 1)
+        //++ BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
+        //updateQtyCylinder(idx: _listCylinder.count - 1)
+        if isUpdateQty {
+            updateQtyCylinder(idx: _listCylinder.count - 1)
+        } else {
+            _tblViewCylinder.reloadData()
+        }
+        //-- BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
         updateLayout()
         //-- BUG0083-SPJ (NguyenPT 20170515) Add Cylinder in VIP Order bug
     }
@@ -309,15 +348,21 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter idx: Index of selected row
      */
     private func updateQtyCylinder(idx: Int) {
+        //++ BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
+        if self._data.getRecord().info_vo.count <= idx {
+            return
+        }
+        //-- BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
         let cylinder = self._data.getRecord().info_vo[idx]
         var tbxSerial       : UITextField?
         var tbxCylinderOnly : UITextField?
         var tbxFull         : UITextField?
+        var tbxQty          : UITextField?
         
         //++ BUG0113-SPJ (NguyenPT 20170622) Bug when input "," inside number field
-        let df = NumberFormatter()
-        df.locale = Locale.current
-        let decimal = df.decimalSeparator ?? DomainConst.SPLITER_TYPE4
+//        let df = NumberFormatter()
+//        df.locale = Locale.current
+//        let decimal = df.decimalSeparator ?? DomainConst.SPLITER_TYPE4
         //-- BUG0113-SPJ (NguyenPT 20170622) Bug when input "," inside number field
         
         // Create alert
@@ -334,6 +379,18 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             tbxSerial?.text              = cylinder.seri
             tbxSerial?.textAlignment     = .center
         })
+        //++ BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
+        alert.addTextField(configurationHandler: {
+            textField -> Void in
+            tbxQty = textField
+            tbxQty?.placeholder       = DomainConst.CONTENT00255
+            tbxQty?.clearButtonMode   = .whileEditing
+            tbxQty?.returnKeyType     = .done
+            tbxQty?.keyboardType      = .numberPad
+            tbxQty?.text              = cylinder.qty
+            tbxQty?.textAlignment     = .center
+        })
+        //-- BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
         alert.addTextField(configurationHandler: {
             textField -> Void in
             tbxCylinderOnly = textField
@@ -360,43 +417,159 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         // Add ok action
         let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
-            if !(tbxCylinderOnly?.text?.isEmpty)! && !(tbxFull?.text?.isEmpty)! {
-                //++ BUG0113-SPJ (NguyenPT 20170622) Bug when input "," inside number field
-                let cylinderOnlyStr = (tbxCylinderOnly?.text)!.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
-                let fullStr = (tbxFull?.text)!.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
-                
-                //let cylinderOnly    = ((tbxCylinderOnly?.text)! as NSString).doubleValue
-                //let full            = ((tbxFull?.text)! as NSString).doubleValue
-                let cylinderOnly    = (cylinderOnlyStr as NSString).doubleValue
-                let full            = (fullStr as NSString).doubleValue
-                //-- BUG0113-SPJ (NguyenPT 20170622) Bug when input "," inside number field
-                
-                // Update data
-                self._data.getRecord().info_vo[idx].kg_empty    = String(describing: cylinderOnly)
-                self._data.getRecord().info_vo[idx].seri        = (tbxSerial?.text)!
-                self._data.getRecord().info_vo[idx].kg_has_gas  = String(describing: full)
-                // Update in table data
-                self._listCylinder[idx][1].0 = (tbxSerial?.text)!
-                self._listCylinder[idx][2].0 = String(describing: cylinderOnly)
-                self._listCylinder[idx][3].0 = String(describing: full)
-                self._listCylinder[idx][4].0 = String(describing: (full - cylinderOnly))
-                // Update table
-                self._tblViewCylinder.reloadRows(at: [IndexPath(item: idx, section: 1)], with: .automatic)
-            } else {
-                self.showAlert(message: DomainConst.CONTENT00251, okTitle: DomainConst.CONTENT00251,
-                               okHandler: {_ in
-                                self.updateQtyCylinder(idx: idx)
-                },
-                               cancelHandler: {_ in
-                                
-                })
+            //++ BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
+//            if !(tbxCylinderOnly?.text?.isEmpty)! && !(tbxFull?.text?.isEmpty)! && !(tbxQty?.text?.isEmpty)! {
+//                //++ BUG0113-SPJ (NguyenPT 20170622) Bug when input "," inside number field
+//                let cylinderOnlyStr = (tbxCylinderOnly?.text)!.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
+//                let fullStr = (tbxFull?.text)!.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
+//                
+//                //let cylinderOnly    = ((tbxCylinderOnly?.text)! as NSString).doubleValue
+//                //let full            = ((tbxFull?.text)! as NSString).doubleValue
+//                let cylinderOnly    = (cylinderOnlyStr as NSString).doubleValue
+//                let full            = (fullStr as NSString).doubleValue
+//                //-- BUG0113-SPJ (NguyenPT 20170622) Bug when input "," inside number field
+//                
+//                // Update data
+//                self._data.getRecord().info_vo[idx].kg_empty    = String(describing: cylinderOnly)
+//                self._data.getRecord().info_vo[idx].seri        = (tbxSerial?.text)!
+//                self._data.getRecord().info_vo[idx].qty         = (tbxQty?.text)!
+//                self._data.getRecord().info_vo[idx].qty_real    = (tbxQty?.text)!
+//                self._data.getRecord().info_vo[idx].kg_has_gas  = String(describing: full)
+//                // Update in table data
+//                self._listCylinder[idx][1].0 = (tbxSerial?.text)!
+//                self._listCylinder[idx][2].0 = (tbxQty?.text)!
+//                self._listCylinder[idx][3].0 = String(describing: cylinderOnly)
+//                self._listCylinder[idx][4].0 = String(describing: full)
+//                self._listCylinder[idx][5].0 = String(describing: (full - cylinderOnly))
+//                // Update table
+//                self._tblViewCylinder.reloadRows(at: [IndexPath(item: idx, section: 1)], with: .automatic)
+//            } else {
+//                self.showAlert(message: DomainConst.CONTENT00251, okTitle: DomainConst.CONTENT00251,
+//                               okHandler: {_ in
+//                                self.updateQtyCylinder(idx: idx)
+//                },
+//                               cancelHandler: {_ in
+//                                
+//                })
+//            }
+            if let seri = tbxSerial?.text, let qty = tbxQty?.text,
+                let cylinderMass = tbxCylinderOnly?.text,
+                let fullMass = tbxFull?.text {
+                // Small cylinder
+                if self._data.getRecord().info_vo[idx].isCylinderType1() {
+                    self.updateDataLayoutCylinder(idx: idx, value: (seri, qty, cylinderMass, fullMass))
+                } else if self._data.getRecord().info_vo[idx].isCylinderType2() {   // Big cylinders
+                    // Quantity is "1"
+                    if qty == DomainConst.NUMBER_ONE_VALUE {
+                        self.updateDataLayoutCylinder(idx: idx, value: (seri, qty, cylinderMass, fullMass))
+                    } else if !qty.isEmpty {    // Quantity is greater than "1"
+                        self.updateDataLayoutCylinder(idx: idx,
+                                                      value: (seri, DomainConst.NUMBER_ONE_VALUE,
+                                                              cylinderMass, fullMass))
+                        if let n = NumberFormatter().number(from: qty) {
+                            for _ in 0..<(n.intValue - 1) {
+                                self.appendMaterialCylinder(material: self._data.getRecord().info_vo[idx], isUpdateQty: false)
+                            }
+                        }
+                    }
+                }
             }
+            //-- BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
         }
         
         alert.addAction(cancel)
         alert.addAction(ok)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    //++ BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
+    /**
+     * Update data layout for list cylinder
+     * - parameter idx: Index
+     * - parameter value: Value to update (Serial, Quantity, Cylinder mass, Full mass)
+     */
+    private func updateDataLayoutCylinder(idx: Int, value: (String, String, String, String)) {
+        if _data.getRecord().info_vo.count <= idx {
+            return
+        }
+        let df = NumberFormatter()
+        df.locale = Locale.current
+        let decimal = df.decimalSeparator ?? DomainConst.SPLITER_TYPE4
+        let isDataValid = !value.1.isEmpty && !value.2.isEmpty && !value.3.isEmpty
+        // Cylinder 4kg, 6kg, 12kg
+        if self._data.getRecord().info_vo[idx].isCylinderType1() && !value.1.isEmpty {
+            // Serial
+            self._data.getRecord().info_vo[idx].seri        = value.0
+            self._listCylinder[idx][1].0                    = value.0
+            // Quantity
+            self._data.getRecord().info_vo[idx].qty         = value.1
+            self._data.getRecord().info_vo[idx].qty_real    = value.1
+            self._listCylinder[idx][2].0                    = value.1
+            var cylinderOnly = 0.0
+            var full = 0.0
+            // Cylinder mass
+            if !value.2.isEmpty {
+                let cylinderOnlyStr = value.2.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
+                cylinderOnly        = (cylinderOnlyStr as NSString).doubleValue
+                self._data.getRecord().info_vo[idx].kg_empty    = String(describing: cylinderOnly)
+                self._listCylinder[idx][3].0                    = String(describing: value.2)
+            }
+            // Full mass
+            if !value.3.isEmpty {
+                let fullStr = value.3.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
+                full    = (fullStr as NSString).doubleValue
+                self._data.getRecord().info_vo[idx].kg_has_gas  = String(describing: full)
+                self._listCylinder[idx][4].0                    = String(describing: value.3)
+            }
+            if !value.2.isEmpty && !value.3.isEmpty {
+                self._listCylinder[idx][5].0 = String(describing: (full - cylinderOnly))
+            }
+            // Update table
+            self._tblViewCylinder.reloadRows(at: [IndexPath(item: idx, section: 1)], with: .automatic)
+        } else if self._data.getRecord().info_vo[idx].isCylinderType2() && isDataValid {
+            let cylinderOnlyStr = value.2.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
+            let fullStr = value.3.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
+            let cylinderOnly    = (cylinderOnlyStr as NSString).doubleValue
+            let full            = (fullStr as NSString).doubleValue
+            // Update to array
+            self.updateDataArrayCylinder(idx: idx, value: (value.0, value.1,
+                                                           cylinderOnly, full))
+            // Update table
+            self._tblViewCylinder.reloadRows(at: [IndexPath(item: idx, section: 1)], with: .automatic)
+        } else {
+            self.showAlert(message: DomainConst.CONTENT00251, okTitle: DomainConst.CONTENT00251,
+                           okHandler: {_ in
+                            self.updateQtyCylinder(idx: idx)
+            },
+                           cancelHandler: {_ in
+                            
+            })
+        }
+    }
+    
+    /**
+     * Update data to array cylinder
+     * - parameter idx: Index
+     * - parameter value: Value to update (Serial, Quantity, Cylinder mass, Full mass)
+     */
+    private func updateDataArrayCylinder(idx: Int, value: (String, String, Double, Double)) {
+        if _data.getRecord().info_vo.count <= idx {
+            return
+        }
+        // Update data
+        self._data.getRecord().info_vo[idx].kg_empty    = String(describing: value.2)
+        self._data.getRecord().info_vo[idx].seri        = value.0
+        self._data.getRecord().info_vo[idx].qty         = value.1
+        self._data.getRecord().info_vo[idx].qty_real    = value.1
+        self._data.getRecord().info_vo[idx].kg_has_gas  = String(describing: value.3)
+        // Update in table data
+        self._listCylinder[idx][1].0 = value.0
+        self._listCylinder[idx][2].0 = value.1
+        self._listCylinder[idx][3].0 = String(describing: value.2)
+        self._listCylinder[idx][4].0 = String(describing: value.3)
+        self._listCylinder[idx][5].0 = String(describing: (value.3 - value.2))
+    }
+    //-- BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
     
     /**
      * Remove cylinder
@@ -468,9 +641,10 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             let cylinderValue: [(String, Int)] = [
                 (item.material_name, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
                 (item.seri,          G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
-                (item.kg_empty,      G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
-                (item.kg_has_gas,    G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
-                (gasdu,              G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4)
+                (item.qty,           G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
+                (item.kg_empty,      G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
+                (item.kg_has_gas,    G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4),
+                (gasdu,              G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.5)
             ]
             self._listCylinder.append(cylinderValue)
         }
@@ -484,6 +658,9 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         if data.allow_update == DomainConst.NUMBER_ONE_VALUE {  // Allow update
             if _listCylinderOption.count == 0 {                 // Not add "Add item" yet
                 _listCylinderOption.append(_addMaterialRow)     // Add "Add item"
+                //++ BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
+                _listCylinderOption.append(_clearAllCylinderRow)
+                //-- BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
             }
         } else {  // Not allow update
             _listCylinderOption.removeAll()
@@ -501,7 +678,10 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _tblViewCylinder.allowsSelectionDuringEditing = false
         // Calculate height for put note textbox
         var height = _tblViewGas.frame.height
-        if _listMaterial.count < _listCylinder.count {
+        //++ BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
+//        if _listMaterial.count < _listCylinder.count {
+        if _tblViewCylinder.frame.height > height {
+        //-- BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
             height = _tblViewCylinder.frame.height
         }
         offset = offset + height + GlobalConst.MARGIN
@@ -658,7 +838,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                        y: frame.origin.y,
                                        width: frame.width,
                                        height: CGFloat(_listInfo.count) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
-        self._segment.frame.origin = CGPoint(x: 0,
+        self._segment.frame.origin = CGPoint(x: GlobalConst.MARGIN_CELL_X,
                                              y: self._tableView.frame.maxY)
     }
     
@@ -1164,14 +1344,15 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         // Segment
         let font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        _segment.frame = CGRect(x: 0, y: offset,
-                                width: GlobalConst.SCREEN_WIDTH,
+        _segment.frame = CGRect(x: GlobalConst.MARGIN_CELL_X, y: offset,
+                                width: GlobalConst.SCREEN_WIDTH - 2 * GlobalConst.MARGIN_CELL_X,
                                 height: GlobalConst.BUTTON_H)
         _segment.setTitleTextAttributes([NSFontAttributeName: font],
                                         for: UIControlState())
         _segment.selectedSegmentIndex = 0
-        _segment.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
-        _segment.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
+//        _segment.layer.borderWidth = GlobalConst.BUTTON_BORDER_WIDTH
+//        _segment.layer.borderColor = GlobalConst.BUTTON_COLOR_RED.cgColor
+        _segment.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
         _segment.tintColor = GlobalConst.BUTTON_COLOR_RED
         _segment.addTarget(self, action: #selector(segmentChange(_:)), for: .valueChanged)
         offset = offset + _segment.frame.height + GlobalConst.MARGIN
@@ -1335,7 +1516,10 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                        width: GlobalConst.SCREEN_WIDTH,
                                        height: CGFloat(_listCylinder.count + _listCylinderOption.count + 1) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
         var height = _tblViewGas.frame.height
-        if _listMaterial.count < _listCylinder.count {
+        //++ BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
+//        if _listMaterial.count < _listCylinder.count {
+        if _tblViewCylinder.frame.height > height {
+        //-- BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
             height = _tblViewCylinder.frame.height
         }
         offset = offset + height + GlobalConst.MARGIN
@@ -1551,7 +1735,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             case 0:             // Header
                 cell.setup(data: _cylinderHeader, color: GlobalConst.BUTTON_COLOR_GRAY)
             case 1:             // Material
-                cell.setup(data: _listCylinder[indexPath.row], color: UIColor.white, highlighColumn: [1, 2, 3])
+                cell.setup(data: _listCylinder[indexPath.row], color: UIColor.white, highlighColumn: [1, 2, 3, 4])
             case 2:             // Add new
                 if _listCylinderOption.count > indexPath.row  {
                     cell.setup(config: _listCylinderOption[indexPath.row])
@@ -1570,14 +1754,6 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Tells the delegate that the specified row is now selected.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //++ BUG0114-SPJ (NguyenPT 20170624) Add note field
-        if _listInfo[indexPath.row].id == DomainConst.ORDER_INFO_NOTE_ID
-            && (tableView == _tableView) {
-            self.showAlert(message: _listInfo[indexPath.row].name)
-            return
-        }
-        //-- BUG0114-SPJ (NguyenPT 20170624) Add note field
-        
         // Check if current data allow update
         if self._data.getRecord().allow_update == DomainConst.NUMBER_ZERO_VALUE {
             return
@@ -1588,6 +1764,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 let phone = _listInfo[indexPath.row].name.normalizatePhoneString()
                 self.makeACall(phone: phone)
             }
+            //++ BUG0114-SPJ (NguyenPT 20170624) Add note field
+            if _listInfo[indexPath.row].id == DomainConst.ORDER_INFO_NOTE_ID {
+                self.showAlert(message: _listInfo[indexPath.row].name)
+            }
+            //-- BUG0114-SPJ (NguyenPT 20170624) Add note field
         case _tblViewGas:
             if indexPath.section == 1 {         // Select material
                 //updateMaterial(idx: indexPath.row)
@@ -1602,7 +1783,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             if indexPath.section == 1 {
                 updateQtyCylinder(idx: indexPath.row)
             } else if indexPath.section == 2 {
-                self.selectMaterial(type: self.TYPE_CYLINDER)
+                //++ BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
+//                self.selectMaterial(type: self.TYPE_CYLINDER)
+                if _listCylinderOption[indexPath.row].id == DomainConst.ORDER_INFO_MATERIAL_CLEAR_ALL_CYLINDER {
+                    clearAllCylinders()
+                } else if _listCylinderOption[indexPath.row].id == DomainConst.ORDER_INFO_MATERIAL_ADD_NEW {
+                    self.selectMaterial(type: self.TYPE_CYLINDER)
+                }
+                //-- BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
             }
             break
         default:

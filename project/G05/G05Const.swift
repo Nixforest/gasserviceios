@@ -47,7 +47,8 @@ class G05Const {
     /** Weight of table column size */
     public static let TABLE_COLUME_WEIGHT_GAS_INFO              = (3, 1, 1)
     /** Weight of table column size */
-    public static let TABLE_COLUME_WEIGHT_CYLINDER_INFO         = (4, 1, 1, 1, 1)
+    //public static let TABLE_COLUME_WEIGHT_CYLINDER_INFO         = (4, 1, 1, 1, 1)
+    public static let TABLE_COLUME_WEIGHT_CYLINDER_INFO         = (4, 1, 1, 1, 1, 1)
     /** Notification name */
     public static let NOTIFY_NAME_UPDATE_DATA_G05_F03           = FUNC_IDENTIFIER + "f03"
 }
