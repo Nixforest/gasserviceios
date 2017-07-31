@@ -9,6 +9,7 @@
 #include <metal_stdlib>
 using namespace metal;
 // Version: 1.27.0
+// - BUG0136: Handle sum all cylinders
 // - BUG0135: Add new cylinder, clear all cylinders in Order VIP customer
 // - BUG0134: Change pass screen: Add logout button
 // Version: 1.26.0

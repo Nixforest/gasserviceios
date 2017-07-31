@@ -54,8 +54,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /** Cylinder info header */
     private let _cylinderHeader:    [(String, Int)]      = [(DomainConst.CONTENT00335, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
                                                             //(DomainConst.CONTENT00336, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
-                                                            (DomainConst.CONTENT00466, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
-                                                            (DomainConst.CONTENT00415, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
+                                                            (DomainConst.CONTENT00415, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
+                                                            (DomainConst.CONTENT00466, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
                                                             (DomainConst.CONTENT00337, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
                                                             (DomainConst.CONTENT00338, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4),
                                                             (DomainConst.CONTENT00339, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.5)]
@@ -73,6 +73,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                                             iconPath: DomainConst.CLEAR_ALL_ICON_IMG_NAME,
                                                             value: DomainConst.BLANK)
     //-- BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
+    //++ BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
+    private let _sumCylinder:       ConfigurationModel   = ConfigurationModel(
+                                                            id: DomainConst.ORDER_INFO_MATERIAL_SUM_ALL_CYLINDER,
+        name: DomainConst.CONTENT00218,
+        iconPath: DomainConst.REPORT_SUM_ICON_IMG_NAME,
+        value: DomainConst.BLANK)
+    //-- BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
+    
     /** Note textview */
     private var _tbxNote: UITextView                     = UITextView()
     /** Height of bottom view */
@@ -258,8 +266,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _data.getRecord().info_vo.append(orderItem)
         let cylinderValue: [(String, Int)] = [
             (orderItem.material_name, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
-            (orderItem.seri,          G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
-            (orderItem.qty,           G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
+            (orderItem.qty,           G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
+            (orderItem.seri,          G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
             (orderItem.kg_empty,      G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
             (orderItem.kg_has_gas,    G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4),
             (gasdu,                   G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.5)
@@ -369,16 +377,6 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         let alert = UIAlertController(title: cylinder.material_name,
                                       message: DomainConst.CONTENT00345,
                                       preferredStyle: .alert)
-        alert.addTextField(configurationHandler: {
-            textField -> Void in
-            tbxSerial = textField
-            tbxSerial?.placeholder       = DomainConst.CONTENT00109
-            tbxSerial?.clearButtonMode   = .whileEditing
-            tbxSerial?.returnKeyType     = .next
-            tbxSerial?.keyboardType      = .numberPad
-            tbxSerial?.text              = cylinder.seri
-            tbxSerial?.textAlignment     = .center
-        })
         //++ BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
         alert.addTextField(configurationHandler: {
             textField -> Void in
@@ -391,6 +389,16 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             tbxQty?.textAlignment     = .center
         })
         //-- BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
+        alert.addTextField(configurationHandler: {
+            textField -> Void in
+            tbxSerial = textField
+            tbxSerial?.placeholder       = DomainConst.CONTENT00109
+            tbxSerial?.clearButtonMode   = .whileEditing
+            tbxSerial?.returnKeyType     = .next
+            tbxSerial?.keyboardType      = .numberPad
+            tbxSerial?.text              = cylinder.seri
+            tbxSerial?.textAlignment     = .center
+        })
         alert.addTextField(configurationHandler: {
             textField -> Void in
             tbxCylinderOnly = textField
@@ -500,11 +508,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         if self._data.getRecord().info_vo[idx].isCylinderType1() && !value.1.isEmpty {
             // Serial
             self._data.getRecord().info_vo[idx].seri        = value.0
-            self._listCylinder[idx][1].0                    = value.0
+            self._listCylinder[idx][2].0                    = value.0
             // Quantity
             self._data.getRecord().info_vo[idx].qty         = value.1
             self._data.getRecord().info_vo[idx].qty_real    = value.1
-            self._listCylinder[idx][2].0                    = value.1
+            self._listCylinder[idx][1].0                    = value.1
             var cylinderOnly = 0.0
             var full = 0.0
             // Cylinder mass
@@ -537,7 +545,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             // Update table
             self._tblViewCylinder.reloadRows(at: [IndexPath(item: idx, section: 1)], with: .automatic)
         } else {
-            self.showAlert(message: DomainConst.CONTENT00251, okTitle: DomainConst.CONTENT00251,
+            self.showAlert(message: DomainConst.CONTENT00047, okTitle: DomainConst.CONTENT00251,
                            okHandler: {_ in
                             self.updateQtyCylinder(idx: idx)
             },
@@ -563,8 +571,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         self._data.getRecord().info_vo[idx].qty_real    = value.1
         self._data.getRecord().info_vo[idx].kg_has_gas  = String(describing: value.3)
         // Update in table data
-        self._listCylinder[idx][1].0 = value.0
-        self._listCylinder[idx][2].0 = value.1
+        self._listCylinder[idx][2].0 = value.0
+        self._listCylinder[idx][1].0 = value.1
         self._listCylinder[idx][3].0 = String(describing: value.2)
         self._listCylinder[idx][4].0 = String(describing: value.3)
         self._listCylinder[idx][5].0 = String(describing: (value.3 - value.2))
@@ -640,8 +648,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             }
             let cylinderValue: [(String, Int)] = [
                 (item.material_name, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
-                (item.seri,          G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
-                (item.qty,           G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
+                (item.qty,           G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
+                (item.seri,          G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
                 (item.kg_empty,      G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
                 (item.kg_has_gas,    G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4),
                 (gasdu,              G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.5)
@@ -661,6 +669,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 //++ BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
                 _listCylinderOption.append(_clearAllCylinderRow)
                 //-- BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
+                _listCylinderOption.append(_sumCylinder)
             }
         } else {  // Not allow update
             _listCylinderOption.removeAll()
@@ -841,6 +850,100 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         self._segment.frame.origin = CGPoint(x: GlobalConst.MARGIN_CELL_X,
                                              y: self._tableView.frame.maxY)
     }
+    
+    //++ BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
+    /**
+     * Show sum all cylinders
+     */
+    private func getSumCylinder() {
+        // Count number
+        var sumCount: [(Int, Double)] = [
+            (0, 0.0),
+            (0, 0.0),
+            (0, 0.0),
+            (0, 0.0)
+        ]
+        // Summary strings
+        var sum: [String] = [String]()
+        // Summary all
+        var sumAll: (Int, Double) = (0, 0.0)
+        // Loop through all info_vo array
+        for item in _data.getRecord().info_vo {
+            if let n = Int(item.qty) {
+                // Increase summary all number
+                sumAll.0 += n
+                // Calculate gas remain
+                var gasRemain: Double = 0.0
+                if !item.kg_empty.isEmpty && !item.kg_has_gas.isEmpty {
+                    gasRemain = (item.kg_has_gas as NSString).doubleValue - (item.kg_empty as NSString).doubleValue
+                }
+                sumAll.1 += gasRemain
+                // Check material type id
+                switch item.materials_type_id {
+                case DomainConst.CYLINDER_TYPE_ID_6KG:      // Cylinder 6Kg
+                    sumCount[0].0 += n
+                    sumCount[0].1 += gasRemain
+                    break
+                case DomainConst.CYLINDER_TYPE_ID_12KG:     // Cylinder 12Kg
+                    sumCount[1].0 += n
+                    sumCount[1].1 += gasRemain
+                    break
+                case DomainConst.CYLINDER_TYPE_ID_45KG:     // Cylinder 45Kg
+                    sumCount[2].0 += n
+                    sumCount[2].1 += gasRemain
+                    break
+                case DomainConst.CYLINDER_TYPE_ID_50KG:     // Cylinder 50Kg
+                    sumCount[3].0 += n
+                    sumCount[3].1 += gasRemain
+                    break
+                default:
+                    break
+                }
+            }
+        }
+        // Get name of type cylinder
+        for i in 0..<sumCount.count {
+            var name = DomainConst.BLANK
+            switch i {
+            case 0:
+                name = "6Kg"
+                break
+            case 1:
+                name = "12Kg"
+                break
+            case 2:
+                name = "45Kg"
+                break
+            case 3:
+                name = "50Kg"
+                break
+            default:
+                break
+            }
+            let item = sumCount[i]
+            if item.0 != 0 {
+                var str = String.init(format: "%@ %@: %d vỏ",
+                                      DomainConst.CONTENT00337,
+                                      name,
+                                      item.0)
+                if !item.1.isZero {
+                    str = String.init(format: "%@, gas dư: %.01f kg", str, item.1)
+                }
+                sum.append(str)
+            }
+        }
+        
+        // Sum all
+        var str = String.init(format: "%@: %d vỏ",
+                              DomainConst.CONTENT00218,
+                              sumAll.0)
+        if !sumAll.1.isZero {
+            str = String.init(format: "%@, gas dư: %.01f kg", str, sumAll.1)
+        }
+        sum.append(str)
+        showAlert(message: sum.joined(separator: "\n"))
+    }
+    //-- BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
     
     // MARK: Event handler
     /**
@@ -1791,6 +1894,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     self.selectMaterial(type: self.TYPE_CYLINDER)
                 }
                 //-- BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
+                //++ BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
+                else if _listCylinderOption[indexPath.row].id == DomainConst.ORDER_INFO_MATERIAL_SUM_ALL_CYLINDER {
+                    self.getSumCylinder()
+                }
+                //-- BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
             }
             break
         default:
