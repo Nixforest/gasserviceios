@@ -15,15 +15,17 @@ class OrderVIPUpdateRequest: BaseRequest {
      * - parameter id:              Id of order
      * - parameter note_employee:   Note of employee
      * - parameter orderDetail:     Order detail
+     * - parameter payback:         Payback
      */
     func setData(id: String, note_employee: String,
-                 orderDetail: String) {
+                 orderDetail: String, payback: String) {
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":%d}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":\"%@\",\"%@\":%d}",
             DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
             DomainConst.KEY_ORDER_ID,               id,
             DomainConst.KEY_NOTE_EMPLOYEE,          note_employee,
             DomainConst.KEY_ORDER_DETAIL,           orderDetail,
+            DomainConst.KEY_PAY_BACK,               payback,
             DomainConst.KEY_PLATFORM,               DomainConst.PLATFORM_IOS
         )
     }
@@ -39,14 +41,14 @@ class OrderVIPUpdateRequest: BaseRequest {
     public static func request(action: Selector,
                                view: BaseViewController,
                                id: String, note_employee: String,
-                               orderDetail: String) {
+                               orderDetail: String, payback: String) {
         // Show overlay
         LoadingView.shared.showOverlay(view: view.view)
         let request = OrderVIPUpdateRequest(url: DomainConst.PATH_ORDER_VIP_UPDATE,
                                                  reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                  view: view)
         request.setData(id: id, note_employee: note_employee,
-                        orderDetail: orderDetail)
+                        orderDetail: orderDetail, payback: payback)
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
