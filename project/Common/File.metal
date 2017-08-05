@@ -8,6 +8,8 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.28.0
+// - BUG0128: Update right border of Order detail screen
 // Version: 1.27.0
 // - BUG0137: Handle Payback money for VIP Order
 // - BUG0136: Handle sum all cylinders

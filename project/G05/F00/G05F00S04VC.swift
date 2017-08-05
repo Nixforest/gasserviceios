@@ -842,9 +842,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_PAY_BACK,
                                                 name: DomainConst.CONTENT00467,
                                                 iconPath: DomainConst.MONEY_ICON_GREY_IMG_NAME,
-                                                value: data.pay_back.currencyInputFormatting().replacingOccurrences(
-                                                    of: DomainConst.SPLITER_TYPE4,
-                                                    with: DomainConst.SPLITER_TYPE2) + DomainConst.VIETNAMDONG))
+                                                value: data.pay_back + DomainConst.SPACE_STR + DomainConst.GAS_MASS_UNIT))
         }
         //-- BUG0137-SPJ (NguyenPT 20170727) Show payback field
         
@@ -993,9 +991,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                         self._listInfo[i].updateData(id: item.id,
                                                         name: item.name,
                                                         iconPath: item.getIconPath(),
-                                                        value: value.currencyInputFormatting().replacingOccurrences(
-                                                            of: DomainConst.SPLITER_TYPE4,
-                                                            with: DomainConst.SPLITER_TYPE2))
+                                                        value: value + DomainConst.SPACE_STR + DomainConst.GAS_MASS_UNIT)
                         // Stop loop statement
                         break
                     }
