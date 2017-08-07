@@ -99,7 +99,7 @@ class G06F00S06VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
 
         // Do any additional setup after loading the view.
         createNavigationBar(title: DomainConst.CONTENT00445)
-        var offset: CGFloat = self.getTopHeight()
+//        var offset: CGFloat = self.getTopHeight()
         // Table
         _tblView.addSubview(refreshControl)
         _tblView.frame = CGRect(x: 0,

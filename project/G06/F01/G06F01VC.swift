@@ -56,11 +56,11 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
                 print(pm.subLocality ?? DomainConst.BLANK)              // Ward
                 print(pm.thoroughfare ?? DomainConst.BLANK)             // Street
                 print(pm.subThoroughfare ?? DomainConst.BLANK)          // Detail
-                let model = (pm.locality ?? DomainConst.BLANK,
-                             pm.subAdministrativeArea ?? DomainConst.BLANK,
-                             pm.subLocality ?? DomainConst.BLANK,
-                             pm.thoroughfare ?? DomainConst.BLANK,
-                             pm.subThoroughfare ?? DomainConst.BLANK)
+//                let model = (pm.locality ?? DomainConst.BLANK,
+//                             pm.subAdministrativeArea ?? DomainConst.BLANK,
+//                             pm.subLocality ?? DomainConst.BLANK,
+//                             pm.thoroughfare ?? DomainConst.BLANK,
+//                             pm.subThoroughfare ?? DomainConst.BLANK)
                 //self.updateData(name: G06F01S03.theClassName, model: model as AnyObject)
             }
             
