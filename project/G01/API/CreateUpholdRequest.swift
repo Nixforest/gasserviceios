@@ -103,8 +103,8 @@ class CreateUpholdRequest: BaseRequest {
                                     typeUphold: String, content: String, contactPerson: String,
                                     contactTel: String, requestBy: String,
                                     view: BaseViewController) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = CreateUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CREATE, reqMethod: DomainConst.HTTP_POST_REQUEST, view: view)
         request.setData(customerId: customerId, employeeId: employeeId,
                         typeUphold: typeUphold, content: content, contactPerson: contactPerson,

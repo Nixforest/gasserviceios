@@ -138,8 +138,8 @@ class CreateUpholdReplyRequest: BaseRequest {
                                          customerId: String,
                                          noteInternal: String,
                                          view: BaseViewController) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = CreateUpholdReplyRequest(url: DomainConst.PATH_SITE_UPHOLD_REPLY, reqMethod: DomainConst.HTTP_POST_REQUEST, view: view)
         request.setData(upholdId: upholdId,
                         status: status, statusText: statusText, hoursHandle: hoursHandle,

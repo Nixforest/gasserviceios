@@ -121,7 +121,7 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
                          value: DomainConst.VERSION_CODE_WITH_NAME)
             
         case 1:             // Information
-            cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
+            cell.setData(leftImg: DomainConst.VERSION_TYPE_ICON_IMG_NAME,
                          name: DomainConst.CONTENT00441,
                          value: DomainConst.BLANK)
             default:

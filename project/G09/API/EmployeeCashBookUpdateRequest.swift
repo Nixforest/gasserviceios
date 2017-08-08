@@ -80,8 +80,8 @@ class EmployeeCashBookUpdateRequest: BaseRequest {
                                images: [UIImage],
                                listImgDelete: String) {
                                //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = EmployeeCashBookUpdateRequest(url: G09Const.PATH_VIP_CUSTOMER_CASHBOOK_UPDATE,
                                                     reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                     view: view)

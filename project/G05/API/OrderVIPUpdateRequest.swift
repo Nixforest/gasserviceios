@@ -42,8 +42,8 @@ class OrderVIPUpdateRequest: BaseRequest {
                                view: BaseViewController,
                                id: String, note_employee: String,
                                orderDetail: String, payback: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = OrderVIPUpdateRequest(url: DomainConst.PATH_ORDER_VIP_UPDATE,
                                                  reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                  view: view)

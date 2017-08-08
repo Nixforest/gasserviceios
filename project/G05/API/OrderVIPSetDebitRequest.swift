@@ -44,8 +44,8 @@ class OrderVIPSetDebitRequest: BaseRequest {
                                view: BaseViewController,
                                id: String, note: String,
                                images: [UIImage]) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = OrderVIPSetDebitRequest(url: G05Const.PATH_ORDER_VIP_SET_DEBIT,
                                             reqMethod: DomainConst.HTTP_POST_REQUEST,
                                             view: view)

@@ -90,8 +90,8 @@ class OrderVIPListRequest: BaseRequest {
      */
     public static func request(action: Selector, view: BaseViewController,
                                page: Int, status: String = DomainConst.ORDER_STATUS_TYPE_ALL) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = OrderVIPListRequest(url: G05Const.PATH_ORDER_VIP_LIST,
                                           reqMethod: DomainConst.HTTP_POST_REQUEST,
                                           view: view)
@@ -115,8 +115,8 @@ class OrderVIPListRequest: BaseRequest {
     public static func request(action: Selector, view: BaseViewController,
                                           page: Int, status: String,
                                           from: String, to: String, customerId: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = OrderVIPListRequest(url: G05Const.PATH_ORDER_VIP_LIST,
                                             reqMethod: DomainConst.HTTP_POST_REQUEST,
                                             view: view)

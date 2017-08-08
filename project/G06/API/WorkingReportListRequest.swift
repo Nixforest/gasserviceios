@@ -40,8 +40,8 @@ class WorkingReportListRequest: BaseRequest {
                                                  dateFrom: String,
                                                  dateTo: String,
                                                  page: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = WorkingReportListRequest(url: G06Const.PATH_USER_WORKING_REPORT_LIST,
                                                 reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                 view: view)

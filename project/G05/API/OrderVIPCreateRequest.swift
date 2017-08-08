@@ -98,8 +98,8 @@ class OrderVIPCreateRequest: BaseRequest {
                                           //++ BUG0116-SPJ (NguyenPT 20170628) Handle VIP customer order: select sub-agent
                                           store_id: String) {
                                           //-- BUG0116-SPJ (NguyenPT 20170628) Handle VIP customer order: select sub-agent
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = OrderVIPCreateRequest(url: G05Const.PATH_ORDER_VIP_CREATE,
                                             reqMethod: DomainConst.HTTP_POST_REQUEST,
                                             view: view)

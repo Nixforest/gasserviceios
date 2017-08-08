@@ -45,7 +45,11 @@ class OrderConfigRequest: BaseRequest {
 //        return task
 //    }
     
-    override func execute() {
+    //override func execute() {
+    override func execute(isShowLoadingView: Bool = true) {
+        if isShowLoadingView {
+            LoadingView.shared.showOverlay(view: self.view.view, className: self.theClassName)
+        }
         let serverUrl: URL = URL(string: DomainConst.SERVER_URL + self.url)!
         let request = NSMutableURLRequest(url: serverUrl)
         request.httpMethod = self.reqMethod
@@ -81,8 +85,8 @@ class OrderConfigRequest: BaseRequest {
      * - parameter page:    Page index
      */
     public static func requestOrderConfig(action: Selector, view: BaseViewController) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = OrderConfigRequest(url: G05Const.PATH_ORDER_CONFIG,
                                        reqMethod: DomainConst.HTTP_POST_REQUEST,
                                        view: view)

@@ -39,8 +39,8 @@ class EmployeeCashBookListRequest: BaseRequest {
                                page: String, lookup_type: String,
                                type: String,
                                customer_id: String = DomainConst.NUMBER_ZERO_VALUE) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = EmployeeCashBookListRequest(url: G09Const.PATH_VIP_CUSTOMER_CASHBOOK_LIST,
                                            reqMethod: DomainConst.HTTP_POST_REQUEST,
                                            view: view)

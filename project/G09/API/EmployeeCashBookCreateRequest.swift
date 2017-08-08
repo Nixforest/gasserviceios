@@ -65,8 +65,8 @@ class EmployeeCashBookCreateRequest: BaseRequest {
                                amount: String,
                                note: String,
                                images: [UIImage], appOrderId: String = DomainConst.BLANK) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = EmployeeCashBookCreateRequest(url: G09Const.PATH_VIP_CUSTOMER_CASHBOOK_CREATE,
                                              reqMethod: DomainConst.HTTP_POST_REQUEST,
                                              view: view)

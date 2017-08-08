@@ -35,8 +35,8 @@ class ReportRequest: BaseRequest {
      */
     public static func request(action: Selector, view: BaseViewController,
                                from: String, to: String, url: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = ReportRequest(url: url,
                                              reqMethod: DomainConst.HTTP_POST_REQUEST,
                                              view: view)

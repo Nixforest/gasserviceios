@@ -27,8 +27,8 @@ class UpdateStoreCardRequest: BaseRequest {
      * - parameter view:        Current view
      */
     public static func request(action: Selector, view: BaseViewController) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = UpdateStoreCardRequest(url: G10Const.PATH_APP_REPORT_UPDATE_STORECARD,
                                         reqMethod: DomainConst.HTTP_POST_REQUEST,
                                         view: view)

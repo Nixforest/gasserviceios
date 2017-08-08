@@ -56,8 +56,8 @@ class OrderVIPCreateByCoordinatorRequest: BaseRequest {
                                              date: String, type: String,
                                              b50: String, b45: String, b12: String,
                                              b6: String, note: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = OrderVIPCreateByCoordinatorRequest(url: G05Const.PATH_ORDER_VIP_CREATE_BY_COORDINATOR,
                                             reqMethod: DomainConst.HTTP_POST_REQUEST,
                                             view: view)

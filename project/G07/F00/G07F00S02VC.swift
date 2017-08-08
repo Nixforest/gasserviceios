@@ -350,7 +350,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Other action button
         setupButton(button: _btnOtherAction, x: GlobalConst.SCREEN_WIDTH / 2,
                     y: botOffset, title: "Tác vụ khác",
-                    icon: DomainConst.SAVE_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
+                    icon: DomainConst.OTHER_TASK_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
                     action: #selector(btnOtherActionTapped(_:)))
         _bottomView.addSubview(_btnOtherAction)
         //-- BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
@@ -788,13 +788,13 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                         // Update value
                         item.updateData(id: DomainConst.ORDER_INFO_ORDER_TYPE_ID,
                                         name: BaseModel.shared.getOrderTypeNameById(id: id),
-                                        iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                                        iconPath: DomainConst.ORDER_TYPE_ICON_IMG_NAME,
                                         value: DomainConst.BLANK)
                     } else {        // Default value
                         // Update value
                         item.updateData(id: DomainConst.ORDER_INFO_ORDER_TYPE_ID,
                                         name: DomainConst.CONTENT00371,
-                                        iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                                        iconPath: DomainConst.ORDER_TYPE_ICON_IMG_NAME,
                                         value: BaseModel.shared.getOrderTypeNameById(id: id))
                     }
                     break
@@ -939,7 +939,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // CCS code
         _listInfo[0].append(ConfigurationModel(
             id: DomainConst.ORDER_INFO_CCS_CODE_ID, name: DomainConst.CONTENT00445,
-            iconPath: DomainConst.ADDRESS_ICON_IMG_NAME, value: _data.getRecord().ccsCode))
+            iconPath: DomainConst.CCS_CODE_ICON_IMG_NAME, value: _data.getRecord().ccsCode))
         //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
     }
     
@@ -969,7 +969,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
             _listInfo[2].append(ConfigurationModel(
                 id: DomainConst.ORDER_INFO_MATERIAL_ADD_NEW, name: DomainConst.CONTENT00341,
-                iconPath: DomainConst.ADD_ICON_IMG_NAME, value: DomainConst.BLANK))
+                iconPath: DomainConst.ADD_MATERIAL_ICON_IMG_NAME, value: DomainConst.BLANK))
         }
         
         //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
@@ -1035,14 +1035,14 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             _listInfo[2].append(ConfigurationModel(
                 id: DomainConst.ORDER_INFO_ORDER_TYPE_ID,
                 name: _data.getRecord().order_type_text,
-                iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                iconPath: DomainConst.ORDER_TYPE_ICON_IMG_NAME,
                 value: orderTypeAmount))
         } else {        // Default value
             if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
                 _listInfo[2].append(ConfigurationModel(
                     id: DomainConst.ORDER_INFO_ORDER_TYPE_ID,
                     name: DomainConst.CONTENT00371,
-                    iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                    iconPath: DomainConst.ORDER_TYPE_ICON_IMG_NAME,
                     value: BaseModel.shared.getOrderTypeNameById(id: _data.getRecord().order_type)))
             }
         }

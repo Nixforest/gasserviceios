@@ -122,7 +122,7 @@ class CashBookCell: UITableViewCell {
                                         y: GlobalConst.CELL_HEIGHT_SHOW / 40,
                                         width: GlobalConst.CELL_HEIGHT_SHOW / 5,
                                         height: GlobalConst.CELL_HEIGHT_SHOW / 5)
-        self.lookupIcon.image = ImageManager.getImage(named: DomainConst.ADDRESS_ICON_IMG_NAME)
+        self.lookupIcon.image = ImageManager.getImage(named: DomainConst.CASH_TYPE_ICON_IMG_NAME)
         self.lookupIcon.contentMode = .scaleAspectFit
         // Lookup label
         self.lookupLabel.frame = CGRect(x: self.lookupIcon.frame.maxX,

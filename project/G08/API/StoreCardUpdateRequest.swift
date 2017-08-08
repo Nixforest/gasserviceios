@@ -79,8 +79,8 @@ class StoreCardUpdateRequest: BaseRequest {
                                images: [UIImage],
                                listImgDelete: String) {
                                //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = StoreCardUpdateRequest(url: G08Const.PATH_VIP_CUSTOMER_STORE_CARD_UPDATE,
                                              reqMethod: DomainConst.HTTP_POST_REQUEST,
                                              view: view)

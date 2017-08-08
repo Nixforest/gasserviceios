@@ -296,7 +296,7 @@ UICollectionViewDataSource, UICollectionViewDelegate {
         if data.count >= 2 {
             _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_ID_ID,
                                                 name: DomainConst.CONTENT00357,
-                                                iconPath: DomainConst.ORDER_ID_ICON_IMG_NAME,
+                                                iconPath: DomainConst.STORE_CARD_TYPE_ICON_IMG_NAME,
                                                 value: data[1]))
         }
         // Address

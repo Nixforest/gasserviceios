@@ -54,8 +54,8 @@ class FamilyUpholdUpdateRequest: BaseRequest {
                                view: BaseViewController,
                                actionType: Int, lat: String, long: String,
                                id: String, note: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = FamilyUpholdUpdateRequest(url: G01Const.PATH_EMPLOYEE_FAMILY_UPHOLD_ACTION,
                                                  reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                  view: view)

@@ -44,8 +44,8 @@ class CustomerFamilyListRequest: BaseRequest {
                                              dateFrom: String,
                                              dateTo: String,
                                              page: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = CustomerFamilyListRequest(url: G06Const.PATH_CUSTOMER_FAMILY_LIST,
                                             reqMethod: DomainConst.HTTP_POST_REQUEST,
                                             view: view)

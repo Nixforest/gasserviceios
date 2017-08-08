@@ -32,8 +32,8 @@ class TicketCloseRequest: BaseRequest {
     public static func request(action: Selector,
                                view: BaseViewController,
                                id: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = TicketCloseRequest(url: G11Const.PATH_TICKET_CLOSE,
                                         reqMethod: DomainConst.HTTP_POST_REQUEST,
                                         view: view)

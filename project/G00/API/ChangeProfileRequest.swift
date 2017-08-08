@@ -57,8 +57,8 @@ class ChangeProfileRequest: BaseRequest {
                                name: String, provinceId: String, districtId: String,
                                wardId: String, streetId: String, houseNum: String,
                                email: String, agentId: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = ChangeProfileRequest(url: G00Const.PATH_CHANGE_PROFILE,
                                                reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                view: view)

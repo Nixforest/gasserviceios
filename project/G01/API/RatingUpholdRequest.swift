@@ -99,8 +99,8 @@ class RatingUpholdRequest: BaseRequest {
                                            id: String, ratingStatusId: String,
                                     listRating: [Int], content: String,
                                     view: BaseViewController) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = RatingUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CUSTOMER_RATING, reqMethod: DomainConst.HTTP_POST_REQUEST, view: view)
         request.setData(id: id, ratingStatusId: ratingStatusId, listRating: listRating, content: content)
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)

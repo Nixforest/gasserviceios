@@ -202,8 +202,11 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
 //            self.pushToView(name: G00ChangePassVC.theClassName)
 //        }
 //        //-- BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+        
+        LoadingView.shared.showOverlay(view: self.view, className: self.theClassName)
         let data = (notification.object as! String)
         let model = LoginRespModel(jsonString: data)
+        LoadingView.shared.hideOverlayView(className: self.theClassName)
         if model.isSuccess() {
             BaseModel.shared.saveTempData(loginModel: model)
             self.updateNotificationStatus()

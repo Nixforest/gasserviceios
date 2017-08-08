@@ -66,8 +66,8 @@ class StoreCardCreateRequest: BaseRequest {
                                //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
                                images: [UIImage]) {
                                //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = StoreCardCreateRequest(url: G08Const.PATH_VIP_CUSTOMER_STORE_CARD_CREATE,
                                            reqMethod: DomainConst.HTTP_POST_REQUEST,
                                            view: view)

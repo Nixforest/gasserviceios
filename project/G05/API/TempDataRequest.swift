@@ -30,8 +30,8 @@ class TempDataRequest: BaseRequest {
      */
     public static func request(action: Selector, view: BaseViewController,
                                agent_id: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = TempDataRequest(url: G05Const.PATH_WINDOW_GET_CONFIG,
                                                reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                view: view)

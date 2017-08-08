@@ -27,8 +27,8 @@ class ReportListRequest: BaseRequest {
      * - parameter view:        Current view
      */
     public static func request(action: Selector, view: BaseViewController) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = ReportListRequest(url: G10Const.PATH_REPORT_LIST,
                                                   reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                   view: view)

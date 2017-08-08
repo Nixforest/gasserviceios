@@ -34,8 +34,8 @@ class NotifyListRequest: BaseRequest {
      */
     public static func request(action: Selector, view: BaseViewController,
                                page: String, type: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = NotifyListRequest(url: G03Const.PATH_SITE_NOTIFY_LIST,
                                                   reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                   view: view)

@@ -31,8 +31,8 @@ class CCSCodeListRequest: BaseRequest {
      */
     public static func request(action: Selector, view: BaseViewController,
                                page: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = CCSCodeListRequest(url: G06Const.PATH_CCS_CODE_LIST,
                                            reqMethod: DomainConst.HTTP_POST_REQUEST,
                                            view: view)
@@ -50,8 +50,8 @@ class CCSCodeListRequest: BaseRequest {
      */
     public static func requestCCSCode(action: Selector, view: UIView,
                                page: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view)
         let request = CCSCodeListRequest(url: G06Const.PATH_CCS_CODE_LIST,
                                          reqMethod: DomainConst.HTTP_POST_REQUEST)
         request.setData(page: page)

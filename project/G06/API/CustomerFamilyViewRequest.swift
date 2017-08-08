@@ -32,8 +32,8 @@ class CustomerFamilyViewRequest: BaseRequest {
     public static func request(action: Selector,
                                                  view: BaseViewController,
                                                  customer_id: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = CustomerFamilyViewRequest(url: G06Const.PATH_CUSTOMER_FAMILY_VIEW,
                                                 reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                 view: view)

@@ -226,7 +226,7 @@ class G11F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         CommonProcess.createButtonLayout(
             btn: btnInfo, x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2, y: botOffset,
             text: DomainConst.CONTENT00425, action: #selector(btnInfoTapped(_:)), target: self,
-            img: DomainConst.RATING_IMG_NAME, tintedColor: UIColor.white)
+            img: DomainConst.SUPPORT_INFO_ICON_IMG_NAME, tintedColor: UIColor.white)
         
         btnInfo.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
                                                left: GlobalConst.MARGIN,

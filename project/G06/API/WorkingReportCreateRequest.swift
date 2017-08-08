@@ -56,8 +56,8 @@ class WorkingReportCreateRequest: BaseRequest {
                                latitude: String, version_code: String,
                                listImage: [UIImage]) {
         
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = WorkingReportCreateRequest(url: G06Const.PATH_USER_WORKING_REPORT_CREATE,
                                                   reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                   view: view)

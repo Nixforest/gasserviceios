@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     internal var rootNav:UINavigationController = UINavigationController()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        logw(text: "didFinishLaunchingWithOptions")
         // Register push notifications
         registerForPushNotifications(application: application)
         

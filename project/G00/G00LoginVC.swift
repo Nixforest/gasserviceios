@@ -54,6 +54,8 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
      * - parameter sender:AnyObject
      */
     @IBAction func Login(_ sender: AnyObject) {
+        // Start login
+        logw(text: "Start login")
         // Check the value of text field is empty or not
         if (((txtPassword.text?.isEmpty)! || (txtAccount.text?.isEmpty)!)){
             // Call alert
@@ -86,8 +88,10 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
 //            action: #selector(finishUpdateConfigRequest(_:)),
 //            view: self)
         //-- BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
+        LoadingView.shared.showOverlay(view: self.view, className: self.theClassName)
         let data = (notification.object as! String)
         let model = LoginRespModel(jsonString: data)
+        LoadingView.shared.hideOverlayView(className: self.theClassName)
         if model.isSuccess() {
             BaseModel.shared.loginSuccess(model.token)
             BaseModel.shared.saveTempData(loginModel: model)
@@ -112,8 +116,11 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
 //            self.pushToView(name: G00ChangePassVC.theClassName)
 //        }
 //        //-- BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+        
+        LoadingView.shared.showOverlay(view: self.view, className: self.theClassName)
         let data = (notification.object as! String)
         let model = LoginRespModel(jsonString: data)
+        LoadingView.shared.hideOverlayView(className: self.theClassName)
         if model.isSuccess() {
             BaseModel.shared.saveTempData(loginModel: model)
             self.popToRootView()

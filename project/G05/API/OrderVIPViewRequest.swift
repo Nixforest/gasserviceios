@@ -73,8 +73,8 @@ class OrderVIPViewRequest: BaseRequest {
      */
     public static func request(action: Selector, view: BaseViewController,
                                            id: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = OrderVIPViewRequest(url: G05Const.PATH_ORDER_VIP_VIEW,
                                           reqMethod: DomainConst.HTTP_POST_REQUEST,
                                           view: view)

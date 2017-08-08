@@ -35,8 +35,8 @@ class OrderVIPHistoryListRequest: BaseRequest {
     public static func request(action: Selector,
                                view: UIView,
                                id: String, type: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view)
         let request = OrderVIPHistoryListRequest(url: G05Const.PATH_ORDER_VIP_HISTORY_LIST,
                                             reqMethod: DomainConst.HTTP_POST_REQUEST)
         request.setData(id: id, type: type)

@@ -47,7 +47,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private let _addMaterialRow:    ConfigurationModel   = ConfigurationModel(
                                                             id: DomainConst.ORDER_INFO_MATERIAL_ADD_NEW,
                                                             name: DomainConst.CONTENT00341,
-                                                            iconPath: DomainConst.ADD_ICON_IMG_NAME,
+                                                            iconPath: DomainConst.ADD_MATERIAL_ICON_IMG_NAME,
                                                             value: DomainConst.BLANK)
     /** List of cylinder information */
     private var _listCylinder: [[(String, Int)]]         = [[(String, Int)]]()
@@ -77,7 +77,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private let _sumCylinder:       ConfigurationModel   = ConfigurationModel(
                                                             id: DomainConst.ORDER_INFO_MATERIAL_SUM_ALL_CYLINDER,
         name: DomainConst.CONTENT00218,
-        iconPath: DomainConst.REPORT_SUM_ICON_IMG_NAME,
+        iconPath: DomainConst.SUM_ICON_IMG_NAME,
         value: DomainConst.BLANK)
     //-- BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
     
@@ -1739,7 +1739,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Other action button
         setupButton(button: _btnOtherAction, x: GlobalConst.SCREEN_WIDTH / 2,
                     y: botOffset, title: "Tác vụ khác",
-                    icon: DomainConst.SAVE_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
+                    icon: DomainConst.OTHER_TASK_ICON_IMG_NAME, color: GlobalConst.BUTTON_COLOR_RED,
                     action: #selector(btnOtherActionTapped(_:)),
                     width: GlobalConst.BUTTON_W / 2)
         _bottomView.addSubview(_btnOtherAction)

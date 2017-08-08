@@ -34,8 +34,8 @@ class TicketListRequest: BaseRequest {
      */
     public static func request(action: Selector, view: BaseViewController,
                                page: String, type: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = TicketListRequest(url: G11Const.PATH_TICKET_LIST,
                                         reqMethod: DomainConst.HTTP_POST_REQUEST,
                                         view: view)

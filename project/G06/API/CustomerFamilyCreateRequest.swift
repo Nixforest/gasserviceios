@@ -113,8 +113,8 @@ class CustomerFamilyCreateRequest: BaseRequest {
                                                  //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
                                                  ccsCode: String) {
                                                  //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = CustomerFamilyCreateRequest(url: G06Const.PATH_CUSTOMER_FAMILY_CREATE,
                                                 reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                 view: view)

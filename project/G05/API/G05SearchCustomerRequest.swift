@@ -39,6 +39,7 @@ class G05SearchCustomerRequest: BaseRequest {
                                           view: view)
         request.setData(keyword: keyword)
         NotificationCenter.default.addObserver(currentView, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
-        request.execute()
+        //request.execute()
+        request.execute(isShowLoadingView: false)
     }
 }

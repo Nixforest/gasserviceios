@@ -31,8 +31,8 @@ class StoreCardListRequest: BaseRequest {
      */
     public static func request(action: Selector, view: BaseViewController,
                                page: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = StoreCardListRequest(url: G08Const.PATH_VIP_CUSTOMER_STORE_CARD_LIST,
                                              reqMethod: DomainConst.HTTP_POST_REQUEST,
                                              view: view)

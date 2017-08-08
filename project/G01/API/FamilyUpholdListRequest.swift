@@ -38,8 +38,8 @@ class FamilyUpholdListRequest: BaseRequest {
      */
     public static func request(action: Selector, view: BaseViewController,
                                page: String, type: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = FamilyUpholdListRequest(url: G01Const.PATH_EMPLOYEE_FAMILY_UPHOLD_LIST,
                                         reqMethod: DomainConst.HTTP_POST_REQUEST,
                                         view: view)

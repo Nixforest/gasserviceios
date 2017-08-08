@@ -42,7 +42,8 @@ class CustomerListRequest: BaseRequest {
                                            view: view)
         request.setData(keyword: keyword, type: type)
         NotificationCenter.default.addObserver(currentView, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
-        request.execute()
+        //request.execute()
+        request.execute(isShowLoadingView: false)
     }
     
     /**
@@ -66,8 +67,8 @@ class CustomerListRequest: BaseRequest {
      */
     public static func request(action: Selector, view: BaseViewController,
                                keyword: String) {
-        // Show overlay
-        LoadingView.shared.showOverlay(view: view.view)
+//        // Show overlay
+//        LoadingView.shared.showOverlay(view: view.view)
         let request = CustomerListRequest(url: DomainConst.PATH_SITE_AUTOCOMPLETE_USER,
                                           reqMethod: DomainConst.HTTP_POST_REQUEST,
                                           view: view)

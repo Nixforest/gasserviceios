@@ -278,7 +278,7 @@ class G09F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Type of cashbook
         _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_ID_ID,
                                             name: _data.record.master_lookup_text,
-                                            iconPath: DomainConst.ORDER_ID_ICON_IMG_NAME,
+                                            iconPath: DomainConst.CASH_TYPE_ICON_IMG_NAME,
                                             value: DomainConst.BLANK))
         // Address
         _listInfo.append(ConfigurationModel(
