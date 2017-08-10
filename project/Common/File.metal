@@ -8,7 +8,13 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.29.0
+// - BUG0139: VIP Order - Add new Discount field
 // Version: 1.28.0
+// - BUG0138: Handle loading view process
+// - BUG0137: Change Payback money text
+// - BUG0131: Hide Navigator when loading
+// - BUG0129: Update all icons
 // - BUG0128: Update right border of Order detail screen
 // Version: 1.27.0
 // - BUG0137: Handle Payback money for VIP Order

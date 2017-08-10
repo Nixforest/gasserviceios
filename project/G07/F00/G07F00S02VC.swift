@@ -197,6 +197,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 break
             }
         }
+        _type = DomainConst.NUMBER_ZERO_VALUE
     }
     
     /**

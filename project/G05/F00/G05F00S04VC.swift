@@ -368,9 +368,9 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         var tbxQty          : UITextField?
         
         //++ BUG0113-SPJ (NguyenPT 20170622) Bug when input "," inside number field
-//        let df = NumberFormatter()
-//        df.locale = Locale.current
-//        let decimal = df.decimalSeparator ?? DomainConst.SPLITER_TYPE4
+        let df = NumberFormatter()
+        df.locale = Locale.current
+        let decimal = df.decimalSeparator ?? DomainConst.SPLITER_TYPE4
         //-- BUG0113-SPJ (NguyenPT 20170622) Bug when input "," inside number field
         
         // Create alert
@@ -406,7 +406,9 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             tbxCylinderOnly?.clearButtonMode   = .whileEditing
             tbxCylinderOnly?.returnKeyType     = .next
             tbxCylinderOnly?.keyboardType      = .decimalPad
-            tbxCylinderOnly?.text              = cylinder.kg_empty
+            tbxCylinderOnly?.text              = cylinder.kg_empty.replacingOccurrences(
+                of: DomainConst.SPLITER_TYPE4,
+                with: decimal)
             tbxCylinderOnly?.textAlignment     = .center
         })
         alert.addTextField(configurationHandler: {
@@ -416,7 +418,9 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             tbxFull?.clearButtonMode   = .whileEditing
             tbxFull?.returnKeyType     = .done
             tbxFull?.keyboardType      = .decimalPad
-            tbxFull?.text              = cylinder.kg_has_gas
+            tbxFull?.text              = cylinder.kg_has_gas.replacingOccurrences(
+                of: DomainConst.SPLITER_TYPE4,
+                with: decimal)
             tbxFull?.textAlignment     = .center
         })
         
@@ -520,14 +524,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 let cylinderOnlyStr = value.2.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
                 cylinderOnly        = (cylinderOnlyStr as NSString).doubleValue
                 self._data.getRecord().info_vo[idx].kg_empty    = String(describing: cylinderOnly)
-                self._listCylinder[idx][3].0                    = String(describing: value.2)
+                self._listCylinder[idx][3].0                    = String(describing: cylinderOnly)
             }
             // Full mass
             if !value.3.isEmpty {
                 let fullStr = value.3.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
                 full    = (fullStr as NSString).doubleValue
                 self._data.getRecord().info_vo[idx].kg_has_gas  = String(describing: full)
-                self._listCylinder[idx][4].0                    = String(describing: value.3)
+                self._listCylinder[idx][4].0                    = String(describing: full)
             }
             if !value.2.isEmpty && !value.3.isEmpty {
                 self._listCylinder[idx][5].0 = String(describing: (full - cylinderOnly))
@@ -846,6 +850,17 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         //-- BUG0137-SPJ (NguyenPT 20170727) Show payback field
         
+        //++ BUG0139-SPJ (NguyenPT 20170805) Show discount field
+        if data.show_discount != 0 {
+            _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_DISCOUNT,
+                                                name: DomainConst.CONTENT00468,
+                                                iconPath: DomainConst.MONEY_ICON_GREY_IMG_NAME,
+                                                value: data.discount.currencyInputFormatting().replacingOccurrences(
+                                                    of: DomainConst.SPLITER_TYPE4,
+                                                    with: DomainConst.SPLITER_TYPE2) + DomainConst.VIETNAMDONG))
+        }
+        //-- BUG0139-SPJ (NguyenPT 20170805) Show discount field
+        
         _listInfo.append(ConfigurationModel(id: DomainConst.ORDER_INFO_TOTAL_MONEY_ID,
                                             name: DomainConst.CONTENT00262,
                                             iconPath: DomainConst.MONEY_ICON_PAPER_IMG_NAME,
@@ -958,6 +973,9 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     private func updatePaybackValue() {
         var tbxValue: UITextField?
+        let df = NumberFormatter()
+        df.locale = Locale.current
+        let decimal = df.decimalSeparator ?? DomainConst.SPLITER_TYPE4
         // Create alert
         let alert = UIAlertController(title: DomainConst.CONTENT00467,
                                       message: DomainConst.BLANK,
@@ -965,11 +983,13 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Add textfield
         alert.addTextField(configurationHandler: { textField -> Void in
             tbxValue = textField
-            tbxValue?.placeholder       = DomainConst.CONTENT00445
+            tbxValue?.placeholder       = DomainConst.CONTENT00467
             tbxValue?.clearButtonMode   = .whileEditing
             tbxValue?.returnKeyType     = .done
-            tbxValue?.keyboardType      = .numberPad
-            tbxValue?.text              = self._data.getRecord().pay_back
+            tbxValue?.keyboardType      = .decimalPad
+            tbxValue?.text              = self._data.getRecord().pay_back.replacingOccurrences(
+                of: DomainConst.SPLITER_TYPE4,
+                with: decimal)
             tbxValue?.autocapitalizationType = .allCharacters
             tbxValue?.textAlignment     = .center
         })
@@ -980,18 +1000,22 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
             if let value = tbxValue?.text {
                 // Update data
-                self._data.getRecord().pay_back = value
+                self._data.getRecord().pay_back = value.replacingOccurrences(
+                    of: decimal,
+                    with: DomainConst.SPLITER_TYPE4)
                 // Loop for all the first list info
                 for i in 0..<self._listInfo.count {
                     // Get current item
                     let item = self._listInfo[i]
-                    // Check if ccs code item
+                    // Check if payback item
                     if item.id == DomainConst.ORDER_INFO_PAY_BACK {
                         // Update value
                         self._listInfo[i].updateData(id: item.id,
                                                         name: item.name,
                                                         iconPath: item.getIconPath(),
-                                                        value: value + DomainConst.SPACE_STR + DomainConst.GAS_MASS_UNIT)
+                                                        value: value.replacingOccurrences(
+                                                            of: decimal,
+                                                            with: DomainConst.SPLITER_TYPE4) + DomainConst.SPACE_STR + DomainConst.GAS_MASS_UNIT)
                         // Stop loop statement
                         break
                     }
@@ -1014,6 +1038,70 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         self.present(alert, animated: true, completion: nil)
     }
     //-- BUG0137-SPJ (NguyenPT 20170727) Show payback field
+    //++ BUG0139-SPJ (NguyenPT 20170805) Show discount field
+    /**
+     * Update value of discount
+     */
+    private func updateDiscountValue() {
+        var tbxValue: UITextField?
+        // Create alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00468,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .alert)
+        // Add textfield
+        alert.addTextField(configurationHandler: { textField -> Void in
+            tbxValue = textField
+            tbxValue?.placeholder       = DomainConst.CONTENT00468
+            tbxValue?.clearButtonMode   = .whileEditing
+            tbxValue?.returnKeyType     = .done
+            tbxValue?.keyboardType      = .numberPad
+            tbxValue?.text              = self._data.getRecord().discount
+            tbxValue?.autocapitalizationType = .allCharacters
+            tbxValue?.textAlignment     = .center
+        })
+        // Add cancel action
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
+        
+        // Add ok action
+        let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
+            if let value = tbxValue?.text {
+                // Update data
+                self._data.getRecord().discount = value
+                // Loop for all the first list info
+                for i in 0..<self._listInfo.count {
+                    // Get current item
+                    let item = self._listInfo[i]
+                    // Check if discount item
+                    if item.id == DomainConst.ORDER_INFO_DISCOUNT {
+                        // Update value
+                        self._listInfo[i].updateData(id: item.id,
+                                                     name: item.name,
+                                                     iconPath: item.getIconPath(),
+                                                     value: value.currencyInputFormatting().replacingOccurrences(
+                                                        of: DomainConst.SPLITER_TYPE4,
+                                                        with: DomainConst.SPLITER_TYPE2) + DomainConst.VIETNAMDONG)
+                        // Stop loop statement
+                        break
+                    }
+                }
+                // Reload tableview
+                self._tableView.reloadData()
+            } else {
+                self.showAlert(message: DomainConst.CONTENT00047, okTitle: DomainConst.CONTENT00251,
+                               okHandler: {_ in
+                                self.updateDiscountValue()
+                },
+                               cancelHandler: {_ in
+                                
+                })
+            }
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+    }
+    //-- BUG0139-SPJ (NguyenPT 20170805) Show discount field
     
     // MARK: Event handler
     /**
@@ -1281,8 +1369,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             note_employee: DomainConst.BLANK,
             orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2),
             //++ BUG0137-SPJ (NguyenPT 20170727) Show payback field
-            payback: _data.getRecord().pay_back)
+            payback: _data.getRecord().pay_back,
             //-- BUG0137-SPJ (NguyenPT 20170727) Show payback field
+            //++ BUG0139-SPJ (NguyenPT 20170805) Show discount field
+            discount: _data.getRecord().discount)
+            //-- BUG0139-SPJ (NguyenPT 20170805) Show discount field
     }
     
     internal func finishUpdateOrder(_ notification: Notification) {
@@ -1865,9 +1956,17 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                                      for: indexPath) as! ConfigurationTableViewCell
             
             cell.setData(data: _listInfo[indexPath.row])
-            if _listInfo[indexPath.row].id == DomainConst.ORDER_INFO_PAY_BACK {
+            //++ BUG0139-SPJ (NguyenPT 20170805) Show discount field
+//            if _listInfo[indexPath.row].id == DomainConst.ORDER_INFO_PAY_BACK {
+//                cell.highlightValue()
+//            }
+            switch _listInfo[indexPath.row].id {
+            case DomainConst.ORDER_INFO_PAY_BACK, DomainConst.ORDER_INFO_DISCOUNT:
                 cell.highlightValue()
+            default:
+                break
             }
+            //-- BUG0139-SPJ (NguyenPT 20170805) Show discount field
             
             retCell = cell
         case _tblViewGas:           // Gas material table
@@ -1936,20 +2035,33 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         switch tableView {
         case _tableView:
-            if _listInfo[indexPath.row].id == DomainConst.EMPLOYEE_INFO_PHONE_ID {
+//            if _listInfo[indexPath.row].id == DomainConst.EMPLOYEE_INFO_PHONE_ID {
+//                let phone = _listInfo[indexPath.row].name.normalizatePhoneString()
+//                self.makeACall(phone: phone)
+//            }
+//            //++ BUG0114-SPJ (NguyenPT 20170624) Add note field
+//            if _listInfo[indexPath.row].id == DomainConst.ORDER_INFO_NOTE_ID {
+//                self.showAlert(message: _listInfo[indexPath.row].name)
+//            }
+//            //-- BUG0114-SPJ (NguyenPT 20170624) Add note field
+//            //++ BUG0137-SPJ (NguyenPT 20170727) Show payback field
+//            if _listInfo[indexPath.row].id == DomainConst.ORDER_INFO_PAY_BACK {
+//                self.updatePaybackValue()
+//            }
+//            //-- BUG0137-SPJ (NguyenPT 20170727) Show payback field            
+            switch _listInfo[indexPath.row].id {
+            case DomainConst.EMPLOYEE_INFO_PHONE_ID:    // Handle make a call
                 let phone = _listInfo[indexPath.row].name.normalizatePhoneString()
                 self.makeACall(phone: phone)
-            }
-            //++ BUG0114-SPJ (NguyenPT 20170624) Add note field
-            if _listInfo[indexPath.row].id == DomainConst.ORDER_INFO_NOTE_ID {
+            case DomainConst.ORDER_INFO_NOTE_ID:        // Handle show note
                 self.showAlert(message: _listInfo[indexPath.row].name)
-            }
-            //-- BUG0114-SPJ (NguyenPT 20170624) Add note field
-            //++ BUG0137-SPJ (NguyenPT 20170727) Show payback field
-            if _listInfo[indexPath.row].id == DomainConst.ORDER_INFO_PAY_BACK {
+            case DomainConst.ORDER_INFO_PAY_BACK:       // Handle update payback value
                 self.updatePaybackValue()
+            case DomainConst.ORDER_INFO_DISCOUNT:       // Handle update discount value
+                self.updateDiscountValue()
+            default:
+                break
             }
-            //-- BUG0137-SPJ (NguyenPT 20170727) Show payback field            
         case _tblViewGas:
             if indexPath.section == 1 {         // Select material
                 //updateMaterial(idx: indexPath.row)
