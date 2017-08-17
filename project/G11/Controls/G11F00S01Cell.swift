@@ -135,8 +135,12 @@ class G11F00S01Cell: UITableViewCell {
     /**
      * Set data for cell
      * - parameter data: TicketBean object
+     * - parameter isClosed: Flag check if this model is Closed ticket, default is false
      */
-    open func setData(data: TicketBean) {
+    //++ BUG0148-SPJ (NguyenPT 20170817) Change icon of Ticket closed status
+    //open func setData(data: TicketBean) {
+    open func setData(data: TicketBean, isClosed: Bool = false) {
+    //-- BUG0148-SPJ (NguyenPT 20170817) Change icon of Ticket closed status
         if data.time_reply.isBlank {
             self.dateTime.setValue(dateTime: data.created_date)
             self.commentLabel.text = data.name_user_to
@@ -147,6 +151,11 @@ class G11F00S01Cell: UITableViewCell {
         self.titleLabel.text = data.title.capitalizingFirstLetter()
         self.codeLabel.text = data.name
         self.statusIcon.image = ImageManager.getImage(named: getStatusIcon(isReplied: !data.time_reply.isBlank))
+        //++ BUG0148-SPJ (NguyenPT 20170817) Change icon of Ticket closed status
+        if isClosed {
+            self.statusIcon.image = ImageManager.getImage(named: DomainConst.FINISH_STATUS_IMG_NAME)
+        }
+        //-- BUG0148-SPJ (NguyenPT 20170817) Change icon of Ticket closed status
         updateLayouts(topH: GlobalConst.LABEL_H)
     }
     

@@ -8,6 +8,9 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.30.0
+// - BUG0150: VIP customer order of Driver - Update list order UI
+// - BUG0145: VIP customer order list - Change status icon position
 // Version: 1.29.0
 // - BUG0149: Handle show Gas remain and Sum all cylinder in Customer VIP order
 // - BUG0139: VIP Order - Add new Discount field

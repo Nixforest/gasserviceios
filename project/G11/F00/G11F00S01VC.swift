@@ -302,7 +302,10 @@ class G11F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
                 withIdentifier: G11F00S01Cell.theClassName)
                 as! G11F00S01Cell
             if _data.getRecord().count > indexPath.row {
-                cell.setData(data: _data.getRecord()[indexPath.row])
+                //++ BUG0148-SPJ (NguyenPT 20170817) Change icon of Ticket closed status
+                //cell.setData(data: _data.getRecord()[indexPath.row])
+                cell.setData(data: _data.getRecord()[indexPath.row], isClosed: self._type != 1)
+                //-- BUG0148-SPJ (NguyenPT 20170817) Change icon of Ticket closed status
             }
             return cell
     }
