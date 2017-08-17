@@ -9,6 +9,7 @@
 #include <metal_stdlib>
 using namespace metal;
 // Version: 1.29.0
+// - BUG0149: Handle show Gas remain and Sum all cylinder in Customer VIP order
 // - BUG0139: VIP Order - Add new Discount field
 // Version: 1.28.0
 // - BUG0138: Handle loading view process

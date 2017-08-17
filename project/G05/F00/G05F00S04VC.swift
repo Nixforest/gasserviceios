@@ -802,12 +802,18 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             value: DomainConst.BLANK))
         }
         // Employee name
-        if !BaseModel.shared.isNVGNUser() {
+        var name = data.name_employee_maintain
+        if name.isEmpty {
+            name = data.name_driver
+        }
+        //if !BaseModel.shared.isNVGNUser() {
+        if !name.isEmpty {
             _listInfo.append(ConfigurationModel(
                 id: DomainConst.ORDER_INFO_EMPLOYEE_DELIVER_ID,
                 name: DomainConst.CONTENT00233,
                 iconPath: DomainConst.HUMAN_ICON_IMG_NAME,
-                value: data.name_employee_maintain))
+                //value: data.name_employee_maintain))
+                value: name))
         }
         
         //++ BUG0114-SPJ (NguyenPT 20170624) Add note field

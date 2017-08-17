@@ -26,10 +26,12 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private var _listInfo:          [ConfigurationModel] = [ConfigurationModel]()
     /** Segment control */
     private var _segment:           UISegmentedControl   = UISegmentedControl(items: [DomainConst.CONTENT00253, DomainConst.CONTENT00263])
-    /** Order information view */
-    private var _viewOrderInfo:     UIView               = UIView()
-    /** Order cylinder information view */
-    private var _viewOrderCylinderInfo: UIView           = UIView()
+    //++ BUG0149-SPJ (NguyenPT 20170811) Handle show Gas remain and Sum all cylinder
+//    /** Order information view */
+//    private var _viewOrderInfo:     UIView               = UIView()
+//    /** Order cylinder information view */
+//    private var _viewOrderCylinderInfo: UIView           = UIView()
+    //-- BUG0149-SPJ (NguyenPT 20170811) Handle show Gas remain and Sum all cylinder
     /** Material table view */
     @IBOutlet weak var _tblViewGas: UITableView!
     /** Cylinder table view */
@@ -40,6 +42,16 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     private var _listCylinder: [[(String, Int)]]         = [[(String, Int)]]()
     /** Note textview */
     private var _tbxNote: UITextView                     = UITextView()
+    //++ BUG0149-SPJ (NguyenPT 20170727) Handle sum all cylinders
+    private var _listCylinderOption: [ConfigurationModel] = [ConfigurationModel]()
+    private let _sumCylinder:       ConfigurationModel   = ConfigurationModel(
+        id: DomainConst.ORDER_INFO_MATERIAL_SUM_ALL_CYLINDER,
+        name: DomainConst.CONTENT00218,
+        iconPath: DomainConst.SUM_ICON_IMG_NAME,
+        value: DomainConst.BLANK)
+    /** Data */
+    private var _data:              OrderVIPCreateRespModel = OrderVIPCreateRespModel()
+    //-- BUG0149-SPJ (NguyenPT 20170727) Handle sum all cylinders
     
     // MARK: Methods
     /**
@@ -50,9 +62,9 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         createMaterialTableHeader()
         for item in data.info_gas {
             let materialValue: [(String, Int)] = [
-                (item.material_name, 3),
-                (item.qty, 1),
-                (item.qty_real, 1)
+                (item.material_name, G05Const.TABLE_COLUME_WEIGHT_GAS_INFO.0),
+                (item.qty, G05Const.TABLE_COLUME_WEIGHT_GAS_INFO.1),
+                (item.qty_real, G05Const.TABLE_COLUME_WEIGHT_GAS_INFO.2)
             ]
             _listMaterial.append(materialValue)
         }
@@ -69,22 +81,32 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
 //            if !item.kg_has_gas.isEmpty && !item.kg_empty.isEmpty{
 //                gasdu = String(Int(item.kg_has_gas)! - Int(item.kg_empty)!)
 //            }
-            if let kgGas = Int(item.kg_has_gas), let kgEmpty = Int(item.kg_empty) {
-                gasdu = String(kgGas - kgEmpty)
+            //++ BUG0149-SPJ (NguyenPT 20170811) Handle show Gas remain and Sum all cylinder
+//            if let kgGas = Int(item.kg_has_gas), let kgEmpty = Int(item.kg_empty) {
+//                gasdu = String(kgGas - kgEmpty)
+//            }
+            if !item.kg_has_gas.isEmpty && !item.kg_empty.isEmpty {
+                let fKgGas = (item.kg_has_gas as NSString).floatValue
+                let fKgEmpty = (item.kg_empty as NSString).floatValue
+                gasdu = String(fKgGas - fKgEmpty)
             }
+            //-- BUG0149-SPJ (NguyenPT 20170811) Handle show Gas remain and Sum all cylinder
             //-- BUG0070-SPJ (NguyenPT 20170426) Handle convert String -> Int
             let cylinderValue: [(String, Int)] = [
-                (item.material_name, 4),
-                (item.seri, 1),
-                (item.kg_empty, 1),
-                (item.kg_has_gas, 1),
-                (gasdu, 1)
+                //++ BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
+                (item.material_name, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
+                (item.qty,           G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
+                (item.seri,          G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
+                (item.kg_empty,      G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
+                (item.kg_has_gas,    G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4),
+                (gasdu,              G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.5)
+                //-- BUG0135-SPJ (NguyenPT 20170727) Add new cylinder with quantity
             ]
             self._listCylinder.append(cylinderValue)
         }
         _tblViewCylinder.frame = CGRect(x: 0, y: offset,
                                    width: GlobalConst.SCREEN_WIDTH,
-                                   height: CGFloat(_listCylinder.count) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
+                                   height: CGFloat(_listCylinder.count + _listCylinderOption.count) * GlobalConst.CONFIGURATION_ITEM_HEIGHT)
         var height = _tblViewGas.frame.height
         if _listMaterial.count < _listCylinder.count {
             height = _tblViewCylinder.frame.height
@@ -112,9 +134,9 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     func createMaterialTableHeader() {
         let materialHeader: [(String, Int)] = [
-            ("Gas", 3),
-            ("Số lượng", 1),
-            ("Thực tế", 1)
+            (DomainConst.CONTENT00333,  G05Const.TABLE_COLUME_WEIGHT_GAS_INFO.0),
+            (DomainConst.CONTENT00255,  G05Const.TABLE_COLUME_WEIGHT_GAS_INFO.1),
+            (DomainConst.CONTENT00334,  G05Const.TABLE_COLUME_WEIGHT_GAS_INFO.2)
         ]
         self._listMaterial.append(materialHeader)
     }
@@ -124,11 +146,12 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     func createCylinderTableHeader() {
         let cylinderHeader: [(String, Int)] = [
-            ("Tên", 4),
-            ("Serial", 1),
-            ("Vỏ", 1),
-            ("Cân", 1),
-            ("Dư", 1)
+            (DomainConst.CONTENT00335, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.0),
+            (DomainConst.CONTENT00415, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.1),
+            (DomainConst.CONTENT00466, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.2),
+            (DomainConst.CONTENT00337, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.3),
+            (DomainConst.CONTENT00338, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.4),
+            (DomainConst.CONTENT00339, G05Const.TABLE_COLUME_WEIGHT_CYLINDER_INFO.5)
         ]
         self._listCylinder.append(cylinderHeader)
     }
@@ -243,14 +266,20 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     
     internal func segmentChange(_ sender: AnyObject) {
         switch _segment.selectedSegmentIndex {
+        //++ BUG0149-SPJ (NguyenPT 20170811) Handle show Gas remain and Sum all cylinder
         case 0:
-            self._viewOrderInfo.isHidden         = false
-            self._viewOrderCylinderInfo.isHidden = true
+//            self._viewOrderInfo.isHidden         = false
+//            self._viewOrderCylinderInfo.isHidden = true
+            self._tblViewGas.isHidden       = false
+            self._tblViewCylinder.isHidden  = true
             break
         case 1:
-            self._viewOrderInfo.isHidden         = true
-            self._viewOrderCylinderInfo.isHidden = false
+//            self._viewOrderInfo.isHidden         = true
+//            self._viewOrderCylinderInfo.isHidden = false
+            self._tblViewGas.isHidden       = true
+            self._tblViewCylinder.isHidden  = false
             break
+        //-- BUG0149-SPJ (NguyenPT 20170811) Handle show Gas remain and Sum all cylinder
         default:
              break
         }
@@ -316,13 +345,22 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         self._scrollView.addSubview(_segment)
         
         // Order information view
-        _viewOrderInfo.addSubview(_tblViewGas)
-        _viewOrderCylinderInfo.addSubview(_tblViewCylinder)
-        _viewOrderInfo.isHidden = false
-        _viewOrderCylinderInfo.isHidden = true
-        _scrollView.addSubview(_viewOrderInfo)
-        _scrollView.addSubview(_viewOrderCylinderInfo)
-        offset = offset + _viewOrderInfo.frame.height + GlobalConst.MARGIN
+        //++ BUG0149-SPJ (NguyenPT 20170811) Handle show Gas remain and Sum all cylinder
+//        _viewOrderInfo.addSubview(_tblViewGas)
+//        _viewOrderCylinderInfo.addSubview(_tblViewCylinder)
+//        _viewOrderInfo.isHidden = false
+//        _viewOrderCylinderInfo.isHidden = true
+//        _scrollView.addSubview(_viewOrderInfo)
+//        _scrollView.addSubview(_viewOrderCylinderInfo)
+//        offset = offset + _viewOrderInfo.frame.height + GlobalConst.MARGIN
+        _tblViewGas.isHidden = false
+        _tblViewCylinder.isHidden = true
+        _scrollView.addSubview(_tblViewGas)
+        _scrollView.addSubview(_tblViewCylinder)
+        offset = offset + _tblViewGas.frame.height + GlobalConst.MARGIN
+        _tblViewCylinder.allowsSelection = true
+        _listCylinderOption.append(_sumCylinder)
+        //-- BUG0149-SPJ (NguyenPT 20170811) Handle show Gas remain and Sum all cylinder
         
         // Note
         _tbxNote.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
@@ -362,14 +400,18 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     override func setData(_ notification: Notification) {
 //        let data = (notification.object as! OrderVIPCreateRespModel)
         let dataStr = (notification.object as! String)
-        let data = OrderVIPCreateRespModel(jsonString: dataStr)
-        setupListInfo(data: data.getRecord())
-        setupListMaterial(data: data.getRecord())
-        _lblCustomerName.text = data.getRecord().customer_name
-        _tableView.reloadData()
-        _tblViewGas.reloadData()
-        _tblViewCylinder.reloadData()
-        _tbxNote.text = data.getRecord().note_customer
+        _data = OrderVIPCreateRespModel(jsonString: dataStr)
+        if _data.isSuccess() {
+            setupListInfo(data: _data.getRecord())
+            setupListMaterial(data: _data.getRecord())
+            _lblCustomerName.text = _data.getRecord().customer_name
+            _tableView.reloadData()
+            _tblViewGas.reloadData()
+            _tblViewCylinder.reloadData()
+            _tbxNote.text = _data.getRecord().note_customer
+        } else {
+            showAlert(message: _data.message)
+        }
     }
     
 
@@ -382,6 +424,22 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: UITableViewDataSource, UITableViewDelegate
+    /**
+     * Asks the data source to return the number of sections in the table view.
+     */
+    func numberOfSections(in tableView: UITableView) -> Int {
+        switch tableView {
+        case _tableView, _tblViewGas:
+            return 1
+        case _tblViewCylinder:
+            return 2
+        default:
+            break
+        }
+        return 1
+    }
     
     /**
      * Set height of row in table view
@@ -399,7 +457,12 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         } else if tableView == _tblViewGas {
             return _listMaterial.count
         } else if tableView == _tblViewCylinder {
-            return _listCylinder.count
+            //return _listCylinder.count
+            if section == 0 {
+                return _listCylinder.count
+            } else if (section == 1) {
+                return _listCylinderOption.count
+            }
         }
         return _listInfo.count
     }
@@ -433,10 +496,24 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.ORDER_DETAIL_TABLE_VIEW_CELL,
                                                      for: indexPath) as! OrderDetailTableViewCell
             //cell.setup(data: _listCylinder[indexPath.row])
-            if indexPath.row == 0 {
-                cell.setup(data: _listCylinder[indexPath.row], color: GlobalConst.BUTTON_COLOR_GRAY)
-            } else {
-                cell.setup(data: _listCylinder[indexPath.row])
+//            if indexPath.row == 0 {
+//                cell.setup(data: _listCylinder[indexPath.row], color: GlobalConst.BUTTON_COLOR_GRAY)
+//            } else {
+//                cell.setup(data: _listCylinder[indexPath.row])
+//            }
+            switch indexPath.section {
+                case 0:             // Header
+                if indexPath.row == 0 {
+                    cell.setup(data: _listCylinder[indexPath.row], color: GlobalConst.BUTTON_COLOR_GRAY)
+                } else {
+                    cell.setup(data: _listCylinder[indexPath.row])
+                }
+                case 1:             // Material
+                if _listCylinderOption.count > indexPath.row  {
+                    cell.setup(config: _listCylinderOption[indexPath.row])
+                }
+                default:
+                break
             }
             retCell = cell
         }
@@ -445,12 +522,131 @@ class G05F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL,
-                                                 for: indexPath) as! ConfigurationTableViewCell
-        cell.setData(data: _listInfo[indexPath.row])
-        if _listInfo[indexPath.row].id == DomainConst.EMPLOYEE_INFO_PHONE_ID {
-            let phone = _listInfo[indexPath.row].name.normalizatePhoneString()
-            self.makeACall(phone: phone)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL,
+//                                                 for: indexPath) as! ConfigurationTableViewCell
+//        cell.setData(data: _listInfo[indexPath.row])
+//        if _listInfo[indexPath.row].id == DomainConst.EMPLOYEE_INFO_PHONE_ID {
+//            let phone = _listInfo[indexPath.row].name.normalizatePhoneString()
+//            self.makeACall(phone: phone)
+//        }
+        
+        switch tableView {
+        case _tableView:
+            if _listInfo[indexPath.row].id == DomainConst.EMPLOYEE_INFO_PHONE_ID {
+                let phone = _listInfo[indexPath.row].name.normalizatePhoneString()
+                self.makeACall(phone: phone)
+            }
+            break
+        case _tblViewGas:
+            break
+        case _tblViewCylinder:
+            switch indexPath.section {
+            case 0:
+                break
+            case 1:
+                if _listCylinderOption[indexPath.row].id == DomainConst.ORDER_INFO_MATERIAL_SUM_ALL_CYLINDER {
+                    self.getSumCylinder()
+                }
+            default:
+                break
+            }
+            
+        default:
+            break
         }
     }
+    
+    //++ BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
+    /**
+     * Show sum all cylinders
+     */
+    private func getSumCylinder() {
+        // Count number
+        var sumCount: [(Int, Double)] = [
+            (0, 0.0),
+            (0, 0.0),
+            (0, 0.0),
+            (0, 0.0)
+        ]
+        // Summary strings
+        var sum: [String] = [String]()
+        // Summary all
+        var sumAll: (Int, Double) = (0, 0.0)
+        // Loop through all info_vo array
+        for item in _data.getRecord().info_vo {
+            if let n = Int(item.qty) {
+                // Increase summary all number
+                sumAll.0 += n
+                // Calculate gas remain
+                var gasRemain: Double = 0.0
+                if !item.kg_empty.isEmpty && !item.kg_has_gas.isEmpty {
+                    gasRemain = (item.kg_has_gas as NSString).doubleValue - (item.kg_empty as NSString).doubleValue
+                }
+                sumAll.1 += gasRemain
+                // Check material type id
+                switch item.materials_type_id {
+                case DomainConst.CYLINDER_TYPE_ID_6KG:      // Cylinder 6Kg
+                    sumCount[0].0 += n
+                    sumCount[0].1 += gasRemain
+                    break
+                case DomainConst.CYLINDER_TYPE_ID_12KG:     // Cylinder 12Kg
+                    sumCount[1].0 += n
+                    sumCount[1].1 += gasRemain
+                    break
+                case DomainConst.CYLINDER_TYPE_ID_45KG:     // Cylinder 45Kg
+                    sumCount[2].0 += n
+                    sumCount[2].1 += gasRemain
+                    break
+                case DomainConst.CYLINDER_TYPE_ID_50KG:     // Cylinder 50Kg
+                    sumCount[3].0 += n
+                    sumCount[3].1 += gasRemain
+                    break
+                default:
+                    break
+                }
+            }
+        }
+        // Get name of type cylinder
+        for i in 0..<sumCount.count {
+            var name = DomainConst.BLANK
+            switch i {
+            case 0:
+                name = "6Kg"
+                break
+            case 1:
+                name = "12Kg"
+                break
+            case 2:
+                name = "45Kg"
+                break
+            case 3:
+                name = "50Kg"
+                break
+            default:
+                break
+            }
+            let item = sumCount[i]
+            if item.0 != 0 {
+                var str = String.init(format: "%@ %@: %d vỏ",
+                                      DomainConst.CONTENT00337,
+                                      name,
+                                      item.0)
+                if !item.1.isZero {
+                    str = String.init(format: "%@, gas dư: %.01f kg", str, item.1)
+                }
+                sum.append(str)
+            }
+        }
+        
+        // Sum all
+        var str = String.init(format: "%@: %d vỏ",
+                              DomainConst.CONTENT00218,
+                              sumAll.0)
+        if !sumAll.1.isZero {
+            str = String.init(format: "%@, gas dư: %.01f kg", str, sumAll.1)
+        }
+        sum.append(str)
+        showAlert(message: sum.joined(separator: "\n"))
+    }
+    //-- BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
 }
