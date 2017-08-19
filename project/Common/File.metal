@@ -9,7 +9,10 @@
 #include <metal_stdlib>
 using namespace metal;
 // Version: 1.30.0
+// - BUG0151: Handle favourite when select material
 // - BUG0150: VIP customer order of Driver - Update list order UI
+// - BUG0148: Change icon of Ticket closed status
+// - BUG0146: Handle error: request to server create log
 // - BUG0145: VIP customer order list - Change status icon position
 // Version: 1.29.0
 // - BUG0149: Handle show Gas remain and Sum all cylinder in Customer VIP order
