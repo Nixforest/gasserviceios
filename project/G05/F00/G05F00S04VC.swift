@@ -170,8 +170,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         case TYPE_GAS:                      // Gas
             //++ BUG0151-SPJ (NguyenPT 20170819) Handle favourite when select material
 //            MaterialSelectViewController.setMaterialData(data: BaseModel.shared.getListGasMaterialInfo())
-            MaterialSelectViewController.setMaterialData(
-                orderDetails: FavouriteDataModel.shared.getListGas())
+            MaterialSelectViewController.setMaterialDataFromFavourite(key: DomainConst.KEY_SETTING_FAVOURITE_GAS_LOGIN)
             //-- BUG0151-SPJ (NguyenPT 20170819) Handle favourite when select material
             self.pushToView(name: G05F02S01VC.theClassName)
         case TYPE_CYLINDER:                 // Cylinder

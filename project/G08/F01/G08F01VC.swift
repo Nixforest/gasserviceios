@@ -109,7 +109,10 @@ class G08F01VC: StepVC, StepDoneDelegate {
             break
         }
         // Check if select from MaterialSelectViewController
-        if !MaterialSelectViewController.getSelectedItem().isEmpty() {
+        //++ BUG0152-SPJ (NguyenPT 20170819) Fix bug
+        //if !MaterialSelectViewController.getSelectedItem().isEmpty() {
+        if G08F01S03._type != G08F01S03.TYPE_NONE && !MaterialSelectViewController.getSelectedItem().isEmpty() {
+        //-- BUG0152-SPJ (NguyenPT 20170819) Fix bug
             // Append to list data at step 3
             _step3?.appendMaterial(material: MaterialSelectViewController.getSelectedItem())
             // Reset selected item data

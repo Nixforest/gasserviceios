@@ -871,8 +871,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         case TYPE_GAS, TYPE_GAS_ADD:
             //++ BUG0151-SPJ (NguyenPT 20170819) Handle favourite when select material
 //            MaterialSelectViewController.setMaterialData(data: BaseModel.shared.getAgentMaterialGas(agentId: _data.getRecord().agent_id))
-            MaterialSelectViewController.setMaterialData(
-                orderDetails: FavouriteDataModel.shared.getListGas())
+            MaterialSelectViewController.setMaterialDataFromFavourite(key: DomainConst.KEY_SETTING_FAVOURITE_GAS)
             //-- BUG0151-SPJ (NguyenPT 20170819) Handle favourite when select material
             self.pushToView(name: G07F01S02VC.theClassName)
         //-- BUG0088-SPJ (NguyenPT 20170516) Can change gas material

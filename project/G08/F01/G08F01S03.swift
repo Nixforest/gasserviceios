@@ -148,6 +148,7 @@ class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
         switch G08F01S03._type {
         case G08F01S03.TYPE_GAS:                      // Gas
             MaterialSelectViewController.setMaterialData(orderDetails: CacheDataRespModel.record.getGasMaterials())
+//            MaterialSelectViewController.setMaterialDataFromFavourite(key: DomainConst.KEY_SETTING_FAVOURITE_GAS_LOGIN)
             self.getParentView().pushToView(name: G05F02S01VC.theClassName)
         case G08F01S03.TYPE_CYLINDER:                 // Cylinder
             MaterialSelectViewController.setMaterialData(orderDetails: CacheDataRespModel.record.getCylinderMaterials())
