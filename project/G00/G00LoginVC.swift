@@ -54,11 +54,16 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
      * - parameter sender:AnyObject
      */
     @IBAction func Login(_ sender: AnyObject) {
+        // Start login
+        logw(text: "Start login")
         // Check the value of text field is empty or not
         if (((txtPassword.text?.isEmpty)! || (txtAccount.text?.isEmpty)!)){
             // Call alert
             showAlert(message: DomainConst.CONTENT00023)
         } else {
+            //++ BUG0132-SPJ (NguyenPT 20170724) Remember username after login
+            BaseModel.shared.setCurrentUsername(username: txtAccount.text!)
+            //-- BUG0132-SPJ (NguyenPT 20170724) Remember username after login
             // Start login process
             //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
             //RequestAPI.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
@@ -75,9 +80,58 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
      * Finish request login handler
      */
     func finishRequestHandler(_ notification: Notification) {
-        self.popToRootView()
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+        //++ BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
+        //self.popToRootView()
+//        UpdateConfigurationRequest.requestUpdateConfiguration(
+//            action: #selector(finishUpdateConfigRequest(_:)),
+//            view: self)
+        //-- BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
+        //LoadingView.shared.showOverlay(view: self.view, className: self.theClassName)
+        let data = (notification.object as! String)
+        let model = LoginRespModel(jsonString: data)
+        //LoadingView.shared.hideOverlayView(className: self.theClassName)
+        if model.isSuccess() {
+            BaseModel.shared.loginSuccess(model.token)
+            BaseModel.shared.saveTempData(loginModel: model)
+            UpdateConfigurationRequest.requestUpdateConfiguration(
+                action: #selector(finishUpdateConfigRequest(_:)),
+                view: self)
+        } else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
+    //++ BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
+    /**
+     * Finish request update config
+     */
+    func finishUpdateConfigRequest(_ notification: Notification) {
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        self.popToRootView()
+//        //++ BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+//        if BaseModel.shared.getNeedChangePassFlag() {
+//            self.pushToView(name: G00ChangePassVC.theClassName)
+//        }
+//        //-- BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+        
+        LoadingView.shared.showOverlay(view: self.view, className: self.theClassName)
+        let data = (notification.object as! String)
+        let model = LoginRespModel(jsonString: data)
+        LoadingView.shared.hideOverlayView(className: self.theClassName)
+        if model.isSuccess() {
+            BaseModel.shared.saveTempData(loginModel: model)
+            self.popToRootView()
+            if BaseModel.shared.getNeedChangePassFlag() {
+                self.pushToView(name: G00ChangePassVC.theClassName)
+            }
+        } else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+    }
+    //-- BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
     
     /**
      * Handle tap on Login button
@@ -92,7 +146,7 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
      * - parameter sender:AnyObject
      */
     @IBAction func forgotPass(_ sender: AnyObject) {
-        showAlert(message: DomainConst.CONTENT00197)
+        showAlert(message: DomainConst.CONTENT00362)
     }
     
     // MARK: Methods
@@ -162,6 +216,9 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
                                   height: GlobalConst.EDITTEXT_H)
         txtAccount.placeholder = DomainConst.CONTENT00049
         txtAccount.translatesAutoresizingMaskIntoConstraints = true
+        //++ BUG0132-SPJ (NguyenPT 20170724) Remember username after login
+        txtAccount.text = BaseModel.shared.getCurrentUsername()
+        //-- BUG0132-SPJ (NguyenPT 20170724) Remember username after login
         // Set icon
         setLeftViewForTextField(textField: txtAccount, named: DomainConst.USERNAME_IMG_NAME)
         
@@ -182,10 +239,16 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
         // Show password check box
         chbShowPassword.frame = CGRect(x: txtPassword.frame.minX,
                                        y: txtPassword.frame.maxY + GlobalConst.MARGIN,
-                                       width: GlobalConst.CHECKBOX_W,
+                                       //++ BUG0084-SPJ (NguyenPT 20170515) Show "Show password" checkbox on Login screen
+                                       //width: GlobalConst.CHECKBOX_W + GlobalConst.LABEL_W,
+                                       width: GlobalConst.SCREEN_WIDTH,
+                                       //-- BUG0084-SPJ (NguyenPT 20170515) Show "Show password" checkbox on Login screen
                                        height: GlobalConst.CHECKBOX_H)
         chbShowPassword.tintColor = UIColor.black
         chbShowPassword.translatesAutoresizingMaskIntoConstraints = true
+        chbShowPassword.setTitle(DomainConst.CONTENT00102, for: UIControlState())
+        chbShowPassword.imageView?.contentMode = .scaleAspectFit
+        chbShowPassword.setTitleColor(UIColor.black, for: UIControlState())
         
         // Show password label
         lblShowPassword.frame = CGRect(x: chbShowPassword.frame.maxX + GlobalConst.MARGIN,
@@ -257,13 +320,14 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
         
         // Fill data in training mode
         if BaseModel.shared.checkTrainningMode() {
-            txtAccount.text = "truongnd"
+            txtAccount.text = "0976994876"
             txtPassword.text = "123123"
         }
         // Handle waiting register code confirm
         if !BaseModel.shared.getTempToken().isEmpty {
             self.processInputConfirmCode(message: DomainConst.BLANK)
         }
+        self.view.makeComponentsColor()
     }
     
     /**

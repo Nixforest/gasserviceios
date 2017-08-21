@@ -86,11 +86,21 @@ class G04F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
-        let data = (notification.object as! OrderListRespModel)
-        G04F00S01VC._data.total_page = data.total_page
-        G04F00S01VC._data.total_record = data.total_record
-        G04F00S01VC._data.append(contentOf: data.getRecord())
-        tableView.reloadData()
+//        let data = (notification.object as! OrderListRespModel)
+//        G04F00S01VC._data.total_page = data.total_page
+//        G04F00S01VC._data.total_record = data.total_record
+//        G04F00S01VC._data.append(contentOf: data.getRecord())
+//        tableView.reloadData()
+        let data = (notification.object as! String)
+        let model = OrderListRespModel(jsonString: data)
+        if model.isSuccess() {
+            G04F00S01VC._data.total_page = model.total_page
+            G04F00S01VC._data.total_record = model.total_record
+            G04F00S01VC._data.append(contentOf: model.getRecord())
+            tableView.reloadData()
+        } else {
+            showAlert(message: model.message)
+        }
     }
     
     // MARK: - UITableViewDataSource

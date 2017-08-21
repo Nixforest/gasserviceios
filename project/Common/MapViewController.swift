@@ -53,6 +53,10 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
     public static var _gasSelected      = MaterialBean()
     public static var _promoteSelected  = MaterialBean()
     public static var _currentAddress   = DomainConst.BLANK
+    //++ BUG0054-SPJ (NguyenPT 20170418) Add new function G07
+    /** Current position of user */
+    public static var _originPos        = CLLocationCoordinate2D.init()
+    //-- BUG0054-SPJ (NguyenPT 20170418) Add new function G07
     
     
     // MARK: Actions
@@ -115,20 +119,24 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
 //        asignNotifyForMenuItem()
         //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
         // Handle display color when training mode is on
-        if BaseModel.shared.checkTrainningMode() {
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
-        } else {    // Training mode off
-            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
-        }
+//        if BaseModel.shared.checkTrainningMode() {
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.TRAINING_COLOR
+//        } else {    // Training mode off
+//            GlobalConst.BUTTON_COLOR_RED = GlobalConst.MAIN_COLOR
+//        }
         
         // Do any additional setup after loading the view.
-        _location.requestAlwaysAuthorization()
+        //++ BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
+        //_location.requestAlwaysAuthorization()
+        //-- BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
         _location.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             _location.delegate = self
             _location.desiredAccuracy = kCLLocationAccuracyKilometer
-            //_location.startUpdatingLocation()
-            _location.startMonitoringSignificantLocationChanges()
+            //++ BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
+            _location.startUpdatingLocation()
+            //_location.startMonitoringSignificantLocationChanges()
+            //-- BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
         }
         // Setup layout
         var offset  = getTopHeight()
@@ -143,6 +151,19 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
         //-- BUG0048-SPJ (NguyenPT 20170313) Create slide menu view controller
         self.view.makeComponentsColor()
     }
+    
+    //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+    internal func finishRequestOrderConfig(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = OrderConfigRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.saveOrderConfig(config: model.getRecord())
+            setData(notification)
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     
     /**
      * Set data event handler
@@ -172,15 +193,39 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
      * Finish request update config handler
      */
     func finishRequestUpdateConfig(_ notification: Notification) {
-        self.updateNotificationStatus()
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        self.updateNotificationStatus()
+//        
+//        // Get notification count from server
+//        if BaseModel.shared.checkIsLogin() {
+//            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+////            RequestAPI.requestNotificationCount(view: self)
+//            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+//            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+//        }
+//        //++ BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+//        if BaseModel.shared.getNeedChangePassFlag() {
+//            self.pushToView(name: G00ChangePassVC.theClassName)
+//        }
+//        //-- BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
         
-        // Get notification count from server
-        if BaseModel.shared.checkIsLogin() {
-            //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
-//            RequestAPI.requestNotificationCount(view: self)
-            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
-            //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
+        LoadingView.shared.showOverlay(view: self.view, className: self.theClassName)
+        let data = (notification.object as! String)
+        let model = LoginRespModel(jsonString: data)
+        LoadingView.shared.hideOverlayView(className: self.theClassName)
+        if model.isSuccess() {
+            BaseModel.shared.saveTempData(loginModel: model)
+            self.updateNotificationStatus()
+            if BaseModel.shared.checkIsLogin() {
+                NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+            }
+            if BaseModel.shared.getNeedChangePassFlag() {
+                self.pushToView(name: G00ChangePassVC.theClassName)
+            }
+        } else {
+            showAlert(message: model.message)
         }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     
@@ -263,9 +308,13 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
      * Tells the delegate that new location data is available.
      */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // Get current position
         MapViewController._currentPos = (manager.location?.coordinate)!
-        // Setting camera
+        MapViewController._originPos = MapViewController._currentPos
+        //++ BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
+        if _mapView != nil {
+            return
+        }
+        //-- BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
         let camera = GMSCameraPosition.camera(withLatitude: MapViewController._currentPos.latitude, longitude: MapViewController._currentPos.longitude, zoom: Float(self._zoomValue))
         // Create mapview
         _mapView = GMSMapView.map(withFrame: CGRect(x: 0,
@@ -286,12 +335,18 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
                                          right: 0)
         
         self.view.insertSubview(_mapView!, at: 0)
-        // Get order config
+        
+        // Check if order config does exist
         if BaseModel.shared.getOrderConfig().agent.count != 0 {
+            // Get from base model
             MapViewController._agentInfo.append(contentsOf: BaseModel.shared.getOrderConfig().agent)
             MapViewController._distance = BaseModel.shared.getOrderConfig().distance_1
         } else {
-            OrderConfigRequest.requestOrderConfig(action: #selector(setData(_:)), view: self)
+            // Request from server
+            //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+            //OrderConfigRequest.requestOrderConfig(action: #selector(setData(_:)), view: self)
+            OrderConfigRequest.requestOrderConfig(action: #selector(finishRequestOrderConfig(_:)), view: self)
+            //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         }
     }
     

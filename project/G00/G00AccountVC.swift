@@ -180,6 +180,7 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         txtName.placeholder = DomainConst.CONTENT00055
         txtName.translatesAutoresizingMaskIntoConstraints = true
         txtName.delegate = self
+        txtName.isUserInteractionEnabled = false
         
         // Phone textfield
         txtPhone.frame = CGRect(x: txtName.frame.minX,
@@ -190,6 +191,7 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         txtPhone.translatesAutoresizingMaskIntoConstraints = true
         txtPhone.textColor = GlobalConst.BUTTON_COLOR_RED
         txtPhone.delegate = self
+        txtPhone.isUserInteractionEnabled = false
         
         // Address textfield
         txtAddress.frame = CGRect(x: txtName.frame.minX,
@@ -199,6 +201,7 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         txtAddress.placeholder = DomainConst.CONTENT00088
         txtAddress.translatesAutoresizingMaskIntoConstraints = true
         txtAddress.delegate = self
+        txtAddress.isUserInteractionEnabled = false
         
         // Save Button customize
         CommonProcess.createButtonLayout(btn: saveButton,
@@ -214,7 +217,7 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         CommonProcess.createButtonLayout(btn: changePasswordButton,
                                          x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                                          y: saveButton.frame.maxY + GlobalConst.MARGIN,
-                                         text: DomainConst.CONTENT00089.uppercased(),
+                                         text: DomainConst.CONTENT00089,
                                          action: #selector(changePasswordTapped(_:)),
                                          target: self,
                                          img: DomainConst.CHANGE_PASS_IMG_NAME,
@@ -224,7 +227,7 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         CommonProcess.createButtonLayout(btn: logoutButton,
                                          x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                                          y: changePasswordButton.frame.maxY + GlobalConst.MARGIN,
-                                         text: DomainConst.CONTENT00090.uppercased(),
+                                         text: DomainConst.CONTENT00090,
                                          action: #selector(logoutButtonTapped(_:)),
                                          target: self,
                                          img: DomainConst.LOGOUT_IMG_NAME,
@@ -252,11 +255,12 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
             txtName.text    = BaseModel.shared.user_info?.getName()
             txtPhone.text   = BaseModel.shared.user_info?.getPhone()
             txtAddress.text = BaseModel.shared.user_info?.getAddress()
-            if let url      = NSURL(string: String(BaseModel.shared.getServerURL() + (BaseModel.shared.user_info?.getAvatarImage())!)!) {
-                if let data = NSData(contentsOf: url as URL) {
-                    imgAvatar.image = UIImage(data: data as Data)
-                }
-            }
+//            if let url      = NSURL(string: String(BaseModel.shared.getServerURL() + (BaseModel.shared.user_info?.getAvatarImage())!)!) {
+//                if let data = NSData(contentsOf: url as URL) {
+//                    imgAvatar.image = UIImage(data: data as Data)
+//                }
+//            }
+            imgAvatar.getImgFromUrl(link: (BaseModel.shared.user_info?.getAvatarImage())!, contentMode: imgAvatar.contentMode)
         }
         self.view.makeComponentsColor()
     }
@@ -265,15 +269,26 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+        let data = (notification.object as! String)
+        let model = UserProfileRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.setUserInfo(userInfo: model.record)
+        } else {
+            showAlert(message: model.message)
+            return
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         txtName.text    = BaseModel.shared.user_info?.getName()
         txtPhone.text   = BaseModel.shared.user_info?.getPhone()
         txtAddress.text = BaseModel.shared.user_info?.getAddress()
         // Load image
-        if let url = NSURL(string: String(BaseModel.shared.getServerURL() + (BaseModel.shared.user_info?.getAvatarImage())!)!) {
-            if let data = NSData(contentsOf: url as URL) {
-                imgAvatar.image = UIImage(data: data as Data)
-            }        
-        }
+//        if let url = NSURL(string: String(BaseModel.shared.getServerURL() + (BaseModel.shared.user_info?.getAvatarImage())!)!) {
+//            if let data = NSData(contentsOf: url as URL) {
+//                imgAvatar.image = UIImage(data: data as Data)
+//            }        
+//        }
+        imgAvatar.getImgFromUrl(link: (BaseModel.shared.user_info?.getAvatarImage())!, contentMode: imgAvatar.contentMode)
     }
 
     /**
@@ -354,4 +369,13 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         }
         return true
     }
+    
+    //++ BUG0123-SPJ (NguyenPT 20170711) Handle update Agent id after change on Account screen
+    override func viewDidAppear(_ animated: Bool) {
+        if BaseModel.shared.user_info == nil {
+            // User information does not exist
+            UserProfileRequest.requestUserProfile(action: #selector(setData(_:)), view: self)
+        }
+    }
+    //-- BUG0123-SPJ (NguyenPT 20170711) Handle update Agent id after change on Account screen
 }

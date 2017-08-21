@@ -67,7 +67,7 @@ class G04F01S03VC: MaterialSelectViewController {
     }
     */
     
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         MapViewController._promoteSelected = self.getData(index: indexPath.row)
         self.backButtonTapped(self)
     }

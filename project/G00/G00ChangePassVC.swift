@@ -73,6 +73,12 @@ class G00ChangePassVC: ChildViewController, UITextFieldDelegate {
             showAlert(message: DomainConst.CONTENT00025)
             return
         }
+        //++ BUG0080-SPJ (NguyenPT 20170509) Check if new password is equal with old password in Change Password screen
+        else if (txtOldPassword.text == txtNewPassword.text) {
+            showAlert(message: DomainConst.CONTENT00369)
+            return
+        }
+        //-- BUG0080-SPJ (NguyenPT 20170509) Check if new password is equal with old password in Change Password screen
         // Check if password is correct
         if (txtNewPassword.text == txtNewPasswordRetype.text){
             self.showToast(message: "password update successfully")
@@ -97,7 +103,16 @@ class G00ChangePassVC: ChildViewController, UITextFieldDelegate {
      * Finish request change password handler
      */
     func finishRequestChangePassword(_ notification: Notification) {
-        super.backButtonTapped(self)
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        super.backButtonTapped(self)
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            super.backButtonTapped(self)
+        } else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     //-- BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
     
@@ -154,7 +169,14 @@ class G00ChangePassVC: ChildViewController, UITextFieldDelegate {
                                y: imgAvatar.frame.maxY + GlobalConst.MARGIN_CELL_Y,
                                width: GlobalConst.EDITTEXT_W,
                                height: GlobalConst.EDITTEXT_H)
-        lblName.text = BaseModel.shared.user_info?.getName()
+        //++ BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
+        //lblName.text = BaseModel.shared.user_info?.getName()
+        if (BaseModel.shared.user_info != nil) && (!(BaseModel.shared.user_info?.getName().isEmpty)!) {
+            lblName.text = BaseModel.shared.user_info?.getName()
+        } else {
+            lblName.text = BaseModel.shared.getUserInfoLogin(id: DomainConst.KEY_FIRST_NAME)
+        }
+        //-- BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
         lblName.textAlignment = .center
         lblName.textColor = GlobalConst.BUTTON_COLOR_RED
         
@@ -245,8 +267,12 @@ class G00ChangePassVC: ChildViewController, UITextFieldDelegate {
                                          text: DomainConst.CONTENT00090.uppercased(),
                                          action: #selector(logoutButtonTapped(_:)),
                                          target: self,
-                                         img: DomainConst.SAVE_INFO_IMG_NAME,
+                                         img: DomainConst.LOGOUT_IMG_NAME,
                                          tintedColor: UIColor.white)
+        //++ BUG0134-SPJ (NguyenPT 20170727) Change pass screen: Add logout button
+        logoutButton.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
+        logoutButton.isHidden = !BaseModel.shared.getNeedChangePassFlag()
+        //-- BUG0134-SPJ (NguyenPT 20170727) Change pass screen: Add logout button
         
         // Navigation Bar customize
         //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
