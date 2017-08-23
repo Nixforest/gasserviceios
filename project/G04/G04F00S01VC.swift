@@ -86,6 +86,7 @@ class G04F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      * Set data for controls
      */
     override func setData(_ notification: Notification) {
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
 //        let data = (notification.object as! OrderListRespModel)
 //        G04F00S01VC._data.total_page = data.total_page
 //        G04F00S01VC._data.total_record = data.total_record
@@ -101,6 +102,7 @@ class G04F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         } else {
             showAlert(message: model.message)
         }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     
     // MARK: - UITableViewDataSource

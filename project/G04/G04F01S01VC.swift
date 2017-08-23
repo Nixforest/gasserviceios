@@ -21,7 +21,7 @@ class G04F01S01VC: MapViewController {
     override func setData1(_ notification: Notification) {
         if !BaseModel.shared.checkTransactionKey() {
             if BaseModel.shared.checkIsLogin() {
-                OrderTransactionStartRequest.requestOrderTransactionStart(action: #selector(emptyMethod(_:)), view: self)
+                OrderTransactionStartRequest.requestOrderTransactionStart(action: #selector(finishStartTransaction(_:)), view: self)
             }            
         }
     }
@@ -58,8 +58,19 @@ class G04F01S01VC: MapViewController {
         super.viewDidAppear(true)
         if !BaseModel.shared.checkTransactionKey() {
             if BaseModel.shared.checkIsLogin() {
-                OrderTransactionStartRequest.requestOrderTransactionStart(action: #selector(emptyMethod(_:)), view: self)
+                OrderTransactionStartRequest.requestOrderTransactionStart(action: #selector(finishStartTransaction(_:)), view: self)
             }
         }
     }
+    //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+    internal func finishStartTransaction(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = OrderTransactionStartRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.setTransactionData(transaction: model.getRecord())
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
 }

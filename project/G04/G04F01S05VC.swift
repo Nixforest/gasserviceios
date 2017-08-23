@@ -427,18 +427,35 @@ class G04F01S05VC: ChildViewController, UITableViewDelegate, UITableViewDataSour
      * Handler when transaction complete request is finish
      */
     func finishRequestTransactionCompleteHandler(_ notification: Notification) {
-        _transactionCompleteBean = (notification.object as! TransactionCompleteBean)
-        updateListMaterial()
-        updateListInfo()
-        self._tblViewMaterial.reloadData()
-        self._tblViewInfo.reloadData()
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        _transactionCompleteBean = (notification.object as! TransactionCompleteBean)
+//        updateListMaterial()
+//        updateListInfo()
+//        self._tblViewMaterial.reloadData()
+//        self._tblViewInfo.reloadData()
+        let data = (notification.object as! String)
+        let model = OrderTransactionCompleteRespModel(jsonString: data)
+        if model.isSuccess() {
+            _transactionCompleteBean = model.getRecord()
+            updateListMaterial()
+            updateListInfo()
+            self._tblViewMaterial.reloadData()
+            self._tblViewInfo.reloadData()
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     
     /**
      * Set data notification
      */
     override func setData(_ notification: Notification) {
-        setData()
+        let data = (notification.object as! String)
+        let model = UserProfileRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.setUserInfo(userInfo: model.record)
+            setData()
+        }
+//        setData()
     }
     
     /**
@@ -520,8 +537,19 @@ class G04F01S05VC: ChildViewController, UITableViewDelegate, UITableViewDataSour
      * Handle when finish request transaction confirm/cancel
      */
     func finishRequestTransactionCancelHandler(_ notification: Notification) {
-        // Call super method
-        super.backButtonTapped(self)
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
+            showAlert(message: model.message, okHandler: {
+                alert in
+                super.backButtonTapped(self)
+            })
+        } else {
+            showAlert(message: model.message)
+        }
+//        // Call super method
+//        super.backButtonTapped(self)
     }
     //-- BUG0045-SPJ (NguyenPT 20170301) Bug when tap on Confirm button
     
@@ -539,6 +567,13 @@ class G04F01S05VC: ChildViewController, UITableViewDelegate, UITableViewDataSour
      * Handle when finish request transaction confirm/cancel
      */
     func finishRequestTransactionConfirmHandler(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = OrderTransactionConfirmRespModel(jsonString: data)
+        if !model.isSuccess() {
+            showAlert(message: model.message)
+            return
+        }
+        BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
         //++ BUG0045-SPJ (NguyenPT 20170301) Bug when tap on Confirm button
 //        // Back to previous view
 //        self.backButtonTapped(self)
@@ -546,7 +581,8 @@ class G04F01S05VC: ChildViewController, UITableViewDelegate, UITableViewDataSour
         super.backButtonTapped(self)
         //-- BUG0045-SPJ (NguyenPT 20170301) Bug when tap on Confirm button
         //++ BUG0040-SPJ (NguyenPT 20170222) Move to order detail
-        G04F00S02VC._id = (notification.object as! OrderTransactionConfirmRespModel).getRecord()
+//        G04F00S02VC._id = (notification.object as! OrderTransactionConfirmRespModel).getRecord()
+        G04F00S02VC._id = model.getRecord()
         self.pushToView(name: G04Const.G04_F00_S02_VIEW_CTRL)
         //-- BUG0040-SPJ (NguyenPT 20170222) Move to order detail
     }

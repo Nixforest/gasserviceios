@@ -139,15 +139,17 @@ class G04F02S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func finishRequestAddPromotion(_ notification: Notification) {
-        let resp = (notification.object as! BaseRespModel)
-        if resp.status == DomainConst.RESPONSE_STATUS_SUCCESS {
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+        //let resp = (notification.object as! BaseRespModel)
+        //if resp.status == DomainConst.RESPONSE_STATUS_SUCCESS {
+        let data = (notification.object as! String)
+        let resp = BaseRespModel(jsonString: data)
+        if resp.isSuccess() {
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
             self.showAlert(message: resp.message, okHandler: {_ in
                 PromotionListRequest.requestPromotionList(action: #selector(self.setData(_:)), view: self, page: String(self._page))
             })
         } else {
-//            self.showAlert(message: resp.message, okHandler: {_ in
-//                self.createAlert()
-//            })
             self.showAlert(message: resp.message, okTitle: DomainConst.CONTENT00251,
                            okHandler: {_ in
                             self.createAlert()
@@ -164,8 +166,18 @@ class G04F02S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     override func setData(_ notification: Notification) {
-        _data = (notification.object as! PromotionListRespModel).getRecord()
-        tableView.reloadData()
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        _data = (notification.object as! PromotionListRespModel).getRecord()
+//        tableView.reloadData()
+        let data = (notification.object as! String)
+        let model = PromotionListRespModel(jsonString: data)
+        if model.isSuccess() {
+            _data = model.getRecord()
+            tableView.reloadData()
+        } else {
+            showAlert(message: model.message)
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
     
     // MARK: - UITableViewDataSource

@@ -352,7 +352,15 @@ class G04F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     }
     
     override func setData(_ notification: Notification) {
-        let model: OrderViewRespModel = (notification.object as! OrderViewRespModel)
+        //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+//        let model: OrderViewRespModel = (notification.object as! OrderViewRespModel)
+        let data = (notification.object as! String)
+        let model = OrderViewRespModel(jsonString: data)
+        if !model.isSuccess() {
+            showAlert(message: model.message)
+            return
+        }
+        //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         lblName.text = model.getRecord().employee_name
         if !model.getRecord().employee_image.isEmpty {
             self.iconImg.getImgFromUrl(link: model.getRecord().employee_image, contentMode: self.iconImg.contentMode)
