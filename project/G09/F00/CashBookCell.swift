@@ -187,10 +187,15 @@ class CashBookCell: UITableViewCell {
         
         alert.addAction(cancel)
         alert.addAction(ticket)
-        if G09F00S01VC._cashBookType == DomainConst.CASHBOOK_TYPE_SCHEDULE
-            && (_data.allow_update == DomainConst.NUMBER_ONE_VALUE) {
+        if G09F00S01VC._cashBookType == DomainConst.CASHBOOK_TYPE_SCHEDULE {
+            //&& (_data.allow_update == DomainConst.NUMBER_ONE_VALUE) {
             // Show collect money item when cashbook type is Schedule and allow update flag is ON
             alert.addAction(collectMoney)
+        }
+        
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self
+            presenter.sourceRect = self.bounds
         }
         // Show alert
         if self.parentViewController != nil {
@@ -250,6 +255,11 @@ class CashBookCell: UITableViewCell {
             alert.addAction(action)
         }
         
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self
+            presenter.sourceRect = self.bounds
+        }
+        
         if self.parentViewController != nil {
             (self.parentViewController as! BaseViewController).present(alert, animated: true, completion: nil)
         }
@@ -274,7 +284,26 @@ class CashBookCell: UITableViewCell {
      * Handle create cashbook
      */
     private func createCashBook() {
-        openUpdateCashBookScreen()
+        //++ BUG0153-SPJ (NguyenPT 20170904) Fix bug create Cashbook schedule
+//        openUpdateCashBookScreen()
+        G09F01VC._typeId    = _data.master_lookup_id
+        G09F01VC._mode      = DomainConst.NUMBER_ZERO_VALUE         // Create
+        G09F01VC._id        = _data.id
+        G09F01VC._updateData        = _data
+        G09F01S01._selectedValue   = _data.date_input.replacingOccurrences(
+            of: DomainConst.SPLITER_TYPE3,
+            with: DomainConst.SPLITER_TYPE1)
+        
+        G09F01S02._target   = CustomerBean(id: _data.customer_id,
+                                           name: _data.customer_name,
+                                           phone: _data.customer_phone,
+                                           address: _data.customer_address)
+        G09F01S03._selectedValue = self._data.amount
+        G09F01S04._selectedValue = _data.note
+        if self.parentViewController != nil {
+            (self.parentViewController as! BaseViewController).pushToView(name: G09F01VC.theClassName)
+        }
+        //-- BUG0153-SPJ (NguyenPT 20170904) Fix bug create Cashbook schedule
     }
     
     /**
@@ -282,9 +311,9 @@ class CashBookCell: UITableViewCell {
      */
     private func openUpdateCashBookScreen() {
         if self.parentViewController != nil {
-            EmployeeCashBookViewRequest.request(
-                action: #selector(finishRequestCashBookView(_:)),
-                view: (self.parentViewController as! BaseViewController),
+            EmployeeCashBookViewRequest.requestView(
+                action: #selector(finishRequestCashBookViewCell(_:)),
+                view: self,// (self.parentViewController as! BaseViewController),
                 id: _data.id)
         }
     }
@@ -292,12 +321,14 @@ class CashBookCell: UITableViewCell {
     /**
      * Finish request cashbook view
      */
-    internal func finishRequestCashBookView(_ notification: Notification) {
+    internal func finishRequestCashBookViewCell(_ notification: Notification) {
         let data = (notification.object as! String)
         let model = EmployeeCashBookViewRespModel(jsonString: data)
         if model.isSuccess() {
             G09F01VC._typeId    = model.record.master_lookup_id
-            G09F01VC._mode      = DomainConst.NUMBER_ONE_VALUE
+            //G09F01VC._mode      = DomainConst.NUMBER_ONE_VALUE
+            G09F01VC._mode      = DomainConst.NUMBER_ZERO_VALUE         // Create
+            G09F01VC._id        = model.record.id
             G09F01VC._updateData        = model.record
             G09F01S01._selectedValue   = model.record.date_input.replacingOccurrences(
                 of: DomainConst.SPLITER_TYPE3,
@@ -307,7 +338,7 @@ class CashBookCell: UITableViewCell {
                                                name: model.record.customer_name,
                                                phone: model.record.customer_phone,
                                                address: model.record.customer_address)
-            G09F01S03._selectedValue = model.record.amount
+            G09F01S03._selectedValue = self._data.amount
             G09F01S04._selectedValue = model.record.note
             if self.parentViewController != nil {
                 (self.parentViewController as! BaseViewController).pushToView(name: G09F01VC.theClassName)

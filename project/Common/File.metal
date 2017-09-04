@@ -8,7 +8,12 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.32.0
+// - BUG0153: Fix bug create Cashbook schedule
+// Version: 1.31.0
+// - Fix bug [The network connection was lost]
 // Version: 1.30.0
+// - BUG0152: Fix bug when create store card - Still remain Material in list
 // - BUG0151: Handle favourite when select material
 // - BUG0150: VIP customer order of Driver - Update list order UI
 // - BUG0148: Change icon of Ticket closed status

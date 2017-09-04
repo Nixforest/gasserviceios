@@ -295,12 +295,15 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
         }
         //-- BUG0059-SPJ (NguyenPT 20170420) Use location service when app is openned, not background
         let camera = GMSCameraPosition.camera(withLatitude: MapViewController._currentPos.latitude, longitude: MapViewController._currentPos.longitude, zoom: Float(self._zoomValue))
+        // Create mapview
         _mapView = GMSMapView.map(withFrame: CGRect(x: 0,
                                                     y: self.getTopHeight(),
                                                     width:GlobalConst.SCREEN_WIDTH,
                                                     height:GlobalConst.SCREEN_HEIGHT - self.getTopHeight()),
                                   camera: camera)
+        // Show compass button
         _mapView?.settings.compassButton    = true
+        // Turn on my location
         _mapView?.isMyLocationEnabled       = true
         _mapView?.settings.myLocationButton = true
         _mapView?.settings.indoorPicker     = true

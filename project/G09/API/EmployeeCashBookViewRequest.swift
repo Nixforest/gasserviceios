@@ -40,4 +40,22 @@ class EmployeeCashBookViewRequest: BaseRequest {
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
+    
+    //++ BUG0153-SPJ (NguyenPT 20170904) Fix bug create Cashbook schedule
+    /**
+     * Request employee cash book view
+     * - parameter action:      Action execute when finish this task
+     * - parameter view:        Current view
+     * - parameter id:          Id of cash book
+     */
+    public static func requestView(action: Selector,
+                                   view: UIView,
+                                   id: String) {
+        let request = EmployeeCashBookViewRequest(url: G09Const.PATH_VIP_CUSTOMER_CASHBOOK_VIEW,
+                                                  reqMethod: DomainConst.HTTP_POST_REQUEST)
+        request.setData(id: id)
+        NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
+        request.execute()
+    }
+    //-- BUG0153-SPJ (NguyenPT 20170904) Fix bug create Cashbook schedule
 }

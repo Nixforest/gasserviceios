@@ -18,7 +18,7 @@ class EmployeeCashBookUpdateRequest: BaseRequest {
      * - parameter date:                Delivery date
      * - parameter amount:              Amount of money
      * - parameter note:                Note
-     * - parameter listImgDelete:   List images to delete
+     * - parameter listImgDelete:       List images to delete
      */
     func setData(id: String,
                  customerId: String,
@@ -62,6 +62,7 @@ class EmployeeCashBookUpdateRequest: BaseRequest {
      * Request VIP customer store card list
      * - parameter action:          Action execute when finish this task
      * - parameter view:            Current view
+     * - parameter id:              Id of cashbook
      * - parameter customerId:      Id of customer
      * - parameter storeCardType:   Type of store card
      * - parameter date:            Delivery date

@@ -15,7 +15,8 @@ class G09F01VC: StepVC, StepDoneDelegate {
     /** Mode: 0 - Create, 1 - Update */
     public static var _mode:        String  = DomainConst.NUMBER_ZERO_VALUE
     /** Id of cashbook updating */
-    public static var _id:          String  = DomainConst.BLANK
+    public static var _id:          String  = DomainConst.NUMBER_ZERO_VALUE
+    /** Data to need update */
     public static var _updateData:  CashBookBean = CashBookBean()
     /** App order id */
     public static var _appOrderId:  String  = DomainConst.BLANK
@@ -89,6 +90,7 @@ class G09F01VC: StepVC, StepDoneDelegate {
             EmployeeCashBookCreateRequest.request(
                 action:             #selector(finishCreateCashBook(_:)),
                 view:               self,
+                id:                 G09F01VC._id,
                 customerId:         G09F01S02.getTarget().id,
                 master_lookup_id:   G09F01VC._typeId,
                 date:               G09F01S01.getSelectValue(),
@@ -153,5 +155,6 @@ class G09F01VC: StepVC, StepDoneDelegate {
         G09F01S03._selectedValue = DomainConst.BLANK
         G09F01S04._selectedValue = DomainConst.BLANK
         G09F01S06._selectedValue.removeAll()
+        G09F01VC._id = DomainConst.NUMBER_ZERO_VALUE
     }
 }

@@ -17,14 +17,16 @@ class EmployeeCashBookCreateRequest: BaseRequest {
      * - parameter date:                Delivery date
      * - parameter amount:              Amount of money
      * - parameter note:                Note
+     * - parameter id:                  Id of cashbook
      */
-    func setData(customerId: String,
+    func setData(id: String,
+                 customerId: String,
                  master_lookup_id: String,
                  date: String,
                  amount: String,
                  note: String, appOrderId: String) {
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
             DomainConst.KEY_TOKEN,              BaseModel.shared.getUserToken(),
             DomainConst.KEY_CUSTOMER_ID,        customerId,
             DomainConst.KEY_MASTER_LOOKUP_ID,   master_lookup_id,
@@ -32,11 +34,12 @@ class EmployeeCashBookCreateRequest: BaseRequest {
             DomainConst.KEY_AMOUNT,             amount,
             DomainConst.KEY_NOTE,               note,
             DomainConst.KEY_APP_ORDER_ID,       appOrderId,
+            DomainConst.KEY_ID,                 id,
             DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
         )
         
         self.param = ["q": String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
             DomainConst.KEY_TOKEN,              BaseModel.shared.getUserToken(),
             DomainConst.KEY_CUSTOMER_ID,        customerId,
             DomainConst.KEY_MASTER_LOOKUP_ID,   master_lookup_id,
@@ -44,6 +47,7 @@ class EmployeeCashBookCreateRequest: BaseRequest {
             DomainConst.KEY_AMOUNT,             amount,
             DomainConst.KEY_NOTE,               note,
             DomainConst.KEY_APP_ORDER_ID,       appOrderId,
+            DomainConst.KEY_ID,                 id,
             DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
         )]
     }
@@ -52,6 +56,7 @@ class EmployeeCashBookCreateRequest: BaseRequest {
      * Request VIP customer store card list
      * - parameter action:          Action execute when finish this task
      * - parameter view:            Current view
+     * - parameter id:              Id of cashbook
      * - parameter customerId:      Id of customer
      * - parameter storeCardType:   Type of store card
      * - parameter date:            Delivery date
@@ -59,6 +64,7 @@ class EmployeeCashBookCreateRequest: BaseRequest {
      * - parameter orderDetail:     Detail of order
      */
     public static func request(action: Selector, view: BaseViewController,
+                               id: String,
                                customerId: String,
                                master_lookup_id: String,
                                date: String,
@@ -70,7 +76,7 @@ class EmployeeCashBookCreateRequest: BaseRequest {
         let request = EmployeeCashBookCreateRequest(url: G09Const.PATH_VIP_CUSTOMER_CASHBOOK_CREATE,
                                              reqMethod: DomainConst.HTTP_POST_REQUEST,
                                              view: view)
-        request.setData(customerId: customerId,
+        request.setData(id: id, customerId: customerId,
                         master_lookup_id: master_lookup_id,
                         date: date,
                         amount: amount,
