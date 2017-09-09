@@ -26,7 +26,7 @@ class G08F01S05: G01F02S06 {
             cell.imgPicker.getImgFromUrl(link: G08F01S05._previousImage[indexPath.row].large,
                                          contentMode: cell.imgPicker.contentMode)
         } else {
-            let aImage :UIImage     = G01F02S06._selectedValue[indexPath.row - G08F01S05._previousImage.count]
+            let aImage :UIImage     = G08F01S05._selectedValue[indexPath.row - G08F01S05._previousImage.count]
             cell.imgPicker.image    = aImage
         }
         
@@ -50,7 +50,7 @@ class G08F01S05: G01F02S06 {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return G01F02S06._selectedValue.count + G08F01S05._previousImage.count
+        return G08F01S05._selectedValue.count + G08F01S05._previousImage.count
     }
     
     // MARK: - step5TableViewCellDelegate
@@ -58,7 +58,7 @@ class G08F01S05: G01F02S06 {
         if row < G08F01S05._previousImage.count {
             G08F01S05._previousImage.remove(at: row)
         } else {
-            G01F02S06._selectedValue.remove(at: row - G08F01S05._previousImage.count)
+            G08F01S05._selectedValue.remove(at: row - G08F01S05._previousImage.count)
         }
         self._tblListImg.reloadData()
         NotificationCenter.default.post(name: Notification.Name(rawValue: DomainConst.NOTIFY_NAME_SET_DATA_G01F02), object: nil)

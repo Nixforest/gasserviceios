@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
     // MARK: Properties
     /** Information table view */
     @IBOutlet weak var _tableView:  UITableView!
@@ -22,7 +22,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /** Id */
     public static var _id:          String               = DomainConst.BLANK
     /** Data */
-    private var _data:              OrderVIPCreateRespModel = OrderVIPCreateRespModel()
+    internal var _data:              OrderVIPCreateRespModel = OrderVIPCreateRespModel()
     /** Parent view */
     private var _scrollView:        UIScrollView         = UIScrollView()
     /** Customer name label */
@@ -80,6 +80,10 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         iconPath: DomainConst.SUM_ICON_IMG_NAME,
         value: DomainConst.BLANK)
     //-- BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
+    //++ BUG0154-SPJ (NguyenPT 20170909) Add image in VIP order detail when update
+    /** List image add to this order */
+    internal var _images:            [UIImage]           = [UIImage]()
+    //-- BUG0154-SPJ (NguyenPT 20170909) Add image in VIP order detail when update
     
     /** Note textview */
     private var _tbxNote: UITextView                     = UITextView()
@@ -1251,8 +1255,58 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         })
         alert.addAction(ticket)
         //-- BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
+        //++ BUG0154-SPJ (NguyenPT 20170909) Add image in VIP order detail when update
+        let addImageCamera = UIAlertAction(title: DomainConst.CONTENT00470,
+                                     style: .default, handler: {
+                                        action in
+                                        self.addImageFromCamera()
+        })
+        alert.addAction(addImageCamera)
+        let addImageLib = UIAlertAction(title: DomainConst.CONTENT00471,
+                                     style: .default, handler: {
+                                        action in
+                                        self.addImageFromLibrary()
+        })
+        alert.addAction(addImageLib)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = sender as? UIButton
+            presenter.sourceRect = sender.bounds
+        }
+        //-- BUG0154-SPJ (NguyenPT 20170909) Add image in VIP order detail when update
         self.present(alert, animated: true, completion: nil)
     }
+    
+    //++ BUG0154-SPJ (NguyenPT 20170909) Add image in VIP order detail when update
+    /**
+     * Handle add image from camera
+     */
+    internal func addImageFromCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = UIImagePickerControllerSourceType.camera
+            imgPicker.allowsEditing = true
+            self.present(imgPicker, animated: true, completion: {
+                self.cltImg.reloadData()
+            })
+        }
+    }
+    
+    /**
+     * Handle add image from library
+     */
+    internal func addImageFromLibrary() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            imgPicker.allowsEditing = true
+            self.present(imgPicker, animated: true, completion: {
+                self.cltImg.reloadData()
+            })
+        }
+    }
+    //-- BUG0154-SPJ (NguyenPT 20170909) Add image in VIP order detail when update
     
     /**
      * Handle select set debit action
@@ -1381,11 +1435,13 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             payback: _data.getRecord().pay_back,
             //-- BUG0137-SPJ (NguyenPT 20170727) Show payback field
             //++ BUG0139-SPJ (NguyenPT 20170805) Show discount field
-            discount: _data.getRecord().discount)
+            discount: _data.getRecord().discount,
             //-- BUG0139-SPJ (NguyenPT 20170805) Show discount field
+            images: _images)
     }
     
     internal func finishUpdateOrder(_ notification: Notification) {
+        self._images.removeAll()
         setData(notification)
     }
     
@@ -2258,11 +2314,39 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     }
     //++ BUG0089-SPJ (NguyenPT 20170515) Fix bug move up view when focus text view
     
+    override var canBecomeFirstResponder: Bool {
+        get {
+            return true
+        }
+    }
+}
+
+// MARK: UIImagePickerControllerDelegate
+extension G05F00S04VC: UIImagePickerControllerDelegate {
+    /**
+     * Tells the delegate that the user picked a still image or movie.
+     */
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            self._images.append(image)            
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: UINavigationControllerDelegate
+extension G05F00S04VC: UINavigationControllerDelegate {
+    // Implement methods
+}
+
+// MARK: UICollectionViewDataSource
+extension G05F00S04VC: UICollectionViewDataSource {
     /**
      * Asks your data source object for the number of items in the specified section.
      */
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return _data.record.images.count
+        //        return _data.record.images.count
+        return _data.record.images.count + self._images.count
     }
     
     /**
@@ -2273,10 +2357,18 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         
         cell.imageView.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
-        cell.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].thumb, contentMode: cell.imageView.contentMode)
+        if indexPath.row < _data.record.images.count {
+            cell.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].thumb, contentMode: cell.imageView.contentMode)
+        } else {
+            cell.imageView.image = self._images[indexPath.row - _data.record.images.count]
+        }
+        
         return cell
     }
-    
+}
+
+// MARK: UICollectionViewDelegate
+extension G05F00S04VC: UICollectionViewDelegate {
     /**
      * Tells the delegate that the item at the specified index path was selected.
      */
@@ -2284,8 +2376,24 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
         /** push to zoomIMGVC */
         zoomIMGViewController.imgPicked = cell.imageView.image
-        zoomIMGViewController.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].large, contentMode: cell.imageView.contentMode)
+        if indexPath.row < _data.record.images.count {
+            zoomIMGViewController.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].large, contentMode: cell.imageView.contentMode)
+        } else {
+            zoomIMGViewController.setPickedImg(img: self._images[indexPath.row - _data.record.images.count])
+        }
         // Move to rating view
         self.pushToView(name: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        print("Perform")
     }
 }

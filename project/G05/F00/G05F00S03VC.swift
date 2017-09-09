@@ -68,6 +68,10 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
     /** Flag check keyboard is show or hide */
     private var _isKeyboardShow:    Bool                            = false
     //-- BUG0104-SPJ (NguyenPT 20170607) Add new view
+    //++ BUG0081-SPJ (NguyenPT 20170510) UITableView not reload until scroll
+    /** Flag check need reload table view at viewDidAppear first time */
+    private var _isFirstReload:     Bool                = false
+    //++ BUG0081-SPJ (NguyenPT 20170510) UITableView not reload until scroll
     
     // MARK: Utility methods
     /**
@@ -426,6 +430,18 @@ class G05F00S03VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
 //        resetData()
 //        requestData()
     }
+    
+    //++ BUG0081-SPJ (NguyenPT 20170510) UITableView not reload until scroll
+    /**
+     * Notifies the view controller that its view was added to a view hierarchy.
+     */
+    override func viewDidAppear(_ animated: Bool) {
+        if !_isFirstReload {
+            _isFirstReload = true
+            _tblView.reloadData()
+        }
+    }
+    //-- BUG0081-SPJ (NguyenPT 20170510) UITableView not reload until scroll
     
 
     /*

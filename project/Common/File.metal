@@ -8,6 +8,9 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.33.0
+// - BUG0155: Change loading view to random
+// - BUG0154: Add image in VIP order detail when update
 // Version: 1.32.0
 // - BUG0153: Fix bug create Cashbook schedule
 // Version: 1.31.0

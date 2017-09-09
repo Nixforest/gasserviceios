@@ -76,7 +76,7 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
         // Do any additional setup after loading the view.
         // Show loading view
         if zoomIMGViewController.imageView.image == nil {
-            LoadingView.shared.showOverlay()
+//            LoadingView.shared.showOverlay()
         }
     }
     override func didReceiveMemoryWarning() {
@@ -89,14 +89,8 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
     {
         return zoomIMGViewController.imageView
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    public static func setPickedImg(img: UIImage) {
+        zoomIMGViewController.imgPicked = img
     }
-    */
 }
