@@ -217,7 +217,7 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
             BaseModel.shared.saveTempData(loginModel: model)
             self.updateNotificationStatus()
             if BaseModel.shared.checkIsLogin() {
-                NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+//                NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
             }
             if BaseModel.shared.getNeedChangePassFlag() {
                 self.pushToView(name: G00ChangePassVC.theClassName)

@@ -127,7 +127,7 @@ class G00HomeVC: ParentViewController, UITableViewDataSource, UITableViewDelegat
         if BaseModel.shared.checkIsLogin() {
             //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
 //            RequestAPI.requestNotificationCount(view: self)
-            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
+//            NotificationCountRequest.requestNotificationCount(action: #selector(updateNotificationStatus(_:)), view: self)
             //-- BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
         }
     }

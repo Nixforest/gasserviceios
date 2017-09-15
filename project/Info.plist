@@ -42,7 +42,7 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string></string>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>Dùng camera để quét QR code</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string></string>
 	<key>NSHealthUpdateUsageDescription</key>
@@ -63,6 +63,8 @@
 	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>UILaunchStoryboardName~ipad</key>
+	<string>LaunchScreenIpad</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -76,6 +78,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 </dict>
 </plist>

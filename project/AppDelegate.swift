@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Google maps
         //let key = "AIzaSyDpiyIoQSxkj1GAqwUSxk-3wxxUcuQa_6k"
         //let key = "AIzaSyBAp4n2BAmthIPvaF4FCOmQ19WEnb6trfs"
-        let key = "AIzaSyCOXWFIXGsvZqkOziYt5CQj7Y-bB7Ej40U"
+        let key = DomainConst.GOOGLE_API_KEY
         GMSServices.provideAPIKey(key)
         GMSPlacesClient.provideAPIKey(key)
         // Google Direct API
@@ -202,6 +202,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Move to detail
         print(message)
+    }
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            return UIInterfaceOrientationMask.portrait
+        case .pad:
+            return UIInterfaceOrientationMask.portrait
+        default:
+            break
+        }
+        return UIInterfaceOrientationMask.all
     }
 }
 

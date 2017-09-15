@@ -90,12 +90,24 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
     // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        //return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        //return 2
+        switch section {
+        case 0:
+            return 2
+        case 1:
+            if BaseModel.shared.checkTrainningMode() {
+                return 4
+            }
+            return 0
+        default:
+            return 0
+        }
     }
     
     /**
@@ -113,33 +125,109 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         ConfigurationTableViewCell.PARENT_WIDTH = GlobalConst.SCREEN_WIDTH
         let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL, for: indexPath) as! ConfigurationTableViewCell
-        // Custom cell
-        switch (indexPath as NSIndexPath).row {
-        case 0:             // Information
-            cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
-                         name: DomainConst.CONTENT00139,
-                         value: DomainConst.VERSION_CODE_WITH_NAME)
-            
-        case 1:             // Information
-            cell.setData(leftImg: DomainConst.VERSION_TYPE_ICON_IMG_NAME,
-                         name: DomainConst.CONTENT00441,
-                         value: DomainConst.BLANK)
+        switch indexPath.section {
+        case 0:                     // Configuration section
+            // Custom cell
+            switch (indexPath as NSIndexPath).row {
+            case 0:             // Information
+                cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
+                             name: DomainConst.CONTENT00139,
+                             value: DomainConst.VERSION_CODE_WITH_NAME)
+                
+            case 1:             // Information
+                cell.setData(leftImg: DomainConst.VERSION_TYPE_ICON_IMG_NAME,
+                             name: DomainConst.CONTENT00441,
+                             value: DomainConst.BLANK)
             default:
                 break
+                
+            }
+        case 1:                     // Test section
+            if BaseModel.shared.checkTrainningMode() {
+                switch indexPath.row {
+                case 0:         // Test google map
+                    cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
+                                 name: "Test Google Map",
+                                 value: DomainConst.BLANK)
+                case 1:         // Test QR code
+                    cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
+                                 name: "Test QR code",
+                                 value: DomainConst.BLANK)
+                case 2:         // Test QR code
+                    cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
+                                 name: "Test Loading",
+                                 value: DomainConst.BLANK)
+                case 3:         // Test QR code
+                    cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
+                                 name: "Test multi-device",
+                                 value: DomainConst.BLANK)
+                default:
+                    break
+                }
+            }
             
+        default:
+            return UITableViewCell()
         }
         
         return cell //ConfigurationTableViewCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
-            self.pushToView(name: DomainConst.G00_INFORMATION_VIEW_CTRL)
-        case 1:
-            self.updateVersionAppStore()
+        
+        switch indexPath.section {
+        case 0:                     // Configuration section
+            switch indexPath.row {
+            case 0:
+                self.pushToView(name: DomainConst.G00_INFORMATION_VIEW_CTRL)
+            case 1:
+                self.updateVersionAppStore()
+            default:
+                break
+            }
+            break
+        case 1:                     // Test section
+            switch indexPath.row {
+            case 0:
+                testGoogleMap()
+            case 1:
+                testQRCode()
+            case 2:
+                testLoadingView()
+            case 3:
+                testMultiDevice()
+            default:
+                break
+            }
+            break
         default:
             break
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return CGFloat.leastNormalMagnitude
+        return 50
+    }
+    
+    private func testGoogleMap() {
+        let googleMap = GoogleMapVC(nibName: GoogleMapVC.theClassName, bundle: nil)
+        self.navigationController?.pushViewController(googleMap, animated: true)
+    }
+    
+    private func testQRCode() {
+        let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
+        let scan = ScanCodeVC(nibName: ScanCodeVC.theClassName, bundle: frameworkBundle)
+        self.navigationController?.pushViewController(scan, animated: true)
+    }
+    
+    private func testLoadingView() {
+        let view = LoadingViewVC(nibName: LoadingViewVC.theClassName, bundle: nil)
+        self.navigationController?.pushViewController(view, animated: true)
+    }
+    
+    private func testMultiDevice() {
+        let view = MultiDeviceVC(nibName: MultiDeviceVC.theClassName, bundle: nil)
+        self.navigationController?.pushViewController(view, animated: true)
     }
 }

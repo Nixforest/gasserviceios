@@ -30,6 +30,8 @@ class G04Const {
     public static let PATH_CUSTOMER_PROMOTION_LIST      = "customer/promotionList"
     /** Path to connect with PHP server */
     public static let PATH_CUSTOMER_PROMOTION_ADD       = "customer/promotionAdd"
+    /** Path to connect with PHP server */
+    public static let PATH_REFERRAL_INFO                = "referral/referralInfo"
     //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
 //    /** Notification key: Configuration item */
 //    public static let NOTIFY_NAME_G04_ORDER_LIST_CONFIG_ITEM        = G04Const.FUNC_IDENTIFIER + ".orderlist.configitem"
