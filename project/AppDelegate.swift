@@ -35,7 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         
         //let firstVC = mainStoryboard.instantiateViewController(withIdentifier: DomainConst.G00_HOME_VIEW_CTRL)
-        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: G04Const.G04_F01_S01_VIEW_CTRL) as! ParentViewController
+        //++ BUG0156-SPJ (NguyenPT 20170921) Re-design Gas24h
+//        let firstVC = mainStoryboard.instantiateViewController(withIdentifier: G04Const.G04_F01_S01_VIEW_CTRL) as! ParentViewController
+        let firstVC = G12F01S01VC(nibName: G12F01S01VC.theClassName, bundle: nil)
+        //-- BUG0156-SPJ (NguyenPT 20170921) Re-design Gas24h
         rootNav = UINavigationController(rootViewController: firstVC)
         rootNav.isNavigationBarHidden = false
         
@@ -208,7 +211,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case .phone:
             return UIInterfaceOrientationMask.portrait
         case .pad:
-            return UIInterfaceOrientationMask.portrait
+            return UIInterfaceOrientationMask.all
         default:
             break
         }

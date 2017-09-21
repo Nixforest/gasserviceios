@@ -21,11 +21,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="welcome_1920_1080.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="j0C-Du-GkW">
+                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcome_1920_1080.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="j0C-Du-GkW">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="j0C-Du-GkW" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="4L0-cy-jZQ"/>
+                            <constraint firstItem="j0C-Du-GkW" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="6vQ-zB-fVe"/>
+                            <constraint firstAttribute="trailing" secondItem="j0C-Du-GkW" secondAttribute="trailing" id="WlD-fd-huE"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="j0C-Du-GkW" secondAttribute="bottom" id="XMY-zm-g9K"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
