@@ -14,9 +14,19 @@ class G12F01S01VC: ParentExtViewController {
     /** Category view */
     var categoryView:           UIView      = UIView()
     /** List of category button */
-    var listButton:             [UIButton]  = [UIButton]()
+    var listCategoryButtons:    [UIButton]  = [UIButton]()
     /** Label Order */
     var lblOrder:               UILabel     = UILabel()
+    /** Button order */
+    var btnOrder:               UIButton    = UIButton()
+    /** Explain label */
+    var lblExplain:             UILabel     = UILabel()
+    /** Actions view */
+    var actionsView:            UIView      = UIView()
+    /** List of actions button */
+    var listActionsButtons:     [UIButton]  = [UIButton]()
+    /** List of actions label */
+    var listActionsLabels:      [UILabel]   = [UILabel]()
     
     // MARK: Constant
     // Category button
@@ -28,6 +38,16 @@ class G12F01S01VC: ParentExtViewController {
     var ORDER_LABEL_REAL_Y_POS_HD       = GlobalConst.ORDER_LABEL_Y_POS * BaseViewController.H_RATE_HD
     var ORDER_LABEL_REAL_Y_POS_FHD      = GlobalConst.ORDER_LABEL_Y_POS * BaseViewController.H_RATE_FHD
     var ORDER_LABEL_REAL_Y_POS_FHD_L    = GlobalConst.ORDER_LABEL_Y_POS * BaseViewController.H_RATE_FHD_L
+    
+    // Order button
+    var ORDER_BUTTON_REAL_SIZE_HD       = GlobalConst.ORDER_BUTTON_SIZE * BaseViewController.H_RATE_HD
+    var ORDER_BUTTON_REAL_SIZE_FHD      = GlobalConst.ORDER_BUTTON_SIZE * BaseViewController.H_RATE_FHD
+    var ORDER_BUTTON_REAL_SIZE_FHD_L    = GlobalConst.ORDER_BUTTON_SIZE * BaseViewController.H_RATE_FHD_L
+    
+    // Category button
+    var BUTTON_ACTION_REAL_SIZE_HD    = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_HD
+    var BUTTON_ACTION_REAL_SIZE_FHD   = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD
+    var BUTTON_ACTION_REAL_SIZE_FHD_L = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD_L
     
     // MARK: Override methods
     /**
@@ -56,6 +76,16 @@ class G12F01S01VC: ParentExtViewController {
         ORDER_LABEL_REAL_Y_POS_HD       = GlobalConst.ORDER_LABEL_Y_POS * BaseViewController.H_RATE_HD
         ORDER_LABEL_REAL_Y_POS_FHD      = GlobalConst.ORDER_LABEL_Y_POS * BaseViewController.H_RATE_FHD
         ORDER_LABEL_REAL_Y_POS_FHD_L    = GlobalConst.ORDER_LABEL_Y_POS * BaseViewController.H_RATE_FHD_L
+        
+        // Order button
+        ORDER_BUTTON_REAL_SIZE_HD       = GlobalConst.ORDER_BUTTON_SIZE * BaseViewController.H_RATE_HD
+        ORDER_BUTTON_REAL_SIZE_FHD      = GlobalConst.ORDER_BUTTON_SIZE * BaseViewController.H_RATE_FHD
+        ORDER_BUTTON_REAL_SIZE_FHD_L    = GlobalConst.ORDER_BUTTON_SIZE * BaseViewController.H_RATE_FHD_L
+        
+        // Category button
+        BUTTON_ACTION_REAL_SIZE_HD    = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_HD
+        BUTTON_ACTION_REAL_SIZE_FHD   = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD
+        BUTTON_ACTION_REAL_SIZE_FHD_L = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD_L
     }
     
     /**
@@ -90,16 +120,25 @@ class G12F01S01VC: ParentExtViewController {
         case .phone:        // iPhone
             createCategoryViewHD()
             createOrderHD()
+            createOrderButtonHD()
+            createExplainLabel()
+            createActionsViewHD()
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
             case .portrait, .portraitUpsideDown:        // Portrait
                 createCategoryViewFHD()
                 createOrderFHD()
+                createOrderButtonFHD()
+                createExplainLabel()
+                createActionsViewFHD()
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
                 createCategoryViewFHD_L()
                 createOrderFHD_L()
+                createOrderButtonFHD_L()
+                createExplainLabel()
+                createActionsViewFHD_L()
                 break
             default:
                 break
@@ -111,6 +150,9 @@ class G12F01S01VC: ParentExtViewController {
         }
         self.view.addSubview(categoryView)
         self.view.addSubview(lblOrder)
+        self.view.addSubview(btnOrder)
+        self.view.addSubview(lblExplain)
+        self.view.addSubview(actionsView)
     }
     
     /**
@@ -122,16 +164,25 @@ class G12F01S01VC: ParentExtViewController {
         case .phone:        // iPhone
             updateCategoryViewHD()
             updateOrderHD()
+            updateOrderButtonHD()
+            updateExplainLabel()
+            updateActionsViewHD()
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
             case .portrait, .portraitUpsideDown:        // Portrait
                 updateCategoryViewFHD()
                 updateOrderFHD()
+                updateOrderButtonFHD()
+                updateExplainLabel()
+                updateActionsViewFHD()
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
                 updateCategoryViewFHD_L()
                 updateOrderFHD_L()
+                updateOrderButtonFHD_L()
+                updateExplainLabel()
+                updateActionsViewFHD_L()
                 break
             default:
                 break
@@ -160,11 +211,39 @@ class G12F01S01VC: ParentExtViewController {
             break
         }
         // Release selection from all button
-        for btn in self.listButton {
+        for btn in self.listCategoryButtons {
             btn.isSelected = false
         }
         // Select current tapped button
         (sender as! UIButton).isSelected = true
+    }
+    
+    /**
+     * Handle when tap on actions buttons
+     * - parameter sender: Button object
+     */
+    func actionsButtonTapped(_ sender: AnyObject) {
+        // Handle by button identify
+        switch ((sender as! UIButton).accessibilityIdentifier!) {
+        case DomainConst.ACTION_TYPE_SELECT_GAS:
+            showAlert(message: "DomainConst.ACTION_TYPE_SELECT_GAS")
+            return
+        case DomainConst.ACTION_TYPE_SELECT_PROMOTE:
+            showAlert(message: "DomainConst.ACTION_TYPE_SELECT_PROMOTE")
+            return
+        case DomainConst.ACTION_TYPE_SUPPORT:
+            showAlert(message: "DomainConst.ACTION_TYPE_SUPPORT")
+            return
+        default:
+            break
+        }
+    }
+    
+    /**
+     * Handle order button tapped event
+     */
+    internal func btnOrderTapped(_ sender: AnyObject) {
+        
     }
     
     // MARK: Utilities
@@ -219,7 +298,7 @@ class G12F01S01VC: ParentExtViewController {
             // Calculate frame of button
             let frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
                                width: btnWidth,
-                               height: btnWidth + GlobalConst.MARGIN)
+                               height: btnWidth)
             let btn = CategoryButton(frame: frame, icon: listImg[i].0, iconActive: listImg[i].1, title: listConfig[i].name, id: listConfig[i].id)
             
             btn.addTarget(self, action: #selector(enableButton), for: .touchUpInside)
@@ -227,7 +306,7 @@ class G12F01S01VC: ParentExtViewController {
             if listConfig[i].id == DomainConst.CATEGORY_TYPE_GAS {
                 btn.isSelected = true
             }
-            listButton.append(btn)
+            listCategoryButtons.append(btn)
             self.categoryView.addSubview(btn)
         }
     }
@@ -238,12 +317,12 @@ class G12F01S01VC: ParentExtViewController {
     private func updateCategoryContent() {
         let btnWidth = categoryView.frame.height - GlobalConst.MARGIN
         let margin = GlobalConst.MARGIN
-        let count = listButton.count
+        let count = listCategoryButtons.count
         let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
         
         for i in 0..<count {
             // Calculate frame of button
-            listButton[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
+            listCategoryButtons[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
                                width: btnWidth,
                                height: btnWidth + GlobalConst.MARGIN)
         }
@@ -367,5 +446,231 @@ class G12F01S01VC: ParentExtViewController {
                                     x: 0, y: ORDER_LABEL_REAL_Y_POS_FHD_L,
                                     w: UIScreen.main.bounds.width,
                                     h: GlobalConst.LABEL_H * 2)
+    }
+    
+    private func createOrderButton(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
+        self.btnOrder.frame = CGRect(x: x, y: y, width: w, height: h)
+        self.btnOrder.setImage(ImageManager.getImage(named: DomainConst.ORDER_BUTTON_ICON_IMG_NAME),
+                               for: UIControlState())
+    }
+    
+    private func createOrderButtonHD() {
+        self.createOrderButton(
+            x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_HD) / 2,
+            y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+            w: ORDER_BUTTON_REAL_SIZE_HD, h: ORDER_BUTTON_REAL_SIZE_HD)
+    }
+    
+    private func createOrderButtonFHD() {
+        self.createOrderButton(
+            x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_FHD) / 2,
+            y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+            w: ORDER_BUTTON_REAL_SIZE_FHD, h: ORDER_BUTTON_REAL_SIZE_FHD)
+    }
+    
+    private func createOrderButtonFHD_L() {
+        self.createOrderButton(
+            x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_FHD_L) / 2,
+            y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+            w: ORDER_BUTTON_REAL_SIZE_FHD_L, h: ORDER_BUTTON_REAL_SIZE_FHD_L)
+    }
+    
+    private func updateOrderButtonHD() {
+        CommonProcess.updateViewPos(view: btnOrder,
+                                    x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_HD) / 2,
+                                    y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: ORDER_BUTTON_REAL_SIZE_HD, h: ORDER_BUTTON_REAL_SIZE_HD)
+    }
+    
+    private func updateOrderButtonFHD() {
+        CommonProcess.updateViewPos(view: btnOrder,
+                                    x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_FHD) / 2,
+                                    y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: ORDER_BUTTON_REAL_SIZE_FHD, h: ORDER_BUTTON_REAL_SIZE_FHD)
+    }
+    
+    private func updateOrderButtonFHD_L() {
+        CommonProcess.updateViewPos(view: btnOrder,
+                                    x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_FHD_L) / 2,
+                                    y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: ORDER_BUTTON_REAL_SIZE_FHD_L, h: ORDER_BUTTON_REAL_SIZE_FHD_L)
+    }
+    
+    /**
+     * Create explain label
+     */
+    private func createExplainLabel() {
+        lblExplain.frame = CGRect(x: 0,
+                                y: btnOrder.frame.maxY + GlobalConst.MARGIN,
+                                width: UIScreen.main.bounds.width,
+                                height: GlobalConst.LABEL_H)
+        lblExplain.text           = DomainConst.CONTENT00483
+        lblExplain.textColor      = UIColor.black
+        lblExplain.font           = GlobalConst.BASE_FONT
+        lblExplain.textAlignment  = .center
+    }
+    
+    /**
+     * Update login label
+     */
+    private func updateExplainLabel() {
+        CommonProcess.updateViewPos(view: lblExplain,
+                                    x: 0,
+                                    y: btnOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: UIScreen.main.bounds.width,
+                                    h: GlobalConst.LABEL_H)
+    }
+    
+    /**
+     * Create actions view
+     * - parameter x: X position
+     * - parameter y: Y position
+     * - parameter w: Width of view
+     * - parameter h: Height of view
+     */
+    private func createActionsView(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
+        self.actionsView.frame = CGRect(x: x, y: y, width: w, height: h)
+        self.actionsView.backgroundColor = UIColor(white: 1, alpha: 0.0)
+        createActionsViewContent()
+    }
+    
+    /**
+     * Create actions view (in HD mode)
+     */
+    private func createActionsViewHD() {
+        createActionsView(x: 0,
+                          y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_HD,
+                          w: UIScreen.main.bounds.width,
+                          h: BUTTON_ACTION_REAL_SIZE_HD)
+    }
+    
+    /**
+     * Create actions view (in Full HD mode)
+     */
+    private func createActionsViewFHD() {
+        createActionsView(x: 0,
+                          y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD,
+                          w: UIScreen.main.bounds.width,
+                          h: BUTTON_ACTION_REAL_SIZE_FHD)
+    }
+    
+    /**
+     * Create actions view (in Full HD Landscape mode)
+     */
+    private func createActionsViewFHD_L() {
+        createActionsView(x: 0,
+                          y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD_L,
+                          w: UIScreen.main.bounds.width,
+                          h: BUTTON_ACTION_REAL_SIZE_FHD_L)
+    }
+    
+    /**
+     * Update actions view (in HD mode)
+     */
+    private func updateActionsViewHD() {
+        CommonProcess.updateViewPos(
+            view: actionsView,
+            x: 0,
+            y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_HD,
+            w: UIScreen.main.bounds.width,
+            h: BUTTON_ACTION_REAL_SIZE_HD)
+        updateActionsViewContent()
+    }
+    
+    /**
+     * Update actions view (in Full HD mode)
+     */
+    private func updateActionsViewFHD() {
+        CommonProcess.updateViewPos(
+            view: actionsView,
+            x: 0,
+            y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD,
+            w: UIScreen.main.bounds.width,
+            h: BUTTON_ACTION_REAL_SIZE_FHD)
+        updateActionsViewContent()
+    }
+    
+    /**
+     * Update actions view (in Full HD Landscape mode)
+     */
+    private func updateActionsViewFHD_L() {
+        CommonProcess.updateViewPos(
+            view: actionsView,
+            x: 0,
+            y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD_L,
+            w: UIScreen.main.bounds.width,
+            h: BUTTON_ACTION_REAL_SIZE_FHD_L)
+        updateActionsViewContent()
+    }
+    
+    /**
+     * Create actions view content
+     */
+    private func createActionsViewContent() {
+        // Attemp list config
+        var listConfig = [ConfigBean]()
+        listConfig.append(ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_GAS, name: DomainConst.CONTENT00485))
+        listConfig.append(ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_PROMOTE, name: DomainConst.CONTENT00486))
+        listConfig.append(ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00484))
+        listConfig.append(ConfigBean(id: DomainConst.ACTION_TYPE_SUPPORT, name: DomainConst.CONTENT00484))
+        // Attemp list image
+        var listImg = [(String, String)]()
+        listImg.append((DomainConst.GAS_BUTTON_ICON_IMG_NAME, DomainConst.GAS_BUTTON_ICON_IMG_NAME))
+        listImg.append((DomainConst.PROMOTE_BUTTON_ICON_IMG_NAME, DomainConst.PROMOTE_BUTTON_ICON_IMG_NAME))
+        listImg.append((DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME, DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME))
+        listImg.append((DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME, DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME))
+        let btnWidth = actionsView.frame.height - GlobalConst.MARGIN
+        let margin = GlobalConst.MARGIN
+        let count = listConfig.count
+        let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
+        var font = UIFont.smallSystemFontSize
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            font = UIFont.systemFontSize
+        }
+        for i in 0..<count {
+            // Calculate frame of button
+            let frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
+                               width: btnWidth,
+                               height: btnWidth)
+            let btn = CategoryButton(frame: frame, icon: listImg[i].0, iconActive: listImg[i].1, title: listConfig[i].name, id: listConfig[i].id, font: font, isUpperText: true)
+//            self.adjustImageAndTitleOffsetsForButton(button: btn)
+            btn.addTarget(self, action: #selector(actionsButtonTapped), for: .touchUpInside)
+            let lbl = UILabel(frame: CGRect(x: margin + CGFloat(i) * btnSpace,
+                                            y: 0.0,
+                                            width: btnWidth,
+                                            height: GlobalConst.LABEL_H))
+            lbl.text = listConfig[i].name
+            lbl.font = UIFont.systemFont(ofSize: font)
+            lbl.textAlignment = .center
+            lbl.textColor = UIColor.black
+            listActionsLabels.append(lbl)
+            listActionsButtons.append(btn)
+            if listConfig[i].id != DomainConst.ACTION_TYPE_NONE {
+                self.actionsView.addSubview(btn)
+                self.actionsView.addSubview(lbl)
+            }
+        }
+    }
+    
+    /**
+     * Update actions view content
+     */
+    private func updateActionsViewContent() {
+        let btnWidth = actionsView.frame.height - GlobalConst.MARGIN
+        let margin = GlobalConst.MARGIN
+        let count = listActionsButtons.count
+        let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
+        
+        for i in 0..<count {
+            // Calculate frame of button
+            listActionsButtons[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace,
+                                                 y: margin / 2,
+                                                 width: btnWidth,
+                                                 height: btnWidth)
+            listActionsLabels[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace,
+                                                y: 0.0,
+                                                width: btnWidth,
+                                                height: GlobalConst.LABEL_H)
+        }
     }
 }
