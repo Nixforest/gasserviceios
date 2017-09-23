@@ -94,6 +94,10 @@
 		D7E014A81E34647D001F26B6 /* G04F01S02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E014A71E34647D001F26B6 /* G04F01S02MenuVC.swift */; };
 		D7E014B21E348F2A001F26B6 /* G04F01S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E014B11E348F2A001F26B6 /* G04F01S03VC.swift */; };
 		D7E014B41E348FC9001F26B6 /* G04F01S03MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E014B31E348FC9001F26B6 /* G04F01S03MenuVC.swift */; };
+		D7E299041F74E7CE0078C46C /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E299021F74E7CE0078C46C /* MenuVC.swift */; };
+		D7E299051F74E7CE0078C46C /* MenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7E299031F74E7CE0078C46C /* MenuVC.xib */; };
+		D7E299081F74EDEE0078C46C /* G12F01S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E299061F74EDEE0078C46C /* G12F01S02VC.swift */; };
+		D7E299091F74EDEE0078C46C /* G12F01S02VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7E299071F74EDEE0078C46C /* G12F01S02VC.xib */; };
 		D7E307391F72BA6B0065F2E1 /* G12F01S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E307371F72BA6B0065F2E1 /* G12F01S01VC.swift */; };
 		D7E3073A1F72BA6B0065F2E1 /* G12F01S01VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7E307381F72BA6B0065F2E1 /* G12F01S01VC.xib */; };
 		D7EAC44E1F581223008890DA /* GoogleMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EAC44C1F581223008890DA /* GoogleMapVC.swift */; };
@@ -246,6 +250,10 @@
 		D7E014A71E34647D001F26B6 /* G04F01S02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S02MenuVC.swift; path = G04/G04F01S02MenuVC.swift; sourceTree = "<group>"; };
 		D7E014B11E348F2A001F26B6 /* G04F01S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S03VC.swift; path = G04/G04F01S03VC.swift; sourceTree = "<group>"; };
 		D7E014B31E348FC9001F26B6 /* G04F01S03MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S03MenuVC.swift; path = G04/G04F01S03MenuVC.swift; sourceTree = "<group>"; };
+		D7E299021F74E7CE0078C46C /* MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuVC.swift; path = Common/Menu/MenuVC.swift; sourceTree = "<group>"; };
+		D7E299031F74E7CE0078C46C /* MenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MenuVC.xib; path = Common/Menu/MenuVC.xib; sourceTree = "<group>"; };
+		D7E299061F74EDEE0078C46C /* G12F01S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12F01S02VC.swift; path = G12/F01/G12F01S02VC.swift; sourceTree = "<group>"; };
+		D7E299071F74EDEE0078C46C /* G12F01S02VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G12F01S02VC.xib; path = G12/F01/G12F01S02VC.xib; sourceTree = "<group>"; };
 		D7E307371F72BA6B0065F2E1 /* G12F01S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12F01S01VC.swift; path = G12/F01/G12F01S01VC.swift; sourceTree = "<group>"; };
 		D7E307381F72BA6B0065F2E1 /* G12F01S01VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G12F01S01VC.xib; path = G12/F01/G12F01S01VC.xib; sourceTree = "<group>"; };
 		D7EAC44C1F581223008890DA /* GoogleMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleMapVC.swift; path = Common/GoogleMap/GoogleMapVC.swift; sourceTree = "<group>"; };
@@ -374,6 +382,7 @@
 		926670F51D927BB4000D2DED /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D7E298FF1F74E7AF0078C46C /* Menu */,
 				D7359B091F67BFE80032F0AF /* Images */,
 				D7CED48F1F6137A400CCAA2F /* MultiDevice */,
 				D71777481F5E879B009CF656 /* LoadingView */,
@@ -545,6 +554,15 @@
 			name = MultiDevice;
 			sourceTree = "<group>";
 		};
+		D7E298FF1F74E7AF0078C46C /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				D7E299021F74E7CE0078C46C /* MenuVC.swift */,
+				D7E299031F74E7CE0078C46C /* MenuVC.xib */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
 		D7E307321F72B9720065F2E1 /* G12 */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,6 +584,8 @@
 			children = (
 				D7E307371F72BA6B0065F2E1 /* G12F01S01VC.swift */,
 				D7E307381F72BA6B0065F2E1 /* G12F01S01VC.xib */,
+				D7E299061F74EDEE0078C46C /* G12F01S02VC.swift */,
+				D7E299071F74EDEE0078C46C /* G12F01S02VC.xib */,
 			);
 			name = F01;
 			sourceTree = "<group>";
@@ -739,9 +759,11 @@
 			files = (
 				D78B068C1F69254D00AB17E8 /* LaunchScreenIpad.storyboard in Resources */,
 				D7CED4931F6137C700CCAA2F /* MultiDeviceVC.xib in Resources */,
+				D7E299091F74EDEE0078C46C /* G12F01S02VC.xib in Resources */,
 				D71544B01F6BB26600480486 /* G00LoginExtVC.xib in Resources */,
 				D719D69F1E4AB5AE00D1B6C5 /* background.jpg in Resources */,
 				D73373101E22CCC6004F2781 /* Podfile in Resources */,
+				D7E299051F74E7CE0078C46C /* MenuVC.xib in Resources */,
 				D7359B1C1F67D2F60032F0AF /* bg_main_16_9_1080_1920.png in Resources */,
 				D7E3073A1F72BA6B0065F2E1 /* G12F01S01VC.xib in Resources */,
 				84284E1C1D40DF050079DEBC /* LaunchScreen.storyboard in Resources */,
@@ -851,6 +873,7 @@
 				D721C5041F5D39C3003E823D /* GoogleMapValue.swift in Sources */,
 				D721C5011F5D39C3003E823D /* Bounds.swift in Sources */,
 				D721C5091F5D39C3003E823D /* Step.swift in Sources */,
+				D7E299041F74E7CE0078C46C /* MenuVC.swift in Sources */,
 				D7E014A51E345FAF001F26B6 /* G04F01S02VC.swift in Sources */,
 				D7DA56AB1E40EB1000B6F618 /* OrderTransactionStartRequest.swift in Sources */,
 				D717774C1F5E87C1009CF656 /* LoadingViewVC.swift in Sources */,
@@ -867,6 +890,7 @@
 				D7804B3E1E7685CF00C94F75 /* G00LoginMenuVC.swift in Sources */,
 				D7EAC44E1F581223008890DA /* GoogleMapVC.swift in Sources */,
 				D721C5081F5D39C3003E823D /* Route.swift in Sources */,
+				D7E299081F74EDEE0078C46C /* G12F01S02VC.swift in Sources */,
 				D72C8B671E49D85900541651 /* G04F02S01MenuVC.swift in Sources */,
 				D7CED4921F6137C700CCAA2F /* MultiDeviceVC.swift in Sources */,
 				D7671BE11E16E3AC0026DCFA /* OrderListRespModel.swift in Sources */,

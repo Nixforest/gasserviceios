@@ -66,6 +66,7 @@ class GoogleMapVC: ChildExtViewController {
         
         self.view.makeComponentsColor()
     }
+    
     // MARK: Utility methods
     /**
      * Setting for map properties
@@ -78,7 +79,6 @@ class GoogleMapVC: ChildExtViewController {
         viewMap.isMyLocationEnabled         = true
         viewMap.delegate                    = self
     }
-    
     
     /**
      * Setup all components of top view
@@ -310,7 +310,7 @@ extension GoogleMapVC: CLLocationManagerDelegate {
     }
     
     /**
-     *
+     * Tells the delegate that the location manager was unable to retrieve a location value.
      */
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         manager.stopUpdatingLocation()

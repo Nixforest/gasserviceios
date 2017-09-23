@@ -19,16 +19,48 @@ class G12F01S01VC: ParentExtViewController {
     var lblOrder:               UILabel     = UILabel()
     /** Button order */
     var btnOrder:               UIButton    = UIButton()
+    /** Button processing */
+    var btnProcessing:          UIButton    = UIButton()
+    /** Processing view */
+    var processingView:         NVActivityIndicatorView? = nil
+    /** Button finish */
+    var btnFinish:              UIButton    = UIButton()
     /** Explain label */
     var lblExplain:             UILabel     = UILabel()
+    /** Processing 1 label */
+    var lblProcessing1:         UILabel     = UILabel()
+    /** Processing 2 label */
+    var lblProcessing2:         UILabel     = UILabel()
+    /** Finish 1 label */
+    var lblFinish1:             UILabel     = UILabel()
+    /** Finish 2 label */
+    var lblFinish2:             UILabel     = UILabel()
+    /** Finish 3 label */
+    var lblFinish3:             UILabel     = UILabel()
+    /** Button cancel order */
+//    var btnCancelOrder:         CustomButton    = CustomButton(type: UIButtonType.custom)
+    var btnCancelOrder:         UIButton    = UIButton(type: UIButtonType.custom)
+    /** Button refer */
+    var btnRefer:               UIButton    = UIButton()
     /** Actions view */
     var actionsView:            UIView      = UIView()
     /** List of actions button */
     var listActionsButtons:     [UIButton]  = [UIButton]()
     /** List of actions label */
     var listActionsLabels:      [UILabel]   = [UILabel]()
+    // Attemp list config
+    var listActionsConfig:      [ConfigBean] = [
+        ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_GAS, name: DomainConst.CONTENT00485),
+        ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_PROMOTE, name: DomainConst.CONTENT00486),
+        ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00484),
+        ConfigBean(id: DomainConst.ACTION_TYPE_SUPPORT, name: DomainConst.CONTENT00484)
+    ]
     
     // MARK: Constant
+    // View mode
+    let MODE_ORDER:             String  = DomainConst.NUMBER_ZERO_VALUE
+    let MODE_PROCESSING:        String  = DomainConst.NUMBER_ONE_VALUE
+    let MODE_FINISH:            String  = DomainConst.NUMBER_TWO_VALUE
     // Category button
     var CATEGORY_BUTTON_REAL_SIZE_HD    = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_HD
     var CATEGORY_BUTTON_REAL_SIZE_FHD   = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_FHD
@@ -49,6 +81,14 @@ class G12F01S01VC: ParentExtViewController {
     var BUTTON_ACTION_REAL_SIZE_FHD   = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD
     var BUTTON_ACTION_REAL_SIZE_FHD_L = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD_L
     
+    // Order cancel button
+    var CANCEL_ORDER_BUTTON_REAL_WIDTH_HD    = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.W_RATE_HD
+    var CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD   = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.W_RATE_FHD
+    var CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.W_RATE_FHD_L
+    var CANCEL_ORDER_BUTTON_REAL_HEIGHT_HD    = GlobalConst.LOGIN_TEXTFIELD_HEIGHT * BaseViewController.H_RATE_HD / 4
+    var CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD   = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD / 4
+    var CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD_L = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD_L / 4
+    
     // MARK: Override methods
     /**
      * Called after the controller's view is loaded into memory.
@@ -60,6 +100,7 @@ class G12F01S01VC: ParentExtViewController {
         // Navigation
         self.createNavigationBar(title: "1900 1565")
 //        openLogin()
+        changeMode(mode: MODE_ORDER)
     }
     
     /**
@@ -86,6 +127,14 @@ class G12F01S01VC: ParentExtViewController {
         BUTTON_ACTION_REAL_SIZE_HD    = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_HD
         BUTTON_ACTION_REAL_SIZE_FHD   = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD
         BUTTON_ACTION_REAL_SIZE_FHD_L = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD_L
+        
+        // Order cancel button
+        CANCEL_ORDER_BUTTON_REAL_WIDTH_HD    = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_HD
+        CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD   = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD
+        CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD_L
+        CANCEL_ORDER_BUTTON_REAL_HEIGHT_HD    = GlobalConst.LOGIN_TEXTFIELD_HEIGHT * BaseViewController.H_RATE_HD / 2
+        CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD   = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD / 2
+        CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD_L = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD_L / 2
     }
     
     /**
@@ -122,6 +171,10 @@ class G12F01S01VC: ParentExtViewController {
             createOrderHD()
             createOrderButtonHD()
             createExplainLabel()
+            createProcessingLabel()
+            createFinishLabel()
+            createCancelBtnHD()
+            createReferBtnHD()
             createActionsViewHD()
             break
         case .pad:          // iPad
@@ -131,6 +184,10 @@ class G12F01S01VC: ParentExtViewController {
                 createOrderFHD()
                 createOrderButtonFHD()
                 createExplainLabel()
+                createProcessingLabel()
+                createFinishLabel()
+                createCancelBtnFHD()
+                createReferBtnFHD()
                 createActionsViewFHD()
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
@@ -138,6 +195,10 @@ class G12F01S01VC: ParentExtViewController {
                 createOrderFHD_L()
                 createOrderButtonFHD_L()
                 createExplainLabel()
+                createProcessingLabel()
+                createFinishLabel()
+                createCancelBtnFHD_L()
+                createReferBtnFHD_L()
                 createActionsViewFHD_L()
                 break
             default:
@@ -151,8 +212,18 @@ class G12F01S01VC: ParentExtViewController {
         self.view.addSubview(categoryView)
         self.view.addSubview(lblOrder)
         self.view.addSubview(btnOrder)
+        self.view.addSubview(btnProcessing)
+        self.view.addSubview(btnFinish)
+        self.view.addSubview(processingView!)
         self.view.addSubview(lblExplain)
+        self.view.addSubview(lblProcessing1)
+        self.view.addSubview(lblProcessing2)
+        self.view.addSubview(lblFinish1)
+        self.view.addSubview(lblFinish2)
+        self.view.addSubview(lblFinish3)
         self.view.addSubview(actionsView)
+        self.view.addSubview(btnCancelOrder)
+        self.view.addSubview(btnRefer)
     }
     
     /**
@@ -166,6 +237,10 @@ class G12F01S01VC: ParentExtViewController {
             updateOrderHD()
             updateOrderButtonHD()
             updateExplainLabel()
+            updateProcessingLabel()
+            updateFinishLabel()
+            updateCancelBtnHD()
+            updateReferBtnHD()
             updateActionsViewHD()
             break
         case .pad:          // iPad
@@ -175,6 +250,10 @@ class G12F01S01VC: ParentExtViewController {
                 updateOrderFHD()
                 updateOrderButtonFHD()
                 updateExplainLabel()
+                updateProcessingLabel()
+                updateFinishLabel()
+                updateCancelBtnFHD()
+                updateReferBtnFHD()
                 updateActionsViewFHD()
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
@@ -182,6 +261,10 @@ class G12F01S01VC: ParentExtViewController {
                 updateOrderFHD_L()
                 updateOrderButtonFHD_L()
                 updateExplainLabel()
+                updateProcessingLabel()
+                updateFinishLabel()
+                updateCancelBtnFHD_L()
+                updateReferBtnFHD_L()
                 updateActionsViewFHD_L()
                 break
             default:
@@ -195,6 +278,13 @@ class G12F01S01VC: ParentExtViewController {
     }
     
     // MARK: Event handler
+    /**
+     * Handle when tap on cancel order button
+     */
+    func btnCancelOrderTapped(_ sender: AnyObject) {
+        changeMode(mode: MODE_FINISH)
+    }
+    
     /**
      * Handle when tap on category buttons
      * - parameter sender: Button object
@@ -243,10 +333,45 @@ class G12F01S01VC: ParentExtViewController {
      * Handle order button tapped event
      */
     internal func btnOrderTapped(_ sender: AnyObject) {
-        
+        changeMode(mode: MODE_PROCESSING)
+    }
+    
+    /**
+     * Handle processing button tapped event
+     */
+    internal func btnProcessingTapped(_ sender: AnyObject) {
+        changeMode(mode: MODE_FINISH)
+    }
+    
+    /**
+     * Handle finish button tapped event
+     */
+    internal func btnFinishTapped(_ sender: AnyObject) {
+    }
+    
+    /**
+     * Handle when tap on refer button
+     */
+    func btnReferTapped(_ sender: AnyObject) {
     }
     
     // MARK: Utilities
+    /**
+     * Handle open map view
+     */
+    private func openMap() {
+        let mapView = G12F01S02VC(nibName: G12F01S02VC.theClassName, bundle: nil)
+//        self.present(mapView, animated: true, completion: finishShowMapView)
+        self.navigationController?.pushViewController(mapView, animated: true)
+    }
+    
+    /**
+     * Handle when finish open map view
+     */
+    internal func finishShowMapView() -> Void {
+        print("finishShowMapView")
+    }
+    
     /**
      * Handle open login view
      */
@@ -452,6 +577,29 @@ class G12F01S01VC: ParentExtViewController {
         self.btnOrder.frame = CGRect(x: x, y: y, width: w, height: h)
         self.btnOrder.setImage(ImageManager.getImage(named: DomainConst.ORDER_BUTTON_ICON_IMG_NAME),
                                for: UIControlState())
+        self.btnOrder.addTarget(self, action: #selector(btnOrderTapped(_:)),
+                                for: .touchUpInside)
+        self.btnProcessing.frame = CGRect(x: x, y: y, width: w, height: h)
+        self.btnProcessing.setImage(ImageManager.getImage(named: DomainConst.PROCESSING_BUTTON_ICON_IMG_NAME),
+                               for: UIControlState())
+        self.btnProcessing.isUserInteractionEnabled = true
+        self.btnProcessing.addTarget(self, action: #selector(btnProcessingTapped(_:)),
+                                for: .touchUpInside)
+        self.processingView = NVActivityIndicatorView(
+            frame: btnProcessing.frame,
+            type: NVActivityIndicatorType.ballScaleRippleMultiple)
+        processingView?.startAnimating()
+        let processingViewTappedRecog = UITapGestureRecognizer(
+            target: self,
+            action: #selector(handlTappedProcessingView(_:)))
+        processingView?.addGestureRecognizer(processingViewTappedRecog)
+        self.btnFinish.frame = CGRect(x: x, y: y, width: w, height: h)
+        self.btnFinish.setImage(ImageManager.getImage(named: DomainConst.ORDER_BUTTON_ICON_IMG_NAME),
+                               for: UIControlState())
+    }
+    
+    internal func handlTappedProcessingView(_ gestureRecognizer: UITapGestureRecognizer) {
+        openMap()
     }
     
     private func createOrderButtonHD() {
@@ -480,6 +628,18 @@ class G12F01S01VC: ParentExtViewController {
                                     x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_HD) / 2,
                                     y: lblOrder.frame.maxY + GlobalConst.MARGIN,
                                     w: ORDER_BUTTON_REAL_SIZE_HD, h: ORDER_BUTTON_REAL_SIZE_HD)
+        CommonProcess.updateViewPos(view: btnProcessing,
+                                    x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_HD) / 2,
+                                    y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: ORDER_BUTTON_REAL_SIZE_HD, h: ORDER_BUTTON_REAL_SIZE_HD)
+        CommonProcess.updateViewPos(view: processingView!,
+                                    x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_HD) / 2,
+                                    y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: ORDER_BUTTON_REAL_SIZE_HD, h: ORDER_BUTTON_REAL_SIZE_HD)
+        CommonProcess.updateViewPos(view: btnFinish,
+                                    x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_HD) / 2,
+                                    y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: ORDER_BUTTON_REAL_SIZE_HD, h: ORDER_BUTTON_REAL_SIZE_HD)
     }
     
     private func updateOrderButtonFHD() {
@@ -487,10 +647,34 @@ class G12F01S01VC: ParentExtViewController {
                                     x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_FHD) / 2,
                                     y: lblOrder.frame.maxY + GlobalConst.MARGIN,
                                     w: ORDER_BUTTON_REAL_SIZE_FHD, h: ORDER_BUTTON_REAL_SIZE_FHD)
+        CommonProcess.updateViewPos(view: btnProcessing,
+                                    x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_FHD) / 2,
+                                    y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: ORDER_BUTTON_REAL_SIZE_FHD, h: ORDER_BUTTON_REAL_SIZE_FHD)
+        CommonProcess.updateViewPos(view: processingView!,
+                                    x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_FHD) / 2,
+                                    y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: ORDER_BUTTON_REAL_SIZE_FHD, h: ORDER_BUTTON_REAL_SIZE_FHD)
+        CommonProcess.updateViewPos(view: btnFinish,
+                                    x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_FHD) / 2,
+                                    y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: ORDER_BUTTON_REAL_SIZE_FHD, h: ORDER_BUTTON_REAL_SIZE_FHD)
     }
     
     private func updateOrderButtonFHD_L() {
         CommonProcess.updateViewPos(view: btnOrder,
+                                    x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_FHD_L) / 2,
+                                    y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: ORDER_BUTTON_REAL_SIZE_FHD_L, h: ORDER_BUTTON_REAL_SIZE_FHD_L)
+        CommonProcess.updateViewPos(view: btnProcessing,
+                                    x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_FHD_L) / 2,
+                                    y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: ORDER_BUTTON_REAL_SIZE_FHD_L, h: ORDER_BUTTON_REAL_SIZE_FHD_L)
+        CommonProcess.updateViewPos(view: processingView!,
+                                    x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_FHD_L) / 2,
+                                    y: lblOrder.frame.maxY + GlobalConst.MARGIN,
+                                    w: ORDER_BUTTON_REAL_SIZE_FHD_L, h: ORDER_BUTTON_REAL_SIZE_FHD_L)
+        CommonProcess.updateViewPos(view: btnFinish,
                                     x: (UIScreen.main.bounds.width - ORDER_BUTTON_REAL_SIZE_FHD_L) / 2,
                                     y: lblOrder.frame.maxY + GlobalConst.MARGIN,
                                     w: ORDER_BUTTON_REAL_SIZE_FHD_L, h: ORDER_BUTTON_REAL_SIZE_FHD_L)
@@ -607,12 +791,6 @@ class G12F01S01VC: ParentExtViewController {
      * Create actions view content
      */
     private func createActionsViewContent() {
-        // Attemp list config
-        var listConfig = [ConfigBean]()
-        listConfig.append(ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_GAS, name: DomainConst.CONTENT00485))
-        listConfig.append(ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_PROMOTE, name: DomainConst.CONTENT00486))
-        listConfig.append(ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00484))
-        listConfig.append(ConfigBean(id: DomainConst.ACTION_TYPE_SUPPORT, name: DomainConst.CONTENT00484))
         // Attemp list image
         var listImg = [(String, String)]()
         listImg.append((DomainConst.GAS_BUTTON_ICON_IMG_NAME, DomainConst.GAS_BUTTON_ICON_IMG_NAME))
@@ -621,7 +799,7 @@ class G12F01S01VC: ParentExtViewController {
         listImg.append((DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME, DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME))
         let btnWidth = actionsView.frame.height - GlobalConst.MARGIN
         let margin = GlobalConst.MARGIN
-        let count = listConfig.count
+        let count = listActionsConfig.count
         let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
         var font = UIFont.smallSystemFontSize
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -632,20 +810,20 @@ class G12F01S01VC: ParentExtViewController {
             let frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
                                width: btnWidth,
                                height: btnWidth)
-            let btn = CategoryButton(frame: frame, icon: listImg[i].0, iconActive: listImg[i].1, title: listConfig[i].name, id: listConfig[i].id, font: font, isUpperText: true)
+            let btn = CategoryButton(frame: frame, icon: listImg[i].0, iconActive: listImg[i].1, title: listActionsConfig[i].name, id: listActionsConfig[i].id, font: font, isUpperText: true)
 //            self.adjustImageAndTitleOffsetsForButton(button: btn)
             btn.addTarget(self, action: #selector(actionsButtonTapped), for: .touchUpInside)
             let lbl = UILabel(frame: CGRect(x: margin + CGFloat(i) * btnSpace,
                                             y: 0.0,
                                             width: btnWidth,
                                             height: GlobalConst.LABEL_H))
-            lbl.text = listConfig[i].name
+            lbl.text = listActionsConfig[i].name
             lbl.font = UIFont.systemFont(ofSize: font)
             lbl.textAlignment = .center
             lbl.textColor = UIColor.black
             listActionsLabels.append(lbl)
             listActionsButtons.append(btn)
-            if listConfig[i].id != DomainConst.ACTION_TYPE_NONE {
+            if listActionsConfig[i].id != DomainConst.ACTION_TYPE_NONE {
                 self.actionsView.addSubview(btn)
                 self.actionsView.addSubview(lbl)
             }
@@ -673,4 +851,353 @@ class G12F01S01VC: ParentExtViewController {
                                                 height: GlobalConst.LABEL_H)
         }
     }
+    
+    /**
+     * Create label
+     * - parameter label:   Lable view
+     * - parameter offset:  Y offset
+     * - parameter text:    Lable content
+     * - parameter color:   Color of text
+     * - parameter isBold:  Flag is bold or not
+     */
+    private func createLabel(label: UILabel, offset: CGFloat, text: String, color: UIColor = UIColor.black, isBold: Bool = false) {
+        label.frame = CGRect(x: 0,
+                             y: offset,
+                             width: UIScreen.main.bounds.width,
+                             height: GlobalConst.LABEL_H)
+        label.text          = text
+        label.textColor     = color
+        if isBold {
+            label.font      = GlobalConst.BASE_BOLD_FONT
+        } else {
+            label.font      = UIFont.italicSystemFont(ofSize: GlobalConst.BASE_FONT_SIZE)
+        }
+        label.textAlignment  = .center
+    }
+    
+    /**
+     * Update label
+     * - parameter label:   Lable view
+     * - parameter offset:  Y offset
+     */
+    private func updateLabel(label: UILabel, offset: CGFloat) {
+        CommonProcess.updateViewPos(view: label,
+                                    x: 0,
+                                    y: offset,
+                                    w: UIScreen.main.bounds.width,
+                                    h: GlobalConst.LABEL_H)
+    }
+    
+    /**
+     * Create group label
+     */
+    private func createProcessingLabel() {
+        self.createLabel(label: lblProcessing1,
+                         offset: btnProcessing.frame.maxY + GlobalConst.MARGIN,
+                         text: DomainConst.CONTENT00487)
+        self.createLabel(label: lblProcessing2,
+                         offset: lblProcessing1.frame.maxY + GlobalConst.MARGIN,
+                         text: DomainConst.CONTENT00488)
+    }
+    
+    /**
+     * Update group label
+     */
+    private func updateProcessingLabel() {
+        self.updateLabel(label: lblProcessing1,
+                         offset: btnProcessing.frame.maxY + GlobalConst.MARGIN)
+        self.updateLabel(label: lblProcessing2,
+                         offset: lblProcessing1.frame.maxY + GlobalConst.MARGIN)
+        
+    }
+    
+    /**
+     * Create cancel order button
+     * - parameter x: X position
+     * - parameter y: Y position
+     * - parameter w: Width of view
+     * - parameter h: Height of view
+     */
+    private func createCancelOrderBtn(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
+        btnCancelOrder.frame = CGRect(x: x, y: y, width: w, height: GlobalConst.LABEL_H)
+        btnCancelOrder.setTitle(DomainConst.CONTENT00320, for: UIControlState())
+        btnCancelOrder.setTitleColor(UIColor.red, for: UIControlState())
+        btnCancelOrder.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+        btnCancelOrder.backgroundColor = UIColor(white: 1, alpha: 0.0)
+        btnCancelOrder.addTarget(self, action: #selector(btnCancelOrderTapped(_:)), for: .touchUpInside)
+//        if UIDevice.current.userInterfaceIdiom == .pad {
+//            btnCancelOrder.setImage(ImageManager.getImage(named: DomainConst.CANCEL_ORDER_BUTTON_ICON_IMG_NAME), for: UIControlState())
+//        } else {
+//            btnCancelOrder.leftImage(image: ImageManager.getImage(named: DomainConst.CANCEL_ORDER_BUTTON_ICON_IMG_NAME)!)
+//        }
+        btnCancelOrder.setImage(ImageManager.getImage(named: DomainConst.CANCEL_ORDER_BUTTON_ICON_IMG_NAME), for: UIControlState())
+        
+        btnCancelOrder.imageView?.contentMode = .scaleAspectFit
+//        btnCancelOrder.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+    }
+    
+    /**
+     * Create facebook button (in HD mode)
+     */
+    private func createCancelBtnHD() {
+        self.createCancelOrderBtn(
+            x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_HD) / 2,
+            y: lblProcessing2.frame.maxY + GlobalConst.MARGIN,
+            w: CANCEL_ORDER_BUTTON_REAL_WIDTH_HD,
+            h: CANCEL_ORDER_BUTTON_REAL_HEIGHT_HD)
+    }
+    
+    /**
+     * Create facebook button (in Full HD mode)
+     */
+    private func createCancelBtnFHD() {
+        self.createCancelOrderBtn(
+            x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD) / 2,
+            y: lblProcessing2.frame.maxY + GlobalConst.MARGIN,
+            w: CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD,
+            h: CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD)
+    }
+    
+    /**
+     * Create facebook button (in Full HD Landscape mode)
+     */
+    private func createCancelBtnFHD_L() {
+        self.createCancelOrderBtn(
+            x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L) / 2,
+            y: lblProcessing2.frame.maxY + GlobalConst.MARGIN,
+            w: CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L,
+            h: CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD_L)
+    }
+    
+    /**
+     * Update facebook button (in HD mode)
+     */
+    private func updateCancelBtnHD() {
+        CommonProcess.updateViewPos(view: btnCancelOrder,
+            x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_HD) / 2,
+            y: lblProcessing2.frame.maxY + GlobalConst.MARGIN,
+            w: CANCEL_ORDER_BUTTON_REAL_WIDTH_HD,
+            h: GlobalConst.LABEL_H)
+    }
+    
+    /**
+     * Update facebook button (in Full HD mode)
+     */
+    private func updateCancelBtnFHD() {
+        CommonProcess.updateViewPos(view: btnCancelOrder,
+            x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD) / 2,
+            y: lblProcessing2.frame.maxY + GlobalConst.MARGIN,
+            w: CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD,
+            h: GlobalConst.LABEL_H)
+    }
+    
+    /**
+     * Update facebook button (in Full HD Landscape mode)
+     */
+    private func updateCancelBtnFHD_L() {
+        CommonProcess.updateViewPos(view: btnCancelOrder,
+            x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L) / 2,
+            y: lblProcessing2.frame.maxY + GlobalConst.MARGIN,
+            w: CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L,
+            h: GlobalConst.LABEL_H)
+    }
+    
+    /**
+     * Create group label
+     */
+    private func createFinishLabel() {
+        self.createLabel(label: lblFinish1,
+                         offset: btnFinish.frame.maxY + GlobalConst.MARGIN,
+                         text: DomainConst.CONTENT00489.uppercased(),
+                         color: UIColor.red,
+                         isBold: true)
+        self.createLabel(label: lblFinish2,
+                         offset: lblFinish1.frame.maxY + GlobalConst.MARGIN,
+                         text: DomainConst.CONTENT00490)
+        self.createLabel(label: lblFinish3,
+                         offset: lblFinish2.frame.maxY + GlobalConst.MARGIN,
+                         text: DomainConst.CONTENT00491)
+    }
+    
+    /**
+     * Update group label
+     */
+    private func updateFinishLabel() {
+        self.updateLabel(label: lblFinish1,
+                         offset: btnFinish.frame.maxY + GlobalConst.MARGIN)
+        self.updateLabel(label: lblFinish2,
+                         offset: lblFinish1.frame.maxY + GlobalConst.MARGIN)
+        self.updateLabel(label: lblFinish3,
+                         offset: lblFinish2.frame.maxY + GlobalConst.MARGIN)
+        
+    }
+    
+    /**
+     * Create refer button
+     * - parameter x: X position
+     * - parameter y: Y position
+     * - parameter w: Width of view
+     * - parameter h: Height of view
+     */
+    private func createReferBtn(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
+        btnRefer.frame = CGRect(x: x, y: y, width: w,
+                                height: GlobalConst.LABEL_H * 3)
+        btnRefer.setTitle(DomainConst.CONTENT00492.uppercased(), for: UIControlState())
+        btnRefer.setTitleColor(UIColor.red, for: UIControlState())
+        btnRefer.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+        btnRefer.titleLabel?.lineBreakMode = .byWordWrapping
+        btnRefer.titleLabel?.textAlignment = .center
+        btnRefer.backgroundColor = UIColor.clear
+        btnRefer.layer.borderColor = UIColor.red.cgColor
+        btnRefer.layer.borderWidth = 1
+        btnRefer.addTarget(self, action: #selector(btnReferTapped(_:)), for: .touchUpInside)
+    }
+    
+    /**
+     * Create refer button (in HD mode)
+     */
+    private func createReferBtnHD() {
+        self.createReferBtn(
+            x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_HD) / 2,
+            y: lblFinish3.frame.maxY + GlobalConst.MARGIN,
+            w: CANCEL_ORDER_BUTTON_REAL_WIDTH_HD,
+            h: CANCEL_ORDER_BUTTON_REAL_HEIGHT_HD * 3)
+    }
+    
+    /**
+     * Create refer button (in Full HD mode)
+     */
+    private func createReferBtnFHD() {
+        self.createReferBtn(
+            x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD) / 2,
+            y: lblFinish3.frame.maxY + GlobalConst.MARGIN,
+            w: CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD,
+            h: CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD * 3)
+    }
+    
+    /**
+     * Create refer button (in Full HD Landscape mode)
+     */
+    private func createReferBtnFHD_L() {
+        self.createReferBtn(
+            x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L) / 2,
+            y: lblFinish3.frame.maxY + GlobalConst.MARGIN,
+            w: CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L,
+            h: CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD_L * 3)
+    }
+    
+    /**
+     * Update refer button (in HD mode)
+     */
+    private func updateReferBtnHD() {
+        CommonProcess.updateViewPos(view: btnRefer,
+                                    x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_HD) / 2,
+                                    y: lblFinish3.frame.maxY + GlobalConst.MARGIN,
+                                    w: CANCEL_ORDER_BUTTON_REAL_WIDTH_HD,
+                                    h: GlobalConst.LABEL_H * 3)
+    }
+    
+    /**
+     * Update refer button (in Full HD mode)
+     */
+    private func updateReferBtnFHD() {
+        CommonProcess.updateViewPos(view: btnRefer,
+                                    x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD) / 2,
+                                    y: lblFinish3.frame.maxY + GlobalConst.MARGIN,
+                                    w: CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD,
+                                    h: GlobalConst.LABEL_H * 3)
+    }
+    
+    /**
+     * Update refer button (in Full HD Landscape mode)
+     */
+    private func updateReferBtnFHD_L() {
+        CommonProcess.updateViewPos(view: btnRefer,
+                                    x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L) / 2,
+                                    y: lblFinish3.frame.maxY + GlobalConst.MARGIN,
+                                    w: CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L,
+                                    h: GlobalConst.LABEL_H * 3)
+    }
+    
+    /**
+     * Change screen mode
+     * - parameter mode: Mode of string
+     */
+    private func changeMode(mode: String) {
+        switch mode {
+        case MODE_ORDER:                    // Order mode
+            showHideProcessingMode(isShow: false)
+            showHideFinishMode(isShow: false)
+            showHideOrderMode(isShow: true)
+            break
+        case MODE_PROCESSING:               // Processing mode
+            showHideOrderMode(isShow: false)
+            showHideFinishMode(isShow: false)
+            showHideProcessingMode(isShow: true)
+            break
+        case MODE_FINISH:                   // Finish mode
+            showHideOrderMode(isShow: false)
+            showHideProcessingMode(isShow: false)
+            showHideFinishMode(isShow: true)
+            break
+        default:
+            break
+        }
+    }
+    
+    /**
+     * Show/hide children views in order mode
+     * - parameter isShow: Flag show or hide
+     */
+    private func showHideOrderMode(isShow: Bool) {
+        lblOrder.isHidden = !isShow
+        btnOrder.isHidden = !isShow
+        lblExplain.isHidden = !isShow
+        for i in 0..<listActionsConfig.count {
+            if listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_GAS
+                || listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE {
+                listActionsButtons[i].isHidden = !isShow
+                listActionsLabels[i].isHidden = !isShow
+            }
+        }
+    }
+    
+    /**
+     * Show/hide children views in processing mode
+     * - parameter isShow: Flag show or hide
+     */
+    private func showHideProcessingMode(isShow: Bool) {
+        btnProcessing.isHidden = !isShow
+        processingView?.isHidden = !isShow
+        lblProcessing1.isHidden = !isShow
+        lblProcessing2.isHidden = !isShow
+        btnCancelOrder.isHidden = !isShow
+        for i in 0..<listActionsConfig.count {
+            if listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_GAS
+                || listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE {
+                listActionsButtons[i].isHidden = isShow
+                listActionsLabels[i].isHidden = isShow
+            }
+        }
+    }
+    
+    /**
+     * Show/hide children views in finish mode
+     * - parameter isShow: Flag show or hide
+     */
+    private func showHideFinishMode(isShow: Bool) {
+        btnFinish.isHidden = !isShow
+        lblFinish1.isHidden = !isShow
+        lblFinish2.isHidden = !isShow
+        lblFinish3.isHidden = !isShow
+        btnRefer.isHidden = !isShow
+        for i in 0..<listActionsConfig.count {
+            listActionsButtons[i].isHidden = isShow
+            listActionsLabels[i].isHidden = isShow
+        }
+    }
+}
+
+extension G12F01S01VC: NVActivityIndicatorViewable {
+    
 }

@@ -516,7 +516,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
     }
     
     /**
-     * Create facebook button
+     * Create resend button
      * - parameter x: X position
      * - parameter y: Y position
      * - parameter w: Width of view

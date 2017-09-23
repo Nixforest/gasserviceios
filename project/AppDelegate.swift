@@ -41,10 +41,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //-- BUG0156-SPJ (NguyenPT 20170921) Re-design Gas24h
         rootNav = UINavigationController(rootViewController: firstVC)
         rootNav.isNavigationBarHidden = false
+        //++ BUG0156-SPJ (NguyenPT 20170922) Re-design Gas24h
+        let menu = MenuVC(nibName: MenuVC.theClassName, bundle: nil)
+        //-- BUG0156-SPJ (NguyenPT 20170922) Re-design Gas24h
         
         //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
-        let slide = BaseSlideMenuViewController(mainViewController: rootNav,
-                                        leftMenuViewController: mainStoryboard.instantiateViewController(withIdentifier: "BaseMenuViewController"))
+        let slide = BaseSlideMenuViewController(
+            mainViewController: rootNav,
+            //++ BUG0156-SPJ (NguyenPT 20170922) Re-design Gas24h
+//            leftMenuViewController: mainStoryboard.instantiateViewController(
+//                withIdentifier: "BaseMenuViewController"))
+            leftMenuViewController: menu)
+            //-- BUG0156-SPJ (NguyenPT 20170922) Re-design Gas24h
         slide.delegate = firstVC
         //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         self.window?.rootViewController = slide

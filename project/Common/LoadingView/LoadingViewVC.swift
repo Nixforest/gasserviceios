@@ -49,8 +49,8 @@ class LoadingViewVC: ChildExtViewController, NVActivityIndicatorViewable {
                              action: #selector(buttonTapped(_:)),
                              for: UIControlEvents.touchUpInside)
             CommonProcess.setBorder(view: button)
-//            self.view.addSubview(activityIndicatorView)
             self.view.addSubview(button)
+            self.view.addSubview(activityIndicatorView)
         }
         
         // Navigation
