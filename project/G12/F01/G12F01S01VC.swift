@@ -50,7 +50,8 @@ class G12F01S01VC: ParentExtViewController {
     var listActionsLabels:      [UILabel]   = [UILabel]()
     // Attemp list config
     var listActionsConfig:      [ConfigBean] = [
-        ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_GAS, name: DomainConst.CONTENT00485),
+//        ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_GAS, name: DomainConst.CONTENT00485),
+        ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_GAS, name: "Xanh 12 val shell Gas Southern Petroleum"),
         ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_PROMOTE, name: DomainConst.CONTENT00486),
         ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00484),
         ConfigBean(id: DomainConst.ACTION_TYPE_SUPPORT, name: DomainConst.CONTENT00484)
@@ -222,6 +223,11 @@ class G12F01S01VC: ParentExtViewController {
         self.view.addSubview(lblFinish2)
         self.view.addSubview(lblFinish3)
         self.view.addSubview(actionsView)
+        for i in 0..<listActionsConfig.count {
+            if listActionsConfig[i].id != DomainConst.ACTION_TYPE_NONE {
+                self.view.addSubview(listActionsLabels[i])
+            }
+        }
         self.view.addSubview(btnCancelOrder)
         self.view.addSubview(btnRefer)
     }
@@ -805,27 +811,33 @@ class G12F01S01VC: ParentExtViewController {
         if UIDevice.current.userInterfaceIdiom == .pad {
             font = UIFont.systemFontSize
         }
+        let lblHeight = GlobalConst.LABEL_H * 4
+        let lblYPos = actionsView.frame.minY + GlobalConst.LABEL_H - lblHeight
         for i in 0..<count {
             // Calculate frame of button
-            let frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
+            let frame = CGRect(x: margin + CGFloat(i) * btnSpace,
+                               y: margin / 2,
                                width: btnWidth,
                                height: btnWidth)
             let btn = CategoryButton(frame: frame, icon: listImg[i].0, iconActive: listImg[i].1, title: listActionsConfig[i].name, id: listActionsConfig[i].id, font: font, isUpperText: true)
 //            self.adjustImageAndTitleOffsetsForButton(button: btn)
             btn.addTarget(self, action: #selector(actionsButtonTapped), for: .touchUpInside)
-            let lbl = UILabel(frame: CGRect(x: margin + CGFloat(i) * btnSpace,
-                                            y: 0.0,
+            let lbl = CustomLabel(frame: CGRect(x: margin + CGFloat(i) * btnSpace,
+                                            y: lblYPos,
                                             width: btnWidth,
-                                            height: GlobalConst.LABEL_H))
+                                            height: lblHeight))
             lbl.text = listActionsConfig[i].name
             lbl.font = UIFont.systemFont(ofSize: font)
             lbl.textAlignment = .center
             lbl.textColor = UIColor.black
+            lbl.lineBreakMode = .byWordWrapping
+            lbl.numberOfLines = 0
             listActionsLabels.append(lbl)
             listActionsButtons.append(btn)
             if listActionsConfig[i].id != DomainConst.ACTION_TYPE_NONE {
                 self.actionsView.addSubview(btn)
-                self.actionsView.addSubview(lbl)
+//                self.actionsView.addSubview(lbl)
+//                self.view.addSubview(lbl)
             }
         }
     }
@@ -839,6 +851,8 @@ class G12F01S01VC: ParentExtViewController {
         let count = listActionsButtons.count
         let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
         
+        let lblHeight = GlobalConst.LABEL_H * 4
+        let lblYPos = actionsView.frame.minY + GlobalConst.LABEL_H - lblHeight
         for i in 0..<count {
             // Calculate frame of button
             listActionsButtons[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace,
@@ -846,9 +860,9 @@ class G12F01S01VC: ParentExtViewController {
                                                  width: btnWidth,
                                                  height: btnWidth)
             listActionsLabels[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace,
-                                                y: 0.0,
+                                                y: lblYPos,
                                                 width: btnWidth,
-                                                height: GlobalConst.LABEL_H)
+                                                height: lblHeight)
         }
     }
     

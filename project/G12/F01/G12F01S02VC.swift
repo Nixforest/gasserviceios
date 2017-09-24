@@ -39,6 +39,12 @@ class G12F01S02VC: ChildExtViewController {
     var lblEmployeeCodeValue:       UILabel             = UILabel()
     /** Label agent */
     var lblAgent:                   UILabel             = UILabel()
+    /** Rating bar */
+    var ratingBar:                  RatingBar           = RatingBar()
+    /** Button chat */
+    var btnChat:                    UIButton            = UIButton()
+    /** Button phone */
+    var btnPhone:                   UIButton            = UIButton()
     /** Center mark */
     private var _centerMark:        UIImageView         = UIImageView()
     /** Origin position */
@@ -165,17 +171,17 @@ class G12F01S02VC: ChildExtViewController {
         updateCollapseView()
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
-            updateTopViewHD()
+            updateTopViewHD(isShow: !self.isCollapsed)
             updateActionsViewHD()
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
             case .portrait, .portraitUpsideDown:        // Portrait
-                updateTopViewFHD()
+                updateTopViewFHD(isShow: !self.isCollapsed)
                 updateActionsViewFHD()
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
-                updateTopViewFHD_L()
+                updateTopViewFHD_L(isShow: !self.isCollapsed)
                 updateActionsViewFHD_L()
                 break
             default:
@@ -219,6 +225,14 @@ class G12F01S02VC: ChildExtViewController {
         showHideTopView(isShow: !self.isCollapsed)
     }
     
+    internal func btnChatTapped(_ sender: AnyObject) {
+        showAlert(message: "btnChatTapped")
+    }
+    
+    internal func btnPhoneTapped(_ sender: AnyObject) {
+        showAlert(message: "btnPhoneTapped")
+    }
+    
     // MARK: Utility methods
     /**
      * Setting for map properties
@@ -242,6 +256,9 @@ class G12F01S02VC: ChildExtViewController {
             width: UIScreen.main.bounds.width,
             height: GlobalConst.LABEL_H * 2)
         self.collapseView.backgroundColor = UIColor(white: 1, alpha: 1.0)
+        self.collapseView.layer.addBorder(edge: .bottom,
+                                          color: UIColor.gray,
+                                          thickness: 1.0)
         createEmployeeTitleLabel()
         createCollapseButton()
         self.collapseView.addSubview(lblEmployeeTitle)
@@ -337,6 +354,8 @@ class G12F01S02VC: ChildExtViewController {
         self.imgAvatar.contentMode = .scaleAspectFit
         self.imgAvatar.layer.masksToBounds = true
         self.imgAvatar.layer.cornerRadius = imgSize / 2
+        self.imgAvatar.layer.borderWidth = 2
+        self.imgAvatar.layer.borderColor = UIColor.orange.cgColor
 //        self.imgAvatar.getImgFromUrl(link: DomainConst.BLANK,
 //                                     contentMode: .scaleAspectFit)
         self.imgAvatar.image = ImageManager.getImage(named: DomainConst.DEFAULT_IMG_NAME)
@@ -356,8 +375,9 @@ class G12F01S02VC: ChildExtViewController {
                                             y: lblEmployeeName.frame.maxY,
                                             width: width - height,
                                             height: height / 4)
-        self.lblEmployeeCode.text = "MSNV:"
+        self.lblEmployeeCode.text = "DKMN0948"
         self.lblEmployeeCode.font = GlobalConst.BASE_FONT
+        self.lblEmployeeCode.textColor = UIColor.red
         self.lblEmployeeCode.textAlignment = .left
         
         // Employee agent
@@ -369,10 +389,72 @@ class G12F01S02VC: ChildExtViewController {
         self.lblAgent.font = GlobalConst.BASE_FONT
         self.lblAgent.textAlignment = .left
         
+        // Rating bar
+        let ratingSize = GlobalConst.LABEL_H
+        let ratingWidth = ratingSize * (CGFloat)(ratingBar.getStarNumber()) + (ratingBar.getStarSpace() * (CGFloat)(ratingBar.getStarNumber() - 1))
+        ratingBar.frame = CGRect(x: leftMargin,
+                                 y: lblAgent.frame.maxY,
+                                 width: ratingWidth,
+                                 height: height / 4)
+        
+        //ratingBar.setBackgroundColor(color: GlobalConst.BACKGROUND_COLOR_GRAY)
+        ratingBar.setRatingValue(value: 4)
+        ratingBar.delegate = self
+        ratingBar.isUserInteractionEnabled = false
+        
+        // Button chat and phone
+        createChatButton(w: width, h: height)
+        createPhoneButton(w: width, h: height)
+        
         self._topView.addSubview(self.imgAvatar)
         self._topView.addSubview(self.lblEmployeeName)
         self._topView.addSubview(self.lblEmployeeCode)
         self._topView.addSubview(self.lblAgent)
+        self._topView.addSubview(self.ratingBar)
+        self._topView.addSubview(self.btnChat)
+        self._topView.addSubview(self.btnPhone)
+    }
+    
+    /**
+     * Create chat button
+     * - parameter w: Width of top view
+     * - parameter h: Height of top view
+     */
+    private func createChatButton(w: CGFloat, h: CGFloat) {
+        let btnSize = h / 4
+        btnChat.frame = CGRect(
+            x: w - btnSize * 2 - GlobalConst.MARGIN * 2, y: h - btnSize,
+            width: btnSize, height: btnSize)
+        
+        let chat = ImageManager.getImage(named: DomainConst.CHAT_BUTTON_ICON_IMG_NAME)
+        let tinted = chat?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        btnChat.setImage(tinted, for: UIControlState())
+        btnChat.tintColor = UIColor.red
+        btnChat.backgroundColor = UIColor.clear
+        btnChat.imageView?.contentMode = .scaleAspectFit
+        btnChat.addTarget(self, action: #selector(btnChatTapped(_:)),
+                          for: .touchUpInside)
+    }
+    
+    /**
+     * Create phone button
+     * - parameter w: Width of top view
+     * - parameter h: Height of top view
+     */
+    private func createPhoneButton(w: CGFloat, h: CGFloat) {
+        let btnSize = h / 4
+        btnPhone.frame = CGRect(
+            x: btnChat.frame.maxX + GlobalConst.MARGIN, y: h - btnSize,
+            width: btnSize, height: btnSize)
+        
+        let phone = ImageManager.getImage(named: DomainConst.PHONE_BUTTON_ICON_IMG_NAME)
+        let tinted = phone?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        btnPhone.setImage(tinted, for: UIControlState())
+        btnPhone.tintColor = UIColor.red
+        btnPhone.backgroundColor = UIColor.clear
+        btnPhone.imageView?.contentMode = .scaleAspectFit
+        btnPhone.addTarget(self, action: #selector(btnPhoneTapped(_:)),
+                          for: .touchUpInside)
     }
     
     /**
@@ -422,6 +504,11 @@ class G12F01S02VC: ChildExtViewController {
         CommonProcess.updateViewPos(view: lblAgent,
                                     x: leftMargin,
                                     y: lblEmployeeCode.frame.maxY,
+                                    w: w - h,
+                                    h: h / 4)
+        CommonProcess.updateViewPos(view: ratingBar,
+                                    x: leftMargin,
+                                    y: lblAgent.frame.maxY,
                                     w: w - h,
                                     h: h / 4)
     }
@@ -879,5 +966,12 @@ extension G12F01S02VC: GMSMapViewDelegate {
      */
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
 //        self.setSrcAddress(position: position.target, isFirstTime: true)
+    }
+}
+
+// MARK: Protocol - RatingBarDelegate
+extension G12F01S02VC: RatingBarDelegate {
+    func rating(_ sender: AnyObject) {
+        // Do nothing
     }
 }
