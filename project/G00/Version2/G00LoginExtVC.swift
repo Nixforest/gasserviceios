@@ -25,6 +25,8 @@ class G00LoginExtVC: ChildExtViewController {
     var btnFacebook:    CustomButton    = CustomButton(type: UIButtonType.custom)
     /** Button Zalo */
     var btnZalo:        CustomButton    = CustomButton(type: .custom)
+    /** Value */
+    public static var phone:    String  = DomainConst.BLANK
     
     // MARK: Constant
     // Logo
@@ -62,7 +64,7 @@ class G00LoginExtVC: ChildExtViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        setLocalData()
         self.view.makeComponentsColor()
     }
     
@@ -228,7 +230,22 @@ class G00LoginExtVC: ChildExtViewController {
      * Handle when tap on next button
      */
     func btnNextTapped(_ sender: AnyObject) {
-        self.dismiss(animated: true, completion: finishDismissLogin)
+        // Get value from text field
+        if let phoneValue = txtPhone.text {
+            // Check if value is empty or not
+            if !phoneValue.isEmpty {
+                // Hide keyboard
+                self.view.endEditing(true)
+                // Save static data
+                G00LoginExtVC.phone = phoneValue
+                // Save current phone
+                BaseModel.shared.setCurrentUsername(username: phoneValue)
+                // Hide login view
+                self.dismiss(animated: true, completion: finishDismissLogin)
+                return
+            }
+        }
+        showAlert(message: DomainConst.CONTENT00030)
     }
     
     internal func finishOpenConfirm() -> Void {
@@ -655,13 +672,7 @@ class G00LoginExtVC: ChildExtViewController {
                       h: LOGIN_PHONE_REAL_HEIGHT_FHD_L)
     }
     
-    private func gotoNextStep() {
-        let g12F01S01 = G12F01S01VC(nibName: G12F01S01VC.theClassName, bundle: nil)
-        let rootNav: UINavigationController = UINavigationController(rootViewController: g12F01S01)
-        rootNav.isNavigationBarHidden = false
-        let slide = BaseSlideMenuViewController(mainViewController: rootNav,
-                                                leftMenuViewController: mainStoryboard.instantiateViewController(withIdentifier: "BaseMenuViewController"))
-        slide.delegate = g12F01S01
-        self.present(g12F01S01, animated: true, completion: nil)
+    private func setLocalData() {
+        self.txtPhone.text = BaseModel.shared.getCurrentUsername()
     }
 }

@@ -62,12 +62,54 @@ class MenuVC: BaseMenuViewController {
             controller.present(loginView, animated: true, completion: finishOpenLogin)
         }
     }
+    
+    override func update() {
+        super.update()
+        
+        if BaseModel.shared.checkIsLogin() {
+            if let userInfo = BaseModel.shared.user_info {
+                setUserInfo(info: userInfo)
+            } else {
+                UserProfileRequest.requestUserProfile(action: #selector(finishUpdateUserInfo(_:)), view: self)
+            }
+        } else {
+            setUserInfo(info: UserInfoBean())
+        }
+        btnEdit.isHidden = !BaseModel.shared.checkIsLogin()
+    }
     // MARK: Event handler
     internal func btnEditTapped(_ sender: AnyObject) {
-        showAlert(message: "btnEditTapped")
+        if let controller = BaseViewController.getCurrentViewController() {
+            if let root = BaseViewController.getRootController() {
+                root.closeLeft()
+            }
+            controller.pushToView(name: G00AccountVC.theClassName)
+        }
+    }
+    
+    internal func finishUpdateUserInfo(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = UserProfileRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.setUserInfo(userInfo: model.record)
+            setUserInfo(info: model.record)
+        }
     }
     
     // MARK: Utilities
+    /**
+     * Set user info
+     * - parameter info: User info bean
+     */
+    private func setUserInfo(info: UserInfoBean) {
+        lblName.text = info.getName()
+        if info.getPhone().isEmpty {
+            lblPhone.text = BaseModel.shared.getCurrentUsername()
+        } else {
+            lblPhone.text = info.getPhone()
+        }
+        lblAddress.text = info.getAddress()
+    }
     private func createLabel(lbl: UILabel, text: String,
                              offset: CGFloat,
                              isBold: Bool = false,

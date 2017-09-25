@@ -8,9 +8,12 @@
 
 import UIKit
 import harpyframework
+import GoogleMaps
 
-class G12F01S01VC: ParentExtViewController {
+class G12F01S01VC: BaseParentViewController {
     // MARK: Properties
+    /** Location */
+    let locationManager:    CLLocationManager   = CLLocationManager()
     /** Category view */
     var categoryView:           UIView      = UIView()
     /** List of category button */
@@ -51,11 +54,22 @@ class G12F01S01VC: ParentExtViewController {
     // Attemp list config
     var listActionsConfig:      [ConfigBean] = [
 //        ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_GAS, name: DomainConst.CONTENT00485),
-        ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_GAS, name: "Xanh 12 val shell Gas Southern Petroleum"),
+        ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_GAS, name: DomainConst.CONTENT00485),
         ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_PROMOTE, name: DomainConst.CONTENT00486),
         ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00484),
         ConfigBean(id: DomainConst.ACTION_TYPE_SUPPORT, name: DomainConst.CONTENT00484)
     ]
+    /** Address text value */
+    var addressText:            String      = DomainConst.BLANK
+    // MARK: Static values
+    /** Current position of map view */
+    public static var _currentPos       = CLLocationCoordinate2D.init()
+    /** Save neares agent information */
+    public static var _nearestAgent     = AgentInfoBean()
+    /** Material gas select */
+    public static var _gasSelected      = MaterialBean()
+    /** Material promote select */
+    public static var _promoteSelected  = MaterialBean()
     
     // MARK: Constant
     // View mode
@@ -102,6 +116,15 @@ class G12F01S01VC: ParentExtViewController {
         self.createNavigationBar(title: "1900 1565")
 //        openLogin()
         changeMode(mode: MODE_ORDER)
+        // Location setting
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+        } else {
+            locationManager.startUpdatingLocation()
+        }
     }
     
     /**
@@ -288,7 +311,7 @@ class G12F01S01VC: ParentExtViewController {
      * Handle when tap on cancel order button
      */
     func btnCancelOrderTapped(_ sender: AnyObject) {
-        changeMode(mode: MODE_FINISH)
+        requestCancelTransaction()
     }
     
     /**
@@ -322,7 +345,8 @@ class G12F01S01VC: ParentExtViewController {
         // Handle by button identify
         switch ((sender as! UIButton).accessibilityIdentifier!) {
         case DomainConst.ACTION_TYPE_SELECT_GAS:
-            showAlert(message: "DomainConst.ACTION_TYPE_SELECT_GAS")
+//            showAlert(message: "DomainConst.ACTION_TYPE_SELECT_GAS")
+            self.pushToView(name: G04Const.G04_F01_S02_VIEW_CTRL)
             return
         case DomainConst.ACTION_TYPE_SELECT_PROMOTE:
             showAlert(message: "DomainConst.ACTION_TYPE_SELECT_PROMOTE")
@@ -339,7 +363,7 @@ class G12F01S01VC: ParentExtViewController {
      * Handle order button tapped event
      */
     internal func btnOrderTapped(_ sender: AnyObject) {
-        changeMode(mode: MODE_PROCESSING)
+        requestTransactionComplete()
     }
     
     /**
@@ -361,7 +385,284 @@ class G12F01S01VC: ParentExtViewController {
     func btnReferTapped(_ sender: AnyObject) {
     }
     
+    /**
+     * Handler when transaction status request is finish
+     */
+    internal func finishRequestTransactionStatus(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = OrderViewRespModel(jsonString: data)
+        if !model.isSuccess() {
+            showAlert(message: model.message)
+            return
+        }
+    }
+    
+    /**
+     * Handler when transaction complete request is finish
+     */
+    func finishRequestTransactionComplete(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = OrderTransactionCompleteRespModel(jsonString: data)
+        if model.isSuccess() {
+            changeMode(mode: MODE_PROCESSING)
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Handler when order config request is finish
+     */
+    internal func finishRequestOrderConfig(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = OrderConfigRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.saveOrderConfig(config: model.getRecord())
+            // Start update config
+            startUpdateConfig()
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    /**
+     * Finish request update config
+     */
+    internal func finishRequestUpdateConfig(_ notification: Notification) {
+        LoadingView.shared.showOverlay(view: self.view, className: self.theClassName)
+        let data = (notification.object as! String)
+        let model = LoginRespModel(jsonString: data)
+        LoadingView.shared.hideOverlayView(className: self.theClassName)
+        if model.isSuccess() {
+            BaseModel.shared.saveTempData(loginModel: model)
+            requestTransactionStart()
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Finish request start transaction
+     */
+    internal func finishStartTransaction(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = OrderTransactionStartRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.setTransactionData(transaction: model.getRecord())
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    /**
+     * Handle when finish request transaction confirm/cancel
+     */
+    func finishRequestTransactionCancelHandler(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
+            changeMode(mode: MODE_ORDER)
+            requestTransactionStart()
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
     // MARK: Utilities
+    /**
+     * Start logic of screen
+     */
+    internal func startLogic() {
+        // Check if order config does exist
+        if BaseModel.shared.getOrderConfig().isExist() {
+            // Start update config
+            startUpdateConfig()
+        } else {
+            requestOrderConfig()
+        }
+    }
+    
+    internal func startUpdateConfig() {
+        // Check if user is logged in already
+        if !BaseModel.shared.checkIsLogin() {
+            openLogin()
+        } else {
+            // Update config
+            UpdateConfigurationRequest.requestUpdateConfiguration(
+                action: #selector(finishRequestUpdateConfig(_:)),
+                view: self)
+        }
+    }
+    
+    private func requestTransactionStart() {
+        updateNearestAgentInfo()
+        if !BaseModel.shared.checkTransactionKey() {
+            OrderTransactionStartRequest.requestOrderTransactionStart(
+                action: #selector(finishStartTransaction(_:)),
+                view: self)
+        }
+    }
+    
+    /**
+     * Request transaction status
+     * - parameter id: Id of transaction
+     */
+    private func requestTransactionStatus(id: String = DomainConst.BLANK) {
+        TransactionStatusRequest.request(
+            action: #selector(finishRequestTransactionStatus(_:)),
+            view: self, id: id)
+    }
+    
+    /**
+     * Request transaction complete
+     */
+    private func requestTransactionComplete() {
+        var userInfo = UserInfoBean()
+        if let info = BaseModel.shared.user_info {
+            userInfo = info
+        }
+        let orderDetail = getOrderDetail()
+        
+        OrderTransactionCompleteRequest.requestOrderTransactionComplete(
+            action: #selector(finishRequestTransactionComplete(_:)),
+            view: self,
+            key:    BaseModel.shared.getTransactionData().name,
+            id:     BaseModel.shared.getTransactionData().id,
+            devicePhone:    BaseModel.shared.getCurrentUsername(),
+            firstName:      userInfo.getName(),
+            phone:          userInfo.getPhone(),
+            email:          userInfo.getEmail(),
+            provinceId:     userInfo.getProvinceId(),
+            districtId:     userInfo.getDistrictId(),
+            wardId:         userInfo.getWardId(),
+            streetId:       userInfo.getStreetId(),
+            houseNum:       userInfo.getHouseNumber(),
+            note:           DomainConst.BLANK,
+            address:        self.addressText,
+            orderDetail:    orderDetail,
+            lat:            String(G12F01S01VC._currentPos.latitude),
+            long:           String(G12F01S01VC._currentPos.longitude),
+            agentId:        MapViewController._nearestAgent.info_agent.agent_id,
+            transactionType: DomainConst.TRANSACTION_TYPE_NORMAL)
+    }
+    
+    /**
+     * Request order config
+     */
+    private func requestOrderConfig() {
+        OrderConfigRequest.requestOrderConfig(
+            action: #selector(finishRequestOrderConfig(_:)),
+            view: self)
+    }
+    
+    /**
+     * Request cancel transaction
+     */
+    private func requestCancelTransaction() {
+        self.showAlert(message: DomainConst.CONTENT00256,
+                       okHandler: {
+                        (alert: UIAlertAction!) in
+                        OrderTransactionCancelRequest.requestOrderTransactionCancel(
+                            action: #selector(self.finishRequestTransactionCancelHandler(_:)),
+                            view: self)
+        },
+                       cancelHandler: {
+                        (alert: UIAlertAction!) in
+        })
+    }
+    
+    /**
+     * Update nearest agent information
+     */
+    private func updateNearestAgentInfo() {
+        var distance = Double.greatestFiniteMagnitude
+        // Loop for all agent and find nearest agent from current location
+        for item in BaseModel.shared.getAgentListFromOrderConfig() {
+            // Get lat and long value from agent information
+            let lat: CLLocationDegrees = (item.info_agent.agent_latitude as NSString).doubleValue
+            let long: CLLocationDegrees = (item.info_agent.agent_longitude as NSString).doubleValue
+            let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            let currentDist = calculateDistance(pos1: G12F01S01VC._currentPos, pos2: location)
+            // Found a nearer agent
+            if distance > currentDist {
+                G12F01S01VC._nearestAgent = item
+                distance = currentDist
+            }
+        }
+        
+        // Check if min distance is outside of max range
+        if distance > BaseModel.shared.getMaxRangeDistantFromOrderConfig() {
+            G12F01S01VC._nearestAgent = AgentInfoBean.init()
+        }
+        
+        // Not found any agent
+        if G12F01S01VC._nearestAgent.isEmpty() {
+            // Reset selected materials
+            G12F01S01VC._gasSelected     = MaterialBean.init()
+            G12F01S01VC._promoteSelected = MaterialBean.init()
+        } else {    // Found
+            // Save selected gas
+            if !G12F01S01VC._nearestAgent.info_gas.isEmpty {
+                G12F01S01VC._gasSelected = G12F01S01VC._nearestAgent.info_gas[0]
+            }
+        }
+        updateMaterialSelector()
+    }
+    
+    /**
+     * Calculate the distance (in meters) from the receiver’s location to the specified location.
+     * - parameter pos1: Receiver’s location
+     * - parameter pos2: Specified location
+     * - returns: This method measures the distance between the two locations by tracing a line between them that follows the curvature of the Earth. The resulting arc is a smooth curve and does not take into account specific altitude changes between the two locations
+     */
+    private func calculateDistance(pos1: CLLocationCoordinate2D, pos2: CLLocationCoordinate2D) -> Double {
+        let position1 = CLLocation(latitude: pos1.latitude, longitude: pos1.longitude)
+        let position2 = CLLocation(latitude: pos2.latitude, longitude: pos2.longitude)
+        let distance: CLLocationDistance = position1.distance(from: position2)
+        return distance
+    }
+    
+    /**
+     * Update material selector view data
+     */
+    private func updateMaterialSelector() {
+        // If found nearest agent information
+        if !G12F01S01VC._gasSelected.isEmpty() {
+            self.listActionsLabels[0].text = G12F01S01VC._gasSelected.material_name
+            //            self.listActionsButtons[0].setImage(tinted, for: UIControlState.selected)
+        } else {
+            self.listActionsLabels[0].text = self.listActionsConfig[0].name
+        }
+        // If found nearest agent information
+        if !G12F01S01VC._promoteSelected.isEmpty() {
+            self.listActionsLabels[1].text = G12F01S01VC._promoteSelected.material_name
+//            self.listActionsButtons[1].setImage(tinted, for: UIControlState.selected)
+        } else {
+            self.listActionsLabels[1].text = self.listActionsConfig[1].name
+        }
+    }
+    
+    /**
+     * Get order detail
+     * - returns: Order detail in json format
+     */
+    private func getOrderDetail() -> String {
+        var retVal = DomainConst.BLANK
+        if !G12F01S01VC._gasSelected.isEmpty() {
+            let detailGas = OrderDetailBean(
+                data: G12F01S01VC._gasSelected,
+                qty: DomainConst.NUMBER_ONE_VALUE)
+            retVal = retVal + detailGas.createJsonData()
+        }
+        if !G12F01S01VC._promoteSelected.isEmpty() {
+            let detailPromote = OrderDetailBean(
+                data: G12F01S01VC._promoteSelected,
+                qty: DomainConst.NUMBER_ONE_VALUE)
+            retVal = retVal + detailPromote.createJsonData()
+        }
+        return "{\"materials_id\":\"575\",\"qty\":1,\"price\":\"0\",\"materials_type_id\":\"4\"}"
+    }
+    
     /**
      * Handle open map view
      */
@@ -376,21 +677,6 @@ class G12F01S01VC: ParentExtViewController {
      */
     internal func finishShowMapView() -> Void {
         print("finishShowMapView")
-    }
-    
-    /**
-     * Handle open login view
-     */
-    private func openLogin() {
-        let login = G00LoginExtVC(nibName: G00LoginExtVC.theClassName, bundle: nil)
-        self.present(login, animated: true, completion: finishOpenLogin)
-    }
-    
-    /**
-     * Handle when finish open login view
-     */
-    internal func finishOpenLogin() -> Void {
-        print("finishOpenLogin")
     }
     
     /**
@@ -1212,6 +1498,51 @@ class G12F01S01VC: ParentExtViewController {
     }
 }
 
+// MARK: Protocol - NVActivityIndicatorViewable
 extension G12F01S01VC: NVActivityIndicatorViewable {
     
+}
+
+// MARK: Protocol - CLLocationManagerDelegate
+extension G12F01S01VC: CLLocationManagerDelegate {
+    /**
+     * Tells the delegate that new location data is available.
+     */
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        manager.stopUpdatingLocation()
+        manager.delegate = nil
+        if let location: CLLocation = locations.last {
+            // Save current location
+            G12F01S01VC._currentPos = location.coordinate
+            self.startLogic()
+            GMSGeocoder().reverseGeocodeCoordinate(location.coordinate, completionHandler: {
+                (response, error) in
+                if error != nil, response == nil {
+                    return
+                }
+                // Get Address
+                if let result = response?.firstResult() {
+                    if let lines = result.lines {
+                        self.addressText = lines.joined(separator: DomainConst.ADDRESS_SPLITER)
+                    }
+                }
+            })
+        }
+    }
+    
+    /**
+     * Tells the delegate that the authorization status for the application changed.
+     */
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            manager.startUpdatingLocation()
+        }
+    }
+    
+    /**
+     * Tells the delegate that the location manager was unable to retrieve a location value.
+     */
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        manager.stopUpdatingLocation()
+    }
 }

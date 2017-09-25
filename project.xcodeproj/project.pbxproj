@@ -90,6 +90,9 @@
 		D7DA56AB1E40EB1000B6F618 /* OrderTransactionStartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA56AA1E40EB1000B6F618 /* OrderTransactionStartRequest.swift */; };
 		D7DA56B01E40F18F00B6F618 /* OrderTransactionStartRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA56AF1E40F18F00B6F618 /* OrderTransactionStartRespModel.swift */; };
 		D7DA56B21E41171500B6F618 /* OrderTransactionCompleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA56B11E41171500B6F618 /* OrderTransactionCompleteRequest.swift */; };
+		D7DDA4F11F77CA3900824FC4 /* BaseParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DDA4F01F77CA3900824FC4 /* BaseParentViewController.swift */; };
+		D7DDA4F61F77D3D100824FC4 /* TransactionStatusRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DDA4F51F77D3D100824FC4 /* TransactionStatusRequest.swift */; };
+		D7DDA4F81F77D44500824FC4 /* G12Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DDA4F71F77D44500824FC4 /* G12Const.swift */; };
 		D7E014A51E345FAF001F26B6 /* G04F01S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E014A41E345FAF001F26B6 /* G04F01S02VC.swift */; };
 		D7E014A81E34647D001F26B6 /* G04F01S02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E014A71E34647D001F26B6 /* G04F01S02MenuVC.swift */; };
 		D7E014B21E348F2A001F26B6 /* G04F01S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E014B11E348F2A001F26B6 /* G04F01S03VC.swift */; };
@@ -246,6 +249,9 @@
 		D7DA56AA1E40EB1000B6F618 /* OrderTransactionStartRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionStartRequest.swift; path = G04/OrderTransactionStartRequest.swift; sourceTree = "<group>"; };
 		D7DA56AF1E40F18F00B6F618 /* OrderTransactionStartRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionStartRespModel.swift; path = G04/OrderTransactionStartRespModel.swift; sourceTree = "<group>"; };
 		D7DA56B11E41171500B6F618 /* OrderTransactionCompleteRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionCompleteRequest.swift; path = G04/OrderTransactionCompleteRequest.swift; sourceTree = "<group>"; };
+		D7DDA4F01F77CA3900824FC4 /* BaseParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseParentViewController.swift; path = Common/BaseParentViewController.swift; sourceTree = "<group>"; };
+		D7DDA4F51F77D3D100824FC4 /* TransactionStatusRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionStatusRequest.swift; path = G12/API/TransactionStatusRequest.swift; sourceTree = "<group>"; };
+		D7DDA4F71F77D44500824FC4 /* G12Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12Const.swift; path = G12/G12Const.swift; sourceTree = "<group>"; };
 		D7E014A41E345FAF001F26B6 /* G04F01S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S02VC.swift; path = G04/G04F01S02VC.swift; sourceTree = "<group>"; };
 		D7E014A71E34647D001F26B6 /* G04F01S02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S02MenuVC.swift; path = G04/G04F01S02MenuVC.swift; sourceTree = "<group>"; };
 		D7E014B11E348F2A001F26B6 /* G04F01S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S03VC.swift; path = G04/G04F01S03VC.swift; sourceTree = "<group>"; };
@@ -392,6 +398,7 @@
 				D719D69E1E4AB5AE00D1B6C5 /* background.jpg */,
 				D733730F1E22CCC6004F2781 /* Podfile */,
 				D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */,
+				D7DDA4F01F77CA3900824FC4 /* BaseParentViewController.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -554,6 +561,14 @@
 			name = MultiDevice;
 			sourceTree = "<group>";
 		};
+		D7DDA4F41F77D3A700824FC4 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				D7DDA4F51F77D3D100824FC4 /* TransactionStatusRequest.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
 		D7E298FF1F74E7AF0078C46C /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,8 +581,10 @@
 		D7E307321F72B9720065F2E1 /* G12 */ = {
 			isa = PBXGroup;
 			children = (
+				D7DDA4F41F77D3A700824FC4 /* API */,
 				D7E307351F72BA360065F2E1 /* F00 */,
 				D7E307361F72BA3A0065F2E1 /* F01 */,
+				D7DDA4F71F77D44500824FC4 /* G12Const.swift */,
 			);
 			name = G12;
 			sourceTree = "<group>";
@@ -860,6 +877,7 @@
 				D7671BED1E16E4680026DCFA /* G04F00S02MenuVC.swift in Sources */,
 				D7424AAA1E39BD1F00E442DC /* G04F01S05MenuVC.swift in Sources */,
 				D7F17CD91E5DF4A300208A73 /* OrderTransactionConfirmRespModel.swift in Sources */,
+				D7DDA4F61F77D3D100824FC4 /* TransactionStatusRequest.swift in Sources */,
 				D7804B391E7685CF00C94F75 /* G00ConfigurationVC.swift in Sources */,
 				D7804B361E7685CF00C94F75 /* G00ChangePassMenuVC.swift in Sources */,
 				D79C1BBF1E4AD3D700E6E121 /* PromotionListRespModel.swift in Sources */,
@@ -875,6 +893,7 @@
 				D721C5091F5D39C3003E823D /* Step.swift in Sources */,
 				D7E299041F74E7CE0078C46C /* MenuVC.swift in Sources */,
 				D7E014A51E345FAF001F26B6 /* G04F01S02VC.swift in Sources */,
+				D7DDA4F81F77D44500824FC4 /* G12Const.swift in Sources */,
 				D7DA56AB1E40EB1000B6F618 /* OrderTransactionStartRequest.swift in Sources */,
 				D717774C1F5E87C1009CF656 /* LoadingViewVC.swift in Sources */,
 				D721C5071F5D39C3003E823D /* Polyline.swift in Sources */,
@@ -905,6 +924,7 @@
 				D791F6AE1E237BF5009CBBED /* OrderViewRequest.swift in Sources */,
 				D721C50B1F5D3A33003E823D /* DirectionService.swift in Sources */,
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
+				D7DDA4F11F77CA3900824FC4 /* BaseParentViewController.swift in Sources */,
 				D7DA56B21E41171500B6F618 /* OrderTransactionCompleteRequest.swift in Sources */,
 				D7F684481E2F5A8A00D3D6F4 /* G04F01S01MenuVC.swift in Sources */,
 				D7804B3D1E7685CF00C94F75 /* G00HomeVC.swift in Sources */,

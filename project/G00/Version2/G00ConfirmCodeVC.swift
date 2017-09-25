@@ -76,6 +76,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setLocalData()
     }
     
     /**
@@ -228,12 +229,57 @@ class G00ConfirmCodeVC: ChildExtViewController {
         }
     }
     
+    override func setData(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = LoginRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.loginSuccess(model.token)
+            BaseModel.shared.saveTempData(loginModel: model)
+            UpdateConfigurationRequest.requestUpdateConfiguration(
+                action: #selector(finishUpdateConfigRequest(_:)),
+                view: self)
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
     // MARK: Event handler
+    /**
+     * Finish request update config
+     */
+    func finishUpdateConfigRequest(_ notification: Notification) {
+        LoadingView.shared.showOverlay(view: self.view, className: self.theClassName)
+        let data = (notification.object as! String)
+        let model = LoginRespModel(jsonString: data)
+        LoadingView.shared.hideOverlayView(className: self.theClassName)
+        if model.isSuccess() {
+            BaseModel.shared.saveTempData(loginModel: model)
+            self.dismiss(animated: true, completion: finishDismissConfirm)
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
     /**
      * Handle when tap on next button
      */
     func btnNextTapped(_ sender: AnyObject) {
-        self.dismiss(animated: true, completion: finishDismissConfirm)
+        // Get value from text field
+        if let codeValue = txtCode.text {
+            // Check if value is empty or not
+            if !codeValue.isEmpty {
+                // Hide keyboard
+                self.view.endEditing(true)
+                // Start request login
+                LoginRequest.requestLogin(
+                    action: #selector(setData(_:)),
+                    view: self,
+                    username: G00LoginExtVC.phone,
+                    password: codeValue)
+                return
+            }
+        }
+        showAlert(message: DomainConst.CONTENT00494)
     }
     
     internal func finishDismissConfirm() -> Void {
@@ -599,13 +645,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
             h: CONFIRM_CODE_REAL_HEIGHT_FHD_L)
     }
     
-    private func gotoNextStep() {
-        let g12F01S01 = G12F01S01VC(nibName: G12F01S01VC.theClassName, bundle: nil)
-        let rootNav: UINavigationController = UINavigationController(rootViewController: g12F01S01)
-        rootNav.isNavigationBarHidden = false
-        let slide = BaseSlideMenuViewController(mainViewController: rootNav,
-                                                leftMenuViewController: mainStoryboard.instantiateViewController(withIdentifier: "BaseMenuViewController"))
-        slide.delegate = g12F01S01
-        self.present(g12F01S01, animated: true, completion: nil)
+    private func setLocalData() {
+        self.lbl2.text = G00LoginExtVC.phone
     }
 }
