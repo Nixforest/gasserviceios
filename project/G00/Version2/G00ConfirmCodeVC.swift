@@ -141,6 +141,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
      * Create children views
      */
     override func createChildrenViews() {
+        super.createChildrenViews()
         // Get current device type
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
@@ -196,6 +197,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
      * Update children views
      */
     override func updateChildrenViews() {
+        super.updateChildrenViews()
         // Get current device type
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
@@ -283,6 +285,17 @@ class G00ConfirmCodeVC: ChildExtViewController {
     }
     
     internal func finishDismissConfirm() -> Void {
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(
+                name: Notification.Name(rawValue: G12Const.NOTIFY_NAME_G12_REQUEST_TRANSACTION_START),
+                object: nil)
+            // Remove observer
+            NotificationCenter.default.removeObserver(
+                self.view,
+                name: Notification.Name(
+                    rawValue: G12Const.NOTIFY_NAME_G12_REQUEST_TRANSACTION_START),
+                object: nil)
+        }
         print("finishDismissConfirm")
     }
     

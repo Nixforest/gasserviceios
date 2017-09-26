@@ -34,9 +34,14 @@ class OrderViewRespModel: BaseRespModel {
                 }
                 
                 // Record
-                let order = json[DomainConst.KEY_RECORD] as? [String: AnyObject]
-                
-                self.record = OrderBean(jsonData: order!)
+                //++ BUG0156-SPJ (NguyenPT 20170925) Re-design Gas24h
+//                let order = json[DomainConst.KEY_RECORD] as? [String: AnyObject]
+//                
+//                self.record = OrderBean(jsonData: order!)
+                if let order = json[DomainConst.KEY_RECORD] as? [String: AnyObject] {
+                    self.record = OrderBean(jsonData: order)
+                }
+                //-- BUG0156-SPJ (NguyenPT 20170925) Re-design Gas24h
             } catch let error as NSError {
                 print(DomainConst.JSON_ERR_FAILED_LOAD + "\(error.localizedDescription)")
             }

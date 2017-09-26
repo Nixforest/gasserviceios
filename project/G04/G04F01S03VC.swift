@@ -75,7 +75,7 @@ class G04F01S03VC: MaterialSelectViewController {
     /**
      * Handle tap on Not select button
      */
-    func btnNotSelectTapped(_ sender: AnyObject) {
+    public func btnNotSelectTapped(_ sender: AnyObject) {
         MapViewController._promoteSelected = MaterialBean.init()
         self.backButtonTapped(self)
     }

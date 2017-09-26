@@ -37,4 +37,22 @@ class TransactionStatusRequest: BaseRequest {
         NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
+    
+    //++ BUG0156-SPJ (NguyenPT 20170925) Re-design Gas24h
+    /**
+     * Request transaction status loop
+     * - parameter view:        Current view
+     * - parameter id:          Id of transaction
+     * - parameter completionHandler:      Action execute when finish this task
+     */
+    public static func requestLoop(view: BaseViewController, id: String,
+                                   completionHandler: ((Any?) -> Void)?) {
+        let request = TransactionStatusRequest(url: G12Const.PATH_ORDER_TRANSACTION_LIST,
+                                               reqMethod: DomainConst.HTTP_POST_REQUEST,
+                                               view: view)
+        request.setData(id: id)
+        request.completionBlock = completionHandler
+        request.execute(isShowLoadingView: false)
+    }
+    //-- BUG0156-SPJ (NguyenPT 20170925) Re-design Gas24h
 }

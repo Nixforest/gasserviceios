@@ -11,7 +11,7 @@ import harpyframework
 import GoogleMaps
 import GooglePlaces
 
-class G12F01S02VC: ChildExtViewController {
+class G12F01S02VC: BaseParentViewController {
     // MARK: Properties
     /** Map view */
     @IBOutlet weak var viewMap:     GMSMapView!
@@ -64,6 +64,10 @@ class G12F01S02VC: ChildExtViewController {
         ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00484),
         ConfigBean(id: DomainConst.ACTION_TYPE_SUPPORT, name: DomainConst.CONTENT00484)
     ]
+    /** Data */
+    var _data:                      OrderBean   = OrderBean()
+    /** Detail direction */
+    var detailDirection:            String      = DomainConst.BLANK
     
     // MARK: Constant
     // Top view
@@ -107,6 +111,8 @@ class G12F01S02VC: ChildExtViewController {
         
         // Center mark
         createCenterMark()
+        self.showBotMsg(note: DomainConst.CONTENT00498,
+                        description: DomainConst.CONTENT00498)
     }
     
     /**
@@ -132,6 +138,7 @@ class G12F01S02VC: ChildExtViewController {
      * Create children views
      */
     override func createChildrenViews() {
+        super.createChildrenViews()
         // Get current device type
         createCollapseView()
         switch UIDevice.current.userInterfaceIdiom {
@@ -167,6 +174,7 @@ class G12F01S02VC: ChildExtViewController {
      * Update children views
      */
     override func updateChildrenViews() {
+        super.updateChildrenViews()
         // Get current device type
         updateCollapseView()
         switch UIDevice.current.userInterfaceIdiom {
@@ -234,6 +242,32 @@ class G12F01S02VC: ChildExtViewController {
     }
     
     // MARK: Utility methods
+    /**
+     * Set data for this screen
+     */
+    public func setData(bean: OrderBean) {
+        self._data = bean
+    }
+    
+    internal func updateData() {
+        if !_data.employee_image.isEmpty {
+            self.imgAvatar.getImgFromUrl(link: _data.employee_image,
+                                         contentMode: self.imgAvatar.contentMode)
+        }        
+        self.lblEmployeeName.text   = _data.employee_name
+        self.lblEmployeeCode.text   = _data.employee_code
+        self.lblAgent.text          = _data.agent_name
+        self.setSrcAddress(position: CLLocationCoordinate2D(
+            latitude: (G12F01S01VC._nearestAgent.info_agent.agent_latitude as NSString).doubleValue,
+            longitude: (G12F01S01VC._nearestAgent.info_agent.agent_longitude as NSString).doubleValue))
+        self.setDestAddress(position: CLLocationCoordinate2D(
+            latitude: (_data.latitude as NSString).doubleValue,
+            longitude: (_data.longitude as NSString).doubleValue))
+        self.setBotMsgContent(
+            note: String.init(
+                format: "Chạm vào đơn hàng %@ để xem lại chi tiết\n%@", _data.code_no, detailDirection),
+                description: "")
+    }
     /**
      * Setting for map properties
      */
@@ -732,10 +766,10 @@ class G12F01S02VC: ChildExtViewController {
                 if success {
                     DispatchQueue.main.async {
                         self?.drawRoute()
-                        if let totalDistance = self?.directionService.totalDistance,
-                            let totalDuration = self?.directionService.totalDuration {
-                            //                                                            self?.detailDirection.text = totalDistance + ". " + totalDuration
-                            //                                                            self?.detailDirection.isHidden = false
+                        if let totalDistance = self?.directionService.totalDistanceInMeters/*,
+                            let totalDuration = self?.directionService.totalDuration*/ {
+                            self?.detailDirection = "Lộ trình giao hàng khoảng \(totalDistance/1000)km"
+                                self?.updateData()
                         }
                     }
                 } else {
@@ -755,10 +789,23 @@ class G12F01S02VC: ChildExtViewController {
                 routePolyline.strokeColor = UIColor.red
                 routePolyline.strokeWidth = 3.0
                 routePolyline.map = self.viewMap
+                if let pathValue = path {
+                    let mapBound = GMSCoordinateBounds(path: pathValue)
+                    updateCamera(bound: mapBound)
+                }
             } else {
                 return
             }
         }
+    }
+    
+    /**
+     * Update camera from bound
+     * - parameter bound: Map bounding
+     */
+    private func updateCamera(bound: GMSCoordinateBounds) {
+        let cameraUpdate = GMSCameraUpdate.fit(bound, withPadding: 30)
+        self.viewMap.moveCamera(cameraUpdate)
     }
     
     /**
@@ -931,6 +978,7 @@ extension G12F01S02VC: CLLocationManagerDelegate {
                 viewMap.animate(to: camera)
             }
             self.direction()
+//            self.updateData()
         }
     }
     

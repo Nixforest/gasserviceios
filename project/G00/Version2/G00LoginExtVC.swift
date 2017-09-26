@@ -25,6 +25,8 @@ class G00LoginExtVC: ChildExtViewController {
     var btnFacebook:    CustomButton    = CustomButton(type: UIButtonType.custom)
     /** Button Zalo */
     var btnZalo:        CustomButton    = CustomButton(type: .custom)
+    /** Tap counter on logo */
+    var imgLogoTappedCounter:Int        = 0
     /** Value */
     public static var phone:    String  = DomainConst.BLANK
     
@@ -135,6 +137,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Create children views
      */
     override func createChildrenViews() {
+        super.createChildrenViews()
         // Get current device type
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
@@ -174,6 +177,9 @@ class G00LoginExtVC: ChildExtViewController {
         }
         
         imgLogo.image = ImageManager.getImage(named: DomainConst.LOGO_LOGIN_ICON_IMG_NAME)
+//        let tappedRecog = UITapGestureRecognizer(target: self,
+//                                                 action: #selector(imgLogoTapped(_:)))
+//        imgLogo.addGestureRecognizer(tappedRecog)
         
         createNextBtn()
         
@@ -189,6 +195,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Update children views
      */
     override func updateChildrenViews() {
+        super.updateChildrenViews()
         // Get current device type
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
@@ -264,14 +271,31 @@ class G00LoginExtVC: ChildExtViewController {
      * Handle when tap on facebook button
      */
     func btnFacebookTapped(_ sender: AnyObject) {
-        showAlert(message: "btnFacebookTapped")
-    }
+//        showAlert(message: "btnFacebookTapped")
+        imgLogoTappedCounter += 1
+        print(imgLogoTappedCounter)
+        if imgLogoTappedCounter == DomainConst.MAXIMUM_TAPPED {
+            imgLogoTappedCounter = 0
+            BaseModel.shared.setTrainningMode(!BaseModel.shared.checkTrainningMode())
+            showAlert(message: "Training mode is: " + (BaseModel.shared.checkTrainningMode() ? "ON" : "OFF"))
+        }
+}
     
     /**
      * Handle when tap on zalo button
      */
     func btnZaloTapped(_ sender: AnyObject) {
         showAlert(message: "btnZaloTapped")
+    }
+    
+    func imgLogoTapped(_ gestureRecognizer: UITapGestureRecognizer) {
+        imgLogoTappedCounter += 1
+            print(imgLogoTappedCounter)
+        if imgLogoTappedCounter == DomainConst.MAXIMUM_TAPPED {
+            imgLogoTappedCounter = 0
+            BaseModel.shared.setTrainningMode(!BaseModel.shared.checkTrainningMode())
+            showToast(message: "Training mode is: " + (BaseModel.shared.checkTrainningMode() ? "ON" : "OFF"))
+        }
     }
     
     // MARK: Utilities

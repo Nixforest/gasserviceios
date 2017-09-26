@@ -16,6 +16,10 @@
 		84284E321D40DF050079DEBC /* projectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E311D40DF050079DEBC /* projectUITests.swift */; };
 		84A4C06B1D6311D000C0B84C /* example.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C06A1D6311D000C0B84C /* example.txt */; };
 		924EABC41DF10CFC0056A303 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924EABC31DF10CFC0056A303 /* UserNotifications.framework */; };
+		D7117B4F1F7AA2E100B8C2FA /* G12F01S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7117B4D1F7AA2E100B8C2FA /* G12F01S03VC.swift */; };
+		D7117B501F7AA2E100B8C2FA /* G12F01S03VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7117B4E1F7AA2E100B8C2FA /* G12F01S03VC.xib */; };
+		D7117B591F7AA55000B8C2FA /* G12F01S04VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7117B571F7AA55000B8C2FA /* G12F01S04VC.swift */; };
+		D7117B5A1F7AA55000B8C2FA /* G12F01S04VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7117B581F7AA55000B8C2FA /* G12F01S04VC.xib */; };
 		D71544AF1F6BB26600480486 /* G00LoginExtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71544AD1F6BB26600480486 /* G00LoginExtVC.swift */; };
 		D71544B01F6BB26600480486 /* G00LoginExtVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D71544AE1F6BB26600480486 /* G00LoginExtVC.xib */; };
 		D717774C1F5E87C1009CF656 /* LoadingViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D717774A1F5E87C1009CF656 /* LoadingViewVC.swift */; };
@@ -176,6 +180,10 @@
 		924EABC31DF10CFC0056A303 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		92D05F711DEB215C00DA87C3 /* project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = project.entitlements; sourceTree = "<group>"; };
 		A18C7C071B3A30513EC7D78C /* Pods-project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project.debug.xcconfig"; path = "project/Pods/Target Support Files/Pods-project/Pods-project.debug.xcconfig"; sourceTree = "<group>"; };
+		D7117B4D1F7AA2E100B8C2FA /* G12F01S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12F01S03VC.swift; path = G12/F01/G12F01S03VC.swift; sourceTree = "<group>"; };
+		D7117B4E1F7AA2E100B8C2FA /* G12F01S03VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G12F01S03VC.xib; path = G12/F01/G12F01S03VC.xib; sourceTree = "<group>"; };
+		D7117B571F7AA55000B8C2FA /* G12F01S04VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12F01S04VC.swift; path = G12/F01/G12F01S04VC.swift; sourceTree = "<group>"; };
+		D7117B581F7AA55000B8C2FA /* G12F01S04VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G12F01S04VC.xib; path = G12/F01/G12F01S04VC.xib; sourceTree = "<group>"; };
 		D71544AD1F6BB26600480486 /* G00LoginExtVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00LoginExtVC.swift; path = G00/Version2/G00LoginExtVC.swift; sourceTree = "<group>"; };
 		D71544AE1F6BB26600480486 /* G00LoginExtVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G00LoginExtVC.xib; path = G00/Version2/G00LoginExtVC.xib; sourceTree = "<group>"; };
 		D717774A1F5E87C1009CF656 /* LoadingViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingViewVC.swift; path = Common/LoadingView/LoadingViewVC.swift; sourceTree = "<group>"; };
@@ -581,10 +589,10 @@
 		D7E307321F72B9720065F2E1 /* G12 */ = {
 			isa = PBXGroup;
 			children = (
+				D7DDA4F71F77D44500824FC4 /* G12Const.swift */,
 				D7DDA4F41F77D3A700824FC4 /* API */,
 				D7E307351F72BA360065F2E1 /* F00 */,
 				D7E307361F72BA3A0065F2E1 /* F01 */,
-				D7DDA4F71F77D44500824FC4 /* G12Const.swift */,
 			);
 			name = G12;
 			sourceTree = "<group>";
@@ -603,6 +611,10 @@
 				D7E307381F72BA6B0065F2E1 /* G12F01S01VC.xib */,
 				D7E299061F74EDEE0078C46C /* G12F01S02VC.swift */,
 				D7E299071F74EDEE0078C46C /* G12F01S02VC.xib */,
+				D7117B4D1F7AA2E100B8C2FA /* G12F01S03VC.swift */,
+				D7117B4E1F7AA2E100B8C2FA /* G12F01S03VC.xib */,
+				D7117B571F7AA55000B8C2FA /* G12F01S04VC.swift */,
+				D7117B581F7AA55000B8C2FA /* G12F01S04VC.xib */,
 			);
 			name = F01;
 			sourceTree = "<group>";
@@ -787,6 +799,7 @@
 				84A4C06B1D6311D000C0B84C /* example.txt in Resources */,
 				D7359B1A1F67D2F60032F0AF /* bg_main_4_3_1536_2048.jpg in Resources */,
 				D7EAC44F1F581223008890DA /* GoogleMapVC.xib in Resources */,
+				D7117B5A1F7AA55000B8C2FA /* G12F01S04VC.xib in Resources */,
 				D7359B161F67CBF30032F0AF /* logo_member.png in Resources */,
 				D7B96E251F71785100815D7F /* G00ConfirmCodeVC.xib in Resources */,
 				D78B06901F692C6700AB17E8 /* welcome_1920_1080.jpg in Resources */,
@@ -798,6 +811,7 @@
 				D7804B3B1E7685CF00C94F75 /* G00HomeCell.xib in Resources */,
 				D7359B231F67D8F80032F0AF /* bg_main_1_1_2048_2048.png in Resources */,
 				84284E171D40DF050079DEBC /* Main.storyboard in Resources */,
+				D7117B501F7AA2E100B8C2FA /* G12F01S03VC.xib in Resources */,
 				D72134D71F73C3C30025E42B /* welcome_2048_1536.png in Resources */,
 				D79C1BB91E4AB7B600E6E121 /* splashlogo.png in Resources */,
 				D7CED4951F613AD600CCAA2F /* MultiDeviceVC~ipad.xib in Resources */,
@@ -926,6 +940,7 @@
 				84284E121D40DF050079DEBC /* AppDelegate.swift in Sources */,
 				D7DDA4F11F77CA3900824FC4 /* BaseParentViewController.swift in Sources */,
 				D7DA56B21E41171500B6F618 /* OrderTransactionCompleteRequest.swift in Sources */,
+				D7117B4F1F7AA2E100B8C2FA /* G12F01S03VC.swift in Sources */,
 				D7F684481E2F5A8A00D3D6F4 /* G04F01S01MenuVC.swift in Sources */,
 				D7804B3D1E7685CF00C94F75 /* G00HomeVC.swift in Sources */,
 				D7804B401E7685CF00C94F75 /* G00RegisterMenuVC.swift in Sources */,
@@ -941,6 +956,7 @@
 				D721C5061F5D39C3003E823D /* Location.swift in Sources */,
 				D7804B3F1E7685CF00C94F75 /* G00LoginVC.swift in Sources */,
 				D7424AA81E39BA7100E442DC /* G04F01S05VC.swift in Sources */,
+				D7117B591F7AA55000B8C2FA /* G12F01S04VC.swift in Sources */,
 				D7671BEF1E16FC470026DCFA /* OrderViewRespModel.swift in Sources */,
 				D7804B341E7685CF00C94F75 /* G00AccountMenuVC.swift in Sources */,
 			);

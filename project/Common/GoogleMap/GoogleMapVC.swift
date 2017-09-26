@@ -270,6 +270,9 @@ class GoogleMapVC: ChildExtViewController {
                 routePolyline.strokeColor = UIColor.red
                 routePolyline.strokeWidth = 3.0
                 routePolyline.map = self.viewMap
+                let mapBound = GMSCoordinateBounds(path: path!)
+                let cameraUpdate = GMSCameraUpdate.fit(mapBound, withPadding: 30)
+                self.viewMap.moveCamera(cameraUpdate)
             } else {
                 return
             }

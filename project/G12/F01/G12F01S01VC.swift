@@ -61,6 +61,11 @@ class G12F01S01VC: BaseParentViewController {
     ]
     /** Address text value */
     var addressText:            String      = DomainConst.BLANK
+    /** Flag openned map */
+    var isOpenedMap:            Bool        = false
+    /** Mode */
+    var mode:                   String      = DomainConst.BLANK
+    
     // MARK: Static values
     /** Current position of map view */
     public static var _currentPos       = CLLocationCoordinate2D.init()
@@ -76,6 +81,7 @@ class G12F01S01VC: BaseParentViewController {
     let MODE_ORDER:             String  = DomainConst.NUMBER_ZERO_VALUE
     let MODE_PROCESSING:        String  = DomainConst.NUMBER_ONE_VALUE
     let MODE_FINISH:            String  = DomainConst.NUMBER_TWO_VALUE
+    let MODE_MAP:               String  = DomainConst.NUMBER_THREE_VALUE
     // Category button
     var CATEGORY_BUTTON_REAL_SIZE_HD    = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_HD
     var CATEGORY_BUTTON_REAL_SIZE_FHD   = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_FHD
@@ -115,7 +121,7 @@ class G12F01S01VC: BaseParentViewController {
         // Navigation
         self.createNavigationBar(title: "1900 1565")
 //        openLogin()
-        changeMode(mode: MODE_ORDER)
+        changeMode(value: MODE_ORDER)
         // Location setting
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -125,6 +131,13 @@ class G12F01S01VC: BaseParentViewController {
         } else {
             locationManager.startUpdatingLocation()
         }
+        showBotMsg(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00495)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.isOpenedMap = false
+        updateMaterialSelector()
     }
     
     /**
@@ -188,6 +201,7 @@ class G12F01S01VC: BaseParentViewController {
      * Create children views
      */
     override func createChildrenViews() {
+        super.createChildrenViews()
         // Get current device type
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
@@ -259,6 +273,7 @@ class G12F01S01VC: BaseParentViewController {
      * Update children views
      */
     override func updateChildrenViews() {
+        super.updateChildrenViews()
         // Get current device type
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
@@ -345,11 +360,14 @@ class G12F01S01VC: BaseParentViewController {
         // Handle by button identify
         switch ((sender as! UIButton).accessibilityIdentifier!) {
         case DomainConst.ACTION_TYPE_SELECT_GAS:
-//            showAlert(message: "DomainConst.ACTION_TYPE_SELECT_GAS")
-            self.pushToView(name: G04Const.G04_F01_S02_VIEW_CTRL)
+            G12F01S03VC.setData(data: G12F01S01VC._nearestAgent.info_gas)
+            let s03 = G12F01S03VC(nibName: G12F01S03VC.theClassName, bundle: nil)
+            self.navigationController?.pushViewController(s03, animated: true)
             return
         case DomainConst.ACTION_TYPE_SELECT_PROMOTE:
-            showAlert(message: "DomainConst.ACTION_TYPE_SELECT_PROMOTE")
+            G12F01S03VC.setData(data: G12F01S01VC._nearestAgent.info_promotion)
+            let s04 = G12F01S04VC(nibName: G12F01S04VC.theClassName, bundle: nil)
+            self.navigationController?.pushViewController(s04, animated: true)
             return
         case DomainConst.ACTION_TYPE_SUPPORT:
             showAlert(message: "DomainConst.ACTION_TYPE_SUPPORT")
@@ -363,14 +381,16 @@ class G12F01S01VC: BaseParentViewController {
      * Handle order button tapped event
      */
     internal func btnOrderTapped(_ sender: AnyObject) {
+        btnOrder.isEnabled = false
         requestTransactionComplete()
+        btnOrder.isEnabled = true
     }
     
     /**
      * Handle processing button tapped event
      */
     internal func btnProcessingTapped(_ sender: AnyObject) {
-        changeMode(mode: MODE_FINISH)
+        changeMode(value: MODE_FINISH)
     }
     
     /**
@@ -388,13 +408,31 @@ class G12F01S01VC: BaseParentViewController {
     /**
      * Handler when transaction status request is finish
      */
-    internal func finishRequestTransactionStatus(_ notification: Notification) {
-        let data = (notification.object as! String)
+//    internal func finishRequestTransactionStatus(_ notification: Notification) {
+    internal func finishRequestTransactionStatus(_ model: Any?) {
+//        let data = (notification.object as! String)
+        let data = (model as! String)
         let model = OrderViewRespModel(jsonString: data)
-        if !model.isSuccess() {
-            showAlert(message: model.message)
-            return
+        if model.isSuccess() {
+            let status = checkStatus(order: model.getRecord())
+            if status == MODE_FINISH {
+                changeMode(value: status)
+                return
+            } else if status == MODE_MAP {
+                if !isOpenedMap {
+                    isOpenedMap = !isOpenedMap
+                    openMap(data: model.getRecord())
+                    changeMode(value: status)
+                }
+            } else if status == MODE_PROCESSING {
+                changeMode(value: status)
+            } else {
+                if model.getRecord().isEmpty() {
+                    changeMode(value: MODE_ORDER)
+                }
+            }
         }
+        requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
     }
     
     /**
@@ -404,7 +442,12 @@ class G12F01S01VC: BaseParentViewController {
         let data = (notification.object as! String)
         let model = OrderTransactionCompleteRespModel(jsonString: data)
         if model.isSuccess() {
-            changeMode(mode: MODE_PROCESSING)
+            let transactionData = TransactionBean()
+            transactionData.id = model.getRecord().transaction_id
+            transactionData.name = BaseModel.shared.getTransactionData().name
+            BaseModel.shared.setTransactionData(transaction: transactionData)
+//            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
+            changeMode(value: MODE_PROCESSING)
         } else {
             showAlert(message: model.message)
         }
@@ -461,7 +504,7 @@ class G12F01S01VC: BaseParentViewController {
         let model = BaseRespModel(jsonString: data)
         if model.isSuccess() {
             BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
-            changeMode(mode: MODE_ORDER)
+            changeMode(value: MODE_ORDER)
             requestTransactionStart()
         } else {
             showAlert(message: model.message)
@@ -480,11 +523,19 @@ class G12F01S01VC: BaseParentViewController {
         } else {
             requestOrderConfig()
         }
+        if BaseModel.shared.checkTransactionKey() {
+            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
+        }        
     }
     
     internal func startUpdateConfig() {
         // Check if user is logged in already
         if !BaseModel.shared.checkIsLogin() {
+            NotificationCenter.default.addObserver(
+                self, selector: #selector(notifyRequestTransactionStart(_:)),
+                name: NSNotification.Name(
+                    rawValue: G12Const.NOTIFY_NAME_G12_REQUEST_TRANSACTION_START),
+                object: nil)
             openLogin()
         } else {
             // Update config
@@ -494,23 +545,31 @@ class G12F01S01VC: BaseParentViewController {
         }
     }
     
+    internal func notifyRequestTransactionStart(_ notification: Notification) {
+        print("notifyRequestTransactionStart")
+        requestTransactionStart()
+    }
+    
     private func requestTransactionStart() {
         updateNearestAgentInfo()
-        if !BaseModel.shared.checkTransactionKey() {
+//        if !BaseModel.shared.checkTransactionKey() {
             OrderTransactionStartRequest.requestOrderTransactionStart(
                 action: #selector(finishStartTransaction(_:)),
                 view: self)
-        }
+//        }
     }
     
     /**
      * Request transaction status
      * - parameter id: Id of transaction
      */
-    private func requestTransactionStatus(id: String = DomainConst.BLANK) {
-        TransactionStatusRequest.request(
-            action: #selector(finishRequestTransactionStatus(_:)),
-            view: self, id: id)
+    private func requestTransactionStatus(completionHandler: ((Any?)->Void)?) {
+//        TransactionStatusRequest.request(
+//            action: #selector(finishRequestTransactionStatus(_:)),
+//            view: self, id: id)
+        TransactionStatusRequest.requestLoop(view: self,
+                                             id: BaseModel.shared.getTransactionData().id,
+                                             completionHandler: completionHandler)
     }
     
     /**
@@ -521,7 +580,7 @@ class G12F01S01VC: BaseParentViewController {
         if let info = BaseModel.shared.user_info {
             userInfo = info
         }
-        let orderDetail = getOrderDetail()
+        let orderDetail = String(getOrderDetail().characters.dropLast())
         
         OrderTransactionCompleteRequest.requestOrderTransactionComplete(
             action: #selector(finishRequestTransactionComplete(_:)),
@@ -591,9 +650,9 @@ class G12F01S01VC: BaseParentViewController {
         }
         
         // Check if min distance is outside of max range
-        if distance > BaseModel.shared.getMaxRangeDistantFromOrderConfig() {
-            G12F01S01VC._nearestAgent = AgentInfoBean.init()
-        }
+//        if distance > BaseModel.shared.getMaxRangeDistantFromOrderConfig() {
+//            G12F01S01VC._nearestAgent = AgentInfoBean.init()
+//        }
         
         // Not found any agent
         if G12F01S01VC._nearestAgent.isEmpty() {
@@ -640,6 +699,9 @@ class G12F01S01VC: BaseParentViewController {
         } else {
             self.listActionsLabels[1].text = self.listActionsConfig[1].name
         }
+        btnOrder.isEnabled = true
+        self.listActionsButtons[0].isEnabled = true
+        self.listActionsButtons[1].isEnabled = true
     }
     
     /**
@@ -660,14 +722,37 @@ class G12F01S01VC: BaseParentViewController {
                 qty: DomainConst.NUMBER_ONE_VALUE)
             retVal = retVal + detailPromote.createJsonData()
         }
-        return "{\"materials_id\":\"575\",\"qty\":1,\"price\":\"0\",\"materials_type_id\":\"4\"}"
+        return retVal
+//        return "{\"materials_id\":\"575\",\"qty\":1,\"price\":\"0\",\"materials_type_id\":\"4\"}"
+    }
+    
+    /**
+     * Check status of current order
+     * - parameter order: Order data
+     * - returns: Mode value
+     */
+    private func checkStatus(order: OrderBean) -> String {
+        // Status is Complete
+        if order.status_number == DomainConst.ORDER_STATUS_COMPLETE {
+            return MODE_FINISH
+        }
+        
+        if !order.employee_code.isEmpty {
+            return MODE_MAP
+        }
+        
+        if order.status_number == DomainConst.ORDER_STATUS_NEW {
+            return MODE_PROCESSING
+        }
+        return DomainConst.BLANK
     }
     
     /**
      * Handle open map view
      */
-    private func openMap() {
+    private func openMap(data: OrderBean) {
         let mapView = G12F01S02VC(nibName: G12F01S02VC.theClassName, bundle: nil)
+        mapView.setData(bean: data)
 //        self.present(mapView, animated: true, completion: finishShowMapView)
         self.navigationController?.pushViewController(mapView, animated: true)
     }
@@ -871,6 +956,7 @@ class G12F01S01VC: BaseParentViewController {
                                for: UIControlState())
         self.btnOrder.addTarget(self, action: #selector(btnOrderTapped(_:)),
                                 for: .touchUpInside)
+        self.btnOrder.isEnabled = false
         self.btnProcessing.frame = CGRect(x: x, y: y, width: w, height: h)
         self.btnProcessing.setImage(ImageManager.getImage(named: DomainConst.PROCESSING_BUTTON_ICON_IMG_NAME),
                                for: UIControlState())
@@ -886,12 +972,13 @@ class G12F01S01VC: BaseParentViewController {
             action: #selector(handlTappedProcessingView(_:)))
         processingView?.addGestureRecognizer(processingViewTappedRecog)
         self.btnFinish.frame = CGRect(x: x, y: y, width: w, height: h)
-        self.btnFinish.setImage(ImageManager.getImage(named: DomainConst.ORDER_BUTTON_ICON_IMG_NAME),
+        self.btnFinish.setImage(ImageManager.getImage(named: DomainConst.FINISH_BUTTON_ICON_IMG_NAME),
                                for: UIControlState())
     }
     
     internal func handlTappedProcessingView(_ gestureRecognizer: UITapGestureRecognizer) {
-        openMap()
+//        openMap(data: OrderBean.init())
+        changeMode(value: MODE_FINISH)
     }
     
     private func createOrderButtonHD() {
@@ -1120,6 +1207,10 @@ class G12F01S01VC: BaseParentViewController {
             lbl.numberOfLines = 0
             listActionsLabels.append(lbl)
             listActionsButtons.append(btn)
+            if listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_GAS
+                || listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE {
+                btn.isEnabled = false
+            }
             if listActionsConfig[i].id != DomainConst.ACTION_TYPE_NONE {
                 self.actionsView.addSubview(btn)
 //                self.actionsView.addSubview(lbl)
@@ -1423,22 +1514,26 @@ class G12F01S01VC: BaseParentViewController {
      * Change screen mode
      * - parameter mode: Mode of string
      */
-    private func changeMode(mode: String) {
-        switch mode {
+    private func changeMode(value: String) {
+        self.mode = value
+        switch value {
         case MODE_ORDER:                    // Order mode
             showHideProcessingMode(isShow: false)
             showHideFinishMode(isShow: false)
             showHideOrderMode(isShow: true)
+            setBotMsgContent(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00495)
             break
         case MODE_PROCESSING:               // Processing mode
             showHideOrderMode(isShow: false)
             showHideFinishMode(isShow: false)
             showHideProcessingMode(isShow: true)
+            setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
             break
         case MODE_FINISH:                   // Finish mode
             showHideOrderMode(isShow: false)
             showHideProcessingMode(isShow: false)
             showHideFinishMode(isShow: true)
+            setBotMsgContent(note: DomainConst.CONTENT00497, description: DomainConst.CONTENT00497)
             break
         default:
             break
@@ -1513,7 +1608,8 @@ extension G12F01S01VC: CLLocationManagerDelegate {
         manager.delegate = nil
         if let location: CLLocation = locations.last {
             // Save current location
-            G12F01S01VC._currentPos = location.coordinate
+//            G12F01S01VC._currentPos = location.coordinate
+            G12F01S01VC._currentPos = CLLocationCoordinate2D(latitude: 10.819258114124, longitude: 106.724750036821)
             self.startLogic()
             GMSGeocoder().reverseGeocodeCoordinate(location.coordinate, completionHandler: {
                 (response, error) in
