@@ -52,6 +52,7 @@ class TransactionStatusRequest: BaseRequest {
                                                view: view)
         request.setData(id: id)
         request.completionBlock = completionHandler
+        request.setFlagShowError(value: false)
         request.execute(isShowLoadingView: false)
     }
     //-- BUG0156-SPJ (NguyenPT 20170925) Re-design Gas24h

@@ -137,9 +137,13 @@ class G04F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
      * Tells the delegate that the specified row is now selected.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        G04F00S02VC._id = G04F00S01VC._data.getRecord()[indexPath.row].id
-        self.pushToView(name: G04Const.G04_F00_S02_VIEW_CTRL)
-        self.showToast(message: "Open order detail: \(G04F00S02VC._id)")
+//        G04F00S02VC._id = G04F00S01VC._data.getRecord()[indexPath.row].id
+//        self.pushToView(name: G04Const.G04_F00_S02_VIEW_CTRL)
+//        self.showToast(message: "Open order detail: \(G04F00S02VC._id)")
+        let view = G12F00S02VC(nibName: G12F00S02VC.theClassName,
+                               bundle: nil)
+        view.setId(id: G04F00S01VC._data.getRecord()[indexPath.row].id)
+        self.navigationController?.pushViewController(view, animated: true)
     }
     
     /**

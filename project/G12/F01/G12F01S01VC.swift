@@ -63,6 +63,8 @@ class G12F01S01VC: BaseParentViewController {
     var addressText:            String      = DomainConst.BLANK
     /** Flag openned map */
     var isOpenedMap:            Bool        = false
+    /** Flag cancel order (By system) */
+    var isCancelOrder:          Bool        = false
     /** Mode */
     var mode:                   String      = DomainConst.BLANK
     
@@ -82,6 +84,7 @@ class G12F01S01VC: BaseParentViewController {
     let MODE_PROCESSING:        String  = DomainConst.NUMBER_ONE_VALUE
     let MODE_FINISH:            String  = DomainConst.NUMBER_TWO_VALUE
     let MODE_MAP:               String  = DomainConst.NUMBER_THREE_VALUE
+    let MODE_CANCEL:            String  = DomainConst.NUMBER_FOUR_VALUE
     // Category button
     var CATEGORY_BUTTON_REAL_SIZE_HD    = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_HD
     var CATEGORY_BUTTON_REAL_SIZE_FHD   = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_FHD
@@ -106,9 +109,9 @@ class G12F01S01VC: BaseParentViewController {
     var CANCEL_ORDER_BUTTON_REAL_WIDTH_HD    = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.W_RATE_HD
     var CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD   = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.W_RATE_FHD
     var CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.W_RATE_FHD_L
-    var CANCEL_ORDER_BUTTON_REAL_HEIGHT_HD    = GlobalConst.LOGIN_TEXTFIELD_HEIGHT * BaseViewController.H_RATE_HD / 4
-    var CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD   = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD / 4
-    var CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD_L = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD_L / 4
+    var CANCEL_ORDER_BUTTON_REAL_HEIGHT_HD    = GlobalConst.LOGIN_TEXTFIELD_HEIGHT * BaseViewController.H_RATE_HD / 2
+    var CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD   = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD / 2
+    var CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD_L = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD_L / 2
     
     // MARK: Override methods
     /**
@@ -169,6 +172,7 @@ class G12F01S01VC: BaseParentViewController {
         CANCEL_ORDER_BUTTON_REAL_WIDTH_HD    = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_HD
         CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD   = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD
         CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD_L
+        
         CANCEL_ORDER_BUTTON_REAL_HEIGHT_HD    = GlobalConst.LOGIN_TEXTFIELD_HEIGHT * BaseViewController.H_RATE_HD / 2
         CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD   = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD / 2
         CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD_L = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD_L / 2
@@ -382,7 +386,8 @@ class G12F01S01VC: BaseParentViewController {
      */
     internal func btnOrderTapped(_ sender: AnyObject) {
         btnOrder.isEnabled = false
-        requestTransactionComplete()
+//        requestTransactionComplete()
+        requestTransactionStart()
         btnOrder.isEnabled = true
     }
     
@@ -397,12 +402,15 @@ class G12F01S01VC: BaseParentViewController {
      * Handle finish button tapped event
      */
     internal func btnFinishTapped(_ sender: AnyObject) {
+        openOrderDetail(id: DomainConst.BLANK)
+        changeMode(value: MODE_ORDER)
     }
     
     /**
      * Handle when tap on refer button
      */
     func btnReferTapped(_ sender: AnyObject) {
+        openPromotion()
     }
     
     /**
@@ -415,20 +423,43 @@ class G12F01S01VC: BaseParentViewController {
         let model = OrderViewRespModel(jsonString: data)
         if model.isSuccess() {
             let status = checkStatus(order: model.getRecord())
+            // If current order status is finish
             if status == MODE_FINISH {
                 changeMode(value: status)
-                return
-            } else if status == MODE_MAP {
+//                return
+            } else if status == MODE_MAP {  // Current Order status is has a Employee info
                 if !isOpenedMap {
                     isOpenedMap = !isOpenedMap
                     openMap(data: model.getRecord())
                     changeMode(value: status)
                 }
-            } else if status == MODE_PROCESSING {
+            } else if status == MODE_PROCESSING {   // Current order status is NEW
                 changeMode(value: status)
+            } else if status == MODE_CANCEL {
+                if !isCancelOrder {
+                    isCancelOrder = !isCancelOrder
+                    if let currentVC = BaseViewController.getCurrentViewController() {
+                    currentVC.showAlert(message: DomainConst.CONTENT00505,
+                              okHandler: {
+                                alert in
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
+                                                                object: nil)
+                                BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
+                                self.changeMode(value: self.MODE_ORDER)
+                                self.requestTransactionStatus(completionHandler: self.finishRequestTransactionStatus)
+                                self.isCancelOrder = false
+                                return
+                    })
+                    }
+                }
+//                showAlert(message: DomainConst.CONTENT00505)
             } else {
+                // Chek if order has finish or something wrong
                 if model.getRecord().isEmpty() {
-                    changeMode(value: MODE_ORDER)
+                    // Current view mode is not FINISH
+                    if self.mode != MODE_FINISH {
+                        changeMode(value: MODE_ORDER)
+                    }
                 }
             }
         }
@@ -477,7 +508,8 @@ class G12F01S01VC: BaseParentViewController {
         LoadingView.shared.hideOverlayView(className: self.theClassName)
         if model.isSuccess() {
             BaseModel.shared.saveTempData(loginModel: model)
-            requestTransactionStart()
+//            requestTransactionStart()
+            updateNearestAgentInfo()
         } else {
             showAlert(message: model.message)
         }
@@ -491,6 +523,7 @@ class G12F01S01VC: BaseParentViewController {
         let model = OrderTransactionStartRespModel(jsonString: data)
         if model.isSuccess() {
             BaseModel.shared.setTransactionData(transaction: model.getRecord())
+            requestTransactionComplete()
         } else {
             showAlert(message: model.message)
         }
@@ -505,7 +538,7 @@ class G12F01S01VC: BaseParentViewController {
         if model.isSuccess() {
             BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
             changeMode(value: MODE_ORDER)
-            requestTransactionStart()
+//            requestTransactionStart()
         } else {
             showAlert(message: model.message)
         }
@@ -523,9 +556,7 @@ class G12F01S01VC: BaseParentViewController {
         } else {
             requestOrderConfig()
         }
-        if BaseModel.shared.checkTransactionKey() {
-            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
-        }        
+        requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
     }
     
     internal func startUpdateConfig() {
@@ -551,7 +582,6 @@ class G12F01S01VC: BaseParentViewController {
     }
     
     private func requestTransactionStart() {
-        updateNearestAgentInfo()
 //        if !BaseModel.shared.checkTransactionKey() {
             OrderTransactionStartRequest.requestOrderTransactionStart(
                 action: #selector(finishStartTransaction(_:)),
@@ -732,15 +762,20 @@ class G12F01S01VC: BaseParentViewController {
      * - returns: Mode value
      */
     private func checkStatus(order: OrderBean) -> String {
+        // Status is Cancel
+        if order.status_number == DomainConst.ORDER_STATUS_CANCEL {
+            return MODE_CANCEL
+        }
         // Status is Complete
         if order.status_number == DomainConst.ORDER_STATUS_COMPLETE {
             return MODE_FINISH
         }
         
+        // Current employee info does exist
         if !order.employee_code.isEmpty {
             return MODE_MAP
         }
-        
+        // Status is new
         if order.status_number == DomainConst.ORDER_STATUS_NEW {
             return MODE_PROCESSING
         }
@@ -753,15 +788,18 @@ class G12F01S01VC: BaseParentViewController {
     private func openMap(data: OrderBean) {
         let mapView = G12F01S02VC(nibName: G12F01S02VC.theClassName, bundle: nil)
         mapView.setData(bean: data)
-//        self.present(mapView, animated: true, completion: finishShowMapView)
         self.navigationController?.pushViewController(mapView, animated: true)
     }
     
-    /**
-     * Handle when finish open map view
-     */
-    internal func finishShowMapView() -> Void {
-        print("finishShowMapView")
+    private func openOrderDetail(id: String) {
+        let view = G12F00S02VC(nibName: G12F00S02VC.theClassName,
+                               bundle: nil)
+        self.navigationController?.pushViewController(view, animated: true)
+    }
+    
+    internal override func openPromotion() {
+        let promotionView = G13F00S01VC(nibName: G13F00S01VC.theClassName, bundle: nil)
+        self.navigationController?.pushViewController(promotionView, animated: true)
     }
     
     /**
@@ -973,7 +1011,9 @@ class G12F01S01VC: BaseParentViewController {
         processingView?.addGestureRecognizer(processingViewTappedRecog)
         self.btnFinish.frame = CGRect(x: x, y: y, width: w, height: h)
         self.btnFinish.setImage(ImageManager.getImage(named: DomainConst.FINISH_BUTTON_ICON_IMG_NAME),
-                               for: UIControlState())
+                                for: UIControlState())
+        self.btnFinish.addTarget(self, action: #selector(btnFinishTapped(_:)),
+                                for: .touchUpInside)
     }
     
     internal func handlTappedProcessingView(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -1534,6 +1574,9 @@ class G12F01S01VC: BaseParentViewController {
             showHideProcessingMode(isShow: false)
             showHideFinishMode(isShow: true)
             setBotMsgContent(note: DomainConst.CONTENT00497, description: DomainConst.CONTENT00497)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
+                                            object: nil)
+            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
             break
         default:
             break

@@ -179,7 +179,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
         
         imgLogo.image = ImageManager.getImage(named: DomainConst.LOGO_LOGIN_ICON_IMG_NAME)
         
-        createNextBtn()
+//        createNextBtn()
         
         self.view.addSubview(imgLogo)
         self.view.addSubview(lblInput)

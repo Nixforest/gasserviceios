@@ -16,5 +16,7 @@ class G12Const {
     public static let PATH_ORDER_TRANSACTION_LIST               = "order/transactionStatus"
     /** Notification key: Finish login */
     public static let NOTIFY_NAME_G12_REQUEST_TRANSACTION_START = G12Const.FUNC_IDENTIFIER + ".requestTransactionStart"
+    /** Notification key: Finish order */
+    public static let NOTIFY_NAME_G12_FINISH_ORDER = G12Const.FUNC_IDENTIFIER + ".finishOrder"
 
 }

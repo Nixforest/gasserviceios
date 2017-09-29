@@ -109,6 +109,13 @@ class G12F01S02VC: BaseParentViewController {
         // Navigation
         self.createNavigationBar(title: "Bản đồ")
         
+        // Notification
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(orderFinish(_:)),
+            name: NSNotification.Name(rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
+            object: nil)
+        
         // Center mark
         createCenterMark()
         self.showBotMsg(note: DomainConst.CONTENT00498,
@@ -239,6 +246,10 @@ class G12F01S02VC: BaseParentViewController {
     
     internal func btnPhoneTapped(_ sender: AnyObject) {
         showAlert(message: "btnPhoneTapped")
+    }
+    
+    internal func orderFinish(_ notification: Notification) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: Utility methods

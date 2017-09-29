@@ -63,6 +63,13 @@ class MenuVC: BaseMenuViewController {
         }
     }
     
+    override func openPromotion() {
+        let promotionView = G13F00S01VC(nibName: G13F00S01VC.theClassName, bundle: nil)
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.navigationController?.pushViewController(promotionView, animated: true)
+        }
+    }
+    
     override func update() {
         super.update()
         
