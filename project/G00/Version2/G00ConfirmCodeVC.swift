@@ -30,12 +30,15 @@ class G00ConfirmCodeVC: ChildExtViewController {
     /** Input code label */
     var lbl5:           UILabel     = UILabel()
     /** Phone number */
-//    var phone:          String      = DomainConst.BLANK
-    var phone:          String      = "0903816165"
+    var phone:          String      = DomainConst.BLANK
     /** Input code label */
     var lbl6:           UILabel     = UILabel()
     /** Button resend */
     var btnResend:      UIButton    = UIButton()
+    /** Wrong phone label */
+    var lblWrongPhone:  UILabel     = UILabel()
+    /** Button back */
+    var btnBack:        UIButton    = UIButton()
     
     // MARK: Constant
     // Logo
@@ -145,12 +148,15 @@ class G00ConfirmCodeVC: ChildExtViewController {
         // Get current device type
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
-            self.createLogoImg()
+            self.createLogoImgHD()
             self.createInputCodeLabel()
             self.createCodeTextFieldHD()
             self.createNextBtnHD()
             self.createGroupLabel()
+            self.createResendLabelHD()
             self.createResendBtnHD()
+            self.createWrongPhoneLabelHD()
+            self.createBackBtnHD()
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
@@ -160,14 +166,20 @@ class G00ConfirmCodeVC: ChildExtViewController {
                 self.createCodeTextFieldFHD()
                 self.createNextBtnFHD()
                 self.createGroupLabel()
+                self.createResendLabelFHD()
                 self.createResendBtnFHD()
+                self.createWrongPhoneLabelFHD()
+                self.createBackBtnFHD()
             case .landscapeLeft, .landscapeRight:       // Landscape
                 self.createLogoImgFHD_L()
                 self.createInputCodeLabel()
                 self.createCodeTextFieldFHD_L()
                 self.createNextBtnFHD_L()
                 self.createGroupLabel()
+                self.createResendLabelFHD_L()
                 self.createResendBtnFHD_L()
+                self.createWrongPhoneLabelFHD_L()
+                self.createBackBtnFHD_L()
             default:
                 break
             }
@@ -191,6 +203,8 @@ class G00ConfirmCodeVC: ChildExtViewController {
         self.view.addSubview(lbl5)
         self.view.addSubview(lbl6)
         self.view.addSubview(btnResend)
+        self.view.addSubview(lblWrongPhone)
+        self.view.addSubview(btnBack)
     }
     
     /**
@@ -201,11 +215,14 @@ class G00ConfirmCodeVC: ChildExtViewController {
         // Get current device type
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
-            self.createLogoImg()
+            self.createLogoImgHD()
             self.updateInputCodeLabel()
             self.updateCodeTextFieldHD()
             self.updateGroupLabel()
+            self.updateResendLabelHD()
             self.updateResendBtnHD()
+            self.updateWrongPhoneLabelHD()
+            self.updateBackBtnHD()
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
@@ -214,13 +231,19 @@ class G00ConfirmCodeVC: ChildExtViewController {
                 self.updateInputCodeLabel()
                 self.updateCodeTextFieldFHD()
                 self.updateGroupLabel()
+                self.updateResendLabelFHD()
                 self.updateResendBtnFHD()
+                self.updateWrongPhoneLabelFHD()
+                self.updateBackBtnFHD()
             case .landscapeLeft, .landscapeRight:       // Landscape
                 self.createLogoImgFHD_L()
                 self.updateInputCodeLabel()
                 self.updateCodeTextFieldFHD_L()
                 self.updateGroupLabel()
+                self.updateResendLabelFHD_L()
                 self.updateResendBtnFHD_L()
+                self.updateWrongPhoneLabelFHD_L()
+                self.updateBackBtnFHD_L()
             default:
                 break
             }
@@ -305,11 +328,33 @@ class G00ConfirmCodeVC: ChildExtViewController {
     func btnResendTapped(_ sender: AnyObject) {
     }
     
+    /**
+     * Handle when tap on resend button
+     */
+    func btnBackTapped(_ sender: AnyObject) {
+        // Back to login view
+        self.dismiss(animated: true, completion: backToLogin)
+    }
+    
+    internal func backToLogin() -> Void {
+        print("backToLogin")
+        let view = G00LoginExtVC(nibName: G00LoginExtVC.theClassName, bundle: nil)
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.present(view, animated: true, completion: finishOpenLogin)
+        }
+    }
+    
+    internal func finishOpenLogin() -> Void {
+        print("finishOpenLogin")
+    }
+    
     // MARK: Utilities
+    
+    // MARK: Logo image
     /**
      * Create logo image (in HD mode)
      */
-    private func createLogoImg() {
+    private func createLogoImgHD() {
         CommonProcess.updateViewPos(view: imgLogo,
                       x: (UIScreen.main.bounds.width - LOGIN_LOGO_REAL_WIDTH_HD) / 2,
                       y: LOGIN_LOGO_REAL_Y_POS_HD,
@@ -339,6 +384,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
                       h: LOGIN_LOGO_REAL_HEIGHT_FHD_L)
     }
     
+    // MARK: Input code label
     /**
      * Create login label
      */
@@ -362,6 +408,24 @@ class G00ConfirmCodeVC: ChildExtViewController {
                       y: imgLogo.frame.maxY + GlobalConst.MARGIN,
                       w: UIScreen.main.bounds.width,
                       h: GlobalConst.LABEL_H)
+    }
+    
+    // MARK: Input code textfield
+    /**
+     * Create code text field
+     * - parameter x: X position
+     * - parameter y: Y position
+     * - parameter w: Width of view
+     * - parameter h: Height of view
+     */
+    private func createCodeTextField(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
+        txtCode.frame              = CGRect(x: x, y: y, width: w, height: h)
+        txtCode.placeholder        = DomainConst.BLANK
+        txtCode.backgroundColor    = UIColor.white
+        txtCode.textAlignment      = .center
+        txtCode.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS_NEW
+        txtCode.keyboardType       = .numberPad
+        txtCode.returnKeyType      = .done
     }
     
     /**
@@ -398,23 +462,6 @@ class G00ConfirmCodeVC: ChildExtViewController {
     }
     
     /**
-     * Create code text field
-     * - parameter x: X position
-     * - parameter y: Y position
-     * - parameter w: Width of view
-     * - parameter h: Height of view
-     */
-    private func createCodeTextField(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
-        txtCode.frame              = CGRect(x: x, y: y, width: w, height: h)
-        txtCode.placeholder        = DomainConst.CONTENT00476
-        txtCode.backgroundColor    = UIColor.white
-        txtCode.textAlignment      = .center
-        txtCode.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS_NEW
-        txtCode.keyboardType       = .numberPad
-        txtCode.returnKeyType      = .done
-    }
-    
-    /**
      * Update code text field (in HD mode)
      */
     private func updateCodeTextFieldHD() {
@@ -447,6 +494,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
                       h: CONFIRM_CODE_REAL_HEIGHT_FHD_L)
     }
     
+    // MARK: Next button
     /**
      * Create next button
      */
@@ -494,6 +542,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
                       h: CONFIRM_NEXT_BUTTON_REAL_SIZE_FHD_L)
     }
     
+    // MARK: Group labels
     /**
      * Create label
      * - parameter label:   Lable view
@@ -512,7 +561,36 @@ class G00ConfirmCodeVC: ChildExtViewController {
         if isBold {
             label.font      = GlobalConst.BASE_BOLD_FONT
         } else {
-            //label.font      = GlobalConst.BASE_FONT
+            label.font      = UIFont.italicSystemFont(ofSize: GlobalConst.BASE_FONT_SIZE)
+        }
+        label.textAlignment  = .center
+    }
+    
+    /**
+     * Create label
+     * - parameter label:   Lable view
+     * - parameter x:       X offset
+     * - parameter y:       Y offset
+     * - parameter w:       Width of view
+     * - parameter h:       height of view
+     * - parameter text:    Lable content
+     * - parameter color:   Color of text
+     * - parameter isBold:  Flag is bold or not
+     */
+    private func createLabel(label: UILabel,
+                             x: CGFloat, y: CGFloat,
+                             w: CGFloat, h: CGFloat,
+                             text: String,
+                             color: UIColor = UIColor.black,
+                             isBold: Bool = false) {
+        label.frame = CGRect(x: x, y: y,
+                             width: w,
+                             height: h)
+        label.text          = text
+        label.textColor     = color
+        if isBold {
+            label.font      = GlobalConst.BASE_BOLD_FONT
+        } else {
             label.font      = UIFont.italicSystemFont(ofSize: GlobalConst.BASE_FONT_SIZE)
         }
         label.textAlignment  = .center
@@ -553,6 +631,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
         self.createLabel(label: lbl6,
                          offset: lbl5.frame.maxY + GlobalConst.MARGIN,
                          text: DomainConst.CONTENT00481, color: UIColor.red)
+        
     }
     
     /**
@@ -574,15 +653,68 @@ class G00ConfirmCodeVC: ChildExtViewController {
         
     }
     
+    // MARK: Resend label
+    private func createResendLabel(w: CGFloat, h: CGFloat) {
+        self.createLabel(label: lbl6,
+                         x: txtCode.frame.minX,
+                         y: lbl5.frame.maxY + GlobalConst.MARGIN,
+                         w: w,
+                         h: h,
+                         text: DomainConst.CONTENT00481,
+                         color: UIColor.red)
+    }
+    
+    private func createResendLabelHD() {
+        createResendLabel(w: txtCode.frame.width - RESEND_BTN_REAL_WIDTH_HD,
+                          h: CONFIRM_CODE_REAL_HEIGHT_HD)
+        
+    }
+    
+    private func createResendLabelFHD() {
+        createResendLabel(w: txtCode.frame.width - RESEND_BTN_REAL_WIDTH_FHD,
+                          h: CONFIRM_CODE_REAL_HEIGHT_FHD)
+        
+    }
+    
+    private func createResendLabelFHD_L() {
+        createResendLabel(w: txtCode.frame.width - RESEND_BTN_REAL_WIDTH_FHD_L,
+                          h: CONFIRM_CODE_REAL_HEIGHT_FHD_L)
+        
+    }
+    
+    private func updateResendLabel(w: CGFloat, h: CGFloat) {
+        CommonProcess.updateViewPos(
+            view: lbl6,
+            x: txtCode.frame.minX,
+            y: lbl5.frame.maxY + GlobalConst.MARGIN,
+            w: w, h: h)
+    }
+    
+    private func updateResendLabelHD() {
+        updateResendLabel(w: txtCode.frame.width - RESEND_BTN_REAL_WIDTH_FHD,
+                          h: CONFIRM_CODE_REAL_HEIGHT_FHD)
+    }
+    
+    private func updateResendLabelFHD() {
+        updateResendLabel(w: txtCode.frame.width - RESEND_BTN_REAL_WIDTH_FHD,
+                          h: CONFIRM_CODE_REAL_HEIGHT_FHD)
+    }
+    
+    private func updateResendLabelFHD_L() {
+        updateResendLabel(w: txtCode.frame.width - RESEND_BTN_REAL_WIDTH_FHD_L,
+                          h: CONFIRM_CODE_REAL_HEIGHT_FHD_L)
+    }
+    
+    // MARK: Resend button
     /**
      * Create resend button
-     * - parameter x: X position
-     * - parameter y: Y position
      * - parameter w: Width of view
      * - parameter h: Height of view
      */
-    private func createResendBtn(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
-        btnResend.frame = CGRect(x: x, y: y, width: w, height: h)
+    private func createResendBtn(w: CGFloat, h: CGFloat) {
+        btnResend.frame = CGRect(x: txtCode.frame.maxX - w,
+                                 y: lbl5.frame.maxY + GlobalConst.MARGIN,
+                                 width: w, height: h)
         btnResend.setTitle(DomainConst.CONTENT00482.uppercased(), for: UIControlState())
         btnResend.setTitleColor(UIColor.red, for: UIControlState())
         btnResend.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
@@ -597,8 +729,6 @@ class G00ConfirmCodeVC: ChildExtViewController {
      */
     private func createResendBtnHD() {
         self.createResendBtn(
-            x: (UIScreen.main.bounds.width - RESEND_BTN_REAL_WIDTH_HD) / 2,
-            y: lbl6.frame.maxY + GlobalConst.MARGIN,
             w: RESEND_BTN_REAL_WIDTH_HD,
             h: CONFIRM_CODE_REAL_HEIGHT_HD)
     }
@@ -608,8 +738,6 @@ class G00ConfirmCodeVC: ChildExtViewController {
      */
     private func createResendBtnFHD() {
         self.createResendBtn(
-            x: (UIScreen.main.bounds.width - RESEND_BTN_REAL_WIDTH_FHD) / 2,
-            y: lbl6.frame.maxY + GlobalConst.MARGIN,
             w: RESEND_BTN_REAL_WIDTH_FHD,
             h: CONFIRM_CODE_REAL_HEIGHT_FHD)
     }
@@ -618,32 +746,31 @@ class G00ConfirmCodeVC: ChildExtViewController {
      * Create resend button (in Full HD Landscape mode)
      */
     private func createResendBtnFHD_L() {
-        self.createResendBtn(
-            x: (UIScreen.main.bounds.width - RESEND_BTN_REAL_WIDTH_FHD_L) / 2,
-            y: lbl6.frame.maxY + GlobalConst.MARGIN,
-            w: RESEND_BTN_REAL_WIDTH_FHD_L,
+        self.createResendBtn(w: RESEND_BTN_REAL_WIDTH_FHD_L,
             h: CONFIRM_CODE_REAL_HEIGHT_FHD_L)
+    }
+    
+    private func updateResendBtn(w: CGFloat, h: CGFloat) {
+        CommonProcess.updateViewPos(
+            view: btnResend,
+            x: txtCode.frame.maxX - w,
+            y: lbl5.frame.maxY + GlobalConst.MARGIN,
+            w: w, h: h)
     }
     
     /**
      * Update resend button (in HD mode)
      */
     private func updateResendBtnHD() {
-        CommonProcess.updateViewPos(view: btnResend,
-            x: (UIScreen.main.bounds.width - RESEND_BTN_REAL_WIDTH_HD) / 2,
-            y: lbl6.frame.maxY + GlobalConst.MARGIN,
-            w: RESEND_BTN_REAL_WIDTH_HD,
-            h: CONFIRM_CODE_REAL_HEIGHT_HD)
+        updateResendBtn(w: RESEND_BTN_REAL_WIDTH_HD,
+                        h: CONFIRM_CODE_REAL_HEIGHT_HD)
     }
     
     /**
      * Update resend button (in Full HD mode)
      */
     private func updateResendBtnFHD() {
-        CommonProcess.updateViewPos(view: btnResend,
-            x: (UIScreen.main.bounds.width - RESEND_BTN_REAL_WIDTH_FHD) / 2,
-            y: lbl6.frame.maxY + GlobalConst.MARGIN,
-            w: RESEND_BTN_REAL_WIDTH_FHD,
+        updateResendBtn(w: RESEND_BTN_REAL_WIDTH_FHD,
             h: CONFIRM_CODE_REAL_HEIGHT_FHD)
     }
     
@@ -651,11 +778,137 @@ class G00ConfirmCodeVC: ChildExtViewController {
      * Update resend button (in Full HD Landscape mode)
      */
     private func updateResendBtnFHD_L() {
-        CommonProcess.updateViewPos(view: btnResend,
-            x: (UIScreen.main.bounds.width - RESEND_BTN_REAL_WIDTH_FHD_L) / 2,
-            y: lbl6.frame.maxY + GlobalConst.MARGIN,
-            w: RESEND_BTN_REAL_WIDTH_FHD_L,
+        updateResendBtn(w: RESEND_BTN_REAL_WIDTH_FHD_L,
             h: CONFIRM_CODE_REAL_HEIGHT_FHD_L)
+    }
+    
+    // MARK: Wrong phone label
+    private func createWrongPhoneLabel(w: CGFloat, h: CGFloat) {
+        self.createLabel(label: lblWrongPhone,
+                         x: txtCode.frame.minX,
+                         y: lbl6.frame.maxY + GlobalConst.MARGIN,
+                         w: w,
+                         h: h,
+                         text: DomainConst.CONTENT00508,
+                         color: UIColor.red)
+    }
+    
+    private func createWrongPhoneLabelHD() {
+        createWrongPhoneLabel(w: txtCode.frame.width - RESEND_BTN_REAL_WIDTH_HD,
+                          h: CONFIRM_CODE_REAL_HEIGHT_HD)
+        
+    }
+    
+    private func createWrongPhoneLabelFHD() {
+        createWrongPhoneLabel(w: txtCode.frame.width - RESEND_BTN_REAL_WIDTH_FHD,
+                          h: CONFIRM_CODE_REAL_HEIGHT_FHD)
+        
+    }
+    
+    private func createWrongPhoneLabelFHD_L() {
+        createWrongPhoneLabel(w: txtCode.frame.width - RESEND_BTN_REAL_WIDTH_FHD_L,
+                          h: CONFIRM_CODE_REAL_HEIGHT_FHD_L)
+        
+    }
+    
+    private func updateWrongPhoneLabel(w: CGFloat, h: CGFloat) {
+        CommonProcess.updateViewPos(
+            view: lblWrongPhone,
+            x: txtCode.frame.minX,
+            y: lbl6.frame.maxY + GlobalConst.MARGIN,
+            w: w, h: h)
+    }
+    
+    private func updateWrongPhoneLabelHD() {
+        updateWrongPhoneLabel(w: txtCode.frame.width - RESEND_BTN_REAL_WIDTH_FHD,
+                          h: CONFIRM_CODE_REAL_HEIGHT_FHD)
+    }
+    
+    private func updateWrongPhoneLabelFHD() {
+        updateWrongPhoneLabel(w: txtCode.frame.width - RESEND_BTN_REAL_WIDTH_FHD,
+                          h: CONFIRM_CODE_REAL_HEIGHT_FHD)
+    }
+    
+    private func updateWrongPhoneLabelFHD_L() {
+        updateWrongPhoneLabel(w: txtCode.frame.width - RESEND_BTN_REAL_WIDTH_FHD_L,
+                          h: CONFIRM_CODE_REAL_HEIGHT_FHD_L)
+    }
+    
+    // MARK: Back button
+    /**
+     * Create back button
+     * - parameter w: Width of view
+     * - parameter h: Height of view
+     */
+    private func createBackBtn(w: CGFloat, h: CGFloat) {
+        btnBack.frame = CGRect(x: txtCode.frame.maxX - w,
+                                 y: lbl6.frame.maxY + GlobalConst.MARGIN,
+                                 width: w, height: h)
+        btnBack.setTitle(DomainConst.CONTENT00509.uppercased(), for: UIControlState())
+        btnBack.setTitleColor(UIColor.red, for: UIControlState())
+        btnBack.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+        btnBack.backgroundColor = UIColor.clear
+        btnBack.layer.borderColor = UIColor.red.cgColor
+        btnBack.layer.borderWidth = 1
+        btnBack.addTarget(self, action: #selector(btnBackTapped(_:)), for: .touchUpInside)
+    }
+    
+    /**
+     * Create resend button (in HD mode)
+     */
+    private func createBackBtnHD() {
+        self.createBackBtn(
+            w: RESEND_BTN_REAL_WIDTH_HD,
+            h: CONFIRM_CODE_REAL_HEIGHT_HD)
+    }
+    
+    /**
+     * Create resend button (in Full HD mode)
+     */
+    private func createBackBtnFHD() {
+        self.createBackBtn(
+            w: RESEND_BTN_REAL_WIDTH_FHD,
+            h: CONFIRM_CODE_REAL_HEIGHT_FHD)
+    }
+    
+    /**
+     * Create resend button (in Full HD Landscape mode)
+     */
+    private func createBackBtnFHD_L() {
+        self.createBackBtn(w: RESEND_BTN_REAL_WIDTH_FHD_L,
+                             h: CONFIRM_CODE_REAL_HEIGHT_FHD_L)
+    }
+    
+    private func updateBackBtn(w: CGFloat, h: CGFloat) {
+        CommonProcess.updateViewPos(
+            view: btnBack,
+            x: txtCode.frame.maxX - w,
+            y: lbl6.frame.maxY + GlobalConst.MARGIN,
+            w: w, h: h)
+    }
+    
+    /**
+     * Update resend button (in HD mode)
+     */
+    private func updateBackBtnHD() {
+        updateBackBtn(w: RESEND_BTN_REAL_WIDTH_HD,
+                        h: CONFIRM_CODE_REAL_HEIGHT_HD)
+    }
+    
+    /**
+     * Update resend button (in Full HD mode)
+     */
+    private func updateBackBtnFHD() {
+        updateBackBtn(w: RESEND_BTN_REAL_WIDTH_FHD,
+                        h: CONFIRM_CODE_REAL_HEIGHT_FHD)
+    }
+    
+    /**
+     * Update resend button (in Full HD Landscape mode)
+     */
+    private func updateBackBtnFHD_L() {
+        updateBackBtn(w: RESEND_BTN_REAL_WIDTH_FHD_L,
+                        h: CONFIRM_CODE_REAL_HEIGHT_FHD_L)
     }
     
     private func setLocalData() {

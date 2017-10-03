@@ -597,6 +597,9 @@ class G12F01S01VC: BaseParentViewController {
 //        TransactionStatusRequest.request(
 //            action: #selector(finishRequestTransactionStatus(_:)),
 //            view: self, id: id)
+        if !BaseModel.shared.checkIsLogin() {
+            return
+        }
         TransactionStatusRequest.requestLoop(view: self,
                                              id: BaseModel.shared.getTransactionData().id,
                                              completionHandler: completionHandler)
@@ -753,7 +756,6 @@ class G12F01S01VC: BaseParentViewController {
             retVal = retVal + detailPromote.createJsonData()
         }
         return retVal
-//        return "{\"materials_id\":\"575\",\"qty\":1,\"price\":\"0\",\"materials_type_id\":\"4\"}"
     }
     
     /**

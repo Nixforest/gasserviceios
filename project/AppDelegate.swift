@@ -11,6 +11,7 @@ import UserNotifications
 import harpyframework
 import GoogleMaps
 import GooglePlaces
+import FacebookCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //self.window?.rootViewController = testViewController()
         //self.window?.makeKeyWindow()
  
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         SlideMenuOptions.leftViewWidth = GlobalConst.POPOVER_WIDTH
         SlideMenuOptions.panGesturesEnabled = true
@@ -71,6 +72,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey(key)
         // Google Direct API
         // AIzaSyB9aMZnBX9TENtEDdhsJtpGI8kfbSFtKgo
+        
+        //++ BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
+        // Facebook
+        SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        //-- BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
         return true
     }
 
@@ -90,6 +96,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        //++ BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
+        AppEventsLogger.activate(application)
+        //-- BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -214,6 +223,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Move to detail
         print(message)
     }
+    
+    /**
+     * Asks the delegate for the interface orientations to use for the view controllers in the specified window.
+     */
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:
@@ -225,5 +238,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return UIInterfaceOrientationMask.all
     }
+    
+    //++ BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
+    /**
+     * Asks the delegate to open a resource identified by a URL.
+     */
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        let handled: Bool = SDKApplicationDelegate.shared.application(
+            application,
+            open: url,
+            sourceApplication: sourceApplication,
+            annotation: annotation)
+        return handled
+    }
+    //-- BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
 }
 

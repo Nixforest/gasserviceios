@@ -975,12 +975,12 @@ extension G12F01S02VC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         manager.stopUpdatingLocation()
         if let location: CLLocation = locations.last {
-//            let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-//                                                  longitude: location.coordinate.longitude,
-//                                                  zoom: Float(BaseModel.shared.getZoomValue()))
-            let camera = GMSCameraPosition.camera(withLatitude: self._source.lat,
-                                                  longitude: self._source.long,
+            let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
+                                                  longitude: location.coordinate.longitude,
                                                   zoom: Float(BaseModel.shared.getZoomValue()))
+//            let camera = GMSCameraPosition.camera(withLatitude: self._source.lat,
+//                                                  longitude: self._source.long,
+//                                                  zoom: Float(BaseModel.shared.getZoomValue()))
             self.updateMapView()
             if viewMap.isHidden {
                 viewMap.isHidden = false

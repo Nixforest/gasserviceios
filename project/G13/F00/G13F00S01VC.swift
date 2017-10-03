@@ -258,7 +258,19 @@ class G13F00S01VC: BaseParentViewController {
      * Handle when tap on cancel order button
      */
     func btnShareCodeTapped(_ sender: AnyObject) {
-        showAlert(message: "btnShareCodeTapped")
+        let text = "btnShareCodeTapped"
+        let textToShare = [text]
+        // Setup activity view controller
+        let activityVC = UIActivityViewController(activityItems: textToShare,
+                                                  applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.btnShareCode
+        // Exclude some activity types from the list
+        activityVC.excludedActivityTypes = [.airDrop, .mail, .message, .postToFacebook, .copyToPasteboard]
+        
+        // Present
+        self.present(activityVC,
+                     animated: true,
+                     completion: nil)
     }
     
     /**

@@ -8,6 +8,9 @@
 
 import UIKit
 import harpyframework
+import FacebookLogin
+import FacebookCore
+import FacebookShare
 
 class G00LoginExtVC: ChildExtViewController {
     // MARK: Properties
@@ -271,7 +274,33 @@ class G00LoginExtVC: ChildExtViewController {
      * Handle when tap on facebook button
      */
     func btnFacebookTapped(_ sender: AnyObject) {
-//        showAlert(message: "btnFacebookTapped")
+        //++ BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
+        let loginManager = LoginManager()
+        loginManager.logIn([.publicProfile, .email],
+                           viewController: self,
+                           completion: {
+                            loginResult in
+                            switch loginResult {
+                            case .failed(let error):
+                                self.showAlert(message: error.localizedDescription)
+                                break
+                            case .cancelled:
+                                self.showAlert(message: DomainConst.CONTENT00511)
+                                break
+                                case .success(grantedPermissions: _,
+                                              declinedPermissions: _,
+                                              token: _):
+                                    self.getDataFromFacebook()
+                                break
+                            }
+        })
+        //-- BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
+    }
+    
+    /**
+     * Handle when tap on zalo button
+     */
+    func btnZaloTapped(_ sender: AnyObject) {
         imgLogoTappedCounter += 1
         print(imgLogoTappedCounter)
         if imgLogoTappedCounter == DomainConst.MAXIMUM_TAPPED {
@@ -279,13 +308,6 @@ class G00LoginExtVC: ChildExtViewController {
             BaseModel.shared.setTrainningMode(!BaseModel.shared.checkTrainningMode())
             showAlert(message: "Training mode is: " + (BaseModel.shared.checkTrainningMode() ? "ON" : "OFF"))
         }
-}
-    
-    /**
-     * Handle when tap on zalo button
-     */
-    func btnZaloTapped(_ sender: AnyObject) {
-        showAlert(message: "btnZaloTapped")
     }
     
     func imgLogoTapped(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -299,6 +321,78 @@ class G00LoginExtVC: ChildExtViewController {
     }
     
     // MARK: Utilities
+    //++ BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
+    /**
+     * Get data from facebook
+     */
+    internal func getDataFromFacebook() {
+        if let token = AccessToken.current {
+            let request = GraphRequest.init(
+                graphPath: "me",
+                parameters: ["fields": "id, name, first_name, email"],
+                accessToken: token)
+            request.start {
+                (respond, result) -> Void in
+                switch result {
+                case .failed(let error):
+                    self.showAlert(message: error.localizedDescription)
+                    break
+                case .success(response: _):
+//                    if let data = resp.dictionaryValue {
+//                        if let email = data["email"] {
+//                            self.txtPhone.text = email as? String
+//                        }
+//                    }
+                    self.inputPhone()
+                    break
+                }
+            }
+        }
+    }
+    
+    internal func inputPhone() {
+        var tbxValue: UITextField?
+        
+        // Create alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00162,
+                                      message: DomainConst.CONTENT00510,
+                                      preferredStyle: .alert)
+        // Add textfield
+        alert.addTextField(configurationHandler: { textField -> Void in
+            tbxValue = textField
+            tbxValue?.placeholder       = DomainConst.CONTENT00054
+            tbxValue?.clearButtonMode   = .whileEditing
+            tbxValue?.returnKeyType     = .done
+            tbxValue?.keyboardType      = .numberPad
+            tbxValue?.textAlignment     = .center
+            tbxValue?.text              = BaseModel.shared.getCurrentUsername()
+        })
+        
+        // Add cancel action
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
+        
+        // Add ok action
+        let ok = UIAlertAction(title: DomainConst.CONTENT00326, style: .default) { action -> Void in
+            if let phone = tbxValue?.text {
+                self.txtPhone.text = phone
+                self.btnNextTapped(self)
+            } else {
+                self.showAlert(message: DomainConst.CONTENT00048, okTitle: DomainConst.CONTENT00251,
+                               okHandler: {_ in
+                                self.inputPhone()
+                },
+                               cancelHandler: {_ in
+                                
+                })
+            }
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+    }
+    //-- BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
+    
     /**
      * Update view position
      * - parameter view: View need to update
@@ -417,6 +511,7 @@ class G00LoginExtVC: ChildExtViewController {
         txtPhone.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS_NEW
         txtPhone.keyboardType       = .numberPad
         txtPhone.returnKeyType      = .done
+        txtPhone.adjustsFontSizeToFitWidth = true
     }
     
     /**
