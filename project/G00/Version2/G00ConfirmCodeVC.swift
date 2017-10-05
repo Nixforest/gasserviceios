@@ -29,8 +29,6 @@ class G00ConfirmCodeVC: ChildExtViewController {
     var lbl4:           UILabel     = UILabel()
     /** Input code label */
     var lbl5:           UILabel     = UILabel()
-    /** Phone number */
-    var phone:          String      = DomainConst.BLANK
     /** Input code label */
     var lbl6:           UILabel     = UILabel()
     /** Button resend */
@@ -39,6 +37,11 @@ class G00ConfirmCodeVC: ChildExtViewController {
     var lblWrongPhone:  UILabel     = UILabel()
     /** Button back */
     var btnBack:        UIButton    = UIButton()
+    // MARK: Data
+    /** Phone number */
+    private var _phone: String      = DomainConst.BLANK
+    /** Token */
+    private var _token: String      = DomainConst.BLANK
     
     // MARK: Constant
     // Logo
@@ -79,7 +82,6 @@ class G00ConfirmCodeVC: ChildExtViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        setLocalData()
     }
     
     /**
@@ -299,7 +301,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
                 LoginRequest.requestLogin(
                     action: #selector(setData(_:)),
                     view: self,
-                    username: G00LoginExtVC.phone,
+                    username: self._phone,
                     password: codeValue)
                 return
             }
@@ -321,7 +323,6 @@ class G00ConfirmCodeVC: ChildExtViewController {
         }
         print("finishDismissConfirm")
     }
-    
     /**
      * Handle when tap on resend button
      */
@@ -618,7 +619,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
                          text: DomainConst.CONTENT00477)
         self.createLabel(label: lbl2,
                          offset: lbl1.frame.maxY + GlobalConst.MARGIN,
-                         text: phone, color: UIColor.red, isBold: true)
+                         text: _phone, color: GlobalConst.MAIN_COLOR_GAS_24H, isBold: true)
         self.createLabel(label: lbl3,
                          offset: lbl2.frame.maxY + GlobalConst.MARGIN,
                          text: DomainConst.CONTENT00478)
@@ -628,9 +629,9 @@ class G00ConfirmCodeVC: ChildExtViewController {
         self.createLabel(label: lbl5,
                          offset: lbl4.frame.maxY + GlobalConst.MARGIN,
                          text: DomainConst.CONTENT00480)
-        self.createLabel(label: lbl6,
-                         offset: lbl5.frame.maxY + GlobalConst.MARGIN,
-                         text: DomainConst.CONTENT00481, color: UIColor.red)
+//        self.createLabel(label: lbl6,
+//                         offset: lbl5.frame.maxY + GlobalConst.MARGIN,
+//                         text: DomainConst.CONTENT00481, color: GlobalConst.MAIN_COLOR_GAS_24H)
         
     }
     
@@ -661,7 +662,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
                          w: w,
                          h: h,
                          text: DomainConst.CONTENT00481,
-                         color: UIColor.red)
+                         color: GlobalConst.MAIN_COLOR_GAS_24H)
     }
     
     private func createResendLabelHD() {
@@ -716,10 +717,10 @@ class G00ConfirmCodeVC: ChildExtViewController {
                                  y: lbl5.frame.maxY + GlobalConst.MARGIN,
                                  width: w, height: h)
         btnResend.setTitle(DomainConst.CONTENT00482.uppercased(), for: UIControlState())
-        btnResend.setTitleColor(UIColor.red, for: UIControlState())
+        btnResend.setTitleColor(GlobalConst.MAIN_COLOR_GAS_24H, for: UIControlState())
         btnResend.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
         btnResend.backgroundColor = UIColor.clear
-        btnResend.layer.borderColor = UIColor.red.cgColor
+        btnResend.layer.borderColor = GlobalConst.MAIN_COLOR_GAS_24H.cgColor
         btnResend.layer.borderWidth = 1
         btnResend.addTarget(self, action: #selector(btnResendTapped(_:)), for: .touchUpInside)
     }
@@ -790,7 +791,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
                          w: w,
                          h: h,
                          text: DomainConst.CONTENT00508,
-                         color: UIColor.red)
+                         color: GlobalConst.MAIN_COLOR_GAS_24H)
     }
     
     private func createWrongPhoneLabelHD() {
@@ -845,10 +846,10 @@ class G00ConfirmCodeVC: ChildExtViewController {
                                  y: lbl6.frame.maxY + GlobalConst.MARGIN,
                                  width: w, height: h)
         btnBack.setTitle(DomainConst.CONTENT00509.uppercased(), for: UIControlState())
-        btnBack.setTitleColor(UIColor.red, for: UIControlState())
+        btnBack.setTitleColor(GlobalConst.MAIN_COLOR_GAS_24H, for: UIControlState())
         btnBack.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
         btnBack.backgroundColor = UIColor.clear
-        btnBack.layer.borderColor = UIColor.red.cgColor
+        btnBack.layer.borderColor = GlobalConst.MAIN_COLOR_GAS_24H.cgColor
         btnBack.layer.borderWidth = 1
         btnBack.addTarget(self, action: #selector(btnBackTapped(_:)), for: .touchUpInside)
     }
@@ -911,7 +912,13 @@ class G00ConfirmCodeVC: ChildExtViewController {
                         h: CONFIRM_CODE_REAL_HEIGHT_FHD_L)
     }
     
-    private func setLocalData() {
-        self.lbl2.text = G00LoginExtVC.phone
+    /**
+     * Set data
+     * - parameter phone: Phone value
+     * - parameter token: Token value
+     */
+    public func setData(phone: String, token: String) {
+        self._phone = phone
+        self._token = token
     }
 }

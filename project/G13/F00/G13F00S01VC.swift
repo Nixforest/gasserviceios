@@ -362,7 +362,7 @@ class G13F00S01VC: BaseParentViewController {
                                width: w, height: h)
         segment.selectedSegmentIndex = 0
         let segAttribute: NSDictionary = [
-            NSForegroundColorAttributeName: UIColor.red
+            NSForegroundColorAttributeName: GlobalConst.MAIN_COLOR_GAS_24H
         ]
         let segAttributeGray: NSDictionary = [
             NSForegroundColorAttributeName: ColorFromRGB().getColorFromRGB(0x999999)
@@ -415,6 +415,7 @@ class G13F00S01VC: BaseParentViewController {
                                  height: h)
         referView.isHidden = false
         referView.backgroundColor = GlobalConst.PROMOTION_BKG_COLOR
+        referView.layer.cornerRadius = GlobalConst.BOTTOM_MSG_VIEW_CORNER_RADIUS
         
         referView.addSubview(lblReferNote)
         referView.addSubview(referSegment)
@@ -513,7 +514,7 @@ class G13F00S01VC: BaseParentViewController {
         referSegment.frame = CGRect(x: (segment.frame.width - w ) / 2,
                                y: lblReferNote.frame.maxY + GlobalConst.MARGIN,
                                width: w, height: h)
-        referSegment.tintColor = UIColor.red
+        referSegment.tintColor = GlobalConst.MAIN_COLOR_GAS_24H
         referSegment.selectedSegmentIndex = 0
         referSegment.addTarget(self, action: #selector(refSegmentChanged(_:)),
                           for: .valueChanged)
@@ -650,7 +651,7 @@ class G13F00S01VC: BaseParentViewController {
             y: yPos + GlobalConst.MARGIN,
             width: w, height: h)
         btnShareCode.setTitle(DomainConst.CONTENT00503, for: UIControlState())
-        btnShareCode.setTitleColor(UIColor.red, for: UIControlState())
+        btnShareCode.setTitleColor(GlobalConst.MAIN_COLOR_GAS_24H, for: UIControlState())
         btnShareCode.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
         btnShareCode.backgroundColor = UIColor(white: 1, alpha: 0.0)
         btnShareCode.addTarget(self, action: #selector(btnShareCodeTapped(_:)), for: .touchUpInside)
@@ -870,7 +871,7 @@ class G13F00S01VC: BaseParentViewController {
         usingCodeSegment.frame = CGRect(x: (segment.frame.width - w ) / 2,
                                     y: lblUsingCodeNote.frame.maxY + GlobalConst.MARGIN,
                                     width: w, height: h)
-        usingCodeSegment.tintColor = UIColor.red
+        usingCodeSegment.tintColor = GlobalConst.MAIN_COLOR_GAS_24H
         usingCodeSegment.selectedSegmentIndex = 0
         usingCodeSegment.addTarget(self, action: #selector(usingCodeSegmentChanged(_:)),
                                for: .valueChanged)

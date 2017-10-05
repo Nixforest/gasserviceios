@@ -14,8 +14,36 @@ class G12F01S01VC: BaseParentViewController {
     // MARK: Properties
     /** Location */
     let locationManager:    CLLocationManager   = CLLocationManager()
-    /** Category view */
-    var categoryView:           UIView      = UIView()
+    /** Status Order */
+    var lblStatus:              UILabel     = UILabel()
+    /** Status view */
+    var statusView:             UIView      = UIView()
+    /** List status config */
+    var listStatusConfig:       [ConfigBean] = [
+        ConfigBean(id: String(OrderStatusEnum.STATUS_CREATE.rawValue),
+                   name: DomainConst.CONTENT00130),
+        ConfigBean(id: String(OrderStatusEnum.STATUS_WAIT_CONFIRM.rawValue),
+                   name: DomainConst.CONTENT00513),
+        ConfigBean(id: String(OrderStatusEnum.STATUS_CONFIRMED.rawValue),
+                   name: DomainConst.CONTENT00514),
+        ConfigBean(id: String(OrderStatusEnum.STATUS_DELIVERING.rawValue),
+                   name: DomainConst.CONTENT00515),
+        ConfigBean(id: String(OrderStatusEnum.STATUS_COMPLETE.rawValue),
+                   name: DomainConst.CONTENT00489)
+    ]
+    /** List status icon */
+    var listStatusIcon:         [(String, String)] = [
+        (DomainConst.ORDER_STATUS_CREATE_INACTIVE_IMG_NAME,
+         DomainConst.ORDER_STATUS_CREATE_ACTIVE_IMG_NAME),
+        (DomainConst.ORDER_STATUS_WAITING_INACTIVE_IMG_NAME,
+         DomainConst.ORDER_STATUS_WAITING_ACTIVE_IMG_NAME),
+        (DomainConst.ORDER_STATUS_CONFIRMED_INACTIVE_IMG_NAME,
+         DomainConst.ORDER_STATUS_CONFIRMED_ACTIVE_IMG_NAME),
+        (DomainConst.ORDER_STATUS_DELIVERING_INACTIVE_IMG_NAME,
+         DomainConst.ORDER_STATUS_DELIVERING_ACTIVE_IMG_NAME),
+        (DomainConst.ORDER_STATUS_COMPLETE_INACTIVE_IMG_NAME,
+         DomainConst.ORDER_STATUS_COMPLETE_ACTIVE_IMG_NAME)
+    ]
     /** List of category button */
     var listCategoryButtons:    [UIButton]  = [UIButton]()
     /** Label Order */
@@ -41,7 +69,6 @@ class G12F01S01VC: BaseParentViewController {
     /** Finish 3 label */
     var lblFinish3:             UILabel     = UILabel()
     /** Button cancel order */
-//    var btnCancelOrder:         CustomButton    = CustomButton(type: UIButtonType.custom)
     var btnCancelOrder:         UIButton    = UIButton(type: UIButtonType.custom)
     /** Button refer */
     var btnRefer:               UIButton    = UIButton()
@@ -56,8 +83,6 @@ class G12F01S01VC: BaseParentViewController {
 //        ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_GAS, name: DomainConst.CONTENT00485),
         ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_GAS, name: DomainConst.CONTENT00485),
         ConfigBean(id: DomainConst.ACTION_TYPE_SELECT_PROMOTE, name: DomainConst.CONTENT00486),
-        ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00484),
-        ConfigBean(id: DomainConst.ACTION_TYPE_SUPPORT, name: DomainConst.CONTENT00484)
     ]
     /** Address text value */
     var addressText:            String      = DomainConst.BLANK
@@ -66,7 +91,11 @@ class G12F01S01VC: BaseParentViewController {
     /** Flag cancel order (By system) */
     var isCancelOrder:          Bool        = false
     /** Mode */
-    var mode:                   String      = DomainConst.BLANK
+    var mode:                   OrderStatusEnum      = OrderStatusEnum.STATUS_CREATE
+    /** OrderConfig request retry count */
+    var reqOrderConfigCount:    Int         = 0
+    /** UpdateConfig request retry count */
+    var reqUpdateConfigCount:   Int         = 0
     
     // MARK: Static values
     /** Current position of map view */
@@ -85,6 +114,13 @@ class G12F01S01VC: BaseParentViewController {
     let MODE_FINISH:            String  = DomainConst.NUMBER_TWO_VALUE
     let MODE_MAP:               String  = DomainConst.NUMBER_THREE_VALUE
     let MODE_CANCEL:            String  = DomainConst.NUMBER_FOUR_VALUE
+    let REQ_ORDER_CONFIG_MAX_COUNT:     Int     = 2
+    let REQ_UPDATE_CONFIG_MAX_COUNT:    Int     = 2
+    
+    // Status
+    var STATUS_VIEW_REAL_WIDTH_HD       = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_HD
+    var STATUS_VIEW_REAL_WIDTH_FHD      = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD
+    var STATUS_VIEW_REAL_WIDTH_FHD_L    = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD_L
     // Category button
     var CATEGORY_BUTTON_REAL_SIZE_HD    = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_HD
     var CATEGORY_BUTTON_REAL_SIZE_FHD   = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_FHD
@@ -124,7 +160,7 @@ class G12F01S01VC: BaseParentViewController {
         // Navigation
         self.createNavigationBar(title: "1900 1565")
 //        openLogin()
-        changeMode(value: MODE_ORDER)
+        changeMode(value: OrderStatusEnum.STATUS_CREATE)
         // Location setting
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -148,6 +184,11 @@ class G12F01S01VC: BaseParentViewController {
      */
     override func updateConst() {
         super.updateConst()
+        // Status
+        STATUS_VIEW_REAL_WIDTH_HD       = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_HD
+        STATUS_VIEW_REAL_WIDTH_FHD      = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD
+        STATUS_VIEW_REAL_WIDTH_FHD_L    = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD_L
+        
         // Category button
         CATEGORY_BUTTON_REAL_SIZE_HD    = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_HD
         CATEGORY_BUTTON_REAL_SIZE_FHD   = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_FHD
@@ -206,10 +247,11 @@ class G12F01S01VC: BaseParentViewController {
      */
     override func createChildrenViews() {
         super.createChildrenViews()
+        createStatusLabel()
         // Get current device type
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
-            createCategoryViewHD()
+            createStatusViewHD()
             createOrderHD()
             createOrderButtonHD()
             createExplainLabel()
@@ -222,7 +264,7 @@ class G12F01S01VC: BaseParentViewController {
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
             case .portrait, .portraitUpsideDown:        // Portrait
-                createCategoryViewFHD()
+                createStatusViewFHD()
                 createOrderFHD()
                 createOrderButtonFHD()
                 createExplainLabel()
@@ -233,7 +275,7 @@ class G12F01S01VC: BaseParentViewController {
                 createActionsViewFHD()
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
-                createCategoryViewFHD_L()
+                createStatusViewFHD_L()
                 createOrderFHD_L()
                 createOrderButtonFHD_L()
                 createExplainLabel()
@@ -251,7 +293,8 @@ class G12F01S01VC: BaseParentViewController {
         default:
             break
         }
-        self.view.addSubview(categoryView)
+        self.view.addSubview(statusView)
+        self.view.addSubview(lblStatus)
         self.view.addSubview(lblOrder)
         self.view.addSubview(btnOrder)
         self.view.addSubview(btnProcessing)
@@ -278,10 +321,11 @@ class G12F01S01VC: BaseParentViewController {
      */
     override func updateChildrenViews() {
         super.updateChildrenViews()
+        updateStatusLabel()
         // Get current device type
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
-            updateCategoryViewHD()
+            updateStatusViewHD()
             updateOrderHD()
             updateOrderButtonHD()
             updateExplainLabel()
@@ -294,7 +338,7 @@ class G12F01S01VC: BaseParentViewController {
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
             case .portrait, .portraitUpsideDown:        // Portrait
-                updateCategoryViewFHD()
+                updateStatusViewFHD()
                 updateOrderFHD()
                 updateOrderButtonFHD()
                 updateExplainLabel()
@@ -305,7 +349,7 @@ class G12F01S01VC: BaseParentViewController {
                 updateActionsViewFHD()
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
-                updateCategoryViewFHD_L()
+                updateStatusViewFHD_L()
                 updateOrderFHD_L()
                 updateOrderButtonFHD_L()
                 updateExplainLabel()
@@ -331,29 +375,6 @@ class G12F01S01VC: BaseParentViewController {
      */
     func btnCancelOrderTapped(_ sender: AnyObject) {
         requestCancelTransaction()
-    }
-    
-    /**
-     * Handle when tap on category buttons
-     * - parameter sender: Button object
-     */
-    func enableButton(_ sender: AnyObject) {
-        // Handle by button identify
-        switch ((sender as! UIButton).accessibilityIdentifier!) {
-        case DomainConst.CATEGORY_TYPE_VIP, DomainConst.CATEGORY_TYPE_UTILITY:
-            showAlert(message: DomainConst.CONTENT00197)
-            return
-        case DomainConst.CATEGORY_TYPE_GAS:
-            break
-        default:
-            break
-        }
-        // Release selection from all button
-        for btn in self.listCategoryButtons {
-            btn.isSelected = false
-        }
-        // Select current tapped button
-        (sender as! UIButton).isSelected = true
     }
     
     /**
@@ -386,7 +407,6 @@ class G12F01S01VC: BaseParentViewController {
      */
     internal func btnOrderTapped(_ sender: AnyObject) {
         btnOrder.isEnabled = false
-//        requestTransactionComplete()
         requestTransactionStart()
         btnOrder.isEnabled = true
     }
@@ -395,7 +415,7 @@ class G12F01S01VC: BaseParentViewController {
      * Handle processing button tapped event
      */
     internal func btnProcessingTapped(_ sender: AnyObject) {
-        changeMode(value: MODE_FINISH)
+//        changeMode(value: MODE_FINISH)
     }
     
     /**
@@ -403,7 +423,7 @@ class G12F01S01VC: BaseParentViewController {
      */
     internal func btnFinishTapped(_ sender: AnyObject) {
         openOrderDetail(id: DomainConst.BLANK)
-        changeMode(value: MODE_ORDER)
+        changeMode(value: OrderStatusEnum.STATUS_CREATE)
     }
     
     /**
@@ -415,53 +435,89 @@ class G12F01S01VC: BaseParentViewController {
     
     /**
      * Handler when transaction status request is finish
+     * - parameter model: Model object
      */
-//    internal func finishRequestTransactionStatus(_ notification: Notification) {
     internal func finishRequestTransactionStatus(_ model: Any?) {
-//        let data = (notification.object as! String)
         let data = (model as! String)
         let model = OrderViewRespModel(jsonString: data)
         if model.isSuccess() {
-            let status = checkStatus(order: model.getRecord())
-            // If current order status is finish
-            if status == MODE_FINISH {
-                changeMode(value: status)
-//                return
-            } else if status == MODE_MAP {  // Current Order status is has a Employee info
+            // Handle process base on status of order
+            switch checkStatus(order: model.getRecord()) {
+            case OrderStatusEnum.STATUS_CREATE:         // Status create
+                
+                break
+            case OrderStatusEnum.STATUS_WAIT_CONFIRM:   // Status waiting confirm
+                changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
+                break
+            case OrderStatusEnum.STATUS_CONFIRMED:      // Status confirmed
+                
+                break
+            case OrderStatusEnum.STATUS_DELIVERING:     // Status delivering
                 if !isOpenedMap {
                     isOpenedMap = !isOpenedMap
                     openMap(data: model.getRecord())
-                    changeMode(value: status)
+                    changeMode(value: OrderStatusEnum.STATUS_DELIVERING)
                 }
-            } else if status == MODE_PROCESSING {   // Current order status is NEW
-                changeMode(value: status)
-            } else if status == MODE_CANCEL {
-                if !isCancelOrder {
-                    isCancelOrder = !isCancelOrder
-                    if let currentVC = BaseViewController.getCurrentViewController() {
-                    currentVC.showAlert(message: DomainConst.CONTENT00505,
-                              okHandler: {
-                                alert in
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
-                                                                object: nil)
-                                BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
-                                self.changeMode(value: self.MODE_ORDER)
-                                self.requestTransactionStatus(completionHandler: self.finishRequestTransactionStatus)
-                                self.isCancelOrder = false
-                                return
+                break
+            case OrderStatusEnum.STATUS_COMPLETE:       // Status complete
+                changeMode(value: OrderStatusEnum.STATUS_COMPLETE)
+                break
+            case OrderStatusEnum.STATUS_NUM:            // Status cancel
+                if let currentVC = BaseViewController.getCurrentViewController() {
+                    currentVC.showAlert(
+                        message: DomainConst.CONTENT00505,
+                        okHandler: {
+                            alert in
+                            NotificationCenter.default.post(
+                                name: NSNotification.Name(
+                                    rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
+                                object: nil)
+                            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
+                            self.changeMode(value: OrderStatusEnum.STATUS_CREATE)
                     })
-                    }
                 }
-//                showAlert(message: DomainConst.CONTENT00505)
-            } else {
-                // Chek if order has finish or something wrong
-                if model.getRecord().isEmpty() {
-                    // Current view mode is not FINISH
-                    if self.mode != MODE_FINISH {
-                        changeMode(value: MODE_ORDER)
-                    }
-                }
+                break
             }
+//            let status = checkStatus(order: model.getRecord())
+//            // If current order status is finish
+//            if status == MODE_FINISH {
+//                changeMode(value: status)
+////                return
+//            } else if status == MODE_MAP {  // Current Order status is has a Employee info
+//                if !isOpenedMap {
+//                    isOpenedMap = !isOpenedMap
+//                    openMap(data: model.getRecord())
+//                    changeMode(value: status)
+//                }
+//            } else if status == MODE_PROCESSING {   // Current order status is NEW
+//                changeMode(value: status)
+//            } else if status == MODE_CANCEL {
+//                if !isCancelOrder {
+//                    isCancelOrder = !isCancelOrder
+//                    if let currentVC = BaseViewController.getCurrentViewController() {
+//                    currentVC.showAlert(message: DomainConst.CONTENT00505,
+//                              okHandler: {
+//                                alert in
+//                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
+//                                                                object: nil)
+//                                BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
+//                                self.changeMode(value: self.MODE_ORDER)
+//                                self.requestTransactionStatus(completionHandler: self.finishRequestTransactionStatus)
+//                                self.isCancelOrder = false
+//                                return
+//                    })
+//                    }
+//                }
+////                showAlert(message: DomainConst.CONTENT00505)
+//            } else {
+//                // Chek if order has finish or something wrong
+//                if model.getRecord().isEmpty() {
+//                    // Current view mode is not FINISH
+//                    if self.mode != MODE_FINISH {
+//                        changeMode(value: MODE_ORDER)
+//                    }
+//                }
+//            }
         }
         requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
     }
@@ -478,7 +534,7 @@ class G12F01S01VC: BaseParentViewController {
             transactionData.name = BaseModel.shared.getTransactionData().name
             BaseModel.shared.setTransactionData(transaction: transactionData)
 //            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
-            changeMode(value: MODE_PROCESSING)
+//            changeMode(value: MODE_PROCESSING)
         } else {
             showAlert(message: model.message)
         }
@@ -495,7 +551,14 @@ class G12F01S01VC: BaseParentViewController {
             // Start update config
             startUpdateConfig()
         } else {
-            showAlert(message: model.message)
+            // Check if need retry request Order config
+            if self.reqOrderConfigCount < REQ_ORDER_CONFIG_MAX_COUNT {
+                self.reqOrderConfigCount += 1
+                print("Retry requestOrderConfig: \(self.reqOrderConfigCount)")
+                requestOrderConfig()
+            } else {
+                showAlert(message: model.message)
+            }
         }
     }
     /**
@@ -508,10 +571,16 @@ class G12F01S01VC: BaseParentViewController {
         LoadingView.shared.hideOverlayView(className: self.theClassName)
         if model.isSuccess() {
             BaseModel.shared.saveTempData(loginModel: model)
-//            requestTransactionStart()
             updateNearestAgentInfo()
         } else {
-            showAlert(message: model.message)
+            // Check if need retry request Update config
+            if self.reqUpdateConfigCount < REQ_UPDATE_CONFIG_MAX_COUNT {
+                self.reqUpdateConfigCount += 1
+                print("Retry reqUpdateConfigCount: \(self.reqUpdateConfigCount)")
+                requestUpdateConfig()
+            } else {
+                showAlert(message: model.message)
+            }
         }
     }
     
@@ -537,11 +606,18 @@ class G12F01S01VC: BaseParentViewController {
         let model = BaseRespModel(jsonString: data)
         if model.isSuccess() {
             BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
-            changeMode(value: MODE_ORDER)
+//            changeMode(value: MODE_ORDER)
 //            requestTransactionStart()
         } else {
             showAlert(message: model.message)
         }
+    }
+    
+    /**
+     * Handle when back from Login process
+     */
+    internal func notifyLoginSuccess(_ notification: Notification) {
+        startUpdateConfig()
     }
     
     // MARK: Utilities
@@ -556,29 +632,36 @@ class G12F01S01VC: BaseParentViewController {
         } else {
             requestOrderConfig()
         }
-        requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
+//        requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
     }
     
+    /**
+     * Start update config
+     */
     internal func startUpdateConfig() {
         // Check if user is logged in already
-        if !BaseModel.shared.checkIsLogin() {
+        if BaseModel.shared.checkIsLogin() {
+            // Update config
+            requestUpdateConfig()
+        } else {    // User is not logged in yet
+            // Mark to know where returned from Login process
             NotificationCenter.default.addObserver(
-                self, selector: #selector(notifyRequestTransactionStart(_:)),
+                self, selector: #selector(notifyLoginSuccess(_:)),
                 name: NSNotification.Name(
                     rawValue: G12Const.NOTIFY_NAME_G12_REQUEST_TRANSACTION_START),
                 object: nil)
+            // Open login screen
             openLogin()
-        } else {
-            // Update config
-            UpdateConfigurationRequest.requestUpdateConfiguration(
-                action: #selector(finishRequestUpdateConfig(_:)),
-                view: self)
         }
     }
     
-    internal func notifyRequestTransactionStart(_ notification: Notification) {
-        print("notifyRequestTransactionStart")
-        requestTransactionStart()
+    /**
+     * Request update config
+     */
+    private func requestUpdateConfig() {
+        UpdateConfigurationRequest.requestUpdateConfiguration(
+            action: #selector(finishRequestUpdateConfig(_:)),
+            view: self)
     }
     
     private func requestTransactionStart() {
@@ -735,6 +818,9 @@ class G12F01S01VC: BaseParentViewController {
         btnOrder.isEnabled = true
         self.listActionsButtons[0].isEnabled = true
         self.listActionsButtons[1].isEnabled = true
+        
+        // Start request transaction status
+        requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
     }
     
     /**
@@ -761,27 +847,27 @@ class G12F01S01VC: BaseParentViewController {
     /**
      * Check status of current order
      * - parameter order: Order data
-     * - returns: Mode value
+     * - returns: OrderStatusEnum
      */
-    private func checkStatus(order: OrderBean) -> String {
+    private func checkStatus(order: OrderBean) -> OrderStatusEnum {
         // Status is Cancel
         if order.status_number == DomainConst.ORDER_STATUS_CANCEL {
-            return MODE_CANCEL
+            return OrderStatusEnum.STATUS_NUM
         }
         // Status is Complete
         if order.status_number == DomainConst.ORDER_STATUS_COMPLETE {
-            return MODE_FINISH
+            return OrderStatusEnum.STATUS_COMPLETE
         }
         
         // Current employee info does exist
         if !order.employee_code.isEmpty {
-            return MODE_MAP
+            return OrderStatusEnum.STATUS_DELIVERING
         }
         // Status is new
         if order.status_number == DomainConst.ORDER_STATUS_NEW {
-            return MODE_PROCESSING
+            return OrderStatusEnum.STATUS_WAIT_CONFIRM
         }
-        return DomainConst.BLANK
+        return OrderStatusEnum.STATUS_CREATE
     }
     
     /**
@@ -804,52 +890,62 @@ class G12F01S01VC: BaseParentViewController {
         self.navigationController?.pushViewController(promotionView, animated: true)
     }
     
+    // MARK: Status Label
+    private func createStatusLabel() {
+        lblStatus.frame         = CGRect(
+            x: 0, y: getTopHeight() + GlobalConst.MARGIN,
+            width: UIScreen.main.bounds.width,
+            height: GlobalConst.LABEL_H)
+        lblStatus.text          = DomainConst.CONTENT00512
+        lblStatus.textColor     = UIColor.black
+        lblStatus.font          = GlobalConst.BASE_FONT
+        lblStatus.textAlignment  = .center
+    }
+    
+    private func updateStatusLabel() {
+        CommonProcess.updateViewPos(
+            view: lblStatus, x: 0,
+            y: getTopHeight() + GlobalConst.MARGIN,
+            w: UIScreen.main.bounds.width,
+            h: GlobalConst.LABEL_H)
+    }
+    
+    // MARK: Status view
     /**
-     * Create category view
+     * Create Status view
      * - parameter x: X position
      * - parameter y: Y position
      * - parameter w: Width of view
      * - parameter h: Height of view
      */
-    private func createCategoryView(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
-        self.categoryView.frame = CGRect(x: x, y: y, width: w, height: h)
-        self.categoryView.backgroundColor = UIColor(white: 1, alpha: 1.0)
-        createCategoryContent()
+    private func createStatusView(w: CGFloat, h: CGFloat) {
+        self.statusView.frame = CGRect(
+            x: (UIScreen.main.bounds.width - w) / 2,
+            y: lblStatus.frame.maxY + GlobalConst.MARGIN,
+            width: w, height: h)
+        self.statusView.backgroundColor = UIColor(white: 1, alpha: 0.0)
+        createStatusContent()
     }
     
+    // MARK: Status content
     /**
-     * Create category content
+     * Create Status content
      */
-    private func createCategoryContent() {
-        // Attemp list config
-        var listConfig = [ConfigBean]()
-        listConfig.append(ConfigBean(id: DomainConst.CATEGORY_TYPE_VIP, name: "  VIP"))
-        listConfig.append(ConfigBean(id: DomainConst.CATEGORY_TYPE_GAS, name: "  GAS"))
-        listConfig.append(ConfigBean(id: DomainConst.CATEGORY_TYPE_UTILITY, name: "PHỤ KIỆN"))
-        // Attemp list image
-        var listImg = [(String, String)]()
-        listImg.append((DomainConst.CATEGORY_VIP_ICON_IMG_NAME, DomainConst.CATEGORY_VIP_ICON_IMG_NAME))
-        listImg.append((DomainConst.CATEGORY_GAS_ICON_IMG_NAME, DomainConst.CATEGORY_GAS_ICON_IMG_NAME))
-        listImg.append((DomainConst.CATEGORY_DETAIL_ICON_IMG_NAME, DomainConst.CATEGORY_DETAIL_ICON_IMG_NAME))
-        let btnWidth = categoryView.frame.height - GlobalConst.MARGIN
-        let margin = GlobalConst.MARGIN
-        let count = listConfig.count
-        let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
+    private func createStatusContent() {
+        let btnWidth = statusView.frame.height - GlobalConst.MARGIN
+        let margin: CGFloat = 0.0
+        let count = OrderStatusEnum.STATUS_NUM.rawValue
+        let btnSpace    = (statusView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
         
         for i in 0..<count {
             // Calculate frame of button
             let frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
                                width: btnWidth,
                                height: btnWidth)
-            let btn = CategoryButton(frame: frame, icon: listImg[i].0, iconActive: listImg[i].1, title: listConfig[i].name, id: listConfig[i].id)
-            
-            btn.addTarget(self, action: #selector(enableButton), for: .touchUpInside)
-            // Select default button
-            if listConfig[i].id == DomainConst.CATEGORY_TYPE_GAS {
-                btn.isSelected = true
-            }
+            let btn = CategoryButton(frame: frame, icon: listStatusIcon[i].0, iconActive: listStatusIcon[i].1, title: listStatusConfig[i].name, id: listStatusConfig[i].id)
+            btn.isUserInteractionEnabled = false
             listCategoryButtons.append(btn)
-            self.categoryView.addSubview(btn)
+            self.statusView.addSubview(btn)
         }
     }
     
@@ -857,10 +953,10 @@ class G12F01S01VC: BaseParentViewController {
      * Update category content
      */
     private func updateCategoryContent() {
-        let btnWidth = categoryView.frame.height - GlobalConst.MARGIN
-        let margin = GlobalConst.MARGIN
+        let btnWidth = statusView.frame.height - GlobalConst.MARGIN
+        let margin: CGFloat = 0.0
         let count = listCategoryButtons.count
-        let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
+        let btnSpace    = (statusView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
         
         for i in 0..<count {
             // Calculate frame of button
@@ -873,71 +969,67 @@ class G12F01S01VC: BaseParentViewController {
     /**
      * Create category view (in HD mode)
      */
-    private func createCategoryViewHD() {
-        createCategoryView(x: 0, y: getTopHeight(),
-                           w: UIScreen.main.bounds.width,
-                           h: CATEGORY_BUTTON_REAL_SIZE_HD)
+    private func createStatusViewHD() {
+        createStatusView(w: STATUS_VIEW_REAL_WIDTH_HD,
+                         h: CATEGORY_BUTTON_REAL_SIZE_HD)
     }
     
     /**
      * Create category view (in Full HD mode)
      */
-    private func createCategoryViewFHD() {
-        createCategoryView(x: 0, y: getTopHeight(),
-                           w: UIScreen.main.bounds.width,
-                           h: CATEGORY_BUTTON_REAL_SIZE_FHD)
+    private func createStatusViewFHD() {
+        createStatusView(w: STATUS_VIEW_REAL_WIDTH_FHD,
+                         h: CATEGORY_BUTTON_REAL_SIZE_FHD)
     }
     
     /**
      * Create category view (in Full HD Landscape mode)
      */
-    private func createCategoryViewFHD_L() {
-        createCategoryView(x: 0, y: getTopHeight(),
-                           w: UIScreen.main.bounds.width,
-                           h: CATEGORY_BUTTON_REAL_SIZE_FHD_L)
+    private func createStatusViewFHD_L() {
+        createStatusView(w: STATUS_VIEW_REAL_WIDTH_FHD_L,
+                         h: CATEGORY_BUTTON_REAL_SIZE_FHD_L)
+    }
+    
+    private func updateStatusView(w: CGFloat, h: CGFloat) {
+        CommonProcess.updateViewPos(
+            view: statusView,
+            x: (UIScreen.main.bounds.width - w) / 2,
+            y: lblStatus.frame.maxY + GlobalConst.MARGIN,
+            w: w, h: h)
+        updateCategoryContent()
     }
     
     /**
      * Update category view (in HD mode)
      */
-    private func updateCategoryViewHD() {
-        CommonProcess.updateViewPos(view: categoryView,
-                                    x: 0, y: getTopHeight(),
-                                    w: UIScreen.main.bounds.width,
-                                    h: CATEGORY_BUTTON_REAL_SIZE_HD)
-        updateCategoryContent()
+    private func updateStatusViewHD() {
+        updateStatusView(w: STATUS_VIEW_REAL_WIDTH_HD,
+                         h: CATEGORY_BUTTON_REAL_SIZE_HD)
     }
     
     /**
      * Update category view (in Full HD mode)
      */
-    private func updateCategoryViewFHD() {
-        CommonProcess.updateViewPos(view: categoryView,
-                                    x: 0,
-                                    y: getTopHeight(),
-                                    w: UIScreen.main.bounds.width,
-                                    h: CATEGORY_BUTTON_REAL_SIZE_FHD)
-        updateCategoryContent()
+    private func updateStatusViewFHD() {
+        updateStatusView(w: STATUS_VIEW_REAL_WIDTH_FHD,
+                         h: CATEGORY_BUTTON_REAL_SIZE_FHD)
     }
     
     /**
      * Update category view (in Full HD Landscape mode)
      */
-    private func updateCategoryViewFHD_L() {
-        CommonProcess.updateViewPos(view: categoryView,
-                                    x: 0,
-                                    y: getTopHeight(),
-                                    w: UIScreen.main.bounds.width,
-                                    h: CATEGORY_BUTTON_REAL_SIZE_FHD_L)
-        updateCategoryContent()
+    private func updateStatusViewFHD_L() {
+        updateStatusView(w: STATUS_VIEW_REAL_WIDTH_FHD_L,
+                         h: CATEGORY_BUTTON_REAL_SIZE_FHD_L)
     }
     
+    // MARK: Order label
     /**
      * Create order label
      */
     private func createOrderLabel() {
         lblOrder.text           = DomainConst.CONTENT00130.uppercased()
-        lblOrder.textColor      = UIColor.red
+        lblOrder.textColor      = GlobalConst.MAIN_COLOR_GAS_24H
         lblOrder.font           = UIFont.boldSystemFont(ofSize: GlobalConst.NOTIFY_FONT_SIZE)
         lblOrder.textAlignment  = .center
     }
@@ -990,6 +1082,7 @@ class G12F01S01VC: BaseParentViewController {
                                     h: GlobalConst.LABEL_H * 2)
     }
     
+    // MARK: Order button
     private func createOrderButton(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
         self.btnOrder.frame = CGRect(x: x, y: y, width: w, height: h)
         self.btnOrder.setImage(ImageManager.getImage(named: DomainConst.ORDER_BUTTON_ICON_IMG_NAME),
@@ -1020,7 +1113,7 @@ class G12F01S01VC: BaseParentViewController {
     
     internal func handlTappedProcessingView(_ gestureRecognizer: UITapGestureRecognizer) {
 //        openMap(data: OrderBean.init())
-        changeMode(value: MODE_FINISH)
+//        changeMode(value: MODE_FINISH)
     }
     
     private func createOrderButtonHD() {
@@ -1101,6 +1194,7 @@ class G12F01S01VC: BaseParentViewController {
                                     w: ORDER_BUTTON_REAL_SIZE_FHD_L, h: ORDER_BUTTON_REAL_SIZE_FHD_L)
     }
     
+    // MARK: Explain label
     /**
      * Create explain label
      */
@@ -1126,6 +1220,7 @@ class G12F01S01VC: BaseParentViewController {
                                     h: GlobalConst.LABEL_H)
     }
     
+    // MARK: Actions view
     /**
      * Create actions view
      * - parameter x: X position
@@ -1133,8 +1228,10 @@ class G12F01S01VC: BaseParentViewController {
      * - parameter w: Width of view
      * - parameter h: Height of view
      */
-    private func createActionsView(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
-        self.actionsView.frame = CGRect(x: x, y: y, width: w, height: h)
+    private func createActionsView(y: CGFloat, w: CGFloat, h: CGFloat) {
+        self.actionsView.frame = CGRect(
+            x: (UIScreen.main.bounds.width - w) / 2,
+            y: y, width: w, height: h)
         self.actionsView.backgroundColor = UIColor(white: 1, alpha: 0.0)
         createActionsViewContent()
     }
@@ -1143,9 +1240,8 @@ class G12F01S01VC: BaseParentViewController {
      * Create actions view (in HD mode)
      */
     private func createActionsViewHD() {
-        createActionsView(x: 0,
-                          y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_HD,
-                          w: UIScreen.main.bounds.width,
+        createActionsView(y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_HD,
+                          w: STATUS_VIEW_REAL_WIDTH_HD,
                           h: BUTTON_ACTION_REAL_SIZE_HD)
     }
     
@@ -1153,9 +1249,8 @@ class G12F01S01VC: BaseParentViewController {
      * Create actions view (in Full HD mode)
      */
     private func createActionsViewFHD() {
-        createActionsView(x: 0,
-                          y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD,
-                          w: UIScreen.main.bounds.width,
+        createActionsView(y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD,
+                          w: STATUS_VIEW_REAL_WIDTH_FHD,
                           h: BUTTON_ACTION_REAL_SIZE_FHD)
     }
     
@@ -1163,49 +1258,47 @@ class G12F01S01VC: BaseParentViewController {
      * Create actions view (in Full HD Landscape mode)
      */
     private func createActionsViewFHD_L() {
-        createActionsView(x: 0,
-                          y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD_L,
-                          w: UIScreen.main.bounds.width,
+        createActionsView(y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD_L,
+                          w: STATUS_VIEW_REAL_WIDTH_FHD_L,
                           h: BUTTON_ACTION_REAL_SIZE_FHD_L)
+    }
+    
+    private func updateActionsView(y: CGFloat, w: CGFloat, h: CGFloat) {
+        CommonProcess.updateViewPos(
+            view: actionsView,
+            x: (UIScreen.main.bounds.width - w) / 2,
+            y: y, w: w, h: h)
+        updateActionsViewContent()
     }
     
     /**
      * Update actions view (in HD mode)
      */
     private func updateActionsViewHD() {
-        CommonProcess.updateViewPos(
-            view: actionsView,
-            x: 0,
+        updateActionsView(
             y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_HD,
-            w: UIScreen.main.bounds.width,
+            w: STATUS_VIEW_REAL_WIDTH_HD,
             h: BUTTON_ACTION_REAL_SIZE_HD)
-        updateActionsViewContent()
     }
     
     /**
      * Update actions view (in Full HD mode)
      */
     private func updateActionsViewFHD() {
-        CommonProcess.updateViewPos(
-            view: actionsView,
-            x: 0,
+        updateActionsView(
             y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD,
-            w: UIScreen.main.bounds.width,
+            w: STATUS_VIEW_REAL_WIDTH_FHD,
             h: BUTTON_ACTION_REAL_SIZE_FHD)
-        updateActionsViewContent()
     }
     
     /**
      * Update actions view (in Full HD Landscape mode)
      */
     private func updateActionsViewFHD_L() {
-        CommonProcess.updateViewPos(
-            view: actionsView,
-            x: 0,
+        updateActionsView(
             y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD_L,
-            w: UIScreen.main.bounds.width,
+            w: STATUS_VIEW_REAL_WIDTH_FHD_L,
             h: BUTTON_ACTION_REAL_SIZE_FHD_L)
-        updateActionsViewContent()
     }
     
     /**
@@ -1216,12 +1309,10 @@ class G12F01S01VC: BaseParentViewController {
         var listImg = [(String, String)]()
         listImg.append((DomainConst.GAS_BUTTON_ICON_IMG_NAME, DomainConst.GAS_BUTTON_ICON_IMG_NAME))
         listImg.append((DomainConst.PROMOTE_BUTTON_ICON_IMG_NAME, DomainConst.PROMOTE_BUTTON_ICON_IMG_NAME))
-        listImg.append((DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME, DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME))
-        listImg.append((DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME, DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME))
         let btnWidth = actionsView.frame.height - GlobalConst.MARGIN
         let margin = GlobalConst.MARGIN
         let count = listActionsConfig.count
-        let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
+        let btnSpace    = (actionsView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
         var font = UIFont.smallSystemFontSize
         if UIDevice.current.userInterfaceIdiom == .pad {
             font = UIFont.systemFontSize
@@ -1237,7 +1328,7 @@ class G12F01S01VC: BaseParentViewController {
             let btn = CategoryButton(frame: frame, icon: listImg[i].0, iconActive: listImg[i].1, title: listActionsConfig[i].name, id: listActionsConfig[i].id, font: font, isUpperText: true)
 //            self.adjustImageAndTitleOffsetsForButton(button: btn)
             btn.addTarget(self, action: #selector(actionsButtonTapped), for: .touchUpInside)
-            let lbl = CustomLabel(frame: CGRect(x: margin + CGFloat(i) * btnSpace,
+            let lbl = CustomLabel(frame: CGRect(x: margin + CGFloat(i) * btnSpace + actionsView.frame.minX,
                                             y: lblYPos,
                                             width: btnWidth,
                                             height: lblHeight))
@@ -1268,7 +1359,7 @@ class G12F01S01VC: BaseParentViewController {
         let btnWidth = actionsView.frame.height - GlobalConst.MARGIN
         let margin = GlobalConst.MARGIN
         let count = listActionsButtons.count
-        let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
+        let btnSpace    = (actionsView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
         
         let lblHeight = GlobalConst.LABEL_H * 4
         let lblYPos = actionsView.frame.minY + GlobalConst.LABEL_H - lblHeight
@@ -1278,13 +1369,14 @@ class G12F01S01VC: BaseParentViewController {
                                                  y: margin / 2,
                                                  width: btnWidth,
                                                  height: btnWidth)
-            listActionsLabels[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace,
+            listActionsLabels[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace + actionsView.frame.minX,
                                                 y: lblYPos,
                                                 width: btnWidth,
                                                 height: lblHeight)
         }
     }
     
+    // MARK: Group label
     /**
      * Create label
      * - parameter label:   Lable view
@@ -1321,6 +1413,7 @@ class G12F01S01VC: BaseParentViewController {
                                     h: GlobalConst.LABEL_H)
     }
     
+    // MARK: Processing label
     /**
      * Create group label
      */
@@ -1344,6 +1437,7 @@ class G12F01S01VC: BaseParentViewController {
         
     }
     
+    // MARK: Cancel order button
     /**
      * Create cancel order button
      * - parameter x: X position
@@ -1354,7 +1448,7 @@ class G12F01S01VC: BaseParentViewController {
     private func createCancelOrderBtn(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
         btnCancelOrder.frame = CGRect(x: x, y: y, width: w, height: GlobalConst.LABEL_H)
         btnCancelOrder.setTitle(DomainConst.CONTENT00320, for: UIControlState())
-        btnCancelOrder.setTitleColor(UIColor.red, for: UIControlState())
+        btnCancelOrder.setTitleColor(GlobalConst.MAIN_COLOR_GAS_24H, for: UIControlState())
         btnCancelOrder.titleLabel?.font = UIFont.systemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
         btnCancelOrder.backgroundColor = UIColor(white: 1, alpha: 0.0)
         btnCancelOrder.addTarget(self, action: #selector(btnCancelOrderTapped(_:)), for: .touchUpInside)
@@ -1435,6 +1529,7 @@ class G12F01S01VC: BaseParentViewController {
             h: GlobalConst.LABEL_H)
     }
     
+    // MARK: Finish label
     /**
      * Create group label
      */
@@ -1442,7 +1537,7 @@ class G12F01S01VC: BaseParentViewController {
         self.createLabel(label: lblFinish1,
                          offset: btnFinish.frame.maxY + GlobalConst.MARGIN,
                          text: DomainConst.CONTENT00489.uppercased(),
-                         color: UIColor.red,
+                         color: GlobalConst.MAIN_COLOR_GAS_24H,
                          isBold: true)
         self.createLabel(label: lblFinish2,
                          offset: lblFinish1.frame.maxY + GlobalConst.MARGIN,
@@ -1465,6 +1560,7 @@ class G12F01S01VC: BaseParentViewController {
         
     }
     
+    // MARK: Refer button
     /**
      * Create refer button
      * - parameter x: X position
@@ -1476,12 +1572,12 @@ class G12F01S01VC: BaseParentViewController {
         btnRefer.frame = CGRect(x: x, y: y, width: w,
                                 height: GlobalConst.LABEL_H * 3)
         btnRefer.setTitle(DomainConst.CONTENT00492.uppercased(), for: UIControlState())
-        btnRefer.setTitleColor(UIColor.red, for: UIControlState())
+        btnRefer.setTitleColor(GlobalConst.MAIN_COLOR_GAS_24H, for: UIControlState())
         btnRefer.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
         btnRefer.titleLabel?.lineBreakMode = .byWordWrapping
         btnRefer.titleLabel?.textAlignment = .center
         btnRefer.backgroundColor = UIColor.clear
-        btnRefer.layer.borderColor = UIColor.red.cgColor
+        btnRefer.layer.borderColor = GlobalConst.MAIN_COLOR_GAS_24H.cgColor
         btnRefer.layer.borderWidth = 1
         btnRefer.addTarget(self, action: #selector(btnReferTapped(_:)), for: .touchUpInside)
     }
@@ -1554,24 +1650,26 @@ class G12F01S01VC: BaseParentViewController {
     
     /**
      * Change screen mode
-     * - parameter mode: Mode of string
+     * - parameter value: OrderStatus enum
      */
-    private func changeMode(value: String) {
+    private func changeMode(value: OrderStatusEnum) {
+        listCategoryButtons[self.mode.rawValue].isSelected = false
+        listCategoryButtons[value.rawValue].isSelected = true
         self.mode = value
         switch value {
-        case MODE_ORDER:                    // Order mode
+        case OrderStatusEnum.STATUS_CREATE:         // Mode create
             showHideProcessingMode(isShow: false)
             showHideFinishMode(isShow: false)
             showHideOrderMode(isShow: true)
             setBotMsgContent(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00495)
             break
-        case MODE_PROCESSING:               // Processing mode
+        case OrderStatusEnum.STATUS_WAIT_CONFIRM:   // Mode waiting confirm
             showHideOrderMode(isShow: false)
             showHideFinishMode(isShow: false)
             showHideProcessingMode(isShow: true)
             setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
             break
-        case MODE_FINISH:                   // Finish mode
+        case OrderStatusEnum.STATUS_COMPLETE:       // Mode Finish
             showHideOrderMode(isShow: false)
             showHideProcessingMode(isShow: false)
             showHideFinishMode(isShow: true)

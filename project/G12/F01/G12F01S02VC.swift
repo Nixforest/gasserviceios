@@ -327,7 +327,7 @@ class G12F01S02VC: BaseParentViewController {
      */
     private func createEmployeeTitleLabel() {
         lblEmployeeTitle.text           = DomainConst.CONTENT00493.uppercased()
-        lblEmployeeTitle.textColor      = UIColor.red
+        lblEmployeeTitle.textColor      = GlobalConst.MAIN_COLOR_GAS_24H
         lblEmployeeTitle.font           = UIFont.boldSystemFont(ofSize: GlobalConst.BASE_FONT_SIZE)
         lblEmployeeTitle.textAlignment  = .center
         lblEmployeeTitle.frame = CGRect(x: 0,
@@ -361,7 +361,7 @@ class G12F01S02VC: BaseParentViewController {
         btnCollapse.setImage(tintedBack, for: UIControlState())
 //        btnCollapse.transform = CGAffineTransform(
 //            rotationAngle: (270.0 * CGFloat(M_PI)) / 180.0)
-        btnCollapse.tintColor = UIColor.red
+        btnCollapse.tintColor = GlobalConst.MAIN_COLOR_GAS_24H
         btnCollapse.backgroundColor = UIColor.clear
         btnCollapse.imageView?.contentMode = .scaleAspectFit
         btnCollapse.addTarget(self, action: #selector(btnCollapsedTapped(_:)),
@@ -422,7 +422,7 @@ class G12F01S02VC: BaseParentViewController {
                                             height: height / 4)
         self.lblEmployeeCode.text = "DKMN0948"
         self.lblEmployeeCode.font = GlobalConst.BASE_FONT
-        self.lblEmployeeCode.textColor = UIColor.red
+        self.lblEmployeeCode.textColor = GlobalConst.MAIN_COLOR_GAS_24H
         self.lblEmployeeCode.textAlignment = .left
         
         // Employee agent
@@ -474,7 +474,7 @@ class G12F01S02VC: BaseParentViewController {
         let chat = ImageManager.getImage(named: DomainConst.CHAT_BUTTON_ICON_IMG_NAME)
         let tinted = chat?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         btnChat.setImage(tinted, for: UIControlState())
-        btnChat.tintColor = UIColor.red
+        btnChat.tintColor = GlobalConst.MAIN_COLOR_GAS_24H
         btnChat.backgroundColor = UIColor.clear
         btnChat.imageView?.contentMode = .scaleAspectFit
         btnChat.addTarget(self, action: #selector(btnChatTapped(_:)),
@@ -495,7 +495,7 @@ class G12F01S02VC: BaseParentViewController {
         let phone = ImageManager.getImage(named: DomainConst.PHONE_BUTTON_ICON_IMG_NAME)
         let tinted = phone?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         btnPhone.setImage(tinted, for: UIControlState())
-        btnPhone.tintColor = UIColor.red
+        btnPhone.tintColor = GlobalConst.MAIN_COLOR_GAS_24H
         btnPhone.backgroundColor = UIColor.clear
         btnPhone.imageView?.contentMode = .scaleAspectFit
         btnPhone.addTarget(self, action: #selector(btnPhoneTapped(_:)),
@@ -797,7 +797,7 @@ class G12F01S02VC: BaseParentViewController {
             if step.polyline.points != "" {
                 let path = GMSPath(fromEncodedPath: step.polyline.points)
                 let routePolyline = GMSPolyline(path: path)
-                routePolyline.strokeColor = UIColor.red
+                routePolyline.strokeColor = GlobalConst.MAIN_COLOR_GAS_24H
                 routePolyline.strokeWidth = 3.0
                 routePolyline.map = self.viewMap
                 if let pathValue = path {

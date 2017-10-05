@@ -30,8 +30,10 @@ class G00LoginExtVC: ChildExtViewController {
     var btnZalo:        CustomButton    = CustomButton(type: .custom)
     /** Tap counter on logo */
     var imgLogoTappedCounter:Int        = 0
-    /** Value */
-    public static var phone:    String  = DomainConst.BLANK
+    /** Phone value */
+    var phone:          String          = DomainConst.BLANK
+    /** Token value */
+    var token:          String          = DomainConst.BLANK
     
     // MARK: Constant
     // Logo
@@ -247,11 +249,13 @@ class G00LoginExtVC: ChildExtViewController {
                 // Hide keyboard
                 self.view.endEditing(true)
                 // Save static data
-                G00LoginExtVC.phone = phoneValue
+                self.phone = phoneValue
                 // Save current phone
                 BaseModel.shared.setCurrentUsername(username: phoneValue)
-                // Hide login view
-                self.dismiss(animated: true, completion: finishDismissLogin)
+                GenerateOTPRequest.request(
+                    action: #selector(finishRequestGenerateOTP),
+                    view: self,
+                    phone: self.phone)
                 return
             }
         }
@@ -265,8 +269,21 @@ class G00LoginExtVC: ChildExtViewController {
     internal func finishDismissLogin() -> Void {
         print("finishDismissLogin")
         let confirmCode = G00ConfirmCodeVC(nibName: G00ConfirmCodeVC.theClassName, bundle: nil)
+        confirmCode.setData(phone: self.phone, token: self.token)
         if let controller = BaseViewController.getCurrentViewController() {
             controller.present(confirmCode, animated: true, completion: finishOpenConfirm)
+        }
+    }
+    
+    internal func finishRequestGenerateOTP(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            self.token = model.token
+            // Hide login view
+            self.dismiss(animated: true, completion: finishDismissLogin)
+        } else {
+            showAlert(message: model.message)
         }
     }
     

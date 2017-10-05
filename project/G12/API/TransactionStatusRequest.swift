@@ -1,7 +1,7 @@
 //
 //  TransactionStatusRequest.swift
 //  project
-//
+//  P0078_TransactionStatus_API
 //  Created by SPJ on 9/24/17.
 //  Copyright © 2017 admin. All rights reserved.
 //

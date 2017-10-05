@@ -55,6 +55,8 @@
 		D7359B231F67D8F80032F0AF /* bg_main_1_1_2048_2048.png in Resources */ = {isa = PBXBuildFile; fileRef = D7359B221F67D8F80032F0AF /* bg_main_1_1_2048_2048.png */; };
 		D7424AA81E39BA7100E442DC /* G04F01S05VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7424AA71E39BA7100E442DC /* G04F01S05VC.swift */; };
 		D7424AAA1E39BD1F00E442DC /* G04F01S05MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7424AA91E39BD1F00E442DC /* G04F01S05MenuVC.swift */; };
+		D746DE101F8625E100C014DA /* G00Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D746DE0F1F8625E100C014DA /* G00Const.swift */; };
+		D746DE121F86285D00C014DA /* GenerateOTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D746DE111F86285D00C014DA /* GenerateOTPRequest.swift */; };
 		D747F9E61E4C4FB90098A9BA /* AddPromotionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D747F9E51E4C4FB90098A9BA /* AddPromotionRequest.swift */; };
 		D74E99391F4D2A0C001E735D /* GetReferInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74E99381F4D2A0C001E735D /* GetReferInfoRequest.swift */; };
 		D7671BE11E16E3AC0026DCFA /* OrderListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7671BE01E16E3AC0026DCFA /* OrderListRespModel.swift */; };
@@ -223,6 +225,8 @@
 		D7359B221F67D8F80032F0AF /* bg_main_1_1_2048_2048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg_main_1_1_2048_2048.png; path = Images/bg_main_1_1_2048_2048.png; sourceTree = "<group>"; };
 		D7424AA71E39BA7100E442DC /* G04F01S05VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S05VC.swift; path = G04/G04F01S05VC.swift; sourceTree = "<group>"; };
 		D7424AA91E39BD1F00E442DC /* G04F01S05MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S05MenuVC.swift; path = G04/G04F01S05MenuVC.swift; sourceTree = "<group>"; };
+		D746DE0F1F8625E100C014DA /* G00Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00Const.swift; path = G00/G00Const.swift; sourceTree = "<group>"; };
+		D746DE111F86285D00C014DA /* GenerateOTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenerateOTPRequest.swift; path = G00/API/GenerateOTPRequest.swift; sourceTree = "<group>"; };
 		D747F9E51E4C4FB90098A9BA /* AddPromotionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddPromotionRequest.swift; path = G04/AddPromotionRequest.swift; sourceTree = "<group>"; };
 		D74E99381F4D2A0C001E735D /* GetReferInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetReferInfoRequest.swift; path = G04/API/GetReferInfoRequest.swift; sourceTree = "<group>"; };
 		D7671BE01E16E3AC0026DCFA /* OrderListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderListRespModel.swift; path = G04/OrderListRespModel.swift; sourceTree = "<group>"; };
@@ -425,6 +429,8 @@
 		92BF0C1D1DC1B2D1009B1DA4 /* G00 */ = {
 			isa = PBXGroup;
 			children = (
+				D746DE0F1F8625E100C014DA /* G00Const.swift */,
+				D746DE0C1F8625CD00C014DA /* API */,
 				D78B06931F69364400AB17E8 /* Version2 */,
 				D7804B421E7685E700C94F75 /* G00InfomationVC.swift */,
 				D7804B261E7685CF00C94F75 /* G00AccountMenuVC.swift */,
@@ -520,6 +526,14 @@
 				D7359B111F67C56C0032F0AF /* logo_new.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		D746DE0C1F8625CD00C014DA /* API */ = {
+			isa = PBXGroup;
+			children = (
+				D746DE111F86285D00C014DA /* GenerateOTPRequest.swift */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 		D78B06931F69364400AB17E8 /* Version2 */ = {
@@ -934,6 +948,7 @@
 				D7804B3C1E7685CF00C94F75 /* G00HomeMenuVC.swift in Sources */,
 				D7804B371E7685CF00C94F75 /* G00ChangePassVC.swift in Sources */,
 				D7804B381E7685CF00C94F75 /* G00ConfigurationMenuVC.swift in Sources */,
+				D746DE121F86285D00C014DA /* GenerateOTPRequest.swift in Sources */,
 				D747F9E61E4C4FB90098A9BA /* AddPromotionRequest.swift in Sources */,
 				D721C5051F5D39C3003E823D /* Leg.swift in Sources */,
 				D7D429D41F4ABB6E00001766 /* File.metal in Sources */,
@@ -958,6 +973,7 @@
 				D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */,
 				D7E014B41E348FC9001F26B6 /* G04F01S03MenuVC.swift in Sources */,
 				D7804B3E1E7685CF00C94F75 /* G00LoginMenuVC.swift in Sources */,
+				D746DE101F8625E100C014DA /* G00Const.swift in Sources */,
 				D7EAC44E1F581223008890DA /* GoogleMapVC.swift in Sources */,
 				D721C5081F5D39C3003E823D /* Route.swift in Sources */,
 				D7E299081F74EDEE0078C46C /* G12F01S02VC.swift in Sources */,

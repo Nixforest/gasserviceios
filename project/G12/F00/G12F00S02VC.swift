@@ -410,7 +410,7 @@ class G12F00S02VC: ChildExtViewController {
      */
     private func createEmployeeTitleLabel() {
         lblEmployeeTitle.text           = DomainConst.CONTENT00493.uppercased()
-        lblEmployeeTitle.textColor      = UIColor.red
+        lblEmployeeTitle.textColor      = GlobalConst.MAIN_COLOR_GAS_24H
         lblEmployeeTitle.font           = UIFont.boldSystemFont(ofSize: GlobalConst.BASE_FONT_SIZE)
         lblEmployeeTitle.textAlignment  = .center
         lblEmployeeTitle.frame = CGRect(x: 0,
@@ -473,7 +473,7 @@ class G12F00S02VC: ChildExtViewController {
             width: w, height: h)
         self.lblEmployeeCode.text = "DKMN0948"
         self.lblEmployeeCode.font = GlobalConst.BASE_FONT
-        self.lblEmployeeCode.textColor = UIColor.red
+        self.lblEmployeeCode.textColor = GlobalConst.MAIN_COLOR_GAS_24H
         self.lblEmployeeCode.textAlignment = .left
     }
     
@@ -507,7 +507,7 @@ class G12F00S02VC: ChildExtViewController {
      */
     private func createRatingLabel() {
         lblRating.text           = DomainConst.CONTENT00507.uppercased()
-        lblRating.textColor      = UIColor.red
+        lblRating.textColor      = GlobalConst.MAIN_COLOR_GAS_24H
         lblRating.font           = GlobalConst.BASE_BOLD_FONT
         lblRating.textAlignment  = .center
         let width = DomainConst.CONTENT00507.uppercased().widthOfString(usingFont: GlobalConst.BASE_BOLD_FONT) + 2 * GlobalConst.MARGIN
@@ -519,7 +519,7 @@ class G12F00S02VC: ChildExtViewController {
         lblRating.backgroundColor = GlobalConst.PROMOTION_BKG_COLOR
         
         lblRatingSeparator.text           = DomainConst.SEPARATOR_STR
-        lblRatingSeparator.textColor      = UIColor.red
+        lblRatingSeparator.textColor      = GlobalConst.MAIN_COLOR_GAS_24H
         lblRatingSeparator.font           = GlobalConst.BASE_BOLD_FONT
         lblRatingSeparator.textAlignment  = .center
         lblRatingSeparator.lineBreakMode  = .byCharWrapping
@@ -598,10 +598,10 @@ extension G12F00S02VC: UITableViewDataSource {
         cell.detailTextLabel?.text = data.getValue()
         switch data.id {
         case DomainConst.ORDER_INFO_TOTAL_MONEY_ID:
-            cell.detailTextLabel?.textColor = UIColor.red
+            cell.detailTextLabel?.textColor = GlobalConst.MAIN_COLOR_GAS_24H
             cell.detailTextLabel?.font = GlobalConst.BASE_BOLD_FONT
         case DomainConst.ORDER_INFO_DISCOUNT:
-            cell.detailTextLabel?.textColor = UIColor.red
+            cell.detailTextLabel?.textColor = GlobalConst.MAIN_COLOR_GAS_24H
             cell.detailTextLabel?.font = GlobalConst.BASE_FONT
             break
         default:
