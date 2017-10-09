@@ -29,7 +29,7 @@ class G12F01S01VC: BaseParentViewController {
         ConfigBean(id: String(OrderStatusEnum.STATUS_DELIVERING.rawValue),
                    name: DomainConst.CONTENT00515),
         ConfigBean(id: String(OrderStatusEnum.STATUS_COMPLETE.rawValue),
-                   name: DomainConst.CONTENT00489)
+                   name: DomainConst.CONTENT00520)
     ]
     /** List status icon */
     var listStatusIcon:         [(String, String)] = [
@@ -149,6 +149,14 @@ class G12F01S01VC: BaseParentViewController {
     var CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD   = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD / 2
     var CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD_L = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD_L / 2
     
+    // Refer button
+    var REFER_BUTTON_REAL_WIDTH_HD      = GlobalConst.REFER_BUTTON_WIDTH * BaseViewController.W_RATE_HD
+    var REFER_BUTTON_REAL_WIDTH_FHD     = GlobalConst.REFER_BUTTON_WIDTH * BaseViewController.W_RATE_FHD
+    var REFER_BUTTON_REAL_WIDTH_FHD_L   = GlobalConst.REFER_BUTTON_WIDTH * BaseViewController.W_RATE_FHD_L
+    var REFER_BUTTON_REAL_HEIGHT_HD     = GlobalConst.REFER_BUTTON_HEIGHT * BaseViewController.H_RATE_HD
+    var REFER_BUTTON_REAL_HEIGHT_FHD    = GlobalConst.REFER_BUTTON_HEIGHT * BaseViewController.H_RATE_FHD
+    var REFER_BUTTON_REAL_HEIGHT_FHD_L  = GlobalConst.REFER_BUTTON_HEIGHT * BaseViewController.H_RATE_FHD_L
+    
     // MARK: Override methods
     /**
      * Called after the controller's view is loaded into memory.
@@ -161,6 +169,7 @@ class G12F01S01VC: BaseParentViewController {
         self.createNavigationBar(title: "1900 1565")
 //        openLogin()
         changeMode(value: OrderStatusEnum.STATUS_CREATE)
+//        changeMode(value: OrderStatusEnum.STATUS_CONFIRMED)
         // Location setting
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -217,6 +226,14 @@ class G12F01S01VC: BaseParentViewController {
         CANCEL_ORDER_BUTTON_REAL_HEIGHT_HD    = GlobalConst.LOGIN_TEXTFIELD_HEIGHT * BaseViewController.H_RATE_HD / 2
         CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD   = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD / 2
         CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD_L = GlobalConst.BUTTON_CANCEL_ORDER_WIDTH * BaseViewController.H_RATE_FHD_L / 2
+        
+        // Refer button
+        REFER_BUTTON_REAL_WIDTH_HD      = GlobalConst.REFER_BUTTON_WIDTH * BaseViewController.W_RATE_HD
+        REFER_BUTTON_REAL_WIDTH_FHD     = GlobalConst.REFER_BUTTON_WIDTH * BaseViewController.W_RATE_FHD
+        REFER_BUTTON_REAL_WIDTH_FHD_L   = GlobalConst.REFER_BUTTON_WIDTH * BaseViewController.W_RATE_FHD_L
+        REFER_BUTTON_REAL_HEIGHT_HD     = GlobalConst.REFER_BUTTON_HEIGHT * BaseViewController.H_RATE_HD
+        REFER_BUTTON_REAL_HEIGHT_FHD    = GlobalConst.REFER_BUTTON_HEIGHT * BaseViewController.H_RATE_FHD
+        REFER_BUTTON_REAL_HEIGHT_FHD_L  = GlobalConst.REFER_BUTTON_HEIGHT * BaseViewController.H_RATE_FHD_L
     }
     
     /**
@@ -933,7 +950,7 @@ class G12F01S01VC: BaseParentViewController {
      */
     private func createStatusContent() {
         let btnWidth = statusView.frame.height - GlobalConst.MARGIN
-        let margin: CGFloat = 0.0
+        let margin: CGFloat = GlobalConst.MARGIN
         let count = OrderStatusEnum.STATUS_NUM.rawValue
         let btnSpace    = (statusView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
         
@@ -942,7 +959,11 @@ class G12F01S01VC: BaseParentViewController {
             let frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
                                width: btnWidth,
                                height: btnWidth)
-            let btn = CategoryButton(frame: frame, icon: listStatusIcon[i].0, iconActive: listStatusIcon[i].1, title: listStatusConfig[i].name, id: listStatusConfig[i].id)
+            let btn = CategoryButton(frame: frame,
+                                     icon: listStatusIcon[i].0,
+                                     iconActive: listStatusIcon[i].1,
+                                     title: listStatusConfig[i].name.uppercased(),
+                                     id: listStatusConfig[i].id)
             btn.isUserInteractionEnabled = false
             listCategoryButtons.append(btn)
             self.statusView.addSubview(btn)
@@ -952,9 +973,9 @@ class G12F01S01VC: BaseParentViewController {
     /**
      * Update category content
      */
-    private func updateCategoryContent() {
+    private func updateStatusContent() {
         let btnWidth = statusView.frame.height - GlobalConst.MARGIN
-        let margin: CGFloat = 0.0
+        let margin: CGFloat = GlobalConst.MARGIN
         let count = listCategoryButtons.count
         let btnSpace    = (statusView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
         
@@ -996,7 +1017,7 @@ class G12F01S01VC: BaseParentViewController {
             x: (UIScreen.main.bounds.width - w) / 2,
             y: lblStatus.frame.maxY + GlobalConst.MARGIN,
             w: w, h: h)
-        updateCategoryContent()
+        updateStatusContent()
     }
     
     /**
@@ -1309,10 +1330,11 @@ class G12F01S01VC: BaseParentViewController {
         var listImg = [(String, String)]()
         listImg.append((DomainConst.GAS_BUTTON_ICON_IMG_NAME, DomainConst.GAS_BUTTON_ICON_IMG_NAME))
         listImg.append((DomainConst.PROMOTE_BUTTON_ICON_IMG_NAME, DomainConst.PROMOTE_BUTTON_ICON_IMG_NAME))
+        
         let btnWidth = actionsView.frame.height - GlobalConst.MARGIN
         let margin = GlobalConst.MARGIN
         let count = listActionsConfig.count
-        let btnSpace    = (actionsView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
+        let btnSpace    = (actionsView.frame.width - 2 * margin - btnWidth) / (CGFloat)(5 - 1)
         var font = UIFont.smallSystemFontSize
         if UIDevice.current.userInterfaceIdiom == .pad {
             font = UIFont.systemFontSize
@@ -1320,15 +1342,19 @@ class G12F01S01VC: BaseParentViewController {
         let lblHeight = GlobalConst.LABEL_H * 4
         let lblYPos = actionsView.frame.minY + GlobalConst.LABEL_H - lblHeight
         for i in 0..<count {
+            var index = 2 * i + 1
+            if self.isFHD_LSize() {
+                index = 4 * i
+            }
             // Calculate frame of button
-            let frame = CGRect(x: margin + CGFloat(i) * btnSpace,
+            let frame = CGRect(x: margin + CGFloat(index) * btnSpace,
                                y: margin / 2,
                                width: btnWidth,
                                height: btnWidth)
             let btn = CategoryButton(frame: frame, icon: listImg[i].0, iconActive: listImg[i].1, title: listActionsConfig[i].name, id: listActionsConfig[i].id, font: font, isUpperText: true)
 //            self.adjustImageAndTitleOffsetsForButton(button: btn)
             btn.addTarget(self, action: #selector(actionsButtonTapped), for: .touchUpInside)
-            let lbl = CustomLabel(frame: CGRect(x: margin + CGFloat(i) * btnSpace + actionsView.frame.minX,
+            let lbl = CustomLabel(frame: CGRect(x: btn.frame.minX + actionsView.frame.minX,
                                             y: lblYPos,
                                             width: btnWidth,
                                             height: lblHeight))
@@ -1359,17 +1385,21 @@ class G12F01S01VC: BaseParentViewController {
         let btnWidth = actionsView.frame.height - GlobalConst.MARGIN
         let margin = GlobalConst.MARGIN
         let count = listActionsButtons.count
-        let btnSpace    = (actionsView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
+        let btnSpace    = (actionsView.frame.width - 2 * margin - btnWidth) / (CGFloat)(5 - 1)
         
         let lblHeight = GlobalConst.LABEL_H * 4
         let lblYPos = actionsView.frame.minY + GlobalConst.LABEL_H - lblHeight
         for i in 0..<count {
+            var index = 2 * i + 1
+            if self.isFHD_LSize() {
+                index = 4 * i
+            }
             // Calculate frame of button
-            listActionsButtons[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace,
+            listActionsButtons[i].frame = CGRect(x: margin + CGFloat(index) * btnSpace,
                                                  y: margin / 2,
                                                  width: btnWidth,
                                                  height: btnWidth)
-            listActionsLabels[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace + actionsView.frame.minX,
+            listActionsLabels[i].frame = CGRect(x: listActionsButtons[i].frame.minX + actionsView.frame.minX,
                                                 y: lblYPos,
                                                 width: btnWidth,
                                                 height: lblHeight)
@@ -1395,7 +1425,8 @@ class G12F01S01VC: BaseParentViewController {
         if isBold {
             label.font      = GlobalConst.BASE_BOLD_FONT
         } else {
-            label.font      = UIFont.italicSystemFont(ofSize: GlobalConst.BASE_FONT_SIZE)
+//            label.font      = UIFont.italicSystemFont(ofSize: GlobalConst.BASE_FONT_SIZE)
+            label.font      = UIFont.systemFont(ofSize: GlobalConst.BASE_FONT_SIZE)
         }
         label.textAlignment  = .center
     }
@@ -1568,17 +1599,23 @@ class G12F01S01VC: BaseParentViewController {
      * - parameter w: Width of view
      * - parameter h: Height of view
      */
-    private func createReferBtn(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
-        btnRefer.frame = CGRect(x: x, y: y, width: w,
-                                height: GlobalConst.LABEL_H * 3)
-        btnRefer.setTitle(DomainConst.CONTENT00492.uppercased(), for: UIControlState())
-        btnRefer.setTitleColor(GlobalConst.MAIN_COLOR_GAS_24H, for: UIControlState())
-        btnRefer.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
-        btnRefer.titleLabel?.lineBreakMode = .byWordWrapping
-        btnRefer.titleLabel?.textAlignment = .center
-        btnRefer.backgroundColor = UIColor.clear
-        btnRefer.layer.borderColor = GlobalConst.MAIN_COLOR_GAS_24H.cgColor
-        btnRefer.layer.borderWidth = 1
+    private func createReferBtn(w: CGFloat, h: CGFloat) {
+        btnRefer.frame = CGRect(
+            x: (UIScreen.main.bounds.width - w) / 2,
+            y: lblFinish3.frame.maxY,
+            width: w, height: h)
+//        btnRefer.setTitle(DomainConst.CONTENT00492.uppercased(), for: UIControlState())
+//        btnRefer.setTitleColor(GlobalConst.MAIN_COLOR_GAS_24H, for: UIControlState())
+//        btnRefer.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+//        btnRefer.titleLabel?.lineBreakMode = .byWordWrapping
+//        btnRefer.titleLabel?.textAlignment = .center
+//        btnRefer.backgroundColor = UIColor.clear
+//        btnRefer.layer.borderColor = GlobalConst.MAIN_COLOR_GAS_24H.cgColor
+//        btnRefer.layer.borderWidth = 1
+        
+        btnRefer.setImage(
+            ImageManager.getImage(named: DomainConst.REFER_BUTTON_ICON_IMG_NAME),
+            for: UIControlState())
         btnRefer.addTarget(self, action: #selector(btnReferTapped(_:)), for: .touchUpInside)
     }
     
@@ -1587,10 +1624,8 @@ class G12F01S01VC: BaseParentViewController {
      */
     private func createReferBtnHD() {
         self.createReferBtn(
-            x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_HD) / 2,
-            y: lblFinish3.frame.maxY + GlobalConst.MARGIN,
-            w: CANCEL_ORDER_BUTTON_REAL_WIDTH_HD,
-            h: CANCEL_ORDER_BUTTON_REAL_HEIGHT_HD * 3)
+            w: REFER_BUTTON_REAL_WIDTH_HD,
+            h: REFER_BUTTON_REAL_HEIGHT_HD)
     }
     
     /**
@@ -1598,10 +1633,8 @@ class G12F01S01VC: BaseParentViewController {
      */
     private func createReferBtnFHD() {
         self.createReferBtn(
-            x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD) / 2,
-            y: lblFinish3.frame.maxY + GlobalConst.MARGIN,
-            w: CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD,
-            h: CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD * 3)
+            w: REFER_BUTTON_REAL_WIDTH_FHD,
+            h: REFER_BUTTON_REAL_HEIGHT_FHD)
     }
     
     /**
@@ -1609,43 +1642,42 @@ class G12F01S01VC: BaseParentViewController {
      */
     private func createReferBtnFHD_L() {
         self.createReferBtn(
-            x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L) / 2,
-            y: lblFinish3.frame.maxY + GlobalConst.MARGIN,
-            w: CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L,
-            h: CANCEL_ORDER_BUTTON_REAL_HEIGHT_FHD_L * 3)
+            w: REFER_BUTTON_REAL_WIDTH_FHD_L,
+            h: REFER_BUTTON_REAL_HEIGHT_FHD_L)
+    }
+    
+    private func updateReferBtn(w: CGFloat, h: CGFloat) {
+        CommonProcess.updateViewPos(view: btnRefer,
+                                    x: (UIScreen.main.bounds.width - w) / 2,
+                                    y: lblFinish3.frame.maxY,
+                                    w: w, h: h)
     }
     
     /**
      * Update refer button (in HD mode)
      */
     private func updateReferBtnHD() {
-        CommonProcess.updateViewPos(view: btnRefer,
-                                    x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_HD) / 2,
-                                    y: lblFinish3.frame.maxY + GlobalConst.MARGIN,
-                                    w: CANCEL_ORDER_BUTTON_REAL_WIDTH_HD,
-                                    h: GlobalConst.LABEL_H * 3)
+        self.updateReferBtn(
+            w: REFER_BUTTON_REAL_WIDTH_HD,
+            h: REFER_BUTTON_REAL_HEIGHT_HD)
     }
     
     /**
      * Update refer button (in Full HD mode)
      */
     private func updateReferBtnFHD() {
-        CommonProcess.updateViewPos(view: btnRefer,
-                                    x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD) / 2,
-                                    y: lblFinish3.frame.maxY + GlobalConst.MARGIN,
-                                    w: CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD,
-                                    h: GlobalConst.LABEL_H * 3)
+        self.updateReferBtn(
+            w: REFER_BUTTON_REAL_WIDTH_FHD,
+            h: REFER_BUTTON_REAL_HEIGHT_FHD)
     }
     
     /**
      * Update refer button (in Full HD Landscape mode)
      */
     private func updateReferBtnFHD_L() {
-        CommonProcess.updateViewPos(view: btnRefer,
-                                    x: (UIScreen.main.bounds.width - CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L) / 2,
-                                    y: lblFinish3.frame.maxY + GlobalConst.MARGIN,
-                                    w: CANCEL_ORDER_BUTTON_REAL_WIDTH_FHD_L,
-                                    h: GlobalConst.LABEL_H * 3)
+        self.updateReferBtn(
+            w: REFER_BUTTON_REAL_WIDTH_FHD_L,
+            h: REFER_BUTTON_REAL_HEIGHT_FHD_L)
     }
     
     /**
@@ -1667,6 +1699,13 @@ class G12F01S01VC: BaseParentViewController {
             showHideOrderMode(isShow: false)
             showHideFinishMode(isShow: false)
             showHideProcessingMode(isShow: true)
+            setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
+            break
+        case OrderStatusEnum.STATUS_CONFIRMED:      // Mode confirmed
+            showHideOrderMode(isShow: false)
+            showHideFinishMode(isShow: false)
+            showHideProcessingMode(isShow: false)
+            showHideConfirmedMode()
             setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
             break
         case OrderStatusEnum.STATUS_COMPLETE:       // Mode Finish
@@ -1713,10 +1752,27 @@ class G12F01S01VC: BaseParentViewController {
         for i in 0..<listActionsConfig.count {
             if listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_GAS
                 || listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE {
-                listActionsButtons[i].isHidden = isShow
-                listActionsLabels[i].isHidden = isShow
+                listActionsButtons[i].isHidden = !isShow
+                listActionsLabels[i].isHidden = !isShow
             }
         }
+        if isShow {
+            btnProcessing.setImage(
+                ImageManager.getImage(
+                    named: DomainConst.PROCESSING_BUTTON_ICON_IMG_NAME),
+                for: UIControlState())
+            lblProcessing1.text = DomainConst.CONTENT00487
+            lblProcessing2.text = DomainConst.CONTENT00488
+        }
+    }
+    
+    private func showHideConfirmedMode() {
+        btnProcessing.setImage(
+            ImageManager.getImage(
+                named: DomainConst.CONFIRMED_BUTTON_ICON_IMG_NAME),
+            for: UIControlState())
+        lblProcessing1.text = DomainConst.CONTENT00521
+        lblProcessing2.text = DomainConst.CONTENT00522
     }
     
     /**
