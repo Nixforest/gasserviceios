@@ -88,6 +88,10 @@
 		D78B06921F692D2300AB17E8 /* welcome_1536_2048.png in Resources */ = {isa = PBXBuildFile; fileRef = D78B06911F692D2300AB17E8 /* welcome_1536_2048.png */; };
 		D791F6AD1E237BF5009CBBED /* OrderListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D791F6AB1E237BF5009CBBED /* OrderListRequest.swift */; };
 		D791F6AE1E237BF5009CBBED /* OrderViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D791F6AC1E237BF5009CBBED /* OrderViewRequest.swift */; };
+		D795D0451F8B806700001902 /* OrderPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D795D0441F8B806700001902 /* OrderPreview.swift */; };
+		D795D0491F8C902400001902 /* ReferInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D795D0481F8C902400001902 /* ReferInfoRequest.swift */; };
+		D795D04C1F8C911D00001902 /* ReferInfoBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D795D04B1F8C911D00001902 /* ReferInfoBean.swift */; };
+		D795D04E1F8CAB5200001902 /* ReferInfoRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D795D04D1F8CAB5200001902 /* ReferInfoRespModel.swift */; };
 		D79C1BB91E4AB7B600E6E121 /* splashlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = D79C1BB81E4AB7B600E6E121 /* splashlogo.png */; };
 		D79C1BBB1E4ACB3E00E6E121 /* PromotionListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C1BBA1E4ACB3E00E6E121 /* PromotionListRequest.swift */; };
 		D79C1BBF1E4AD3D700E6E121 /* PromotionListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C1BBE1E4AD3D700E6E121 /* PromotionListRespModel.swift */; };
@@ -258,6 +262,10 @@
 		D78B06911F692D2300AB17E8 /* welcome_1536_2048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = welcome_1536_2048.png; path = Images/welcome_1536_2048.png; sourceTree = "<group>"; };
 		D791F6AB1E237BF5009CBBED /* OrderListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderListRequest.swift; path = G04/OrderListRequest.swift; sourceTree = "<group>"; };
 		D791F6AC1E237BF5009CBBED /* OrderViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderViewRequest.swift; path = G04/OrderViewRequest.swift; sourceTree = "<group>"; };
+		D795D0441F8B806700001902 /* OrderPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderPreview.swift; path = G12/CustomControl/OrderPreview.swift; sourceTree = "<group>"; };
+		D795D0481F8C902400001902 /* ReferInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReferInfoRequest.swift; path = G13/API/ReferInfoRequest.swift; sourceTree = "<group>"; };
+		D795D04B1F8C911D00001902 /* ReferInfoBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReferInfoBean.swift; path = G13/Model/ReferInfoBean.swift; sourceTree = "<group>"; };
+		D795D04D1F8CAB5200001902 /* ReferInfoRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReferInfoRespModel.swift; path = G13/Model/ReferInfoRespModel.swift; sourceTree = "<group>"; };
 		D79C1BB81E4AB7B600E6E121 /* splashlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = splashlogo.png; path = Assets.xcassets/splashlogo.png; sourceTree = "<group>"; };
 		D79C1BBA1E4ACB3E00E6E121 /* PromotionListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionListRequest.swift; path = G04/PromotionListRequest.swift; sourceTree = "<group>"; };
 		D79C1BBE1E4AD3D700E6E121 /* PromotionListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionListRespModel.swift; path = G04/PromotionListRespModel.swift; sourceTree = "<group>"; };
@@ -455,6 +463,8 @@
 			isa = PBXGroup;
 			children = (
 				D7117B5C1F7ACF3100B8C2FA /* G13Const.swift */,
+				D795D0471F8C8EA500001902 /* API */,
+				D795D04A1F8C90B800001902 /* Model */,
 				D7117B5E1F7ACF5C00B8C2FA /* F00 */,
 			);
 			name = G13;
@@ -564,6 +574,31 @@
 			name = API;
 			sourceTree = "<group>";
 		};
+		D795D0411F8B44CD00001902 /* CustomControl */ = {
+			isa = PBXGroup;
+			children = (
+				D795D0441F8B806700001902 /* OrderPreview.swift */,
+			);
+			name = CustomControl;
+			sourceTree = "<group>";
+		};
+		D795D0471F8C8EA500001902 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				D795D0481F8C902400001902 /* ReferInfoRequest.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		D795D04A1F8C90B800001902 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D795D04B1F8C911D00001902 /* ReferInfoBean.swift */,
+				D795D04D1F8CAB5200001902 /* ReferInfoRespModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		D7A9666F1E12EA0B00C9D601 /* G04 */ = {
 			isa = PBXGroup;
 			children = (
@@ -634,6 +669,7 @@
 			children = (
 				D7DDA4F71F77D44500824FC4 /* G12Const.swift */,
 				D7DDA4F41F77D3A700824FC4 /* API */,
+				D795D0411F8B44CD00001902 /* CustomControl */,
 				D7E307351F72BA360065F2E1 /* F00 */,
 				D7E307361F72BA3A0065F2E1 /* F01 */,
 			);
@@ -943,6 +979,7 @@
 				D7F17CD91E5DF4A300208A73 /* OrderTransactionConfirmRespModel.swift in Sources */,
 				D7DDA4F61F77D3D100824FC4 /* TransactionStatusRequest.swift in Sources */,
 				D7804B391E7685CF00C94F75 /* G00ConfigurationVC.swift in Sources */,
+				D795D04E1F8CAB5200001902 /* ReferInfoRespModel.swift in Sources */,
 				D7804B361E7685CF00C94F75 /* G00ChangePassMenuVC.swift in Sources */,
 				D79C1BBF1E4AD3D700E6E121 /* PromotionListRespModel.swift in Sources */,
 				D7804B3C1E7685CF00C94F75 /* G00HomeMenuVC.swift in Sources */,
@@ -981,11 +1018,13 @@
 				D7CED4921F6137C700CCAA2F /* MultiDeviceVC.swift in Sources */,
 				D7671BE11E16E3AC0026DCFA /* OrderListRespModel.swift in Sources */,
 				D7804B3A1E7685CF00C94F75 /* G00HomeCell.swift in Sources */,
+				D795D0491F8C902400001902 /* ReferInfoRequest.swift in Sources */,
 				D71C25AA1E42544300E29C3B /* OrderTransactionCancelRequest.swift in Sources */,
 				D72C8B651E49D83700541651 /* G04F02S01VC.swift in Sources */,
 				D721C5021F5D39C3003E823D /* DirectionOverview.swift in Sources */,
 				D7804B411E7685CF00C94F75 /* G00RegisterVC.swift in Sources */,
 				D74E99391F4D2A0C001E735D /* GetReferInfoRequest.swift in Sources */,
+				D795D0451F8B806700001902 /* OrderPreview.swift in Sources */,
 				D7671BE71E16E3E80026DCFA /* G04F00S01VC.swift in Sources */,
 				D79C1BBB1E4ACB3E00E6E121 /* PromotionListRequest.swift in Sources */,
 				D791F6AE1E237BF5009CBBED /* OrderViewRequest.swift in Sources */,
@@ -1003,6 +1042,7 @@
 				D7C30A3D1E305BF900B3FDA6 /* OrderConfigRespModel.swift in Sources */,
 				D7E014A81E34647D001F26B6 /* G04F01S02MenuVC.swift in Sources */,
 				D7F684411E2F49E900D3D6F4 /* OrderConfigRequest.swift in Sources */,
+				D795D04C1F8C911D00001902 /* ReferInfoBean.swift in Sources */,
 				D71544AF1F6BB26600480486 /* G00LoginExtVC.swift in Sources */,
 				D76E580B1F7DF24900CF6557 /* G12F00S02VC.swift in Sources */,
 				D7DA56B01E40F18F00B6F618 /* OrderTransactionStartRespModel.swift in Sources */,

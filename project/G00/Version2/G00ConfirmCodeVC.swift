@@ -287,6 +287,16 @@ class G00ConfirmCodeVC: ChildExtViewController {
         }
     }
     
+    func finishRequestGenerateOTP(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            self._token = model.token
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
     /**
      * Handle when tap on next button
      */
@@ -327,6 +337,14 @@ class G00ConfirmCodeVC: ChildExtViewController {
      * Handle when tap on resend button
      */
     func btnResendTapped(_ sender: AnyObject) {
+        if !_phone.isEmpty {
+            // Hide keyboard
+            self.view.endEditing(true)
+            GenerateOTPRequest.request(
+                action: #selector(finishRequestGenerateOTP),
+                view: self,
+                phone: _phone)
+        }
     }
     
     /**

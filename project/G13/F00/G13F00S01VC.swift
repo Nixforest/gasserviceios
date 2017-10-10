@@ -57,7 +57,9 @@ class G13F00S01VC: BaseParentViewController {
     /** Using code mode: */
     var usingCodeMode:      Int                 = 0
     /** Refer code value */
-    var referCode:          String              = "7f0d3b"
+    var referCode:          String              = DomainConst.BLANK
+    /** Refer link */
+    var referLink:          String              = BaseModel.shared.getServerURL() + "api/referral/code?code="
     
     // MARK: Static values
     
@@ -119,6 +121,7 @@ class G13F00S01VC: BaseParentViewController {
 
         // Do any additional setup after loading the view.
         self.createNavigationBar(title: DomainConst.CONTENT00247)
+        requestReferInfo()
     }
     
     /**
@@ -286,7 +289,23 @@ class G13F00S01VC: BaseParentViewController {
         usingCodeSegment.selectedSegmentIndex = MODE_NORMAL_CODE
     }
     
+    internal func finishRequestReferInfo(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = ReferInfoRespModel(jsonString: data)
+        if model.isSuccess() {
+            referCode = model.getRecord().invite_code
+            txtCode.text = referCode
+            createQRCode()
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
     // MARK: Utilities
+    private func requestReferInfo() {
+        ReferInfoRequest.request(action: #selector(finishRequestReferInfo),
+                                 view: self)
+    }
     /**
      * Switch screen mode
      */
@@ -351,6 +370,19 @@ class G13F00S01VC: BaseParentViewController {
         self.navigationController?.pushViewController(scan, animated: true)
     }
     
+    private func createQRCode() {
+        imgQRCode.image = {
+            if var qrCode = QRCode(referLink + referCode) {
+                qrCode.size = imgQRCode.bounds.size
+                qrCode.errorCorrection = .High
+                return qrCode.image
+            } else {
+                return UIImage()
+            }
+        }()
+    }
+    
+    // MARK: Segment control
     /**
      * create segment control
      * - parameter w: Width of control
@@ -579,6 +611,7 @@ class G13F00S01VC: BaseParentViewController {
         txtCode.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS_NEW
         txtCode.keyboardType       = .default
         txtCode.returnKeyType      = .done
+        txtCode.isUserInteractionEnabled = false
     }
     
     /**
@@ -738,15 +771,7 @@ class G13F00S01VC: BaseParentViewController {
             y: referSegment.frame.maxY + GlobalConst.MARGIN,
             width: size, height: size)
         imgQRCode.isHidden = true
-        imgQRCode.image = {
-            if var qrCode = QRCode(referCode) {
-                qrCode.size = imgQRCode.bounds.size
-                qrCode.errorCorrection = .High
-                return qrCode.image
-            } else {
-                return UIImage()
-            }
-        }()
+        createQRCode()
     }
     
     private func createQRCodeImgHD() {

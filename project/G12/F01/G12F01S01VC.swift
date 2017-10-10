@@ -96,6 +96,8 @@ class G12F01S01VC: BaseParentViewController {
     var reqOrderConfigCount:    Int         = 0
     /** UpdateConfig request retry count */
     var reqUpdateConfigCount:   Int         = 0
+    /** Preview view */
+    var previewView:            OrderPreview      = OrderPreview()
     
     // MARK: Static values
     /** Current position of map view */
@@ -156,6 +158,11 @@ class G12F01S01VC: BaseParentViewController {
     var REFER_BUTTON_REAL_HEIGHT_HD     = GlobalConst.REFER_BUTTON_HEIGHT * BaseViewController.H_RATE_HD
     var REFER_BUTTON_REAL_HEIGHT_FHD    = GlobalConst.REFER_BUTTON_HEIGHT * BaseViewController.H_RATE_FHD
     var REFER_BUTTON_REAL_HEIGHT_FHD_L  = GlobalConst.REFER_BUTTON_HEIGHT * BaseViewController.H_RATE_FHD_L
+    
+    // Preview view
+    var PREVIEW_VIEW_REAL_WIDTH_HD       = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_HD
+    var PREVIEW_VIEW_REAL_WIDTH_FHD      = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD
+    var PREVIEW_VIEW_REAL_WIDTH_FHD_L    = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD_L
     
     // MARK: Override methods
     /**
@@ -234,6 +241,11 @@ class G12F01S01VC: BaseParentViewController {
         REFER_BUTTON_REAL_HEIGHT_HD     = GlobalConst.REFER_BUTTON_HEIGHT * BaseViewController.H_RATE_HD
         REFER_BUTTON_REAL_HEIGHT_FHD    = GlobalConst.REFER_BUTTON_HEIGHT * BaseViewController.H_RATE_FHD
         REFER_BUTTON_REAL_HEIGHT_FHD_L  = GlobalConst.REFER_BUTTON_HEIGHT * BaseViewController.H_RATE_FHD_L
+        
+        // Preview view
+        PREVIEW_VIEW_REAL_WIDTH_HD       = STATUS_VIEW_REAL_WIDTH_HD
+        PREVIEW_VIEW_REAL_WIDTH_FHD      = STATUS_VIEW_REAL_WIDTH_FHD
+        PREVIEW_VIEW_REAL_WIDTH_FHD_L    = STATUS_VIEW_REAL_WIDTH_FHD_L
     }
     
     /**
@@ -277,6 +289,7 @@ class G12F01S01VC: BaseParentViewController {
             createCancelBtnHD()
             createReferBtnHD()
             createActionsViewHD()
+            createPreviewViewHD()
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
@@ -290,6 +303,7 @@ class G12F01S01VC: BaseParentViewController {
                 createCancelBtnFHD()
                 createReferBtnFHD()
                 createActionsViewFHD()
+                createPreviewViewFHD()
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
                 createStatusViewFHD_L()
@@ -301,6 +315,7 @@ class G12F01S01VC: BaseParentViewController {
                 createCancelBtnFHD_L()
                 createReferBtnFHD_L()
                 createActionsViewFHD_L()
+                createPreviewViewFHD_L()
                 break
             default:
                 break
@@ -331,6 +346,7 @@ class G12F01S01VC: BaseParentViewController {
         }
         self.view.addSubview(btnCancelOrder)
         self.view.addSubview(btnRefer)
+        self.view.addSubview(previewView)
     }
     
     /**
@@ -351,6 +367,7 @@ class G12F01S01VC: BaseParentViewController {
             updateCancelBtnHD()
             updateReferBtnHD()
             updateActionsViewHD()
+            updatePreviewViewHD()
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
@@ -364,6 +381,7 @@ class G12F01S01VC: BaseParentViewController {
                 updateCancelBtnFHD()
                 updateReferBtnFHD()
                 updateActionsViewFHD()
+                updatePreviewViewFHD()
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
                 updateStatusViewFHD_L()
@@ -375,6 +393,7 @@ class G12F01S01VC: BaseParentViewController {
                 updateCancelBtnFHD_L()
                 updateReferBtnFHD_L()
                 updateActionsViewFHD_L()
+                updatePreviewViewFHD_L()
                 break
             default:
                 break
@@ -402,14 +421,10 @@ class G12F01S01VC: BaseParentViewController {
         // Handle by button identify
         switch ((sender as! UIButton).accessibilityIdentifier!) {
         case DomainConst.ACTION_TYPE_SELECT_GAS:
-            G12F01S03VC.setData(data: G12F01S01VC._nearestAgent.info_gas)
-            let s03 = G12F01S03VC(nibName: G12F01S03VC.theClassName, bundle: nil)
-            self.navigationController?.pushViewController(s03, animated: true)
+            openGasSelect()
             return
         case DomainConst.ACTION_TYPE_SELECT_PROMOTE:
-            G12F01S03VC.setData(data: G12F01S01VC._nearestAgent.info_promotion)
-            let s04 = G12F01S04VC(nibName: G12F01S04VC.theClassName, bundle: nil)
-            self.navigationController?.pushViewController(s04, animated: true)
+            openPromoteSelect()
             return
         case DomainConst.ACTION_TYPE_SUPPORT:
             showAlert(message: "DomainConst.ACTION_TYPE_SUPPORT")
@@ -480,8 +495,9 @@ class G12F01S01VC: BaseParentViewController {
                 changeMode(value: OrderStatusEnum.STATUS_COMPLETE)
                 break
             case OrderStatusEnum.STATUS_NUM:            // Status cancel
-                if let currentVC = BaseViewController.getCurrentViewController() {
-                    currentVC.showAlert(
+                if !isCancelOrder {
+                    isCancelOrder = true
+                    self.showAlert(
                         message: DomainConst.CONTENT00505,
                         okHandler: {
                             alert in
@@ -491,6 +507,9 @@ class G12F01S01VC: BaseParentViewController {
                                 object: nil)
                             BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
                             self.changeMode(value: OrderStatusEnum.STATUS_CREATE)
+                            self.requestTransactionStatus(completionHandler: self.finishRequestTransactionStatus)
+                            self.isCancelOrder = false
+                            return
                     })
                 }
                 break
@@ -504,7 +523,7 @@ class G12F01S01VC: BaseParentViewController {
 //                if !isOpenedMap {
 //                    isOpenedMap = !isOpenedMap
 //                    openMap(data: model.getRecord())
-//                    changeMode(value: status)
+//                    change3311Mode(value: status)
 //                }
 //            } else if status == MODE_PROCESSING {   // Current order status is NEW
 //                changeMode(value: status)
@@ -799,6 +818,7 @@ class G12F01S01VC: BaseParentViewController {
             }
         }
         updateMaterialSelector()
+        previewView.setData()
     }
     
     /**
@@ -905,6 +925,130 @@ class G12F01S01VC: BaseParentViewController {
     internal override func openPromotion() {
         let promotionView = G13F00S01VC(nibName: G13F00S01VC.theClassName, bundle: nil)
         self.navigationController?.pushViewController(promotionView, animated: true)
+    }
+    
+    internal func openGasSelect() {
+        G12F01S03VC.setData(data: G12F01S01VC._nearestAgent.info_gas)
+        let s03 = G12F01S03VC(nibName: G12F01S03VC.theClassName, bundle: nil)
+        self.navigationController?.pushViewController(s03, animated: true)
+    }
+    
+    internal func openPromoteSelect() {
+        G12F01S03VC.setData(data: G12F01S01VC._nearestAgent.info_promotion)
+        let s04 = G12F01S04VC(nibName: G12F01S04VC.theClassName, bundle: nil)
+        self.navigationController?.pushViewController(s04, animated: true)
+    }
+    
+    /**
+     * Change screen mode
+     * - parameter value: OrderStatus enum
+     */
+    private func changeMode(value: OrderStatusEnum) {
+        listCategoryButtons[self.mode.rawValue].isSelected = false
+        listCategoryButtons[value.rawValue].isSelected = true
+        self.mode = value
+        switch value {
+        case OrderStatusEnum.STATUS_CREATE:         // Mode create
+            showHideProcessingMode(isShow: false)
+            showHideFinishMode(isShow: false)
+            showHideOrderMode(isShow: true)
+            setBotMsgContent(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00495)
+            self.isCancelOrder = false
+            break
+        case OrderStatusEnum.STATUS_WAIT_CONFIRM:   // Mode waiting confirm
+            showHideOrderMode(isShow: false)
+            showHideFinishMode(isShow: false)
+            showHideProcessingMode(isShow: true)
+            setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
+            break
+        case OrderStatusEnum.STATUS_CONFIRMED:      // Mode confirmed
+            showHideOrderMode(isShow: false)
+            showHideFinishMode(isShow: false)
+            showHideProcessingMode(isShow: false)
+            showHideConfirmedMode()
+            setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
+            break
+        case OrderStatusEnum.STATUS_COMPLETE:       // Mode Finish
+            showHideOrderMode(isShow: false)
+            showHideProcessingMode(isShow: false)
+            showHideFinishMode(isShow: true)
+            setBotMsgContent(note: DomainConst.CONTENT00497, description: DomainConst.CONTENT00497)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
+                                            object: nil)
+            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
+            break
+        default:
+            break
+        }
+    }
+    
+    /**
+     * Show/hide children views in order mode
+     * - parameter isShow: Flag show or hide
+     */
+    private func showHideOrderMode(isShow: Bool) {
+        lblOrder.isHidden = !isShow
+        btnOrder.isHidden = !isShow
+        lblExplain.isHidden = !isShow
+        for i in 0..<listActionsConfig.count {
+            if listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_GAS
+                || listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE {
+                listActionsButtons[i].isHidden = !isShow
+                listActionsLabels[i].isHidden = !isShow
+            }
+        }
+    }
+    
+    /**
+     * Show/hide children views in processing mode
+     * - parameter isShow: Flag show or hide
+     */
+    private func showHideProcessingMode(isShow: Bool) {
+        btnProcessing.isHidden = !isShow
+        processingView?.isHidden = !isShow
+        lblProcessing1.isHidden = !isShow
+        lblProcessing2.isHidden = !isShow
+        btnCancelOrder.isHidden = !isShow
+        for i in 0..<listActionsConfig.count {
+            if listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_GAS
+                || listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE {
+                listActionsButtons[i].isHidden = !isShow
+                listActionsLabels[i].isHidden = !isShow
+            }
+        }
+        if isShow {
+            btnProcessing.setImage(
+                ImageManager.getImage(
+                    named: DomainConst.PROCESSING_BUTTON_ICON_IMG_NAME),
+                for: UIControlState())
+            lblProcessing1.text = DomainConst.CONTENT00487
+            lblProcessing2.text = DomainConst.CONTENT00488
+        }
+    }
+    
+    private func showHideConfirmedMode() {
+        btnProcessing.setImage(
+            ImageManager.getImage(
+                named: DomainConst.CONFIRMED_BUTTON_ICON_IMG_NAME),
+            for: UIControlState())
+        lblProcessing1.text = DomainConst.CONTENT00521
+        lblProcessing2.text = DomainConst.CONTENT00522
+    }
+    
+    /**
+     * Show/hide children views in finish mode
+     * - parameter isShow: Flag show or hide
+     */
+    private func showHideFinishMode(isShow: Bool) {
+        btnFinish.isHidden = !isShow
+        lblFinish1.isHidden = !isShow
+        lblFinish2.isHidden = !isShow
+        lblFinish3.isHidden = !isShow
+        btnRefer.isHidden = !isShow
+        for i in 0..<listActionsConfig.count {
+            listActionsButtons[i].isHidden = isShow
+            listActionsLabels[i].isHidden = isShow
+        }
     }
     
     // MARK: Status Label
@@ -1680,115 +1824,48 @@ class G12F01S01VC: BaseParentViewController {
             h: REFER_BUTTON_REAL_HEIGHT_FHD_L)
     }
     
-    /**
-     * Change screen mode
-     * - parameter value: OrderStatus enum
-     */
-    private func changeMode(value: OrderStatusEnum) {
-        listCategoryButtons[self.mode.rawValue].isSelected = false
-        listCategoryButtons[value.rawValue].isSelected = true
-        self.mode = value
-        switch value {
-        case OrderStatusEnum.STATUS_CREATE:         // Mode create
-            showHideProcessingMode(isShow: false)
-            showHideFinishMode(isShow: false)
-            showHideOrderMode(isShow: true)
-            setBotMsgContent(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00495)
-            break
-        case OrderStatusEnum.STATUS_WAIT_CONFIRM:   // Mode waiting confirm
-            showHideOrderMode(isShow: false)
-            showHideFinishMode(isShow: false)
-            showHideProcessingMode(isShow: true)
-            setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
-            break
-        case OrderStatusEnum.STATUS_CONFIRMED:      // Mode confirmed
-            showHideOrderMode(isShow: false)
-            showHideFinishMode(isShow: false)
-            showHideProcessingMode(isShow: false)
-            showHideConfirmedMode()
-            setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
-            break
-        case OrderStatusEnum.STATUS_COMPLETE:       // Mode Finish
-            showHideOrderMode(isShow: false)
-            showHideProcessingMode(isShow: false)
-            showHideFinishMode(isShow: true)
-            setBotMsgContent(note: DomainConst.CONTENT00497, description: DomainConst.CONTENT00497)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
-                                            object: nil)
-            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
-            break
-        default:
-            break
-        }
+    // MARK: Preview order View
+    private func createPreviewView(w: CGFloat) {
+        let yPos = statusView.frame.maxY + GlobalConst.MARGIN
+        previewView.setup(x: (UIScreen.main.bounds.width - w) / 2,
+                          y: yPos,
+                          w: w,
+                          h: UIScreen.main.bounds.height - yPos - getTopHeight())
+        previewView.delegate = self
+        previewView.setData()
     }
     
-    /**
-     * Show/hide children views in order mode
-     * - parameter isShow: Flag show or hide
-     */
-    private func showHideOrderMode(isShow: Bool) {
-        lblOrder.isHidden = !isShow
-        btnOrder.isHidden = !isShow
-        lblExplain.isHidden = !isShow
-        for i in 0..<listActionsConfig.count {
-            if listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_GAS
-                || listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE {
-                listActionsButtons[i].isHidden = !isShow
-                listActionsLabels[i].isHidden = !isShow
-            }
-        }
+    private func createPreviewViewHD() {
+        createPreviewView(w: PREVIEW_VIEW_REAL_WIDTH_HD)
     }
     
-    /**
-     * Show/hide children views in processing mode
-     * - parameter isShow: Flag show or hide
-     */
-    private func showHideProcessingMode(isShow: Bool) {
-        btnProcessing.isHidden = !isShow
-        processingView?.isHidden = !isShow
-        lblProcessing1.isHidden = !isShow
-        lblProcessing2.isHidden = !isShow
-        btnCancelOrder.isHidden = !isShow
-        for i in 0..<listActionsConfig.count {
-            if listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_GAS
-                || listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE {
-                listActionsButtons[i].isHidden = !isShow
-                listActionsLabels[i].isHidden = !isShow
-            }
-        }
-        if isShow {
-            btnProcessing.setImage(
-                ImageManager.getImage(
-                    named: DomainConst.PROCESSING_BUTTON_ICON_IMG_NAME),
-                for: UIControlState())
-            lblProcessing1.text = DomainConst.CONTENT00487
-            lblProcessing2.text = DomainConst.CONTENT00488
-        }
+    private func createPreviewViewFHD() {
+        createPreviewView(w: PREVIEW_VIEW_REAL_WIDTH_FHD)
     }
     
-    private func showHideConfirmedMode() {
-        btnProcessing.setImage(
-            ImageManager.getImage(
-                named: DomainConst.CONFIRMED_BUTTON_ICON_IMG_NAME),
-            for: UIControlState())
-        lblProcessing1.text = DomainConst.CONTENT00521
-        lblProcessing2.text = DomainConst.CONTENT00522
+    private func createPreviewViewFHD_L() {
+        createPreviewView(w: PREVIEW_VIEW_REAL_WIDTH_FHD_L)
     }
     
-    /**
-     * Show/hide children views in finish mode
-     * - parameter isShow: Flag show or hide
-     */
-    private func showHideFinishMode(isShow: Bool) {
-        btnFinish.isHidden = !isShow
-        lblFinish1.isHidden = !isShow
-        lblFinish2.isHidden = !isShow
-        lblFinish3.isHidden = !isShow
-        btnRefer.isHidden = !isShow
-        for i in 0..<listActionsConfig.count {
-            listActionsButtons[i].isHidden = isShow
-            listActionsLabels[i].isHidden = isShow
-        }
+    private func updatePreviewView(w: CGFloat) {
+        let yPos = statusView.frame.maxY + GlobalConst.MARGIN
+        previewView.update(x: (UIScreen.main.bounds.width - w) / 2,
+                          y: yPos,
+                          w: w,
+                          h: UIScreen.main.bounds.height - yPos - getTopHeight())
+        previewView.setData()
+    }
+    
+    private func updatePreviewViewHD() {
+        updatePreviewView(w: PREVIEW_VIEW_REAL_WIDTH_HD)
+    }
+    
+    private func updatePreviewViewFHD() {
+        updatePreviewView(w: PREVIEW_VIEW_REAL_WIDTH_FHD)
+    }
+    
+    private func updatePreviewViewFHD_L() {
+        updatePreviewView(w: PREVIEW_VIEW_REAL_WIDTH_FHD_L)
     }
 }
 
@@ -1839,5 +1916,14 @@ extension G12F01S01VC: CLLocationManagerDelegate {
      */
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         manager.stopUpdatingLocation()
+    }
+}
+// MARK: Protocol - CLLocationManagerDelegate
+extension G12F01S01VC: OrderPreviewDelegate {
+    func btnGasTapped(_ sender: AnyObject) {
+        self.openGasSelect()
+    }
+    func btnPromoteTapped(_ sender: AnyObject) {
+        self.openPromoteSelect()
     }
 }
