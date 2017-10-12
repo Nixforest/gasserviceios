@@ -45,7 +45,7 @@ class G12F01S01VC: BaseParentViewController {
          DomainConst.ORDER_STATUS_COMPLETE_ACTIVE_IMG_NAME)
     ]
     /** List of category button */
-    var listCategoryButtons:    [UIButton]  = [UIButton]()
+    var listStatusButtons:    [UIButton]  = [UIButton]()
     /** Label Order */
     var lblOrder:               UILabel     = UILabel()
     /** Button order */
@@ -928,14 +928,16 @@ class G12F01S01VC: BaseParentViewController {
     }
     
     internal func openGasSelect() {
-        G12F01S03VC.setData(data: G12F01S01VC._nearestAgent.info_gas)
+//        G12F01S03VC.setData(data: G12F01S01VC._nearestAgent.info_gas)
         let s03 = G12F01S03VC(nibName: G12F01S03VC.theClassName, bundle: nil)
+        s03.setData(data: G12F01S01VC._nearestAgent.info_gas)
         self.navigationController?.pushViewController(s03, animated: true)
     }
     
     internal func openPromoteSelect() {
-        G12F01S03VC.setData(data: G12F01S01VC._nearestAgent.info_promotion)
+//        G12F01S03VC.setData(data: G12F01S01VC._nearestAgent.info_promotion)
         let s04 = G12F01S04VC(nibName: G12F01S04VC.theClassName, bundle: nil)
+        s04.setData(data: G12F01S01VC._nearestAgent.info_promotion)
         self.navigationController?.pushViewController(s04, animated: true)
     }
     
@@ -944,8 +946,8 @@ class G12F01S01VC: BaseParentViewController {
      * - parameter value: OrderStatus enum
      */
     private func changeMode(value: OrderStatusEnum) {
-        listCategoryButtons[self.mode.rawValue].isSelected = false
-        listCategoryButtons[value.rawValue].isSelected = true
+        listStatusButtons[self.mode.rawValue].isSelected = false
+        listStatusButtons[value.rawValue].isSelected = true
         self.mode = value
         switch value {
         case OrderStatusEnum.STATUS_CREATE:         // Mode create
@@ -1109,7 +1111,7 @@ class G12F01S01VC: BaseParentViewController {
                                      title: listStatusConfig[i].name.uppercased(),
                                      id: listStatusConfig[i].id)
             btn.isUserInteractionEnabled = false
-            listCategoryButtons.append(btn)
+            listStatusButtons.append(btn)
             self.statusView.addSubview(btn)
         }
     }
@@ -1120,12 +1122,12 @@ class G12F01S01VC: BaseParentViewController {
     private func updateStatusContent() {
         let btnWidth = statusView.frame.height - GlobalConst.MARGIN
         let margin: CGFloat = GlobalConst.MARGIN
-        let count = listCategoryButtons.count
+        let count = listStatusButtons.count
         let btnSpace    = (statusView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
         
         for i in 0..<count {
             // Calculate frame of button
-            listCategoryButtons[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
+            listStatusButtons[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
                                width: btnWidth,
                                height: btnWidth + GlobalConst.MARGIN)
         }
@@ -1833,6 +1835,7 @@ class G12F01S01VC: BaseParentViewController {
                           h: UIScreen.main.bounds.height - yPos - getTopHeight())
         previewView.delegate = self
         previewView.setData()
+        previewView.isHidden = BaseModel.shared.isFirstOrder()
     }
     
     private func createPreviewViewHD() {

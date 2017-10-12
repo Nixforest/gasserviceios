@@ -105,6 +105,7 @@
 		D7DA56AB1E40EB1000B6F618 /* OrderTransactionStartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA56AA1E40EB1000B6F618 /* OrderTransactionStartRequest.swift */; };
 		D7DA56B01E40F18F00B6F618 /* OrderTransactionStartRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA56AF1E40F18F00B6F618 /* OrderTransactionStartRespModel.swift */; };
 		D7DA56B21E41171500B6F618 /* OrderTransactionCompleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA56B11E41171500B6F618 /* OrderTransactionCompleteRequest.swift */; };
+		D7DD767E1F8DDDED00AD06F4 /* MaterialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DD767D1F8DDDED00AD06F4 /* MaterialCollectionViewCell.swift */; };
 		D7DDA4F11F77CA3900824FC4 /* BaseParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DDA4F01F77CA3900824FC4 /* BaseParentViewController.swift */; };
 		D7DDA4F61F77D3D100824FC4 /* TransactionStatusRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DDA4F51F77D3D100824FC4 /* TransactionStatusRequest.swift */; };
 		D7DDA4F81F77D44500824FC4 /* G12Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DDA4F71F77D44500824FC4 /* G12Const.swift */; };
@@ -279,6 +280,7 @@
 		D7DA56AA1E40EB1000B6F618 /* OrderTransactionStartRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionStartRequest.swift; path = G04/OrderTransactionStartRequest.swift; sourceTree = "<group>"; };
 		D7DA56AF1E40F18F00B6F618 /* OrderTransactionStartRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionStartRespModel.swift; path = G04/OrderTransactionStartRespModel.swift; sourceTree = "<group>"; };
 		D7DA56B11E41171500B6F618 /* OrderTransactionCompleteRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionCompleteRequest.swift; path = G04/OrderTransactionCompleteRequest.swift; sourceTree = "<group>"; };
+		D7DD767D1F8DDDED00AD06F4 /* MaterialCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MaterialCollectionViewCell.swift; path = G12/CustomControl/MaterialCollectionViewCell.swift; sourceTree = "<group>"; };
 		D7DDA4F01F77CA3900824FC4 /* BaseParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseParentViewController.swift; path = Common/BaseParentViewController.swift; sourceTree = "<group>"; };
 		D7DDA4F51F77D3D100824FC4 /* TransactionStatusRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionStatusRequest.swift; path = G12/API/TransactionStatusRequest.swift; sourceTree = "<group>"; };
 		D7DDA4F71F77D44500824FC4 /* G12Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12Const.swift; path = G12/G12Const.swift; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 			isa = PBXGroup;
 			children = (
 				D795D0441F8B806700001902 /* OrderPreview.swift */,
+				D7DD767D1F8DDDED00AD06F4 /* MaterialCollectionViewCell.swift */,
 			);
 			name = CustomControl;
 			sourceTree = "<group>";
@@ -1023,6 +1026,7 @@
 				D72C8B651E49D83700541651 /* G04F02S01VC.swift in Sources */,
 				D721C5021F5D39C3003E823D /* DirectionOverview.swift in Sources */,
 				D7804B411E7685CF00C94F75 /* G00RegisterVC.swift in Sources */,
+				D7DD767E1F8DDDED00AD06F4 /* MaterialCollectionViewCell.swift in Sources */,
 				D74E99391F4D2A0C001E735D /* GetReferInfoRequest.swift in Sources */,
 				D795D0451F8B806700001902 /* OrderPreview.swift in Sources */,
 				D7671BE71E16E3E80026DCFA /* G04F00S01VC.swift in Sources */,

@@ -19,6 +19,38 @@ class G12F01S02VC: BaseParentViewController {
     private let locationManager:    CLLocationManager   = CLLocationManager()
     /** Service request direction */
     public let directionService:    DirectionService    = DirectionService()
+    /** Status Order */
+    var lblStatus:              UILabel     = UILabel()
+    /** Status view */
+    var statusView:             UIView      = UIView()
+    /** List status config */
+    var listStatusConfig:       [ConfigBean] = [
+        ConfigBean(id: String(OrderStatusEnum.STATUS_CREATE.rawValue),
+                   name: DomainConst.CONTENT00130),
+        ConfigBean(id: String(OrderStatusEnum.STATUS_WAIT_CONFIRM.rawValue),
+                   name: DomainConst.CONTENT00513),
+        ConfigBean(id: String(OrderStatusEnum.STATUS_CONFIRMED.rawValue),
+                   name: DomainConst.CONTENT00514),
+        ConfigBean(id: String(OrderStatusEnum.STATUS_DELIVERING.rawValue),
+                   name: DomainConst.CONTENT00515),
+        ConfigBean(id: String(OrderStatusEnum.STATUS_COMPLETE.rawValue),
+                   name: DomainConst.CONTENT00520)
+    ]
+    /** List status icon */
+    var listStatusIcon:         [(String, String)] = [
+        (DomainConst.ORDER_STATUS_CREATE_INACTIVE_IMG_NAME,
+         DomainConst.ORDER_STATUS_CREATE_ACTIVE_IMG_NAME),
+        (DomainConst.ORDER_STATUS_WAITING_INACTIVE_IMG_NAME,
+         DomainConst.ORDER_STATUS_WAITING_ACTIVE_IMG_NAME),
+        (DomainConst.ORDER_STATUS_CONFIRMED_INACTIVE_IMG_NAME,
+         DomainConst.ORDER_STATUS_CONFIRMED_ACTIVE_IMG_NAME),
+        (DomainConst.ORDER_STATUS_DELIVERING_INACTIVE_IMG_NAME,
+         DomainConst.ORDER_STATUS_DELIVERING_ACTIVE_IMG_NAME),
+        (DomainConst.ORDER_STATUS_COMPLETE_INACTIVE_IMG_NAME,
+         DomainConst.ORDER_STATUS_COMPLETE_ACTIVE_IMG_NAME)
+    ]
+    /** List of category button */
+    var listStatusButtons:    [UIButton]  = [UIButton]()
     /** Collapse view */
     var collapseView:               UIView              = UIView()
     /** Flag collapsed */
@@ -51,19 +83,19 @@ class G12F01S02VC: BaseParentViewController {
     public var _source:             (lat: Double, long: Double) = (10.7968085, 106.705285)
     /** Origin position */
     public var _destination:        (lat: Double, long: Double) = (10.805353620543599,106.71155154705048)
-    /** Actions view */
-    var actionsView:                UIView      = UIView()
-    /** List of actions button */
-    var listActionsButtons:         [UIButton]  = [UIButton]()
-    /** List of actions label */
-    var listActionsLabels:          [UILabel]   = [UILabel]()
-    // Attemp list config
-    var listActionsConfig:          [ConfigBean] = [
-        ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00485),
-        ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00486),
-        ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00484),
-        ConfigBean(id: DomainConst.ACTION_TYPE_SUPPORT, name: DomainConst.CONTENT00484)
-    ]
+//    /** Actions view */
+//    var actionsView:                UIView      = UIView()
+//    /** List of actions button */
+//    var listActionsButtons:         [UIButton]  = [UIButton]()
+//    /** List of actions label */
+//    var listActionsLabels:          [UILabel]   = [UILabel]()
+//    // Attemp list config
+//    var listActionsConfig:          [ConfigBean] = [
+//        ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00485),
+//        ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00486),
+//        ConfigBean(id: DomainConst.ACTION_TYPE_NONE, name: DomainConst.CONTENT00484),
+//        ConfigBean(id: DomainConst.ACTION_TYPE_SUPPORT, name: DomainConst.CONTENT00484)
+//    ]
     /** Data */
     var _data:                      OrderBean   = OrderBean()
     /** Detail direction */
@@ -78,10 +110,20 @@ class G12F01S02VC: BaseParentViewController {
     var DELIVERY_MAP_TOP_VIEW_REAL_WIDTH_FHD    = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD
     var DELIVERY_MAP_TOP_VIEW_REAL_WIDTH_FHD_L  = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD_L
     
+//    // Category button
+//    var BUTTON_ACTION_REAL_SIZE_HD    = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_HD
+//    var BUTTON_ACTION_REAL_SIZE_FHD   = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD
+//    var BUTTON_ACTION_REAL_SIZE_FHD_L = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD_L
+    
+    // Status
+    var STATUS_VIEW_REAL_WIDTH_HD       = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_HD
+    var STATUS_VIEW_REAL_WIDTH_FHD      = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD
+    var STATUS_VIEW_REAL_WIDTH_FHD_L    = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD_L
+    
     // Category button
-    var BUTTON_ACTION_REAL_SIZE_HD    = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_HD
-    var BUTTON_ACTION_REAL_SIZE_FHD   = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD
-    var BUTTON_ACTION_REAL_SIZE_FHD_L = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD_L
+    var CATEGORY_BUTTON_REAL_SIZE_HD    = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_HD
+    var CATEGORY_BUTTON_REAL_SIZE_FHD   = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_FHD
+    var CATEGORY_BUTTON_REAL_SIZE_FHD_L = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_FHD_L
     
     // MARK: Override methods
     /**
@@ -120,6 +162,7 @@ class G12F01S02VC: BaseParentViewController {
         createCenterMark()
         self.showBotMsg(note: DomainConst.CONTENT00498,
                         description: DomainConst.CONTENT00498)
+        changeMode(value: OrderStatusEnum.STATUS_DELIVERING)
     }
     
     /**
@@ -135,10 +178,20 @@ class G12F01S02VC: BaseParentViewController {
         DELIVERY_MAP_TOP_VIEW_REAL_WIDTH_FHD    = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD
         DELIVERY_MAP_TOP_VIEW_REAL_WIDTH_FHD_L  = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD_L
         
+//        // Category button
+//        BUTTON_ACTION_REAL_SIZE_HD    = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_HD
+//        BUTTON_ACTION_REAL_SIZE_FHD   = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD
+//        BUTTON_ACTION_REAL_SIZE_FHD_L = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD_L
+        
+        // Status
+        STATUS_VIEW_REAL_WIDTH_HD       = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_HD
+        STATUS_VIEW_REAL_WIDTH_FHD      = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD
+        STATUS_VIEW_REAL_WIDTH_FHD_L    = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD_L
+        
         // Category button
-        BUTTON_ACTION_REAL_SIZE_HD    = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_HD
-        BUTTON_ACTION_REAL_SIZE_FHD   = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD
-        BUTTON_ACTION_REAL_SIZE_FHD_L = GlobalConst.BUTTON_ACTION_SIZE * BaseViewController.H_RATE_FHD_L
+        CATEGORY_BUTTON_REAL_SIZE_HD    = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_HD
+        CATEGORY_BUTTON_REAL_SIZE_FHD   = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_FHD
+        CATEGORY_BUTTON_REAL_SIZE_FHD_L = GlobalConst.BUTTON_CATEGORY_SIZE_NEW * BaseViewController.H_RATE_FHD_L
     }
     
     /**
@@ -146,22 +199,28 @@ class G12F01S02VC: BaseParentViewController {
      */
     override func createChildrenViews() {
         super.createChildrenViews()
+        createStatusLabel()
         // Get current device type
-        createCollapseView()
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
+            createStatusViewHD()
+            createCollapseView()
             createTopViewHD()
-            createActionsViewHD()
+//            createActionsViewHD()
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
             case .portrait, .portraitUpsideDown:        // Portrait
+                createStatusViewFHD()
+                createCollapseView()
                 createTopViewFHD()
-                createActionsViewFHD()
+//                createActionsViewFHD()
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
+                createStatusViewFHD_L()
+                createCollapseView()
                 createTopViewFHD_L()
-                createActionsViewFHD_L()
+//                createActionsViewFHD_L()
                 break
             default:
                 break
@@ -174,7 +233,9 @@ class G12F01S02VC: BaseParentViewController {
         self.view.addSubview(_centerMark)
         self.view.addSubview(_topView)
         self.view.addSubview(collapseView)
-        self.view.addSubview(actionsView)
+        self.view.addSubview(lblStatus)
+        self.view.addSubview(statusView)
+//        self.view.addSubview(actionsView)
     }
     
     /**
@@ -182,22 +243,28 @@ class G12F01S02VC: BaseParentViewController {
      */
     override func updateChildrenViews() {
         super.updateChildrenViews()
+        updateStatusLabel()
         // Get current device type
-        updateCollapseView()
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
+            updateStatusViewHD()
+            updateCollapseView()
             updateTopViewHD(isShow: !self.isCollapsed)
-            updateActionsViewHD()
+//            updateActionsViewHD()
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
             case .portrait, .portraitUpsideDown:        // Portrait
+                updateStatusViewFHD()
+                updateCollapseView()
                 updateTopViewFHD(isShow: !self.isCollapsed)
-                updateActionsViewFHD()
+//                updateActionsViewFHD()
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
+                updateStatusViewFHD_L()
+                updateCollapseView()
                 updateTopViewFHD_L(isShow: !self.isCollapsed)
-                updateActionsViewFHD_L()
+//                updateActionsViewFHD_L()
                 break
             default:
                 break
@@ -258,6 +325,7 @@ class G12F01S02VC: BaseParentViewController {
      */
     public func setData(bean: OrderBean) {
         self._data = bean
+        updateData()
     }
     
     internal func updateData() {
@@ -269,8 +337,8 @@ class G12F01S02VC: BaseParentViewController {
         self.lblEmployeeCode.text   = _data.employee_code
         self.lblAgent.text          = _data.agent_name
         self.setSrcAddress(position: CLLocationCoordinate2D(
-            latitude: (G12F01S01VC._nearestAgent.info_agent.agent_latitude as NSString).doubleValue,
-            longitude: (G12F01S01VC._nearestAgent.info_agent.agent_longitude as NSString).doubleValue))
+            latitude: (_data.employee_latitude as NSString).doubleValue,
+            longitude: (_data.employee_longitude as NSString).doubleValue))
         self.setDestAddress(position: CLLocationCoordinate2D(
             latitude: (_data.latitude as NSString).doubleValue,
             longitude: (_data.longitude as NSString).doubleValue))
@@ -292,12 +360,171 @@ class G12F01S02VC: BaseParentViewController {
     }
     
     /**
+     * Change screen mode
+     * - parameter value: OrderStatus enum
+     */
+    private func changeMode(value: OrderStatusEnum) {
+        listStatusButtons[value.rawValue].isSelected = true
+        switch value {
+        case OrderStatusEnum.STATUS_CREATE:         // Mode create
+            break
+        case OrderStatusEnum.STATUS_WAIT_CONFIRM:   // Mode waiting confirm
+            break
+        case OrderStatusEnum.STATUS_CONFIRMED:      // Mode confirmed
+            break
+        case OrderStatusEnum.STATUS_COMPLETE:       // Mode Finish
+            break
+        default:
+            break
+        }
+    }
+    
+    // MARK: Status Label
+    private func createStatusLabel() {
+        lblStatus.frame         = CGRect(
+            x: 0, y: getTopHeight(),
+            width: UIScreen.main.bounds.width,
+            height: GlobalConst.LABEL_H + 2 * GlobalConst.MARGIN)
+        lblStatus.text          = DomainConst.CONTENT00512
+        lblStatus.textColor     = UIColor.black
+        lblStatus.font          = GlobalConst.BASE_FONT
+        lblStatus.textAlignment  = .center
+        lblStatus.backgroundColor = UIColor(white: 1, alpha: 1.0)
+    }
+    
+    private func updateStatusLabel() {
+        CommonProcess.updateViewPos(
+            view: lblStatus, x: 0,
+            y: getTopHeight(),
+            w: UIScreen.main.bounds.width,
+            h: GlobalConst.LABEL_H + 2 * GlobalConst.MARGIN)
+    }
+    
+    // MARK: Status view
+    /**
+     * Create Status view
+     * - parameter x: X position
+     * - parameter y: Y position
+     * - parameter w: Width of view
+     * - parameter h: Height of view
+     */
+    private func createStatusView(w: CGFloat, h: CGFloat) {
+        self.statusView.frame = CGRect(
+            x: (UIScreen.main.bounds.width - w) / 2,
+            y: lblStatus.frame.maxY,
+            width: w, height: h)
+        self.statusView.backgroundColor = UIColor(white: 1, alpha: 1.0)
+        createStatusContent()
+    }
+    
+    // MARK: Status content
+    /**
+     * Create Status content
+     */
+    private func createStatusContent() {
+        let btnWidth = statusView.frame.height - GlobalConst.MARGIN
+        let margin: CGFloat = GlobalConst.MARGIN
+        let count = OrderStatusEnum.STATUS_NUM.rawValue
+        let btnSpace    = (statusView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
+        
+        for i in 0..<count {
+            // Calculate frame of button
+            let frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
+                               width: btnWidth,
+                               height: btnWidth)
+            let btn = CategoryButton(frame: frame,
+                                     icon: listStatusIcon[i].0,
+                                     iconActive: listStatusIcon[i].1,
+                                     title: listStatusConfig[i].name.uppercased(),
+                                     id: listStatusConfig[i].id)
+            btn.isUserInteractionEnabled = false
+            listStatusButtons.append(btn)
+            self.statusView.addSubview(btn)
+        }
+    }
+    
+    /**
+     * Update category content
+     */
+    private func updateStatusContent() {
+        let btnWidth = statusView.frame.height - GlobalConst.MARGIN
+        let margin: CGFloat = GlobalConst.MARGIN
+        let count = listStatusButtons.count
+        let btnSpace    = (statusView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
+        
+        for i in 0..<count {
+            // Calculate frame of button
+            listStatusButtons[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
+                                                width: btnWidth,
+                                                height: btnWidth + GlobalConst.MARGIN)
+        }
+    }
+    
+    /**
+     * Create category view (in HD mode)
+     */
+    private func createStatusViewHD() {
+        createStatusView(w: STATUS_VIEW_REAL_WIDTH_HD,
+                         h: CATEGORY_BUTTON_REAL_SIZE_HD)
+    }
+    
+    /**
+     * Create category view (in Full HD mode)
+     */
+    private func createStatusViewFHD() {
+        createStatusView(w: STATUS_VIEW_REAL_WIDTH_FHD,
+                         h: CATEGORY_BUTTON_REAL_SIZE_FHD)
+    }
+    
+    /**
+     * Create category view (in Full HD Landscape mode)
+     */
+    private func createStatusViewFHD_L() {
+        createStatusView(w: STATUS_VIEW_REAL_WIDTH_FHD_L,
+                         h: CATEGORY_BUTTON_REAL_SIZE_FHD_L)
+    }
+    
+    private func updateStatusView(w: CGFloat, h: CGFloat) {
+        CommonProcess.updateViewPos(
+            view: statusView,
+            x: (UIScreen.main.bounds.width - w) / 2,
+            y: lblStatus.frame.maxY,
+            w: w, h: h)
+        updateStatusContent()
+    }
+    
+    /**
+     * Update category view (in HD mode)
+     */
+    private func updateStatusViewHD() {
+        updateStatusView(w: STATUS_VIEW_REAL_WIDTH_HD,
+                         h: CATEGORY_BUTTON_REAL_SIZE_HD)
+    }
+    
+    /**
+     * Update category view (in Full HD mode)
+     */
+    private func updateStatusViewFHD() {
+        updateStatusView(w: STATUS_VIEW_REAL_WIDTH_FHD,
+                         h: CATEGORY_BUTTON_REAL_SIZE_FHD)
+    }
+    
+    /**
+     * Update category view (in Full HD Landscape mode)
+     */
+    private func updateStatusViewFHD_L() {
+        updateStatusView(w: STATUS_VIEW_REAL_WIDTH_FHD_L,
+                         h: CATEGORY_BUTTON_REAL_SIZE_FHD_L)
+    }
+    
+    /**
      * Create collapse view
      */
     func createCollapseView() {
         // Top view
         self.collapseView.frame = CGRect(
-            x: 0, y: getTopHeight(),
+            x: 0,
+            y: statusView.frame.maxY,
             width: UIScreen.main.bounds.width,
             height: GlobalConst.LABEL_H * 2)
         self.collapseView.backgroundColor = UIColor(white: 1, alpha: 1.0)
@@ -315,7 +542,8 @@ class G12F01S02VC: BaseParentViewController {
      */
     func updateCollapseView() {
         CommonProcess.updateViewPos(view: collapseView,
-            x: 0, y: getTopHeight(),
+            x: 0,
+            y: statusView.frame.maxY,
             w: UIScreen.main.bounds.width,
             h: GlobalConst.LABEL_H * 2)
         updateEmployeeTitle()
@@ -683,9 +911,9 @@ class G12F01S02VC: BaseParentViewController {
     }
     
     func updateMapView() {
-        viewMap.frame = CGRect(x: 0, y: self.getTopHeight(),
+        viewMap.frame = CGRect(x: 0, y: collapseView.frame.maxY,
                                width: UIScreen.main.bounds.width,
-                               height: UIScreen.main.bounds.height - self.getTopHeight())
+                               height: UIScreen.main.bounds.height - collapseView.frame.maxY)
     }
     
     /**
@@ -819,152 +1047,152 @@ class G12F01S02VC: BaseParentViewController {
         self.viewMap.moveCamera(cameraUpdate)
     }
     
-    /**
-     * Create actions view
-     * - parameter x: X position
-     * - parameter y: Y position
-     * - parameter w: Width of view
-     * - parameter h: Height of view
-     */
-    private func createActionsView(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
-        self.actionsView.frame = CGRect(x: x, y: y, width: w, height: h)
-        self.actionsView.backgroundColor = UIColor(white: 1, alpha: 0.0)
-        createActionsViewContent()
-    }
-    
-    /**
-     * Create actions view (in HD mode)
-     */
-    private func createActionsViewHD() {
-        createActionsView(x: 0,
-                          y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_HD,
-                          w: UIScreen.main.bounds.width,
-                          h: BUTTON_ACTION_REAL_SIZE_HD)
-    }
-    
-    /**
-     * Create actions view (in Full HD mode)
-     */
-    private func createActionsViewFHD() {
-        createActionsView(x: 0,
-                          y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD,
-                          w: UIScreen.main.bounds.width,
-                          h: BUTTON_ACTION_REAL_SIZE_FHD)
-    }
-    
-    /**
-     * Create actions view (in Full HD Landscape mode)
-     */
-    private func createActionsViewFHD_L() {
-        createActionsView(x: 0,
-                          y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD_L,
-                          w: UIScreen.main.bounds.width,
-                          h: BUTTON_ACTION_REAL_SIZE_FHD_L)
-    }
-    
-    /**
-     * Update actions view (in HD mode)
-     */
-    private func updateActionsViewHD() {
-        CommonProcess.updateViewPos(
-            view: actionsView,
-            x: 0,
-            y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_HD,
-            w: UIScreen.main.bounds.width,
-            h: BUTTON_ACTION_REAL_SIZE_HD)
-        updateActionsViewContent()
-    }
-    
-    /**
-     * Update actions view (in Full HD mode)
-     */
-    private func updateActionsViewFHD() {
-        CommonProcess.updateViewPos(
-            view: actionsView,
-            x: 0,
-            y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD,
-            w: UIScreen.main.bounds.width,
-            h: BUTTON_ACTION_REAL_SIZE_FHD)
-        updateActionsViewContent()
-    }
-    
-    /**
-     * Update actions view (in Full HD Landscape mode)
-     */
-    private func updateActionsViewFHD_L() {
-        CommonProcess.updateViewPos(
-            view: actionsView,
-            x: 0,
-            y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD_L,
-            w: UIScreen.main.bounds.width,
-            h: BUTTON_ACTION_REAL_SIZE_FHD_L)
-        updateActionsViewContent()
-    }
-    
-    /**
-     * Create actions view content
-     */
-    private func createActionsViewContent() {
-        // Attemp list image
-        var listImg = [(String, String)]()
-        listImg.append((DomainConst.GAS_BUTTON_ICON_IMG_NAME, DomainConst.GAS_BUTTON_ICON_IMG_NAME))
-        listImg.append((DomainConst.PROMOTE_BUTTON_ICON_IMG_NAME, DomainConst.PROMOTE_BUTTON_ICON_IMG_NAME))
-        listImg.append((DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME, DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME))
-        listImg.append((DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME, DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME))
-        let btnWidth = actionsView.frame.height - GlobalConst.MARGIN
-        let margin = GlobalConst.MARGIN
-        let count = listActionsConfig.count
-        let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
-        var font = UIFont.smallSystemFontSize
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            font = UIFont.systemFontSize
-        }
-        for i in 0..<count {
-            // Calculate frame of button
-            let frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
-                               width: btnWidth,
-                               height: btnWidth)
-            let btn = CategoryButton(frame: frame, icon: listImg[i].0, iconActive: listImg[i].1, title: listActionsConfig[i].name, id: listActionsConfig[i].id, font: font, isUpperText: true)
-            //            self.adjustImageAndTitleOffsetsForButton(button: btn)
-            btn.addTarget(self, action: #selector(actionsButtonTapped), for: .touchUpInside)
-            let lbl = UILabel(frame: CGRect(x: margin + CGFloat(i) * btnSpace,
-                                            y: 0.0,
-                                            width: btnWidth,
-                                            height: GlobalConst.LABEL_H))
-            lbl.text = listActionsConfig[i].name
-            lbl.font = UIFont.systemFont(ofSize: font)
-            lbl.textAlignment = .center
-            lbl.textColor = UIColor.black
-            listActionsLabels.append(lbl)
-            listActionsButtons.append(btn)
-            if listActionsConfig[i].id != DomainConst.ACTION_TYPE_NONE {
-                self.actionsView.addSubview(btn)
-                self.actionsView.addSubview(lbl)
-            }
-        }
-    }
-    
-    /**
-     * Update actions view content
-     */
-    private func updateActionsViewContent() {
-        let btnWidth = actionsView.frame.height - GlobalConst.MARGIN
-        let margin = GlobalConst.MARGIN
-        let count = listActionsButtons.count
-        let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
-        
-        for i in 0..<count {
-            // Calculate frame of button
-            listActionsButtons[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace,
-                                                 y: margin / 2,
-                                                 width: btnWidth,
-                                                 height: btnWidth)
-            listActionsLabels[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace,
-                                                y: 0.0,
-                                                width: btnWidth,
-                                                height: GlobalConst.LABEL_H)
-        }
-    }
+//    /**
+//     * Create actions view
+//     * - parameter x: X position
+//     * - parameter y: Y position
+//     * - parameter w: Width of view
+//     * - parameter h: Height of view
+//     */
+//    private func createActionsView(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
+//        self.actionsView.frame = CGRect(x: x, y: y, width: w, height: h)
+//        self.actionsView.backgroundColor = UIColor(white: 1, alpha: 0.0)
+//        createActionsViewContent()
+//    }
+//    
+//    /**
+//     * Create actions view (in HD mode)
+//     */
+//    private func createActionsViewHD() {
+//        createActionsView(x: 0,
+//                          y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_HD,
+//                          w: UIScreen.main.bounds.width,
+//                          h: BUTTON_ACTION_REAL_SIZE_HD)
+//    }
+//    
+//    /**
+//     * Create actions view (in Full HD mode)
+//     */
+//    private func createActionsViewFHD() {
+//        createActionsView(x: 0,
+//                          y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD,
+//                          w: UIScreen.main.bounds.width,
+//                          h: BUTTON_ACTION_REAL_SIZE_FHD)
+//    }
+//    
+//    /**
+//     * Create actions view (in Full HD Landscape mode)
+//     */
+//    private func createActionsViewFHD_L() {
+//        createActionsView(x: 0,
+//                          y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD_L,
+//                          w: UIScreen.main.bounds.width,
+//                          h: BUTTON_ACTION_REAL_SIZE_FHD_L)
+//    }
+//    
+//    /**
+//     * Update actions view (in HD mode)
+//     */
+//    private func updateActionsViewHD() {
+//        CommonProcess.updateViewPos(
+//            view: actionsView,
+//            x: 0,
+//            y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_HD,
+//            w: UIScreen.main.bounds.width,
+//            h: BUTTON_ACTION_REAL_SIZE_HD)
+//        updateActionsViewContent()
+//    }
+//    
+//    /**
+//     * Update actions view (in Full HD mode)
+//     */
+//    private func updateActionsViewFHD() {
+//        CommonProcess.updateViewPos(
+//            view: actionsView,
+//            x: 0,
+//            y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD,
+//            w: UIScreen.main.bounds.width,
+//            h: BUTTON_ACTION_REAL_SIZE_FHD)
+//        updateActionsViewContent()
+//    }
+//    
+//    /**
+//     * Update actions view (in Full HD Landscape mode)
+//     */
+//    private func updateActionsViewFHD_L() {
+//        CommonProcess.updateViewPos(
+//            view: actionsView,
+//            x: 0,
+//            y: UIScreen.main.bounds.height - 2 * BUTTON_ACTION_REAL_SIZE_FHD_L,
+//            w: UIScreen.main.bounds.width,
+//            h: BUTTON_ACTION_REAL_SIZE_FHD_L)
+//        updateActionsViewContent()
+//    }
+//    
+//    /**
+//     * Create actions view content
+//     */
+//    private func createActionsViewContent() {
+//        // Attemp list image
+//        var listImg = [(String, String)]()
+//        listImg.append((DomainConst.GAS_BUTTON_ICON_IMG_NAME, DomainConst.GAS_BUTTON_ICON_IMG_NAME))
+//        listImg.append((DomainConst.PROMOTE_BUTTON_ICON_IMG_NAME, DomainConst.PROMOTE_BUTTON_ICON_IMG_NAME))
+//        listImg.append((DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME, DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME))
+//        listImg.append((DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME, DomainConst.SUPPORT_BUTTON_ICON_IMG_NAME))
+//        let btnWidth = actionsView.frame.height - GlobalConst.MARGIN
+//        let margin = GlobalConst.MARGIN
+//        let count = listActionsConfig.count
+//        let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
+//        var font = UIFont.smallSystemFontSize
+//        if UIDevice.current.userInterfaceIdiom == .pad {
+//            font = UIFont.systemFontSize
+//        }
+//        for i in 0..<count {
+//            // Calculate frame of button
+//            let frame = CGRect(x: margin + CGFloat(i) * btnSpace, y: margin / 2,
+//                               width: btnWidth,
+//                               height: btnWidth)
+//            let btn = CategoryButton(frame: frame, icon: listImg[i].0, iconActive: listImg[i].1, title: listActionsConfig[i].name, id: listActionsConfig[i].id, font: font, isUpperText: true)
+//            //            self.adjustImageAndTitleOffsetsForButton(button: btn)
+//            btn.addTarget(self, action: #selector(actionsButtonTapped), for: .touchUpInside)
+//            let lbl = UILabel(frame: CGRect(x: margin + CGFloat(i) * btnSpace,
+//                                            y: 0.0,
+//                                            width: btnWidth,
+//                                            height: GlobalConst.LABEL_H))
+//            lbl.text = listActionsConfig[i].name
+//            lbl.font = UIFont.systemFont(ofSize: font)
+//            lbl.textAlignment = .center
+//            lbl.textColor = UIColor.black
+//            listActionsLabels.append(lbl)
+//            listActionsButtons.append(btn)
+//            if listActionsConfig[i].id != DomainConst.ACTION_TYPE_NONE {
+//                self.actionsView.addSubview(btn)
+//                self.actionsView.addSubview(lbl)
+//            }
+//        }
+//    }
+//    
+//    /**
+//     * Update actions view content
+//     */
+//    private func updateActionsViewContent() {
+//        let btnWidth = actionsView.frame.height - GlobalConst.MARGIN
+//        let margin = GlobalConst.MARGIN
+//        let count = listActionsButtons.count
+//        let btnSpace    = (UIScreen.main.bounds.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
+//        
+//        for i in 0..<count {
+//            // Calculate frame of button
+//            listActionsButtons[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace,
+//                                                 y: margin / 2,
+//                                                 width: btnWidth,
+//                                                 height: btnWidth)
+//            listActionsLabels[i].frame = CGRect(x: margin + CGFloat(i) * btnSpace,
+//                                                y: 0.0,
+//                                                width: btnWidth,
+//                                                height: GlobalConst.LABEL_H)
+//        }
+//    }
 }
 
 // MARK: Protocol - CLLocationManagerDelegate

@@ -368,6 +368,8 @@ class G13F00S01VC: BaseParentViewController {
         let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
         let scan = ScannerVC(nibName: ScannerVC.theClassName, bundle: frameworkBundle)
         self.navigationController?.pushViewController(scan, animated: true)
+        usingCodeMode = MODE_NORMAL_CODE
+        usingCodeSegment.selectedSegmentIndex = MODE_NORMAL_CODE
     }
     
     private func createQRCode() {
