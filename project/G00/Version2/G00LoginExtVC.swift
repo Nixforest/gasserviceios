@@ -182,9 +182,11 @@ class G00LoginExtVC: ChildExtViewController {
         }
         
         imgLogo.image = ImageManager.getImage(named: DomainConst.LOGO_LOGIN_ICON_IMG_NAME)
-//        let tappedRecog = UITapGestureRecognizer(target: self,
-//                                                 action: #selector(imgLogoTapped(_:)))
-//        imgLogo.addGestureRecognizer(tappedRecog)
+        let tappedRecog = UITapGestureRecognizer(
+            target: self,
+            action: #selector(G00LoginExtVC.imgLogoTapped(_:)))
+        imgLogo.isUserInteractionEnabled = true
+        imgLogo.addGestureRecognizer(tappedRecog)
         
         createNextBtn()
         
@@ -318,22 +320,16 @@ class G00LoginExtVC: ChildExtViewController {
      * Handle when tap on zalo button
      */
     func btnZaloTapped(_ sender: AnyObject) {
+        showAlert(message: DomainConst.CONTENT00362)
+    }
+    
+    func imgLogoTapped(_ gestureRecognizer: UITapGestureRecognizer) {
         imgLogoTappedCounter += 1
         print(imgLogoTappedCounter)
         if imgLogoTappedCounter == DomainConst.MAXIMUM_TAPPED {
             imgLogoTappedCounter = 0
             BaseModel.shared.setTrainningMode(!BaseModel.shared.checkTrainningMode())
             showAlert(message: "Training mode is: " + (BaseModel.shared.checkTrainningMode() ? "ON" : "OFF"))
-        }
-    }
-    
-    func imgLogoTapped(_ gestureRecognizer: UITapGestureRecognizer) {
-        imgLogoTappedCounter += 1
-            print(imgLogoTappedCounter)
-        if imgLogoTappedCounter == DomainConst.MAXIMUM_TAPPED {
-            imgLogoTappedCounter = 0
-            BaseModel.shared.setTrainningMode(!BaseModel.shared.checkTrainningMode())
-            showToast(message: "Training mode is: " + (BaseModel.shared.checkTrainningMode() ? "ON" : "OFF"))
         }
     }
     

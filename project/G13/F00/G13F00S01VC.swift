@@ -59,7 +59,7 @@ class G13F00S01VC: BaseParentViewController {
     /** Refer code value */
     var referCode:          String              = DomainConst.BLANK
     /** Refer link */
-    var referLink:          String              = BaseModel.shared.getServerURL() + "api/referral/code?code="
+    var referLink:          String              = BaseModel.shared.getServerURL() + "referral/code?code="
     
     // MARK: Static values
     
@@ -280,10 +280,20 @@ class G13F00S01VC: BaseParentViewController {
      * Handle when tap on next button
      */
     func btnNextTapped(_ sender: AnyObject) {
+        if !(txtUsingCode.text?.isEmpty)! {
+            PromotionAddRequest.request(
+                action: #selector(finishRequestAddPromotionCode),
+                view: self,
+                code: txtUsingCode.text!)
+        }
     }
     
     internal func finishScanQRCode(_ notification: Notification) {
-        let data = (notification.object as! String)
+        var data = (notification.object as! String)
+        // Check if data is link, remove link
+        if data.contains(referLink) {
+            data = data.substring(from: referLink.characters.count)
+        }
         txtUsingCode.text = data
         usingCodeMode = MODE_NORMAL_CODE
         usingCodeSegment.selectedSegmentIndex = MODE_NORMAL_CODE
@@ -299,6 +309,12 @@ class G13F00S01VC: BaseParentViewController {
         } else {
             showAlert(message: model.message)
         }
+    }
+    
+    internal func finishRequestAddPromotionCode(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        showAlert(message: model.message)
     }
     
     // MARK: Utilities

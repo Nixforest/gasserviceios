@@ -439,6 +439,7 @@ class G12F01S01VC: BaseParentViewController {
      */
     internal func btnOrderTapped(_ sender: AnyObject) {
         btnOrder.isEnabled = false
+        changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
         requestTransactionStart()
         btnOrder.isEnabled = true
     }
@@ -455,6 +456,7 @@ class G12F01S01VC: BaseParentViewController {
      */
     internal func btnFinishTapped(_ sender: AnyObject) {
         openOrderDetail(id: DomainConst.BLANK)
+        BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
         changeMode(value: OrderStatusEnum.STATUS_CREATE)
     }
     
@@ -479,7 +481,9 @@ class G12F01S01VC: BaseParentViewController {
                 
                 break
             case OrderStatusEnum.STATUS_WAIT_CONFIRM:   // Status waiting confirm
-                changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
+                if self.mode != OrderStatusEnum.STATUS_CONFIRMED {
+                    changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
+                }
                 break
             case OrderStatusEnum.STATUS_CONFIRMED:      // Status confirmed
                 
@@ -507,9 +511,9 @@ class G12F01S01VC: BaseParentViewController {
                                 object: nil)
                             BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
                             self.changeMode(value: OrderStatusEnum.STATUS_CREATE)
-                            self.requestTransactionStatus(completionHandler: self.finishRequestTransactionStatus)
-                            self.isCancelOrder = false
-                            return
+//                            self.requestTransactionStatus(completionHandler: self.finishRequestTransactionStatus)
+//                            self.isCancelOrder = false
+//                            return
                     })
                 }
                 break
@@ -555,7 +559,11 @@ class G12F01S01VC: BaseParentViewController {
 //                }
 //            }
         }
-        requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(GlobalConst.RESEND_TRANSACTION_STATUS_TIME_WAIT),
+                                      execute: {
+                                        self.requestTransactionStatus(
+                                            completionHandler: self.finishRequestTransactionStatus)
+        })
     }
     
     /**
@@ -569,6 +577,8 @@ class G12F01S01VC: BaseParentViewController {
             transactionData.id = model.getRecord().transaction_id
             transactionData.name = BaseModel.shared.getTransactionData().name
             BaseModel.shared.setTransactionData(transaction: transactionData)
+            
+            btnCancelOrder.isEnabled = true
 //            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
 //            changeMode(value: MODE_PROCESSING)
         } else {
@@ -642,9 +652,14 @@ class G12F01S01VC: BaseParentViewController {
         let model = BaseRespModel(jsonString: data)
         if model.isSuccess() {
             BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
-//            changeMode(value: MODE_ORDER)
+            changeMode(value: OrderStatusEnum.STATUS_CREATE)
 //            requestTransactionStart()
         } else {
+//            if model.code == "400" {
+//                //
+//            } else {
+//                showAlert(message: model.message)
+//            }
             showAlert(message: model.message)
         }
     }
@@ -701,6 +716,7 @@ class G12F01S01VC: BaseParentViewController {
     }
     
     private func requestTransactionStart() {
+        btnCancelOrder.isEnabled = false
 //        if !BaseModel.shared.checkTransactionKey() {
             OrderTransactionStartRequest.requestOrderTransactionStart(
                 action: #selector(finishStartTransaction(_:)),
@@ -741,7 +757,7 @@ class G12F01S01VC: BaseParentViewController {
             id:     BaseModel.shared.getTransactionData().id,
             devicePhone:    BaseModel.shared.getCurrentUsername(),
             firstName:      userInfo.getName(),
-            phone:          userInfo.getPhone(),
+            phone:          BaseModel.shared.getCurrentUsername(),
             email:          userInfo.getEmail(),
             provinceId:     userInfo.getProvinceId(),
             districtId:     userInfo.getDistrictId(),
@@ -919,6 +935,7 @@ class G12F01S01VC: BaseParentViewController {
     private func openOrderDetail(id: String) {
         let view = G12F00S02VC(nibName: G12F00S02VC.theClassName,
                                bundle: nil)
+        view.setId(id: BaseModel.shared.getTransactionData().id)
         self.navigationController?.pushViewController(view, animated: true)
     }
     
@@ -962,6 +979,10 @@ class G12F01S01VC: BaseParentViewController {
             showHideFinishMode(isShow: false)
             showHideProcessingMode(isShow: true)
             setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(GlobalConst.CHANGE_CONFIRMED_STATUS_TIME_WAIT),
+                                          execute: {
+                                            self.showHideConfirmedMode()
+            })
             break
         case OrderStatusEnum.STATUS_CONFIRMED:      // Mode confirmed
             showHideOrderMode(isShow: false)
@@ -977,7 +998,7 @@ class G12F01S01VC: BaseParentViewController {
             setBotMsgContent(note: DomainConst.CONTENT00497, description: DomainConst.CONTENT00497)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
                                             object: nil)
-            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
+//            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
             break
         default:
             break
@@ -1029,12 +1050,26 @@ class G12F01S01VC: BaseParentViewController {
     }
     
     private func showHideConfirmedMode() {
+        if mode != OrderStatusEnum.STATUS_WAIT_CONFIRM {
+            return
+        }
+        listStatusButtons[mode.rawValue].isSelected = false
+        mode = OrderStatusEnum.STATUS_CONFIRMED
+        listStatusButtons[mode.rawValue].isSelected = true
         btnProcessing.setImage(
             ImageManager.getImage(
                 named: DomainConst.CONFIRMED_BUTTON_ICON_IMG_NAME),
             for: UIControlState())
+//        processingView?.isHidden = true
         lblProcessing1.text = DomainConst.CONTENT00521
         lblProcessing2.text = DomainConst.CONTENT00522
+        for i in 0..<listActionsConfig.count {
+            if listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_GAS
+                || listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE {
+                listActionsButtons[i].isHidden = true
+                listActionsLabels[i].isHidden = true
+            }
+        }
     }
     
     /**

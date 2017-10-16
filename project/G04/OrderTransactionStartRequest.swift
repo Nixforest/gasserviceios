@@ -84,6 +84,6 @@ class OrderTransactionStartRequest: BaseRequest {
                                                    view: view)
         request.setData()
         NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
-        request.execute()
+        request.execute(isShowLoadingView: false)
     }
 }

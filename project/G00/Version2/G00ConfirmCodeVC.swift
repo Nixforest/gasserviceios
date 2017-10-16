@@ -203,8 +203,12 @@ class G00ConfirmCodeVC: ChildExtViewController {
         self.view.addSubview(lbl3)
         self.view.addSubview(lbl4)
         self.view.addSubview(lbl5)
-        self.view.addSubview(lbl6)
-        self.view.addSubview(btnResend)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(GlobalConst.RESEND_BTN_TIME_WAIT),
+                                      execute: {
+                                        self.view.addSubview(self.lbl6)
+                                        self.view.addSubview(self.btnResend)
+        })
+//        self.view.addSubview(btnResend)
         self.view.addSubview(lblWrongPhone)
         self.view.addSubview(btnBack)
     }
@@ -312,7 +316,8 @@ class G00ConfirmCodeVC: ChildExtViewController {
                     action: #selector(setData(_:)),
                     view: self,
                     username: self._phone,
-                    password: codeValue)
+                    password: codeValue,
+                    token: self._token)
                 return
             }
         }

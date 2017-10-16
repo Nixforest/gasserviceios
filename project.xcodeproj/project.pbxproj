@@ -126,6 +126,7 @@
 		D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */; };
 		D7F684461E2F4C0B00D3D6F4 /* G04F01S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F684451E2F4C0B00D3D6F4 /* G04F01S01VC.swift */; };
 		D7F684481E2F5A8A00D3D6F4 /* G04F01S01MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F684471E2F5A8A00D3D6F4 /* G04F01S01MenuVC.swift */; };
+		D7FBBD9E1F91CFBE00213036 /* PromotionAddRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FBBD9D1F91CFBE00213036 /* PromotionAddRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -301,6 +302,7 @@
 		D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Common/MapViewController.swift; sourceTree = "<group>"; };
 		D7F684451E2F4C0B00D3D6F4 /* G04F01S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S01VC.swift; path = G04/G04F01S01VC.swift; sourceTree = "<group>"; };
 		D7F684471E2F5A8A00D3D6F4 /* G04F01S01MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S01MenuVC.swift; path = G04/G04F01S01MenuVC.swift; sourceTree = "<group>"; };
+		D7FBBD9D1F91CFBE00213036 /* PromotionAddRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionAddRequest.swift; path = G13/API/PromotionAddRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -589,6 +591,7 @@
 			isa = PBXGroup;
 			children = (
 				D795D0481F8C902400001902 /* ReferInfoRequest.swift */,
+				D7FBBD9D1F91CFBE00213036 /* PromotionAddRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -994,6 +997,7 @@
 				D7D429D41F4ABB6E00001766 /* File.metal in Sources */,
 				D7671BE91E16E3FE0026DCFA /* G04Const.swift in Sources */,
 				D7117B5D1F7ACF3100B8C2FA /* G13Const.swift in Sources */,
+				D7FBBD9E1F91CFBE00213036 /* PromotionAddRequest.swift in Sources */,
 				D721C5041F5D39C3003E823D /* GoogleMapValue.swift in Sources */,
 				D721C5011F5D39C3003E823D /* Bounds.swift in Sources */,
 				D721C5091F5D39C3003E823D /* Step.swift in Sources */,
