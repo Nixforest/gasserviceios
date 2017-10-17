@@ -308,11 +308,11 @@ class G12F01S02VC: BaseParentViewController {
     }
     
     internal func btnChatTapped(_ sender: AnyObject) {
-        showAlert(message: "btnChatTapped")
+        makeASMS(phone: _data.employee_phone)
     }
     
     internal func btnPhoneTapped(_ sender: AnyObject) {
-        showAlert(message: "btnPhoneTapped")
+        makeACall(phone: _data.employee_phone)
     }
     
     internal func orderFinish(_ notification: Notification) {
@@ -422,7 +422,7 @@ class G12F01S02VC: BaseParentViewController {
      * Create Status content
      */
     private func createStatusContent() {
-        let btnWidth = statusView.frame.height - GlobalConst.MARGIN
+        let btnWidth = statusView.frame.height - 3 * GlobalConst.MARGIN
         let margin: CGFloat = GlobalConst.MARGIN
         let count = OrderStatusEnum.STATUS_NUM.rawValue
         let btnSpace    = (statusView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
@@ -447,7 +447,7 @@ class G12F01S02VC: BaseParentViewController {
      * Update category content
      */
     private func updateStatusContent() {
-        let btnWidth = statusView.frame.height - GlobalConst.MARGIN
+        let btnWidth = statusView.frame.height - 3 * GlobalConst.MARGIN
         let margin: CGFloat = GlobalConst.MARGIN
         let count = listStatusButtons.count
         let btnSpace    = (statusView.frame.width - 2 * margin - btnWidth) / (CGFloat)(count - 1)
@@ -517,6 +517,7 @@ class G12F01S02VC: BaseParentViewController {
                          h: CATEGORY_BUTTON_REAL_SIZE_FHD_L)
     }
     
+    // MARK: Collapse view
     /**
      * Create collapse view
      */
@@ -531,6 +532,9 @@ class G12F01S02VC: BaseParentViewController {
         self.collapseView.layer.addBorder(edge: .bottom,
                                           color: UIColor.gray,
                                           thickness: 1.0)
+        self.collapseView.layer.addBorder(edge: .top,
+                                          color: UIColor.gray,
+                                          thickness: 1.0)
         createEmployeeTitleLabel()
         createCollapseButton()
         self.collapseView.addSubview(lblEmployeeTitle)
@@ -543,13 +547,14 @@ class G12F01S02VC: BaseParentViewController {
     func updateCollapseView() {
         CommonProcess.updateViewPos(view: collapseView,
             x: 0,
-            y: statusView.frame.maxY,
+            y: statusView.frame.maxY/* + GlobalConst.MARGIN*/,
             w: UIScreen.main.bounds.width,
             h: GlobalConst.LABEL_H * 2)
         updateEmployeeTitle()
         updateCollapseButton()
     }
     
+    // MARK: Collapse view - Employee title label
     /**
      * Create employee title label
      */
@@ -575,6 +580,7 @@ class G12F01S02VC: BaseParentViewController {
                                     h: collapseView.frame.height)
     }
     
+    // MARK: Collapse view - Collapse button
     private func createCollapseButton() {
         let btnSize = collapseView.frame.height / 2
         btnCollapse.frame = CGRect(
@@ -605,6 +611,7 @@ class G12F01S02VC: BaseParentViewController {
                                     h: btnSize)
     }
     
+    // MARK: Top view
     /**
      * Setup all components of top view
      * - parameter width: Width of topview
@@ -616,7 +623,7 @@ class G12F01S02VC: BaseParentViewController {
             x: (UIScreen.main.bounds.width - width) / 2,
             y: collapseView.frame.maxY,
             width: width,
-            height: height)
+            height: height + GlobalConst.MARGIN)
         self._topView.backgroundColor = UIColor(white: 1, alpha: 1.0)
         
         // Image avatar
@@ -689,48 +696,6 @@ class G12F01S02VC: BaseParentViewController {
     }
     
     /**
-     * Create chat button
-     * - parameter w: Width of top view
-     * - parameter h: Height of top view
-     */
-    private func createChatButton(w: CGFloat, h: CGFloat) {
-        let btnSize = h / 4
-        btnChat.frame = CGRect(
-            x: w - btnSize * 2 - GlobalConst.MARGIN * 2, y: h - btnSize,
-            width: btnSize, height: btnSize)
-        
-        let chat = ImageManager.getImage(named: DomainConst.CHAT_BUTTON_ICON_IMG_NAME)
-        let tinted = chat?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        btnChat.setImage(tinted, for: UIControlState())
-        btnChat.tintColor = GlobalConst.MAIN_COLOR_GAS_24H
-        btnChat.backgroundColor = UIColor.clear
-        btnChat.imageView?.contentMode = .scaleAspectFit
-        btnChat.addTarget(self, action: #selector(btnChatTapped(_:)),
-                          for: .touchUpInside)
-    }
-    
-    /**
-     * Create phone button
-     * - parameter w: Width of top view
-     * - parameter h: Height of top view
-     */
-    private func createPhoneButton(w: CGFloat, h: CGFloat) {
-        let btnSize = h / 4
-        btnPhone.frame = CGRect(
-            x: btnChat.frame.maxX + GlobalConst.MARGIN, y: h - btnSize,
-            width: btnSize, height: btnSize)
-        
-        let phone = ImageManager.getImage(named: DomainConst.PHONE_BUTTON_ICON_IMG_NAME)
-        let tinted = phone?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        btnPhone.setImage(tinted, for: UIControlState())
-        btnPhone.tintColor = GlobalConst.MAIN_COLOR_GAS_24H
-        btnPhone.backgroundColor = UIColor.clear
-        btnPhone.imageView?.contentMode = .scaleAspectFit
-        btnPhone.addTarget(self, action: #selector(btnPhoneTapped(_:)),
-                          for: .touchUpInside)
-    }
-    
-    /**
      * Create top view in HD mode
      */
     private func createTopViewHD() {
@@ -756,7 +721,7 @@ class G12F01S02VC: BaseParentViewController {
     
     private func updateTopView(x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
         CommonProcess.updateViewPos(
-            view: self._topView, x: x, y: y, w: w, h: h)
+            view: self._topView, x: x, y: y, w: w, h: h + GlobalConst.MARGIN)
         
         let imgSize = h - 2 * GlobalConst.MARGIN
         CommonProcess.updateViewPos(view: imgAvatar,
@@ -800,7 +765,7 @@ class G12F01S02VC: BaseParentViewController {
         } else {
             updateTopView(
                 x: (UIScreen.main.bounds.width - DELIVERY_MAP_TOP_VIEW_REAL_WIDTH_HD) / 2,
-                y: collapseView.frame.maxY - DELIVERY_MAP_TOP_VIEW_REAL_HEIGHT_HD,
+                y: collapseView.frame.maxY - DELIVERY_MAP_TOP_VIEW_REAL_HEIGHT_HD - GlobalConst.MARGIN,
                 w: DELIVERY_MAP_TOP_VIEW_REAL_WIDTH_HD,
                 h: DELIVERY_MAP_TOP_VIEW_REAL_HEIGHT_HD)
         }
@@ -820,7 +785,7 @@ class G12F01S02VC: BaseParentViewController {
         } else {
             updateTopView(
                 x: (UIScreen.main.bounds.width - DELIVERY_MAP_TOP_VIEW_REAL_WIDTH_FHD) / 2,
-                y: collapseView.frame.maxY - DELIVERY_MAP_TOP_VIEW_REAL_HEIGHT_FHD,
+                y: collapseView.frame.maxY - DELIVERY_MAP_TOP_VIEW_REAL_HEIGHT_FHD - GlobalConst.MARGIN,
                 w: DELIVERY_MAP_TOP_VIEW_REAL_WIDTH_FHD,
                 h: DELIVERY_MAP_TOP_VIEW_REAL_HEIGHT_FHD)
         }
@@ -840,12 +805,57 @@ class G12F01S02VC: BaseParentViewController {
         } else {
             updateTopView(
                 x: (UIScreen.main.bounds.width - DELIVERY_MAP_TOP_VIEW_REAL_WIDTH_FHD_L) / 2,
-                y: collapseView.frame.maxY - DELIVERY_MAP_TOP_VIEW_REAL_HEIGHT_FHD_L,
+                y: collapseView.frame.maxY - DELIVERY_MAP_TOP_VIEW_REAL_HEIGHT_FHD_L - GlobalConst.MARGIN,
                 w: DELIVERY_MAP_TOP_VIEW_REAL_WIDTH_FHD_L,
                 h: DELIVERY_MAP_TOP_VIEW_REAL_HEIGHT_FHD_L)
         }
     }
     
+    // MARK: Top view - Chat button
+    /**
+     * Create chat button
+     * - parameter w: Width of top view
+     * - parameter h: Height of top view
+     */
+    private func createChatButton(w: CGFloat, h: CGFloat) {
+        let btnSize = h / 4
+        btnChat.frame = CGRect(
+            x: w - btnSize * 2 - GlobalConst.MARGIN * 2, y: h - btnSize,
+            width: btnSize, height: btnSize)
+        
+        let chat = ImageManager.getImage(named: DomainConst.CHAT_BUTTON_ICON_IMG_NAME)
+        let tinted = chat?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        btnChat.setImage(tinted, for: UIControlState())
+        btnChat.tintColor = GlobalConst.MAIN_COLOR_GAS_24H
+        btnChat.backgroundColor = UIColor.clear
+        btnChat.imageView?.contentMode = .scaleAspectFit
+        btnChat.addTarget(self, action: #selector(btnChatTapped(_:)),
+                          for: .touchUpInside)
+    }
+    
+    // MARK: Top view - Phone button
+    /**
+     * Create phone button
+     * - parameter w: Width of top view
+     * - parameter h: Height of top view
+     */
+    private func createPhoneButton(w: CGFloat, h: CGFloat) {
+        let btnSize = h / 4
+        btnPhone.frame = CGRect(
+            x: btnChat.frame.maxX + GlobalConst.MARGIN, y: h - btnSize,
+            width: btnSize, height: btnSize)
+        
+        let phone = ImageManager.getImage(named: DomainConst.PHONE_BUTTON_ICON_IMG_NAME)
+        let tinted = phone?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        btnPhone.setImage(tinted, for: UIControlState())
+        btnPhone.tintColor = GlobalConst.MAIN_COLOR_GAS_24H
+        btnPhone.backgroundColor = UIColor.clear
+        btnPhone.imageView?.contentMode = .scaleAspectFit
+        btnPhone.addTarget(self, action: #selector(btnPhoneTapped(_:)),
+                          for: .touchUpInside)
+    }
+    
+    // MARK: Top view - Show/Hide
     private func showHideTopView(isShow: Bool) {
         let duration = 0.5
         var rotateAngle: CGFloat = 1.0
@@ -886,6 +896,7 @@ class G12F01S02VC: BaseParentViewController {
         }
     }
     
+    // MARK: Center marker
     /**
      * Create center marker
      */
@@ -910,6 +921,7 @@ class G12F01S02VC: BaseParentViewController {
             height: GlobalConst.CENTER_MARKER_SIZE_HEIGHT)
     }
     
+    // MARK: Map view
     func updateMapView() {
         viewMap.frame = CGRect(x: 0, y: collapseView.frame.maxY,
                                width: UIScreen.main.bounds.width,

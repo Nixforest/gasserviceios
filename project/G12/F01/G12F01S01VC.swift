@@ -1634,7 +1634,7 @@ class G12F01S01VC: BaseParentViewController {
                          offset: btnProcessing.frame.maxY + GlobalConst.MARGIN,
                          text: DomainConst.CONTENT00487)
         self.createLabel(label: lblProcessing2,
-                         offset: lblProcessing1.frame.maxY + GlobalConst.MARGIN,
+                         offset: lblProcessing1.frame.maxY,
                          text: DomainConst.CONTENT00488)
     }
     
@@ -1645,7 +1645,7 @@ class G12F01S01VC: BaseParentViewController {
         self.updateLabel(label: lblProcessing1,
                          offset: btnProcessing.frame.maxY + GlobalConst.MARGIN)
         self.updateLabel(label: lblProcessing2,
-                         offset: lblProcessing1.frame.maxY + GlobalConst.MARGIN)
+                         offset: lblProcessing1.frame.maxY)
         
     }
     
@@ -1755,7 +1755,7 @@ class G12F01S01VC: BaseParentViewController {
                          offset: lblFinish1.frame.maxY + GlobalConst.MARGIN,
                          text: DomainConst.CONTENT00490)
         self.createLabel(label: lblFinish3,
-                         offset: lblFinish2.frame.maxY + GlobalConst.MARGIN,
+                         offset: lblFinish2.frame.maxY,
                          text: DomainConst.CONTENT00491)
     }
     
@@ -1768,7 +1768,7 @@ class G12F01S01VC: BaseParentViewController {
         self.updateLabel(label: lblFinish2,
                          offset: lblFinish1.frame.maxY + GlobalConst.MARGIN)
         self.updateLabel(label: lblFinish3,
-                         offset: lblFinish2.frame.maxY + GlobalConst.MARGIN)
+                         offset: lblFinish2.frame.maxY)
         
     }
     

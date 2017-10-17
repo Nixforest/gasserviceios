@@ -39,6 +39,10 @@ class G12F00S02VC: ChildExtViewController {
     var lblRatingSeparator:         UILabel         = UILabel()
     /** Rating bar */
     var ratingBar:                  RatingBar       = RatingBar()
+    /** Note textfield */
+    var txtNote:                    UITextView      = UITextView()
+    /** Button Submit */
+    var btnSubmit:                  UIButton        = UIButton()
     
     // MARK: Static values
     // MARK: Constant
@@ -46,13 +50,20 @@ class G12F00S02VC: ChildExtViewController {
     var EMPLOYEE_VIEW_REAL_WIDTH_FHD    = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD
     var EMPLOYEE_VIEW_REAL_WIDTH_FHD_L  = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD_L
     
-    var EMPLOYEE_VIEW_COLLAPSED_REAL_HEIGHT_HD = GlobalConst.LABEL_H * 5
-    var EMPLOYEE_VIEW_COLLAPSED_REAL_HEIGHT_FHD = GlobalConst.LABEL_H * 5
-    var EMPLOYEE_VIEW_COLLAPSED_REAL_HEIGHT_FHD_L = GlobalConst.LABEL_H * 5
+    var EMPLOYEE_VIEW_COLLAPSED_REAL_HEIGHT_HD = GlobalConst.LABEL_H * 11
+    var EMPLOYEE_VIEW_COLLAPSED_REAL_HEIGHT_FHD = GlobalConst.LABEL_H * 11
+    var EMPLOYEE_VIEW_COLLAPSED_REAL_HEIGHT_FHD_L = GlobalConst.LABEL_H * 11
     
     var EMPLOYEE_INFO_REAL_HEIGHT_HD    = GlobalConst.DELIVERY_MAP_TOP_VIEW_HEIGHT * BaseViewController.H_RATE_HD
     var EMPLOYEE_INFO_REAL_HEIGHT_FHD   = GlobalConst.DELIVERY_MAP_TOP_VIEW_HEIGHT * BaseViewController.H_RATE_FHD
     var EMPLOYEE_INFO_REAL_HEIGHT_FHD_L = GlobalConst.DELIVERY_MAP_TOP_VIEW_HEIGHT * BaseViewController.H_RATE_FHD_L
+    // Submit button
+    var SUBMIT_BUTTON_REAL_WIDTH_HD     = GlobalConst.SUBMIT_BUTTON_WIDTH * BaseViewController.W_RATE_HD
+    var SUBMIT_BUTTON_REAL_HEIGHT_HD    = GlobalConst.SUBMIT_BUTTON_HEIGHT * BaseViewController.H_RATE_HD
+    var SUBMIT_BUTTON_REAL_WIDTH_FHD    = GlobalConst.SUBMIT_BUTTON_WIDTH * BaseViewController.W_RATE_FHD
+    var SUBMIT_BUTTON_REAL_HEIGHT_FHD   = GlobalConst.SUBMIT_BUTTON_HEIGHT * BaseViewController.H_RATE_FHD
+    var SUBMIT_BUTTON_REAL_WIDTH_FHD_L  = GlobalConst.SUBMIT_BUTTON_WIDTH * BaseViewController.W_RATE_FHD_L
+    var SUBMIT_BUTTON_REAL_HEIGHT_FHD_L = GlobalConst.SUBMIT_BUTTON_HEIGHT * BaseViewController.H_RATE_FHD_L
     
     // MARK: Override methods
     /**
@@ -78,13 +89,20 @@ class G12F00S02VC: ChildExtViewController {
         EMPLOYEE_VIEW_REAL_WIDTH_FHD    = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD
         EMPLOYEE_VIEW_REAL_WIDTH_FHD_L  = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD_L
         
-        EMPLOYEE_VIEW_COLLAPSED_REAL_HEIGHT_HD = GlobalConst.LABEL_H * 5
-        EMPLOYEE_VIEW_COLLAPSED_REAL_HEIGHT_FHD = GlobalConst.LABEL_H * 5
-        EMPLOYEE_VIEW_COLLAPSED_REAL_HEIGHT_FHD_L = GlobalConst.LABEL_H * 5
+        EMPLOYEE_VIEW_COLLAPSED_REAL_HEIGHT_HD = GlobalConst.LABEL_H * 11
+        EMPLOYEE_VIEW_COLLAPSED_REAL_HEIGHT_FHD = GlobalConst.LABEL_H * 11
+        EMPLOYEE_VIEW_COLLAPSED_REAL_HEIGHT_FHD_L = GlobalConst.LABEL_H * 11
         
         EMPLOYEE_INFO_REAL_HEIGHT_HD    = GlobalConst.DELIVERY_MAP_TOP_VIEW_HEIGHT * BaseViewController.H_RATE_HD
         EMPLOYEE_INFO_REAL_HEIGHT_FHD   = GlobalConst.DELIVERY_MAP_TOP_VIEW_HEIGHT * BaseViewController.H_RATE_FHD
         EMPLOYEE_INFO_REAL_HEIGHT_FHD_L = GlobalConst.DELIVERY_MAP_TOP_VIEW_HEIGHT * BaseViewController.H_RATE_FHD_L
+        // Submit button
+        SUBMIT_BUTTON_REAL_WIDTH_HD     = GlobalConst.SUBMIT_BUTTON_WIDTH * BaseViewController.W_RATE_HD
+        SUBMIT_BUTTON_REAL_HEIGHT_HD    = GlobalConst.SUBMIT_BUTTON_HEIGHT * BaseViewController.H_RATE_HD
+        SUBMIT_BUTTON_REAL_WIDTH_FHD    = GlobalConst.SUBMIT_BUTTON_WIDTH * BaseViewController.W_RATE_FHD
+        SUBMIT_BUTTON_REAL_HEIGHT_FHD   = GlobalConst.SUBMIT_BUTTON_HEIGHT * BaseViewController.H_RATE_FHD
+        SUBMIT_BUTTON_REAL_WIDTH_FHD_L  = GlobalConst.SUBMIT_BUTTON_WIDTH * BaseViewController.W_RATE_FHD_L
+        SUBMIT_BUTTON_REAL_HEIGHT_FHD_L = GlobalConst.SUBMIT_BUTTON_HEIGHT * BaseViewController.H_RATE_FHD_L
     }
     
     /**
@@ -191,6 +209,13 @@ class G12F00S02VC: ChildExtViewController {
         showHideEmployeeView(isShow: !self.isEmployeeViewCollapsed)
     }
     
+    /**
+     * Handle when tap on submit button
+     */
+    func btnSubmitTapped(_ sender: AnyObject) {
+        showAlert(message: "btnSubmitTapped")
+    }
+    
     // MARK: Utilities
     private func updateEmployeeViewData(data: OrderBean) {
         if !data.employee_image.isEmpty {
@@ -266,6 +291,9 @@ class G12F00S02VC: ChildExtViewController {
         // Rating bar
         createRatingBar(h: infoHeight / 3)
         
+        // Note
+        createNoteTextView()
+        
         employeeView.addSubview(lblEmployeeTitle)
         employeeView.addSubview(imgAvatar)
         employeeView.addSubview(lblEmployeeName)
@@ -274,21 +302,28 @@ class G12F00S02VC: ChildExtViewController {
         employeeView.addSubview(lblRatingSeparator)
         employeeView.addSubview(lblRating)
         employeeView.addSubview(ratingBar)
+        employeeView.addSubview(txtNote)
     }
     
     private func createEmployeeViewHD() {
         createEmployeeView(w: EMPLOYEE_VIEW_REAL_WIDTH_HD,
                            infoHeight: EMPLOYEE_INFO_REAL_HEIGHT_HD)
+        createSubmitBtnHD()
+        employeeView.addSubview(btnSubmit)
     }
     
     private func createEmployeeViewFHD() {
         createEmployeeView(w: EMPLOYEE_VIEW_REAL_WIDTH_FHD,
                            infoHeight: EMPLOYEE_INFO_REAL_HEIGHT_FHD)
+        createSubmitBtnFHD()
+        employeeView.addSubview(btnSubmit)
     }
     
     private func createEmployeeViewFHD_L() {
         createEmployeeView(w: EMPLOYEE_VIEW_REAL_WIDTH_FHD_L,
                            infoHeight: EMPLOYEE_INFO_REAL_HEIGHT_FHD_L)
+        createSubmitBtnFHD_L()
+        employeeView.addSubview(btnSubmit)
     }
     
     private func updateEmployeeView(y: CGFloat, w: CGFloat, infoHeight: CGFloat) {
@@ -318,6 +353,9 @@ class G12F00S02VC: ChildExtViewController {
         updateRatingLabel()
         // Rating bar
         updateRatingBar(h: infoHeight / 3)
+        
+        // Note
+        updateNoteTextView()
     }
     
     /**
@@ -336,6 +374,7 @@ class G12F00S02VC: ChildExtViewController {
                 w: EMPLOYEE_VIEW_REAL_WIDTH_HD,
                 infoHeight: EMPLOYEE_INFO_REAL_HEIGHT_HD)
         }
+        updateSubmitBtnHD()
     }
     
     /**
@@ -354,6 +393,7 @@ class G12F00S02VC: ChildExtViewController {
                 w: EMPLOYEE_VIEW_REAL_WIDTH_FHD,
                 infoHeight: EMPLOYEE_INFO_REAL_HEIGHT_FHD)
         }
+        updateSubmitBtnFHD()
     }
     
     /**
@@ -372,6 +412,7 @@ class G12F00S02VC: ChildExtViewController {
                 w: EMPLOYEE_VIEW_REAL_WIDTH_FHD_L,
                 infoHeight: EMPLOYEE_INFO_REAL_HEIGHT_FHD_L)
         }
+        updateSubmitBtnFHD_L()
     }
     
     private func showHideEmployeeView(isShow: Bool) {
@@ -564,6 +605,108 @@ class G12F00S02VC: ChildExtViewController {
                                     w: ratingWidth,
                                     h: h)
     }
+    
+    // MARK: Employee view - Employee note
+    private func createNoteTextView() {
+        txtNote.frame = CGRect(x: GlobalConst.MARGIN,
+                               y: ratingBar.frame.maxY + GlobalConst.MARGIN,
+                               width: employeeView.frame.width - 2 * GlobalConst.MARGIN,
+                               height: GlobalConst.EDITTEXT_H * 3)
+        txtNote.font = GlobalConst.BASE_FONT
+        txtNote.text = DomainConst.CONTENT00457
+        txtNote.delegate = self
+        CommonProcess.setBorder(view: txtNote, radius: GlobalConst.BUTTON_CORNER_RADIUS)
+    }
+    
+    private func updateNoteTextView() {
+        CommonProcess.updateViewPos(
+            view: txtNote,
+            x: GlobalConst.MARGIN,
+            y: ratingBar.frame.maxY + GlobalConst.MARGIN,
+            w: employeeView.frame.width - 2 * GlobalConst.MARGIN,
+            h: GlobalConst.EDITTEXT_H * 3)
+    }
+    
+    // MARK: Submit button
+    /**
+     * Create Submit button
+     * - parameter w: Width of view
+     * - parameter h: Height of view
+     */
+    private func createSubmitBtn(w: CGFloat, h: CGFloat) {
+        btnSubmit.frame = CGRect(x: (employeeView.frame.width - w) / 2,
+                                 y: txtNote.frame.maxY + GlobalConst.MARGIN,
+                                 width: w, height: h)
+        btnSubmit.setTitle(DomainConst.CONTENT00180.uppercased(), for: UIControlState())
+        btnSubmit.setTitleColor(GlobalConst.MAIN_COLOR_GAS_24H, for: UIControlState())
+        btnSubmit.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+        btnSubmit.backgroundColor = UIColor.clear
+        btnSubmit.layer.borderColor = GlobalConst.MAIN_COLOR_GAS_24H.cgColor
+        btnSubmit.layer.borderWidth = 1
+        btnSubmit.addTarget(self, action: #selector(btnSubmitTapped(_:)), for: .touchUpInside)
+    }
+    
+    /**
+     * Create submit button (in HD mode)
+     */
+    private func createSubmitBtnHD() {
+        self.createSubmitBtn(
+            w: SUBMIT_BUTTON_REAL_WIDTH_HD,
+            h: SUBMIT_BUTTON_REAL_HEIGHT_HD)
+    }
+    
+    /**
+     * Create submit button (in Full HD mode)
+     */
+    private func createSubmitBtnFHD() {
+        self.createSubmitBtn(
+            w: SUBMIT_BUTTON_REAL_WIDTH_FHD,
+            h: SUBMIT_BUTTON_REAL_HEIGHT_FHD)
+    }
+    
+    /**
+     * Create submit button (in Full HD Landscape mode)
+     */
+    private func createSubmitBtnFHD_L() {
+        self.createSubmitBtn(
+            w: SUBMIT_BUTTON_REAL_WIDTH_FHD_L,
+            h: SUBMIT_BUTTON_REAL_HEIGHT_FHD_L)
+    }
+    
+    private func updateSubmitBtn(w: CGFloat, h: CGFloat) {
+        CommonProcess.updateViewPos(
+            view: btnSubmit,
+            x: (employeeView.frame.width - w) / 2,
+            y: txtNote.frame.maxY + GlobalConst.MARGIN,
+            w: w, h: h)
+    }
+    
+    /**
+     * Update submit button (in HD mode)
+     */
+    private func updateSubmitBtnHD() {
+        self.updateSubmitBtn(
+            w: SUBMIT_BUTTON_REAL_WIDTH_HD,
+            h: SUBMIT_BUTTON_REAL_HEIGHT_HD)
+    }
+    
+    /**
+     * Update submit button (in Full HD mode)
+     */
+    private func updateSubmitBtnFHD() {
+        self.updateSubmitBtn(
+            w: SUBMIT_BUTTON_REAL_WIDTH_FHD,
+            h: SUBMIT_BUTTON_REAL_HEIGHT_FHD)
+    }
+    
+    /**
+     * Update submit button (in Full HD Landscape mode)
+     */
+    private func updateSubmitBtnFHD_L() {
+        self.updateSubmitBtn(
+            w: SUBMIT_BUTTON_REAL_WIDTH_FHD_L,
+            h: SUBMIT_BUTTON_REAL_HEIGHT_FHD_L)
+    }
 }
 
 // MARK: Protocol - UITableViewDataSource
@@ -622,5 +765,41 @@ extension G12F00S02VC: UITableViewDataSource {
 extension G12F00S02VC: RatingBarDelegate {
     func rating(_ sender: AnyObject) {
         // Do nothing
+    }
+}
+
+// MARK: Protocol - UITextViewDelegate
+extension G12F00S02VC: UITextViewDelegate {
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        if textView.text == DomainConst.CONTENT00457 {
+            textView.text = DomainConst.BLANK
+        }
+        return true
+    }
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        if textView.text == DomainConst.BLANK {
+            textView.text = DomainConst.CONTENT00457
+        }
+        return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if let parent = BaseViewController.getCurrentViewController() {
+            self.keyboardTopY = parent.keyboardTopY
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            textView.frame = CGRect(x: textView.frame.minX,
+                                             y: 0,
+                                width: textView.frame.width,
+                                height: textView.frame.height)
+        })
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        UIView.animate(withDuration: 0.3, animations: {
+            textView.frame = CGRect(x: textView.frame.minX,
+                                             y: self.ratingBar.frame.maxY + GlobalConst.MARGIN,
+                                width: textView.frame.width,
+                                height: textView.frame.height)
+        })
     }
 }

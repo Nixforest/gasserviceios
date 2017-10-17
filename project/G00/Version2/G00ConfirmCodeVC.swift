@@ -338,6 +338,7 @@ class G00ConfirmCodeVC: ChildExtViewController {
         }
         print("finishDismissConfirm")
     }
+    
     /**
      * Handle when tap on resend button
      */
@@ -641,16 +642,16 @@ class G00ConfirmCodeVC: ChildExtViewController {
                          offset: txtCode.frame.maxY + GlobalConst.MARGIN,
                          text: DomainConst.CONTENT00477)
         self.createLabel(label: lbl2,
-                         offset: lbl1.frame.maxY + GlobalConst.MARGIN,
+                         offset: lbl1.frame.maxY,
                          text: _phone, color: GlobalConst.MAIN_COLOR_GAS_24H, isBold: true)
         self.createLabel(label: lbl3,
-                         offset: lbl2.frame.maxY + GlobalConst.MARGIN,
+                         offset: lbl2.frame.maxY,
                          text: DomainConst.CONTENT00478)
         self.createLabel(label: lbl4,
-                         offset: lbl3.frame.maxY + GlobalConst.MARGIN,
+                         offset: lbl3.frame.maxY,
                          text: DomainConst.CONTENT00479)
         self.createLabel(label: lbl5,
-                         offset: lbl4.frame.maxY + GlobalConst.MARGIN,
+                         offset: lbl4.frame.maxY,
                          text: DomainConst.CONTENT00480)
 //        self.createLabel(label: lbl6,
 //                         offset: lbl5.frame.maxY + GlobalConst.MARGIN,
@@ -665,13 +666,13 @@ class G00ConfirmCodeVC: ChildExtViewController {
         self.updateLabel(label: lbl1,
                          offset: txtCode.frame.maxY + GlobalConst.MARGIN)
         self.updateLabel(label: lbl2,
-                         offset: lbl1.frame.maxY + GlobalConst.MARGIN)
+                         offset: lbl1.frame.maxY)
         self.updateLabel(label: lbl3,
-                         offset: lbl2.frame.maxY + GlobalConst.MARGIN)
+                         offset: lbl2.frame.maxY)
         self.updateLabel(label: lbl4,
-                         offset: lbl3.frame.maxY + GlobalConst.MARGIN)
+                         offset: lbl3.frame.maxY)
         self.updateLabel(label: lbl5,
-                         offset: lbl4.frame.maxY + GlobalConst.MARGIN)
+                         offset: lbl4.frame.maxY)
         self.updateLabel(label: lbl6,
                          offset: lbl5.frame.maxY + GlobalConst.MARGIN)
         

@@ -159,7 +159,7 @@ class G12F01S03VC: ChildExtViewController {
     }
     
     func getCellHeight() -> CGFloat {
-        return (UIScreen.main.bounds.height - _lblTitle.frame.maxY) / CGFloat(getRowNumber())
+        return (UIScreen.main.bounds.height - _lblTitle.frame.maxY) / CGFloat(getRowNumber()) - GlobalConst.MARGIN
     }
     
     public func setData(data: [MaterialBean]) {
