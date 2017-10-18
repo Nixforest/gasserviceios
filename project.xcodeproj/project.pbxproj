@@ -16,6 +16,12 @@
 		84A4C06B1D6311D000C0B84C /* example.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C06A1D6311D000C0B84C /* example.txt */; };
 		924EABC41DF10CFC0056A303 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924EABC31DF10CFC0056A303 /* UserNotifications.framework */; };
 		C383B9FC8A70FA56E97CD383 /* Pods_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04CE59C33B46DFF900FDEBE0 /* Pods_project.framework */; };
+		D70EDFB81F95FAAA00658F64 /* G12F00S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EDFB61F95FAAA00658F64 /* G12F00S01VC.swift */; };
+		D70EDFB91F95FAAA00658F64 /* G12F00S01VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D70EDFB71F95FAAA00658F64 /* G12F00S01VC.xib */; };
+		D70EDFBE1F96224A00658F64 /* G12F00VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EDFBC1F96224A00658F64 /* G12F00VC.swift */; };
+		D70EDFBF1F96224A00658F64 /* G12F00VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D70EDFBD1F96224A00658F64 /* G12F00VC.xib */; };
+		D70EDFC41F96545500658F64 /* G12F00S01Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EDFC21F96545500658F64 /* G12F00S01Cell.swift */; };
+		D70EDFC51F96545500658F64 /* G12F00S01Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D70EDFC31F96545500658F64 /* G12F00S01Cell.xib */; };
 		D7117B4F1F7AA2E100B8C2FA /* G12F01S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7117B4D1F7AA2E100B8C2FA /* G12F01S03VC.swift */; };
 		D7117B501F7AA2E100B8C2FA /* G12F01S03VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7117B4E1F7AA2E100B8C2FA /* G12F01S03VC.xib */; };
 		D7117B591F7AA55000B8C2FA /* G12F01S04VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7117B571F7AA55000B8C2FA /* G12F01S04VC.swift */; };
@@ -193,6 +199,12 @@
 		924EABC31DF10CFC0056A303 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		92D05F711DEB215C00DA87C3 /* project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = project.entitlements; sourceTree = "<group>"; };
 		A18C7C071B3A30513EC7D78C /* Pods-project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project.debug.xcconfig"; path = "project/Pods/Target Support Files/Pods-project/Pods-project.debug.xcconfig"; sourceTree = "<group>"; };
+		D70EDFB61F95FAAA00658F64 /* G12F00S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12F00S01VC.swift; path = G12/F00/G12F00S01VC.swift; sourceTree = "<group>"; };
+		D70EDFB71F95FAAA00658F64 /* G12F00S01VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G12F00S01VC.xib; path = G12/F00/G12F00S01VC.xib; sourceTree = "<group>"; };
+		D70EDFBC1F96224A00658F64 /* G12F00VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12F00VC.swift; path = G12/F00/G12F00VC.swift; sourceTree = "<group>"; };
+		D70EDFBD1F96224A00658F64 /* G12F00VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G12F00VC.xib; path = G12/F00/G12F00VC.xib; sourceTree = "<group>"; };
+		D70EDFC21F96545500658F64 /* G12F00S01Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12F00S01Cell.swift; path = G12/CustomControl/G12F00S01Cell.swift; sourceTree = "<group>"; };
+		D70EDFC31F96545500658F64 /* G12F00S01Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G12F00S01Cell.xib; path = G12/CustomControl/G12F00S01Cell.xib; sourceTree = "<group>"; };
 		D7117B4D1F7AA2E100B8C2FA /* G12F01S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12F01S03VC.swift; path = G12/F01/G12F01S03VC.swift; sourceTree = "<group>"; };
 		D7117B4E1F7AA2E100B8C2FA /* G12F01S03VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G12F01S03VC.xib; path = G12/F01/G12F01S03VC.xib; sourceTree = "<group>"; };
 		D7117B571F7AA55000B8C2FA /* G12F01S04VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12F01S04VC.swift; path = G12/F01/G12F01S04VC.swift; sourceTree = "<group>"; };
@@ -583,6 +595,8 @@
 			children = (
 				D795D0441F8B806700001902 /* OrderPreview.swift */,
 				D7DD767D1F8DDDED00AD06F4 /* MaterialCollectionViewCell.swift */,
+				D70EDFC21F96545500658F64 /* G12F00S01Cell.swift */,
+				D70EDFC31F96545500658F64 /* G12F00S01Cell.xib */,
 			);
 			name = CustomControl;
 			sourceTree = "<group>";
@@ -685,8 +699,12 @@
 		D7E307351F72BA360065F2E1 /* F00 */ = {
 			isa = PBXGroup;
 			children = (
+				D70EDFB61F95FAAA00658F64 /* G12F00S01VC.swift */,
+				D70EDFB71F95FAAA00658F64 /* G12F00S01VC.xib */,
 				D76E58091F7DF24900CF6557 /* G12F00S02VC.swift */,
 				D76E580A1F7DF24900CF6557 /* G12F00S02VC.xib */,
+				D70EDFBC1F96224A00658F64 /* G12F00VC.swift */,
+				D70EDFBD1F96224A00658F64 /* G12F00VC.xib */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -878,6 +896,7 @@
 			files = (
 				D78B068C1F69254D00AB17E8 /* LaunchScreenIpad.storyboard in Resources */,
 				D7CED4931F6137C700CCAA2F /* MultiDeviceVC.xib in Resources */,
+				D70EDFC51F96545500658F64 /* G12F00S01Cell.xib in Resources */,
 				D7E299091F74EDEE0078C46C /* G12F01S02VC.xib in Resources */,
 				D71544B01F6BB26600480486 /* G00LoginExtVC.xib in Resources */,
 				D719D69F1E4AB5AE00D1B6C5 /* background.jpg in Resources */,
@@ -887,6 +906,7 @@
 				D7E3073A1F72BA6B0065F2E1 /* G12F01S01VC.xib in Resources */,
 				84284E1C1D40DF050079DEBC /* LaunchScreen.storyboard in Resources */,
 				84A4C06B1D6311D000C0B84C /* example.txt in Resources */,
+				D70EDFBF1F96224A00658F64 /* G12F00VC.xib in Resources */,
 				D7359B1A1F67D2F60032F0AF /* bg_main_4_3_1536_2048.jpg in Resources */,
 				D76E580C1F7DF24900CF6557 /* G12F00S02VC.xib in Resources */,
 				D7EAC44F1F581223008890DA /* GoogleMapVC.xib in Resources */,
@@ -905,6 +925,7 @@
 				84284E171D40DF050079DEBC /* Main.storyboard in Resources */,
 				D7117B501F7AA2E100B8C2FA /* G12F01S03VC.xib in Resources */,
 				D72134D71F73C3C30025E42B /* welcome_2048_1536.png in Resources */,
+				D70EDFB91F95FAAA00658F64 /* G12F00S01VC.xib in Resources */,
 				D79C1BB91E4AB7B600E6E121 /* splashlogo.png in Resources */,
 				D7CED4951F613AD600CCAA2F /* MultiDeviceVC~ipad.xib in Resources */,
 			);
@@ -985,6 +1006,7 @@
 				D7F17CD91E5DF4A300208A73 /* OrderTransactionConfirmRespModel.swift in Sources */,
 				D7DDA4F61F77D3D100824FC4 /* TransactionStatusRequest.swift in Sources */,
 				D7804B391E7685CF00C94F75 /* G00ConfigurationVC.swift in Sources */,
+				D70EDFBE1F96224A00658F64 /* G12F00VC.swift in Sources */,
 				D795D04E1F8CAB5200001902 /* ReferInfoRespModel.swift in Sources */,
 				D7804B361E7685CF00C94F75 /* G00ChangePassMenuVC.swift in Sources */,
 				D79C1BBF1E4AD3D700E6E121 /* PromotionListRespModel.swift in Sources */,
@@ -992,6 +1014,7 @@
 				D7804B371E7685CF00C94F75 /* G00ChangePassVC.swift in Sources */,
 				D7804B381E7685CF00C94F75 /* G00ConfigurationMenuVC.swift in Sources */,
 				D746DE121F86285D00C014DA /* GenerateOTPRequest.swift in Sources */,
+				D70EDFC41F96545500658F64 /* G12F00S01Cell.swift in Sources */,
 				D747F9E61E4C4FB90098A9BA /* AddPromotionRequest.swift in Sources */,
 				D721C5051F5D39C3003E823D /* Leg.swift in Sources */,
 				D7D429D41F4ABB6E00001766 /* File.metal in Sources */,
@@ -1028,6 +1051,7 @@
 				D795D0491F8C902400001902 /* ReferInfoRequest.swift in Sources */,
 				D71C25AA1E42544300E29C3B /* OrderTransactionCancelRequest.swift in Sources */,
 				D72C8B651E49D83700541651 /* G04F02S01VC.swift in Sources */,
+				D70EDFB81F95FAAA00658F64 /* G12F00S01VC.swift in Sources */,
 				D721C5021F5D39C3003E823D /* DirectionOverview.swift in Sources */,
 				D7804B411E7685CF00C94F75 /* G00RegisterVC.swift in Sources */,
 				D7DD767E1F8DDDED00AD06F4 /* MaterialCollectionViewCell.swift in Sources */,

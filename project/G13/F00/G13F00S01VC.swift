@@ -261,7 +261,9 @@ class G13F00S01VC: BaseParentViewController {
      * Handle when tap on cancel order button
      */
     func btnShareCodeTapped(_ sender: AnyObject) {
-        let text = "btnShareCodeTapped"
+        let text = String.init(format: DomainConst.CONTENT00526,
+                               referCode,
+                               referLink + referCode)
         let textToShare = [text]
         // Setup activity view controller
         let activityVC = UIActivityViewController(activityItems: textToShare,

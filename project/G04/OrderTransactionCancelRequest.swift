@@ -65,11 +65,11 @@ class OrderTransactionCancelRequest: BaseRequest {
     /**
      * Set data content
      */
-    func setData() {
+    func setData(id: String) {
         self.data = "q=" + String.init(
             format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":%d}",
             DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
-            DomainConst.KEY_TRANSACTION_ID, BaseModel.shared.getTransactionData().id,
+            DomainConst.KEY_TRANSACTION_ID,         id,
             DomainConst.KEY_PLATFORM,               DomainConst.PLATFORM_IOS
         )
     }
@@ -78,14 +78,17 @@ class OrderTransactionCancelRequest: BaseRequest {
      * Request order list function
      * - parameter action:  Completion handler
      * - parameter view:    Current view controller
+     * - parameter id:      Order id
      */
-    public static func requestOrderTransactionCancel(action: Selector, view: BaseViewController) {
+    public static func requestOrderTransactionCancel(action: Selector,
+                                                     view: BaseViewController,
+                                                     id: String = BaseModel.shared.getTransactionData().id) {
 //        // Show overlay
 //        LoadingView.shared.showOverlay(view: view.view)
         let request = OrderTransactionCancelRequest(url: G04Const.PATH_ORDER_TRANSACTION_CANCEL,
                                                      reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                      view: view)
-        request.setData()
+        request.setData(id: id)
         NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }

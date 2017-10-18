@@ -70,6 +70,19 @@ class MenuVC: BaseMenuViewController {
         }
     }
     
+    override func openListOrder() {
+        let g12f00s01 = G12F00S01VC(nibName: G12F00S01VC.theClassName,
+                                    bundle: nil)
+//        let g12f00 = G12F00VC(nibName: G12F00VC.theClassName,
+//                                    bundle: nil)
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.navigationController?.pushViewController(g12f00s01, animated: true)
+//            controller.present(g12f00,
+//                               animated: true,
+//                               completion: nil)
+        }
+    }
+    
     override func update() {
         super.update()
         

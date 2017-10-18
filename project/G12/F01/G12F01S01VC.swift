@@ -98,6 +98,8 @@ class G12F01S01VC: BaseParentViewController {
     var reqUpdateConfigCount:   Int         = 0
     /** Preview view */
     var previewView:            OrderPreview      = OrderPreview()
+    /** Id */
+    var _id:                    String      = DomainConst.BLANK
     
     // MARK: Static values
     /** Current position of map view */
@@ -475,6 +477,7 @@ class G12F01S01VC: BaseParentViewController {
         let data = (model as! String)
         let model = OrderViewRespModel(jsonString: data)
         if model.isSuccess() {
+            _id = model.record.id
             // Handle process base on status of order
             switch checkStatus(order: model.getRecord()) {
             case OrderStatusEnum.STATUS_CREATE:         // Status create
@@ -791,7 +794,8 @@ class G12F01S01VC: BaseParentViewController {
                         (alert: UIAlertAction!) in
                         OrderTransactionCancelRequest.requestOrderTransactionCancel(
                             action: #selector(self.finishRequestTransactionCancelHandler(_:)),
-                            view: self)
+                            view: self,
+                            id: self._id)
         },
                        cancelHandler: {
                         (alert: UIAlertAction!) in
