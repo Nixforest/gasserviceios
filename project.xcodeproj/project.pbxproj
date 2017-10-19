@@ -127,6 +127,8 @@
 		D7E3073A1F72BA6B0065F2E1 /* G12F01S01VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7E307381F72BA6B0065F2E1 /* G12F01S01VC.xib */; };
 		D7EAC44E1F581223008890DA /* GoogleMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EAC44C1F581223008890DA /* GoogleMapVC.swift */; };
 		D7EAC44F1F581223008890DA /* GoogleMapVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7EAC44D1F581223008890DA /* GoogleMapVC.xib */; };
+		D7EDF48D1F973EB300215A5E /* G00AccountExtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EDF48B1F973EB300215A5E /* G00AccountExtVC.swift */; };
+		D7EDF48E1F973EB300215A5E /* G00AccountExtVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7EDF48C1F973EB300215A5E /* G00AccountExtVC.xib */; };
 		D7F17CD91E5DF4A300208A73 /* OrderTransactionConfirmRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F17CD81E5DF4A300208A73 /* OrderTransactionConfirmRespModel.swift */; };
 		D7F684411E2F49E900D3D6F4 /* OrderConfigRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F684401E2F49E900D3D6F4 /* OrderConfigRequest.swift */; };
 		D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */; };
@@ -309,6 +311,8 @@
 		D7E307381F72BA6B0065F2E1 /* G12F01S01VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G12F01S01VC.xib; path = G12/F01/G12F01S01VC.xib; sourceTree = "<group>"; };
 		D7EAC44C1F581223008890DA /* GoogleMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleMapVC.swift; path = Common/GoogleMap/GoogleMapVC.swift; sourceTree = "<group>"; };
 		D7EAC44D1F581223008890DA /* GoogleMapVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GoogleMapVC.xib; path = Common/GoogleMap/GoogleMapVC.xib; sourceTree = "<group>"; };
+		D7EDF48B1F973EB300215A5E /* G00AccountExtVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00AccountExtVC.swift; path = G00/Version2/G00AccountExtVC.swift; sourceTree = "<group>"; };
+		D7EDF48C1F973EB300215A5E /* G00AccountExtVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G00AccountExtVC.xib; path = G00/Version2/G00AccountExtVC.xib; sourceTree = "<group>"; };
 		D7F17CD81E5DF4A300208A73 /* OrderTransactionConfirmRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTransactionConfirmRespModel.swift; path = G04/OrderTransactionConfirmRespModel.swift; sourceTree = "<group>"; };
 		D7F684401E2F49E900D3D6F4 /* OrderConfigRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderConfigRequest.swift; path = G04/OrderConfigRequest.swift; sourceTree = "<group>"; };
 		D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Common/MapViewController.swift; sourceTree = "<group>"; };
@@ -569,6 +573,8 @@
 				D71544AE1F6BB26600480486 /* G00LoginExtVC.xib */,
 				D7B96E221F71785100815D7F /* G00ConfirmCodeVC.swift */,
 				D7B96E231F71785100815D7F /* G00ConfirmCodeVC.xib */,
+				D7EDF48B1F973EB300215A5E /* G00AccountExtVC.swift */,
+				D7EDF48C1F973EB300215A5E /* G00AccountExtVC.xib */,
 			);
 			name = Version2;
 			sourceTree = "<group>";
@@ -915,6 +921,7 @@
 				D7B96E251F71785100815D7F /* G00ConfirmCodeVC.xib in Resources */,
 				D78B06901F692C6700AB17E8 /* welcome_1920_1080.jpg in Resources */,
 				D7359B1B1F67D2F60032F0AF /* bg_main_4_3_2048_1536.png in Resources */,
+				D7EDF48E1F973EB300215A5E /* G00AccountExtVC.xib in Resources */,
 				D78B06921F692D2300AB17E8 /* welcome_1536_2048.png in Resources */,
 				84284E191D40DF050079DEBC /* Assets.xcassets in Resources */,
 				D7359B121F67C56C0032F0AF /* logo_new.png in Resources */,
@@ -1039,6 +1046,7 @@
 				D7E014B21E348F2A001F26B6 /* G04F01S03VC.swift in Sources */,
 				D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */,
 				D7E014B41E348FC9001F26B6 /* G04F01S03MenuVC.swift in Sources */,
+				D7EDF48D1F973EB300215A5E /* G00AccountExtVC.swift in Sources */,
 				D7804B3E1E7685CF00C94F75 /* G00LoginMenuVC.swift in Sources */,
 				D746DE101F8625E100C014DA /* G00Const.swift in Sources */,
 				D7EAC44E1F581223008890DA /* GoogleMapVC.swift in Sources */,

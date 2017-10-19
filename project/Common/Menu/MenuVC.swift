@@ -83,6 +83,14 @@ class MenuVC: BaseMenuViewController {
         }
     }
     
+    override func openUserProfile() {
+        let view = G00AccountExtVC(nibName: G00AccountExtVC.theClassName,
+                                    bundle: nil)
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.navigationController?.pushViewController(view, animated: true)
+        }
+    }
+    
     override func update() {
         super.update()
         

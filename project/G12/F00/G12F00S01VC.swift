@@ -26,7 +26,6 @@ class G12F00S01VC: BaseParentViewController {
     // MARK: Static values
     
     // MARK: Constant
-    // MARK: Constant
     var CELL_REAL_WIDTH_HD     = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_HD
     var CELL_REAL_WIDTH_FHD    = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD
     var CELL_REAL_WIDTH_FHD_L  = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_FHD_L

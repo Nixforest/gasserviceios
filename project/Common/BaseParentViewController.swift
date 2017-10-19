@@ -21,8 +21,10 @@ class BaseParentViewController: ParentExtViewController {
      * Handle open login view
      */
     override func openLogin() {
-        let login = G00LoginExtVC(nibName: G00LoginExtVC.theClassName, bundle: nil)
-        self.present(login, animated: true, completion: finishOpenLogin)
+        let view = G00LoginExtVC(nibName: G00LoginExtVC.theClassName, bundle: nil)
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.present(view, animated: true, completion: finishOpenLogin)
+        }
     }
     
     /**

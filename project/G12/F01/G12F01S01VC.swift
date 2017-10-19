@@ -499,7 +499,9 @@ class G12F01S01VC: BaseParentViewController {
                 }
                 break
             case OrderStatusEnum.STATUS_COMPLETE:       // Status complete
-                changeMode(value: OrderStatusEnum.STATUS_COMPLETE)
+                if self.mode != OrderStatusEnum.STATUS_CREATE {
+                    changeMode(value: OrderStatusEnum.STATUS_COMPLETE)
+                }                
                 break
             case OrderStatusEnum.STATUS_NUM:            // Status cancel
                 if !isCancelOrder {
