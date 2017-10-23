@@ -106,8 +106,8 @@ class G00LoginExtVC: ChildExtViewController {
         LOGIN_PHONE_REAL_WIDTH_FHD      = GlobalConst.LOGIN_TEXTFIELD_WIDTH * G00LoginExtVC.W_RATE_FHD
         LOGIN_PHONE_REAL_HEIGHT_FHD     = GlobalConst.LOGIN_TEXTFIELD_HEIGHT * G00LoginExtVC.H_RATE_FHD
         
-        LOGIN_PHONE_REAL_WIDTH_FHD_L    = GlobalConst.LOGIN_TEXTFIELD_WIDTH * G00LoginExtVC.W_RATE_FHD
-        LOGIN_PHONE_REAL_HEIGHT_FHD_L   = GlobalConst.LOGIN_TEXTFIELD_HEIGHT * G00LoginExtVC.H_RATE_FHD
+        LOGIN_PHONE_REAL_WIDTH_FHD_L    = GlobalConst.LOGIN_TEXTFIELD_WIDTH * G00LoginExtVC.W_RATE_FHD_L
+        LOGIN_PHONE_REAL_HEIGHT_FHD_L   = GlobalConst.LOGIN_TEXTFIELD_HEIGHT * G00LoginExtVC.H_RATE_FHD_L
         
         // Next button
         LOGIN_NEXT_BUTTON_REAL_SIZE_HD      = GlobalConst.LOGIN_NEXT_BUTTON_SIZE * G00LoginExtVC.H_RATE_HD
@@ -193,9 +193,9 @@ class G00LoginExtVC: ChildExtViewController {
         self.view.addSubview(imgLogo)
         self.view.addSubview(lblLogin)
         self.view.addSubview(txtPhone)
-        self.view.addSubview(lblOr)
-        self.view.addSubview(btnFacebook)
-        self.view.addSubview(btnZalo)
+//        self.view.addSubview(lblOr)
+//        self.view.addSubview(btnFacebook)
+//        self.view.addSubview(btnZalo)
     }
     
     /**

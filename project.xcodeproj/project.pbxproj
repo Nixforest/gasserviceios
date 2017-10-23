@@ -16,6 +16,8 @@
 		84A4C06B1D6311D000C0B84C /* example.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C06A1D6311D000C0B84C /* example.txt */; };
 		924EABC41DF10CFC0056A303 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924EABC31DF10CFC0056A303 /* UserNotifications.framework */; };
 		C383B9FC8A70FA56E97CD383 /* Pods_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04CE59C33B46DFF900FDEBE0 /* Pods_project.framework */; };
+		D7097AC01F9B5D3800B4DF26 /* G00AccountEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7097ABE1F9B5D3800B4DF26 /* G00AccountEditVC.swift */; };
+		D7097AC11F9B5D3800B4DF26 /* G00AccountEditVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7097ABF1F9B5D3800B4DF26 /* G00AccountEditVC.xib */; };
 		D70EDFB81F95FAAA00658F64 /* G12F00S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EDFB61F95FAAA00658F64 /* G12F00S01VC.swift */; };
 		D70EDFB91F95FAAA00658F64 /* G12F00S01VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D70EDFB71F95FAAA00658F64 /* G12F00S01VC.xib */; };
 		D70EDFBE1F96224A00658F64 /* G12F00VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EDFBC1F96224A00658F64 /* G12F00VC.swift */; };
@@ -104,6 +106,7 @@
 		D7B96E241F71785100815D7F /* G00ConfirmCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B96E221F71785100815D7F /* G00ConfirmCodeVC.swift */; };
 		D7B96E251F71785100815D7F /* G00ConfirmCodeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7B96E231F71785100815D7F /* G00ConfirmCodeVC.xib */; };
 		D7C30A3D1E305BF900B3FDA6 /* OrderConfigRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C30A3C1E305BF900B3FDA6 /* OrderConfigRespModel.swift */; };
+		D7CC24691F9D921C004626D3 /* RatingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC24681F9D921C004626D3 /* RatingRequest.swift */; };
 		D7CED4921F6137C700CCAA2F /* MultiDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CED4901F6137C700CCAA2F /* MultiDeviceVC.swift */; };
 		D7CED4931F6137C700CCAA2F /* MultiDeviceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7CED4911F6137C700CCAA2F /* MultiDeviceVC.xib */; };
 		D7CED4951F613AD600CCAA2F /* MultiDeviceVC~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7CED4941F613AD600CCAA2F /* MultiDeviceVC~ipad.xib */; };
@@ -201,6 +204,8 @@
 		924EABC31DF10CFC0056A303 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		92D05F711DEB215C00DA87C3 /* project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = project.entitlements; sourceTree = "<group>"; };
 		A18C7C071B3A30513EC7D78C /* Pods-project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project.debug.xcconfig"; path = "project/Pods/Target Support Files/Pods-project/Pods-project.debug.xcconfig"; sourceTree = "<group>"; };
+		D7097ABE1F9B5D3800B4DF26 /* G00AccountEditVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00AccountEditVC.swift; path = G00/Version2/G00AccountEditVC.swift; sourceTree = "<group>"; };
+		D7097ABF1F9B5D3800B4DF26 /* G00AccountEditVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G00AccountEditVC.xib; path = G00/Version2/G00AccountEditVC.xib; sourceTree = "<group>"; };
 		D70EDFB61F95FAAA00658F64 /* G12F00S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12F00S01VC.swift; path = G12/F00/G12F00S01VC.swift; sourceTree = "<group>"; };
 		D70EDFB71F95FAAA00658F64 /* G12F00S01VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G12F00S01VC.xib; path = G12/F00/G12F00S01VC.xib; sourceTree = "<group>"; };
 		D70EDFBC1F96224A00658F64 /* G12F00VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12F00VC.swift; path = G12/F00/G12F00VC.swift; sourceTree = "<group>"; };
@@ -288,6 +293,7 @@
 		D7B96E221F71785100815D7F /* G00ConfirmCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00ConfirmCodeVC.swift; path = G00/Version2/G00ConfirmCodeVC.swift; sourceTree = "<group>"; };
 		D7B96E231F71785100815D7F /* G00ConfirmCodeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G00ConfirmCodeVC.xib; path = G00/Version2/G00ConfirmCodeVC.xib; sourceTree = "<group>"; };
 		D7C30A3C1E305BF900B3FDA6 /* OrderConfigRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderConfigRespModel.swift; path = G04/OrderConfigRespModel.swift; sourceTree = "<group>"; };
+		D7CC24681F9D921C004626D3 /* RatingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RatingRequest.swift; path = G12/API/RatingRequest.swift; sourceTree = "<group>"; };
 		D7CED4901F6137C700CCAA2F /* MultiDeviceVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiDeviceVC.swift; path = Common/MultiDevice/MultiDeviceVC.swift; sourceTree = "<group>"; };
 		D7CED4911F6137C700CCAA2F /* MultiDeviceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MultiDeviceVC.xib; path = Common/MultiDevice/MultiDeviceVC.xib; sourceTree = "<group>"; };
 		D7CED4941F613AD600CCAA2F /* MultiDeviceVC~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MultiDeviceVC~ipad.xib"; path = "Common/MultiDevice/MultiDeviceVC~ipad.xib"; sourceTree = "<group>"; };
@@ -575,6 +581,8 @@
 				D7B96E231F71785100815D7F /* G00ConfirmCodeVC.xib */,
 				D7EDF48B1F973EB300215A5E /* G00AccountExtVC.swift */,
 				D7EDF48C1F973EB300215A5E /* G00AccountExtVC.xib */,
+				D7097ABE1F9B5D3800B4DF26 /* G00AccountEditVC.swift */,
+				D7097ABF1F9B5D3800B4DF26 /* G00AccountEditVC.xib */,
 			);
 			name = Version2;
 			sourceTree = "<group>";
@@ -677,6 +685,7 @@
 			isa = PBXGroup;
 			children = (
 				D7DDA4F51F77D3D100824FC4 /* TransactionStatusRequest.swift */,
+				D7CC24681F9D921C004626D3 /* RatingRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -916,6 +925,7 @@
 				D7359B1A1F67D2F60032F0AF /* bg_main_4_3_1536_2048.jpg in Resources */,
 				D76E580C1F7DF24900CF6557 /* G12F00S02VC.xib in Resources */,
 				D7EAC44F1F581223008890DA /* GoogleMapVC.xib in Resources */,
+				D7097AC11F9B5D3800B4DF26 /* G00AccountEditVC.xib in Resources */,
 				D7117B5A1F7AA55000B8C2FA /* G12F01S04VC.xib in Resources */,
 				D7359B161F67CBF30032F0AF /* logo_member.png in Resources */,
 				D7B96E251F71785100815D7F /* G00ConfirmCodeVC.xib in Resources */,
@@ -1027,6 +1037,7 @@
 				D7D429D41F4ABB6E00001766 /* File.metal in Sources */,
 				D7671BE91E16E3FE0026DCFA /* G04Const.swift in Sources */,
 				D7117B5D1F7ACF3100B8C2FA /* G13Const.swift in Sources */,
+				D7097AC01F9B5D3800B4DF26 /* G00AccountEditVC.swift in Sources */,
 				D7FBBD9E1F91CFBE00213036 /* PromotionAddRequest.swift in Sources */,
 				D721C5041F5D39C3003E823D /* GoogleMapValue.swift in Sources */,
 				D721C5011F5D39C3003E823D /* Bounds.swift in Sources */,
@@ -1061,6 +1072,7 @@
 				D72C8B651E49D83700541651 /* G04F02S01VC.swift in Sources */,
 				D70EDFB81F95FAAA00658F64 /* G12F00S01VC.swift in Sources */,
 				D721C5021F5D39C3003E823D /* DirectionOverview.swift in Sources */,
+				D7CC24691F9D921C004626D3 /* RatingRequest.swift in Sources */,
 				D7804B411E7685CF00C94F75 /* G00RegisterVC.swift in Sources */,
 				D7DD767E1F8DDDED00AD06F4 /* MaterialCollectionViewCell.swift in Sources */,
 				D74E99391F4D2A0C001E735D /* GetReferInfoRequest.swift in Sources */,

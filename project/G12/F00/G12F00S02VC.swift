@@ -201,6 +201,18 @@ class G12F00S02VC: ChildExtViewController {
     
     // MARK: Event handler
     /**
+     * Handle when finish rating request
+     */
+    internal func finishRating(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            self.btnSubmit.isHidden = true
+        }
+        showAlert(message: model.message)
+    }
+    
+    /**
      * Handle when tap on employee view
      * - parameter gestureRecognizer: UITapGestureRecognizer object
      */
@@ -213,19 +225,58 @@ class G12F00S02VC: ChildExtViewController {
      * Handle when tap on submit button
      */
     func btnSubmitTapped(_ sender: AnyObject) {
-        showAlert(message: "btnSubmitTapped")
+        let ratingValue = self.ratingBar.getRatingValue()
+        var comment = self.txtNote.text
+        if comment == DomainConst.CONTENT00457 {
+            comment = DomainConst.BLANK
+        }
+        RatingRequest.request(action: #selector(finishRating(_:)),
+                              view: self,
+                              id: self.id,
+                              rating: ratingValue,
+                              comment: comment!)
     }
     
     // MARK: Utilities
+    /**
+     * Update employee view data
+     * - parameter data: Order object
+     */
     private func updateEmployeeViewData(data: OrderBean) {
+        // Show hide employee view base on order status
+        self.employeeView.isHidden = (data.status_number != DomainConst.ORDER_STATUS_COMPLETE)
+        // Set data for: image
         if !data.employee_image.isEmpty {
             self.imgAvatar.getImgFromUrl(link: data.employee_image,
                                          contentMode: self.imgAvatar.contentMode)
         }
+        // Name
         self.lblEmployeeName.text   = data.employee_name
+        // Code
         self.lblEmployeeCode.text   = data.employee_code
+        // Agent info
         self.lblAgent.text          = data.agent_name
+        // Get rating value
+        if let value = Int.init(data.rating) {
+            self.ratingBar.setRatingValue(value: value)
+            if value != 0 { // Rating success already
+                ratingBar.isUserInteractionEnabled = false
+                txtNote.isEditable = false
+                btnSubmit.isHidden = true
+                self.txtNote.text = data.rating_comment
+            } else {
+                ratingBar.isUserInteractionEnabled = true
+                txtNote.isEditable = true
+                btnSubmit.isHidden = false
+            }
+        } else {    // Get value failed
+            self.ratingBar.setRatingValue(value: 0)
+            ratingBar.isUserInteractionEnabled = true
+            txtNote.isEditable = true
+            btnSubmit.isHidden = false
+        }
     }
+    
     /**
      * Set id value
      * - parameter id: Id value to set

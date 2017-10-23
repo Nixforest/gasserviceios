@@ -14,6 +14,8 @@ class G12Const {
     public static let FUNC_IDENTIFIER                           = DomainConst.APPNAME + "g012"
     /** Path to connect with PHP server */
     public static let PATH_ORDER_TRANSACTION_LIST               = "order/transactionStatus"
+    /** Path to connect with PHP server */
+    public static let PATH_ORDER_TRANSACTION_RATING             = "order/transactionRating"
     /** Notification key: Finish login */
     public static let NOTIFY_NAME_G12_REQUEST_TRANSACTION_START = G12Const.FUNC_IDENTIFIER + ".requestTransactionStart"
     /** Notification key: Finish order */

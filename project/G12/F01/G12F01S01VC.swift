@@ -182,12 +182,25 @@ class G12F01S01VC: BaseParentViewController {
         // Location setting
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
+        switch CLLocationManager.authorizationStatus() {
+        case .denied, .notDetermined, .restricted:
             locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
-        } else {
-            locationManager.startUpdatingLocation()
+            showAlert(message: DomainConst.CONTENT00529,
+                      okHandler: {
+                        alert in
+                        UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString) as! URL)
+            })
+            break
+        default:
+            break
         }
+        locationManager.startUpdatingLocation()
+//        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
+//            locationManager.requestWhenInUseAuthorization()
+//            locationManager.startUpdatingLocation()
+//        } else {
+//            locationManager.startUpdatingLocation()
+//        }
         showBotMsg(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00495)
     }
     
@@ -440,6 +453,18 @@ class G12F01S01VC: BaseParentViewController {
      * Handle order button tapped event
      */
     internal func btnOrderTapped(_ sender: AnyObject) {
+        switch CLLocationManager.authorizationStatus() {
+        case .denied, .notDetermined, .restricted:
+            locationManager.requestWhenInUseAuthorization()
+            showAlert(message: DomainConst.CONTENT00529,
+                      okHandler: {
+                        alert in
+                        UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString) as! URL)
+            })
+            return
+        default:
+            break
+        }
         btnOrder.isEnabled = false
         changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
         requestTransactionStart()
@@ -588,6 +613,7 @@ class G12F01S01VC: BaseParentViewController {
 //            changeMode(value: MODE_PROCESSING)
         } else {
             showAlert(message: model.message)
+            changeMode(value: .STATUS_CREATE)
         }
     }
     
@@ -646,6 +672,7 @@ class G12F01S01VC: BaseParentViewController {
             requestTransactionComplete()
         } else {
             showAlert(message: model.message)
+            changeMode(value: .STATUS_CREATE)
         }
     }
     
