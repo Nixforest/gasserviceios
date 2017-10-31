@@ -122,6 +122,9 @@
 		D7E014A81E34647D001F26B6 /* G04F01S02MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E014A71E34647D001F26B6 /* G04F01S02MenuVC.swift */; };
 		D7E014B21E348F2A001F26B6 /* G04F01S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E014B11E348F2A001F26B6 /* G04F01S03VC.swift */; };
 		D7E014B41E348FC9001F26B6 /* G04F01S03MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E014B31E348FC9001F26B6 /* G04F01S03MenuVC.swift */; };
+		D7E2608C1FA048C7008A7CDD /* G00AddressSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E2608A1FA048C7008A7CDD /* G00AddressSelectVC.swift */; };
+		D7E2608D1FA048C7008A7CDD /* G00AddressSelectVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7E2608B1FA048C7008A7CDD /* G00AddressSelectVC.xib */; };
+		D7E260911FA08F60008A7CDD /* ChangeProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E260901FA08F60008A7CDD /* ChangeProfileRequest.swift */; };
 		D7E299041F74E7CE0078C46C /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E299021F74E7CE0078C46C /* MenuVC.swift */; };
 		D7E299051F74E7CE0078C46C /* MenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7E299031F74E7CE0078C46C /* MenuVC.xib */; };
 		D7E299081F74EDEE0078C46C /* G12F01S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E299061F74EDEE0078C46C /* G12F01S02VC.swift */; };
@@ -309,6 +312,9 @@
 		D7E014A71E34647D001F26B6 /* G04F01S02MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S02MenuVC.swift; path = G04/G04F01S02MenuVC.swift; sourceTree = "<group>"; };
 		D7E014B11E348F2A001F26B6 /* G04F01S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S03VC.swift; path = G04/G04F01S03VC.swift; sourceTree = "<group>"; };
 		D7E014B31E348FC9001F26B6 /* G04F01S03MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F01S03MenuVC.swift; path = G04/G04F01S03MenuVC.swift; sourceTree = "<group>"; };
+		D7E2608A1FA048C7008A7CDD /* G00AddressSelectVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00AddressSelectVC.swift; path = G00/Version2/G00AddressSelectVC.swift; sourceTree = "<group>"; };
+		D7E2608B1FA048C7008A7CDD /* G00AddressSelectVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G00AddressSelectVC.xib; path = G00/Version2/G00AddressSelectVC.xib; sourceTree = "<group>"; };
+		D7E260901FA08F60008A7CDD /* ChangeProfileRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChangeProfileRequest.swift; path = G00/API/ChangeProfileRequest.swift; sourceTree = "<group>"; };
 		D7E299021F74E7CE0078C46C /* MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuVC.swift; path = Common/Menu/MenuVC.swift; sourceTree = "<group>"; };
 		D7E299031F74E7CE0078C46C /* MenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MenuVC.xib; path = Common/Menu/MenuVC.xib; sourceTree = "<group>"; };
 		D7E299061F74EDEE0078C46C /* G12F01S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G12F01S02VC.swift; path = G12/F01/G12F01S02VC.swift; sourceTree = "<group>"; };
@@ -568,6 +574,7 @@
 			isa = PBXGroup;
 			children = (
 				D746DE111F86285D00C014DA /* GenerateOTPRequest.swift */,
+				D7E260901FA08F60008A7CDD /* ChangeProfileRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -583,6 +590,8 @@
 				D7EDF48C1F973EB300215A5E /* G00AccountExtVC.xib */,
 				D7097ABE1F9B5D3800B4DF26 /* G00AccountEditVC.swift */,
 				D7097ABF1F9B5D3800B4DF26 /* G00AccountEditVC.xib */,
+				D7E2608A1FA048C7008A7CDD /* G00AddressSelectVC.swift */,
+				D7E2608B1FA048C7008A7CDD /* G00AddressSelectVC.xib */,
 			);
 			name = Version2;
 			sourceTree = "<group>";
@@ -928,6 +937,7 @@
 				D7097AC11F9B5D3800B4DF26 /* G00AccountEditVC.xib in Resources */,
 				D7117B5A1F7AA55000B8C2FA /* G12F01S04VC.xib in Resources */,
 				D7359B161F67CBF30032F0AF /* logo_member.png in Resources */,
+				D7E2608D1FA048C7008A7CDD /* G00AddressSelectVC.xib in Resources */,
 				D7B96E251F71785100815D7F /* G00ConfirmCodeVC.xib in Resources */,
 				D78B06901F692C6700AB17E8 /* welcome_1920_1080.jpg in Resources */,
 				D7359B1B1F67D2F60032F0AF /* bg_main_4_3_2048_1536.png in Resources */,
@@ -1068,6 +1078,8 @@
 				D7671BE11E16E3AC0026DCFA /* OrderListRespModel.swift in Sources */,
 				D7804B3A1E7685CF00C94F75 /* G00HomeCell.swift in Sources */,
 				D795D0491F8C902400001902 /* ReferInfoRequest.swift in Sources */,
+				D7E2608C1FA048C7008A7CDD /* G00AddressSelectVC.swift in Sources */,
+				D7E260911FA08F60008A7CDD /* ChangeProfileRequest.swift in Sources */,
 				D71C25AA1E42544300E29C3B /* OrderTransactionCancelRequest.swift in Sources */,
 				D72C8B651E49D83700541651 /* G04F02S01VC.swift in Sources */,
 				D70EDFB81F95FAAA00658F64 /* G12F00S01VC.swift in Sources */,

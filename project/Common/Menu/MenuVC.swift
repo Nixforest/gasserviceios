@@ -95,8 +95,10 @@ class MenuVC: BaseMenuViewController {
         super.update()
         
         if BaseModel.shared.checkIsLogin() {
-            if let userInfo = BaseModel.shared.user_info {
-                setUserInfo(info: userInfo)
+            //if let userInfo = BaseModel.shared.user_info {
+            if !BaseModel.shared.getUserInfo().isEmpty() {
+                //setUserInfo(info: userInfo)
+                setUserInfo(info: BaseModel.shared.getUserInfo())
             } else {
                 UserProfileRequest.requestUserProfile(action: #selector(finishUpdateUserInfo(_:)), view: self)
             }

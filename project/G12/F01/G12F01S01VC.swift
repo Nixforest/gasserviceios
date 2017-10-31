@@ -777,9 +777,10 @@ class G12F01S01VC: BaseParentViewController {
      */
     private func requestTransactionComplete() {
         var userInfo = UserInfoBean()
-        if let info = BaseModel.shared.user_info {
-            userInfo = info
-        }
+//        if let info = BaseModel.shared.user_info {
+//            userInfo = info
+//        }
+        userInfo = BaseModel.shared.getUserInfo()
         let orderDetail = String(getOrderDetail().characters.dropLast())
         
         OrderTransactionCompleteRequest.requestOrderTransactionComplete(

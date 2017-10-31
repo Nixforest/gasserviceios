@@ -14,5 +14,7 @@ class G00Const: NSObject {
     public static let FUNC_IDENTIFIER                           = DomainConst.APPNAME + "g00"
     /** Path to connect with PHP server */
     public static let PATH_CUSTOMER_GENERATE_OTP                = "customer/generateOTP"
+    /** Path to connect with PHP server */
+    public static let PATH_USER_CHANGE_PROFILE                  = "user/changeProfile"
 
 }

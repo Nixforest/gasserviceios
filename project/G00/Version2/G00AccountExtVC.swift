@@ -32,6 +32,11 @@ class G00AccountExtVC: BaseParentViewController {
         requestData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        requestData()
+    }
+    
     /**
      * Handle update constants
      */
@@ -100,21 +105,22 @@ class G00AccountExtVC: BaseParentViewController {
         let model = UserProfileRespModel(jsonString: data)
         if model.isSuccess() {
             BaseModel.shared.setUserInfo(userInfo: model.record)
+            _data.removeAll()
             _data.append(ConfigurationModel(
                 id: DomainConst.NUMBER_ZERO_VALUE,
                 name: DomainConst.CONTENT00079,
                 iconPath: DomainConst.NAME_ICON_IMG_NAME,
-                value: (BaseModel.shared.user_info?.getName())!))
+                value: BaseModel.shared.getUserInfo().getName()))
             _data.append(ConfigurationModel(
                 id: DomainConst.NUMBER_ONE_VALUE,
                 name: DomainConst.CONTENT00152,
                 iconPath: DomainConst.PHONE_ICON_NEW_IMG_NAME,
-                value: (BaseModel.shared.user_info?.getPhone())!))
+                value: BaseModel.shared.getUserInfo().getPhone()))
             _data.append(ConfigurationModel(
                 id: DomainConst.NUMBER_TWO_VALUE,
                 name: DomainConst.CONTENT00088,
                 iconPath: DomainConst.ADDRESS_ICON_NEW_IMG_NAME,
-                value: (BaseModel.shared.user_info?.getAddress())!))
+                value: BaseModel.shared.getUserInfo().getAddress()))
             tblInfo.reloadData()
         } else {
             showAlert(message: model.message)
