@@ -160,7 +160,7 @@ class G12F01S02VC: BaseParentViewController {
         
         // Center mark
         createCenterMark()
-        self.showBotMsg(note: DomainConst.CONTENT00498,
+        self.addBotMsg(note: DomainConst.CONTENT00498,
                         description: DomainConst.CONTENT00498)
         changeMode(value: OrderStatusEnum.STATUS_DELIVERING)
     }

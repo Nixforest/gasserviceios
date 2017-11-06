@@ -697,7 +697,7 @@ extension G00AccountEditVC: UITableViewDelegate {
                 break
             case 1:
                 if self.isUserChangedData() {
-                    showAlert(message: "Thông tin chưa được lưu lại, bạn chắc chắn muốn huỷ?",
+                    showAlert(message: DomainConst.CONTENT00530,
                               okHandler: {
                                 alert in
                                 self.backButtonTapped(self)

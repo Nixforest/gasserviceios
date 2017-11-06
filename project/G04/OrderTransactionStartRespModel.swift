@@ -35,7 +35,7 @@ class OrderTransactionStartRespModel: BaseRespModel {
                 
                 // Record
                 let recordList = json[DomainConst.KEY_RECORD] as? [String: AnyObject]
-                self.record = TransactionBean(jsonData: recordList!)
+                self.record = TransactionBean(jsonData: recordList!, isSession: true)
             } catch let error as NSError {
                 print(DomainConst.JSON_ERR_FAILED_LOAD + "\(error.localizedDescription)")
             }

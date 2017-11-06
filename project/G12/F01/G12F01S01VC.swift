@@ -100,6 +100,8 @@ class G12F01S01VC: BaseParentViewController {
     var previewView:            OrderPreview      = OrderPreview()
     /** Id */
     var _id:                    String      = DomainConst.BLANK
+    /** Flag showing preview */
+    var isShowPreview:          Bool        = false
     
     // MARK: Static values
     /** Current position of map view */
@@ -201,13 +203,17 @@ class G12F01S01VC: BaseParentViewController {
 //        } else {
 //            locationManager.startUpdatingLocation()
 //        }
-        showBotMsg(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00495)
+        
+        addBotMsg(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00495)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.isOpenedMap = false
         updateMaterialSelector()
+        if isShowPreview {
+            requestTransactionComplete(isReview: true)
+        }
     }
     
     /**
@@ -418,6 +424,7 @@ class G12F01S01VC: BaseParentViewController {
         default:
             break
         }
+        makeBotMsgVisible(isShow: !isShowPreview)
     }
     
     // MARK: Event handler
@@ -466,7 +473,7 @@ class G12F01S01VC: BaseParentViewController {
             break
         }
         btnOrder.isEnabled = false
-        changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
+        //changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
         requestTransactionStart()
         btnOrder.isEnabled = true
     }
@@ -506,7 +513,7 @@ class G12F01S01VC: BaseParentViewController {
             // Handle process base on status of order
             switch checkStatus(order: model.getRecord()) {
             case OrderStatusEnum.STATUS_CREATE:         // Status create
-                
+//                changeMode(value: .STATUS_CREATE)
                 break
             case OrderStatusEnum.STATUS_WAIT_CONFIRM:   // Status waiting confirm
                 if self.mode != OrderStatusEnum.STATUS_CONFIRMED {
@@ -589,7 +596,7 @@ class G12F01S01VC: BaseParentViewController {
 //                }
 //            }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(GlobalConst.RESEND_TRANSACTION_STATUS_TIME_WAIT),
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(BaseModel.shared.getGas24hTimeCheckOrder() * 1000),
                                       execute: {
                                         self.requestTransactionStatus(
                                             completionHandler: self.finishRequestTransactionStatus)
@@ -603,14 +610,43 @@ class G12F01S01VC: BaseParentViewController {
         let data = (notification.object as! String)
         let model = OrderTransactionCompleteRespModel(jsonString: data)
         if model.isSuccess() {
-            let transactionData = TransactionBean()
+            let transactionData = BaseModel.shared.getTransactionData()
             transactionData.id = model.getRecord().transaction_id
-            transactionData.name = BaseModel.shared.getTransactionData().name
             BaseModel.shared.setTransactionData(transaction: transactionData)
             
             btnCancelOrder.isEnabled = true
-//            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
-//            changeMode(value: MODE_PROCESSING)
+            showHidePreview(isShow: false)
+            changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
+            
+            //            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
+            //            changeMode(value: MODE_PROCESSING)
+        } else {
+            showAlert(message: model.message)
+            changeMode(value: .STATUS_CREATE)
+        }
+    }
+    
+    /**
+     * Handler when transaction complete (review) request is finish
+     */
+    func finishRequestTransactionCompleteReview(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = OrderTransactionCompleteRespModel(jsonString: data)
+        if model.isSuccess() {
+//            self.showBotMsg(note: DomainConst.BLANK,
+//                            description: DomainConst.BLANK,
+//                            isShow: false)
+            for item in model.getRecord().order_detail {
+                if item.isGas() {
+                    G12F01S01VC._gasSelected = item
+                } else if item.isPromotion() {
+                    G12F01S01VC._promoteSelected = item
+                }
+            }
+            
+            isShowPreview = true
+            makeBotMsgVisible(isShow: !isShowPreview)
+            previewView.setData(data: model.getRecord())
         } else {
             showAlert(message: model.message)
             changeMode(value: .STATUS_CREATE)
@@ -669,7 +705,13 @@ class G12F01S01VC: BaseParentViewController {
         let model = OrderTransactionStartRespModel(jsonString: data)
         if model.isSuccess() {
             BaseModel.shared.setTransactionData(transaction: model.getRecord())
-            requestTransactionComplete()
+            if model.getRecord().isLastOrderEmpty() {
+                requestTransactionComplete(isReview: false)
+            } else {
+                //self.previewView.setData(data: model.getRecord().getLastOrderInfo())
+                requestTransactionComplete(isReview: true)
+            }
+            self.previewView.isHidden = model.getRecord().isLastOrderEmpty()
         } else {
             showAlert(message: model.message)
             changeMode(value: .STATUS_CREATE)
@@ -774,17 +816,21 @@ class G12F01S01VC: BaseParentViewController {
     
     /**
      * Request transaction complete
+     * - parameter isReview: Review flag
      */
-    private func requestTransactionComplete() {
+    internal func requestTransactionComplete(isReview: Bool = false) {
         var userInfo = UserInfoBean()
 //        if let info = BaseModel.shared.user_info {
 //            userInfo = info
 //        }
         userInfo = BaseModel.shared.getUserInfo()
         let orderDetail = String(getOrderDetail().characters.dropLast())
-        
+        var action = #selector(finishRequestTransactionComplete)
+        if isReview {
+            action = #selector(finishRequestTransactionCompleteReview)
+        }
         OrderTransactionCompleteRequest.requestOrderTransactionComplete(
-            action: #selector(finishRequestTransactionComplete(_:)),
+            action: action,
             view: self,
             key:    BaseModel.shared.getTransactionData().name,
             id:     BaseModel.shared.getTransactionData().id,
@@ -803,7 +849,8 @@ class G12F01S01VC: BaseParentViewController {
             lat:            String(G12F01S01VC._currentPos.latitude),
             long:           String(G12F01S01VC._currentPos.longitude),
             agentId:        MapViewController._nearestAgent.info_agent.agent_id,
-            transactionType: DomainConst.TRANSACTION_TYPE_NORMAL)
+            transactionType: DomainConst.TRANSACTION_TYPE_NORMAL,
+            isReview:       isReview)
     }
     
     /**
@@ -825,6 +872,7 @@ class G12F01S01VC: BaseParentViewController {
                         OrderTransactionCancelRequest.requestOrderTransactionCancel(
                             action: #selector(self.finishRequestTransactionCancelHandler(_:)),
                             view: self,
+//                            id: BaseModel.shared.getTransactionData().id)
                             id: self._id)
         },
                        cancelHandler: {
@@ -844,6 +892,7 @@ class G12F01S01VC: BaseParentViewController {
             let long: CLLocationDegrees = (item.info_agent.agent_longitude as NSString).doubleValue
             let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
             let currentDist = calculateDistance(pos1: G12F01S01VC._currentPos, pos2: location)
+            print(currentDist)
             // Found a nearer agent
             if distance > currentDist {
                 G12F01S01VC._nearestAgent = item
@@ -868,7 +917,6 @@ class G12F01S01VC: BaseParentViewController {
             }
         }
         updateMaterialSelector()
-        previewView.setData()
     }
     
     /**
@@ -890,14 +938,14 @@ class G12F01S01VC: BaseParentViewController {
     private func updateMaterialSelector() {
         // If found nearest agent information
         if !G12F01S01VC._gasSelected.isEmpty() {
-            self.listActionsLabels[0].text = G12F01S01VC._gasSelected.material_name
+            self.listActionsLabels[0].text = G12F01S01VC._gasSelected.materials_name_short
             //            self.listActionsButtons[0].setImage(tinted, for: UIControlState.selected)
         } else {
             self.listActionsLabels[0].text = self.listActionsConfig[0].name
         }
         // If found nearest agent information
         if !G12F01S01VC._promoteSelected.isEmpty() {
-            self.listActionsLabels[1].text = G12F01S01VC._promoteSelected.material_name
+            self.listActionsLabels[1].text = G12F01S01VC._promoteSelected.materials_name_short
 //            self.listActionsButtons[1].setImage(tinted, for: UIControlState.selected)
         } else {
             self.listActionsLabels[1].text = self.listActionsConfig[1].name
@@ -1120,6 +1168,16 @@ class G12F01S01VC: BaseParentViewController {
             listActionsButtons[i].isHidden = isShow
             listActionsLabels[i].isHidden = isShow
         }
+    }
+    
+    /**
+     * Show hide preview
+     * - parameter isShow: Flag show or hide
+     */
+    internal func showHidePreview(isShow: Bool) {
+        isShowPreview = isShow
+        makeBotMsgVisible(isShow: !isShowPreview)
+        previewView.isHidden = !isShowPreview
     }
     
     // MARK: Status Label
@@ -1897,14 +1955,13 @@ class G12F01S01VC: BaseParentViewController {
     
     // MARK: Preview order View
     private func createPreviewView(w: CGFloat) {
-        let yPos = statusView.frame.maxY + GlobalConst.MARGIN
+        let yPos = statusView.frame.maxY + GlobalConst.MARGIN * 1.5
         previewView.setup(x: (UIScreen.main.bounds.width - w) / 2,
                           y: yPos,
                           w: w,
                           h: UIScreen.main.bounds.height - yPos - getTopHeight())
-        previewView.delegate = self
-        previewView.setData()
-        previewView.isHidden = BaseModel.shared.isFirstOrder()
+        previewView.delegate = self 
+        previewView.isHidden = true
     }
     
     private func createPreviewViewHD() {
@@ -1920,12 +1977,12 @@ class G12F01S01VC: BaseParentViewController {
     }
     
     private func updatePreviewView(w: CGFloat) {
-        let yPos = statusView.frame.maxY + GlobalConst.MARGIN
+        let yPos = statusView.frame.maxY + GlobalConst.MARGIN * 1.5
         previewView.update(x: (UIScreen.main.bounds.width - w) / 2,
                           y: yPos,
                           w: w,
                           h: UIScreen.main.bounds.height - yPos - getTopHeight())
-        previewView.setData()
+//        previewView.setData()
     }
     
     private func updatePreviewViewHD() {
@@ -1956,8 +2013,8 @@ extension G12F01S01VC: CLLocationManagerDelegate {
         manager.delegate = nil
         if let location: CLLocation = locations.last {
             // Save current location
-//            G12F01S01VC._currentPos = location.coordinate
-            G12F01S01VC._currentPos = CLLocationCoordinate2D(latitude: 10.819258114124, longitude: 106.724750036821)
+            G12F01S01VC._currentPos = location.coordinate
+//            G12F01S01VC._currentPos = CLLocationCoordinate2D(latitude: 10.819258114124, longitude: 106.724750036821)
             self.startLogic()
             GMSGeocoder().reverseGeocodeCoordinate(location.coordinate, completionHandler: {
                 (response, error) in
@@ -1992,10 +2049,37 @@ extension G12F01S01VC: CLLocationManagerDelegate {
 }
 // MARK: Protocol - CLLocationManagerDelegate
 extension G12F01S01VC: OrderPreviewDelegate {
+    /**
+     * Handle tap on Gas select button.
+     */
     func btnGasTapped(_ sender: AnyObject) {
         self.openGasSelect()
     }
+    
+    /**
+     * Handle tap on Promote select button.
+     */
     func btnPromoteTapped(_ sender: AnyObject) {
         self.openPromoteSelect()
+    }
+    
+    /**
+     * Handle tap on Delivery info update button.
+     */
+    func btnDeliveryInfoUpdateTapped(_ sender: AnyObject) {
+        showAlert(message: DomainConst.CONTENT00362)
+    }
+    
+    /**
+     * Handle tap on Cancel button.
+     */
+    func btnCancelTapped(_ sender: AnyObject) {
+        showHidePreview(isShow: false)
+    }
+    /**
+     * Handle tap on Next button.
+     */
+    func btnNextTapped(_ sender: AnyObject) {
+        requestTransactionComplete(isReview: false)
     }
 }
