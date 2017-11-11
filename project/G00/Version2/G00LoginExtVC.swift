@@ -60,8 +60,6 @@ class G00LoginExtVC: ChildExtViewController {
     var LOGIN_NEXT_BUTTON_REAL_SIZE_HD      = GlobalConst.LOGIN_NEXT_BUTTON_SIZE * G00LoginExtVC.H_RATE_HD
     var LOGIN_NEXT_BUTTON_REAL_SIZE_FHD     = GlobalConst.LOGIN_NEXT_BUTTON_SIZE * G00LoginExtVC.H_RATE_FHD
     var LOGIN_NEXT_BUTTON_REAL_SIZE_FHD_L   = GlobalConst.LOGIN_NEXT_BUTTON_SIZE * G00LoginExtVC.H_RATE_FHD_L
-    
-    
 
     // MARK: Override methods
     /**
@@ -79,12 +77,12 @@ class G00LoginExtVC: ChildExtViewController {
      * Handle update constants
      */
     override func updateConst() {
-        G00LoginExtVC.W_RATE_HD    = UIScreen.main.bounds.width / GlobalConst.HD_SCREEN_BOUND.w
-        G00LoginExtVC.H_RATE_HD    = UIScreen.main.bounds.height / GlobalConst.HD_SCREEN_BOUND.h
-        G00LoginExtVC.W_RATE_FHD   = UIScreen.main.bounds.width / GlobalConst.FULL_HD_SCREEN_BOUND.w
-        G00LoginExtVC.H_RATE_FHD   = UIScreen.main.bounds.height / GlobalConst.FULL_HD_SCREEN_BOUND.h
-        G00LoginExtVC.W_RATE_FHD_L = UIScreen.main.bounds.width / GlobalConst.FULL_HD_SCREEN_BOUND.h
-        G00LoginExtVC.H_RATE_FHD_L = UIScreen.main.bounds.height / GlobalConst.FULL_HD_SCREEN_BOUND.w
+//        G00LoginExtVC.W_RATE_HD    = UIScreen.main.bounds.width / GlobalConst.HD_SCREEN_BOUND.w
+//        G00LoginExtVC.H_RATE_HD    = UIScreen.main.bounds.height / GlobalConst.HD_SCREEN_BOUND.h
+//        G00LoginExtVC.W_RATE_FHD   = UIScreen.main.bounds.width / GlobalConst.FULL_HD_SCREEN_BOUND.w
+//        G00LoginExtVC.H_RATE_FHD   = UIScreen.main.bounds.height / GlobalConst.FULL_HD_SCREEN_BOUND.h
+//        G00LoginExtVC.W_RATE_FHD_L = UIScreen.main.bounds.width / GlobalConst.FULL_HD_SCREEN_BOUND.h
+//        G00LoginExtVC.H_RATE_FHD_L = UIScreen.main.bounds.height / GlobalConst.FULL_HD_SCREEN_BOUND.w
         
         // Login
         LOGIN_LOGO_REAL_WIDTH_HD        = GlobalConst.LOGIN_LOGO_WIDTH * G00LoginExtVC.W_RATE_HD
@@ -146,7 +144,7 @@ class G00LoginExtVC: ChildExtViewController {
         // Get current device type
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
-            self.createLogoImg()
+            self.createLogoImgHD()
             self.createLoginLabel()
             self.createPhoneTextFieldHD()
             self.createNextBtnHD()
@@ -181,15 +179,6 @@ class G00LoginExtVC: ChildExtViewController {
             break
         }
         
-        imgLogo.image = ImageManager.getImage(named: DomainConst.LOGO_LOGIN_ICON_IMG_NAME)
-        let tappedRecog = UITapGestureRecognizer(
-            target: self,
-            action: #selector(G00LoginExtVC.imgLogoTapped(_:)))
-        imgLogo.isUserInteractionEnabled = true
-        imgLogo.addGestureRecognizer(tappedRecog)
-        
-        createNextBtn()
-        
         self.view.addSubview(imgLogo)
         self.view.addSubview(lblLogin)
         self.view.addSubview(txtPhone)
@@ -206,7 +195,7 @@ class G00LoginExtVC: ChildExtViewController {
         // Get current device type
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:        // iPhone
-            self.createLogoImg()
+            self.createLogoImgHD()
             self.updateLoginLabel()
             self.updatePhoneTextFieldHD()
             self.updateORLabel()
@@ -264,10 +253,16 @@ class G00LoginExtVC: ChildExtViewController {
         showAlert(message: DomainConst.CONTENT00030)
     }
     
+    /**
+     * Handle when finish open confirm screen
+     */
     internal func finishOpenConfirm() -> Void {
         print("finishOpenConfirm")
     }
     
+    /**
+     * Handle when finish dismiss login screen
+     */
     internal func finishDismissLogin() -> Void {
         print("finishDismissLogin")
         let confirmCode = G00ConfirmCodeVC(nibName: G00ConfirmCodeVC.theClassName, bundle: nil)
@@ -277,6 +272,9 @@ class G00LoginExtVC: ChildExtViewController {
         }
     }
     
+    /**
+     * Handle when finish request generate otp code
+     */
     internal func finishRequestGenerateOTP(_ notification: Notification) {
         let data = (notification.object as! String)
         let model = BaseRespModel(jsonString: data)
@@ -363,6 +361,9 @@ class G00LoginExtVC: ChildExtViewController {
         }
     }
     
+    /**
+     * Handle input phone if can not get phone number from facebook
+     */
     internal func inputPhone() {
         var tbxValue: UITextField?
         
@@ -406,25 +407,46 @@ class G00LoginExtVC: ChildExtViewController {
     }
     //-- BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
     
+//    /**
+//     * Update view position
+//     * - parameter view: View need to update
+//     * - parameter x: X position
+//     * - parameter y: Y position
+//     * - parameter w: Width of view
+//     * - parameter h: Height of view
+//     */
+//    private func updateViewPos(view: UIView, x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
+//        view.frame = CGRect(x: x, y: y, width: w, height: h)
+//    }
+    
+    // MARK - Logo image
     /**
-     * Update view position
-     * - parameter view: View need to update
-     * - parameter x: X position
-     * - parameter y: Y position
-     * - parameter w: Width of view
-     * - parameter h: Height of view
+     * Create logo image
+     * - parameter yPos: Y position
+     * - parameter w:    Width
+     * - parameter h:    Height
      */
-    private func updateViewPos(view: UIView, x: CGFloat, y: CGFloat, w: CGFloat, h: CGFloat) {
-        view.frame = CGRect(x: x, y: y, width: w, height: h)
+    private func createLogoImg(yPos: CGFloat, w: CGFloat, h: CGFloat) {
+        imgLogo.image = ImageManager.getImage(named: DomainConst.LOGO_LOGIN_ICON_IMG_NAME)
+        let tappedRecog = UITapGestureRecognizer(
+            target: self,
+            action: #selector(G00LoginExtVC.imgLogoTapped(_:)))
+        imgLogo.isUserInteractionEnabled = true
+        imgLogo.addGestureRecognizer(tappedRecog)
+        
+        createNextBtn()
+        CommonProcess.updateViewPos(view: imgLogo,
+                      x: (UIScreen.main.bounds.width - w) / 2,
+                      y: yPos,
+                      w: w,
+                      h: h)
     }
     
     /**
      * Create logo image (in HD mode)
      */
-    private func createLogoImg() {
-        updateViewPos(view: imgLogo,
-                      x: (UIScreen.main.bounds.width - LOGIN_LOGO_REAL_WIDTH_HD) / 2,
-                      y: LOGIN_LOGO_REAL_Y_POS_HD,
+    private func createLogoImgHD() {
+        createLogoImg(yPos: LOGIN_LOGO_REAL_Y_POS_HD,
                       w: LOGIN_LOGO_REAL_WIDTH_HD,
                       h: LOGIN_LOGO_REAL_HEIGHT_HD)
     }
@@ -433,9 +455,12 @@ class G00LoginExtVC: ChildExtViewController {
      * Create logo image (in Full HD mode)
      */
     private func createLogoImgFHD() {
-        updateViewPos(view: imgLogo,
-                      x: (UIScreen.main.bounds.width - LOGIN_LOGO_REAL_WIDTH_FHD) / 2,
-                      y: LOGIN_LOGO_REAL_Y_POS_FHD,
+//        updateViewPos(view: imgLogo,
+//                      x: (UIScreen.main.bounds.width - LOGIN_LOGO_REAL_WIDTH_FHD) / 2,
+//                      y: LOGIN_LOGO_REAL_Y_POS_FHD,
+//                      w: LOGIN_LOGO_REAL_WIDTH_FHD,
+//                      h: LOGIN_LOGO_REAL_HEIGHT_FHD)
+        createLogoImg(yPos: LOGIN_LOGO_REAL_Y_POS_FHD,
                       w: LOGIN_LOGO_REAL_WIDTH_FHD,
                       h: LOGIN_LOGO_REAL_HEIGHT_FHD)
     }
@@ -444,11 +469,50 @@ class G00LoginExtVC: ChildExtViewController {
      * Create logo image (in Full HD Landscape mode)
      */
     private func createLogoImgFHD_L() {
-        updateViewPos(view: imgLogo,
-                      x: (UIScreen.main.bounds.width  - LOGIN_LOGO_REAL_WIDTH_FHD_L) / 2,
-                      y: LOGIN_LOGO_REAL_Y_POS_FHD_L,
+//        updateViewPos(view: imgLogo,
+//                      x: (UIScreen.main.bounds.width  - LOGIN_LOGO_REAL_WIDTH_FHD_L) / 2,
+//                      y: LOGIN_LOGO_REAL_Y_POS_FHD_L,
+//                      w: LOGIN_LOGO_REAL_WIDTH_FHD_L,
+//                      h: LOGIN_LOGO_REAL_HEIGHT_FHD_L)
+        createLogoImg(yPos: LOGIN_LOGO_REAL_Y_POS_FHD_L,
                       w: LOGIN_LOGO_REAL_WIDTH_FHD_L,
                       h: LOGIN_LOGO_REAL_HEIGHT_FHD_L)
+    }
+    
+    /**
+     * Update logo image in HD mode
+     */
+    private func updateLogoImgHD() {
+        CommonProcess.updateViewPos(
+            view: imgLogo,
+            x: (UIScreen.main.bounds.width - LOGIN_LOGO_REAL_WIDTH_HD) / 2,
+            y: LOGIN_LOGO_REAL_Y_POS_HD,
+            w: LOGIN_LOGO_REAL_WIDTH_HD,
+            h: LOGIN_LOGO_REAL_HEIGHT_HD)
+    }
+    
+    /**
+     * Update logo image in Full HD mode
+     */
+    private func updateLogoImgFHD() {
+        CommonProcess.updateViewPos(
+            view: imgLogo,
+            x: (UIScreen.main.bounds.width - LOGIN_LOGO_REAL_WIDTH_FHD) / 2,
+            y: LOGIN_LOGO_REAL_Y_POS_FHD,
+            w: LOGIN_LOGO_REAL_WIDTH_FHD,
+            h: LOGIN_LOGO_REAL_HEIGHT_FHD)
+    }
+    
+    /**
+     * Update logo image in Full HD Landscape mode
+     */
+    private func updateLogoImgFHD_L() {
+        CommonProcess.updateViewPos(
+            view: imgLogo,
+            x: (UIScreen.main.bounds.width - LOGIN_LOGO_REAL_WIDTH_FHD_L) / 2,
+            y: LOGIN_LOGO_REAL_Y_POS_FHD_L,
+            w: LOGIN_LOGO_REAL_WIDTH_FHD_L,
+            h: LOGIN_LOGO_REAL_HEIGHT_FHD_L)
     }
     
     /**
@@ -469,7 +533,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Update login label
      */
     private func updateLoginLabel() {
-        updateViewPos(view: lblLogin,
+        CommonProcess.updateViewPos(view: lblLogin,
                       x: 0,
                       y: imgLogo.frame.maxY + GlobalConst.MARGIN,
                       w: UIScreen.main.bounds.width,
@@ -531,7 +595,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Update phone text field (in HD mode)
      */
     private func updatePhoneTextFieldHD() {
-        updateViewPos(view: txtPhone,
+        CommonProcess.updateViewPos(view: txtPhone,
             x: (UIScreen.main.bounds.width - LOGIN_PHONE_REAL_WIDTH_HD) / 2,
             y: lblLogin.frame.maxY + GlobalConst.MARGIN,
             w: LOGIN_PHONE_REAL_WIDTH_HD,
@@ -542,7 +606,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Update phone text field (in Full HD mode)
      */
     private func updatePhoneTextFieldFHD() {
-        updateViewPos(view: txtPhone,
+        CommonProcess.updateViewPos(view: txtPhone,
             x: (UIScreen.main.bounds.width - LOGIN_PHONE_REAL_WIDTH_FHD) / 2,
             y: lblLogin.frame.maxY + GlobalConst.MARGIN,
             w: LOGIN_PHONE_REAL_WIDTH_FHD,
@@ -553,7 +617,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Update phone text field (in Full HD Landscape mode)
      */
     private func updatePhoneTextFieldFHD_L() {
-        updateViewPos(view: txtPhone,
+        CommonProcess.updateViewPos(view: txtPhone,
             x: (UIScreen.main.bounds.width - LOGIN_PHONE_REAL_WIDTH_FHD_L) / 2,
             y: lblLogin.frame.maxY + GlobalConst.MARGIN,
             w: LOGIN_PHONE_REAL_WIDTH_FHD_L,
@@ -576,7 +640,7 @@ class G00LoginExtVC: ChildExtViewController {
      */
     private func createNextBtnHD() {
         createNextBtn()
-        updateViewPos(view: btnNext,
+        CommonProcess.updateViewPos(view: btnNext,
                       x: CGFloat(txtPhone.frame.width - LOGIN_NEXT_BUTTON_REAL_SIZE_HD * 2),
                       y: (txtPhone.frame.height - LOGIN_NEXT_BUTTON_REAL_SIZE_HD ) / 2,
                       w: LOGIN_NEXT_BUTTON_REAL_SIZE_HD,
@@ -588,7 +652,7 @@ class G00LoginExtVC: ChildExtViewController {
      */
     private func createNextBtnFHD() {
         createNextBtn()
-        updateViewPos(view: btnNext,
+        CommonProcess.updateViewPos(view: btnNext,
                       x: CGFloat(txtPhone.frame.width - LOGIN_NEXT_BUTTON_REAL_SIZE_FHD * 2),
                       y: (txtPhone.frame.height - LOGIN_NEXT_BUTTON_REAL_SIZE_FHD ) / 2,
                       w: LOGIN_NEXT_BUTTON_REAL_SIZE_FHD,
@@ -600,7 +664,7 @@ class G00LoginExtVC: ChildExtViewController {
      */
     private func createNextBtnFHD_L() {
         createNextBtn()
-        updateViewPos(view: btnNext,
+        CommonProcess.updateViewPos(view: btnNext,
                       x: CGFloat(txtPhone.frame.width - LOGIN_NEXT_BUTTON_REAL_SIZE_FHD_L * 2),
                       y: (txtPhone.frame.height - LOGIN_NEXT_BUTTON_REAL_SIZE_FHD_L ) / 2,
                       w: LOGIN_NEXT_BUTTON_REAL_SIZE_FHD_L,
@@ -625,7 +689,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Update login label
      */
     private func updateORLabel() {
-        updateViewPos(view: lblOr,
+        CommonProcess.updateViewPos(view: lblOr,
                       x: 0,
                       y: txtPhone.frame.maxY + GlobalConst.MARGIN,
                       w: UIScreen.main.bounds.width,
@@ -689,7 +753,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Update facebook button (in HD mode)
      */
     private func updateFBBtnHD() {
-        updateViewPos(view: btnFacebook,
+        CommonProcess.updateViewPos(view: btnFacebook,
                       x: (UIScreen.main.bounds.width - LOGIN_PHONE_REAL_WIDTH_HD) / 2,
                       y: lblOr.frame.maxY + GlobalConst.MARGIN,
                       w: LOGIN_PHONE_REAL_WIDTH_HD,
@@ -700,7 +764,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Update facebook button (in Full HD mode)
      */
     private func updateFBBtnFHD() {
-        updateViewPos(view: btnFacebook,
+        CommonProcess.updateViewPos(view: btnFacebook,
                       x: (UIScreen.main.bounds.width - LOGIN_PHONE_REAL_WIDTH_FHD) / 2,
                       y: lblOr.frame.maxY + GlobalConst.MARGIN,
                       w: LOGIN_PHONE_REAL_WIDTH_FHD,
@@ -711,7 +775,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Update facebook button (in Full HD Landscape mode)
      */
     private func updateFBBtnFHD_L() {
-        updateViewPos(view: btnFacebook,
+        CommonProcess.updateViewPos(view: btnFacebook,
                       x: (UIScreen.main.bounds.width - LOGIN_PHONE_REAL_WIDTH_FHD_L) / 2,
                       y: lblOr.frame.maxY + GlobalConst.MARGIN,
                       w: LOGIN_PHONE_REAL_WIDTH_FHD_L,
@@ -775,7 +839,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Update zalo button (in HD mode)
      */
     private func updateZLBtnHD() {
-        updateViewPos(view: btnZalo,
+        CommonProcess.updateViewPos(view: btnZalo,
                       x: (UIScreen.main.bounds.width - LOGIN_PHONE_REAL_WIDTH_HD) / 2,
                       y: btnFacebook.frame.maxY + GlobalConst.MARGIN,
                       w: LOGIN_PHONE_REAL_WIDTH_HD,
@@ -786,7 +850,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Update zalo button (in Full HD mode)
      */
     private func updateZLBtnFHD() {
-        updateViewPos(view: btnZalo,
+        CommonProcess.updateViewPos(view: btnZalo,
                       x: (UIScreen.main.bounds.width - LOGIN_PHONE_REAL_WIDTH_FHD) / 2,
                       y: btnFacebook.frame.maxY + GlobalConst.MARGIN,
                       w: LOGIN_PHONE_REAL_WIDTH_FHD,
@@ -797,7 +861,7 @@ class G00LoginExtVC: ChildExtViewController {
      * Update zalo button (in Full HD Landscape mode)
      */
     private func updateZLBtnFHD_L() {
-        updateViewPos(view: btnZalo,
+        CommonProcess.updateViewPos(view: btnZalo,
                       x: (UIScreen.main.bounds.width - LOGIN_PHONE_REAL_WIDTH_FHD_L) / 2,
                       y: btnFacebook.frame.maxY + GlobalConst.MARGIN,
                       w: LOGIN_PHONE_REAL_WIDTH_FHD_L,

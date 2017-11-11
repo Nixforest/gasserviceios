@@ -8,6 +8,7 @@
 
 import UIKit
 import harpyframework
+import GooglePlaces
 
 class OrderPreview: UIView {
     // MARK: Properties
@@ -120,6 +121,7 @@ class OrderPreview: UIView {
         btnUpdateInfo.setTitleColor(TEXT_ACTIVE_COLOR, for: .normal)
         btnUpdateInfo.setTitleColor(TEXT_COLOR, for: .selected)
         btnUpdateInfo.setBackgroundColor(color: BACKGROUND_COLOR, forState: UIControlState())
+        btnUpdateInfo.isHidden = true
         offset += lblDeliveryInfo.frame.height
         
         // Delivery table view
@@ -381,7 +383,7 @@ class OrderPreview: UIView {
     /**
      * Set data for this view
      */
-    public func setData(data: OrderBean) {
+    public func setData(data: OrderBean, address: String) {
         // Delivery info
         deliveryInfo.append(ConfigurationModel(
             id: DomainConst.NUMBER_ZERO_VALUE,
@@ -392,7 +394,7 @@ class OrderPreview: UIView {
             id: DomainConst.NUMBER_ONE_VALUE,
             name: DomainConst.CONTENT00088,
             iconPath: DomainConst.ADDRESS_ICON_NEW_IMG_NAME,
-            value: data.address))
+            value: address))
         deliveryInfo.append(ConfigurationModel(
             id: DomainConst.NUMBER_TWO_VALUE,
             name: DomainConst.CONTENT00152,
@@ -437,6 +439,18 @@ class OrderPreview: UIView {
         self.lblPromoteValue.text = data.material_name
     }
     
+    /**
+     * Get data of this view
+     * - returns: Value(name, phone, address)
+     */
+    public func getData() -> (String, String, String) {
+        var retVal = ("", "", "")
+        retVal.0 = deliveryInfo[0].getValue()
+        retVal.1 = deliveryInfo[2].getValue()
+        retVal.2 = deliveryInfo[1].getValue()
+        return retVal
+    }
+    
     // MARK: Event handler
     /**
      * Handle when tap on Gas select button
@@ -475,6 +489,115 @@ class OrderPreview: UIView {
     
     func imgPromoteTapped(_ gest: UITapGestureRecognizer) {
         btnPromoteTapped(self)
+    }
+    func dismissVC() {
+        delegate?.dismissVC(self)
+    }
+    
+    // MARK: Logic
+    /**
+     * Update data
+     */
+    func updateDataForTblViewDelivery(model: ConfigurationModel) {
+        for item in deliveryInfo {
+            if item.id == model.id {
+                item.updateData(id: model.id,
+                                name: model.name,
+                                iconPath: model.getIconPath(),
+                                value: model.getValue())
+                break
+            }
+        }
+    }
+    
+    
+    /**
+     * Change value in table view
+     */
+    internal func changeValueTableViewDelivery(model: ConfigurationModel) {
+        var txtValue:   UITextField?
+        // Create alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00141,
+                                      message: model.name,
+                                      preferredStyle: .alert)
+        // Add textfield
+        alert.addTextField(configurationHandler: {
+            textField -> Void in
+            txtValue = textField
+            txtValue?.text = model.getValue()
+            txtValue?.textAlignment = .center
+            txtValue?.clearButtonMode = .whileEditing
+            txtValue?.returnKeyType = .done
+            txtValue?.keyboardType = .default
+            txtValue?.frame = CGRect(x: 0, y: 0, width: (txtValue?.frame.width)!,
+                                     height: GlobalConst.LABEL_H * 5)
+//            if model.id == DomainConst.ACCOUNT_INFO_EMAIL_ID {
+//                txtValue?.keyboardType = .emailAddress
+//            }
+        })
+        // Add cancel action
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
+        // Add ok action
+        let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
+            if let value = txtValue?.text , !value.isEmpty {
+                self.updateDataForTblViewDelivery(model: ConfigurationModel(
+                    id: model.id,
+                    name: model.name,
+                    iconPath: model.getIconPath(),
+                    value: value))
+                self.tblDeliveryInfo.reloadData()
+            } else {
+                self.showAlert(message: DomainConst.CONTENT00025, okTitle: DomainConst.CONTENT00251,
+                               okHandler: {_ in
+                                self.changeValueTableViewDelivery(model: model)
+                },
+                               cancelHandler: {_ in
+                                
+                })
+            }
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.present(alert, animated: true, completion: { () -> Void in
+                controller.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    /**
+     * Handle show alert message
+     * - parameter message:         Message content
+     * - parameter okTitle:         Title of OK button
+     * - parameter cancelTitle:     Title of Cancel button
+     * - parameter okHandler:       Handler when tap OK button
+     * - parameter cancelHandler:   Handler when tap Cancel button
+     */
+    public func showAlert(message: String,
+                          okTitle: String = DomainConst.CONTENT00008,
+                          cancelTitle: String = DomainConst.CONTENT00202, okHandler: @escaping (UIAlertAction) -> Swift.Void, cancelHandler: @escaping (UIAlertAction) -> Swift.Void) -> Void {
+        let alert       = UIAlertController(title: DomainConst.CONTENT00162, message: message, preferredStyle: .alert)
+        let okAction    = UIAlertAction(title: okTitle, style: .default, handler: okHandler)
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel, handler: cancelHandler)
+        alert.addAction(cancelAction)
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    /**
+     * Enable next button
+     * - parameter isEnabled: Flag
+     */
+    public func enableNextButton(isEnabled: Bool = true) {
+        self.btnNext.isEnabled  = isEnabled
+        btnGas.isEnabled        = isEnabled
+        btnPromote.isEnabled    = isEnabled
+        btnUpdateInfo.isEnabled = isEnabled
+        imgGas.isUserInteractionEnabled = isEnabled
+        imgPromote.isUserInteractionEnabled = isEnabled
     }
 }
 
@@ -552,9 +675,83 @@ extension OrderPreview: UITableViewDataSource {
     }
 }
 
+// MARK: Protocol - UITableViewDelegate
 extension OrderPreview: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.tblCellHeight
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch tableView {
+        case tblDeliveryInfo:
+            switch deliveryInfo[indexPath.row].id {
+            case DomainConst.NUMBER_ZERO_VALUE, DomainConst.NUMBER_TWO_VALUE:
+                self.changeValueTableViewDelivery(model: deliveryInfo[indexPath.row])
+                break
+            case DomainConst.NUMBER_ONE_VALUE:
+                // Start search address from google toolkit
+                let autocompleteCtrl = GMSAutocompleteViewController()
+                autocompleteCtrl.delegate = self
+                if let controller = BaseViewController.getCurrentViewController() {
+                    controller.present(autocompleteCtrl,
+                                       animated: true,
+                                       completion: nil)
+                }
+                break
+            default:
+                break
+            }
+            
+        default:
+            break
+        }
+    }
+}
+
+// MARK: Protocol - GMSAutocompleteViewControllerDelegate
+extension OrderPreview: GMSAutocompleteViewControllerDelegate {
+    /**
+     * Handle the user's selection.
+     */
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        let model = deliveryInfo[1]
+        if let address = place.formattedAddress {
+            model.setValue(value: address)
+        }
+        self.updateDataForTblViewDelivery(model: model)
+        tblDeliveryInfo.reloadData()
+        self.dismissVC()
+    }
+    
+    /**
+     * Handle fail event
+     */
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
+    
+    /**
+     * User canceled the operation.
+     */
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+//        if let controller = BaseViewController.getCurrentViewController() {
+//            controller.dismiss(animated: true, completion: nil)
+//        }
+        self.dismissVC()
+    }
+    
+    /**
+     * Turn the network activity indicator on and off again.
+     */
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    /**
+     * Turn the network activity indicator on and off again.
+     */
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
 

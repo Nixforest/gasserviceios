@@ -12,7 +12,7 @@ import harpyframework
 class G12F01S04VC: G12F01S03VC {
     // MARK: Properties
     // MARK: Constant
-    let PROMOTE_TITLE_LABEL_HEIGHT                  = GlobalConst.LABEL_H * 3
+    let PROMOTE_TITLE_LABEL_HEIGHT                  = GlobalConst.LABEL_H * 2
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +25,8 @@ class G12F01S04VC: G12F01S03VC {
         self.backButtonTapped(self)
     }
     
-    public override func handleSelectCell(cell: MaterialCollectionViewCell, bean: OrderDetailBean) {
-        cell.select(isSelected: (G12F01S01VC._promoteSelected.material_id == bean.material_id))
+    public override func handleSelectCell(cell: MaterialCollectionViewCell, id: String) {
+        cell.select(isSelected: (G12F01S01VC._promoteSelected.material_id == id))
     }
     
     // MARK: Title label

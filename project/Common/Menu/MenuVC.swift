@@ -22,17 +22,26 @@ class MenuVC: BaseMenuViewController {
     /** Label separator */
     var lblSeparator:       UILabel     = UILabel()
     
+    // MARK: Const
+    let ADDRESS_WIDTH:      CGFloat     = GlobalConst.POPOVER_WIDTH - 2 * GlobalConst.MARGIN - GlobalConst.LABEL_H
+    
     // MARK: Override methods
+    /**
+     * Called after the controller's view is loaded into memory.
+     */
     override func viewDidLoad() {
         let topOffset = getTopPartHeight()
-        updateTopPartHeight(value: topOffset + GlobalConst.LABEL_H * 5)
+        updateTopPartHeight(value: topOffset + GlobalConst.LABEL_H * 6)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         createLabel(lbl: lblName, text: "Huỳnh Lê Chung", offset: topOffset, isBold: true)
         createLabel(lbl: lblPhone, text: "0903816165", offset: lblName.frame.maxY)
         createLabel(lbl: lblAddress, text: "189/22 Hoàng Hoa Thám P.6 Q.Bình Thạnh",
-                    offset: lblPhone.frame.maxY, isBold: false, height: GlobalConst.LABEL_H * 2)
+                    offset: lblPhone.frame.maxY,
+                    isBold: false,
+                    height: GlobalConst.LABEL_H * 3,
+                    width: ADDRESS_WIDTH)
         createLabel(lbl: lblSeparator, text: "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------", offset: lblAddress.frame.maxY)
         createEditBtn()
         
@@ -73,13 +82,8 @@ class MenuVC: BaseMenuViewController {
     override func openListOrder() {
         let g12f00s01 = G12F00S01VC(nibName: G12F00S01VC.theClassName,
                                     bundle: nil)
-//        let g12f00 = G12F00VC(nibName: G12F00VC.theClassName,
-//                                    bundle: nil)
         if let controller = BaseViewController.getCurrentViewController() {
             controller.navigationController?.pushViewController(g12f00s01, animated: true)
-//            controller.present(g12f00,
-//                               animated: true,
-//                               completion: nil)
         }
     }
     
@@ -107,16 +111,26 @@ class MenuVC: BaseMenuViewController {
         }
         btnEdit.isHidden = !BaseModel.shared.checkIsLogin()
     }
+    
     // MARK: Event handler
+    /**
+     * Handle when tap on edit button
+     */
     internal func btnEditTapped(_ sender: AnyObject) {
         if let controller = BaseViewController.getCurrentViewController() {
             if let root = BaseViewController.getRootController() {
                 root.closeLeft()
             }
-            controller.pushToView(name: G00AccountVC.theClassName)
+            let view = G00AccountEditVC(nibName: G00AccountEditVC.theClassName,
+                                        bundle: nil)
+            controller.navigationController?.pushViewController(view,
+                                                                animated: true)
         }
     }
     
+    /**
+     * Handle when finish update user information
+     */
     internal func finishUpdateUserInfo(_ notification: Notification) {
         let data = (notification.object as! String)
         let model = UserProfileRespModel(jsonString: data)
@@ -124,6 +138,13 @@ class MenuVC: BaseMenuViewController {
             BaseModel.shared.setUserInfo(userInfo: model.record)
             setUserInfo(info: model.record)
         }
+    }
+    
+    /**
+     * Handle when finish open login screen
+     */
+    internal func finishOpenLogin() -> Void {
+        print("finishOpenLogin")
     }
     
     // MARK: Utilities
@@ -139,13 +160,26 @@ class MenuVC: BaseMenuViewController {
             lblPhone.text = info.getPhone()
         }
         lblAddress.text = info.getAddress()
+        
+        updateLayout()
     }
+    
+    /**
+     * Create label
+     * - parameter lbl:     UILabel
+     * - parameter text:    Text content
+     * - parameter offset:  Y offset
+     * - parameter isBold:  Flag if need use bold font
+     * - parameter height:  Height of UILabel
+     * - parameter width:   Width of UILabel
+     */
     private func createLabel(lbl: UILabel, text: String,
                              offset: CGFloat,
                              isBold: Bool = false,
-                             height: CGFloat = GlobalConst.LABEL_H) {
+                             height: CGFloat = GlobalConst.LABEL_H,
+                             width: CGFloat = GlobalConst.POPOVER_WIDTH - 2 * GlobalConst.MARGIN) {
         lbl.frame = CGRect(x: GlobalConst.MARGIN, y: offset,
-                               width: GlobalConst.POPOVER_WIDTH - 2 * GlobalConst.MARGIN,
+                               width: width,
                                height: height)
         lbl.text = text
         lbl.textColor = UIColor.white
@@ -158,6 +192,20 @@ class MenuVC: BaseMenuViewController {
         }
     }
     
+    /**
+     * Get height of address need
+     * - returns: Height of address field
+     */
+    private func getHeightOfAddress() -> CGFloat {
+        let address = BaseModel.shared.getUserInfo().getAddress()
+        return address.heightWithConstrainedWidth(
+            width: ADDRESS_WIDTH,
+            font: GlobalConst.BASE_FONT)
+    }
+    
+    /**
+     * Create edit button
+     */
     private func createEditBtn() {
         let btnSize = GlobalConst.LABEL_H
         btnEdit.frame = CGRect(x: GlobalConst.POPOVER_WIDTH - btnSize - GlobalConst.MARGIN,
@@ -170,8 +218,24 @@ class MenuVC: BaseMenuViewController {
                           for: .touchUpInside)
     }
     
-    internal func finishOpenLogin() -> Void {
-        print("finishOpenLogin")
+    private func updateLayout() {
+//        CommonProcess.updateViewPos(
+//            view: lblName,
+//            x: GlobalConst.MARGIN,
+//            y: getTopPartHeight(),
+//            w: GlobalConst.POPOVER_WIDTH - 2 * GlobalConst.MARGIN,
+//            h: GlobalConst.LABEL_H)
+//        CommonProcess.updateViewPos(
+//            view: lblPhone,
+//            x: GlobalConst.MARGIN,
+//            y: lblName.frame.maxY,
+//            w: GlobalConst.POPOVER_WIDTH - 2 * GlobalConst.MARGIN,
+//            h: GlobalConst.LABEL_H)
+//        CommonProcess.updateViewPos(
+//            view: lblAddress,
+//            x: GlobalConst.MARGIN,
+//            y: lblPhone.frame.maxY,
+//            w: ADDRESS_WIDTH,
+//            h: getHeightOfAddress())
     }
-
 }

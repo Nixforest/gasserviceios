@@ -148,6 +148,6 @@ class OrderTransactionCompleteRequest: BaseRequest {
                                                    view: view)
         request.setData(key: key, id: id, devicePhone: devicePhone, firstName: firstName, phone: phone, email: email, provinceId: provinceId, districtId: districtId, wardId: wardId, streetId: streetId, houseNum: houseNum, note: note, address: address, orderDetail: orderDetail, lat: lat, long: long, agentId: agentId, transactionType: transactionType, isReview: isReview)
         NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
-        request.execute(isShowLoadingView: false)
+        request.execute(isShowLoadingView: true)
     }
 }

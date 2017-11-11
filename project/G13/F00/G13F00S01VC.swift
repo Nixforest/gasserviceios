@@ -14,8 +14,8 @@ class G13F00S01VC: BaseParentViewController {
     /** Segment */
     var segment:            UISegmentedControl  = UISegmentedControl(
         items: [
-            DomainConst.CONTENT00499.uppercased(),
-            DomainConst.CONTENT00500.uppercased()
+            DomainConst.CONTENT00500.uppercased(),
+            DomainConst.CONTENT00499.uppercased()
         ])
     
     /** Refer view */
@@ -48,7 +48,19 @@ class G13F00S01VC: BaseParentViewController {
     /** Code textfield */
     var txtUsingCode:       UITextField         = UITextField()
     /** Button next */
-    var btnNext:        UIButton    = UIButton(type: .custom)
+    var btnNext:            UIButton            = UIButton(type: .custom)
+    /** Table list promotion */
+    var tblPromotion:       UITableView         = UITableView()
+    /** Current page */
+    var page:               Int                 = 0
+    /** Current data */
+    var _data:              PromotionListRespModel      = PromotionListRespModel()
+    /** Refrest control */
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
+        return refreshControl
+    }()
     
     /** Mode */
     var mode:               Int                 = 0
@@ -65,9 +77,9 @@ class G13F00S01VC: BaseParentViewController {
     
     // MARK: Constant
     /** Refer mode */
-    let MODE_REFER:         Int                 = 0
+    let MODE_REFER:         Int                 = 1
     /** Using code mode */
-    let MODE_USING_CODE:    Int                 = 1
+    let MODE_USING_CODE:    Int                 = 0
     /** Refer mode: Normal code */
     let MODE_NORMAL_CODE:   Int                 = 0
     /** Refer mode: QR code */
@@ -202,9 +214,14 @@ class G13F00S01VC: BaseParentViewController {
         default:
             break
         }
+        createPromotionList()
         self.view.addSubview(segment)
         self.view.addSubview(referView)
         self.view.addSubview(usingCodeView)
+        self.view.addSubview(tblPromotion)
+        segment.selectedSegmentIndex = MODE_USING_CODE
+        self.mode = MODE_USING_CODE
+        switchMode()
     }
     
     /**
@@ -238,6 +255,20 @@ class G13F00S01VC: BaseParentViewController {
             break
         default:
             break
+        }
+        updatePromotionList()
+    }
+    
+    override func setData(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = PromotionListRespModel(jsonString: data)
+        if model.isSuccess() {
+            _data.total_page = model.total_page
+            _data.total_record = model.total_record
+            _data.append(contentOf: model.getRecord())
+            tblPromotion.reloadData()
+        } else {
+            showAlert(message: model.message)
         }
     }
     
@@ -319,6 +350,44 @@ class G13F00S01VC: BaseParentViewController {
         showAlert(message: model.message)
     }
     
+    // MARK: Logic
+    /**
+     * Request data
+     */
+    internal func requestData(action: Selector = #selector(setData(_:))) {
+        PromotionListRequest.requestPromotionList(
+            action: action,
+            view: self,
+            page: String(self.page))
+    }
+    
+    /**
+     * Reset data
+     */
+    private func resetData() {
+        _data.clearData()
+        // Reset current search value
+        self.page      = 0
+        // Reload table
+        tblPromotion.reloadData()
+    }
+    
+    /**
+     * Handle refresh
+     */
+    internal func handleRefresh(_ sender: AnyObject) {
+        self.resetData()
+        requestData(action: #selector(finishHandleRefresh(_:)))
+    }
+    
+    /**
+     * Handle finish refresh
+     */
+    internal func finishHandleRefresh(_ notification: Notification) {
+        setData(notification)
+        refreshControl.endRefreshing()
+    }
+    
     // MARK: Utilities
     private func requestReferInfo() {
         ReferInfoRequest.request(action: #selector(finishRequestReferInfo),
@@ -332,10 +401,12 @@ class G13F00S01VC: BaseParentViewController {
         case MODE_REFER:            // Refer mode
             referView.isHidden = false
             usingCodeView.isHidden = true
+            tblPromotion.isHidden = true
             break
         case MODE_USING_CODE:       // Using code mode
             referView.isHidden = true
             usingCodeView.isHidden = false
+            tblPromotion.isHidden = false
             break
         default:
             break
@@ -412,7 +483,6 @@ class G13F00S01VC: BaseParentViewController {
         segment.frame = CGRect(x: (UIScreen.main.bounds.width - w ) / 2,
                                y: getTopHeight() + GlobalConst.MARGIN,
                                width: w, height: h)
-        segment.selectedSegmentIndex = 0
         let segAttribute: NSDictionary = [
             NSForegroundColorAttributeName: GlobalConst.MAIN_COLOR_GAS_24H
         ]
@@ -1089,9 +1159,84 @@ class G13F00S01VC: BaseParentViewController {
                                     w: CONFIRM_NEXT_BUTTON_REAL_SIZE_FHD_L,
                                     h: CONFIRM_NEXT_BUTTON_REAL_SIZE_FHD_L)
     }
+    
+    // MARK: Table view promotion list
+    private func createPromotionList() {
+        let yPos = usingCodeView.frame.maxY + GlobalConst.MARGIN
+        tblPromotion.frame = CGRect(
+            x: (UIScreen.main.bounds.width - usingCodeView.frame.width) / 2,
+            y: yPos,
+            width: usingCodeView.frame.width,
+            height: UIScreen.main.bounds.height - yPos)
+        tblPromotion.addSubview(refreshControl)
+        tblPromotion.dataSource = self
+    }
+    
+    private func updatePromotionList() {
+        let yPos = usingCodeView.frame.maxY + GlobalConst.MARGIN
+        CommonProcess.updateViewPos(
+            view: tblPromotion,
+            x: (UIScreen.main.bounds.width - usingCodeView.frame.width) / 2,
+            y: yPos,
+            w: usingCodeView.frame.width,
+            h: UIScreen.main.bounds.height - yPos)
+        tblPromotion.reloadData()
+    }
 }
 
 // MARK: Protocol - NVActivityIndicatorViewable
 extension G13F00S01VC: NVActivityIndicatorViewable {
     
+}
+
+
+// MARK: Protocol - UITableViewDataSource
+extension G13F00S01VC: UITableViewDataSource {
+    /**
+     * Asks the data source to return the number of sections in the table view.
+     * - returns: 1 section
+     */
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    /**
+     * Tells the data source to return the number of rows in a given section of a table view.
+     * - returns: List information count
+     */
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self._data.record.count
+    }
+    
+    /**
+     * Asks the data source for a cell to insert in a particular location of the table view.
+     */
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row > self._data.record.count {
+            return UITableViewCell()
+        }
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
+        if indexPath.row < self._data.getRecord().count {
+            let data = self._data.getRecord()[indexPath.row]
+            cell.textLabel?.text = data.name
+            cell.textLabel?.font = GlobalConst.BASE_BOLD_FONT
+            cell.textLabel?.textColor = GlobalConst.MAIN_COLOR_GAS_24H
+            
+            cell.detailTextLabel?.text = data.note + "\n"
+                + DomainConst.CONTENT00248 + DomainConst.TEXT_SPLITER
+                + " " + data.expiry_date
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+            cell.detailTextLabel?.lineBreakMode = .byWordWrapping
+            cell.detailTextLabel?.numberOfLines = 0
+        }
+        
+        return cell
+    }
+    
+    /**
+     * Asks the delegate for the height to use for a row in a specified location.
+     */
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return GlobalConst.LABEL_H * 3
+    }
 }

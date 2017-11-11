@@ -62,5 +62,21 @@ class PromotionListRespModel: BaseRespModel {
     public func getRecord() -> [PromotionBean] {
         return self.record
     }
-
+    
+    /**
+     * Append list of record
+     * - parameter contentOf: List of record
+     */
+    public func append(contentOf: [PromotionBean]) {
+        self.record.append(contentsOf: contentOf)
+    }
+    
+    /**
+     * Remove all data
+     */
+    public func clearData() {
+        self.record.removeAll()
+        self.total_page     = 0
+        self.total_record   = 0
+    }
 }

@@ -72,6 +72,7 @@ class OrderTransactionCancelRequest: BaseRequest {
             DomainConst.KEY_TRANSACTION_ID,         id,
             DomainConst.KEY_PLATFORM,               DomainConst.PLATFORM_IOS
         )
+        print(self.data)
     }
     
     /**

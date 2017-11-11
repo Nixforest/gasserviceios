@@ -128,6 +128,10 @@ class G12F01S03VC: ChildExtViewController {
         return retVal
     }
     
+    /**
+     * Get row number of collection view
+     * - returns: Number of row base on current device type and orientation
+     */
     private func getRowNumber() -> Int {
         var retVal = 1
         // Get current device type
@@ -154,26 +158,45 @@ class G12F01S03VC: ChildExtViewController {
         return retVal
     }
     
+    /**
+     * Get width of cell
+     * - returns: Width of cell
+     */
     func getCellWidth() -> CGFloat {
         return UIScreen.main.bounds.width / CGFloat(getColumnNumber() + 1)
     }
     
+    /**
+     * Get height of cell
+     * - returns: Height of cell
+     */
     func getCellHeight() -> CGFloat {
         return (UIScreen.main.bounds.height - _lblTitle.frame.maxY) / CGFloat(getRowNumber()) - GlobalConst.MARGIN
     }
     
+    /**
+     * Set data for view
+     */
     public func setData(data: [MaterialBean]) {
         for item in data {
             _data.append(OrderDetailBean(data: item))
         }
     }
     
+    /**
+     * Handle select cell
+     * - parameter cell: Cell object
+     * - parameter id:   Id of material
+     */
     public func handleSelectCell(cell: MaterialCollectionViewCell,
-                                 bean: OrderDetailBean) {
-        cell.select(isSelected: (G12F01S01VC._gasSelected.material_id == bean.material_id))
+                                 id: String) {
+        cell.select(isSelected: (G12F01S01VC._gasSelected.material_id == id))
     }
     
     // MARK: Title label
+    /**
+     * Create title label
+     */
     public func createTitleLabel() {
         _lblTitle.frame = CGRect(x: 0,
                                  y: getTopHeight(),
@@ -187,6 +210,9 @@ class G12F01S03VC: ChildExtViewController {
         _lblTitle.numberOfLines = 0
     }
     
+    /**
+     * Update title label
+     */
     public func updateTitleLabel() {
         CommonProcess.updateViewPos(
             view: _lblTitle,
@@ -196,14 +222,17 @@ class G12F01S03VC: ChildExtViewController {
     }
     
     // MARK: Collection view
+    /**
+     * Create collection view
+     */
     private func createCollectionView() {
         // Create layout
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(
-            top: 0, left: GlobalConst.MARGIN,
-            bottom: 0, right: GlobalConst.MARGIN)
+            top: 0, left: 0,
+            bottom: 0, right: 0)
         layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = GlobalConst.MARGIN
         layout.itemSize = CGSize(
             width: getCellWidth(),
             height: getCellHeight())
@@ -230,6 +259,9 @@ class G12F01S03VC: ChildExtViewController {
             height: height)
     }
     
+    /**
+     * Update collection view
+     */
     private func updateCollectionView() {
         let height = UIScreen.main.bounds.height - _lblTitle.frame.maxY
         _cltMaterial.frame = CGRect(x: 0, y: _lblTitle.frame.maxY,
@@ -258,8 +290,8 @@ extension G12F01S03VC: UICollectionViewDataSource {
             withReuseIdentifier: "Cell",
             for: indexPath) as! MaterialCollectionViewCell
         cell.setData(data: _data[indexPath.row],
-                     width: getCellWidth() + 1, height: getCellHeight() + 1)
-        handleSelectCell(cell: cell, bean: _data[indexPath.row])
+                     width: getCellWidth(), height: getCellHeight())
+        handleSelectCell(cell: cell, id: _data[indexPath.row].material_id)
         return cell
     }
 }

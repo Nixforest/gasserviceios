@@ -43,15 +43,19 @@ class MaterialCollectionViewCell: UICollectionViewCell {
         } else {
             _imageView.setImage(imgPath: DomainConst.DEFAULT_IMG_NAME)
         }
-        
-        _imageView.frame = CGRect(x: 0, y: 0,
-                                  width: width,
-                                  height: height - (NAME_LABEL_HEIGHT + PRICE_LABEL_HEIGHT))
+        let xPos = GlobalConst.MARGIN_CELL_X
+        let viewWidth = width - 2 * GlobalConst.MARGIN_CELL_X
+        _imageView.frame = CGRect(x: xPos, y: 0,
+                                  width: viewWidth,
+                                  height: height - (NAME_LABEL_HEIGHT + PRICE_LABEL_HEIGHT + GlobalConst.MARGIN_CELL_X))
+        _imageView.layoutMargins = UIEdgeInsets(
+            top: GlobalConst.MARGIN_CELL_X,
+            left: 0, bottom: 0, right: 0)
         _imageView.contentMode = .scaleAspectFit
         self.addSubview(_imageView)
         // Name
-        _lblName.frame = CGRect(x: 0, y: _imageView.frame.maxY,
-                                width: width,
+        _lblName.frame = CGRect(x: xPos, y: _imageView.frame.maxY,
+                                width: viewWidth,
                                 height: NAME_LABEL_HEIGHT)
         if BaseModel.shared.getDebugUseMaterialNameShort() {
             if _data.materials_name_short.isEmpty {
@@ -70,37 +74,51 @@ class MaterialCollectionViewCell: UICollectionViewCell {
         _lblName.lineBreakMode = .byWordWrapping
         self.addSubview(_lblName)
         // Price label
-        _lblPrice.frame = CGRect(x: 0,
+        _lblPrice.frame = CGRect(x: xPos,
                                  y: _lblName.frame.maxY,
-                                 width: width,
+                                 width: viewWidth,
                                  height: PRICE_LABEL_HEIGHT)
         let priceText = _data.material_price
         if priceText == DomainConst.NUMBER_ZERO_VALUE ||
             priceText.isEmpty {
-            _lblPrice.isHidden = true
+//            _lblPrice.isHidden = true
+            _lblPrice.text          = DomainConst.BLANK
         } else {
-            _lblPrice.isHidden = false
+//            _lblPrice.isHidden = false
+            _lblPrice.text          = priceText
         }
         
-        _lblPrice.text          = priceText
+//        _lblPrice.text          = priceText
         _lblPrice.textColor     = GlobalConst.BUTTON_COLOR_RED
         _lblPrice.font          = GlobalConst.BASE_FONT
         _lblPrice.textAlignment = .center
-        _lblPrice.numberOfLines = 0
-        _lblPrice.lineBreakMode = .byWordWrapping
+//        _lblPrice.numberOfLines = 0
+//        _lblPrice.lineBreakMode = .byWordWrapping
         self.addSubview(_lblPrice)
-        self.layer.borderColor = GlobalConst.TEXT_COLOR_GRAY.cgColor
-        self.layer.borderWidth = 1.0
+//        self.layer.borderColor = GlobalConst.TEXT_COLOR_GRAY.cgColor
+//        self.layer.borderWidth = 1.0
         self.makeComponentsColor()
     }
     
     public func select(isSelected: Bool) {
+        var color = GlobalConst.BACKGROUND_COLOR_GRAY
+        var thickness: CGFloat = 1.0
         if isSelected {
-            self.layer.borderColor = GlobalConst.MAIN_COLOR_GAS_24H.cgColor
-            self.layer.borderWidth = 2.0
+//            self.layer.borderColor = GlobalConst.MAIN_COLOR_GAS_24H.cgColor
+//            self.layer.borderWidth = 2.0
+            color = GlobalConst.MAIN_COLOR_GAS_24H
+//            thickness = 2.0
         } else {
-            self.layer.borderColor = GlobalConst.TEXT_COLOR_GRAY.cgColor
-            self.layer.borderWidth = 1.0
+//            self.layer.borderColor = GlobalConst.TEXT_COLOR_GRAY.cgColor
+//            self.layer.borderWidth = 1.0
         }
+        _imageView.layer.addBorder(edge: .top, color: color, thickness: thickness)
+        _imageView.layer.addBorder(edge: .left, color: color, thickness: thickness)
+        _imageView.layer.addBorder(edge: .right, color: color, thickness: thickness)
+        _lblName.layer.addBorder(edge: .left, color: color, thickness: thickness)
+        _lblName.layer.addBorder(edge: .right, color: color, thickness: thickness)
+        _lblPrice.layer.addBorder(edge: .bottom, color: color, thickness: thickness)
+        _lblPrice.layer.addBorder(edge: .left, color: color, thickness: thickness)
+        _lblPrice.layer.addBorder(edge: .right, color: color, thickness: thickness)
     }
 }

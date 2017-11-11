@@ -54,9 +54,9 @@ class TransactionStatusRequest: BaseRequest {
         request.setData(id: id)
         request.completionBlock = completionHandler
         request.setFlagShowError(value: false)
-        request.execute(isShowLoadingView: false)
         print("TransactionStatusRequest: \(_count)")
         _count += 1
+        request.execute(isShowLoadingView: false)
     }
     //-- BUG0156-SPJ (NguyenPT 20170925) Re-design Gas24h
 }
