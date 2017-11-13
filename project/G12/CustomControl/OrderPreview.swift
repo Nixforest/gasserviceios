@@ -267,10 +267,10 @@ class OrderPreview: UIView {
         self.addSubview(tblInfo)
         self.addSubview(imgGas)
         self.addSubview(btnGas)
-        self.addSubview(lblPromote)
-        self.addSubview(lblPromoteValue)
-        self.addSubview(imgPromote)
-        self.addSubview(btnPromote)
+//        self.addSubview(lblPromote)
+//        self.addSubview(lblPromoteValue)
+//        self.addSubview(imgPromote)
+//        self.addSubview(btnPromote)
     }
     
     /**

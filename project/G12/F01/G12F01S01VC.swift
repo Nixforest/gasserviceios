@@ -363,7 +363,8 @@ class G12F01S01VC: BaseParentViewController {
         self.view.addSubview(lblFinish3)
         self.view.addSubview(actionsView)
         for i in 0..<listActionsConfig.count {
-            if listActionsConfig[i].id != DomainConst.ACTION_TYPE_NONE {
+            if listActionsConfig[i].id != DomainConst.ACTION_TYPE_NONE
+                && listActionsConfig[i].id != DomainConst.ACTION_TYPE_SELECT_PROMOTE{
                 self.view.addSubview(listActionsLabels[i])
             }
         }
@@ -1684,10 +1685,11 @@ class G12F01S01VC: BaseParentViewController {
             listActionsLabels.append(lbl)
             listActionsButtons.append(btn)
             if listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_GAS
-                || listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE {
+                /*|| listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE*/ {
                 btn.isEnabled = false
             }
-            if listActionsConfig[i].id != DomainConst.ACTION_TYPE_NONE {
+            if listActionsConfig[i].id != DomainConst.ACTION_TYPE_NONE
+                && listActionsConfig[i].id != DomainConst.ACTION_TYPE_SELECT_PROMOTE {
                 self.actionsView.addSubview(btn)
 //                self.actionsView.addSubview(lbl)
 //                self.view.addSubview(lbl)
@@ -1720,6 +1722,9 @@ class G12F01S01VC: BaseParentViewController {
                                                 y: lblYPos,
                                                 width: btnWidth,
                                                 height: lblHeight)
+            if listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE {
+                listActionsButtons[i].isHidden = true
+            }
         }
     }
     
