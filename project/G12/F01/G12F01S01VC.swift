@@ -501,6 +501,8 @@ class G12F01S01VC: BaseParentViewController {
      */
     func btnReferTapped(_ sender: AnyObject) {
         openPromotion()
+        BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
+        changeMode(value: OrderStatusEnum.STATUS_CREATE)
     }
     
     /**
