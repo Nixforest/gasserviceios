@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     //var loginStatus:Bool = false
 
-    internal var rootNav:UINavigationController = UINavigationController()
+    internal var rootNav: UINavigationController = UINavigationController()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Register push notifications
         registerForPushNotifications(application: application)
@@ -88,6 +89,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        if let currentVC = BaseViewController.getCurrentViewController() {
+            if currentVC.theClassName == G12F01S01VC.theClassName {
+                let g12f01s01: G12F01S01VC = (currentVC as! G12F01S01VC)
+//                g12f01s01.setIsRequestedTransactionStatus(value: false)
+                TransactionStatusRequest.cancel()
+            }
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -99,6 +107,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //++ BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
         AppEventsLogger.activate(application)
         //-- BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
+        if let currentVC = BaseViewController.getCurrentViewController() {
+            if currentVC.theClassName == G12F01S01VC.theClassName {
+                let g12f01s01: G12F01S01VC = (currentVC as! G12F01S01VC)
+                if !g12f01s01.getIsRequestedTransactionStatus() {
+                    g12f01s01.requestTransactionStatus(completionHandler: g12f01s01.finishRequestTransactionStatus(_:))
+                    g12f01s01.setIsRequestedTransactionStatus(value: true)
+                }
+            }
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

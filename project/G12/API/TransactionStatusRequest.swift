@@ -35,8 +35,11 @@ class TransactionStatusRequest: BaseRequest {
                                        reqMethod: DomainConst.HTTP_POST_REQUEST,
                                        view: view)
         request.setData(id: id)
+        request.setFlagShowError(value: false)
+        print("TransactionStatusRequest: \(_count)")
+        _count += 1
         NotificationCenter.default.addObserver(view, selector: action, name:NSNotification.Name(rawValue: request.theClassName), object: nil)
-        request.execute()
+        request.execute(isShowLoadingView: false)
     }
     
     //++ BUG0156-SPJ (NguyenPT 20170925) Re-design Gas24h

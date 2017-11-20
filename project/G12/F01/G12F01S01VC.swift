@@ -103,6 +103,12 @@ class G12F01S01VC: BaseParentViewController {
     var _completeId:            String      = DomainConst.BLANK
     /** Flag showing preview */
     var isShowPreview:          Bool        = false
+    /** Flag check if order is finish */
+    var isOrderFinish:          Bool        = false
+    /** Last order data */
+    var _lastOrder:             OrderBean   = OrderBean()
+    /** Flag check if transaction status request was ran */
+    var _isRequestedTransactionStatus:    Bool    = false
     
     
     // MARK: Static values
@@ -206,7 +212,14 @@ class G12F01S01VC: BaseParentViewController {
 //            locationManager.startUpdatingLocation()
 //        }
         
-        addBotMsg(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00495)
+        // Mark to know where returned from Login process
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(notifyLoginSuccess(_:)),
+            name: NSNotification.Name(
+                rawValue: G12Const.NOTIFY_NAME_G12_REQUEST_TRANSACTION_START),
+            object: nil)
+//        addBotMsg(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00495)
+        addBotMsg(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00533)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -214,8 +227,24 @@ class G12F01S01VC: BaseParentViewController {
         self.isOpenedMap = false
         updateMaterialSelector()
         if isShowPreview {
-            requestTransactionComplete(isReview: true)
+            // Get data from preview view
+            let deliveryInfo = previewView.getData()
+            self.addressText = deliveryInfo.2
+            // Update last order value
+            _lastOrder.first_name = deliveryInfo.0
+            _lastOrder.phone = deliveryInfo.1
+            
+            // Request transaction complete
+            requestTransactionComplete(isReview: true, lastOrder: _lastOrder)
         }
+        if isOrderFinish {
+            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
+            changeMode(value: .STATUS_CREATE)
+        }
+        if !isOrderFinish && self.mode == .STATUS_COMPLETE {
+            isOrderFinish = true
+        }
+        requestOrderConfig()
     }
     
     /**
@@ -510,7 +539,7 @@ class G12F01S01VC: BaseParentViewController {
      * Handler when transaction status request is finish
      * - parameter model: Model object
      */
-    internal func finishRequestTransactionStatus(_ model: Any?) {
+    public func finishRequestTransactionStatus(_ model: Any?) {
         let data = (model as! String)
         let model = OrderViewRespModel(jsonString: data)
         if model.isSuccess() {
@@ -531,9 +560,13 @@ class G12F01S01VC: BaseParentViewController {
                         name: NSNotification.Name(
                             rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
                         object: nil)
+                    changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
                 }
                 if self.mode != OrderStatusEnum.STATUS_CONFIRMED {
                     changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
+                }
+                if self.mode != .STATUS_WAIT_CONFIRM {
+                    NSObject.cancelPreviousPerformRequests(withTarget: self)
                 }
                 break
             case OrderStatusEnum.STATUS_CONFIRMED:      // Status confirmed
@@ -575,47 +608,13 @@ class G12F01S01VC: BaseParentViewController {
                 }
                 break
             }
-//            let status = checkStatus(order: model.getRecord())
-//            // If current order status is finish
-//            if status == MODE_FINISH {
-//                changeMode(value: status)
-////                return
-//            } else if status == MODE_MAP {  // Current Order status is has a Employee info
-//                if !isOpenedMap {
-//                    isOpenedMap = !isOpenedMap
-//                    openMap(data: model.getRecord())
-//                    change3311Mode(value: status)
-//                }
-//            } else if status == MODE_PROCESSING {   // Current order status is NEW
-//                changeMode(value: status)
-//            } else if status == MODE_CANCEL {
-//                if !isCancelOrder {
-//                    isCancelOrder = !isCancelOrder
-//                    if let currentVC = BaseViewController.getCurrentViewController() {
-//                    currentVC.showAlert(message: DomainConst.CONTENT00505,
-//                              okHandler: {
-//                                alert in
-//                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
-//                                                                object: nil)
-//                                BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
-//                                self.changeMode(value: self.MODE_ORDER)
-//                                self.requestTransactionStatus(completionHandler: self.finishRequestTransactionStatus)
-//                                self.isCancelOrder = false
-//                                return
-//                    })
-//                    }
-//                }
-////                showAlert(message: DomainConst.CONTENT00505)
-//            } else {
-//                // Chek if order has finish or something wrong
-//                if model.getRecord().isEmpty() {
-//                    // Current view mode is not FINISH
-//                    if self.mode != MODE_FINISH {
-//                        changeMode(value: MODE_ORDER)
-//                    }
-//                }
-//            }
+        } else {
+//            showAlert(message: model.message)
         }
+        btnOrder.isEnabled = true
+        self.listActionsButtons[0].isEnabled = true
+        self.listActionsButtons[1].isEnabled = true
+        
 //        perform(#selector(runRequestTransactionStatusAfterFinish), with: nil,
 //                afterDelay: TimeInterval(BaseModel.shared.getGas24hTimeCheckOrder()))
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(BaseModel.shared.getGas24hTimeCheckOrder() * 1000),
@@ -623,10 +622,6 @@ class G12F01S01VC: BaseParentViewController {
                                         self.requestTransactionStatus(
                                             completionHandler: self.finishRequestTransactionStatus)
         })
-    }
-    func runRequestTransactionStatusAfterFinish() {
-        self.requestTransactionStatus(
-            completionHandler: self.finishRequestTransactionStatus)
     }
     
     /**
@@ -644,9 +639,6 @@ class G12F01S01VC: BaseParentViewController {
             btnCancelOrder.isEnabled = true
             showHidePreview(isShow: false)
             changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
-            
-            //            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
-            //            changeMode(value: MODE_PROCESSING)
         } else {
             showAlert(message: model.message)
             changeMode(value: .STATUS_CREATE)
@@ -673,6 +665,7 @@ class G12F01S01VC: BaseParentViewController {
             }
             
             isShowPreview = true
+            self.previewView.isHidden = !isShowPreview
             makeBotMsgVisible(isShow: !isShowPreview)
             previewView.setData(data: model.getRecord(), address: self.addressText)
         } else {
@@ -690,8 +683,13 @@ class G12F01S01VC: BaseParentViewController {
         let model = OrderConfigRespModel(jsonString: data)
         if model.isSuccess() {
             BaseModel.shared.saveOrderConfig(config: model.getRecord())
-            // Start update config
-            startUpdateConfig()
+            if model.getRecord().agent.count != 1 {
+                // Start update config
+                startUpdateConfig()
+            } else {
+                G12F01S01VC._nearestAgent = model.getRecord().agent[0]
+                updateMaterialSelector()
+            }
         } else {
             // Check if need retry request Order config
             if self.reqOrderConfigCount < REQ_ORDER_CONFIG_MAX_COUNT {
@@ -736,12 +734,14 @@ class G12F01S01VC: BaseParentViewController {
             // Save session id and key for transaction complete
             BaseModel.shared.setTransactionData(transaction: model.getRecord())
             if model.getRecord().isLastOrderEmpty() {
+                _lastOrder = OrderBean()
                 requestTransactionComplete(isReview: false)
             } else {
-                //self.previewView.setData(data: model.getRecord().getLastOrderInfo())
-                requestTransactionComplete(isReview: true)
+//                self.previewView.setData(data: model.getRecord().getLastOrderInfo())
+                _lastOrder = model.getRecord().getLastOrderInfo()
+                self.addressText = _lastOrder.address
+                requestTransactionComplete(isReview: true, lastOrder: _lastOrder)
             }
-            self.previewView.isHidden = model.getRecord().isLastOrderEmpty()
         } else {
             showAlert(message: model.message)
             changeMode(value: .STATUS_CREATE)
@@ -773,6 +773,7 @@ class G12F01S01VC: BaseParentViewController {
      * Handle when back from Login process
      */
     internal func notifyLoginSuccess(_ notification: Notification) {
+        changeMode(value: .STATUS_CREATE)
         startUpdateConfig()
     }
     
@@ -788,7 +789,6 @@ class G12F01S01VC: BaseParentViewController {
         } else {
             requestOrderConfig()
         }
-//        requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
     }
     
     /**
@@ -800,12 +800,6 @@ class G12F01S01VC: BaseParentViewController {
             // Update config
             requestUpdateConfig()
         } else {    // User is not logged in yet
-            // Mark to know where returned from Login process
-            NotificationCenter.default.addObserver(
-                self, selector: #selector(notifyLoginSuccess(_:)),
-                name: NSNotification.Name(
-                    rawValue: G12Const.NOTIFY_NAME_G12_REQUEST_TRANSACTION_START),
-                object: nil)
             // Open login screen
             openLogin()
         }
@@ -833,36 +827,57 @@ class G12F01S01VC: BaseParentViewController {
      * Request transaction status
      * - parameter id: Id of transaction
      */
-    private func requestTransactionStatus(completionHandler: ((Any?)->Void)?) {
+    public func requestTransactionStatus(completionHandler: ((Any?)->Void)?) {
 //        TransactionStatusRequest.request(
 //            action: #selector(finishRequestTransactionStatus(_:)),
 //            view: self, id: id)
         if !BaseModel.shared.checkIsLogin() {
             return
         }
-        TransactionStatusRequest.requestLoop(view: self,
-                                             id: BaseModel.shared.getTransactionData().id,
-                                             completionHandler: completionHandler)
+        TransactionStatusRequest.requestLoop(
+            view: self,
+            id: BaseModel.shared.getTransactionData().id,
+            completionHandler: completionHandler)
     }
     
     /**
      * Request transaction complete
      * - parameter isReview: Review flag
      */
-    internal func requestTransactionComplete(
-        isReview: Bool = false,
-        name: String = BaseModel.shared.getUserInfo().getName(),
-        phone: String = BaseModel.shared.getCurrentUsername()) {
-        var userInfo = UserInfoBean()
-//        if let info = BaseModel.shared.user_info {
-//            userInfo = info
-//        }
-        userInfo = BaseModel.shared.getUserInfo()
-        let orderDetail = String(getOrderDetail().characters.dropLast())
+    internal func requestTransactionComplete(isReview: Bool = false,
+                                             lastOrder: OrderBean = OrderBean()) {
+        let userInfo = BaseModel.shared.getUserInfo()
+        var orderDetail = DomainConst.BLANK
         var action = #selector(finishRequestTransactionComplete)
+        var name  = DomainConst.BLANK
+        var phone = DomainConst.BLANK
+        var agentId = DomainConst.BLANK
+        // Review order
         if isReview {
+            orderDetail = String(getOrderDetailFromBean(bean: lastOrder).characters.dropLast())
             action = #selector(finishRequestTransactionCompleteReview)
+            name  = lastOrder.first_name
+            phone = lastOrder.phone
+            agentId = lastOrder.agent_id
+        } else {
+            if lastOrder.phone.isEmpty && lastOrder.first_name.isEmpty {
+                // First order
+                orderDetail = String(getOrderDetail().characters.dropLast())
+                action = #selector(finishRequestTransactionComplete)
+                name  = userInfo.getName()
+                phone = userInfo.getPhone()
+                agentId = G12F01S01VC._nearestAgent.info_agent.agent_id
+            } else {
+                // Not first order
+                orderDetail = String(getOrderDetailFromBean(bean: lastOrder).characters.dropLast())
+                action = #selector(finishRequestTransactionComplete)
+                name  = lastOrder.first_name
+                phone = lastOrder.phone
+                agentId = lastOrder.agent_id
+            }
         }
+        
+        // Request server
         OrderTransactionCompleteRequest.requestOrderTransactionComplete(
             action: action,
             view: self,
@@ -882,7 +897,7 @@ class G12F01S01VC: BaseParentViewController {
             orderDetail:    orderDetail,
             lat:            String(G12F01S01VC._currentPos.latitude),
             long:           String(G12F01S01VC._currentPos.longitude),
-            agentId:        G12F01S01VC._nearestAgent.info_agent.agent_id,
+            agentId:        agentId,
             transactionType: DomainConst.TRANSACTION_TYPE_NORMAL,
             isReview:       isReview)
     }
@@ -893,7 +908,8 @@ class G12F01S01VC: BaseParentViewController {
     private func requestOrderConfig() {
         OrderConfigRequest.requestOrderConfig(
             action: #selector(finishRequestOrderConfig(_:)),
-            view: self)
+            view: self,
+            agentId: G12F01S01VC._nearestAgent.info_agent.agent_id)
     }
     
     /**
@@ -907,11 +923,14 @@ class G12F01S01VC: BaseParentViewController {
         self.showAlert(message: DomainConst.CONTENT00256,
                        okHandler: {
                         (alert: UIAlertAction!) in
-                        OrderTransactionCancelRequest.requestOrderTransactionCancel(
-                            action: #selector(self.finishRequestTransactionCancelHandler(_:)),
-                            view: self,
-//                            id: BaseModel.shared.getTransactionData().id)
-                            id: id)
+                        if self.mode == .STATUS_WAIT_CONFIRM || self.mode == .STATUS_CONFIRMED {
+                            OrderTransactionCancelRequest.requestOrderTransactionCancel(
+                                action: #selector(self.finishRequestTransactionCancelHandler(_:)),
+                                view: self,
+                                //                            id: BaseModel.shared.getTransactionData().id)
+                                id: id)
+                        }
+                        
         },
                        cancelHandler: {
                         (alert: UIAlertAction!) in
@@ -954,7 +973,12 @@ class G12F01S01VC: BaseParentViewController {
                 G12F01S01VC._gasSelected = G12F01S01VC._nearestAgent.info_gas[0]
             }
         }
-        updateMaterialSelector()
+        updateMaterialSelector(isCallTransactionStatus: true)
+        if !_isRequestedTransactionStatus {
+            // Start request transaction status
+            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
+            _isRequestedTransactionStatus = true
+        }
     }
     
     /**
@@ -973,11 +997,13 @@ class G12F01S01VC: BaseParentViewController {
     /**
      * Update material selector view data
      */
-    private func updateMaterialSelector() {
+    private func updateMaterialSelector(isCallTransactionStatus: Bool = false) {
+        var orderDetail = [OrderDetailBean]()
         // If found nearest agent information
         if !G12F01S01VC._gasSelected.isEmpty() {
 //            self.listActionsLabels[0].text = G12F01S01VC._gasSelected.materials_name_short
             //            self.listActionsButtons[0].setImage(tinted, for: UIControlState.selected)
+            orderDetail.append(OrderDetailBean(data: G12F01S01VC._gasSelected))
         } else {
             self.listActionsLabels[0].text = self.listActionsConfig[0].name
         }
@@ -985,15 +1011,21 @@ class G12F01S01VC: BaseParentViewController {
         if !G12F01S01VC._promoteSelected.isEmpty() {
 //            self.listActionsLabels[1].text = G12F01S01VC._promoteSelected.materials_name_short
 //            self.listActionsButtons[1].setImage(tinted, for: UIControlState.selected)
+            orderDetail.append(OrderDetailBean(data: G12F01S01VC._promoteSelected))
         } else {
             self.listActionsLabels[1].text = self.listActionsConfig[1].name
         }
-        btnOrder.isEnabled = true
-        self.listActionsButtons[0].isEnabled = true
-        self.listActionsButtons[1].isEnabled = true
+//        btnOrder.isEnabled = true
+//        self.listActionsButtons[0].isEnabled = true
+//        self.listActionsButtons[1].isEnabled = true
         
-        // Start request transaction status
-        requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
+        if !orderDetail.isEmpty {
+            _lastOrder.order_detail = orderDetail
+        }
+        if isCallTransactionStatus {
+//            // Start request transaction status
+//            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
+        }
     }
     
     /**
@@ -1013,6 +1045,20 @@ class G12F01S01VC: BaseParentViewController {
                 data: G12F01S01VC._promoteSelected,
                 qty: DomainConst.NUMBER_ONE_VALUE)
             retVal = retVal + detailPromote.createJsonData()
+        }
+        return retVal
+    }
+    
+    /**
+     * Get order detail
+     */
+    private func getOrderDetailFromBean(bean: OrderBean) -> String {
+        var retVal = DomainConst.BLANK
+        for item in bean.order_detail {
+            // Only get gas and promotion (not cylinder)
+            if item.isGas() || item.isPromotion() {
+                retVal = retVal + item.createJsonData()
+            }
         }
         return retVal
     }
@@ -1092,14 +1138,20 @@ class G12F01S01VC: BaseParentViewController {
             showHideProcessingMode(isShow: false)
             showHideFinishMode(isShow: false)
             showHideOrderMode(isShow: true)
-            setBotMsgContent(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00495)
+//            setBotMsgContent(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00495)
+            setBotMsgContent(note: DomainConst.CONTENT00495, description: DomainConst.CONTENT00533)
             self.isCancelOrder = false
+            self.isOrderFinish = false
+            self.isShowPreview = false
+            self.previewView.isHidden = true
+//            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
             break
         case OrderStatusEnum.STATUS_WAIT_CONFIRM:   // Mode waiting confirm
             showHideOrderMode(isShow: false)
             showHideFinishMode(isShow: false)
             showHideProcessingMode(isShow: true)
-            setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
+//            setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
+            setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00533)
 //            let task = DispatchWorkItem {
 //                self.showHideConfirmedMode()
             //            }
@@ -1110,19 +1162,23 @@ class G12F01S01VC: BaseParentViewController {
 //                                            self.showHideConfirmedMode()
 //            })
 //                execute: task )
+            self.isOrderFinish = false
             break
         case OrderStatusEnum.STATUS_CONFIRMED:      // Mode confirmed
             showHideOrderMode(isShow: false)
             showHideFinishMode(isShow: false)
             showHideProcessingMode(isShow: false)
             showHideConfirmedMode()
-            setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
+//            setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00496)
+            setBotMsgContent(note: DomainConst.CONTENT00496, description: DomainConst.CONTENT00533)
+            self.isOrderFinish = false
             break
         case OrderStatusEnum.STATUS_COMPLETE:       // Mode Finish
             showHideOrderMode(isShow: false)
             showHideProcessingMode(isShow: false)
             showHideFinishMode(isShow: true)
-            setBotMsgContent(note: DomainConst.CONTENT00497, description: DomainConst.CONTENT00497)
+//            setBotMsgContent(note: DomainConst.CONTENT00497, description: DomainConst.CONTENT00497)
+            setBotMsgContent(note: DomainConst.CONTENT00497, description: DomainConst.CONTENT00533)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
                                             object: nil)
 //            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
@@ -1223,6 +1279,14 @@ class G12F01S01VC: BaseParentViewController {
         isShowPreview = isShow
         makeBotMsgVisible(isShow: !isShowPreview)
         previewView.isHidden = !isShowPreview
+    }
+    
+    public func getIsRequestedTransactionStatus() -> Bool {
+        return self._isRequestedTransactionStatus
+    }
+    
+    public func setIsRequestedTransactionStatus(value: Bool) {
+        self._isRequestedTransactionStatus = value
     }
     
     // MARK: Status Label
@@ -2125,16 +2189,21 @@ extension G12F01S01VC: OrderPreviewDelegate {
     func btnCancelTapped(_ sender: AnyObject) {
         showHidePreview(isShow: false)
     }
+    
     /**
      * Handle tap on Next button.
      */
     func btnNextTapped(_ sender: AnyObject) {
         previewView.enableNextButton(isEnabled: false)
         btnCancelOrder.isEnabled = false
+        // Get data from preview view
         let deliveryInfo = previewView.getData()
         self.addressText = deliveryInfo.2
-        requestTransactionComplete(isReview: false, name: deliveryInfo.0,
-                                   phone: deliveryInfo.1)
+        // Update last order value
+        _lastOrder.first_name = deliveryInfo.0
+        _lastOrder.phone = deliveryInfo.1
+        // Request transaction complete
+        requestTransactionComplete(isReview: false, lastOrder: _lastOrder)
     }
     
     /**

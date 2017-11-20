@@ -196,7 +196,7 @@ class OrderPreview: UIView {
         lblPromoteValue.textAlignment   = .left
 //        lblPromoteValue.backgroundColor = BACKGROUND_COLOR
         lblPromoteValue.font            = GlobalConst.BASE_FONT
-        lblPromoteValue.isUserInteractionEnabled = true
+        lblPromoteValue.isUserInteractionEnabled = false
         lblPromoteValue.addGestureRecognizer(tappedRecogLbl)
         
         // Promote select button
@@ -206,8 +206,8 @@ class OrderPreview: UIView {
                               height: tblHeight * GAS_SELECT_IMG_RATE)
         imgPromote.contentMode = .scaleAspectFit
 //        imgPromote.backgroundColor = BACKGROUND_COLOR
-        imgPromote.isUserInteractionEnabled = true
-        imgPromote.addGestureRecognizer(tappedRecog)
+        imgPromote.isUserInteractionEnabled = false
+//        imgPromote.addGestureRecognizer(tappedRecog)
         
         // Button promote
         btnPromote.frame = CGRect(x: imgPromote.frame.minX,
@@ -216,7 +216,7 @@ class OrderPreview: UIView {
                               height: tblHeight * GAS_SELECT_LBL_RATE)
         btnPromote.setTitle(DomainConst.CONTENT00517, for: UIControlState())
         btnPromote.titleLabel?.font = UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)
-        btnPromote.addTarget(self, action: #selector(btnPromoteTapped(_:)), for: .touchUpInside)
+//        btnPromote.addTarget(self, action: #selector(btnPromoteTapped(_:)), for: .touchUpInside)
         btnPromote.setTitleColor(TEXT_ACTIVE_COLOR, for: .normal)
         btnPromote.setTitleColor(TEXT_COLOR, for: .selected)
         btnPromote.setBackgroundColor(color: BACKGROUND_COLOR, forState: UIControlState())
@@ -267,9 +267,9 @@ class OrderPreview: UIView {
         self.addSubview(tblInfo)
         self.addSubview(imgGas)
         self.addSubview(btnGas)
-//        self.addSubview(lblPromote)
-//        self.addSubview(lblPromoteValue)
-//        self.addSubview(imgPromote)
+        self.addSubview(lblPromote)
+        self.addSubview(lblPromoteValue)
+        self.addSubview(imgPromote)
 //        self.addSubview(btnPromote)
     }
     
@@ -385,6 +385,7 @@ class OrderPreview: UIView {
      */
     public func setData(data: OrderBean, address: String) {
         // Delivery info
+        deliveryInfo.removeAll()
         deliveryInfo.append(ConfigurationModel(
             id: DomainConst.NUMBER_ZERO_VALUE,
             name: DomainConst.CONTENT00079,
@@ -436,7 +437,11 @@ class OrderPreview: UIView {
     
     private func setDataForPromote(data: OrderDetailBean) {
         self.imgPromote.setImage(imgPath: data.material_image)
-        self.lblPromoteValue.text = data.material_name
+        var name = data.material_name
+        if name.isEmpty {
+            name = DomainConst.CONTENT00532
+        }
+        self.lblPromoteValue.text = name
     }
     
     /**

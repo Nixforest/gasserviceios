@@ -10,6 +10,8 @@ import UIKit
 import harpyframework
 
 class OrderConfigRequest: BaseRequest {
+    /** Current agent id */
+    var agent_id:           String      = DomainConst.NUMBER_ZERO_VALUE
     //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
 //    override func completetionHandler(request: NSMutableURLRequest) -> URLSessionTask {
 //        let task = self.session.dataTask(with: request as URLRequest, completionHandler: {
@@ -50,7 +52,10 @@ class OrderConfigRequest: BaseRequest {
         if isShowLoadingView {
             LoadingView.shared.showOverlay(view: self.view.view, className: self.theClassName)
         }
-        let serverUrl: URL = URL(string: DomainConst.SERVER_URL + self.url)!
+        var reqUrl = DomainConst.SERVER_URL + self.url
+        reqUrl = "\(reqUrl)?\(DomainConst.KEY_FLAG_GAS_24H)=\(BaseModel.shared.getAppType())&\(DomainConst.KEY_AGENT_ID)=\(agent_id)"
+//        let serverUrl: URL = URL(string: DomainConst.SERVER_URL + self.url)!
+        let serverUrl: URL = URL(string: reqUrl)!
         let request = NSMutableURLRequest(url: serverUrl)
         request.httpMethod = self.reqMethod
         request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
@@ -77,20 +82,25 @@ class OrderConfigRequest: BaseRequest {
      */
     func setData() {
         self.data = "q=" + String.init(
-            format: "{}")
+//            format: "{\"%@\":%@}",
+//            DomainConst.KEY_FLAG_GAS_24H, BaseModel.shared.getAppType()
+            format: "{}"
+        )
     }
     
     /**
      * Request order list function
      * - parameter page:    Page index
      */
-    public static func requestOrderConfig(action: Selector, view: BaseViewController) {
+    public static func requestOrderConfig(action: Selector, view: BaseViewController,
+                                          agentId: String = DomainConst.NUMBER_ZERO_VALUE) {
 //        // Show overlay
 //        LoadingView.shared.showOverlay(view: view.view)
         let request = OrderConfigRequest(url: G04Const.PATH_ORDER_CONFIG,
                                        reqMethod: DomainConst.HTTP_POST_REQUEST,
                                        view: view)
         request.setData()
+        request.agent_id = agentId
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }

@@ -160,8 +160,10 @@ class G12F01S02VC: BaseParentViewController {
         
         // Center mark
         createCenterMark()
+//        self.addBotMsg(note: DomainConst.CONTENT00498,
+//                       description: DomainConst.CONTENT00498)
         self.addBotMsg(note: DomainConst.CONTENT00498,
-                        description: DomainConst.CONTENT00498)
+                       description: DomainConst.CONTENT00533)
         changeMode(value: OrderStatusEnum.STATUS_DELIVERING)
     }
     
@@ -344,8 +346,9 @@ class G12F01S02VC: BaseParentViewController {
             longitude: (_data.longitude as NSString).doubleValue))
         self.setBotMsgContent(
             note: String.init(
-                format: "Chạm vào đơn hàng %@ để xem lại chi tiết\n%@", _data.code_no, detailDirection),
+                format: "Chạm vào đơn hàng %@ để xem lại chi tiết\nLộ trình giao hàng khoảng %@", _data.code_no, detailDirection),
                 description: "")
+        setBotMsgColor(lstString: [_data.code_no, detailDirection])
     }
     /**
      * Setting for map properties
@@ -1019,7 +1022,13 @@ class G12F01S02VC: BaseParentViewController {
                         self?.drawRoute()
                         if let totalDistance = self?.directionService.totalDistanceInMeters/*,
                             let totalDuration = self?.directionService.totalDuration*/ {
-                            self?.detailDirection = "Lộ trình giao hàng khoảng \(totalDistance/1000)km"
+                                var unit = "km"
+                                var value = totalDistance / 1000
+                                if totalDistance < 1000 {
+                                    unit = "m"
+                                    value = totalDistance
+                                }
+                            self?.detailDirection = "\(value) \(unit)"
                                 self?.updateData()
                         }
                     }
