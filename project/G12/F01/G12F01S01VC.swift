@@ -237,10 +237,6 @@ class G12F01S01VC: BaseParentViewController {
             // Request transaction complete
             requestTransactionComplete(isReview: true, lastOrder: _lastOrder)
         }
-        if isOrderFinish {
-            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
-            changeMode(value: .STATUS_CREATE)
-        }
         if !isOrderFinish && self.mode == .STATUS_COMPLETE {
             isOrderFinish = true
         }
@@ -776,6 +772,17 @@ class G12F01S01VC: BaseParentViewController {
         changeMode(value: .STATUS_CREATE)
         startUpdateConfig()
     }
+    //++ BUG0162-SPJ (NguyenPT 20171120) Change mode to create after finish order (if select Home menu)
+    /**
+     * Handle left menu did closed event
+     */
+    func leftDidClose() {
+        if isOrderFinish {
+            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
+            changeMode(value: .STATUS_CREATE)
+        }
+    }
+    //-- BUG0162-SPJ (NguyenPT 20171120) Change mode to create after finish order (if select Home menu)
     
     // MARK: Utilities
     /**
