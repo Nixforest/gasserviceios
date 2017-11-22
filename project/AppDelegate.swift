@@ -107,15 +107,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //++ BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
         AppEventsLogger.activate(application)
         //-- BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
-        if let currentVC = BaseViewController.getCurrentViewController() {
-            if currentVC.theClassName == G12F01S01VC.theClassName {
-                let g12f01s01: G12F01S01VC = (currentVC as! G12F01S01VC)
-                if !g12f01s01.getIsRequestedTransactionStatus() {
-                    g12f01s01.requestTransactionStatus(completionHandler: g12f01s01.finishRequestTransactionStatus(_:))
-                    g12f01s01.setIsRequestedTransactionStatus(value: true)
-                }
-            }
-        }
+        //++ BUG0165-SPJ (NguyenPT 20171122) Can not start Transaction Status request after login
+//        if let currentVC = BaseViewController.getCurrentViewController() {
+//            if currentVC.theClassName == G12F01S01VC.theClassName {
+//                let g12f01s01: G12F01S01VC = (currentVC as! G12F01S01VC)
+//                if !g12f01s01.getIsRequestedTransactionStatus() {
+//                    g12f01s01.requestTransactionStatus(completionHandler: g12f01s01.finishRequestTransactionStatus(_:))
+//                    g12f01s01.setIsRequestedTransactionStatus(value: true)
+//                }
+//            }
+//        }
+        //-- BUG0165-SPJ (NguyenPT 20171122) Can not start Transaction Status request after login
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

@@ -31,6 +31,7 @@
 		D7117B5D1F7ACF3100B8C2FA /* G13Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7117B5C1F7ACF3100B8C2FA /* G13Const.swift */; };
 		D7117B611F7ACF8F00B8C2FA /* G13F00S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7117B5F1F7ACF8F00B8C2FA /* G13F00S01VC.swift */; };
 		D7117B621F7ACF8F00B8C2FA /* G13F00S01VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7117B601F7ACF8F00B8C2FA /* G13F00S01VC.xib */; };
+		D712B0FF1FC5546500C92CCF /* ReferInvitedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D712B0FE1FC5546500C92CCF /* ReferInvitedModel.swift */; };
 		D71544AF1F6BB26600480486 /* G00LoginExtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71544AD1F6BB26600480486 /* G00LoginExtVC.swift */; };
 		D71544B01F6BB26600480486 /* G00LoginExtVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D71544AE1F6BB26600480486 /* G00LoginExtVC.xib */; };
 		D717774C1F5E87C1009CF656 /* LoadingViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D717774A1F5E87C1009CF656 /* LoadingViewVC.swift */; };
@@ -222,6 +223,7 @@
 		D7117B5C1F7ACF3100B8C2FA /* G13Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G13Const.swift; path = G13/G13Const.swift; sourceTree = "<group>"; };
 		D7117B5F1F7ACF8F00B8C2FA /* G13F00S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G13F00S01VC.swift; path = G13/F00/G13F00S01VC.swift; sourceTree = "<group>"; };
 		D7117B601F7ACF8F00B8C2FA /* G13F00S01VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G13F00S01VC.xib; path = G13/F00/G13F00S01VC.xib; sourceTree = "<group>"; };
+		D712B0FE1FC5546500C92CCF /* ReferInvitedModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReferInvitedModel.swift; path = G13/Model/ReferInvitedModel.swift; sourceTree = "<group>"; };
 		D71544AD1F6BB26600480486 /* G00LoginExtVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00LoginExtVC.swift; path = G00/Version2/G00LoginExtVC.swift; sourceTree = "<group>"; };
 		D71544AE1F6BB26600480486 /* G00LoginExtVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G00LoginExtVC.xib; path = G00/Version2/G00LoginExtVC.xib; sourceTree = "<group>"; };
 		D717774A1F5E87C1009CF656 /* LoadingViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingViewVC.swift; path = Common/LoadingView/LoadingViewVC.swift; sourceTree = "<group>"; };
@@ -638,6 +640,7 @@
 			children = (
 				D795D04B1F8C911D00001902 /* ReferInfoBean.swift */,
 				D795D04D1F8CAB5200001902 /* ReferInfoRespModel.swift */,
+				D712B0FE1FC5546500C92CCF /* ReferInvitedModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1109,6 +1112,7 @@
 				D795D04C1F8C911D00001902 /* ReferInfoBean.swift in Sources */,
 				D71544AF1F6BB26600480486 /* G00LoginExtVC.swift in Sources */,
 				D76E580B1F7DF24900CF6557 /* G12F00S02VC.swift in Sources */,
+				D712B0FF1FC5546500C92CCF /* ReferInvitedModel.swift in Sources */,
 				D7DA56B01E40F18F00B6F618 /* OrderTransactionStartRespModel.swift in Sources */,
 				D7804B351E7685CF00C94F75 /* G00AccountVC.swift in Sources */,
 				D7B96E241F71785100815D7F /* G00ConfirmCodeVC.swift in Sources */,

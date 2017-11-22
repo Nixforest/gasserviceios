@@ -14,14 +14,16 @@ class G13F00S01VC: BaseParentViewController {
     /** Segment */
     var segment:            UISegmentedControl  = UISegmentedControl(
         items: [
-            DomainConst.CONTENT00500.uppercased(),
-            DomainConst.CONTENT00499.uppercased()
+            DomainConst.CONTENT00499.uppercased(),
+            DomainConst.CONTENT00500.uppercased()
         ])
     
     /** Refer view */
     var referView:          UIView              = UIView()
     /** Label note */
     var lblReferNote:       UILabel             = UILabel()
+    /** Label note */
+    var lblReferPoint:      UILabel             = UILabel()
     /** Segment refer view */
     var referSegment:       UISegmentedControl  = UISegmentedControl(
         items: [
@@ -71,15 +73,16 @@ class G13F00S01VC: BaseParentViewController {
     /** Refer code value */
     var referCode:          String              = DomainConst.BLANK
     /** Refer link */
-    var referLink:          String              = BaseModel.shared.getServerURL() + "referral/code?code="
+//    var referLink:          String              = BaseModel.shared.getServerURL() + "referral/code?code="
+    var referLink:          String              = "http://spj.vn/app?code="
     
     // MARK: Static values
     
     // MARK: Constant
     /** Refer mode */
-    let MODE_REFER:         Int                 = 1
+    let MODE_REFER:         Int                 = 0
     /** Using code mode */
-    let MODE_USING_CODE:    Int                 = 0
+    let MODE_USING_CODE:    Int                 = 1
     /** Refer mode: Normal code */
     let MODE_NORMAL_CODE:   Int                 = 0
     /** Refer mode: QR code */
@@ -214,14 +217,14 @@ class G13F00S01VC: BaseParentViewController {
         default:
             break
         }
+        self.view.addSubview(tblPromotion)
         createPromotionList()
         self.view.addSubview(segment)
         self.view.addSubview(referView)
         self.view.addSubview(usingCodeView)
-        self.view.addSubview(tblPromotion)
-        segment.selectedSegmentIndex = MODE_USING_CODE
-        self.mode = MODE_USING_CODE
-        switchMode()
+//        segment.selectedSegmentIndex = MODE_USING_CODE
+//        self.mode = MODE_USING_CODE
+//        switchMode()
     }
     
     /**
@@ -263,6 +266,7 @@ class G13F00S01VC: BaseParentViewController {
         let data = (notification.object as! String)
         let model = PromotionListRespModel(jsonString: data)
         if model.isSuccess() {
+            _data.clearData()
             _data.total_page = model.total_page
             _data.total_record = model.total_record
             _data.append(contentOf: model.getRecord())
@@ -301,7 +305,17 @@ class G13F00S01VC: BaseParentViewController {
                                                   applicationActivities: nil)
         activityVC.popoverPresentationController?.sourceView = self.btnShareCode
         // Exclude some activity types from the list
-        activityVC.excludedActivityTypes = [.airDrop, .mail, .message, .postToFacebook, .copyToPasteboard]
+//        activityVC.excludedActivityTypes = [
+//            .addToReadingList,
+//            .airDrop, .assignToContact, .copyToPasteboard,
+//            .mail, .message,
+//            .postToFacebook, .postToFlickr,
+//            .postToTencentWeibo,
+//            .postToTwitter,
+//            .postToVimeo,
+//            .print,
+//            .saveToCameraRoll,
+//        ]
         
         // Present
         self.present(activityVC,
@@ -327,7 +341,7 @@ class G13F00S01VC: BaseParentViewController {
         if data.contains(referLink) {
             data = data.substring(from: referLink.characters.count)
         }
-        txtUsingCode.text = data
+        txtUsingCode.text = data.uppercased()
         usingCodeMode = MODE_NORMAL_CODE
         usingCodeSegment.selectedSegmentIndex = MODE_NORMAL_CODE
     }
@@ -336,9 +350,11 @@ class G13F00S01VC: BaseParentViewController {
         let data = (notification.object as! String)
         let model = ReferInfoRespModel(jsonString: data)
         if model.isSuccess() {
-            referCode = model.getRecord().invite_code
-            txtCode.text = referCode
+            referCode = model.getRecord().invite_code.uppercased()
+            txtCode.text = referCode.uppercased()
             createQRCode()
+            updateReferNoteLabel(value: model.getRecord().invited_list.count)
+            updateReferPointLabel(value: model.getRecord().current_point)
         } else {
             showAlert(message: model.message)
         }
@@ -402,11 +418,13 @@ class G13F00S01VC: BaseParentViewController {
             referView.isHidden = false
             usingCodeView.isHidden = true
             tblPromotion.isHidden = true
+            requestReferInfo()
             break
         case MODE_USING_CODE:       // Using code mode
             referView.isHidden = true
             usingCodeView.isHidden = false
             tblPromotion.isHidden = false
+            requestData()
             break
         default:
             break
@@ -483,6 +501,7 @@ class G13F00S01VC: BaseParentViewController {
         segment.frame = CGRect(x: (UIScreen.main.bounds.width - w ) / 2,
                                y: getTopHeight() + GlobalConst.MARGIN,
                                width: w, height: h)
+        segment.selectedSegmentIndex = 0
         let segAttribute: NSDictionary = [
             NSForegroundColorAttributeName: GlobalConst.MAIN_COLOR_GAS_24H
         ]
@@ -540,6 +559,7 @@ class G13F00S01VC: BaseParentViewController {
         referView.layer.cornerRadius = GlobalConst.BOTTOM_MSG_VIEW_CORNER_RADIUS
         
         referView.addSubview(lblReferNote)
+        referView.addSubview(lblReferPoint)
         referView.addSubview(referSegment)
         referView.addSubview(txtCode)
         referView.addSubview(imgQRCode)
@@ -621,6 +641,7 @@ class G13F00S01VC: BaseParentViewController {
         lblReferNote.textAlignment = .center
         lblReferNote.text = "Bạn đã giới thiệu 0 người sử dụng"
         lblReferNote.font = GlobalConst.BASE_FONT
+        createReferPointLabel()
     }
     
     private func updateReferNoteLabel() {
@@ -629,12 +650,51 @@ class G13F00S01VC: BaseParentViewController {
             x: 0, y: GlobalConst.MARGIN,
             w: segment.frame.width,
             h: GlobalConst.LABEL_H)
+        updateReferPointLabel()
+    }
+    
+    private func updateReferNoteLabel(value: Int) {
+        let text = String.init(format: DomainConst.CONTENT00534,
+                               value)
+        lblReferNote.text = text
+        CommonProcess.makeMultiColorLabel(lbl: lblReferNote,
+                                          lstString: [String(value)],
+                                          colors: [GlobalConst.MAIN_COLOR_GAS_24H])
+    }
+    
+    // MARK: Refer View - Point label
+    private func createReferPointLabel() {
+        lblReferPoint.frame = CGRect(x: 0,
+                                     y: lblReferNote.frame.maxY + GlobalConst.MARGIN,
+                                    width: segment.frame.width,
+                                    height: GlobalConst.LABEL_H)
+        lblReferPoint.textColor = UIColor.black
+        lblReferPoint.textAlignment = .center
+        lblReferPoint.text = "Bạn đang có 0 điểm thưởng"
+        lblReferPoint.font = GlobalConst.BASE_FONT
+    }
+    
+    private func updateReferPointLabel() {
+        CommonProcess.updateViewPos(
+            view: lblReferPoint,
+            x: 0, y: lblReferNote.frame.maxY + GlobalConst.MARGIN,
+            w: segment.frame.width,
+            h: GlobalConst.LABEL_H)
+    }
+    
+    private func updateReferPointLabel(value: Int) {
+        let text = String.init(format: DomainConst.CONTENT00535,
+                               value)
+        lblReferPoint.text = text
+        CommonProcess.makeMultiColorLabel(lbl: lblReferPoint,
+                                          lstString: [String(value)],
+                                          colors: [GlobalConst.MAIN_COLOR_GAS_24H])
     }
     
     // MARK: Refer View - Refer segment
     private func createReferSegment(w: CGFloat, h: CGFloat) {
         referSegment.frame = CGRect(x: (segment.frame.width - w ) / 2,
-                               y: lblReferNote.frame.maxY + GlobalConst.MARGIN,
+                               y: lblReferPoint.frame.maxY + GlobalConst.MARGIN,
                                width: w, height: h)
         referSegment.tintColor = GlobalConst.MAIN_COLOR_GAS_24H
         referSegment.selectedSegmentIndex = 0
@@ -664,7 +724,7 @@ class G13F00S01VC: BaseParentViewController {
         CommonProcess.updateViewPos(
             view: referSegment,
             x: (segment.frame.width - w) / 2,
-            y: lblReferNote.frame.maxY + GlobalConst.MARGIN,
+            y: lblReferPoint.frame.maxY + GlobalConst.MARGIN,
             w: w, h: h)
     }
     
@@ -701,6 +761,7 @@ class G13F00S01VC: BaseParentViewController {
         txtCode.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS_NEW
         txtCode.keyboardType       = .default
         txtCode.returnKeyType      = .done
+        txtCode.autocapitalizationType = .allCharacters
         txtCode.isUserInteractionEnabled = false
     }
     
@@ -906,7 +967,7 @@ class G13F00S01VC: BaseParentViewController {
         usingCodeView.isHidden = true
         usingCodeView.backgroundColor = GlobalConst.PROMOTION_BKG_COLOR
         
-        usingCodeView.addSubview(lblUsingCodeNote)
+//        usingCodeView.addSubview(lblUsingCodeNote)
         usingCodeView.addSubview(usingCodeSegment)
         usingCodeView.addSubview(txtUsingCode)
     }
@@ -1050,6 +1111,7 @@ class G13F00S01VC: BaseParentViewController {
         txtUsingCode.textAlignment      = .center
         txtUsingCode.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS_NEW
         txtUsingCode.keyboardType       = .default
+        txtUsingCode.autocapitalizationType = .allCharacters
         txtUsingCode.returnKeyType      = .done
     }
     
@@ -1162,18 +1224,20 @@ class G13F00S01VC: BaseParentViewController {
     
     // MARK: Table view promotion list
     private func createPromotionList() {
-        let yPos = usingCodeView.frame.maxY + GlobalConst.MARGIN
+        let yPos = usingCodeView.frame.maxY + GlobalConst.MARGIN - getTopHeight() / 2
         tblPromotion.frame = CGRect(
             x: (UIScreen.main.bounds.width - usingCodeView.frame.width) / 2,
             y: yPos,
             width: usingCodeView.frame.width,
             height: UIScreen.main.bounds.height - yPos)
         tblPromotion.addSubview(refreshControl)
+        tblPromotion.separatorStyle = .none
         tblPromotion.dataSource = self
+        tblPromotion.isHidden = true
     }
     
     private func updatePromotionList() {
-        let yPos = usingCodeView.frame.maxY + GlobalConst.MARGIN
+        let yPos = usingCodeView.frame.maxY + GlobalConst.MARGIN - getTopHeight() / 2
         CommonProcess.updateViewPos(
             view: tblPromotion,
             x: (UIScreen.main.bounds.width - usingCodeView.frame.width) / 2,
@@ -1228,6 +1292,8 @@ extension G13F00S01VC: UITableViewDataSource {
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
             cell.detailTextLabel?.lineBreakMode = .byWordWrapping
             cell.detailTextLabel?.numberOfLines = 0
+            
+            cell.selectionStyle = .none
         }
         
         return cell
@@ -1237,6 +1303,7 @@ extension G13F00S01VC: UITableViewDataSource {
      * Asks the delegate for the height to use for a row in a specified location.
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return GlobalConst.LABEL_H * 3
+        return GlobalConst.LABEL_H * 5
+//        return UITableViewAutomaticDimension
     }
 }
