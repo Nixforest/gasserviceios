@@ -421,6 +421,16 @@ class OrderPreview: UIView {
                 iconPath: DomainConst.MONEY_ICON_IMG_NAME,
                 value: DomainConst.SPLITER_TYPE1 + data.discount_amount))
         }
+        //++ BUG0161-SPJ (NguyenPT 20171120) Add promotion amount in Order detail view
+        // Add information
+        if data.promotion_amount != DomainConst.NUMBER_ZERO_VALUE {
+            self.listInfo.append(ConfigurationModel(
+                id: DomainConst.ORDER_INFO_PROMOTION,
+                name: DomainConst.CONTENT00247,
+                iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                value: DomainConst.SPLITER_TYPE1 + data .promotion_amount))
+        }
+        //-- BUG0161-SPJ (NguyenPT 20171120) Add promotion amount in Order detail view
         self.listInfo.append(ConfigurationModel(
             id: DomainConst.ORDER_INFO_TOTAL_MONEY_ID,
             name: DomainConst.CONTENT00218,

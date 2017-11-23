@@ -682,7 +682,7 @@ class G13F00S01VC: BaseParentViewController {
             h: GlobalConst.LABEL_H)
     }
     
-    private func updateReferPointLabel(value: Int) {
+    private func updateReferPointLabel(value: String) {
         let text = String.init(format: DomainConst.CONTENT00535,
                                value)
         lblReferPoint.text = text

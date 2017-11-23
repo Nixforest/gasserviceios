@@ -12,7 +12,7 @@ import harpyframework
 class ReferInfoBean: ConfigBean {
     var is_invited:     Bool    = false
     var invite_code:    String  = DomainConst.BLANK
-    var current_point:  Int     = 0
+    var current_point:  String  = DomainConst.NUMBER_ZERO_VALUE
     var invited_list:   [ReferInvitedModel] = [ReferInvitedModel]()
     
     
@@ -32,7 +32,7 @@ class ReferInfoBean: ConfigBean {
         }
         self.is_invited = jsonData[DomainConst.KEY_IS_INVITED] as? Bool ?? false
         self.invite_code = getString(json: jsonData, key: DomainConst.KEY_INVITED_CODE)
-        self.current_point = getInt(json: jsonData, key: DomainConst.KEY_CURRENT_POINT)
+        self.current_point = getString(json: jsonData, key: DomainConst.KEY_CURRENT_POINT)
         
         // Invited list
         if let list = jsonData[DomainConst.KEY_INVITED_LIST] as? [[String: AnyObject]] {
