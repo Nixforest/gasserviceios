@@ -50,7 +50,7 @@ class TransactionStatusRequest: BaseRequest {
      * - parameter completionHandler:      Action execute when finish this task
      */
     public static func requestLoop(view: BaseViewController, id: String,
-                                   completionHandler: ((Any?) -> Void)?) {
+                                   completionHandler: ((Any?) -> Void)?, isShowLoading: Bool = false) {
         let request = TransactionStatusRequest(url: G12Const.PATH_ORDER_TRANSACTION_LIST,
                                                reqMethod: DomainConst.HTTP_POST_REQUEST,
                                                view: view)
@@ -59,7 +59,7 @@ class TransactionStatusRequest: BaseRequest {
         request.setFlagShowError(value: false)
         print("TransactionStatusRequest: \(_count)")
         _count += 1
-        request.execute(isShowLoadingView: false)
+        request.execute(isShowLoadingView: isShowLoading)
     }
     //-- BUG0156-SPJ (NguyenPT 20170925) Re-design Gas24h
 }

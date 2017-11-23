@@ -64,6 +64,23 @@ class MenuVC: BaseMenuViewController {
         // Setting logo
         createTopLogo(logo: DomainConst.LOGO_LOGIN_ICON_IMG_NAME)
     }
+    
+    //++ BUG0165-SPJ (NguyenPT 20171123) Override select home menu
+    override func openHome() {
+        // Get current view controller
+        if let currentView = BaseViewController.getCurrentViewController() {
+            // Check if current view controller is G12F01S01VC
+            if currentView.theClassName == G12F01S01VC.theClassName {
+                // Start new request Transaction Status
+                (currentView as! G12F01S01VC).requestNewTransactionStatus()
+            } else {
+                // Pop to root view controller
+                currentView.clearData()
+                currentView.popToRootView()
+            }
+        }
+    }
+    //-- BUG0165-SPJ (NguyenPT 20171123) Override select home menu
 
     override func openLogin() {
         let loginView = G00LoginExtVC(nibName: G00LoginExtVC.theClassName, bundle: nil)

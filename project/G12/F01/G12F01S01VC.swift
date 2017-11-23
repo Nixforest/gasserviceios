@@ -109,6 +109,12 @@ class G12F01S01VC: BaseParentViewController {
     var _lastOrder:             OrderBean   = OrderBean()
     /** Flag check if transaction status request was ran */
     var _isRequestedTransactionStatus:    Bool    = false
+    //++ BUG0165-SPJ (NguyenPT 20171123) Fix bug transaction status
+    /** Flag check need stop request transaction status */
+    var _isNeedStopTransStatus:             Bool    = false
+    /**  Flag check if viewDidAppear is called*/
+    var _isFirstCallDidAppear:              Bool    = true
+    //-- BUG0165-SPJ (NguyenPT 20171123) Fix bug transaction status
     
     
     // MARK: Static values
@@ -224,6 +230,13 @@ class G12F01S01VC: BaseParentViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        //++ BUG0165-SPJ (NguyenPT 20171123) Fix bug transaction status
+        // If this if first call -> ignore all next statement
+        if _isFirstCallDidAppear {
+            _isFirstCallDidAppear = false
+            return
+        }
+        //-- BUG0165-SPJ (NguyenPT 20171123) Fix bug transaction status
         self.isOpenedMap = false
         updateMaterialSelector()
         if isShowPreview {
@@ -241,6 +254,9 @@ class G12F01S01VC: BaseParentViewController {
             isOrderFinish = true
         }
         requestOrderConfig()
+        //++ BUG0165-SPJ (NguyenPT 20171123) Start new request Transaction status
+        requestNewTransactionStatus()
+        //-- BUG0165-SPJ (NguyenPT 20171123) Start new request Transaction status
     }
     
     /**
@@ -583,17 +599,92 @@ class G12F01S01VC: BaseParentViewController {
             case OrderStatusEnum.STATUS_NUM:            // Status cancel
                 if !isCancelOrder {
                     isCancelOrder = true
-//                    self.showAlert(
-//                        message: DomainConst.CONTENT00505,
-//                        okHandler: {
-//                            alert in
-//                            NotificationCenter.default.post(
-//                                name: NSNotification.Name(
-//                                    rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
-//                                object: nil)
-//                            BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
-//                            self.changeMode(value: OrderStatusEnum.STATUS_CREATE)
-//                    })
+                    NotificationCenter.default.post(
+                        name: NSNotification.Name(
+                            rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
+                        object: nil)
+                    BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
+                    self.changeMode(value: OrderStatusEnum.STATUS_CREATE)
+                }
+                break
+            }
+        } else {
+            // Do nothing
+        }
+        btnOrder.isEnabled = true
+        self.listActionsButtons[0].isEnabled = true
+        self.listActionsButtons[1].isEnabled = true
+        
+        //++ BUG0165-SPJ (NguyenPT 20171123) New request Transaction status was started
+        logw(text: "\(#function)")
+        logw(text: "_isNeedStopTransStatus is \(_isNeedStopTransStatus)")
+        if _isNeedStopTransStatus {
+            _isNeedStopTransStatus = false
+        } else {
+            DispatchQueue.main.asyncAfter(
+                deadline: .now() + .milliseconds(
+                    BaseModel.shared.getGas24hTimeCheckOrder() * 1000),
+                execute: {
+                    self.requestTransactionStatus(
+                        completionHandler: self.finishRequestTransactionStatus)
+            })
+        }
+        //-- BUG0165-SPJ (NguyenPT 20171123) New request Transaction status was started
+    }
+    
+    //++ BUG0165-SPJ (NguyenPT 20171123) New request Transaction status was started
+    /**
+     * Handler when transaction status request is finish
+     * - parameter model: Model object
+     */
+    public func finishNewRequestTransactionStatus(_ model: Any?) {
+        let data = (model as! String)
+        let model = OrderViewRespModel(jsonString: data)
+        if model.isSuccess() {
+            _id = model.record.id
+            // Handle process base on status of order
+            switch checkStatus(order: model.getRecord()) {
+            case OrderStatusEnum.STATUS_CREATE:         // Status create
+                if self.mode == .STATUS_DELIVERING {
+                    NotificationCenter.default.post(
+                        name: NSNotification.Name(
+                            rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
+                        object: nil)
+                }
+                break
+            case OrderStatusEnum.STATUS_WAIT_CONFIRM:   // Status waiting confirm
+                if self.mode == .STATUS_DELIVERING {
+                    NotificationCenter.default.post(
+                        name: NSNotification.Name(
+                            rawValue: G12Const.NOTIFY_NAME_G12_FINISH_ORDER),
+                        object: nil)
+                    changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
+                }
+                if self.mode != OrderStatusEnum.STATUS_CONFIRMED {
+                    changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
+                }
+                if self.mode != .STATUS_WAIT_CONFIRM {
+                    NSObject.cancelPreviousPerformRequests(withTarget: self)
+                }
+                break
+            case OrderStatusEnum.STATUS_CONFIRMED:      // Status confirmed
+                //                changeMode(value: OrderStatusEnum.STATUS_CONFIRMED)
+                break
+            case OrderStatusEnum.STATUS_DELIVERING:     // Status delivering
+                if !isOpenedMap {
+                    isOpenedMap = !isOpenedMap
+                    openMap(data: model.getRecord())
+                    changeMode(value: OrderStatusEnum.STATUS_DELIVERING)
+                }
+                break
+            case OrderStatusEnum.STATUS_COMPLETE:       // Status complete
+                if self.mode != OrderStatusEnum.STATUS_CREATE {
+                    changeMode(value: OrderStatusEnum.STATUS_COMPLETE)
+                }
+                break
+            case OrderStatusEnum.STATUS_NUM:            // Status cancel
+                if !isCancelOrder {
+                    isCancelOrder = true
                     
                     NotificationCenter.default.post(
                         name: NSNotification.Name(
@@ -605,20 +696,23 @@ class G12F01S01VC: BaseParentViewController {
                 break
             }
         } else {
-//            showAlert(message: model.message)
         }
         btnOrder.isEnabled = true
         self.listActionsButtons[0].isEnabled = true
         self.listActionsButtons[1].isEnabled = true
         
-//        perform(#selector(runRequestTransactionStatusAfterFinish), with: nil,
-//                afterDelay: TimeInterval(BaseModel.shared.getGas24hTimeCheckOrder()))
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(BaseModel.shared.getGas24hTimeCheckOrder() * 1000),
-                                      execute: {
-                                        self.requestTransactionStatus(
-                                            completionHandler: self.finishRequestTransactionStatus)
+        logw(text: "\(#function)")
+        logw(text: "_isNeedStopTransStatus is \(_isNeedStopTransStatus)")
+        DispatchQueue.main.asyncAfter(
+            deadline: .now() + .milliseconds(
+                BaseModel.shared.getGas24hTimeCheckOrder() * 1000),
+            execute: {
+                self.requestTransactionStatus(
+                    completionHandler: self.finishRequestTransactionStatus)
+                self._isNeedStopTransStatus = false
         })
     }
+    //-- BUG0165-SPJ (NguyenPT 20171123) New request Transaction status was started
     
     /**
      * Handler when transaction complete request is finish
@@ -781,6 +875,8 @@ class G12F01S01VC: BaseParentViewController {
             BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
             changeMode(value: .STATUS_CREATE)
         }
+//        requestNewTransactionStatus()
+        
     }
     //-- BUG0162-SPJ (NguyenPT 20171120) Change mode to create after finish order (if select Home menu)
     
@@ -832,20 +928,36 @@ class G12F01S01VC: BaseParentViewController {
     
     /**
      * Request transaction status
-     * - parameter id: Id of transaction
+     * - parameter completionHandler: Handler when finish
      */
     public func requestTransactionStatus(completionHandler: ((Any?)->Void)?) {
-//        TransactionStatusRequest.request(
-//            action: #selector(finishRequestTransactionStatus(_:)),
-//            view: self, id: id)
         if !BaseModel.shared.checkIsLogin() {
             return
         }
+        logw(text: "\(#function)")
         TransactionStatusRequest.requestLoop(
             view: self,
             id: BaseModel.shared.getTransactionData().id,
             completionHandler: completionHandler)
     }
+    
+    //++ BUG0165-SPJ (NguyenPT 20171123) New request Transaction status was started
+    /**
+     * Request new transaction status
+     */
+    public func requestNewTransactionStatus() {
+        if !BaseModel.shared.checkIsLogin() {
+            return
+        }
+        logw(text: "\(#function)")
+        _isNeedStopTransStatus = true
+        TransactionStatusRequest.requestLoop(
+            view: self,
+            id: BaseModel.shared.getTransactionData().id,
+            completionHandler: finishNewRequestTransactionStatus(_:),
+            isShowLoading: true)
+    }
+    //-- BUG0165-SPJ (NguyenPT 20171123) New request Transaction status was started
     
     /**
      * Request transaction complete

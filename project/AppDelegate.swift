@@ -84,22 +84,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        print("applicationWillResignActive")
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        if let currentVC = BaseViewController.getCurrentViewController() {
-            if currentVC.theClassName == G12F01S01VC.theClassName {
-                let g12f01s01: G12F01S01VC = (currentVC as! G12F01S01VC)
-//                g12f01s01.setIsRequestedTransactionStatus(value: false)
-                TransactionStatusRequest.cancel()
-            }
-        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        print("applicationWillEnterForeground")
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -108,20 +103,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppEventsLogger.activate(application)
         //-- BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
         //++ BUG0165-SPJ (NguyenPT 20171122) Can not start Transaction Status request after login
-//        if let currentVC = BaseViewController.getCurrentViewController() {
-//            if currentVC.theClassName == G12F01S01VC.theClassName {
-//                let g12f01s01: G12F01S01VC = (currentVC as! G12F01S01VC)
-//                if !g12f01s01.getIsRequestedTransactionStatus() {
-//                    g12f01s01.requestTransactionStatus(completionHandler: g12f01s01.finishRequestTransactionStatus(_:))
-//                    g12f01s01.setIsRequestedTransactionStatus(value: true)
-//                }
-//            }
-//        }
+        if let currentVC = BaseViewController.getCurrentViewController() {
+            if currentVC.theClassName == G12F01S01VC.theClassName {
+                // Start new request Transaction Status
+                (currentVC as! G12F01S01VC).requestNewTransactionStatus()
+            }
+        }
         //-- BUG0165-SPJ (NguyenPT 20171122) Can not start Transaction Status request after login
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        print("applicationWillEnterForeground")
     }
 
     /**
