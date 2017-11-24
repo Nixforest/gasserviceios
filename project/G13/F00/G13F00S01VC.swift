@@ -14,8 +14,8 @@ class G13F00S01VC: BaseParentViewController {
     /** Segment */
     var segment:            UISegmentedControl  = UISegmentedControl(
         items: [
-            DomainConst.CONTENT00499.uppercased(),
-            DomainConst.CONTENT00500.uppercased()
+            DomainConst.CONTENT00500.uppercased(),
+            DomainConst.CONTENT00499.uppercased()
         ])
     
     /** Refer view */
@@ -80,9 +80,9 @@ class G13F00S01VC: BaseParentViewController {
     
     // MARK: Constant
     /** Refer mode */
-    let MODE_REFER:         Int                 = 0
+    let MODE_REFER:         Int                 = 1
     /** Using code mode */
-    let MODE_USING_CODE:    Int                 = 1
+    let MODE_USING_CODE:    Int                 = 0
     /** Refer mode: Normal code */
     let MODE_NORMAL_CODE:   Int                 = 0
     /** Refer mode: QR code */
@@ -364,6 +364,9 @@ class G13F00S01VC: BaseParentViewController {
         let data = (notification.object as! String)
         let model = BaseRespModel(jsonString: data)
         showAlert(message: model.message)
+        //++ BUG0163-SPJ (NguyenPT 20171122) Reload list promotion
+        requestData()
+        //-- BUG0163-SPJ (NguyenPT 20171122) Reload list promotion
     }
     
     // MARK: Logic
@@ -501,7 +504,7 @@ class G13F00S01VC: BaseParentViewController {
         segment.frame = CGRect(x: (UIScreen.main.bounds.width - w ) / 2,
                                y: getTopHeight() + GlobalConst.MARGIN,
                                width: w, height: h)
-        segment.selectedSegmentIndex = 0
+        segment.selectedSegmentIndex = MODE_REFER
         let segAttribute: NSDictionary = [
             NSForegroundColorAttributeName: GlobalConst.MAIN_COLOR_GAS_24H
         ]

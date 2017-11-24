@@ -78,6 +78,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Facebook
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         //-- BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
+        
+        //++ BUG0168-SPJ (NguyenPT 20171124) Reset Cache data when terminal app
+        // Reset cache data
+        URLCache.shared.removeAllCachedResponses()
+        //-- BUG0168-SPJ (NguyenPT 20171124) Reset Cache data when terminal app
         return true
     }
 
