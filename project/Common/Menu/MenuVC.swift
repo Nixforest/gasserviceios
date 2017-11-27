@@ -112,6 +112,28 @@ class MenuVC: BaseMenuViewController {
         }
     }
     
+    //++ BUG0171-SPJ (NguyenPT 20171127) Add new menu
+    override func openPromotionPolicy() {
+        let bundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
+        let view = BaseNewsViewController(nibName: BaseNewsViewController.theClassName,
+                                          bundle: bundle)
+        view.setData(title: DomainConst.CONTENT00536, id: DomainConst.MENU_PROMOTION_POLICY_ID)
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.navigationController?.pushViewController(view, animated: true)
+        }
+    }
+    
+    override func openAppGuide() {
+        let bundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
+        let view = BaseNewsViewController(nibName: BaseNewsViewController.theClassName,
+                                          bundle: bundle)
+        view.setData(title: DomainConst.CONTENT00537, id: DomainConst.MENU_APP_GUIDE_ID)
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.navigationController?.pushViewController(view, animated: true)
+        }
+    }
+    //-- BUG0171-SPJ (NguyenPT 20171127) Add new menu
+    
     override func update() {
         super.update()
         
