@@ -89,10 +89,10 @@ class G12F00S01Cell: UITableViewCell {
         var retVal = DomainConst.STATUS_FINISH_SMALL_IMG_NAME
         switch status {
         case DomainConst.ORDER_STATUS_NEW:
-            retVal = DomainConst.STATUS_NEW_SMALL_IMG_NAME
+            retVal = DomainConst.STATUS_WAITING_SMALL_IMG_NAME
             break
         case DomainConst.ORDER_STATUS_PROCESSING:
-            retVal = DomainConst.STATUS_WAITING_SMALL_IMG_NAME
+            retVal = DomainConst.STATUS_NEW_SMALL_IMG_NAME
             break
         case DomainConst.ORDER_STATUS_COMPLETE:
             retVal = DomainConst.STATUS_FINISH_SMALL_IMG_NAME
