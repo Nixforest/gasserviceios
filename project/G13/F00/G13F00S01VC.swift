@@ -63,6 +63,8 @@ class G13F00S01VC: BaseParentViewController {
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         return refreshControl
     }()
+    /** Flag active Refer-QR code tab */
+    var _isActiveReferQRCode:   Bool            = false
     
     /** Mode */
     var mode:               Int                 = 0
@@ -74,7 +76,7 @@ class G13F00S01VC: BaseParentViewController {
     var referCode:          String              = DomainConst.BLANK
     /** Refer link */
 //    var referLink:          String              = BaseModel.shared.getServerURL() + "referral/code?code="
-    var referLink:          String              = "http://spj.vn/app?code="
+    var referLink:          String              = DomainConst.REFER_LINK
     
     // MARK: Static values
     
@@ -494,6 +496,10 @@ class G13F00S01VC: BaseParentViewController {
         }()
     }
     
+    public func activeQRCode() {
+        _isActiveReferQRCode = true
+    }
+    
     // MARK: Segment control
     /**
      * create segment control
@@ -505,6 +511,8 @@ class G13F00S01VC: BaseParentViewController {
                                y: getTopHeight() + GlobalConst.MARGIN,
                                width: w, height: h)
         segment.selectedSegmentIndex = MODE_REFER
+        self.mode = segment.selectedSegmentIndex
+//        switchMode()
         let segAttribute: NSDictionary = [
             NSForegroundColorAttributeName: GlobalConst.MAIN_COLOR_GAS_24H
         ]
@@ -729,6 +737,12 @@ class G13F00S01VC: BaseParentViewController {
             x: (segment.frame.width - w) / 2,
             y: lblReferPoint.frame.maxY + GlobalConst.MARGIN,
             w: w, h: h)
+        if _isActiveReferQRCode {
+            referSegment.selectedSegmentIndex = MODE_QR_CODE
+            self.refMode = referSegment.selectedSegmentIndex
+            switchReferMode()
+            _isActiveReferQRCode = false
+        }
     }
     
     private func updateReferSegmentHD() {

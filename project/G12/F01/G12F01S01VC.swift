@@ -1230,6 +1230,14 @@ class G12F01S01VC: BaseParentViewController {
         self.navigationController?.pushViewController(promotionView, animated: true)
     }
     
+    override func openPromotionActiveQR() {
+        let promotionView = G13F00S01VC(nibName: G13F00S01VC.theClassName, bundle: nil)
+        promotionView.activeQRCode()
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.navigationController?.pushViewController(promotionView, animated: true)
+        }
+    }
+    
     internal func openGasSelect() {
 //        G12F01S03VC.setData(data: G12F01S01VC._nearestAgent.info_gas)
         let s03 = G12F01S03VC(nibName: G12F01S03VC.theClassName, bundle: nil)
