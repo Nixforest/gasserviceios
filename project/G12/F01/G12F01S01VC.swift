@@ -251,7 +251,12 @@ class G12F01S01VC: BaseParentViewController {
             
             // Request transaction complete
             requestTransactionComplete(isReview: true, lastOrder: _lastOrder)
+        //++ BUG0170-SPJ (NguyenPT 20171202) Update bottom message view
+            makeBotMsgVisible(isShow: !isShowPreview)
+        } else {
+            hideBotMsgView()
         }
+        //-- BUG0170-SPJ (NguyenPT 20171202) Update bottom message view
         if !isOrderFinish && self.mode == .STATUS_COMPLETE {
             isOrderFinish = true
         }
