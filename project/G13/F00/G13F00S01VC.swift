@@ -475,6 +475,9 @@ class G13F00S01VC: BaseParentViewController {
         }
     }
     
+    /**
+     * Open QR scanner
+     */
     private func openScanner() {
         ScannerVC._notificationName = G13Const.NOTIFY_NAME_G13_SCAN_QR_FINISH
         let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
@@ -484,6 +487,9 @@ class G13F00S01VC: BaseParentViewController {
         usingCodeSegment.selectedSegmentIndex = MODE_NORMAL_CODE
     }
     
+    /**
+     * Create QR code
+     */
     private func createQRCode() {
         imgQRCode.image = {
             if var qrCode = QRCode(referLink + referCode) {
@@ -496,8 +502,18 @@ class G13F00S01VC: BaseParentViewController {
         }()
     }
     
+    /**
+     * Show Refer-QR code tab
+     */
     public func activeQRCode() {
         _isActiveReferQRCode = true
+        segment.selectedSegmentIndex = MODE_REFER
+        self.mode = segment.selectedSegmentIndex
+        switchMode()
+        referSegment.selectedSegmentIndex = MODE_QR_CODE
+        self.refMode = referSegment.selectedSegmentIndex
+        switchReferMode()
+        _isActiveReferQRCode = false
     }
     
     // MARK: Segment control

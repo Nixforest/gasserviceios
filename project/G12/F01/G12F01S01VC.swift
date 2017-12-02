@@ -191,32 +191,33 @@ class G12F01S01VC: BaseParentViewController {
 
         // Do any additional setup after loading the view.
         // Navigation
-        self.createNavigationBar(title: "1900 1565")
+//        self.createNavigationBar(title: "1900 1565")
+        self.createNavigationBar(title: DomainConst.HOTLINE)
 //        openLogin()
         changeMode(value: OrderStatusEnum.STATUS_CREATE)
 //        changeMode(value: OrderStatusEnum.STATUS_CONFIRMED)
         // Location setting
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        switch CLLocationManager.authorizationStatus() {
-        case .denied, .notDetermined, .restricted:
-            locationManager.requestWhenInUseAuthorization()
-            showAlert(message: DomainConst.CONTENT00529,
-                      okHandler: {
-                        alert in
-                        UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString) as! URL)
-            })
-            break
-        default:
-            break
-        }
-        locationManager.startUpdatingLocation()
-//        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
+//        switch CLLocationManager.authorizationStatus() {
+//        case .denied, .notDetermined, .restricted:
 //            locationManager.requestWhenInUseAuthorization()
-//            locationManager.startUpdatingLocation()
-//        } else {
-//            locationManager.startUpdatingLocation()
+//            showAlert(message: DomainConst.CONTENT00529,
+//                      okHandler: {
+//                        alert in
+//                        UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString) as! URL)
+//            })
+//            break
+//        default:
+//            break
 //        }
+//        locationManager.startUpdatingLocation()
+        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+        } else {
+            locationManager.startUpdatingLocation()
+        }
         
         // Mark to know where returned from Login process
         NotificationCenter.default.addObserver(
@@ -230,6 +231,7 @@ class G12F01S01VC: BaseParentViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         //++ BUG0165-SPJ (NguyenPT 20171123) Fix bug transaction status
         // If this if first call -> ignore all next statement
         if _isFirstCallDidAppear {
@@ -487,6 +489,18 @@ class G12F01S01VC: BaseParentViewController {
         // Handle by button identify
         switch ((sender as! UIButton).accessibilityIdentifier!) {
         case DomainConst.ACTION_TYPE_SELECT_GAS:
+            switch CLLocationManager.authorizationStatus() {
+            case .denied, .notDetermined, .restricted:
+                locationManager.requestWhenInUseAuthorization()
+                showAlert(message: DomainConst.CONTENT00529,
+                          okHandler: {
+                            alert in
+                            UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString) as! URL)
+                })
+                return
+            default:
+                break
+            }
             openGasSelect()
             return
         case DomainConst.ACTION_TYPE_SELECT_PROMOTE:
@@ -862,7 +876,8 @@ class G12F01S01VC: BaseParentViewController {
     /**
      * Handle when back from Login process
      */
-    internal func notifyLoginSuccess(_ notification: Notification) {
+    override func notifyLoginSuccess(_ notification: Notification) {
+        super.notifyLoginSuccess(notification)
         changeMode(value: .STATUS_CREATE)
         startUpdateConfig()
     }
@@ -1077,9 +1092,9 @@ class G12F01S01VC: BaseParentViewController {
         }
         
         // Check if min distance is outside of max range
-//        if distance > BaseModel.shared.getMaxRangeDistantFromOrderConfig() {
-//            G12F01S01VC._nearestAgent = AgentInfoBean.init()
-//        }
+        if distance > BaseModel.shared.getMaxRangeDistantFromOrderConfig() {
+            G12F01S01VC._nearestAgent = AgentInfoBean.init()
+        }
         
         // Not found any agent
         if G12F01S01VC._nearestAgent.isEmpty() {
@@ -1232,9 +1247,10 @@ class G12F01S01VC: BaseParentViewController {
     
     override func openPromotionActiveQR() {
         let promotionView = G13F00S01VC(nibName: G13F00S01VC.theClassName, bundle: nil)
-        promotionView.activeQRCode()
+//        promotionView.activeQRCode()
         if let controller = BaseViewController.getCurrentViewController() {
             controller.navigationController?.pushViewController(promotionView, animated: true)
+            promotionView.activeQRCode()
         }
     }
     

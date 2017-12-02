@@ -279,6 +279,14 @@ class G12F01S02VC: BaseParentViewController {
         self.updateCenterMark()
     }
     
+    override func openPromotionActiveQR() {
+        let promotionView = G13F00S01VC(nibName: G13F00S01VC.theClassName, bundle: nil)
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.navigationController?.pushViewController(promotionView, animated: true)
+            promotionView.activeQRCode()
+        }
+    }
+    
     // MARK: Event handler
     /**
      * Handle when tap on actions buttons
