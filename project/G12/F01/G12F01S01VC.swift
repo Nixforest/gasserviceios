@@ -114,6 +114,8 @@ class G12F01S01VC: BaseParentViewController {
     var _isNeedStopTransStatus:             Bool    = false
     /**  Flag check if viewDidAppear is called*/
     var _isFirstCallDidAppear:              Bool    = true
+    /**  Flag check if finish transaction status is called*/
+    var _isFirstCallTransactionStatus:      Bool    = true
     //-- BUG0165-SPJ (NguyenPT 20171123) Fix bug transaction status
     
     
@@ -630,9 +632,18 @@ class G12F01S01VC: BaseParentViewController {
         } else {
             // Do nothing
         }
-        btnOrder.isEnabled = true
-        self.listActionsButtons[0].isEnabled = true
-        self.listActionsButtons[1].isEnabled = true
+        //++ BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
+//        btnOrder.isEnabled = true
+//        self.listActionsButtons[0].isEnabled = true
+//        self.listActionsButtons[1].isEnabled = true
+        if _isFirstCallTransactionStatus {
+            btnOrder.isEnabled = true
+            self.listActionsButtons[0].isEnabled = true
+            self.listActionsButtons[1].isEnabled = true
+            _isFirstCallTransactionStatus = false
+            return
+        }
+        //-- BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
         
         //++ BUG0165-SPJ (NguyenPT 20171123) New request Transaction status was started
         logw(text: "\(#function)")
@@ -715,10 +726,20 @@ class G12F01S01VC: BaseParentViewController {
                 break
             }
         } else {
+            // Do nothing
         }
-        btnOrder.isEnabled = true
-        self.listActionsButtons[0].isEnabled = true
-        self.listActionsButtons[1].isEnabled = true
+        //++ BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
+//        btnOrder.isEnabled = true
+//        self.listActionsButtons[0].isEnabled = true
+//        self.listActionsButtons[1].isEnabled = true
+        if _isFirstCallTransactionStatus {
+            btnOrder.isEnabled = true
+            self.listActionsButtons[0].isEnabled = true
+            self.listActionsButtons[1].isEnabled = true
+            _isFirstCallTransactionStatus = false
+            return
+        }
+        //-- BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
         
         logw(text: "\(#function)")
         logw(text: "_isNeedStopTransStatus is \(_isNeedStopTransStatus)")
@@ -753,6 +774,9 @@ class G12F01S01VC: BaseParentViewController {
             changeMode(value: .STATUS_CREATE)
         }
         previewView.enableNextButton()
+        //++ BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
+        btnOrder.isEnabled = true
+        //-- BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
     }
     
     /**
@@ -782,6 +806,9 @@ class G12F01S01VC: BaseParentViewController {
             changeMode(value: .STATUS_CREATE)
         }
         previewView.enableNextButton()
+        //++ BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
+        btnOrder.isEnabled = true
+        //-- BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
     }
     
     /**
@@ -855,7 +882,9 @@ class G12F01S01VC: BaseParentViewController {
             showAlert(message: model.message)
             changeMode(value: .STATUS_CREATE)
         }
-        btnOrder.isEnabled = true
+        //++ BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
+//        btnOrder.isEnabled = true
+        //-- BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
     }
     
     /**
