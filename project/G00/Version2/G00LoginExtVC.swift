@@ -28,6 +28,12 @@ class G00LoginExtVC: ChildExtViewController {
     var btnFacebook:    CustomButton    = CustomButton(type: UIButtonType.custom)
     /** Button Zalo */
     var btnZalo:        CustomButton    = CustomButton(type: .custom)
+    //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+    /** Label Support */
+    var lblSupport:     UILabel     = UILabel()
+    /** Label Hotline */
+    var lblHotline:     UILabel     = UILabel()
+    //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
     /** Tap counter on logo */
     var imgLogoTappedCounter:Int        = 0
     /** Phone value */
@@ -151,6 +157,9 @@ class G00LoginExtVC: ChildExtViewController {
             self.createORLabel()
             self.createFBBtnHD()
             self.createZLBtnHD()
+            //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+            self.createHotlineLabelHD()
+            //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
@@ -162,6 +171,9 @@ class G00LoginExtVC: ChildExtViewController {
                 self.createORLabel()
                 self.createFBBtnFHD()
                 self.createZLBtnFHD()
+                //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+                self.createHotlineLabelFHD()
+                //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
             case .landscapeLeft, .landscapeRight:       // Landscape
                 self.createLogoImgFHD_L()
                 self.createLoginLabel()
@@ -170,6 +182,9 @@ class G00LoginExtVC: ChildExtViewController {
                 self.createORLabel()
                 self.createFBBtnFHD_L()
                 self.createZLBtnFHD_L()
+                //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+                self.createHotlineLabelFHD_L()
+                //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
             default:
                 break
             }
@@ -178,6 +193,9 @@ class G00LoginExtVC: ChildExtViewController {
         default:
             break
         }
+        //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+        self.createSupportLabel()
+        //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
         
         self.view.addSubview(imgLogo)
         self.view.addSubview(lblLogin)
@@ -185,6 +203,11 @@ class G00LoginExtVC: ChildExtViewController {
 //        self.view.addSubview(lblOr)
 //        self.view.addSubview(btnFacebook)
 //        self.view.addSubview(btnZalo)
+        
+        //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+        self.view.addSubview(lblHotline)
+        self.view.addSubview(lblSupport)        
+        //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
     }
     
     /**
@@ -201,6 +224,9 @@ class G00LoginExtVC: ChildExtViewController {
             self.updateORLabel()
             self.updateFBBtnHD()
             self.updateZLBtnHD()
+            //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+            self.updateHotlineLabelHD()
+            //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
@@ -211,6 +237,9 @@ class G00LoginExtVC: ChildExtViewController {
                 self.updateORLabel()
                 self.updateFBBtnFHD()
                 self.updateZLBtnFHD()
+                //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+                self.updateHotlineLabelFHD()
+                //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
             case .landscapeLeft, .landscapeRight:       // Landscape
                 self.createLogoImgFHD_L()
                 self.updateLoginLabel()
@@ -218,6 +247,9 @@ class G00LoginExtVC: ChildExtViewController {
                 self.updateORLabel()
                 self.updateFBBtnFHD_L()
                 self.updateZLBtnFHD_L()
+                //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+                self.updateHotlineLabelFHD_L()
+                //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
             default:
                 break
             }
@@ -226,6 +258,9 @@ class G00LoginExtVC: ChildExtViewController {
         default:
             break
         }
+        //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+        self.updateSupportLabel()
+        //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
     }
     
     // MARK: Event handler
@@ -867,6 +902,93 @@ class G00LoginExtVC: ChildExtViewController {
                       w: LOGIN_PHONE_REAL_WIDTH_FHD_L,
                       h: LOGIN_PHONE_REAL_HEIGHT_FHD_L)
     }
+    
+    //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen    
+    // MARK: Support label
+    /**
+     * Create support label
+     */
+    private func createSupportLabel() {
+        lblSupport.frame = CGRect(x: 0,
+                             y: lblHotline.frame.minY - GlobalConst.LABEL_H,
+                             width: UIScreen.main.bounds.width,
+                             height: GlobalConst.LABEL_H)
+        lblSupport.text           = DomainConst.CONTENT00539
+        lblSupport.textColor      = UIColor.black
+        lblSupport.font           = GlobalConst.BASE_FONT
+        lblSupport.textAlignment  = .center
+    }
+    
+    private func updateSupportLabel() {
+        CommonProcess.updateViewPos(
+            view: lblSupport,
+            x: 0, y: lblHotline.frame.minY - GlobalConst.LABEL_H,
+            w: UIScreen.main.bounds.width,
+            h: GlobalConst.LABEL_H)
+    }
+    
+    // MARK: Hotline label
+    /**
+     * Create hotline label
+     * - parameter bottomY: Y position bottom
+     */
+    private func createHotlineLabel(bottomY: CGFloat) {
+        let height = GlobalConst.LABEL_H * 2
+        lblHotline.frame = CGRect(x: 0,
+                                  y: UIScreen.main.bounds.height - height * bottomY,
+                                  width: UIScreen.main.bounds.width,
+                                  height: height)
+        lblHotline.text           = DomainConst.HOTLINE
+        lblHotline.textColor      = GlobalConst.MAIN_COLOR_GAS_24H
+        lblHotline.font           = UIFont.boldSystemFont(ofSize: GlobalConst.NOTIFY_FONT_SIZE)
+        lblHotline.textAlignment  = .center
+    }
+    
+    /**
+     * Create hotline label (HD mode)
+     */
+    private func createHotlineLabelHD() {
+        createHotlineLabel(bottomY: 2.5)
+    }
+    
+    /**
+     * Create hotline label (Full HD mode)
+     */
+    private func createHotlineLabelFHD() {
+        createHotlineLabel(bottomY: 5)
+    }
+    
+    /**
+     * Create hotline label (Full HD Landscape mode)
+     */
+    private func createHotlineLabelFHD_L() {
+        createHotlineLabel(bottomY: 3)
+    }
+    
+    /**
+     * Update hotline label
+     */
+    private func updateHotlineLabel(bottomY: CGFloat) {
+        let height = GlobalConst.LABEL_H * 2
+        CommonProcess.updateViewPos(view: lblHotline,
+                                    x: 0,
+                                    y: UIScreen.main.bounds.height - height * bottomY,
+                                    w: UIScreen.main.bounds.width,
+                                    h: height)
+    }
+    
+    private func updateHotlineLabelHD() {
+        updateHotlineLabel(bottomY: 2.5)
+    }
+    
+    private func updateHotlineLabelFHD() {
+        updateHotlineLabel(bottomY: 5)
+    }
+    
+    private func updateHotlineLabelFHD_L() {
+        updateHotlineLabel(bottomY: 3)
+    }
+    //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
     
     private func setLocalData() {
         self.txtPhone.text = BaseModel.shared.getCurrentUsername()

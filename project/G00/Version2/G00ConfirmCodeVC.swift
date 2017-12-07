@@ -37,6 +37,12 @@ class G00ConfirmCodeVC: ChildExtViewController {
     var lblWrongPhone:  UILabel     = UILabel()
     /** Button back */
     var btnBack:        UIButton    = UIButton()
+    //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+    /** Label Support */
+    var lblSupport:     UILabel     = UILabel()
+    /** Label Hotline */
+    var lblHotline:     UILabel     = UILabel()
+    //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
     // MARK: Data
     /** Phone number */
     private var _phone: String      = DomainConst.BLANK
@@ -159,6 +165,9 @@ class G00ConfirmCodeVC: ChildExtViewController {
             self.createResendBtnHD()
             self.createWrongPhoneLabelHD()
             self.createBackBtnHD()
+            //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+            self.createHotlineLabelHD()
+            //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
@@ -172,6 +181,9 @@ class G00ConfirmCodeVC: ChildExtViewController {
                 self.createResendBtnFHD()
                 self.createWrongPhoneLabelFHD()
                 self.createBackBtnFHD()
+                //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+                self.createHotlineLabelFHD()
+                //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
             case .landscapeLeft, .landscapeRight:       // Landscape
                 self.createLogoImgFHD_L()
                 self.createInputCodeLabel()
@@ -182,6 +194,9 @@ class G00ConfirmCodeVC: ChildExtViewController {
                 self.createResendBtnFHD_L()
                 self.createWrongPhoneLabelFHD_L()
                 self.createBackBtnFHD_L()
+                //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+                self.createHotlineLabelFHD_L()
+                //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
             default:
                 break
             }
@@ -190,6 +205,9 @@ class G00ConfirmCodeVC: ChildExtViewController {
         default:
             break
         }
+        //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+        self.createSupportLabel()
+        //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
         
         imgLogo.image = ImageManager.getImage(named: DomainConst.LOGO_LOGIN_ICON_IMG_NAME)
         
@@ -209,8 +227,12 @@ class G00ConfirmCodeVC: ChildExtViewController {
                                         self.view.addSubview(self.btnResend)
         })
 //        self.view.addSubview(btnResend)
-        self.view.addSubview(lblWrongPhone)
+        //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+//        self.view.addSubview(lblWrongPhone)
         self.view.addSubview(btnBack)
+        self.view.addSubview(lblHotline)
+        self.view.addSubview(lblSupport)
+        //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
     }
     
     /**
@@ -229,6 +251,9 @@ class G00ConfirmCodeVC: ChildExtViewController {
             self.updateResendBtnHD()
             self.updateWrongPhoneLabelHD()
             self.updateBackBtnHD()
+            //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+            self.updateHotlineLabelHD()
+            //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
@@ -241,6 +266,9 @@ class G00ConfirmCodeVC: ChildExtViewController {
                 self.updateResendBtnFHD()
                 self.updateWrongPhoneLabelFHD()
                 self.updateBackBtnFHD()
+                //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+                self.updateHotlineLabelFHD()
+                //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
             case .landscapeLeft, .landscapeRight:       // Landscape
                 self.createLogoImgFHD_L()
                 self.updateInputCodeLabel()
@@ -250,6 +278,9 @@ class G00ConfirmCodeVC: ChildExtViewController {
                 self.updateResendBtnFHD_L()
                 self.updateWrongPhoneLabelFHD_L()
                 self.updateBackBtnFHD_L()
+                //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+                self.updateHotlineLabelFHD_L()
+                //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
             default:
                 break
             }
@@ -258,6 +289,9 @@ class G00ConfirmCodeVC: ChildExtViewController {
         default:
             break
         }
+        //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+        self.updateSupportLabel()
+        //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
     }
     
     override func setData(_ notification: Notification) {
@@ -866,15 +900,27 @@ class G00ConfirmCodeVC: ChildExtViewController {
      * - parameter h: Height of view
      */
     private func createBackBtn(w: CGFloat, h: CGFloat) {
-        btnBack.frame = CGRect(x: txtCode.frame.maxX - w,
-                                 y: lbl6.frame.maxY + GlobalConst.MARGIN,
-                                 width: w, height: h)
-        btnBack.setTitle(DomainConst.CONTENT00509.uppercased(), for: UIControlState())
-        btnBack.setTitleColor(GlobalConst.MAIN_COLOR_GAS_24H, for: UIControlState())
-        btnBack.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)
+        //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+//        btnBack.frame = CGRect(x: txtCode.frame.maxX - w,
+//                               y: lbl6.frame.maxY + GlobalConst.MARGIN,
+//                               width: w, height: h)
+//        btnBack.setTitle(DomainConst.CONTENT00509.uppercased(), for: UIControlState())
+//        btnBack.setTitleColor(GlobalConst.MAIN_COLOR_GAS_24H, for: UIControlState())
+//        btnBack.titleLabel?.font = UIFont.boldSystemFont(ofSize: GlobalConst.BUTTON_FONT_SIZE)        
+        btnBack.frame = CGRect(x: GlobalConst.MARGIN * 2,
+                               y: UIApplication.shared.statusBarFrame.size.height,
+                               width: GlobalConst.MENU_BUTTON_W,
+                               height: GlobalConst.MENU_BUTTON_W)
+        let back = ImageManager.getImage(named: DomainConst.BACK_2_IMG_NAME)
+        let tintedBack = back?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        btnBack.setImage(tintedBack, for: UIControlState())
+        btnBack.imageView?.contentMode = .scaleAspectFit
+        btnBack.tintColor = GlobalConst.MAIN_COLOR_GAS_24H
+        btnBack.setTitle(DomainConst.BLANK, for: UIControlState())
         btnBack.backgroundColor = UIColor.clear
-        btnBack.layer.borderColor = GlobalConst.MAIN_COLOR_GAS_24H.cgColor
-        btnBack.layer.borderWidth = 1
+//        btnBack.layer.borderColor = GlobalConst.MAIN_COLOR_GAS_24H.cgColor
+//        btnBack.layer.borderWidth = 1        
+        //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
         btnBack.addTarget(self, action: #selector(btnBackTapped(_:)), for: .touchUpInside)
     }
     
@@ -907,9 +953,16 @@ class G00ConfirmCodeVC: ChildExtViewController {
     private func updateBackBtn(w: CGFloat, h: CGFloat) {
         CommonProcess.updateViewPos(
             view: btnBack,
-            x: txtCode.frame.maxX - w,
-            y: lbl6.frame.maxY + GlobalConst.MARGIN,
-            w: w, h: h)
+            //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+//            x: txtCode.frame.maxX - w,
+//            y: lbl6.frame.maxY + GlobalConst.MARGIN,
+//            w: w,
+//            h: h
+            x: GlobalConst.MARGIN * 2,
+            y: UIApplication.shared.statusBarFrame.size.height,
+            w: GlobalConst.MENU_BUTTON_W,
+            h: GlobalConst.MENU_BUTTON_W)
+            //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
     }
     
     /**
@@ -935,6 +988,96 @@ class G00ConfirmCodeVC: ChildExtViewController {
         updateBackBtn(w: RESEND_BTN_REAL_WIDTH_FHD_L,
                         h: CONFIRM_CODE_REAL_HEIGHT_FHD_L)
     }
+    
+    //++ BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
+    // MARK: Support label
+    /**
+     * Create support label
+     */
+    private func createSupportLabel() {
+        lblSupport.frame = CGRect(x: 0,
+                                  y: lblHotline.frame.minY - GlobalConst.LABEL_H,
+                                  width: UIScreen.main.bounds.width,
+                                  height: GlobalConst.LABEL_H)
+        lblSupport.text           = DomainConst.CONTENT00539
+        lblSupport.textColor      = UIColor.black
+        lblSupport.font           = GlobalConst.BASE_FONT
+        lblSupport.textAlignment  = .center
+    }
+    
+    /**
+     * Update support label
+     */
+    private func updateSupportLabel() {
+        CommonProcess.updateViewPos(
+            view: lblSupport,
+            x: 0, y: lblHotline.frame.minY - GlobalConst.LABEL_H,
+            w: UIScreen.main.bounds.width,
+            h: GlobalConst.LABEL_H)
+    }
+    
+    // MARK: Hotline label
+    /**
+     * Create hotline label
+     * - parameter bottomY: Y position bottom
+     */
+    private func createHotlineLabel(bottomY: CGFloat) {
+        let height = GlobalConst.LABEL_H * 2
+        lblHotline.frame = CGRect(x: 0,
+                                  y: UIScreen.main.bounds.height - height * bottomY,
+                                  width: UIScreen.main.bounds.width,
+                                  height: height)
+        lblHotline.text           = DomainConst.HOTLINE
+        lblHotline.textColor      = GlobalConst.MAIN_COLOR_GAS_24H
+        lblHotline.font           = UIFont.boldSystemFont(ofSize: GlobalConst.NOTIFY_FONT_SIZE)
+        lblHotline.textAlignment  = .center
+    }
+    
+    /**
+     * Create hotline label (HD mode)
+     */
+    private func createHotlineLabelHD() {
+        createHotlineLabel(bottomY: 2.5)
+    }
+    
+    /**
+     * Create hotline label (Full HD mode)
+     */
+    private func createHotlineLabelFHD() {
+        createHotlineLabel(bottomY: 5)
+    }
+    
+    /**
+     * Create hotline label (Full HD Landscape mode)
+     */
+    private func createHotlineLabelFHD_L() {
+        createHotlineLabel(bottomY: 3)
+    }
+    
+    /**
+     * Update hotline label
+     */
+    private func updateHotlineLabel(bottomY: CGFloat) {
+        let height = GlobalConst.LABEL_H * 2
+        CommonProcess.updateViewPos(view: lblHotline,
+                                    x: 0,
+                                    y: UIScreen.main.bounds.height - height * bottomY,
+                                    w: UIScreen.main.bounds.width,
+                                    h: height)
+    }
+    
+    private func updateHotlineLabelHD() {
+        updateHotlineLabel(bottomY: 2.5)
+    }
+    
+    private func updateHotlineLabelFHD() {
+        updateHotlineLabel(bottomY: 5)
+    }
+    
+    private func updateHotlineLabelFHD_L() {
+        updateHotlineLabel(bottomY: 3)
+    }
+    //-- BUG0177-SPJ (NguyenPT 20171207) Add hotline in Login and Confirm code screen
     
     /**
      * Set data

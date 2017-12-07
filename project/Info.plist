@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.3</string>
+	<string>2.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -40,7 +40,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>1</string>
 	<key>FacebookAppID</key>
 	<string>832328333594058</string>
 	<key>FacebookDisplayName</key>
@@ -91,11 +91,11 @@
 	<key>NSHealthUpdateUsageDescription</key>
 	<string></string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Use for detect location</string>
+	<string>Ứng dụng sẽ tự động tìm vị trí của quý khách khi đặt gas, giúp ứng dụng xác định được Đại lý giao gas gần quý khách nhất.</string>
 	<key>NSLocationUsageDescription</key>
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Ứng dụng sẽ tự động tìm vị trí của quý khách khi đặt gas, giúp ứng dụng xác định được Đại lý giao gas gần quý khách nhất.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string></string>
 	<key>NSMotionUsageDescription</key>
