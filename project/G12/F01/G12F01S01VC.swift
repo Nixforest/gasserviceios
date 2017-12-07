@@ -72,6 +72,12 @@ class G12F01S01VC: BaseParentViewController {
     var btnCancelOrder:         UIButton    = UIButton(type: UIButtonType.custom)
     /** Button refer */
     var btnRefer:               UIButton    = UIButton()
+    //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+    /** Promote textfield */
+    var txtPromote:             UITextField = UITextField()
+    /** Button next */
+    var btnNext:                UIButton    = UIButton(type: .custom)
+    //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
     /** Actions view */
     var actionsView:            UIView      = UIView()
     /** List of actions button */
@@ -363,6 +369,9 @@ class G12F01S01VC: BaseParentViewController {
             createReferBtnHD()
             createActionsViewHD()
             createPreviewViewHD()
+            //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+            createPromoteTextField()
+            //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
@@ -377,6 +386,9 @@ class G12F01S01VC: BaseParentViewController {
                 createReferBtnFHD()
                 createActionsViewFHD()
                 createPreviewViewFHD()
+                //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+                createPromoteTextField()
+                //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
                 createStatusViewFHD_L()
@@ -389,6 +401,9 @@ class G12F01S01VC: BaseParentViewController {
                 createReferBtnFHD_L()
                 createActionsViewFHD_L()
                 createPreviewViewFHD_L()
+                //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+                createPromoteTextField()
+                //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
                 break
             default:
                 break
@@ -420,6 +435,9 @@ class G12F01S01VC: BaseParentViewController {
         }
         self.view.addSubview(btnCancelOrder)
         self.view.addSubview(btnRefer)
+        //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+        self.view.addSubview(txtPromote)
+        //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
         self.view.addSubview(previewView)
     }
     
@@ -442,6 +460,9 @@ class G12F01S01VC: BaseParentViewController {
             updateReferBtnHD()
             updateActionsViewHD()
             updatePreviewViewHD()
+            //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+            updatePromoteTextField()
+            //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
             break
         case .pad:          // iPad
             switch UIApplication.shared.statusBarOrientation {
@@ -456,6 +477,9 @@ class G12F01S01VC: BaseParentViewController {
                 updateReferBtnFHD()
                 updateActionsViewFHD()
                 updatePreviewViewFHD()
+                //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+                updatePromoteTextField()
+                //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
                 break
             case .landscapeLeft, .landscapeRight:       // Landscape
                 updateStatusViewFHD_L()
@@ -468,6 +492,9 @@ class G12F01S01VC: BaseParentViewController {
                 updateReferBtnFHD_L()
                 updateActionsViewFHD_L()
                 updatePreviewViewFHD_L()
+                //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+                updatePromoteTextField()
+                //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
                 break
             default:
                 break
@@ -566,7 +593,36 @@ class G12F01S01VC: BaseParentViewController {
         openPromotion()
         BaseModel.shared.setTransactionData(transaction: TransactionBean.init())
         changeMode(value: OrderStatusEnum.STATUS_CREATE)
+    }    
+    
+    //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+    /**
+     * Handle when tap on next button
+     */
+    func btnNextPromoteTapped(_ sender: AnyObject) {
+        // Get value from text field
+        if let value = txtPromote.text {
+            // Check if value is empty or not
+            if !value.isEmpty {
+                // Hide keyboard
+                self.view.endEditing(true)
+                PromotionAddRequest.request(
+                    action: #selector(finishRequestAddPromotionCode),
+                    view: self,
+                    code: value)
+            }
+        }
     }
+    
+    /**
+     * Handler when finish request add promotion code
+     */
+    internal func finishRequestAddPromotionCode(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        showAlert(message: model.message)
+    }
+    //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
     
     /**
      * Handler when transaction status request is finish
@@ -1373,6 +1429,9 @@ class G12F01S01VC: BaseParentViewController {
         lblOrder.isHidden = !isShow
         btnOrder.isHidden = !isShow
         lblExplain.isHidden = !isShow
+        //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+        txtPromote.isHidden = !isShow
+        //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
         for i in 0..<listActionsConfig.count {
             if listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_GAS
                 || listActionsConfig[i].id == DomainConst.ACTION_TYPE_SELECT_PROMOTE {
@@ -1465,6 +1524,53 @@ class G12F01S01VC: BaseParentViewController {
     public func setIsRequestedTransactionStatus(value: Bool) {
         self._isRequestedTransactionStatus = value
     }
+    
+    //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+    /**
+     * Update promote code
+     */
+    internal func updatePromoteCode(text: String) {
+        var txtValue:   UITextField?
+        // Create alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00141,
+                                      message: DomainConst.CONTENT00250,
+                                      preferredStyle: .alert)
+        // Add textfield
+        alert.addTextField(configurationHandler: {
+            textField -> Void in
+            txtValue = textField
+            txtValue?.text = text
+            txtValue?.textAlignment = .center
+            txtValue?.clearButtonMode = .whileEditing
+            txtValue?.returnKeyType = .done
+            txtValue?.keyboardType = .default
+            txtValue?.placeholder        = DomainConst.CONTENT00250
+            txtValue?.returnKeyType      = .send
+            txtValue?.font               = GlobalConst.BASE_FONT
+            txtValue?.autocapitalizationType = .allCharacters
+        })
+        // Add cancel action
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
+        // Add ok action
+        let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
+            if let value = txtValue?.text {
+                self.txtPromote.text = value
+            } else {
+                self.showAlert(message: DomainConst.CONTENT00025, okTitle: DomainConst.CONTENT00251,
+                               okHandler: {_ in
+                                self.updatePromoteCode(text: text)
+                },
+                               cancelHandler: {_ in
+                                
+                })
+            }
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+    }
+    //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
     
     // MARK: Status Label
     private func createStatusLabel() {
@@ -1901,10 +2007,13 @@ class G12F01S01VC: BaseParentViewController {
         let lblHeight = GlobalConst.LABEL_H * 4
         let lblYPos = actionsView.frame.minY + GlobalConst.LABEL_H - lblHeight
         for i in 0..<count {
-            var index = 2 * i + 1
-            if self.isFHD_LSize() {
-                index = 4 * i
-            }
+            //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+//            var index = 2 * i + 1
+//            if self.isFHD_LSize() {
+//                index = 4 * i
+//            }
+            let index = 4 * i
+            //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
             // Calculate frame of button
             let frame = CGRect(x: margin + CGFloat(index) * btnSpace,
                                y: margin / 2,
@@ -1950,10 +2059,13 @@ class G12F01S01VC: BaseParentViewController {
         let lblHeight = GlobalConst.LABEL_H * 4
         let lblYPos = actionsView.frame.minY + GlobalConst.LABEL_H - lblHeight
         for i in 0..<count {
-            var index = 2 * i + 1
-            if self.isFHD_LSize() {
-                index = 4 * i
-            }
+            //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+//            var index = 2 * i + 1
+//            if self.isFHD_LSize() {
+//                index = 4 * i
+//            }
+            let index = 4 * i
+            //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
             // Calculate frame of button
             listActionsButtons[i].frame = CGRect(x: margin + CGFloat(index) * btnSpace,
                                                  y: margin / 2,
@@ -2286,6 +2398,85 @@ class G12F01S01VC: BaseParentViewController {
     private func updatePreviewViewFHD_L() {
         updatePreviewView(w: PREVIEW_VIEW_REAL_WIDTH_FHD_L)
     }
+    
+    //++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+    // MARK: Promote textfield
+    /**
+     * Create promote text field
+     */
+    private func createPromoteTextField() {
+        let x = actionsView.frame.minX + actionsView.frame.width / 3 - GlobalConst.MARGIN
+        var y = actionsView.frame.minY + actionsView.frame.height / 4
+        let w = actionsView.frame.width * 2 / 3
+        var h = (actionsView.frame.height - GlobalConst.MARGIN) * 3 / 4
+        if self.isPadSize() {
+            y = actionsView.frame.minY + actionsView.frame.height / 4 + GlobalConst.MARGIN
+            h = (actionsView.frame.height - GlobalConst.MARGIN) * 3 / 4 - 2 * GlobalConst.MARGIN
+        }
+        txtPromote.frame              = CGRect(x: x, y: y, width: w, height: h)
+        txtPromote.placeholder        = DomainConst.CONTENT00250
+        txtPromote.backgroundColor    = UIColor.white
+        txtPromote.textAlignment      = .center
+        txtPromote.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS_NEW
+        txtPromote.returnKeyType      = .send
+        txtPromote.font               = GlobalConst.BASE_FONT
+        txtPromote.autocapitalizationType = .allCharacters
+        txtPromote.delegate = self
+        createNextBtn()
+    }
+    
+    /**
+     * Update promote textfield
+     */
+    internal func updatePromoteTextField() {
+        let x = actionsView.frame.minX + actionsView.frame.width / 3 - GlobalConst.MARGIN
+        var y = actionsView.frame.minY + actionsView.frame.height / 4
+        let w = actionsView.frame.width * 2 / 3
+        var h = (actionsView.frame.height - GlobalConst.MARGIN) * 3 / 4
+        if self.isPadSize() {
+            y = actionsView.frame.minY + actionsView.frame.height / 4 + GlobalConst.MARGIN
+            h = (actionsView.frame.height - GlobalConst.MARGIN) * 3 / 4 - 2 * GlobalConst.MARGIN
+        }
+        CommonProcess.updateViewPos(
+            view: txtPromote,
+            x: x, y: y, w: w, h: h)
+        updateNextBtn()
+    }
+    
+    // MARK: Next button
+    /**
+     * Create next button
+     */
+    private func createNextBtn() {
+        let sizeBtn = txtPromote.frame.height
+        btnNext.frame = CGRect(
+            x: txtPromote.frame.width - sizeBtn,
+            y: (txtPromote.frame.height - sizeBtn) / 2,
+            width: sizeBtn,
+            height: sizeBtn)
+        btnNext.setImage(ImageManager.getImage(named: DomainConst.NEXT_BUTTON_ICON_IMG_NAME),
+                         for: .normal)
+        btnNext.imageEdgeInsets = UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: GlobalConst.MARGIN_CELL_X)
+        btnNext.imageView?.contentMode = .scaleAspectFit
+        btnNext.addTarget(self, action: #selector(btnNextPromoteTapped(_:)), for: .touchUpInside)
+        txtPromote.rightView = btnNext
+        txtPromote.rightViewMode = .always
+    }
+    
+    private func updateNextBtn() {
+        let sizeBtn = txtPromote.frame.height
+        CommonProcess.updateViewPos(
+            view: btnNext,
+            x: txtPromote.frame.width - sizeBtn,
+            y: (txtPromote.frame.height - sizeBtn) / 2,
+            w: sizeBtn,
+            h: sizeBtn)
+    }
+    //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
 }
 
 // MARK: Protocol - NVActivityIndicatorViewable
@@ -2390,3 +2581,50 @@ extension G12F01S01VC: OrderPreviewDelegate {
         self.dismiss(animated: true, completion: nil)
     }
 }
+
+//++ BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+// MARK: Protocol - UITextFieldDelegate
+extension G12F01S01VC: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if let value = textField.text {
+            self.updatePromoteCode(text: value)
+        }
+        return false
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let parent = BaseViewController.getCurrentViewController() {
+            self.keyboardTopY = parent.keyboardTopY
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            textField.frame = CGRect(x: (UIScreen.main.bounds.width - textField.frame.width) / 2,
+                                    y: self.getTopHeight(),
+                                    width: textField.frame.width,
+                                    height: textField.frame.height)
+        })
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.updatePromoteTextField()
+        })
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Get value from text field
+        if let value = txtPromote.text {
+            // Check if value is empty or not
+            if !value.isEmpty {
+                // Hide keyboard
+                self.view.endEditing(true)
+                PromotionAddRequest.request(
+                    action: #selector(finishRequestAddPromotionCode),
+                    view: self,
+                    code: value)
+            }
+        }
+        return true
+    }
+}
+//-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
