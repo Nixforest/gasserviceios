@@ -620,7 +620,17 @@ class G12F01S01VC: BaseParentViewController {
     internal func finishRequestAddPromotionCode(_ notification: Notification) {
         let data = (notification.object as! String)
         let model = BaseRespModel(jsonString: data)
-        showAlert(message: model.message)
+//        showAlert(message: model.message)
+        if model.isSuccess() {
+            showAlert(message: model.message)
+            txtPromote.text = DomainConst.BLANK
+        } else {
+            self.showAlert(message: model.message,
+                           okHandler: {
+                            alert in
+                            self.updatePromoteCode(text: self.txtPromote.text!)
+            })
+        }
     }
     //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
     
@@ -937,6 +947,9 @@ class G12F01S01VC: BaseParentViewController {
         } else {
             showAlert(message: model.message)
             changeMode(value: .STATUS_CREATE)
+            //++ BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
+            btnOrder.isEnabled = true
+            //-- BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
         }
         //++ BUG0176-SPJ (NguyenPT 20171206) Prevent multi-tap on button Order
 //        btnOrder.isEnabled = true
@@ -1532,8 +1545,8 @@ class G12F01S01VC: BaseParentViewController {
     internal func updatePromoteCode(text: String) {
         var txtValue:   UITextField?
         // Create alert
-        let alert = UIAlertController(title: DomainConst.CONTENT00141,
-                                      message: DomainConst.CONTENT00250,
+        let alert = UIAlertController(title: DomainConst.CONTENT00249,
+                                      message: DomainConst.BLANK,
                                       preferredStyle: .alert)
         // Add textfield
         alert.addTextField(configurationHandler: {
@@ -1555,6 +1568,10 @@ class G12F01S01VC: BaseParentViewController {
         let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
             if let value = txtValue?.text {
                 self.txtPromote.text = value
+                PromotionAddRequest.request(
+                    action: #selector(self.finishRequestAddPromotionCode),
+                    view: self,
+                    code: value)
             } else {
                 self.showAlert(message: DomainConst.CONTENT00025, okTitle: DomainConst.CONTENT00251,
                                okHandler: {_ in
