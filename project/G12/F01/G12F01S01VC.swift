@@ -1566,7 +1566,7 @@ class G12F01S01VC: BaseParentViewController {
         let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
         // Add ok action
         let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
-            if let value = txtValue?.text {
+            if let value = txtValue?.text, !value.isEmpty {
                 self.txtPromote.text = value
                 PromotionAddRequest.request(
                     action: #selector(self.finishRequestAddPromotionCode),

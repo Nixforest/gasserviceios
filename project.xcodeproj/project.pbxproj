@@ -92,7 +92,6 @@
 		D7804B401E7685CF00C94F75 /* G00RegisterMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7804B321E7685CF00C94F75 /* G00RegisterMenuVC.swift */; };
 		D7804B411E7685CF00C94F75 /* G00RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7804B331E7685CF00C94F75 /* G00RegisterVC.swift */; };
 		D7804B431E7685E700C94F75 /* G00InfomationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7804B421E7685E700C94F75 /* G00InfomationVC.swift */; };
-		D78B068C1F69254D00AB17E8 /* LaunchScreenIpad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D78B068A1F69254D00AB17E8 /* LaunchScreenIpad.storyboard */; };
 		D78B06901F692C6700AB17E8 /* welcome_1920_1080.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D78B068F1F692C6700AB17E8 /* welcome_1920_1080.jpg */; };
 		D78B06921F692D2300AB17E8 /* welcome_1536_2048.png in Resources */ = {isa = PBXBuildFile; fileRef = D78B06911F692D2300AB17E8 /* welcome_1536_2048.png */; };
 		D791F6AD1E237BF5009CBBED /* OrderListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D791F6AB1E237BF5009CBBED /* OrderListRequest.swift */; };
@@ -106,6 +105,7 @@
 		D79C1BBF1E4AD3D700E6E121 /* PromotionListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C1BBE1E4AD3D700E6E121 /* PromotionListRespModel.swift */; };
 		D7B96E241F71785100815D7F /* G00ConfirmCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B96E221F71785100815D7F /* G00ConfirmCodeVC.swift */; };
 		D7B96E251F71785100815D7F /* G00ConfirmCodeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7B96E231F71785100815D7F /* G00ConfirmCodeVC.xib */; };
+		D7BEC46B1FDA4F4B00F06BFA /* LaunchScreenIpad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7BEC4691FDA4F4B00F06BFA /* LaunchScreenIpad.storyboard */; };
 		D7C30A3D1E305BF900B3FDA6 /* OrderConfigRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C30A3C1E305BF900B3FDA6 /* OrderConfigRespModel.swift */; };
 		D7CC24691F9D921C004626D3 /* RatingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC24681F9D921C004626D3 /* RatingRequest.swift */; };
 		D7CED4921F6137C700CCAA2F /* MultiDeviceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CED4901F6137C700CCAA2F /* MultiDeviceVC.swift */; };
@@ -283,7 +283,6 @@
 		D7804B321E7685CF00C94F75 /* G00RegisterMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00RegisterMenuVC.swift; path = G00/G00RegisterMenuVC.swift; sourceTree = "<group>"; };
 		D7804B331E7685CF00C94F75 /* G00RegisterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00RegisterVC.swift; path = G00/G00RegisterVC.swift; sourceTree = "<group>"; };
 		D7804B421E7685E700C94F75 /* G00InfomationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00InfomationVC.swift; path = G00/G00InfomationVC.swift; sourceTree = "<group>"; };
-		D78B068B1F69254D00AB17E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreenIpad.storyboard; sourceTree = "<group>"; };
 		D78B068F1F692C6700AB17E8 /* welcome_1920_1080.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = welcome_1920_1080.jpg; path = Images/welcome_1920_1080.jpg; sourceTree = "<group>"; };
 		D78B06911F692D2300AB17E8 /* welcome_1536_2048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = welcome_1536_2048.png; path = Images/welcome_1536_2048.png; sourceTree = "<group>"; };
 		D791F6AB1E237BF5009CBBED /* OrderListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderListRequest.swift; path = G04/OrderListRequest.swift; sourceTree = "<group>"; };
@@ -297,6 +296,7 @@
 		D79C1BBE1E4AD3D700E6E121 /* PromotionListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionListRespModel.swift; path = G04/PromotionListRespModel.swift; sourceTree = "<group>"; };
 		D7B96E221F71785100815D7F /* G00ConfirmCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00ConfirmCodeVC.swift; path = G00/Version2/G00ConfirmCodeVC.swift; sourceTree = "<group>"; };
 		D7B96E231F71785100815D7F /* G00ConfirmCodeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G00ConfirmCodeVC.xib; path = G00/Version2/G00ConfirmCodeVC.xib; sourceTree = "<group>"; };
+		D7BEC46A1FDA4F4B00F06BFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreenIpad.storyboard; sourceTree = "<group>"; };
 		D7C30A3C1E305BF900B3FDA6 /* OrderConfigRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderConfigRespModel.swift; path = G04/OrderConfigRespModel.swift; sourceTree = "<group>"; };
 		D7CC24681F9D921C004626D3 /* RatingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RatingRequest.swift; path = G12/API/RatingRequest.swift; sourceTree = "<group>"; };
 		D7CED4901F6137C700CCAA2F /* MultiDeviceVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiDeviceVC.swift; path = Common/MultiDevice/MultiDeviceVC.swift; sourceTree = "<group>"; };
@@ -408,7 +408,7 @@
 				84284E111D40DF050079DEBC /* AppDelegate.swift */,
 				84284E151D40DF050079DEBC /* Main.storyboard */,
 				84284E1A1D40DF050079DEBC /* LaunchScreen.storyboard */,
-				D78B068A1F69254D00AB17E8 /* LaunchScreenIpad.storyboard */,
+				D7BEC4691FDA4F4B00F06BFA /* LaunchScreenIpad.storyboard */,
 				84284E181D40DF050079DEBC /* Assets.xcassets */,
 				84284E1D1D40DF050079DEBC /* Info.plist */,
 				84A4C06A1D6311D000C0B84C /* example.txt */,
@@ -921,7 +921,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D78B068C1F69254D00AB17E8 /* LaunchScreenIpad.storyboard in Resources */,
 				D7CED4931F6137C700CCAA2F /* MultiDeviceVC.xib in Resources */,
 				D70EDFC51F96545500658F64 /* G12F00S01Cell.xib in Resources */,
 				D7E299091F74EDEE0078C46C /* G12F01S02VC.xib in Resources */,
@@ -943,6 +942,7 @@
 				D7E2608D1FA048C7008A7CDD /* G00AddressSelectVC.xib in Resources */,
 				D7B96E251F71785100815D7F /* G00ConfirmCodeVC.xib in Resources */,
 				D78B06901F692C6700AB17E8 /* welcome_1920_1080.jpg in Resources */,
+				D7BEC46B1FDA4F4B00F06BFA /* LaunchScreenIpad.storyboard in Resources */,
 				D7359B1B1F67D2F60032F0AF /* bg_main_4_3_2048_1536.png in Resources */,
 				D7EDF48E1F973EB300215A5E /* G00AccountExtVC.xib in Resources */,
 				D78B06921F692D2300AB17E8 /* welcome_1536_2048.png in Resources */,
@@ -1173,10 +1173,10 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		D78B068A1F69254D00AB17E8 /* LaunchScreenIpad.storyboard */ = {
+		D7BEC4691FDA4F4B00F06BFA /* LaunchScreenIpad.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D78B068B1F69254D00AB17E8 /* Base */,
+				D7BEC46A1FDA4F4B00F06BFA /* Base */,
 			);
 			name = LaunchScreenIpad.storyboard;
 			sourceTree = "<group>";
@@ -1280,7 +1280,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = project/project.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1307,7 +1306,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = project/project.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
