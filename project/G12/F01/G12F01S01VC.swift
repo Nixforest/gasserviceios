@@ -913,6 +913,8 @@ class G12F01S01VC: BaseParentViewController {
         LoadingView.shared.hideOverlayView(className: self.theClassName)
         if model.isSuccess() {
             BaseModel.shared.saveTempData(loginModel: model)
+            setBotMsgContent(note: BaseModel.shared.getGas24hMenuText(),
+                             description: DomainConst.CONTENT00533)
             updateNearestAgentInfo()
         } else {
             // Check if need retry request Update config
