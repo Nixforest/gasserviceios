@@ -150,11 +150,17 @@ class G09F01VC: StepVC, StepDoneDelegate {
         G09F01VC._mode           = DomainConst.NUMBER_ZERO_VALUE
         G09F01VC._typeId         = DomainConst.BLANK
         G09F01VC._updateData     = CashBookBean()
+        G09F01VC._id = DomainConst.NUMBER_ZERO_VALUE
         G09F01S01._selectedValue = DomainConst.BLANK
         G09F01S02._target        = CustomerBean.init()
         G09F01S03._selectedValue = DomainConst.BLANK
         G09F01S04._selectedValue = DomainConst.BLANK
         G09F01S06._selectedValue.removeAll()
-        G09F01VC._id = DomainConst.NUMBER_ZERO_VALUE
+        //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+        G09F01VC._appOrderId = DomainConst.BLANK
+        G09F01S02._type = DomainConst.SEARCH_TARGET_TYPE_CUSTOMER
+        G09F01S06._previousImage.removeAll()
+        G09F01S06._originPreviousImage.removeAll()
+        //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
     }
 }

@@ -100,6 +100,9 @@ class G00F01VC: StepVC, StepDoneDelegate {
         G00F01VC._fullAddress = FullAddressBean.init()
         G00F01S01._selectedValue = (DomainConst.BLANK, DomainConst.BLANK)
         G00F01S02._target = CustomerBean.init()
+        //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+        G00F01S02._type = DomainConst.SEARCH_TARGET_TYPE_CUSTOMER
+        //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
         G00F01S03._address = DomainConst.BLANK
     }
 }

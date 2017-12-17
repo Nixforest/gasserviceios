@@ -80,5 +80,8 @@ class G05F04VC: StepVC, StepDoneDelegate {
         G05F04VC._id           = DomainConst.BLANK
         G05F04S02._selectedValue = DomainConst.BLANK
         G05F04S01._selectedValue.removeAll()
+        //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+        G05F04VC._orderInfo = DomainConst.BLANK
+        //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
     }
 }

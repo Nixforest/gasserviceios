@@ -90,5 +90,8 @@ class G07F03VC: StepVC, StepDoneDelegate {
         G07F03VC._currentAgent = CustomerBean.init()
         G07F03VC._orderId = DomainConst.BLANK
         G07F03S01._target = CustomerBean.init()
+        //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+        G07F03S01._type = DomainConst.SEARCH_TARGET_TYPE_CUSTOMER
+        //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
     }
 }

@@ -219,5 +219,13 @@ class G08F01VC: StepVC, StepDoneDelegate {
         //++ BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
         G08F01S05._selectedValue.removeAll()
         //-- BUG0107-SPJ (NguyenPT 20170609) Handle image in store card
+        //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+        G08F01VC._typeId = DomainConst.BLANK
+        G08F01VC._id = DomainConst.BLANK
+        G08F01S01._type = DomainConst.SEARCH_TARGET_TYPE_CUSTOMER
+        G08F01S03._type = DomainConst.NUMBER_ZERO_VALUE
+        G08F01S05._previousImage.removeAll()
+        G08F01S05._originPreviousImage.removeAll()
+        //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
     }
 }

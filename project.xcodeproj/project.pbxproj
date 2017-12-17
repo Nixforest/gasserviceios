@@ -47,6 +47,8 @@
 		D712BE881EEA791D00F679CE /* G08F01S05.swift in Sources */ = {isa = PBXBuildFile; fileRef = D712BE871EEA791D00F679CE /* G08F01S05.swift */; };
 		D715BB6D1EBE2D810097BDA8 /* G08F01S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = D715BB6C1EBE2D810097BDA8 /* G08F01S02.swift */; };
 		D71DB0E01E84D25100BED724 /* CustomerFamilyViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71DB0DF1E84D25100BED724 /* CustomerFamilyViewRequest.swift */; };
+		D722648E1FB9813700DDA94B /* G05F00S02ExtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D722648C1FB9813700DDA94B /* G05F00S02ExtVC.swift */; };
+		D722648F1FB9813700DDA94B /* G05F00S02ExtVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D722648D1FB9813700DDA94B /* G05F00S02ExtVC.xib */; };
 		D73373101E22CCC6004F2781 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D733730F1E22CCC6004F2781 /* Podfile */; };
 		D74F016C1E8CB934008DAA59 /* G06F01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74F016B1E8CB934008DAA59 /* G06F01VC.swift */; };
 		D74F016E1E8CBE94008DAA59 /* G06F01S01.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74F016D1E8CBE94008DAA59 /* G06F01S01.swift */; };
@@ -377,6 +379,8 @@
 		D712BE871EEA791D00F679CE /* G08F01S05.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S05.swift; path = G08/F01/G08F01S05.swift; sourceTree = "<group>"; };
 		D715BB6C1EBE2D810097BDA8 /* G08F01S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S02.swift; path = G08/F01/G08F01S02.swift; sourceTree = "<group>"; };
 		D71DB0DF1E84D25100BED724 /* CustomerFamilyViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerFamilyViewRequest.swift; path = G06/API/CustomerFamilyViewRequest.swift; sourceTree = "<group>"; };
+		D722648C1FB9813700DDA94B /* G05F00S02ExtVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S02ExtVC.swift; path = G05/F00/G05F00S02ExtVC.swift; sourceTree = "<group>"; };
+		D722648D1FB9813700DDA94B /* G05F00S02ExtVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G05F00S02ExtVC.xib; path = G05/F00/G05F00S02ExtVC.xib; sourceTree = "<group>"; };
 		D733730F1E22CCC6004F2781 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D74F016B1E8CB934008DAA59 /* G06F01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01VC.swift; path = G06/F01/G06F01VC.swift; sourceTree = "<group>"; };
 		D74F016D1E8CBE94008DAA59 /* G06F01S01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S01.swift; path = G06/F01/G06F01S01.swift; sourceTree = "<group>"; };
@@ -828,6 +832,7 @@
 		D706C22B1E544A8D00F89B8A /* G05 */ = {
 			isa = PBXGroup;
 			children = (
+				D7B9520D1FBAC95800A83AB2 /* Controls */,
 				D706C22C1E544AC000F89B8A /* G05Const.swift */,
 				D706C22F1E544DFE00F89B8A /* API */,
 				D78E32651E56A2120035C40D /* Model */,
@@ -1157,6 +1162,13 @@
 			name = F01;
 			sourceTree = "<group>";
 		};
+		D7B9520D1FBAC95800A83AB2 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controls;
+			sourceTree = "<group>";
+		};
 		D7BA687D1E83A2E4001C675D /* G06 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1272,6 +1284,8 @@
 				D77F067E1E7177F500797A6B /* G05F00S02VC.swift */,
 				D7EBB7E61EA9B34E00BE6612 /* G05F00S03VC.swift */,
 				D7EBB7E81EA9B72200BE6612 /* G05F00S04VC.swift */,
+				D722648C1FB9813700DDA94B /* G05F00S02ExtVC.swift */,
+				D722648D1FB9813700DDA94B /* G05F00S02ExtVC.xib */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -1591,6 +1605,7 @@
 				84284E1C1D40DF050079DEBC /* LaunchScreen.storyboard in Resources */,
 				84A4C06B1D6311D000C0B84C /* example.txt in Resources */,
 				84284E191D40DF050079DEBC /* Assets.xcassets in Resources */,
+				D722648F1FB9813700DDA94B /* G05F00S02ExtVC.xib in Resources */,
 				D70ECECF1EE298FE00997F1A /* G01F00S04Cell.xib in Resources */,
 				D77A0B3C1EFAC86A00E66E70 /* bg1.jpg in Resources */,
 				D77F063A1E7176E900797A6B /* G01F00S02InfoView.xib in Resources */,
@@ -1799,6 +1814,7 @@
 				D77F068C1E7177FE00797A6B /* OrderVIPSelectorView.swift in Sources */,
 				D7F0FF391EE03911007FDC81 /* ReportCashbookLayout.swift in Sources */,
 				D77F06391E7176E900797A6B /* G01F00S02InfoView.swift in Sources */,
+				D722648E1FB9813700DDA94B /* G05F00S02ExtVC.swift in Sources */,
 				D778249E1EDEAD8E002AB15A /* ContentCollectionViewCell.swift in Sources */,
 				D7ED37DD1EE93275008522BC /* G05F04Sum.swift in Sources */,
 				D7ED37E11EE9552B008522BC /* G05F04S02.swift in Sources */,

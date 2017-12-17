@@ -78,6 +78,9 @@ class G06F02VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
     override func clearData() {
         G06F02S01._selectedValue = DomainConst.BLANK
         G06F02S02._selectedValue.removeAll()
+        //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+        G06F02VC._currentPos = CLLocationCoordinate2D.init()
+        //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
     }
 
     /*
@@ -111,6 +114,10 @@ class G06F02VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         let data = (notification.object as! String)
         let model = CustomerFamilyCreateRespModel(jsonString: data)
         if model.isSuccess() {
+            //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+            // Clear data at steps
+            self.clearData()
+            //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
             self.showAlert(message: model.message,
                            okHandler: {
                             (alert: UIAlertAction!) in

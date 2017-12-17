@@ -255,6 +255,10 @@ class G05F00S01VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         G05F00S02VC._id = _data.getRecord()[indexPath.row].id
         self.pushToView(name: G05Const.G05_F00_S02_VIEW_CTRL)
         self.showToast(message: "Open order detail: \(G05F00S02VC._id)")
+//        let view = G05F00S02ExtVC(nibName: G05F00S02ExtVC.theClassName,
+//                                  bundle: nil)
+//        view.setId(id: _data.getRecord()[indexPath.row].id)
+//        self.navigationController?.pushViewController(view, animated: true)
     }
     
 //    /**

@@ -203,6 +203,18 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         G06F01VC._fullAddress = FullAddressBean.init()
         G06F01S03._address = DomainConst.BLANK
         G06F01S05._selectedValue = ConfigBean.init()
+        //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+        G06F01VC._id = DomainConst.BLANK
+        G06F01VC._mode = DomainConst.NUMBER_ZERO_VALUE
+        G06F01VC._currentPos    = CLLocationCoordinate2D.init()
+        G06F01S03._provinceId   = DomainConst.BLANK
+        G06F01S03._districtId   = DomainConst.BLANK
+        G06F01S03._wardId       = DomainConst.BLANK
+        G06F01S03._streetId     = DomainConst.BLANK
+        G06F01S03._houseNumber  = DomainConst.BLANK
+        G06F01S04._timeUse.removeAll()
+        G06F01S04._CCSCodeList.removeAll()
+        //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
     }
     
     /**

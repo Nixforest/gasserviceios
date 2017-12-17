@@ -175,5 +175,10 @@ class G05F03VC: StepVC, StepDoneDelegate {
         G05F03S01._target = G05CustomerBean()
         G05F03S02._lstSelector.removeAll()
         G05F03S03._selectedValue = ConfigBean()
+        //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+        G05F03S01.keyword = DomainConst.BLANK
+        G05F03S02._note = DomainConst.BLANK
+        G05F03S04._selectedValue = DomainConst.BLANK
+        //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
     }
 }
