@@ -38,6 +38,10 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
     var imgLogoTappedCounter:Int = 0
     /** Current text field */
     private var _currentTextField: UITextField? = nil
+    //++ BUG0181-SPJ (NguyenPT 20171218) Handle show loading view
+    /** Processing view */
+    var processingView: NVActivityIndicatorView? = nil
+    //-- BUG0181-SPJ (NguyenPT 20171218) Handle show loading view
     
     // MARK: Actions
     /**
@@ -68,6 +72,9 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
             //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
             //RequestAPI.requestLogin(username: txtAccount.text!, password: txtPassword.text!, view: self)
             
+            //++ BUG0181-SPJ (NguyenPT 20171218) Handle show loading view
+            handleBeforeRequest()
+            //-- BUG0181-SPJ (NguyenPT 20171218) Handle show loading view
             LoginRequest.requestLogin(action: #selector(finishRequestHandler),
                                       view: self,
                                       username: txtAccount.text!,
@@ -88,10 +95,10 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
 //            action: #selector(finishUpdateConfigRequest(_:)),
 //            view: self)
         //-- BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
-        LoadingView.shared.showOverlay(view: self.view, className: self.theClassName)
+//        LoadingView.shared.showOverlay(view: self.view, className: self.theClassName)
         let data = (notification.object as! String)
         let model = LoginRespModel(jsonString: data)
-        LoadingView.shared.hideOverlayView(className: self.theClassName)
+//        LoadingView.shared.hideOverlayView(className: self.theClassName)
         if model.isSuccess() {
             BaseModel.shared.loginSuccess(model.token)
             BaseModel.shared.saveTempData(loginModel: model)
@@ -100,6 +107,9 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
                 view: self)
         } else {
             showAlert(message: model.message)
+            //++ BUG0181-SPJ (NguyenPT 20171218) Handle show loading view
+            handleEndRequest()
+            //-- BUG0181-SPJ (NguyenPT 20171218) Handle show loading view
         }
         //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     }
@@ -131,6 +141,9 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
             showAlert(message: model.message)
         }
         //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
+        //++ BUG0181-SPJ (NguyenPT 20171218) Handle show loading view
+        handleEndRequest()
+        //-- BUG0181-SPJ (NguyenPT 20171218) Handle show loading view
     }
     //-- BUG0058-SPJ (NguyenPT 20170414) Handle update config data after login success
     
@@ -338,6 +351,15 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
         if !BaseModel.shared.getTempToken().isEmpty {
             self.processInputConfirmCode(message: DomainConst.BLANK)
         }
+        //++ BUG0181-SPJ (NguyenPT 20171218) Handle show loading view
+        let frame = CGRect(
+            x: view.frame.minX + UIScreen.main.bounds.width / 4,
+            y: view.frame.minY + UIScreen.main.bounds.height / 4,
+            width: UIScreen.main.bounds.width / 2,
+            height: UIScreen.main.bounds.height / 2)
+        processingView = NVActivityIndicatorView(frame: frame,
+                                                 type: NVActivityIndicatorType.ballScaleMultiple)
+        //-- BUG0181-SPJ (NguyenPT 20171218) Handle show loading view
         self.view.makeComponentsColor()
     }
     
@@ -441,6 +463,25 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
             }
         }
     }
-
+    
+    //++ BUG0181-SPJ (NguyenPT 20171218) Handle show loading view
+    /**
+     * Handle before request login.
+     */
+    private func handleBeforeRequest() {
+        btnLogin.isEnabled = false
+        self.view.addSubview(processingView!)
+        processingView?.startAnimating()
+    }
+    
+    /**
+     * Handle end request.
+     */
+    private func handleEndRequest() {
+        btnLogin.isEnabled = true
+        processingView?.stopAnimating()
+        processingView?.removeFromSuperview()
+    }
+    //-- BUG0181-SPJ (NguyenPT 20171218) Handle show loading view
 }
 
