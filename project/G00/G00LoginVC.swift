@@ -284,6 +284,9 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
         btnSignin.setTitle(DomainConst.CONTENT00228, for: UIControlState())
         //self.view.addSubview(btnSignin)
         btnSignin.translatesAutoresizingMaskIntoConstraints = true
+        //++ BUG0180-SPJ (NguyenPT 20171218) Hide controls
+        btnSignin.isHidden = true
+        //-- BUG0180-SPJ (NguyenPT 20171218) Hide controls
         
         // Forgot password button
         btnForgotPass.translatesAutoresizingMaskIntoConstraints = true
@@ -294,6 +297,9 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
         
         btnForgotPass.setTitle(DomainConst.CONTENT00227, for: UIControlState())
         btnForgotPass.titleLabel?.textAlignment = .right
+        //++ BUG0180-SPJ (NguyenPT 20171218) Hide controls
+        btnForgotPass.isHidden = true
+        //-- BUG0180-SPJ (NguyenPT 20171218) Hide controls
         //self.view.addSubview(btnForgotPass)
         
         // Separator
@@ -305,6 +311,9 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
         
         //btnSeparator.setTitle(DomainConst.CONTENT00226, for: UIControlState())
         btnSeparator.titleLabel?.textAlignment = .right
+        //++ BUG0180-SPJ (NguyenPT 20171218) Hide controls
+        btnSeparator.isHidden = true
+        //-- BUG0180-SPJ (NguyenPT 20171218) Hide controls
         //self.view.addSubview(btnForgotPass)
         
         // Navigation bar
