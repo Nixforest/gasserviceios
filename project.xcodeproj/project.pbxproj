@@ -273,6 +273,8 @@
 		D7F0FF391EE03911007FDC81 /* ReportCashbookLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F0FF381EE03911007FDC81 /* ReportCashbookLayout.swift */; };
 		D7F684431E2F4B6600D3D6F4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */; };
 		D7F82AB21EA517F300116B74 /* G07F01S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F82AB11EA517F300116B74 /* G07F01S02VC.swift */; };
+		D7F8E3541FE8CB8A0076A8DA /* TransactionCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F8E3531FE8CB8A0076A8DA /* TransactionCreateRequest.swift */; };
+		D7F8E3581FE8CED60076A8DA /* TransactionCreateResp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F8E3571FE8CED60076A8DA /* TransactionCreateResp.swift */; };
 		D7FB47461E9751200082FA5E /* G07Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FB47451E9751200082FA5E /* G07Const.swift */; };
 		D7FB47491E9751660082FA5E /* G07F00S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FB47481E9751660082FA5E /* G07F00S01VC.swift */; };
 /* End PBXBuildFile section */
@@ -604,6 +606,8 @@
 		D7F0FF381EE03911007FDC81 /* ReportCashbookLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReportCashbookLayout.swift; path = G10/Controls/ReportCashbookLayout.swift; sourceTree = "<group>"; };
 		D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Common/MapViewController.swift; sourceTree = "<group>"; };
 		D7F82AB11EA517F300116B74 /* G07F01S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07F01S02VC.swift; path = G07/F01/G07F01S02VC.swift; sourceTree = "<group>"; };
+		D7F8E3531FE8CB8A0076A8DA /* TransactionCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionCreateRequest.swift; path = G07/API/TransactionCreateRequest.swift; sourceTree = "<group>"; };
+		D7F8E3571FE8CED60076A8DA /* TransactionCreateResp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionCreateResp.swift; path = G07/Model/TransactionCreateResp.swift; sourceTree = "<group>"; };
 		D7FB47451E9751200082FA5E /* G07Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07Const.swift; path = G07/G07Const.swift; sourceTree = "<group>"; };
 		D7FB47481E9751660082FA5E /* G07F00S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07F00S01VC.swift; path = G07/F00/G07F00S01VC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1136,6 +1140,7 @@
 		D790BF841EA6F92800841CC5 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				D7F8E3531FE8CB8A0076A8DA /* TransactionCreateRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -1433,9 +1438,18 @@
 			name = Controls;
 			sourceTree = "<group>";
 		};
+		D7F8E3561FE8CEB50076A8DA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D7F8E3571FE8CED60076A8DA /* TransactionCreateResp.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		D7FB47431E9750E70082FA5E /* G07 */ = {
 			isa = PBXGroup;
 			children = (
+				D7F8E3561FE8CEB50076A8DA /* Model */,
 				D7FB47451E9751200082FA5E /* G07Const.swift */,
 				D790BF841EA6F92800841CC5 /* API */,
 				D7FB47471E9751450082FA5E /* F00 */,
@@ -1784,6 +1798,7 @@
 				D77E62CD1EDD7C0F00FD5512 /* ReportInventoryRespBean.swift in Sources */,
 				D78F99F91ECDAD68003CB814 /* G05SearchCustomerRespModel.swift in Sources */,
 				D7EA53BF1EE3CBA8004CFE1F /* TicketReplyRequest.swift in Sources */,
+				D7F8E3541FE8CB8A0076A8DA /* TransactionCreateRequest.swift in Sources */,
 				D77F06791E7177EA00797A6B /* OrderVIPCreateRespModel.swift in Sources */,
 				D7D24D041EF4E8FE00FF1D0C /* G00F01S01.swift in Sources */,
 				D7766ED31E94CF1800BC137A /* G06F01S06.swift in Sources */,
@@ -1849,6 +1864,7 @@
 				D70ECECE1EE298FE00997F1A /* G01F00S04Cell.swift in Sources */,
 				D77F06441E7176F700797A6B /* G01F01MenuVC.swift in Sources */,
 				D7D6FD761F0A081B001369D9 /* G07F02VC.swift in Sources */,
+				D7F8E3581FE8CED60076A8DA /* TransactionCreateResp.swift in Sources */,
 				D76C17AD1EE1660400B71FAE /* FamilyUpholdBean.swift in Sources */,
 				D77F06241E7175D000797A6B /* G00RegisterVC.swift in Sources */,
 				D77E62BB1EDD6A5E00FD5512 /* G10Const.swift in Sources */,

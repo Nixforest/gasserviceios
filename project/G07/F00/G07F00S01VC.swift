@@ -128,7 +128,10 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
 
         // Do any additional setup after loading the view.
         // Navigation
-        createNavigationBar(title: DomainConst.CONTENT00310)
+        //++ BUG0182-SPJ (NguyenPT 20171219) Create transaction
+//        createNavigationBar(title: DomainConst.CONTENT00310)
+        createNavigationBar(title: DomainConst.CONTENT00532)
+        //-- BUG0182-SPJ (NguyenPT 20171219) Create transaction
         
         // Create content
         var offset: CGFloat = getTopHeight()
@@ -160,10 +163,66 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         _tblView.addSubview(refreshControl)
         self.view.addSubview(_tblView)
         
+        //++ BUG0182-SPJ (NguyenPT 20171219) Create transaction
+        // Add Add button to navigation bar
+        self.createRightNavigationItem(icon: DomainConst.QUICK_ACTION_ICON_IMG_NAME,
+                                       action: #selector(actionTapped(_:)),
+                                       target: self)
+        //-- BUG0182-SPJ (NguyenPT 20171219) Create transaction
+        
         // Request data from server
         requestData()
         self.view.makeComponentsColor()
     }
+    
+    //++ BUG0182-SPJ (NguyenPT 20171219) Create transaction
+    /**
+     * Handle tap on Search button
+     * - parameter sender: AnyObject
+     */
+    internal func actionTapped(_ sender: AnyObject) {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00436,
+                                      message: DomainConst.CONTENT00437,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        let storeCard = UIAlertAction(title: DomainConst.CONTENT00533,
+                                   style: .default, handler: {
+                                    action in
+                                    self.requestCreateTransaction()
+        })
+        alert.addAction(storeCard)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = sender as? UIButton
+            presenter.sourceRect = sender.bounds
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    internal func requestCreateTransaction() {
+        showAlert(message: DomainConst.CONTENT00534,
+                  okHandler: {
+                    alert in
+                    TransactionCreateRequest.request(action: #selector(self.finishRequestTransactionCreate),
+                                                     view: self)
+        }, cancelHandler: {alert in})
+        
+    }
+    
+    internal func finishRequestTransactionCreate(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = TransactionCreateResp(jsonString: data)
+        if model.isSuccess() {
+            G07F00S02VC._id = model.id
+            self.pushToView(name: G07F00S02VC.theClassName)
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    //-- BUG0182-SPJ (NguyenPT 20171219) Create transaction
     
     //++ BUG0081-SPJ (NguyenPT 20170510) UITableView not reload until scroll
     /**

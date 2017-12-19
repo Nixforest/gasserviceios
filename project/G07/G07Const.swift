@@ -12,4 +12,6 @@ import harpyframework
 class G07Const: NSObject {
     /** Function identifier */
     public static let FUNC_IDENTIFIER                           = DomainConst.APPNAME + "g07"
+    /** Path to connect with PHP server */
+    public static let PATH_ORDER_TRANSACTION_CREATE             = "order/transactionCreate"
 }
