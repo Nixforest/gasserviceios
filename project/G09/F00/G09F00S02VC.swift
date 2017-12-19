@@ -246,6 +246,9 @@ class G09F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         G09F01VC._typeId            = _data.record.master_lookup_id
         G09F01VC._mode              = DomainConst.NUMBER_ONE_VALUE
         G09F01VC._updateData        = _data.record
+        //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+        G09F01VC._appOrderId = DomainConst.BLANK
+        //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
         G09F01S01._selectedValue    = _data.record.date_input.replacingOccurrences(
             of: DomainConst.SPLITER_TYPE3,
             with: DomainConst.SPLITER_TYPE1)

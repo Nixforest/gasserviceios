@@ -109,6 +109,10 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
     internal func handleCreateCashBook(id: String) {
         G09F01VC._typeId = id
         G09F01VC._mode      = DomainConst.NUMBER_ZERO_VALUE
+        //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+        G09F01VC._appOrderId = DomainConst.BLANK
+        G09F01VC._id = DomainConst.BLANK
+        //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
         self.pushToView(name:G09F01VC.theClassName)
     }
     
@@ -133,6 +137,9 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
             G09F01VC._typeId    = model.record.master_lookup_id
             G09F01VC._mode      = DomainConst.NUMBER_ONE_VALUE
             G09F01VC._updateData        = model.record
+            //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+            G09F01VC._appOrderId = DomainConst.BLANK
+            //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
             G09F01S01._selectedValue   = model.record.date_input.replacingOccurrences(
                 of: DomainConst.SPLITER_TYPE3,
                 with: DomainConst.SPLITER_TYPE1)

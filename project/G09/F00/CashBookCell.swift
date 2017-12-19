@@ -290,6 +290,9 @@ class CashBookCell: UITableViewCell {
         G09F01VC._mode      = DomainConst.NUMBER_ZERO_VALUE         // Create
         G09F01VC._id        = _data.id
         G09F01VC._updateData        = _data
+        //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+        G09F01VC._appOrderId = DomainConst.BLANK
+        //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
         G09F01S01._selectedValue   = _data.date_input.replacingOccurrences(
             of: DomainConst.SPLITER_TYPE3,
             with: DomainConst.SPLITER_TYPE1)
@@ -330,6 +333,9 @@ class CashBookCell: UITableViewCell {
             G09F01VC._mode      = DomainConst.NUMBER_ZERO_VALUE         // Create
             G09F01VC._id        = model.record.id
             G09F01VC._updateData        = model.record
+            //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+            G09F01VC._appOrderId = DomainConst.BLANK
+            //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
             G09F01S01._selectedValue   = model.record.date_input.replacingOccurrences(
                 of: DomainConst.SPLITER_TYPE3,
                 with: DomainConst.SPLITER_TYPE1)
