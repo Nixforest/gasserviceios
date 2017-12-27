@@ -46,10 +46,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         rootNav = UINavigationController(rootViewController: firstVC)
         rootNav.isNavigationBarHidden = false
+        //++ BUG0156-SPJ (NguyenPT 20170922) Re-design Gas24h
+        let menu = MenuVC(nibName: MenuVC.theClassName, bundle: nil)
+        //-- BUG0156-SPJ (NguyenPT 20170922) Re-design Gas24h
         
         //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
-        let slide = BaseSlideMenuViewController(mainViewController: rootNav,
-                                        leftMenuViewController: mainStoryboard.instantiateViewController(withIdentifier: "BaseMenuViewController"))
+        let slide = BaseSlideMenuViewController(
+            mainViewController: rootNav,
+            //++ BUG0156-SPJ (NguyenPT 20170922) Re-design Gas24h
+//            leftMenuViewController: mainStoryboard.instantiateViewController(
+//                withIdentifier: "BaseMenuViewController"))
+            leftMenuViewController: menu)
+            //-- BUG0156-SPJ (NguyenPT 20170922) Re-design Gas24h
         slide.delegate = firstVC
         //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
         self.window?.rootViewController = slide
@@ -68,6 +76,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey(key)
         // Google Direct API
         // AIzaSyB9aMZnBX9TENtEDdhsJtpGI8kfbSFtKgo
+        //++ BUG0168-SPJ (NguyenPT 20171124) Reset Cache data when terminal app
+        // Reset cache data
+        URLCache.shared.removeAllCachedResponses()
+        //-- BUG0168-SPJ (NguyenPT 20171124) Reset Cache data when terminal app
         return true
     }
 
@@ -163,6 +175,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let type        = data["type"] as? String ?? ""
         let replyId     = data["reply_id"] as? String ?? ""
         var message     = DomainConst.BLANK
+        var soundPlay   = DomainConst.BLANK
         if let aps = data["aps"] as? NSDictionary {
             if let alert = aps["alert"] as? NSDictionary {
                 if let msg = alert["message"] as? NSString {
@@ -172,6 +185,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else if let alert = aps["alert"] as? NSString {
                 // Do stuff
                 message = alert as String
+            }
+            if let sound = data["sound"] as? NSString {
+                soundPlay = sound as String
             }
         }
         

@@ -71,9 +71,13 @@ class CreateUpholdRequest: BaseRequest {
      */
     func setData(customerId: String, employeeId: String,
                  typeUphold: String, content: String, contactPerson: String,
-                 contactTel: String, requestBy: String) {
+                 contactTel: String, requestBy: String, storeId: String) {
+        var isChainStore = DomainConst.NUMBER_ZERO_VALUE
+        if !storeId.isEmpty {
+            isChainStore = DomainConst.NUMBER_ONE_VALUE
+        }
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":%@,\"%@\":%d}",
             DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
             DomainConst.KEY_CUSTOMER_ID, customerId,
             DomainConst.KEY_EMPLOYEE_ID, employeeId,
@@ -81,7 +85,11 @@ class CreateUpholdRequest: BaseRequest {
             DomainConst.KEY_CONTENT, content,
             DomainConst.KEY_CONTACT_PERSON, contactPerson,
             DomainConst.KEY_CONTACT_TEL, contactTel,
-            DomainConst.KEY_REQUEST_TYPE, requestBy
+            DomainConst.KEY_REQUEST_TYPE, requestBy,
+            DomainConst.KEY_CUSTOMER_CHAIN_STORE_ID, storeId,
+            DomainConst.KEY_IS_CHAIN_STORE, isChainStore,
+            DomainConst.KEY_FLAG_GAS_24H, BaseModel.shared.getAppType(),
+            DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
         )
     }
     
@@ -102,13 +110,14 @@ class CreateUpholdRequest: BaseRequest {
                                            customerId: String, employeeId: String,
                                     typeUphold: String, content: String, contactPerson: String,
                                     contactTel: String, requestBy: String,
-                                    view: BaseViewController) {
+                                    view: BaseViewController,
+                                    storeId: String = DomainConst.BLANK) {
 //        // Show overlay
 //        LoadingView.shared.showOverlay(view: view.view)
         let request = CreateUpholdRequest(url: DomainConst.PATH_SITE_UPHOLD_CREATE, reqMethod: DomainConst.HTTP_POST_REQUEST, view: view)
         request.setData(customerId: customerId, employeeId: employeeId,
                         typeUphold: typeUphold, content: content, contactPerson: contactPerson,
-                        contactTel: contactTel, requestBy: requestBy)
+                        contactTel: contactTel, requestBy: requestBy, storeId: storeId)
         //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class

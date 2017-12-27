@@ -390,6 +390,12 @@ class G00HomeVC: MapViewController, UITableViewDataSource, UITableViewDelegate {
             break
         case DomainConst.KEY_MENU_CCS_CODE_LIST:
             self.pushToViewAndClearData(name: G06F00S06VC.theClassName)
+        //++ BUG0183-SPJ (NguyenPT 20171227) Gas remain function
+        case DomainConst.KEY_MENU_GAS_REMAIN:
+            let view = G14F00S01VC(nibName: G14F00S01VC.theClassName, bundle: nil)
+            self.navigationController?.pushViewController(view, animated: true)
+            break
+        //-- BUG0183-SPJ (NguyenPT 20171227) Gas remain function
         default:
             self.showAlert(message: DomainConst.CONTENT00362)
         }

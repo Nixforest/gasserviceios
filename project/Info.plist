@@ -19,11 +19,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.34</string>
+	<string>1.35</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>0</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -48,9 +48,9 @@
 	<key>NSHealthUpdateUsageDescription</key>
 	<string></string>
 	<key>NSLocationUsageDescription</key>
-	<string></string>
+	<string>Ứng dụng sẽ tự động tìm vị trí của quý khách khi đặt gas, giúp ứng dụng xác định được Đại lý giao gas gần quý khách nhất.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Ứng dụng sẽ tự động tìm vị trí của quý khách khi đặt gas, giúp ứng dụng xác định được Đại lý giao gas gần quý khách nhất.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string></string>
 	<key>NSMotionUsageDescription</key>

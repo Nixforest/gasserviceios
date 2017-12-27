@@ -171,7 +171,7 @@ class G01F01S02: StepContent {
             tbxName?.placeholder        = DomainConst.CONTENT00055
             tbxName?.clearButtonMode    = .whileEditing
             tbxName?.frame.size.height  = GlobalConst.EDITTEXT_H
-            tbxName?.borderStyle        = .roundedRect
+//            tbxName?.borderStyle        = .roundedRect
             tbxName?.returnKeyType      = .next
             tbxName?.autocapitalizationType = .words
             tbxName?.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
@@ -184,7 +184,7 @@ class G01F01S02: StepContent {
             tbxPhone?.clearButtonMode   = .whileEditing
             tbxPhone?.keyboardType      = .phonePad
             tbxPhone?.frame.size.height = GlobalConst.EDITTEXT_H
-            tbxPhone?.borderStyle       = .roundedRect
+//            tbxPhone?.borderStyle       = .roundedRect
             tbxPhone?.text              = G01F01S02._phone
             tbxPhone?.font = UIFont.systemFont(ofSize: GlobalConst.TEXTFIELD_FONT_SIZE)
         })

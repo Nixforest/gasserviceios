@@ -311,6 +311,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         if isShow {
             btnSave.isEnabled = (_data.getRecord().show_button_save == DomainConst.NUMBER_ONE_VALUE)
             btnAction.isEnabled = (_data.getRecord().show_button_complete == DomainConst.NUMBER_ONE_VALUE)
+            btnCancel.isEnabled = _data.getRecord().show_button_cancel.isON()
         } else {
             btnCancel.isEnabled = false
             btnSave.isEnabled = false

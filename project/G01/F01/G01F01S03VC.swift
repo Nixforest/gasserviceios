@@ -23,6 +23,12 @@ class G01F01S03: StepSummary {
     var lblContact: UILabel = UILabel()
     /** Reviewer value */
     var tbxContact: UITextView = UITextView()
+    //++ BUG0183-SPJ (NguyenPT 20171227) Gas remain function
+    /** Label Store */
+    var lblStore:   UILabel     = UILabel()
+    /** Store value */
+    var tbxStore:   UITextView  = UITextView()
+    //-- BUG0183-SPJ (NguyenPT 20171227) Gas remain function
     
     /*
      // Only override draw() if you perform custom drawing.
@@ -50,6 +56,10 @@ class G01F01S03: StepSummary {
         contentView.addSubview(tbxContent)
         contentView.addSubview(lblContact)
         contentView.addSubview(tbxContact)
+        //++ BUG0183-SPJ (NguyenPT 20171227) Gas remain function
+        contentView.addSubview(lblStore)
+        contentView.addSubview(tbxStore)
+        //-- BUG0183-SPJ (NguyenPT 20171227) Gas remain function
         
         self.setup(mainView: contentView, title: DomainConst.CONTENT00205, contentHeight: offset,
                    width: w, height: h)
@@ -71,6 +81,7 @@ class G01F01S03: StepSummary {
         tbxProblem.text     = G01F01S01._selectedValue.name
         tbxContent.text     = G01F01S01._otherProblem
         tbxContact.text     = G01F01S02._name + DomainConst.CONTACT_SPLITER + G01F01S02._phone
+        tbxStore.text       = G01F01S04._selectedValue.name
         var offset: CGFloat = GlobalConst.LABEL_HEIGHT
         lblContent.isHidden = true
         tbxContent.isHidden = true
@@ -82,6 +93,11 @@ class G01F01S03: StepSummary {
         updateLayout(view: lblContact, offset: offset)
         updateLayout(view: tbxContact, offset: offset)
         offset += GlobalConst.LABEL_HEIGHT * 1.5
+        //++ BUG0183-SPJ (NguyenPT 20171227) Gas remain function
+        updateLayout(view: lblStore, offset: offset)
+        updateLayout(view: tbxStore, offset: offset)
+        offset += GlobalConst.LABEL_HEIGHT * 1.5
+        //-- BUG0183-SPJ (NguyenPT 20171227) Gas remain function
         self.updateLayout(contentHeight: offset)
     }
     
@@ -140,6 +156,21 @@ class G01F01S03: StepSummary {
                                      text: G01F02S04._selectedValue.name + DomainConst.CONTACT_SPLITER + G01F02S04._selectedValue.phone)
         tbxContact.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
         offset += GlobalConst.LABEL_HEIGHT * 1.5
+        
+        //++ BUG0183-SPJ (NguyenPT 20171227) Gas remain function
+        // Label store
+        CommonProcess.setLayoutLeft(lbl: lblStore, offset: offset,
+                                    width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
+                                    height: GlobalConst.LABEL_HEIGHT * 1.5, text: DomainConst.CONTENT00552)
+        lblStore.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+        // Store value
+        CommonProcess.setLayoutRight(lbl: tbxStore, x: lblStore.frame.maxX, y: offset,
+                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
+                                     height: GlobalConst.LABEL_HEIGHT * 1.5,
+                                     text: G01F01S04._selectedValue.name)
+        tbxStore.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+        offset += GlobalConst.LABEL_HEIGHT * 1.5
+        //-- BUG0183-SPJ (NguyenPT 20171227) Gas remain function
         
         return offset
     }

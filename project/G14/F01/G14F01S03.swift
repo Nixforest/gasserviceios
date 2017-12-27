@@ -1,42 +1,31 @@
 //
-//  G08F01S03.swift
+//  G14F01S03.swift
 //  project
 //
-//  Created by SPJ on 5/7/17.
+//  Created by SPJ on 12/26/17.
 //  Copyright © 2017 admin. All rights reserved.
 //
 
 import UIKit
 import harpyframework
 
-class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
+class G14F01S03: StepContent {
     // MARK: Properties
     /** Table view */
-    private var _tblMaterial:           UITableView             = UITableView()
+    var _tblMaterial:           UITableView             = UITableView()
     /** List data */
-    public static var _data:            [OrderDetailBean]       = [OrderDetailBean]()
+    public static var _data:    [OrderDetailBean]       = [OrderDetailBean]()
     /** List of material information */
-    private var _listMaterial:          [[(String, Int)]]           = [[(String, Int)]]()
+    var _listMaterial:          [[(String, Int)]]       = [[(String, Int)]]()
     /** Material header */
-    private var _materialHeader:        [(String, Int)]             = [(DomainConst.CONTENT00091, G08Const.TABLE_COLUMN_WEIGHT_GAS_INFO.0),
-                                                                   (DomainConst.CONTENT00335, G08Const.TABLE_COLUMN_WEIGHT_GAS_INFO.1),
-                                                                   (DomainConst.CONTENT00255, G08Const.TABLE_COLUMN_WEIGHT_GAS_INFO.2)]
-    private var _height:        CGFloat = 0.0
-    /** Type when open a model VC */
-    public static let TYPE_NONE:              String = DomainConst.NUMBER_ZERO_VALUE
-    public static let TYPE_GAS:               String = "1"
-    public static let TYPE_OTHERMATERIAL:     String = "2"
-    public static let TYPE_CYLINDER:          String = "3"
-    /** Current type when open model VC */
-    public static var _type:                  String = DomainConst.NUMBER_ZERO_VALUE
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-     */
+    var _materialHeader:        [(String, Int)]         = [
+        (DomainConst.CONTENT00411, G14Const.TABLE_COLUMN_WEIGHT_GAS_INFO.0),
+        (DomainConst.CONTENT00466, G14Const.TABLE_COLUMN_WEIGHT_GAS_INFO.1),
+        (DomainConst.CONTENT00337, G14Const.TABLE_COLUMN_WEIGHT_GAS_INFO.2),
+        (DomainConst.CONTENT00338, G14Const.TABLE_COLUMN_WEIGHT_GAS_INFO.3),
+        (DomainConst.CONTENT00339, G14Const.TABLE_COLUMN_WEIGHT_GAS_INFO.4)
+    ]
+    private var _height:        CGFloat                 = 0.0    
     
     /**
      * Default initializer.
@@ -73,13 +62,13 @@ class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
     /**
      * Update data
      */
-    private func updateData() {
+    internal func updateData() {
         _listMaterial.removeAll()
         // Header
         _listMaterial.append(_materialHeader)
         
         // Order detail
-        for item in G08F01S03._data {
+        for item in G14F01S03._data {
             let materialValue: [(String, Int)] = [
                 (item.materials_no,     G08Const.TABLE_COLUMN_WEIGHT_GAS_INFO.0),
                 (item.material_name,    G08Const.TABLE_COLUMN_WEIGHT_GAS_INFO.1),
@@ -107,7 +96,7 @@ class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
     /**
      * Add material
      */
-    private func addNewMaterial() {
+    internal func addNewMaterial() {
         // Show alert CONTENT00253
         let alert = UIAlertController(title: DomainConst.CONTENT00341,
                                       message: DomainConst.CONTENT00314,
@@ -148,7 +137,7 @@ class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
         switch G08F01S03._type {
         case G08F01S03.TYPE_GAS:                      // Gas
             MaterialSelectViewController.setMaterialData(orderDetails: CacheDataRespModel.record.getGasMaterials())
-//            MaterialSelectViewController.setMaterialDataFromFavourite(key: DomainConst.KEY_SETTING_FAVOURITE_GAS_LOGIN)
+            //            MaterialSelectViewController.setMaterialDataFromFavourite(key: DomainConst.KEY_SETTING_FAVOURITE_GAS_LOGIN)
             self.getParentView().pushToView(name: G05F02S01VC.theClassName)
         case G08F01S03.TYPE_CYLINDER:                 // Cylinder
             MaterialSelectViewController.setMaterialData(orderDetails: CacheDataRespModel.record.getCylinderMaterials())
@@ -194,7 +183,7 @@ class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
      * Delete material
      * - parameter idx: Index of selected row
      */
-    private func deleteMaterial(idx: Int) {
+    internal func deleteMaterial(idx: Int) {
         // Delete in data
         G08F01S03._data.remove(at: idx - 1)
         // Delete in table data
@@ -238,11 +227,11 @@ class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
                 self.updateData()
             } else {
                 self.getParentView().showAlert(message: DomainConst.CONTENT00251, okTitle: DomainConst.CONTENT00251,
-                               okHandler: {_ in
-                                self.updateQtyMaterial(idx: idx)
+                                               okHandler: {_ in
+                                                self.updateQtyMaterial(idx: idx)
                 },
-                               cancelHandler: {_ in
-                                
+                                               cancelHandler: {_ in
+                                                
                 })
             }
         }
@@ -251,8 +240,9 @@ class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
         alert.addAction(ok)
         self.getParentView().present(alert, animated: true, completion: nil)
     }
-    
-    // MARK: - UITableViewDataSource
+}
+
+extension G14F01S03: UITableViewDataSource {
     /**
      * The number of sections in the table view.
      */
@@ -284,7 +274,9 @@ class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
             
             return cell
     }
-    
+}
+
+extension G14F01S03: UITableViewDelegate {
     /**
      * Asks the delegate for the height to use for a row in a specified location.
      */
@@ -299,7 +291,7 @@ class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == _listMaterial.count - 1 {
             addNewMaterial()
         } else if (indexPath.row != 0) {
-            updateQtyMaterial(idx: indexPath.row)
+            deleteMaterial(idx: indexPath.row)
         }
     }
     
@@ -320,12 +312,12 @@ class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
         switch editingStyle {
         case .delete:
             self.getParentView().showAlert(message: DomainConst.CONTENT00317,
-                           okHandler: {
-                            (alert: UIAlertAction!) in
-                            self.deleteMaterial(idx: indexPath.row)
+                                           okHandler: {
+                                            (alert: UIAlertAction!) in
+                                            self.deleteMaterial(idx: indexPath.row)
             },
-                           cancelHandler: {
-                            (alert: UIAlertAction!) in
+                                           cancelHandler: {
+                                            (alert: UIAlertAction!) in
             })
         default:
             break

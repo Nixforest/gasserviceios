@@ -33,6 +33,10 @@ class G01F01VC: StepVC, StepDoneDelegate {
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         let step2 = G01F01S02(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+        //++ BUG0183-SPJ (NguyenPT 20171227) Gas remain function
+        let step3 = G01F01S04(w: GlobalConst.SCREEN_WIDTH,
+                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+        //-- BUG0183-SPJ (NguyenPT 20171227) Gas remain function
         let summary = G01F01S03(w: GlobalConst.SCREEN_WIDTH,
                                 h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         
@@ -40,6 +44,12 @@ class G01F01VC: StepVC, StepDoneDelegate {
         self.appendContent(stepContent: step1)
         step2.stepDoneDelegate = self
         self.appendContent(stepContent: step2)
+        //++ BUG0183-SPJ (NguyenPT 20171227) Gas remain function
+        if BaseModel.shared.getListVipCustomerStores().count != 0 {
+            step3.stepDoneDelegate = self
+            appendContent(stepContent: step3)
+        }
+        //-- BUG0183-SPJ (NguyenPT 20171227) Gas remain function
         appendSummary(summary: summary)
         // Set title
         self.setTitle(title: DomainConst.CONTENT00178)
@@ -117,6 +127,9 @@ class G01F01VC: StepVC, StepDoneDelegate {
         G01F01S02._selectedValue = ConfigBean(id: "", name: "")
         G01F01S02._name = ""
         G01F01S02._phone = ""
+        //++ BUG0183-SPJ (NguyenPT 20171227) Gas remain function
+        G01F01S04._selectedValue = ConfigBean.init()
+        //-- BUG0183-SPJ (NguyenPT 20171227) Gas remain function
     }
     
     /**
@@ -135,7 +148,8 @@ class G01F01VC: StepVC, StepDoneDelegate {
             content: G01F01S01._otherProblem,
             contactPerson: G01F01S02._name,
             contactTel: G01F01S02._phone,
-            requestBy: G01F01S02._selectedValue.id, view: self)
+            requestBy: G01F01S02._selectedValue.id, view: self,
+            storeId: G01F01S04._selectedValue.id)
     }
     //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     internal func finishHandleRequest(_ notification: Notification) {

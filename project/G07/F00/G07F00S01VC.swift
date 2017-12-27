@@ -130,7 +130,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         // Navigation
         //++ BUG0182-SPJ (NguyenPT 20171219) Create transaction
 //        createNavigationBar(title: DomainConst.CONTENT00310)
-        createNavigationBar(title: DomainConst.CONTENT00532)
+        createNavigationBar(title: DomainConst.CONTENT00541)
         //-- BUG0182-SPJ (NguyenPT 20171219) Create transaction
         
         // Create content
@@ -189,7 +189,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
                                    style: .cancel,
                                    handler: nil)
         alert.addAction(cancel)
-        let storeCard = UIAlertAction(title: DomainConst.CONTENT00533,
+        let storeCard = UIAlertAction(title: DomainConst.CONTENT00542,
                                    style: .default, handler: {
                                     action in
                                     self.requestCreateTransaction()
@@ -203,7 +203,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     internal func requestCreateTransaction() {
-        showAlert(message: DomainConst.CONTENT00534,
+        showAlert(message: DomainConst.CONTENT00543,
                   okHandler: {
                     alert in
                     TransactionCreateRequest.request(action: #selector(self.finishRequestTransactionCreate),

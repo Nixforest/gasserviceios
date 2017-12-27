@@ -151,14 +151,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                     action in
                                     self.selectMaterial(type: self.TYPE_GAS)
         })
-//        let otherMaterial = UIAlertAction(title: DomainConst.CONTENT00316,
-//                                   style: .default, handler: {
-//                                    action in
-//                                    self.selectMaterial(type: self.TYPE_OTHERMATERIAL)
-//        })
+        let otherMaterial = UIAlertAction(title: DomainConst.CONTENT00316,
+                                   style: .default, handler: {
+                                    action in
+                                    self.selectMaterial(type: self.TYPE_OTHERMATERIAL)
+        })
         alert.addAction(cancel)
         alert.addAction(gas)
-        //alert.addAction(otherMaterial)
+        alert.addAction(otherMaterial)
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -1780,18 +1780,20 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidAppear(_ animated: Bool) {
         switch _type {
-        case TYPE_GAS:
+        case TYPE_GAS, TYPE_OTHERMATERIAL:
             if !MaterialSelectViewController.getSelectedItem().isEmpty() {
                 // Add data
                 appendMaterialGas(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
                 _tblViewGas.reloadSections(IndexSet(1...2), with: .automatic)
             }
+            _type = DomainConst.NUMBER_ZERO_VALUE
         case TYPE_CYLINDER:
             if !MaterialSelectViewController.getSelectedItem().isEmpty() {
                 // Add data
                 appendMaterialCylinder(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
                 _tblViewCylinder.reloadSections(IndexSet(1...2), with: .automatic)
             }
+            _type = DomainConst.NUMBER_ZERO_VALUE
         default:
 //            requestData()
             break

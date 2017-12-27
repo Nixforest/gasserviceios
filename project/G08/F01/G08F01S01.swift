@@ -243,11 +243,11 @@ class G08F01S01: StepContent, UISearchBarDelegate,
         if filteredStr.characters.count > (DomainConst.SEARCH_TARGET_MIN_LENGTH - 1) {
             _beginSearch = false
             _searchActive = true
-            // Start count
-            /** Timer for search auto complete */
-            var timer = Timer()
-            timer.invalidate()
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(beginSearching), userInfo: nil, repeats: false)
+//            // Start count
+//            /** Timer for search auto complete */
+//            var timer = Timer()
+//            timer.invalidate()
+//            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(beginSearching), userInfo: nil, repeats: false)
             
         } else {
             _beginSearch = false

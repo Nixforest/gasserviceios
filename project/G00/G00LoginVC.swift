@@ -398,7 +398,7 @@ class G00LoginVC: ChildViewController, UITextFieldDelegate {
             // Not found, so remove keyboard
             textField.resignFirstResponder()
             hideKeyboard()
-            //Login(_)
+            Login(textField)
         }
         return true
     }
