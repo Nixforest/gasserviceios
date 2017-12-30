@@ -78,12 +78,13 @@ class CreateUpholdReplyRequest: BaseRequest {
     func setData(upholdId: String, status: String, statusText: String,  hoursHandle: String,
                  note: String, contact_phone: String, reportWrong: String,
                  listPostReplyImage: [UIImage], customerId: String,
-                 noteInternal: String) {
+                 noteInternal: String,
+                 code_complete: String) {
         //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
 //        self.status = statusText
         //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":\"%@\"}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":%@,\"%@\":\"%@\",\"%@\":%d}",
             DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
             DomainConst.KEY_UPHOLD_ID, upholdId,
             DomainConst.KEY_STATUS, status,
@@ -95,11 +96,14 @@ class CreateUpholdReplyRequest: BaseRequest {
             DomainConst.KEY_NOTE_INTERNAL, noteInternal,
             DomainConst.KEY_LATITUDE, 0.0,
             DomainConst.KEY_LONGITUDE, 0.0,
-            DomainConst.KEY_VERSION_CODE, DomainConst.VERSION_CODE
+//            DomainConst.KEY_VERSION_CODE, DomainConst.VERSION_CODE,
+            DomainConst.KEY_FLAG_GAS_24H, BaseModel.shared.getAppType(),
+            DomainConst.KEY_CODE_COMPLETE, code_complete,
+            DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
         )
         self.param = [
             "q" : String.init(
-                format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":\"%@\"}",
+                format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\",\"%@\":\"%d\",\"%@\":%@,\"%@\":\"%@\",\"%@\":%d}",
                 DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
                 DomainConst.KEY_UPHOLD_ID, upholdId,
                 DomainConst.KEY_STATUS, status,
@@ -111,7 +115,10 @@ class CreateUpholdReplyRequest: BaseRequest {
                 DomainConst.KEY_NOTE_INTERNAL, noteInternal,
                 DomainConst.KEY_LATITUDE, 0.0,
                 DomainConst.KEY_LONGITUDE, 0.0,
-                DomainConst.KEY_VERSION_CODE, DomainConst.VERSION_CODE
+//                DomainConst.KEY_VERSION_CODE, DomainConst.VERSION_CODE,
+                DomainConst.KEY_FLAG_GAS_24H, BaseModel.shared.getAppType(),
+                DomainConst.KEY_CODE_COMPLETE, code_complete,
+                DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
             )
         ]
     }
@@ -137,7 +144,8 @@ class CreateUpholdReplyRequest: BaseRequest {
                                          listPostReplyImage: [UIImage],
                                          customerId: String,
                                          noteInternal: String,
-                                         view: BaseViewController) {
+                                         view: BaseViewController,
+                                         code_complete: String) {
 //        // Show overlay
 //        LoadingView.shared.showOverlay(view: view.view)
         let request = CreateUpholdReplyRequest(url: DomainConst.PATH_SITE_UPHOLD_REPLY, reqMethod: DomainConst.HTTP_POST_REQUEST, view: view)
@@ -147,7 +155,8 @@ class CreateUpholdReplyRequest: BaseRequest {
                         reportWrong: reportWrong,
                         listPostReplyImage: listPostReplyImage,
                         customerId: customerId,
-                        noteInternal: noteInternal)
+                        noteInternal: noteInternal,
+                        code_complete: code_complete)
         //++ BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class

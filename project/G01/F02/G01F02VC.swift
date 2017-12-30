@@ -28,6 +28,8 @@ class G01F02VC: StepVC, StepDoneDelegate {
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         let step6 = G01F02S06(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+        let step7 = G01F02S08(w: GlobalConst.SCREEN_WIDTH,
+                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         let summary = G01F02S07(w: GlobalConst.SCREEN_WIDTH,
                                 h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         
@@ -37,6 +39,8 @@ class G01F02VC: StepVC, StepDoneDelegate {
             step2.stepDoneDelegate = self
             self.appendContent(stepContent: step2)
         }
+        step7.stepDoneDelegate = self
+        self.appendContent(stepContent: step7)
         step3.stepDoneDelegate = self
         self.appendContent(stepContent: step3)
         step4.stepDoneDelegate = self
@@ -72,6 +76,7 @@ class G01F02VC: StepVC, StepDoneDelegate {
         G01F02S04._selectedValue = (name: "", phone: "")
         G01F02S05._selectedValue = ""
         G01F02S06._selectedValue.removeAll()
+        G01F02S08._selectedValue = DomainConst.BLANK
     }
     
     /**
@@ -93,7 +98,8 @@ class G01F02VC: StepVC, StepDoneDelegate {
             listPostReplyImage: G01F02S06._selectedValue,
             customerId: BaseModel.shared.currentUpholdDetail.customer_id,
             noteInternal: G01F02S05._selectedValue,
-            view: self)
+            view: self,
+            code_complete: G01F02S08._selectedValue)
     }
     //-- BUG0047-SPJ (NguyenPT 20170724) Refactor BaseRequest class
     internal func finishHandleRequest(_ notification: Notification) {
