@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import harpyframework
 
 class G14F01S01: G09F01S01 {
 
@@ -16,6 +17,16 @@ class G14F01S01: G09F01S01 {
     override func draw(_ rect: CGRect) {
         // Drawing code
     }
-    */
+     */
+    
+    /**
+     * Handle validate data
+     */
+    override func checkDone() -> Bool {
+//        G14F01S01._selectedValue = _datePicker.getValue().replacingOccurrences(
+//            of: DomainConst.SPLITER_TYPE1,
+//            with: DomainConst.SPLITER_TYPE3)
+        return true
+    }
 
 }

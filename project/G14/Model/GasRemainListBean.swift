@@ -32,10 +32,10 @@ class GasRemainListBean: ConfigBean {
      */
     override public init(jsonData: [String: AnyObject]) {
         super.init()
-        if let idStr = jsonData[DomainConst.KEY_CUSTOMER_ID] as? String {
+        if let idStr = jsonData[DomainConst.KEY_ID] as? String {
             self.id = idStr
         } else {
-            if let idInt = jsonData[DomainConst.KEY_CUSTOMER_ID] as? Int {
+            if let idInt = jsonData[DomainConst.KEY_ID] as? Int {
                 self.id = String(idInt)
             }
         }

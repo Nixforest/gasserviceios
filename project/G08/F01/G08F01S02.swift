@@ -12,7 +12,7 @@ import harpyframework
 class G08F01S02: StepContent {
     // MARK: Properties
     /** Date picker */
-    private var _datePicker:            DatePickerView  = DatePickerView()
+    var _datePicker:            DatePickerView  = DatePickerView()
     /** Selected value */
     public static var _selectedValue:   String          = CommonProcess.getCurrentDate()
 

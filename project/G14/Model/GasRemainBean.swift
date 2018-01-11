@@ -29,10 +29,11 @@ class GasRemainBean: GasRemainListBean {
      * - parameter jsonData: List of data
      */
     override public init(jsonData: [String: AnyObject]) {
-        super.init()
-        self.amount_empty      = getString(json: jsonData, key: DomainConst.KEY_AMOUNT_EMPTY)
-        self.amount_has_gas      = getString(json: jsonData, key: DomainConst.KEY_AMOUNT_HAS_GAS)
-        self.customer_address      = getString(json: jsonData, key: DomainConst.KEY_CUSTOMER_ADDRESS)
+        super.init(jsonData: jsonData)        
+        self.amount_gas         = String(describing: getFloat(json: jsonData, key: DomainConst.KEY_AMOUNT_GAS))
+        self.amount_empty      = String(describing: getFloat(json: jsonData, key: DomainConst.KEY_AMOUNT_EMPTY))
+        self.amount_has_gas      = String(describing: getFloat(json: jsonData, key: DomainConst.KEY_AMOUNT_HAS_GAS))
+        self.customer_address      = getString(json: jsonData, key: DomainConst.KEY_CUSTOMER_ADDRESS).normalizateString()
         self.customer_phone      = getString(json: jsonData, key: DomainConst.KEY_CUSTOMER_PHONE)
         self.customer_id      = getString(json: jsonData, key: DomainConst.KEY_CUSTOMER_ID)
         self.materials_id      = getString(json: jsonData, key: DomainConst.KEY_MATERIALS_ID)

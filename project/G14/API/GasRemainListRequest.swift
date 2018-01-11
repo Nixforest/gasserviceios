@@ -31,7 +31,7 @@ class GasRemainListRequest: BaseRequest {
             DomainConst.KEY_FLAG_GAS_24H, BaseModel.shared.getAppType(),
             DomainConst.KEY_TYPE, type,
             DomainConst.KEY_PAGE, page,
-            DomainConst.KEY_GAS_REMAIN_TYPE, gas_remain_type,
+            DomainConst.KEY_GAS_REMAIN_TYPE, BaseModel.shared.getGasRemainType(),
             DomainConst.KEY_CUSTOMER_ID, customer_id,
             DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
         )

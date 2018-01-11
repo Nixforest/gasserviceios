@@ -66,6 +66,8 @@ class G14F00S01VC: BaseParentViewController {
     var _customerId:            String              = DomainConst.NUMBER_ZERO_VALUE
     /** Tap gesture hide keyboard */
     var _gestureHideKeyboard:   UIGestureRecognizer = UIGestureRecognizer()
+    /** Edit row index path */
+    var _editRowIndexPath:      IndexPath           = IndexPath()
     
     // MARK: Static values
     
@@ -142,10 +144,16 @@ class G14F00S01VC: BaseParentViewController {
      * Handle when tap on new button
      */
     internal func btnNewTapped(_ sender: AnyObject) {
-//        self.pushToView(name:G06F01VC.theClassName)
-//        let view = G14F01VC(nibName: G14F01VC.theClassName, bundle: nil)
-//        self.navigationController?.pushViewController(view, animated: true)
-        showAlert(message: DomainConst.CONTENT00362)
+        // Check cache data is exist
+        if CacheDataRespModel.record.isEmpty() {
+            // Request server cache data
+            CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
+                                     view: self)
+        } else {
+            // Open create gas remain view controller
+            openCreateGasRemainScreen()
+        }
+//        showAlert(message: DomainConst.CONTENT00362)
     }
     
     /**
@@ -210,6 +218,49 @@ class G14F00S01VC: BaseParentViewController {
         self._dateTo    = self._txtToDate.text!
         self._page      = 0
         requestData(action: #selector(finishSearch(_:)))
+    }
+    
+    /**
+     * Handle when finish request cache data
+     */
+    internal func finishRequestCacheData(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = CacheDataRespModel(jsonString: data)
+        if model.isSuccess() {
+            // Open create gas remain view controller
+            openCreateGasRemainScreen()
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    internal func finishRequestSetExport(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = BaseRespModel(jsonString: data)
+        if model.isSuccess() {
+            requestData(action: #selector(finishEditData(_:)))
+        } else {
+            showAlert(message: model.message)
+        }
+    }
+    
+    internal func finishEditData(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = GasRemainListRespModel(jsonString: data)
+        if model.isSuccess() {
+//            _data.total_page = model.total_page
+//            _data.total_record = model.total_record
+//            _data.append(contentOf: model.getRecord())
+            _data.record[_editRowIndexPath.row] = model.getRecord()[_editRowIndexPath.row]
+            _tblInfo.reloadRows(at: [_editRowIndexPath], with: .fade)
+//            if let visibleIndexPaths = _tblInfo.indexPathsForVisibleRows?.index(of: _editRowIndexPath) {
+//                if visibleIndexPaths != NSNotFound {
+//                    _tblInfo.reloadRows(at: [_editRowIndexPath], with: .fade)
+//                }
+//            }
+        } else {
+            showAlert(message: model.message)
+        }
     }
     
     // MARK: Logic
@@ -300,6 +351,18 @@ class G14F00S01VC: BaseParentViewController {
         _txtFromDate.resignFirstResponder()
         _txtToDate.resignFirstResponder()
         setData(notification)
+    }
+    
+    internal func openCreateGasRemainScreen() {
+        let view = G14F01VC(nibName: G14F01VC.theClassName, bundle: nil)
+        self.navigationController?.pushViewController(view, animated: true)
+    }
+    
+    internal func requestFinish(id: String) {
+        GasRemainSetExportRequest.request(
+            action: #selector(finishRequestSetExport(_:)),
+            view: self,
+            id: id)
     }
     
     // MARK: Layout
@@ -576,6 +639,10 @@ extension G14F00S01VC: UITableViewDelegate {
             // Request data from server
 //            requestData()
         } else if tableView == _tblInfo {
+            let view = G14F00S02VC(nibName: G14F00S02VC.theClassName,
+                                   bundle: nil)
+            view.setId(id: _data.record[indexPath.row].id)
+            self.navigationController?.pushViewController(view, animated: true)
         }
 //        let g12f00s02 = G12F00S02VC(nibName: G12F00S02VC.theClassName,
 //                                    bundle: nil)
@@ -583,7 +650,6 @@ extension G14F00S01VC: UITableViewDelegate {
 //        self.navigationController?.pushViewController(
 //            g12f00s02,
 //            animated: true)
-        
     }
     
     /**
@@ -602,6 +668,29 @@ extension G14F00S01VC: UITableViewDelegate {
                 }
             }
         }
+    }
+    
+    /**
+     * Asks the data source to verify that the given row is editable.
+     */
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if _data.record[indexPath.row].allow_swipe == 1 {
+            return true
+        }
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        _editRowIndexPath = indexPath
+        let finish = UITableViewRowAction(style: .default,
+                                        title: "Chuyển trạng thái",
+                                        handler: {
+                                            action, indexPath in
+                                            self.requestFinish(id: self._data.record[indexPath.row].id)
+        })
+        finish.backgroundColor = UIColor.orange
+        
+        return [finish]
     }
 }
 

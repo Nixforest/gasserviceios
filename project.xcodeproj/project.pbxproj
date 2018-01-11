@@ -33,6 +33,7 @@
 		D70ECECE1EE298FE00997F1A /* G01F00S04Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70ECECC1EE298FE00997F1A /* G01F00S04Cell.swift */; };
 		D70ECECF1EE298FE00997F1A /* G01F00S04Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D70ECECD1EE298FE00997F1A /* G01F00S04Cell.xib */; };
 		D70ECED11EE2B79800997F1A /* G01F00S05VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70ECED01EE2B79800997F1A /* G01F00S05VC.swift */; };
+		D71016481FF81A3F0097279B /* GasRemainCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71016471FF81A3F0097279B /* GasRemainCreateRequest.swift */; };
 		D71112971EF514D1002CBDFE /* ChangeProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112961EF514D1002CBDFE /* ChangeProfileRequest.swift */; };
 		D71112991EF51505002CBDFE /* G00Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71112981EF51505002CBDFE /* G00Const.swift */; };
 		D711129F1EF51B33002CBDFE /* G03Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711129E1EF51B33002CBDFE /* G03Const.swift */; };
@@ -259,9 +260,13 @@
 		D7D3BDB11EBC935B00C85E93 /* CustomerBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D3BDB01EBC935A00C85E93 /* CustomerBean.swift */; };
 		D7D3BDB31EBC95BA00C85E93 /* CustomerListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D3BDB21EBC95BA00C85E93 /* CustomerListRespModel.swift */; };
 		D7D6FD761F0A081B001369D9 /* G07F02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D6FD751F0A081B001369D9 /* G07F02VC.swift */; };
+		D7D89F471FF9EAEB001FB2BB /* G14F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D89F451FF9EAEB001FB2BB /* G14F00S02VC.swift */; };
+		D7D89F481FF9EAEB001FB2BB /* G14F00S02VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7D89F461FF9EAEB001FB2BB /* G14F00S02VC.xib */; };
 		D7DA31F81EC04C3900E06FFB /* G08F01S04.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA31F71EC04C3900E06FFB /* G08F01S04.swift */; };
 		D7DA31FB1EC0502800E06FFB /* StoreCardCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA31FA1EC0502800E06FFB /* StoreCardCreateRequest.swift */; };
 		D7DA31FD1EC0782A00E06FFB /* StoreCardUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DA31FC1EC0782A00E06FFB /* StoreCardUpdateRequest.swift */; };
+		D7E063D31FFB2F9F00102B93 /* GasRemainUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E063D21FFB2F9F00102B93 /* GasRemainUpdateRequest.swift */; };
+		D7E063D61FFB666F00102B93 /* GasRemainSetExportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E063D51FFB666F00102B93 /* GasRemainSetExportRequest.swift */; };
 		D7E51DC31FEDF9C20039EB95 /* G14F00S01Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E51DC11FEDF9C20039EB95 /* G14F00S01Cell.swift */; };
 		D7E51DC41FEDF9C20039EB95 /* G14F00S01Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7E51DC21FEDF9C20039EB95 /* G14F00S01Cell.xib */; };
 		D7EA53B91EE3C99F004CFE1F /* G11Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA53B81EE3C99F004CFE1F /* G11Const.swift */; };
@@ -389,6 +394,7 @@
 		D70ECECC1EE298FE00997F1A /* G01F00S04Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G01F00S04Cell.swift; path = G01/Controls/G01F00S04Cell.swift; sourceTree = "<group>"; };
 		D70ECECD1EE298FE00997F1A /* G01F00S04Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G01F00S04Cell.xib; path = G01/Controls/G01F00S04Cell.xib; sourceTree = "<group>"; };
 		D70ECED01EE2B79800997F1A /* G01F00S05VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G01F00S05VC.swift; path = G01/F00/G01F00S05VC.swift; sourceTree = "<group>"; };
+		D71016471FF81A3F0097279B /* GasRemainCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GasRemainCreateRequest.swift; path = G14/API/GasRemainCreateRequest.swift; sourceTree = "<group>"; };
 		D71112961EF514D1002CBDFE /* ChangeProfileRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChangeProfileRequest.swift; path = G00/API/ChangeProfileRequest.swift; sourceTree = "<group>"; };
 		D71112981EF51505002CBDFE /* G00Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G00Const.swift; path = G00/G00Const.swift; sourceTree = "<group>"; };
 		D711129E1EF51B33002CBDFE /* G03Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G03Const.swift; path = G03/G03Const.swift; sourceTree = "<group>"; };
@@ -614,9 +620,13 @@
 		D7D3BDB01EBC935A00C85E93 /* CustomerBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerBean.swift; path = G08/Model/CustomerBean.swift; sourceTree = "<group>"; };
 		D7D3BDB21EBC95BA00C85E93 /* CustomerListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerListRespModel.swift; path = G08/Model/CustomerListRespModel.swift; sourceTree = "<group>"; };
 		D7D6FD751F0A081B001369D9 /* G07F02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07F02VC.swift; path = G07/F02/G07F02VC.swift; sourceTree = "<group>"; };
+		D7D89F451FF9EAEB001FB2BB /* G14F00S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G14F00S02VC.swift; path = G14/F00/G14F00S02VC.swift; sourceTree = "<group>"; };
+		D7D89F461FF9EAEB001FB2BB /* G14F00S02VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G14F00S02VC.xib; path = G14/F00/G14F00S02VC.xib; sourceTree = "<group>"; };
 		D7DA31F71EC04C3900E06FFB /* G08F01S04.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S04.swift; path = G08/F01/G08F01S04.swift; sourceTree = "<group>"; };
 		D7DA31FA1EC0502800E06FFB /* StoreCardCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreCardCreateRequest.swift; path = G08/API/StoreCardCreateRequest.swift; sourceTree = "<group>"; };
 		D7DA31FC1EC0782A00E06FFB /* StoreCardUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoreCardUpdateRequest.swift; path = G08/API/StoreCardUpdateRequest.swift; sourceTree = "<group>"; };
+		D7E063D21FFB2F9F00102B93 /* GasRemainUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GasRemainUpdateRequest.swift; path = G14/API/GasRemainUpdateRequest.swift; sourceTree = "<group>"; };
+		D7E063D51FFB666F00102B93 /* GasRemainSetExportRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GasRemainSetExportRequest.swift; path = G14/API/GasRemainSetExportRequest.swift; sourceTree = "<group>"; };
 		D7E51DC11FEDF9C20039EB95 /* G14F00S01Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G14F00S01Cell.swift; path = G14/CustomControl/G14F00S01Cell.swift; sourceTree = "<group>"; };
 		D7E51DC21FEDF9C20039EB95 /* G14F00S01Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G14F00S01Cell.xib; path = G14/CustomControl/G14F00S01Cell.xib; sourceTree = "<group>"; };
 		D7EA53B81EE3C99F004CFE1F /* G11Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G11Const.swift; path = G11/G11Const.swift; sourceTree = "<group>"; };
@@ -1371,6 +1381,9 @@
 			children = (
 				D7CDEC151FE9FE5F00FA5A31 /* GasRemainListRequest.swift */,
 				D7CDEC171FEA045F00FA5A31 /* GasRemainViewRequest.swift */,
+				D71016471FF81A3F0097279B /* GasRemainCreateRequest.swift */,
+				D7E063D21FFB2F9F00102B93 /* GasRemainUpdateRequest.swift */,
+				D7E063D51FFB666F00102B93 /* GasRemainSetExportRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -1380,6 +1393,8 @@
 			children = (
 				D7CDEC291FEA581E00FA5A31 /* G14F00S01VC.xib */,
 				D7CDEC281FEA581E00FA5A31 /* G14F00S01VC.swift */,
+				D7D89F451FF9EAEB001FB2BB /* G14F00S02VC.swift */,
+				D7D89F461FF9EAEB001FB2BB /* G14F00S02VC.xib */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -1749,6 +1764,7 @@
 				D77F063A1E7176E900797A6B /* G01F00S02InfoView.xib in Resources */,
 				D77A0B3A1EFAC82500E66E70 /* gas_logo.png in Resources */,
 				D7D233391ECF451D0063CA04 /* CashBookCell.xib in Resources */,
+				D7D89F481FF9EAEB001FB2BB /* G14F00S02VC.xib in Resources */,
 				84284E171D40DF050079DEBC /* Main.storyboard in Resources */,
 				D7CDEC251FEA55D800FA5A31 /* MenuVC.xib in Resources */,
 				D77F06381E7176E900797A6B /* G01F00S02HistoryCell.xib in Resources */,
@@ -1872,6 +1888,7 @@
 				D77F061A1E7175D000797A6B /* G00ConfigurationMenuVC.swift in Sources */,
 				D77F06181E7175D000797A6B /* G00ChangePassMenuVC.swift in Sources */,
 				D7766ED11E94B17200BC137A /* G06F01S05.swift in Sources */,
+				D7D89F471FF9EAEB001FB2BB /* G14F00S02VC.swift in Sources */,
 				D77F06631E71772700797A6B /* G01F03S02.swift in Sources */,
 				D76E7E6E1EDE5FAB005D5585 /* ReportOrderFamilyRespBean.swift in Sources */,
 				D780C97E1E95ED1E0004B5C4 /* G06F02S02.swift in Sources */,
@@ -2035,6 +2052,7 @@
 				D78B045B1ED12E700064DE88 /* G09F01S01.swift in Sources */,
 				D78A2C921EBB7F55007FD27B /* G08F00S02VC.swift in Sources */,
 				D7EA53B91EE3C99F004CFE1F /* G11Const.swift in Sources */,
+				D7E063D31FFB2F9F00102B93 /* GasRemainUpdateRequest.swift in Sources */,
 				D709FEA01E86F93300F32A7E /* CustomerFamilyListRespModel.swift in Sources */,
 				D77F06591E71771A00797A6B /* G01F02S07.swift in Sources */,
 				D79AC2311EBF4BFE00798514 /* G08F01S03.swift in Sources */,
@@ -2046,7 +2064,9 @@
 				D77F06221E7175D000797A6B /* G00LoginVC.swift in Sources */,
 				D78B04631ED13E0C0064DE88 /* G09F01S03.swift in Sources */,
 				D78CDA041F0A20F1007EF608 /* G07F02Sum.swift in Sources */,
+				D7E063D61FFB666F00102B93 /* GasRemainSetExportRequest.swift in Sources */,
 				D778249B1EDEA5AD002AB15A /* G10F00S04VC.swift in Sources */,
+				D71016481FF81A3F0097279B /* GasRemainCreateRequest.swift in Sources */,
 				D7885B4C1E88C7DC00F8F87A /* G06F00S01VC.swift in Sources */,
 				D77F06371E7176E900797A6B /* G01F00S02HistoryCell.swift in Sources */,
 				D76C17AF1EE16F9600B71FAE /* FamilyUpholdListRespModel.swift in Sources */,
