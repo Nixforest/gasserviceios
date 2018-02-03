@@ -33,5 +33,14 @@ class BaseParentViewController: ParentExtViewController {
     internal func finishOpenLogin() -> Void {
         print("finishOpenLogin")
     }
-
+    
+    //++ BUG0187-SPJ (NguyenPT 20180202) Gas24h  - Add data for Bottom message view, Add popup promotion
+    override func openPromotionActiveUsingCode(code: String) {
+        let promotionView = G13F00S01VC(nibName: G13F00S01VC.theClassName, bundle: nil)
+        promotionView.activeUsingCode(code: code)
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.navigationController?.pushViewController(promotionView, animated: true)
+        }
+    }
+    //-- BUG0187-SPJ (NguyenPT 20180202) Gas24h  - Add data for Bottom message view, Add popup promotion
 }

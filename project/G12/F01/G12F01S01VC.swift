@@ -122,8 +122,7 @@ class G12F01S01VC: BaseParentViewController {
     var _isFirstCallDidAppear:              Bool    = true
     /**  Flag check if finish transaction status is called*/
     var _isFirstCallTransactionStatus:      Bool    = true
-    //-- BUG0165-SPJ (NguyenPT 20171123) Fix bug transaction status
-    
+    //-- BUG0165-SPJ (NguyenPT 20171123) Fix bug transaction status    
     
     // MARK: Static values
     /** Current position of map view */
@@ -916,6 +915,9 @@ class G12F01S01VC: BaseParentViewController {
             setBotMsgContent(note: BaseModel.shared.getGas24hMenuText(),
                              description: DomainConst.CONTENT00533)
             updateNearestAgentInfo()
+            //++ BUG0187-SPJ (NguyenPT 20180202) Gas24h  - Add data for Bottom message view, Add popup promotion
+            requestNewsList()
+            //-- BUG0187-SPJ (NguyenPT 20180202) Gas24h  - Add data for Bottom message view, Add popup promotion
         } else {
             // Check if need retry request Update config
             if self.reqUpdateConfigCount < REQ_UPDATE_CONFIG_MAX_COUNT {
@@ -927,6 +929,35 @@ class G12F01S01VC: BaseParentViewController {
             }
         }
     }
+    //++ BUG0187-SPJ (NguyenPT 20180202) Gas24h  - Add data for Bottom message view, Add popup promotion
+    internal func finishRequestNewsList(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = NewsListRespModel(jsonString: data)
+        if model.isSuccess() {
+            BaseModel.shared.setListNews(data: model)
+            self.updateBottomMsgViewContent()
+        }
+        requestPopUp()
+    }
+    
+    internal func finishRequestNewsPopup(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = NewsPopUpRespModel(jsonString: data)
+        if model.isSuccess() {
+            // Training mode
+            if BaseModel.shared.checkTrainningMode() {
+                BaseModel.shared.setPopupData(data: model.getRecord())
+                handleShowPopup()
+            } else {
+                // Main server
+                if BaseModel.shared.isPopupChanged(data: model.getRecord()) {
+                    BaseModel.shared.setPopupData(data: model.getRecord())
+                    handleShowPopup()
+                }
+            }
+        }        
+    }
+    //-- BUG0187-SPJ (NguyenPT 20180202) Gas24h  - Add data for Bottom message view, Add popup promotion
     
     /**
      * Finish request start transaction
@@ -1150,6 +1181,20 @@ class G12F01S01VC: BaseParentViewController {
             view: self,
             agentId: G12F01S01VC._nearestAgent.info_agent.agent_id)
     }
+    
+    //++ BUG0187-SPJ (NguyenPT 20180202) Gas24h  - Add data for Bottom message view, Add popup promotion
+    private func requestNewsList() {
+        NewsListRequest.request(
+            action: #selector(finishRequestNewsList(_:)),
+            view: self, page: "0")
+    }
+    
+    private func requestPopUp() {        
+        NewsPopupRequest.request(
+            action: #selector(finishRequestNewsPopup(_:)),
+            view: self)
+    }
+    //-- BUG0187-SPJ (NguyenPT 20180202) Gas24h  - Add data for Bottom message view, Add popup promotion
     
     /**
      * Request cancel transaction
@@ -1590,6 +1635,64 @@ class G12F01S01VC: BaseParentViewController {
         self.present(alert, animated: true, completion: nil)
     }
     //-- BUG0173-SPJ (NguyenPT 20171207) Add promotion function into Gas Order screen
+    
+    //++ BUG0187-SPJ (NguyenPT 20180202) Gas24h  - Add data for Bottom message view, Add popup promotion
+    /**
+     * Handle show popup promotion
+     */
+    private func handleShowPopup() {
+        let data = BaseModel.shared.getPopupData()
+        let message = data.name.replacingOccurrences(
+            of: "<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>", with: "",
+            options: .regularExpression,
+            range: nil)
+        let alert = UIAlertController(
+            title: data.title,
+            message: "\n\n\n\n\n\n\n\n\n\n\n\n\n\(message)",
+            preferredStyle: .alert)
+        
+        let action = UIAlertAction(
+            title: data.code_no_text, style: .default,
+            handler: {
+                alert in
+                if let curVC = BaseViewController.getCurrentViewController() {
+                    curVC.openPromotionActiveUsingCode(code: data.code_no)
+                }
+        })
+        
+        let actionCancel = UIAlertAction(
+            title: DomainConst.CONTENT00541, style: .cancel,
+            handler: {
+                alert in
+        })
+        
+        let actionOpenWeb = UIAlertAction(
+            title: data.link_web_text, style: .destructive,
+            handler: {
+                alert in
+                if let url = URL(string: data.link_web) {
+                    UIApplication.shared.openURL(url)
+                }
+                self.handleShowPopup()
+        })
+        
+        if data.type == BottomMsgCellTypeEnum.openWeb.rawValue
+            || data.type == BottomMsgCellTypeEnum.openWebUsingCode.rawValue {
+            alert.addAction(actionOpenWeb)
+        }
+        let imgViewTitle = UIImageView(frame: CGRect(
+            x: 0,
+            y: 40, width: 8192/30,
+            height: 230))
+        imgViewTitle.getImgFromUrl(link: BaseModel.shared.getPopupData().url_banner_popup, contentMode: .scaleAspectFit)
+        
+        alert.view.addSubview(imgViewTitle)
+        alert.addAction(action)
+        alert.addAction(actionCancel)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    //-- BUG0187-SPJ (NguyenPT 20180202) Gas24h  - Add data for Bottom message view, Add popup promotion
     
     // MARK: Status Label
     private func createStatusLabel() {

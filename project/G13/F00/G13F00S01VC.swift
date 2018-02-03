@@ -65,9 +65,11 @@ class G13F00S01VC: BaseParentViewController {
     }()
     /** Flag active Refer-QR code tab */
     var _isActiveReferQRCode:   Bool            = false
+    /** Flag active Refer-QR code tab */
+    var _isActiveUsingCode:     Bool            = false
     
     /** Mode */
-    var mode:               Int                 = 0
+    var mode:               Int                 = -1
     /** Refering mode: */
     var refMode:            Int                 = 0
     /** Using code mode: */
@@ -516,6 +518,21 @@ class G13F00S01VC: BaseParentViewController {
         _isActiveReferQRCode = false
     }
     
+    public func activeUsingCode(code: String) {
+        _isActiveUsingCode = true
+        self.mode = MODE_USING_CODE
+        self.usingCodeMode = MODE_NORMAL_CODE
+        self.txtUsingCode.text = code
+//        segment.selectedSegmentIndex = MODE_USING_CODE
+//        self.mode = segment.selectedSegmentIndex
+//        switchMode()
+//        usingCodeSegment.selectedSegmentIndex = MODE_NORMAL_CODE
+//        self.usingCodeMode = MODE_NORMAL_CODE
+//        switchUsingCodeMode()
+        _isActiveUsingCode = false
+        self.btnNextTapped(self)
+    }
+    
     // MARK: Segment control
     /**
      * create segment control
@@ -526,9 +543,13 @@ class G13F00S01VC: BaseParentViewController {
         segment.frame = CGRect(x: (UIScreen.main.bounds.width - w ) / 2,
                                y: getTopHeight() + GlobalConst.MARGIN,
                                width: w, height: h)
-        segment.selectedSegmentIndex = MODE_REFER
-        self.mode = segment.selectedSegmentIndex
-//        switchMode()
+        if self.mode == -1 {
+            self.mode = MODE_REFER
+        }
+//        segment.selectedSegmentIndex = MODE_REFER
+//        self.mode = segment.selectedSegmentIndex
+        segment.selectedSegmentIndex = self.mode
+        switchMode()
         let segAttribute: NSDictionary = [
             NSForegroundColorAttributeName: GlobalConst.MAIN_COLOR_GAS_24H
         ]
@@ -581,7 +602,7 @@ class G13F00S01VC: BaseParentViewController {
                                  y: segment.frame.maxY,
                                  width: segment.frame.width,
                                  height: h)
-        referView.isHidden = false
+//        referView.isHidden = false
         referView.backgroundColor = GlobalConst.PROMOTION_BKG_COLOR
         referView.layer.cornerRadius = GlobalConst.BOTTOM_MSG_VIEW_CORNER_RADIUS
         
@@ -997,7 +1018,7 @@ class G13F00S01VC: BaseParentViewController {
             y: segment.frame.maxY,
             width: segment.frame.width,
             height: h)
-        usingCodeView.isHidden = true
+//        usingCodeView.isHidden = true
         usingCodeView.backgroundColor = GlobalConst.PROMOTION_BKG_COLOR
         
 //        usingCodeView.addSubview(lblUsingCodeNote)
@@ -1110,6 +1131,12 @@ class G13F00S01VC: BaseParentViewController {
             x: (segment.frame.width - w) / 2,
             y: lblUsingCodeNote.frame.maxY + GlobalConst.MARGIN,
             w: w, h: h)
+        if _isActiveUsingCode {
+            usingCodeSegment.selectedSegmentIndex = MODE_NORMAL_CODE
+            self.usingCodeMode = MODE_NORMAL_CODE
+            switchUsingCodeMode()
+            _isActiveUsingCode = false
+        }
     }
     
     private func updateUsingCodeSegmentHD() {
