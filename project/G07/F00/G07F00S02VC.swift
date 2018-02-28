@@ -20,7 +20,8 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /** List of information data */
     private var _listInfo:          [[ConfigurationModel]]      = [[ConfigurationModel]]()
     /** List material bean */
-    private var _listMaterials:     [OrderDetailBean]           = [OrderDetailBean]()
+//    private var _listMaterials:     [OrderDetailBean]           = [OrderDetailBean]()
+    private var _listMaterials:     [OrderVIPDetailBean]        = [OrderVIPDetailBean]()
     /** Current data */
     private var _data:              OrderFamilyViewRespModel    = OrderFamilyViewRespModel()
     /** Type when open a model VC */
@@ -37,6 +38,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     //++ BUG0117-SPJ (NguyenPT 20170629) Can Add/Change/Delete Gas Family Order
     private let TYPE_GAS_ADD:           String = "8"
     //-- BUG0117-SPJ (NguyenPT 20170629) Can Add/Change/Delete Gas Family Order
+    private let TYPE_CYLINTER_UPDATE:   String = "9"
     /** Current type when open model VC */
     private var _type:              String                  = DomainConst.NUMBER_ZERO_VALUE
     /** Height of bottom view */
@@ -168,15 +170,24 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 //btnSaveTapped(self)
             case TYPE_PROMOTE_ADD, TYPE_CYLINDER_ADD, TYPE_OTHERMATERIAL_ADD, TYPE_GAS_ADD:              // Add material
                 if !MaterialSelectViewController.getSelectedItem().isEmpty() {
+                    let orderVIP = OrderVIPDetailBean(orderDetail: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
                     // Add data
-                    appendMaterial(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
+//                    appendMaterial(material: OrderVIPDetailBean(orderDetail: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem())))
+                    appendMaterial(material: orderVIP)
                     // Reload table with section 1,2
                     //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
                     //_tableView.reloadSections(IndexSet(integersIn: 1...2), with: .fade)
                     _tableView.reloadData()
                     //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
+//                    if MaterialSelectViewController.getSelectedItem().isCylinder() {
+//                        updateCylinderInfo(bean: orderVIP)
+//                    }
                 }
                 //btnSaveTapped(self)
+            case TYPE_CYLINTER_UPDATE:
+                // Update data
+                updateMaterial(at: selectedRow, material: _listMaterials[selectedRow])
+                _tableView.reloadData()
             default:
                 break
             }
@@ -185,7 +196,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             case TYPE_PROMOTE_ADD, TYPE_CYLINDER_ADD, TYPE_OTHERMATERIAL_ADD, TYPE_GAS_ADD:              // Add material
                 if !MaterialSelectViewController.getSelectedItem().isEmpty() {
                     // Add data
-                    appendMaterial(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
+                    appendMaterial(material: OrderVIPDetailBean(orderDetail: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem())))
                     // Reload table with section 1,2
                     //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
                     //_tableView.reloadSections(IndexSet(integersIn: 1...2), with: .fade)
@@ -1022,6 +1033,15 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 iconPath: DomainConst.MONEY_ICON_IMG_NAME,
                 value: DomainConst.SPLITER_TYPE1 + _data.getRecord().discount_amount + DomainConst.VIETNAMDONG))
         }
+        // Gas remain
+        let gasRemain = _data.getRecord().gas_remain_amount
+        if !gasRemain.isEmpty {
+            _listInfo[2].append(ConfigurationModel(
+                id: DomainConst.ORDER_INFO_GAS_DU_ID,
+                name: DomainConst.CONTENT00547,
+                iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                value: DomainConst.SPLITER_TYPE1 + gasRemain))
+        }
         // Bu vo
         if !_data.getRecord().amount_bu_vo.isEmpty
             && _data.getRecord().amount_bu_vo != DomainConst.NUMBER_ZERO_VALUE {
@@ -1093,7 +1113,8 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 _listInfo[1][at] = ConfigurationModel(orderDetail: material)
             }
             if (at >= 0) && (at < _listMaterials.count) {
-                _listMaterials[at] = material
+//                _listMaterials[at] = material
+                _listMaterials[at] = OrderVIPDetailBean(orderDetail: material)
             }
         } else {
             // Found -> Update quantity
@@ -1104,6 +1125,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 }
                 // Remove current select
                 removeMaterial(at: at)
+            } else {
+                if material.isCylinder() {
+                    _listInfo[1][idx] = ConfigurationModel(orderVIPDetail: _listMaterials[idx])
+                }
             }
         }
     }
@@ -1112,7 +1137,8 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Insert material at tail
      * - parameter material: Data to update
      */
-    private func appendMaterial(material: OrderDetailBean, isUpdateQty: Bool = true) {
+//    private func appendMaterial(material: OrderDetailBean, isUpdateQty: Bool = true) {
+    private func appendMaterial(material: OrderVIPDetailBean, isUpdateQty: Bool = true) {
         var idx: Int = -1
         // Search in lists
         for i in 0..<_listInfo[1].count {
@@ -1124,10 +1150,16 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         if idx == -1 {
             // Not found -> Append
-            _listInfo[1].append(ConfigurationModel(orderDetail: material))
+//            _listInfo[1].append(ConfigurationModel(orderDetail: material))
+            if material.isCylinder() {
+                _listInfo[1].append(ConfigurationModel(orderVIPDetail: material))
+            } else {
+                _listInfo[1].append(ConfigurationModel(orderDetail: material))
+            }
             _listMaterials.append(material)
             //++ BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
-            if isUpdateQty {
+//            if isUpdateQty {
+            if isUpdateQty && !material.isCylinder() {
                 updateQtyMaterial(idx: _listMaterials.count - 1)
             }
             //-- BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
@@ -1138,7 +1170,8 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
 //                _listMaterials[idx].qty = String(qtyNumber + 1)
 //                _listInfo[1][idx] = ConfigurationModel(orderDetail: _listMaterials[idx])
             //            }
-            if isUpdateQty {
+//            if isUpdateQty {
+            if isUpdateQty && !material.isCylinder() {
                 updateQtyMaterial(idx: idx)
             }
             //-- BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
@@ -1261,6 +1294,18 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     }
     //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
 
+    // MARK: Logic
+    func updateCylinderInfo(bean: OrderVIPDetailBean) {
+        self._type = TYPE_CYLINTER_UPDATE
+        let view = G07F00S03VC(nibName: G07F00S03VC.theClassName, bundle: nil)
+        view.createNavigationBar(title: bean.material_name)
+        view.setData(bean: bean)
+        if let controller = BaseViewController.getCurrentViewController() {
+            controller.navigationController?.pushViewController(
+                view, animated: true)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -1316,6 +1361,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 //++ BUG0088-SPJ (NguyenPT 20170516) Can change gas material
                 cell.setData(data: _listInfo[indexPath.section][indexPath.row], isShowFullValue: true)
                 cell.setNeedsDisplay()
+//                let data = _listInfo[indexPath.section][indexPath.row]
+//                let cell = UITableViewCell(style: .default, reuseIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL)
+//                cell.textLabel?.text = data.getValue()
+//                cell.textLabel?.font = GlobalConst.BASE_FONT
                 return cell
                 //-- BUG0088-SPJ (NguyenPT 20170516) Can change gas material
             case 2:     // Third section
@@ -1360,6 +1409,25 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Tells the delegate that the specified row is now selected.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = _listInfo[indexPath.section][indexPath.row]
+        switch indexPath.section {
+        case 0:     // Section 0
+            break
+        case 1:     // Section 1
+            if !data.isNotMaterial() {
+                let material = _listMaterials[indexPath.row]
+                if material.isCylinder() {
+                    self.updateCylinderInfo(bean: material)
+                    return
+                }
+            }
+            
+            break
+        case 2:     // Section 2
+            break
+        default:
+            break
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL,
                                                  for: indexPath) as! ConfigurationTableViewCell
         if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_MATERIAL_ADD_NEW && (self._data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE) {
