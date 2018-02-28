@@ -14,6 +14,10 @@
 		84284E271D40DF050079DEBC /* projectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E261D40DF050079DEBC /* projectTests.swift */; };
 		84284E321D40DF050079DEBC /* projectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E311D40DF050079DEBC /* projectUITests.swift */; };
 		84A4C06B1D6311D000C0B84C /* example.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C06A1D6311D000C0B84C /* example.txt */; };
+		90B9AB0A20439FED00EEB2E5 /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B9AB0720439FE300EEB2E5 /* harpyframework.framework */; };
+		90B9AB0B20439FED00EEB2E5 /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 90B9AB0720439FE300EEB2E5 /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		90B9AB132043B05400EEB2E5 /* GetNearestAgentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B9AB122043B05400EEB2E5 /* GetNearestAgentRequest.swift */; };
+		90F3042E20440C860064F47A /* GetNearestAgentRespBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F3042D20440C860064F47A /* GetNearestAgentRespBean.swift */; };
 		924EABC41DF10CFC0056A303 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924EABC31DF10CFC0056A303 /* UserNotifications.framework */; };
 		C383B9FC8A70FA56E97CD383 /* Pods_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04CE59C33B46DFF900FDEBE0 /* Pods_project.framework */; };
 		D7097AC01F9B5D3800B4DF26 /* G00AccountEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7097ABE1F9B5D3800B4DF26 /* G00AccountEditVC.swift */; };
@@ -54,8 +58,6 @@
 		D72C8B651E49D83700541651 /* G04F02S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C8B641E49D83700541651 /* G04F02S01VC.swift */; };
 		D72C8B671E49D85900541651 /* G04F02S01MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72C8B661E49D85900541651 /* G04F02S01MenuVC.swift */; };
 		D73373101E22CCC6004F2781 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D733730F1E22CCC6004F2781 /* Podfile */; };
-		D7359B041F679A430032F0AF /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7359B011F67990A0032F0AF /* harpyframework.framework */; };
-		D7359B051F679A480032F0AF /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7359B011F67990A0032F0AF /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D7359B121F67C56C0032F0AF /* logo_new.png in Resources */ = {isa = PBXBuildFile; fileRef = D7359B111F67C56C0032F0AF /* logo_new.png */; };
 		D7359B161F67CBF30032F0AF /* logo_member.png in Resources */ = {isa = PBXBuildFile; fileRef = D7359B151F67CBF30032F0AF /* logo_member.png */; };
 		D7359B1A1F67D2F60032F0AF /* bg_main_4_3_1536_2048.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7359B171F67D2F60032F0AF /* bg_main_4_3_1536_2048.jpg */; };
@@ -159,19 +161,26 @@
 			remoteGlobalIDString = 84284E0D1D40DF050079DEBC;
 			remoteInfo = project;
 		};
-		D7359B001F67990A0032F0AF /* PBXContainerItemProxy */ = {
+		90B9AB0620439FE300EEB2E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D7359AFB1F67990A0032F0AF /* harpyframework.xcodeproj */;
+			containerPortal = 90B9AB0120439FE200EEB2E5 /* harpyframework.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D7BE044D1E0584D900D37740;
 			remoteInfo = harpyframework;
 		};
-		D7359B021F67990A0032F0AF /* PBXContainerItemProxy */ = {
+		90B9AB0820439FE300EEB2E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D7359AFB1F67990A0032F0AF /* harpyframework.xcodeproj */;
+			containerPortal = 90B9AB0120439FE200EEB2E5 /* harpyframework.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D7BE04561E0584DA00D37740;
 			remoteInfo = harpyframeworkTests;
+		};
+		90B9AB0C20439FED00EEB2E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 90B9AB0120439FE200EEB2E5 /* harpyframework.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D7BE044C1E0584D900D37740;
+			remoteInfo = harpyframework;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -182,7 +191,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D7359B051F679A480032F0AF /* harpyframework.framework in Embed Frameworks */,
+				90B9AB0B20439FED00EEB2E5 /* harpyframework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -205,6 +214,9 @@
 		84284E311D40DF050079DEBC /* projectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectUITests.swift; sourceTree = "<group>"; };
 		84284E331D40DF050079DEBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84A4C06A1D6311D000C0B84C /* example.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.txt; sourceTree = "<group>"; };
+		90B9AB0120439FE200EEB2E5 /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
+		90B9AB122043B05400EEB2E5 /* GetNearestAgentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetNearestAgentRequest.swift; path = G12/API/GetNearestAgentRequest.swift; sourceTree = "<group>"; };
+		90F3042D20440C860064F47A /* GetNearestAgentRespBean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetNearestAgentRespBean.swift; path = G12/Model/GetNearestAgentRespBean.swift; sourceTree = "<group>"; };
 		924EABC31DF10CFC0056A303 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		92D05F711DEB215C00DA87C3 /* project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = project.entitlements; sourceTree = "<group>"; };
 		A18C7C071B3A30513EC7D78C /* Pods-project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project.debug.xcconfig"; path = "project/Pods/Target Support Files/Pods-project/Pods-project.debug.xcconfig"; sourceTree = "<group>"; };
@@ -246,7 +258,6 @@
 		D72C8B641E49D83700541651 /* G04F02S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F02S01VC.swift; path = G04/G04F02S01VC.swift; sourceTree = "<group>"; };
 		D72C8B661E49D85900541651 /* G04F02S01MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G04F02S01MenuVC.swift; path = G04/G04F02S01MenuVC.swift; sourceTree = "<group>"; };
 		D733730F1E22CCC6004F2781 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		D7359AFB1F67990A0032F0AF /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework_gas24h_newdesign/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 		D7359B111F67C56C0032F0AF /* logo_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_new.png; path = Images/logo_new.png; sourceTree = "<group>"; };
 		D7359B151F67CBF30032F0AF /* logo_member.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_member.png; path = Images/logo_member.png; sourceTree = "<group>"; };
 		D7359B171F67D2F60032F0AF /* bg_main_4_3_1536_2048.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = bg_main_4_3_1536_2048.jpg; path = Images/bg_main_4_3_1536_2048.jpg; sourceTree = "<group>"; };
@@ -340,9 +351,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7359B041F679A430032F0AF /* harpyframework.framework in Frameworks */,
 				924EABC41DF10CFC0056A303 /* UserNotifications.framework in Frameworks */,
 				C383B9FC8A70FA56E97CD383 /* Pods_project.framework in Frameworks */,
+				90B9AB0A20439FED00EEB2E5 /* harpyframework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,7 +386,7 @@
 		84284E051D40DF050079DEBC = {
 			isa = PBXGroup;
 			children = (
-				D7359AFB1F67990A0032F0AF /* harpyframework.xcodeproj */,
+				90B9AB0120439FE200EEB2E5 /* harpyframework.xcodeproj */,
 				84284E101D40DF050079DEBC /* project */,
 				84284E251D40DF050079DEBC /* projectTests */,
 				84284E301D40DF050079DEBC /* projectUITests */,
@@ -439,6 +450,23 @@
 			children = (
 			);
 			name = Component;
+			sourceTree = "<group>";
+		};
+		90B9AB0220439FE200EEB2E5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				90B9AB0720439FE300EEB2E5 /* harpyframework.framework */,
+				90B9AB0920439FE300EEB2E5 /* harpyframeworkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		90F3042B20440C3D0064F47A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				90F3042D20440C860064F47A /* GetNearestAgentRespBean.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		924EABC21DF10CFC0056A303 /* Frameworks */ = {
@@ -545,15 +573,6 @@
 				D72C8B661E49D85900541651 /* G04F02S01MenuVC.swift */,
 			);
 			name = F02;
-			sourceTree = "<group>";
-		};
-		D7359AFC1F67990A0032F0AF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D7359B011F67990A0032F0AF /* harpyframework.framework */,
-				D7359B031F67990A0032F0AF /* harpyframeworkTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		D7359B091F67BFE80032F0AF /* Images */ = {
@@ -698,6 +717,7 @@
 			children = (
 				D7DDA4F51F77D3D100824FC4 /* TransactionStatusRequest.swift */,
 				D7CC24681F9D921C004626D3 /* RatingRequest.swift */,
+				90B9AB122043B05400EEB2E5 /* GetNearestAgentRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -716,6 +736,7 @@
 			children = (
 				D7DDA4F71F77D44500824FC4 /* G12Const.swift */,
 				D7DDA4F41F77D3A700824FC4 /* API */,
+				90F3042B20440C3D0064F47A /* Model */,
 				D795D0411F8B44CD00001902 /* CustomControl */,
 				D7E307351F72BA360065F2E1 /* F00 */,
 				D7E307361F72BA3A0065F2E1 /* F01 */,
@@ -795,6 +816,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				90B9AB0D20439FED00EEB2E5 /* PBXTargetDependency */,
 			);
 			name = project;
 			productName = project;
@@ -886,8 +908,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D7359AFC1F67990A0032F0AF /* Products */;
-					ProjectRef = D7359AFB1F67990A0032F0AF /* harpyframework.xcodeproj */;
+					ProductGroup = 90B9AB0220439FE200EEB2E5 /* Products */;
+					ProjectRef = 90B9AB0120439FE200EEB2E5 /* harpyframework.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -900,18 +922,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D7359B011F67990A0032F0AF /* harpyframework.framework */ = {
+		90B9AB0720439FE300EEB2E5 /* harpyframework.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = harpyframework.framework;
-			remoteRef = D7359B001F67990A0032F0AF /* PBXContainerItemProxy */;
+			remoteRef = 90B9AB0620439FE300EEB2E5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D7359B031F67990A0032F0AF /* harpyframeworkTests.xctest */ = {
+		90B9AB0920439FE300EEB2E5 /* harpyframeworkTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = harpyframeworkTests.xctest;
-			remoteRef = D7359B021F67990A0032F0AF /* PBXContainerItemProxy */;
+			remoteRef = 90B9AB0820439FE300EEB2E5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -984,9 +1006,26 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/project/Pods/Target Support Files/Pods-project/Pods-project-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -999,9 +1038,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/project/Pods/Target Support Files/Pods-project/Pods-project-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1014,13 +1058,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-project-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1035,6 +1082,7 @@
 				D7424AAA1E39BD1F00E442DC /* G04F01S05MenuVC.swift in Sources */,
 				D7F17CD91E5DF4A300208A73 /* OrderTransactionConfirmRespModel.swift in Sources */,
 				D7DDA4F61F77D3D100824FC4 /* TransactionStatusRequest.swift in Sources */,
+				90F3042E20440C860064F47A /* GetNearestAgentRespBean.swift in Sources */,
 				D7804B391E7685CF00C94F75 /* G00ConfigurationVC.swift in Sources */,
 				D70EDFBE1F96224A00658F64 /* G12F00VC.swift in Sources */,
 				D795D04E1F8CAB5200001902 /* ReferInfoRespModel.swift in Sources */,
@@ -1122,6 +1170,7 @@
 				D7117B591F7AA55000B8C2FA /* G12F01S04VC.swift in Sources */,
 				D7671BEF1E16FC470026DCFA /* OrderViewRespModel.swift in Sources */,
 				D7804B341E7685CF00C94F75 /* G00AccountMenuVC.swift in Sources */,
+				90B9AB132043B05400EEB2E5 /* GetNearestAgentRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1153,6 +1202,11 @@
 			isa = PBXTargetDependency;
 			target = 84284E0D1D40DF050079DEBC /* project */;
 			targetProxy = 84284E2E1D40DF050079DEBC /* PBXContainerItemProxy */;
+		};
+		90B9AB0D20439FED00EEB2E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = harpyframework;
+			targetProxy = 90B9AB0C20439FED00EEB2E5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

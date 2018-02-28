@@ -16,6 +16,8 @@ class G12Const {
     public static let PATH_ORDER_TRANSACTION_LIST               = "order/transactionStatus"
     /** Path to connect with PHP server */
     public static let PATH_ORDER_TRANSACTION_RATING             = "order/transactionRating"
+    /** Path to connect with PHP server */
+    public static let PATH_ORDER_GET_NEAREST_AGENT              = "order/getAgentNearest"
     /** Notification key: Finish login */
     public static let NOTIFY_NAME_G12_REQUEST_TRANSACTION_START = G12Const.FUNC_IDENTIFIER + ".requestTransactionStart"
     /** Notification key: Finish order */

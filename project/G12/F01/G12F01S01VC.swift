@@ -1009,6 +1009,44 @@ class G12F01S01VC: BaseParentViewController {
         }
     }
     
+    //++ BUG0188-SPJ (NguyenPT 20180228) Get nearest agent from server
+    /**
+     * Finish handle request nearest agent
+     */
+    func finishRequestNearestAgent(_ notification: Notification) {
+        let data = (notification.object as! String)
+        let model = GetNearestAgentRespBean(jsonString: data)
+        if model.isSuccess() {
+            // Update nearest agent
+            G12F01S01VC._nearestAgent = model.getRecord()
+            for item in BaseModel.shared.getAgentListFromOrderConfig() {
+                if item.info_agent.agent_id == model.recordStr {
+                    G12F01S01VC._nearestAgent = item
+                    break
+                }
+            }
+        }
+        
+        // Not found any agent
+        if G12F01S01VC._nearestAgent.isEmpty() {
+            // Reset selected materials
+            G12F01S01VC._gasSelected     = MaterialBean.init()
+            G12F01S01VC._promoteSelected = MaterialBean.init()
+        } else {    // Found
+            // Save selected gas
+            if !G12F01S01VC._nearestAgent.info_gas.isEmpty {
+                G12F01S01VC._gasSelected = G12F01S01VC._nearestAgent.info_gas[0]
+            }
+        }
+        updateMaterialSelector(isCallTransactionStatus: true)
+        if !_isRequestedTransactionStatus {
+            // Start request transaction status
+            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
+            _isRequestedTransactionStatus = true
+        }
+    }
+    //-- BUG0188-SPJ (NguyenPT 20180228) Get nearest agent from server
+    
     /**
      * Handle when back from Login process
      */
@@ -1221,48 +1259,64 @@ class G12F01S01VC: BaseParentViewController {
         })
     }
     
+    //++ BUG0188-SPJ (NguyenPT 20180228) Get nearest agent from server
+    /**
+     * Handle request nearest agent data from server
+     */
+    private func requestNearestAgent() {
+        GetNearestAgentRequest.request(
+            action: #selector(finishRequestNearestAgent(_:)),
+            view: self,
+            lat: G12F01S01VC._currentPos.latitude.description,
+            long: G12F01S01VC._currentPos.longitude.description)
+    }
+    //-- BUG0188-SPJ (NguyenPT 20180228) Get nearest agent from server
+    
     /**
      * Update nearest agent information
      */
     private func updateNearestAgentInfo() {
-        var distance = Double.greatestFiniteMagnitude
-        // Loop for all agent and find nearest agent from current location
-        for item in BaseModel.shared.getAgentListFromOrderConfig() {
-            // Get lat and long value from agent information
-            let lat: CLLocationDegrees = (item.info_agent.agent_latitude as NSString).doubleValue
-            let long: CLLocationDegrees = (item.info_agent.agent_longitude as NSString).doubleValue
-            let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            let currentDist = calculateDistance(pos1: G12F01S01VC._currentPos, pos2: location)
-            print(currentDist)
-            // Found a nearer agent
-            if distance > currentDist {
-                G12F01S01VC._nearestAgent = item
-                distance = currentDist
-            }
-        }
-        
-        // Check if min distance is outside of max range
-        if distance > BaseModel.shared.getMaxRangeDistantFromOrderConfig() {
-            G12F01S01VC._nearestAgent = AgentInfoBean.init()
-        }
-        
-        // Not found any agent
-        if G12F01S01VC._nearestAgent.isEmpty() {
-            // Reset selected materials
-            G12F01S01VC._gasSelected     = MaterialBean.init()
-            G12F01S01VC._promoteSelected = MaterialBean.init()
-        } else {    // Found
-            // Save selected gas
-            if !G12F01S01VC._nearestAgent.info_gas.isEmpty {
-                G12F01S01VC._gasSelected = G12F01S01VC._nearestAgent.info_gas[0]
-            }
-        }
-        updateMaterialSelector(isCallTransactionStatus: true)
-        if !_isRequestedTransactionStatus {
-            // Start request transaction status
-            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
-            _isRequestedTransactionStatus = true
-        }
+        //++ BUG0188-SPJ (NguyenPT 20180228) Get nearest agent from server
+//        var distance = Double.greatestFiniteMagnitude
+//        // Loop for all agent and find nearest agent from current location
+//        for item in BaseModel.shared.getAgentListFromOrderConfig() {
+//            // Get lat and long value from agent information
+//            let lat: CLLocationDegrees = (item.info_agent.agent_latitude as NSString).doubleValue
+//            let long: CLLocationDegrees = (item.info_agent.agent_longitude as NSString).doubleValue
+//            let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+//            let currentDist = calculateDistance(pos1: G12F01S01VC._currentPos, pos2: location)
+//            print(currentDist)
+//            // Found a nearer agent
+//            if distance > currentDist {
+//                G12F01S01VC._nearestAgent = item
+//                distance = currentDist
+//            }
+//        }
+//        
+//        // Check if min distance is outside of max range
+//        if distance > BaseModel.shared.getMaxRangeDistantFromOrderConfig() {
+//            G12F01S01VC._nearestAgent = AgentInfoBean.init()
+//        }
+//        
+//        // Not found any agent
+//        if G12F01S01VC._nearestAgent.isEmpty() {
+//            // Reset selected materials
+//            G12F01S01VC._gasSelected     = MaterialBean.init()
+//            G12F01S01VC._promoteSelected = MaterialBean.init()
+//        } else {    // Found
+//            // Save selected gas
+//            if !G12F01S01VC._nearestAgent.info_gas.isEmpty {
+//                G12F01S01VC._gasSelected = G12F01S01VC._nearestAgent.info_gas[0]
+//            }
+//        }
+//        updateMaterialSelector(isCallTransactionStatus: true)
+//        if !_isRequestedTransactionStatus {
+//            // Start request transaction status
+//            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
+//            _isRequestedTransactionStatus = true
+//        }
+        requestNearestAgent()
+        //-- BUG0188-SPJ (NguyenPT 20180228) Get nearest agent from server
     }
     
     /**
@@ -1415,6 +1469,11 @@ class G12F01S01VC: BaseParentViewController {
 //        G12F01S03VC.setData(data: G12F01S01VC._nearestAgent.info_promotion)
         let s04 = G12F01S04VC(nibName: G12F01S04VC.theClassName, bundle: nil)
         s04.setData(data: G12F01S01VC._nearestAgent.info_promotion)
+//        var title = DomainConst.CONTENT00524
+//        if BaseModel.shared.checkTrainningMode() {
+//            title += G12F01S01VC._nearestAgent.info_agent.agent_name
+//        }
+//        s04.createNavigationBar(title: title)
         self.navigationController?.pushViewController(s04, animated: true)
     }
     
