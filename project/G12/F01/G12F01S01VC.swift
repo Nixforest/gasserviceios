@@ -122,7 +122,11 @@ class G12F01S01VC: BaseParentViewController {
     var _isFirstCallDidAppear:              Bool    = true
     /**  Flag check if finish transaction status is called*/
     var _isFirstCallTransactionStatus:      Bool    = true
-    //-- BUG0165-SPJ (NguyenPT 20171123) Fix bug transaction status    
+    //-- BUG0165-SPJ (NguyenPT 20171123) Fix bug transaction status
+    //++ BUG0188-SPJ (NguyenPT 20180305) Gas24h - Get neareast agent from server
+    /** Flag check if button order was tapped */
+    var _isOrder:                           Bool    = false
+    //-- BUG0188-SPJ (NguyenPT 20180305) Gas24h - Get neareast agent from server            
     
     // MARK: Static values
     /** Current position of map view */
@@ -563,11 +567,30 @@ class G12F01S01VC: BaseParentViewController {
         default:
             break
         }
+        //++ BUG0188-SPJ (NguyenPT 20180305) Gas24h - Get neareast agent from server
+//        btnOrder.isEnabled = false
+//        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        //changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
+//        requestTransactionStart()
+        // Check nearest agent info is not empty
+        if !G12F01S01VC._nearestAgent.isEmpty() {
+            startOrder()
+        } else {
+            requestNearestAgent(isOrder: true)
+        }
+        //-- BUG0188-SPJ (NguyenPT 20180305) Gas24h - Get neareast agent from server
+    }
+    
+    //++ BUG0188-SPJ (NguyenPT 20180305) Gas24h - Get neareast agent from server
+    /**
+     * Start order process
+     */
+    private func startOrder() {
         btnOrder.isEnabled = false
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        //changeMode(value: OrderStatusEnum.STATUS_WAIT_CONFIRM)
         requestTransactionStart()
     }
+    //-- BUG0188-SPJ (NguyenPT 20180305) Gas24h - Get neareast agent from server
     
     /**
      * Handle processing button tapped event
@@ -1019,30 +1042,30 @@ class G12F01S01VC: BaseParentViewController {
         if model.isSuccess() {
             // Update nearest agent
             G12F01S01VC._nearestAgent = model.getRecord()
-            for item in BaseModel.shared.getAgentListFromOrderConfig() {
-                if item.info_agent.agent_id == model.recordStr {
-                    G12F01S01VC._nearestAgent = item
-                    break
+            
+            // Not found any agent
+            if G12F01S01VC._nearestAgent.isEmpty() {
+                // Reset selected materials
+                G12F01S01VC._gasSelected     = MaterialBean.init()
+                G12F01S01VC._promoteSelected = MaterialBean.init()
+            } else {    // Found
+                // Save selected gas
+                if !G12F01S01VC._nearestAgent.info_gas.isEmpty {
+                    G12F01S01VC._gasSelected = G12F01S01VC._nearestAgent.info_gas[0]
                 }
             }
-        }
-        
-        // Not found any agent
-        if G12F01S01VC._nearestAgent.isEmpty() {
-            // Reset selected materials
-            G12F01S01VC._gasSelected     = MaterialBean.init()
-            G12F01S01VC._promoteSelected = MaterialBean.init()
-        } else {    // Found
-            // Save selected gas
-            if !G12F01S01VC._nearestAgent.info_gas.isEmpty {
-                G12F01S01VC._gasSelected = G12F01S01VC._nearestAgent.info_gas[0]
+            updateMaterialSelector(isCallTransactionStatus: true)
+            if !_isRequestedTransactionStatus {
+                // Start request transaction status
+                requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
+                _isRequestedTransactionStatus = true
             }
-        }
-        updateMaterialSelector(isCallTransactionStatus: true)
-        if !_isRequestedTransactionStatus {
-            // Start request transaction status
-            requestTransactionStatus(completionHandler: finishRequestTransactionStatus)
-            _isRequestedTransactionStatus = true
+            // Handle start order process if flag is ON
+            if _isOrder {
+                startOrder()
+            }
+        } else {
+            showAlert(message: model.message)
         }
     }
     //-- BUG0188-SPJ (NguyenPT 20180228) Get nearest agent from server
@@ -1263,7 +1286,8 @@ class G12F01S01VC: BaseParentViewController {
     /**
      * Handle request nearest agent data from server
      */
-    private func requestNearestAgent() {
+    private func requestNearestAgent(isOrder: Bool = false) {
+        _isOrder = isOrder
         GetNearestAgentRequest.request(
             action: #selector(finishRequestNearestAgent(_:)),
             view: self,
