@@ -16,9 +16,11 @@ class PromotionAddRequest: BaseRequest {
      */
     func setData(code: String) {
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":%d}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":%d}",
             DomainConst.KEY_TOKEN,      BaseModel.shared.getUserToken(),
             DomainConst.KEY_CODE,       code,
+            DomainConst.KEY_LATITUDE,   String(G12F01S01VC._currentPos.latitude),
+            DomainConst.KEY_LONGITUDE,  String(G12F01S01VC._currentPos.longitude),
             DomainConst.KEY_PLATFORM,   DomainConst.PLATFORM_IOS
         )
     }

@@ -510,6 +510,10 @@ class G12F01S01VC: BaseParentViewController {
         makeBotMsgVisible(isShow: !isShowPreview)
     }
     
+    override func clearData() {
+        self.txtPromote.text = DomainConst.BLANK
+    }
+    
     // MARK: Event handler
     /**
      * Handle when tap on cancel order button
@@ -1708,7 +1712,7 @@ class G12F01S01VC: BaseParentViewController {
                                 self.updatePromoteCode(text: text)
                 },
                                cancelHandler: {_ in
-                                
+                                self.txtPromote.text = DomainConst.BLANK
                 })
             }
         }
