@@ -25,7 +25,6 @@ class G07F00S03VC: ChildExtViewController {
     /**
      * Called after the controller's view is loaded into memory.
      */
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

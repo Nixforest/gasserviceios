@@ -612,6 +612,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     internal func finishUpdateOrder(_ notification: Notification) {
         setData(notification)
     }
+    
     /**
      * Handle when tap on Action button
      */
@@ -858,6 +859,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         alert.addAction(promotion)
         alert.addAction(cylinder)
         alert.addAction(other)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = sender as! UITableViewCell
+            presenter.sourceRect = sender.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -1161,6 +1166,8 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
 //            if isUpdateQty {
             if isUpdateQty && !material.isCylinder() {
                 updateQtyMaterial(idx: _listMaterials.count - 1)
+            } else {
+                
             }
             //-- BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
         } else {
@@ -1173,6 +1180,8 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
 //            if isUpdateQty {
             if isUpdateQty && !material.isCylinder() {
                 updateQtyMaterial(idx: idx)
+            } else {
+                
             }
             //-- BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
         }
@@ -1230,6 +1239,71 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         self.present(alert, animated: true, completion: nil)
     }
     //-- BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
+    
+    private func updateQtyCylinder(bean: OrderVIPDetailBean) {
+        var tbxSerial       : UITextField?
+        var tbxCylinderOnly : UITextField?
+        var tbxFull         : UITextField?
+        let df = NumberFormatter()
+        df.locale = Locale.current
+        let decimal = df.decimalSeparator ?? DomainConst.SPLITER_TYPE4
+        // Create alert
+        let alert = UIAlertController(title: bean.material_name,
+                                      message: DomainConst.CONTENT00345,
+                                      preferredStyle: .alert)
+        alert.addTextField(configurationHandler: {
+            textField -> Void in
+            tbxSerial = textField
+            tbxSerial?.placeholder       = DomainConst.CONTENT00109
+            tbxSerial?.clearButtonMode   = .whileEditing
+            tbxSerial?.returnKeyType     = .next
+            tbxSerial?.keyboardType      = .numberPad
+            tbxSerial?.text              = bean.seri
+            tbxSerial?.textAlignment     = .center
+        })
+        alert.addTextField(configurationHandler: {
+            textField -> Void in
+            tbxCylinderOnly = textField
+            tbxCylinderOnly?.placeholder       = DomainConst.CONTENT00346
+            tbxCylinderOnly?.clearButtonMode   = .whileEditing
+            tbxCylinderOnly?.returnKeyType     = .next
+            tbxCylinderOnly?.keyboardType      = .decimalPad
+            tbxCylinderOnly?.text              = bean.kg_empty.replacingOccurrences(
+                of: DomainConst.SPLITER_TYPE4,
+                with: decimal)
+            tbxCylinderOnly?.textAlignment     = .center
+        })
+        alert.addTextField(configurationHandler: {
+            textField -> Void in
+            tbxFull = textField
+            tbxFull?.placeholder       = DomainConst.CONTENT00347
+            tbxFull?.clearButtonMode   = .whileEditing
+            tbxFull?.returnKeyType     = .done
+            tbxFull?.keyboardType      = .decimalPad
+            tbxFull?.text              = bean.kg_has_gas.replacingOccurrences(
+                of: DomainConst.SPLITER_TYPE4,
+                with: decimal)
+            tbxFull?.textAlignment     = .center
+        })
+        
+        // Add cancel action
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202, style: .cancel, handler: nil)
+        // Add ok action
+        let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) { action -> Void in
+            if let seri = tbxSerial?.text,
+                let cylinderMass = tbxCylinderOnly?.text,
+                let fullMass = tbxFull?.text {
+                bean.seri = seri
+                bean.kg_empty = cylinderMass
+                bean.kg_has_gas = fullMass
+                
+                self._tableView.reloadData()
+            }
+        }
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+    }
     
     //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
     /**
@@ -1334,76 +1408,126 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         return _listInfo[section].count
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        ConfigurationTableViewCell.PARENT_WIDTH = GlobalConst.SCREEN_WIDTH
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL,
+            for: indexPath) as! ConfigurationTableViewCell
+        cell.resetHighligh()
+        let data = _listInfo[indexPath.section][indexPath.row]
+        switch indexPath.section {
+        case 0:             // First section - Basic info
+            switch data.id {
+            case DomainConst.ORDER_INFO_PHONE_ID,
+                 DomainConst.ORDER_INFO_CCS_CODE_ID:
+                cell.highlightValue()
+                break
+            default: break
+            }
+            cell.setData(data: data)
+            cell.setNeedsDisplay()
+            break
+        case 1:             // Second section - Material info
+            cell.setData(data: data, isShowFullValue: true)
+            cell.setNeedsDisplay()
+            break
+        case 2:             // Third section - Billing info
+            switch data.id {
+            case DomainConst.ORDER_INFO_TOTAL_MONEY_ID:
+                cell.highlightValue()
+                break
+            case DomainConst.ORDER_INFO_MATERIAL_ADD_NEW:
+                cell.highlightName()
+            case DomainConst.ORDER_INFO_ORDER_TYPE_ID:
+                // Highlight total money
+                if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+                    cell.highlightValue()
+                }
+                break
+            default: 
+                if !data.isNotMaterial() {
+                    cell.highlightName()
+                }
+                break
+            }
+            cell.setData(data: data, isShowFullValue: true)
+            cell.setNeedsDisplay()
+            break
+        default:
+            break
+        }
+        return cell
+    }
     /**
      * Set content of row in table view
      */
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var retCell = UITableViewCell()
-        if tableView == _tableView {
-            ConfigurationTableViewCell.PARENT_WIDTH = GlobalConst.SCREEN_WIDTH
-            let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL,
-                                                     for: indexPath) as! ConfigurationTableViewCell
-            cell.resetHighligh()
-            switch indexPath.section {
-            case 0:     // First section
-                if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_PHONE_ID {
-                    // Highlight phone number
-                    cell.highlightValue()
-                }
-                //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
-                if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_CCS_CODE_ID  {
-                    // Highlight CCS code
-                    cell.highlightValue()
-                }
-                //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
-                break
-            case 1:     // Material section
-                //++ BUG0088-SPJ (NguyenPT 20170516) Can change gas material
-                cell.setData(data: _listInfo[indexPath.section][indexPath.row], isShowFullValue: true)
-                cell.setNeedsDisplay()
-//                let data = _listInfo[indexPath.section][indexPath.row]
-//                let cell = UITableViewCell(style: .default, reuseIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL)
-//                cell.textLabel?.text = data.getValue()
-//                cell.textLabel?.font = GlobalConst.BASE_FONT
-                return cell
-                //-- BUG0088-SPJ (NguyenPT 20170516) Can change gas material
-            case 2:     // Third section
-                if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_TOTAL_MONEY_ID {
-                    // Highlight total money
-                    cell.highlightValue()
-                }
-                if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_MATERIAL_ADD_NEW
-                    || (!_listInfo[indexPath.section][indexPath.row].isNotMaterial()) {
-                    cell.highlightName()
-                }
-//                if (_listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_SUPPORT_TYPE_ID) {
-//                    if _data.getRecord().support_id == DomainConst.NUMBER_ZERO_VALUE {
-//                        cell.highlightName()
-//                    } else {
-//                        // Highlight total money
-//                        if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
-//                            cell.highlightValue()
-//                        }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        var retCell = UITableViewCell()
+//        if tableView == _tableView {
+//            ConfigurationTableViewCell.PARENT_WIDTH = GlobalConst.SCREEN_WIDTH
+//            let cell = tableView.dequeueReusableCell(withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL,
+//                                                     for: indexPath) as! ConfigurationTableViewCell
+//            cell.resetHighligh()
+//            switch indexPath.section {
+//            case 0:     // First section
+//                if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_PHONE_ID {
+//                    // Highlight phone number
+//                    cell.highlightValue()
+//                }
+//                //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+//                if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_CCS_CODE_ID  {
+//                    // Highlight CCS code
+//                    cell.highlightValue()
+//                }
+//                //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+//                break
+//            case 1:     // Material section
+//                //++ BUG0088-SPJ (NguyenPT 20170516) Can change gas material
+//                cell.setData(data: _listInfo[indexPath.section][indexPath.row], isShowFullValue: true)
+//                cell.setNeedsDisplay()
+////                let data = _listInfo[indexPath.section][indexPath.row]
+////                let cell = UITableViewCell(style: .default, reuseIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL)
+////                cell.textLabel?.text = data.getValue()
+////                cell.textLabel?.font = GlobalConst.BASE_FONT
+//                return cell
+//                //-- BUG0088-SPJ (NguyenPT 20170516) Can change gas material
+//            case 2:     // Third section
+//                if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_TOTAL_MONEY_ID {
+//                    // Highlight total money
+//                    cell.highlightValue()
+//                }
+//                if _listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_MATERIAL_ADD_NEW
+//                    || (!_listInfo[indexPath.section][indexPath.row].isNotMaterial()) {
+//                    cell.highlightName()
+//                }
+////                if (_listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_SUPPORT_TYPE_ID) {
+////                    if _data.getRecord().support_id == DomainConst.NUMBER_ZERO_VALUE {
+////                        cell.highlightName()
+////                    } else {
+////                        // Highlight total money
+////                        if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+////                            cell.highlightValue()
+////                        }
+////                    }
+////                }
+//                if (_listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_ORDER_TYPE_ID) {
+//                    // Highlight total money
+//                    if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
+//                        cell.highlightValue()
 //                    }
 //                }
-                if (_listInfo[indexPath.section][indexPath.row].id == DomainConst.ORDER_INFO_ORDER_TYPE_ID) {
-                    // Highlight total money
-                    if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
-                        cell.highlightValue()
-                    }
-                }
-                break
-            default:
-                break
-            }
-            cell.setData(data: _listInfo[indexPath.section][indexPath.row])
-            cell.setNeedsDisplay()
-            
-            retCell = cell
-        }
-        
-        return retCell
-    }
+//                break
+//            default:
+//                break
+//            }
+//            cell.setData(data: _listInfo[indexPath.section][indexPath.row])
+//            cell.setNeedsDisplay()
+//            
+//            retCell = cell
+//        }
+//        
+//        return retCell
+//    }
     
     /**
      * Tells the delegate that the specified row is now selected.

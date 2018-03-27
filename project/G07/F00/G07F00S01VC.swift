@@ -252,6 +252,19 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
     }
     
+    /**
+     * Open detail information screen
+     * - parameter id: Id of detail information
+     */
+    internal func openDetail(id: String) {
+        let view = G07F00S02ExtVC(nibName: G07F00S02ExtVC.theClassName,
+                                  bundle: nil)
+        view.setData(id: id)
+        self.push(view, animated: true)
+//        G07F00S02VC._id = id
+//        self.pushToView(name: G07F00S02VC.theClassName)
+    } 
+    
     //++ BUG0082-SPJ (NguyenPT 20170510) Change BaseRequest handle completion mechanism
 //    override func setData(_ notification: Notification) {
 //        let data = (notification.object as! String)
@@ -330,8 +343,9 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * Tells the delegate that the specified row is now selected.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        G07F00S02VC._id = _data.getRecord()[indexPath.row].id
-        self.pushToView(name: G07F00S02VC.theClassName)
+//        G07F00S02VC._id = _data.getRecord()[indexPath.row].id
+//        self.pushToView(name: G07F00S02VC.theClassName)
+        self.openDetail(id: _data.getRecord()[indexPath.row].id)
     }
     
     /**
@@ -367,9 +381,10 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
 //                        self.handleRefresh(self)
 //            })
             self.handleRefresh(self)
-            G07F00S02VC._id = model.getRecord().id
-            self.pushToView(name: G07F00S02VC.theClassName)
+//            G07F00S02VC._id = model.getRecord().id
+//            self.pushToView(name: G07F00S02VC.theClassName)
             //-- BUG0072-SPJ (NguyenPT 20170424) No need confirm message
+            self.openDetail(id: model.getRecord().id)
         } else {
             showAlert(message: model.message)
         }
