@@ -53,10 +53,20 @@ class G06F02VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         let step2 = G06F02S02(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+        
+        /++ BUG0190-SPJ (NguyenPT 20180328) Add user report field
+        let step3 = G06F02S03(w: GlobalConst.SCREEN_WIDTH,
+                              h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
+        //-- BUG0190-SPJ (NguyenPT 20180328) Add user report field
+        
         let summary = G06F02Sum(w: GlobalConst.SCREEN_WIDTH,
                                 h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         step1.stepDoneDelegate = self
         self.appendContent(stepContent: step1)
+        //++ BUG0190-SPJ (NguyenPT 20180328) Add user report field
+        step3.stepDoneDelegate = self
+        self.appendContent(stepContent: step3)
+        //-- BUG0190-SPJ (NguyenPT 20180328) Add user report field
         step2.stepDoneDelegate = self
         self.appendContent(stepContent: step2)
         appendSummary(summary: summary)
@@ -81,6 +91,9 @@ class G06F02VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         //++ BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
         G06F02VC._currentPos = CLLocationCoordinate2D.init()
         //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
+        //++ BUG0190-SPJ (NguyenPT 20180328) Add user report field
+        G06F02S03._target        = CustomerBean.init()
+        //-- BUG0190-SPJ (NguyenPT 20180328) Add user report field
     }
 
     /*
@@ -103,7 +116,10 @@ class G06F02VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
             longitude: String(G06F02VC._currentPos.latitude),
             latitude: String(G06F02VC._currentPos.longitude),
             version_code: DomainConst.VERSION_CODE_STR,
-            listImage: G06F02S02._selectedValue)
+            listImage: G06F02S02._selectedValue,
+            //++ BUG0190-SPJ (NguyenPT 20180328) Add user report field
+            user_id: G06F02S03._target.id)
+            //-- BUG0190-SPJ (NguyenPT 20180328) Add user report field
     }
     
     /**

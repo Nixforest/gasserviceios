@@ -17,6 +17,10 @@ class G06F02Sum: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
     var lblStatus: UILabel          = UILabel()
     /** Status value */
     var tbxStatus: UITextView       = UITextView()
+    //++ BUG0190-SPJ (NguyenPT 20180328) Add user report field
+    /** Content view */
+    private var _detailView:    DetailInformationColumnView = DetailInformationColumnView()
+    //-- BUG0190-SPJ (NguyenPT 20180328) Add user report field
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -32,13 +36,14 @@ class G06F02Sum: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
      */
     init(w: CGFloat, h: CGFloat, parent: BaseViewController) {
         super.init()
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = true
-        // Update layout of content view
-        let offset: CGFloat = updateLayout(w: w, h: h)
-        // Set parent
-        self.setParentView(parent: parent)
-        
+        //++ BUG0190-SPJ (NguyenPT 20180328) Add user report field
+//        let contentView = UIView()
+//        contentView.translatesAutoresizingMaskIntoConstraints = true
+//        // Update layout of content view
+//        let offset: CGFloat = updateLayout(w: w, h: h)
+//        // Set parent
+//        self.setParentView(parent: parent)
+        //-- BUG0190-SPJ (NguyenPT 20180328) Add user report field
         // List image
         /**
          * Image CollectionView Step 5
@@ -61,65 +66,108 @@ class G06F02Sum: StepSummary, UICollectionViewDataSource, UICollectionViewDelega
         if let layout = cltImg.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
-        contentView.addSubview(lblStatus)
-        contentView.addSubview(tbxStatus)
-        contentView.addSubview(cltImg)
-        self.setup(mainView: contentView, title: DomainConst.CONTENT00309, contentHeight: offset,
+        //++ BUG0190-SPJ (NguyenPT 20180328) Add user report field
+//        contentView.addSubview(lblStatus)
+//        contentView.addSubview(tbxStatus)
+//        contentView.addSubview(cltImg)
+//        self.setup(mainView: contentView, title: DomainConst.CONTENT00309, contentHeight: offset,
+//                   width: w, height: h)
+        // Set parent
+        self.setParentView(parent: parent)
+        let offset = updateContentLayout()
+        self.setup(mainView: _detailView,
+                   title: DomainConst.CONTENT00309,
+                   contentHeight: offset,
                    width: w, height: h)
+        _detailView.addSubview(cltImg)
+        //-- BUG0190-SPJ (NguyenPT 20180328) Add user report field
     }
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //++ BUG0190-SPJ (NguyenPT 20180328) Add user report field
+//    /**
+//     * Update layout of content view
+//     * - parameter w:   Width of view
+//     * - parameter h:   Height of view
+//     */
+//    func updateLayout(w: CGFloat, h: CGFloat) -> CGFloat {
+//        var offset: CGFloat = 0
+//        // Label Status
+//        CommonProcess.setLayoutLeft(lbl: lblStatus, offset: offset,
+//                                    width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
+//                                    height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00063)
+//        lblStatus.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+//        // Status value
+//        CommonProcess.setLayoutRight(lbl: tbxStatus, x: lblStatus.frame.maxX, y: offset,
+//                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
+//                                     height: GlobalConst.LABEL_HEIGHT, text: G06F02S01._selectedValue)
+//        tbxStatus.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
+//        offset += GlobalConst.LABEL_HEIGHT
+//        
+//        if cltImg != nil {
+//            cltImg.translatesAutoresizingMaskIntoConstraints = true
+//            cltImg.frame = CGRect(x: 0,
+//                                  y: offset,
+//                                  width: w * 2,
+//                                  height: GlobalConst.ACCOUNT_AVATAR_H)
+//            offset += GlobalConst.ACCOUNT_AVATAR_H
+//            cltImg.backgroundColor = UIColor.white
+//            cltImg.bounds = cltImg.frame
+//        }
+//        
+//        return offset
+//    }
+//    
+//    override func updateContentLayout() -> CGFloat {
+//        self.tbxStatus.text = G06F02S01._selectedValue
+//        
+//        cltImg.frame = CGRect(x: 0,
+//                              y: GlobalConst.LABEL_HEIGHT * 2,
+//                              width: self.frame.width,
+//                              height: GlobalConst.ACCOUNT_AVATAR_H)
+//        cltImg.backgroundColor = UIColor.white
+//        cltImg.contentSize = CGSize(
+//            width: GlobalConst.ACCOUNT_AVATAR_H * (CGFloat)(G01F02S06._selectedValue.count),
+//            height: GlobalConst.ACCOUNT_AVATAR_H)
+//        self.cltImg.reloadData()
+//        return 0
+//    }
     
     /**
-     * Update layout of content view
-     * - parameter w:   Width of view
-     * - parameter h:   Height of view
+     * Update layout of content
+     * - returns: Offset after reload
      */
-    func updateLayout(w: CGFloat, h: CGFloat) -> CGFloat {
-        var offset: CGFloat = 0
-        // Label Status
-        CommonProcess.setLayoutLeft(lbl: lblStatus, offset: offset,
-                                    width: (w - GlobalConst.MARGIN_CELL_X * 2) / 3,
-                                    height: GlobalConst.LABEL_HEIGHT, text: DomainConst.CONTENT00063)
-        lblStatus.font = UIFont.boldSystemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-        // Status value
-        CommonProcess.setLayoutRight(lbl: tbxStatus, x: lblStatus.frame.maxX, y: offset,
-                                     width: (w - GlobalConst.MARGIN_CELL_X * 2) * 2 / 3,
-                                     height: GlobalConst.LABEL_HEIGHT, text: G06F02S01._selectedValue)
-        tbxStatus.font = UIFont.systemFont(ofSize: GlobalConst.NORMAL_FONT_SIZE)
-        offset += GlobalConst.LABEL_HEIGHT
-        
+    override func updateContentLayout() -> CGFloat {
+        var listValues = [(String, String)]()
+        if !G06F02S01._selectedValue.isEmpty {
+            listValues.append((DomainConst.CONTENT00063, G06F02S01._selectedValue))
+        }
+        if !G06F02S03._target.isEmpty() {
+            listValues.append((G06F02S03.getTargetNameTitle(), G06F02S03._target.name))
+        }
+        let offset = _detailView.updateData(listValues: listValues)
         if cltImg != nil {
             cltImg.translatesAutoresizingMaskIntoConstraints = true
             cltImg.frame = CGRect(x: 0,
-                                  y: offset,
-                                  width: w * 2,
+                                  y: offset + self.getParentView().getTopHeight(),
+                                  width: self.frame.width,
                                   height: GlobalConst.ACCOUNT_AVATAR_H)
-            offset += GlobalConst.ACCOUNT_AVATAR_H
             cltImg.backgroundColor = UIColor.white
             cltImg.bounds = cltImg.frame
+            
+            cltImg.contentSize = CGSize(
+                width: GlobalConst.ACCOUNT_AVATAR_H * (CGFloat)(G01F02S06._selectedValue.count),
+                height: GlobalConst.ACCOUNT_AVATAR_H)
+            
+            self.cltImg.reloadData()
         }
         
         return offset
     }
-    
-    override func updateContentLayout() -> CGFloat {
-        self.tbxStatus.text = G06F02S01._selectedValue
-        
-        cltImg.frame = CGRect(x: 0,
-                              y: GlobalConst.LABEL_HEIGHT * 2,
-                              width: self.frame.width,
-                              height: GlobalConst.ACCOUNT_AVATAR_H)
-        cltImg.backgroundColor = UIColor.white
-        cltImg.contentSize = CGSize(
-            width: GlobalConst.ACCOUNT_AVATAR_H * (CGFloat)(G01F02S06._selectedValue.count),
-            height: GlobalConst.ACCOUNT_AVATAR_H)
-        self.cltImg.reloadData()
-        return 0
-    }
+    //-- BUG0190-SPJ (NguyenPT 20180328) Add user report field
     
     // MARK: - UICollectionViewDataSource protocol
     

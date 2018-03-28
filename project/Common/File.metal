@@ -8,6 +8,8 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.40.0
+// - BUG0190: Add user report field - Report CCS
 // Version: 1.33.0
 // - BUG0155: Change loading view to random
 // - BUG0154: Add image in VIP order detail when update

@@ -47,6 +47,7 @@ class zoomIMGViewController: UIViewController, UIScrollViewDelegate {
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         backButton.setTitle("", for: UIControlState())
+        CommonProcess.scaleNavBtn(btn: backButton)
         let backNavBar = UIBarButtonItem()
         backNavBar.customView = backButton
         infomationNavBar.setLeftBarButton(backNavBar, animated: false)

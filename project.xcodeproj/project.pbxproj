@@ -18,6 +18,7 @@
 		84284E271D40DF050079DEBC /* projectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E261D40DF050079DEBC /* projectTests.swift */; };
 		84284E321D40DF050079DEBC /* projectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E311D40DF050079DEBC /* projectUITests.swift */; };
 		84A4C06B1D6311D000C0B84C /* example.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C06A1D6311D000C0B84C /* example.txt */; };
+		902AE722206A99C500FA26EA /* G06F02S03.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902AE721206A99C500FA26EA /* G06F02S03.swift */; };
 		90672F5A205F8DFB00F8FC2E /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907F30B2204CFB690029E7EE /* harpyframework.framework */; };
 		90672F5B205F8DFB00F8FC2E /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 907F30B2204CFB690029E7EE /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		90A16F76204F95FC002BF7E6 /* G07F00S02ExtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A16F74204F95FC002BF7E6 /* G07F00S02ExtVC.swift */; };
@@ -381,6 +382,7 @@
 		84284E311D40DF050079DEBC /* projectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectUITests.swift; sourceTree = "<group>"; };
 		84284E331D40DF050079DEBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84A4C06A1D6311D000C0B84C /* example.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.txt; sourceTree = "<group>"; };
+		902AE721206A99C500FA26EA /* G06F02S03.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = G06F02S03.swift; path = G06/F02/G06F02S03.swift; sourceTree = "<group>"; };
 		907F30AC204CFB680029E7EE /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework_master/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 		90A16F74204F95FC002BF7E6 /* G07F00S02ExtVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = G07F00S02ExtVC.swift; path = G07/F00/G07F00S02ExtVC.swift; sourceTree = "<group>"; };
 		90A16F75204F95FC002BF7E6 /* G07F00S02ExtVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = G07F00S02ExtVC.xib; path = G07/F00/G07F00S02ExtVC.xib; sourceTree = "<group>"; };
@@ -1167,6 +1169,7 @@
 				D780C97F1E9639A40004B5C4 /* G06F02S01.swift */,
 				D780C97D1E95ED1E0004B5C4 /* G06F02S02.swift */,
 				D780C9811E963C0C0004B5C4 /* G06F02Sum.swift */,
+				902AE721206A99C500FA26EA /* G06F02S03.swift */,
 			);
 			name = F02;
 			sourceTree = "<group>";
@@ -1906,6 +1909,7 @@
 				D78F99E61ECD494B003CB814 /* CashBookBean.swift in Sources */,
 				D77F06721E7177E000797A6B /* OrderVIPCreateRequest.swift in Sources */,
 				D78A2C971EBB81D0007FD27B /* StoreCardViewRespModel.swift in Sources */,
+				902AE722206A99C500FA26EA /* G06F02S03.swift in Sources */,
 				D7DA31F81EC04C3900E06FFB /* G08F01S04.swift in Sources */,
 				D78F99EF1ECD82C6003CB814 /* G05F03VC.swift in Sources */,
 				D78EF9891FF1F1030044713B /* G14F01S02.swift in Sources */,

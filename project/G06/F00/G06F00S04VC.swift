@@ -161,6 +161,15 @@ class G06F00S04VC: ParentViewController, UITableViewDataSource, UITableViewDeleg
         setupSearchView()
     }
     
+    //++ BUG0190-SPJ (NguyenPT 20180328) Add user report field
+    /**
+     * Notifies the view controller that its view is about to be added to a view hierarchy.
+     */
+    override func viewWillAppear(_ animated: Bool) {
+        self.handleRefresh(self)
+    }
+    //-- BUG0190-SPJ (NguyenPT 20180328) Add user report field
+    
     internal func createReport(_ sender: AnyObject) {
         pushToView(name: G06F02VC.theClassName)
     }

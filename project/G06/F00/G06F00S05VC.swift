@@ -90,6 +90,9 @@ class G06F00S05VC: ChildViewController, UICollectionViewDataSource, UICollection
             listValues.append((DomainConst.CONTENT00091, model.record.getCode()))
             listValues.append((DomainConst.CONTENT00055, model.record.name))
             listValues.append((DomainConst.CONTENT00063, model.record.getReportContent()))
+            //++ BUG0190-SPJ (NguyenPT 20180328) Add user report field
+            listValues.append((G06F02S03.getTargetNameTitle(), model.record.getUserReport()))
+            //-- BUG0190-SPJ (NguyenPT 20180328) Add user report field
             listValues.append((DomainConst.CONTENT00096, model.record.getCreatedDate()))
             var offset = detailView.setData(listValues: listValues)
             
