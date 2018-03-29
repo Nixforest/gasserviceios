@@ -54,7 +54,7 @@ class G06F02VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
         let step2 = G06F02S02(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         
-        /++ BUG0190-SPJ (NguyenPT 20180328) Add user report field
+        //++ BUG0190-SPJ (NguyenPT 20180328) Add user report field
         let step3 = G06F02S03(w: GlobalConst.SCREEN_WIDTH,
                               h: GlobalConst.SCREEN_HEIGHT - (height + GlobalConst.BUTTON_H + GlobalConst.SCROLL_BUTTON_LIST_HEIGHT), parent: self)
         //-- BUG0190-SPJ (NguyenPT 20180328) Add user report field

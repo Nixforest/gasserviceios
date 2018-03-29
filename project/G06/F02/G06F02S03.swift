@@ -40,10 +40,10 @@ class G06F02S03: G08F01S01 {
     }
     
     override func checkDone() -> Bool {
-        if G06F02S03._target.isEmpty() {
-            self.showAlert(message: DomainConst.CONTENT00563)
-            return false
-        }
+//        if G06F02S03._target.isEmpty() {
+//            self.showAlert(message: DomainConst.CONTENT00563)
+//            return false
+//        }
         return true
     }
 }
