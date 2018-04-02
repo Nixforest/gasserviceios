@@ -196,6 +196,17 @@ class G12F00S02VC: ChildExtViewController {
                     value: DomainConst.SPLITER_TYPE1 + model.getRecord().promotion_amount))
             }
             //-- BUG0161-SPJ (NguyenPT 20171120) Add promotion amount in Order detail view
+            //++ BUG0192-SPJ (NguyenPT 20180402) Add gas remain
+            // Gas remain
+            let gasRemain = model.getRecord().gas_remain_amount
+            if !gasRemain.isEmpty {
+                self.listInfo.append(ConfigurationModel(
+                    id: DomainConst.ORDER_INFO_GAS_DU_ID,
+                    name: DomainConst.CONTENT00261,
+                    iconPath: DomainConst.MONEY_ICON_IMG_NAME,
+                    value: DomainConst.SPLITER_TYPE1 + gasRemain))
+            }
+            //-- BUG0192-SPJ (NguyenPT 20180402) Add gas remain
             self.listInfo.append(ConfigurationModel(
                 id: DomainConst.ORDER_INFO_TOTAL_MONEY_ID,
                 name: DomainConst.CONTENT00218,

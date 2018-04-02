@@ -1166,7 +1166,7 @@ class G12F01S01VC: BaseParentViewController {
             return
         }
         logw(text: "\(#function)")
-        _isNeedStopTransStatus = true
+//        _isNeedStopTransStatus = true
         TransactionStatusRequest.requestLoop(
             view: self,
             id: BaseModel.shared.getTransactionData().id,

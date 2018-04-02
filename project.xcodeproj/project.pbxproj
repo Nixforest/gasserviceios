@@ -14,6 +14,7 @@
 		84284E271D40DF050079DEBC /* projectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E261D40DF050079DEBC /* projectTests.swift */; };
 		84284E321D40DF050079DEBC /* projectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E311D40DF050079DEBC /* projectUITests.swift */; };
 		84A4C06B1D6311D000C0B84C /* example.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C06A1D6311D000C0B84C /* example.txt */; };
+		905AE92D205B743E0094EF69 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 905AE92C205B743E0094EF69 /* GoogleService-Info.plist */; };
 		90B9AB0A20439FED00EEB2E5 /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B9AB0720439FE300EEB2E5 /* harpyframework.framework */; };
 		90B9AB0B20439FED00EEB2E5 /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 90B9AB0720439FE300EEB2E5 /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		90B9AB132043B05400EEB2E5 /* GetNearestAgentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B9AB122043B05400EEB2E5 /* GetNearestAgentRequest.swift */; };
@@ -214,6 +215,7 @@
 		84284E311D40DF050079DEBC /* projectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectUITests.swift; sourceTree = "<group>"; };
 		84284E331D40DF050079DEBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84A4C06A1D6311D000C0B84C /* example.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.txt; sourceTree = "<group>"; };
+		905AE92C205B743E0094EF69 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		90B9AB0120439FE200EEB2E5 /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 		90B9AB122043B05400EEB2E5 /* GetNearestAgentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetNearestAgentRequest.swift; path = G12/API/GetNearestAgentRequest.swift; sourceTree = "<group>"; };
 		90F3042D20440C860064F47A /* GetNearestAgentRespBean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetNearestAgentRespBean.swift; path = G12/Model/GetNearestAgentRespBean.swift; sourceTree = "<group>"; };
@@ -409,6 +411,7 @@
 		84284E101D40DF050079DEBC /* project */ = {
 			isa = PBXGroup;
 			children = (
+				905AE92C205B743E0094EF69 /* GoogleService-Info.plist */,
 				92D05F711DEB215C00DA87C3 /* project.entitlements */,
 				92BF0C1D1DC1B2D1009B1DA4 /* G00 */,
 				D7A9666F1E12EA0B00C9D601 /* G04 */,
@@ -954,6 +957,7 @@
 				D7E3073A1F72BA6B0065F2E1 /* G12F01S01VC.xib in Resources */,
 				84284E1C1D40DF050079DEBC /* LaunchScreen.storyboard in Resources */,
 				84A4C06B1D6311D000C0B84C /* example.txt in Resources */,
+				905AE92D205B743E0094EF69 /* GoogleService-Info.plist in Resources */,
 				D70EDFBF1F96224A00658F64 /* G12F00VC.xib in Resources */,
 				D7359B1A1F67D2F60032F0AF /* bg_main_4_3_1536_2048.jpg in Resources */,
 				D76E580C1F7DF24900CF6557 /* G12F00S02VC.xib in Resources */,
@@ -1015,6 +1019,8 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1026,6 +1032,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

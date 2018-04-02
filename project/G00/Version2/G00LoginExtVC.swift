@@ -327,25 +327,25 @@ class G00LoginExtVC: ChildExtViewController {
      */
     func btnFacebookTapped(_ sender: AnyObject) {
         //++ BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
-        let loginManager = LoginManager()
-        loginManager.logIn([.publicProfile, .email],
-                           viewController: self,
-                           completion: {
-                            loginResult in
-                            switch loginResult {
-                            case .failed(let error):
-                                self.showAlert(message: error.localizedDescription)
-                                break
-                            case .cancelled:
-                                self.showAlert(message: DomainConst.CONTENT00511)
-                                break
-                                case .success(grantedPermissions: _,
-                                              declinedPermissions: _,
-                                              token: _):
-                                    self.getDataFromFacebook()
-                                break
-                            }
-        })
+//        let loginManager = LoginManager()
+//        loginManager.logIn([.publicProfile, .email],
+//                           viewController: self,
+//                           completion: {
+//                            loginResult in
+//                            switch loginResult {
+//                            case .failed(let error):
+//                                self.showAlert(message: error.localizedDescription)
+//                                break
+//                            case .cancelled:
+//                                self.showAlert(message: DomainConst.CONTENT00511)
+//                                break
+//                                case .success(grantedPermissions: _,
+//                                              declinedPermissions: _,
+//                                              token: _):
+//                                    self.getDataFromFacebook()
+//                                break
+//                            }
+//        })
         //-- BUG0157-SPJ (NguyenPT 20171004) Use facebook framework
     }
     

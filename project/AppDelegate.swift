@@ -12,6 +12,7 @@ import harpyframework
 import GoogleMaps
 import GooglePlaces
 import FacebookCore
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -83,6 +84,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Reset cache data
         URLCache.shared.removeAllCachedResponses()
         //-- BUG0168-SPJ (NguyenPT 20171124) Reset Cache data when terminal app
+        //++ BUG0193-SPJ (NguyenPT 20180402) Add firebase core
+        FirebaseApp.configure()
+        //-- BUG0193-SPJ (NguyenPT 20180402) Add firebase core
         return true
     }
 
