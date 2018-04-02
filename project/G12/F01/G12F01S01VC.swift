@@ -1251,13 +1251,23 @@ class G12F01S01VC: BaseParentViewController {
     private func requestNewsList() {
         NewsListRequest.request(
             action: #selector(finishRequestNewsList(_:)),
-            view: self, page: "0")
+            view: self, page: "0",
+            //++ BUG0194-SPJ (NguyenPT 20180402) Add location information
+            lat:            String(G12F01S01VC._currentPos.latitude),
+            long:           String(G12F01S01VC._currentPos.longitude)
+            //-- BUG0194-SPJ (NguyenPT 20180402) Add location information
+        )
     }
     
     private func requestPopUp() {        
         NewsPopupRequest.request(
             action: #selector(finishRequestNewsPopup(_:)),
-            view: self)
+            view: self,
+            //++ BUG0194-SPJ (NguyenPT 20180402) Add location information
+            lat:            String(G12F01S01VC._currentPos.latitude),
+            long:           String(G12F01S01VC._currentPos.longitude)
+            //-- BUG0194-SPJ (NguyenPT 20180402) Add location information
+        )
     }
     //-- BUG0187-SPJ (NguyenPT 20180202) Gas24h  - Add data for Bottom message view, Add popup promotion
     
