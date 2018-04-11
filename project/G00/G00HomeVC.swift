@@ -133,6 +133,14 @@ class G00HomeVC: MapViewController, UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    /**
+     * Open issue list.
+     */
+    override func openIssueList() {
+        let view = G02F00S01VC(nibName: G02F00S01VC.theClassName, bundle: nil)
+        self.push(view, animated: true)
+    }
+    
     //++ BUG0121-SPJ (NguyenPT 20170712) Add menu to Home
     /**
      * Set data.
@@ -339,7 +347,10 @@ class G00HomeVC: MapViewController, UITableViewDataSource, UITableViewDelegate {
             self.pushToViewAndClearData(name: DomainConst.G01_F00_S01_VIEW_CTRL)
             break
         case DomainConst.ISSUE_LIST:                        // Issue list
-            self.showAlert(message: DomainConst.CONTENT00362)
+            //++ BUG0191-SPJ (NguyenPT 20180328) Create issue list
+            //self.showAlert(message: DomainConst.CONTENT00362)
+            self.openIssueList()
+            //-- BUG0191-SPJ (NguyenPT 20180328) Create issue list
             break
         case DomainConst.MESSAGE:                           // Message
             self.pushToViewAndClearData(name: G03F00S01VC.theClassName)

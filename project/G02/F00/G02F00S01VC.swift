@@ -35,13 +35,10 @@ class G02F00S01VC: BaseParentViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
         // Navigation
         self.createNavigationBar(title: DomainConst.CONTENT00131)
+        createInfoTableView()
+        self.view.addSubview(self.tblInfo)
         requestData()
     }
     
@@ -142,11 +139,12 @@ extension G02F00S01VC: UITableViewDataSource {
             return UITableViewCell()
         }
         let data = self._data.record[indexPath.row]
-        var cell = UITableViewCell(style: UITableViewCellStyle.subtitle,
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle,
                                    reuseIdentifier: "Cell")
-        cell.textLabel?.text = data.name
-        cell.textLabel?.font = GlobalConst.BASE_FONT
-        cell.detailTextLabel?.text = data.id
+        cell.textLabel?.text = data.customer_name
+        cell.textLabel?.font = GlobalConst.BASE_BOLD_FONT
+        cell.detailTextLabel?.text = data.created_date + " - " + data.problem_text
+        cell.detailTextLabel?.font = GlobalConst.BASE_FONT
         
         return cell
     }
@@ -165,6 +163,10 @@ extension G02F00S01VC: UITableViewDelegate {
      * Tells the delegate that the specified row is now selected.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let view = G02F00S02VC(nibName: G02F00S02VC.theClassName,
+                               bundle: nil)
+        view.setData(id: _data.getRecord()[indexPath.row].id)
+        self.push(view, animated: true)
     }
     
     /**

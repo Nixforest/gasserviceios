@@ -54,6 +54,14 @@ class MenuVC: BaseMenuViewController {
         self.view.makeComponentsColor()
     }
     
+    /**
+     * Open issue list.
+     */
+    override func openIssueList() {
+        let view = G02F00S01VC(nibName: G02F00S01VC.theClassName, bundle: nil)
+        self.push(view, animated: true)
+    }
+    
 //    override func createBackground() {
 //        self.view.layer.contents = ImageManager.getImage(named: DomainConst.MENU_BKG_BODY_NEW_IMG_NAME)?.cgImage
 //    }

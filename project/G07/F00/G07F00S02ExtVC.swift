@@ -289,7 +289,8 @@ class G07F00S02ExtVC: ChildExtViewController {
                 item.getIconPath()).responseImage(
                     completionHandler: { response in
                         if let img = response.result.value {
-                            self._listMaterialImgs.append(img)
+//                            self._listMaterialImgs.append(img)
+                            self._listMaterialImgs.insert(img, at: 0)
 //                            self._tblInfo.reloadSections(IndexSet(1...2), with: .automatic)
                             self._tblInfo.reloadData()
                         }

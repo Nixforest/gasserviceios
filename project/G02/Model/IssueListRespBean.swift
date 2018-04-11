@@ -11,12 +11,11 @@ import harpyframework
 
 class IssueListRespBean: BaseRespModel {
     /** Total record */
-    var total_record: Int = 0
+    var total_record:       Int             = 0
     /** Total page */
-    var total_page: Int = 0
+    var total_page:         Int             = 0
     /** Record */
-    var record: [ConfigBean] = [ConfigBean]()
-
+    var record:             [IssueBean] = [IssueBean]()
     
     override init() {
         super.init()
@@ -45,7 +44,7 @@ class IssueListRespBean: BaseRespModel {
                 // Record
                 let recordList = json[DomainConst.KEY_RECORD] as? [[String: AnyObject]]
                 for item in recordList! {
-                    self.record.append(ConfigBean(jsonData: item))
+                    self.record.append(IssueBean(jsonData: item))
                 }
             } catch let error as NSError {
                 print(DomainConst.JSON_ERR_FAILED_LOAD + "\(error.localizedDescription)")
@@ -60,7 +59,7 @@ class IssueListRespBean: BaseRespModel {
      * Get record value.
      * - returns: Record value
      */
-    public func getRecord() -> [ConfigBean] {
+    public func getRecord() -> [IssueBean] {
         return self.record
     }
     
@@ -68,7 +67,7 @@ class IssueListRespBean: BaseRespModel {
      * Append list of record
      * - parameter contentOf: List of record
      */
-    public func append(contentOf: [ConfigBean]) {
+    public func append(contentOf: [IssueBean]) {
         self.record.append(contentsOf: contentOf)
     }
     
