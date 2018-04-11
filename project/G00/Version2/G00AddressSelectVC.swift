@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G00AddressSelectVC: ChildExtViewController {
+class G00AddressSelectVC: BaseChildViewController {
     // MARK: Properties
     /** Information table view */
     var tblInfo:            UITableView         = UITableView()

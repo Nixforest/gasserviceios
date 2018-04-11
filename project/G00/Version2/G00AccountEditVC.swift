@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G00AccountEditVC: ChildExtViewController {
+class G00AccountEditVC: BaseChildViewController {
     // MARK: Properties
     /** Information table view */
     var tblInfo:            UITableView             = UITableView()

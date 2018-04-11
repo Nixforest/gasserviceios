@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class G12F01S03VC: ChildExtViewController {
+class G12F01S03VC: BaseChildViewController {
     // MARK: Properties
     /** Current data */
     var _data:          [OrderDetailBean]   = [OrderDetailBean]()

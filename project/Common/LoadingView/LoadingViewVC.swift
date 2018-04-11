@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class LoadingViewVC: ChildExtViewController, NVActivityIndicatorViewable {
+class LoadingViewVC: BaseChildViewController, NVActivityIndicatorViewable {
 
     override func viewDidLoad() {
         super.viewDidLoad()

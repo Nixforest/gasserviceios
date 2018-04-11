@@ -9,7 +9,7 @@
 import UIKit
 import harpyframework
 
-class MultiDeviceVC: ChildExtViewController {
+class MultiDeviceVC: BaseChildViewController {
     @IBOutlet weak var lblLabel1: UILabel!
     @IBOutlet weak var btnPOS: UIButton!
 

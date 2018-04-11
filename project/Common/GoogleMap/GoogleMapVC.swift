@@ -11,7 +11,7 @@ import harpyframework
 import GoogleMaps
 import GooglePlaces
 
-class GoogleMapVC: ChildExtViewController {
+class GoogleMapVC: BaseChildViewController {
     // MARK: Properties
     /** Map view */
     @IBOutlet weak var viewMap:     GMSMapView!

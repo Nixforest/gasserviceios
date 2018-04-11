@@ -152,6 +152,26 @@ class MenuVC: BaseMenuViewController {
         }
     }
     //-- BUG0171-SPJ (NguyenPT 20171127) Add new menu
+    //++ BUG0195-SPJ (NguyenPT 20180411) Add function announce
+    /**
+     * Handle open announce list
+     */
+    override func openAnnounce() {
+        let view = G15F00S01VC(nibName: G15F00S01VC.theClassName,
+                               bundle: nil)
+        self.push(view, animated: true)
+    }
+    
+    /**
+     * Handle open announce detail
+     * - parameter id: Id of announce
+     */
+    override func openAnnounceDetail(id: String) {
+        let view = G15F00S02VC(nibName: G15F00S02VC.theClassName, bundle: nil)
+        view.setData(id: id)
+        self.push(view, animated: true)
+    }
+    //-- BUG0195-SPJ (NguyenPT 20180411) Add function announce
     
     override func update() {
         super.update()

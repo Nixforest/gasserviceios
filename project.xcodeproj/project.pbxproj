@@ -14,10 +14,16 @@
 		84284E271D40DF050079DEBC /* projectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E261D40DF050079DEBC /* projectTests.swift */; };
 		84284E321D40DF050079DEBC /* projectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84284E311D40DF050079DEBC /* projectUITests.swift */; };
 		84A4C06B1D6311D000C0B84C /* example.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84A4C06A1D6311D000C0B84C /* example.txt */; };
+		9056EAA5207746ED00083F5C /* G15F00S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9056EAA3207746ED00083F5C /* G15F00S01VC.swift */; };
+		9056EAA6207746ED00083F5C /* G15F00S01VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9056EAA4207746ED00083F5C /* G15F00S01VC.xib */; };
+		9056EAA920775C7500083F5C /* NewsViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9056EAA820775C7500083F5C /* NewsViewRequest.swift */; };
+		9056EAAC20775FEB00083F5C /* G15F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9056EAAA20775FEB00083F5C /* G15F00S02VC.swift */; };
+		9056EAAD20775FEB00083F5C /* G15F00S02VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9056EAAB20775FEB00083F5C /* G15F00S02VC.xib */; };
 		905AE92D205B743E0094EF69 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 905AE92C205B743E0094EF69 /* GoogleService-Info.plist */; };
 		90B9AB0A20439FED00EEB2E5 /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B9AB0720439FE300EEB2E5 /* harpyframework.framework */; };
 		90B9AB0B20439FED00EEB2E5 /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 90B9AB0720439FE300EEB2E5 /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		90B9AB132043B05400EEB2E5 /* GetNearestAgentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B9AB122043B05400EEB2E5 /* GetNearestAgentRequest.swift */; };
+		90EF51BF207C8C8000CE0F92 /* BaseChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EF51BE207C8C8000CE0F92 /* BaseChildViewController.swift */; };
 		90F3042E20440C860064F47A /* GetNearestAgentRespBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F3042D20440C860064F47A /* GetNearestAgentRespBean.swift */; };
 		924EABC41DF10CFC0056A303 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924EABC31DF10CFC0056A303 /* UserNotifications.framework */; };
 		C383B9FC8A70FA56E97CD383 /* Pods_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04CE59C33B46DFF900FDEBE0 /* Pods_project.framework */; };
@@ -215,9 +221,15 @@
 		84284E311D40DF050079DEBC /* projectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectUITests.swift; sourceTree = "<group>"; };
 		84284E331D40DF050079DEBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84A4C06A1D6311D000C0B84C /* example.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.txt; sourceTree = "<group>"; };
+		9056EAA3207746ED00083F5C /* G15F00S01VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = G15F00S01VC.swift; path = G15/F00/G15F00S01VC.swift; sourceTree = "<group>"; };
+		9056EAA4207746ED00083F5C /* G15F00S01VC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = G15F00S01VC.xib; path = G15/F00/G15F00S01VC.xib; sourceTree = "<group>"; };
+		9056EAA820775C7500083F5C /* NewsViewRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewsViewRequest.swift; path = G15/API/NewsViewRequest.swift; sourceTree = "<group>"; };
+		9056EAAA20775FEB00083F5C /* G15F00S02VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = G15F00S02VC.swift; path = G15/F00/G15F00S02VC.swift; sourceTree = "<group>"; };
+		9056EAAB20775FEB00083F5C /* G15F00S02VC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = G15F00S02VC.xib; path = G15/F00/G15F00S02VC.xib; sourceTree = "<group>"; };
 		905AE92C205B743E0094EF69 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		90B9AB0120439FE200EEB2E5 /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 		90B9AB122043B05400EEB2E5 /* GetNearestAgentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetNearestAgentRequest.swift; path = G12/API/GetNearestAgentRequest.swift; sourceTree = "<group>"; };
+		90EF51BE207C8C8000CE0F92 /* BaseChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseChildViewController.swift; path = Common/BaseChildViewController.swift; sourceTree = "<group>"; };
 		90F3042D20440C860064F47A /* GetNearestAgentRespBean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetNearestAgentRespBean.swift; path = G12/Model/GetNearestAgentRespBean.swift; sourceTree = "<group>"; };
 		924EABC31DF10CFC0056A303 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		92D05F711DEB215C00DA87C3 /* project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = project.entitlements; sourceTree = "<group>"; };
@@ -417,6 +429,7 @@
 				D7A9666F1E12EA0B00C9D601 /* G04 */,
 				D7E307321F72B9720065F2E1 /* G12 */,
 				D7117B5B1F7ACF0200B8C2FA /* G13 */,
+				9056EAA0207746AE00083F5C /* G15 */,
 				926670F51D927BB4000D2DED /* Common */,
 				842BA3551D8EA7DC004ECBFF /* Component */,
 				84284E111D40DF050079DEBC /* AppDelegate.swift */,
@@ -453,6 +466,34 @@
 			children = (
 			);
 			name = Component;
+			sourceTree = "<group>";
+		};
+		9056EAA0207746AE00083F5C /* G15 */ = {
+			isa = PBXGroup;
+			children = (
+				9056EAA720775C5C00083F5C /* API */,
+				9056EAA2207746BD00083F5C /* F00 */,
+			);
+			name = G15;
+			sourceTree = "<group>";
+		};
+		9056EAA2207746BD00083F5C /* F00 */ = {
+			isa = PBXGroup;
+			children = (
+				9056EAA3207746ED00083F5C /* G15F00S01VC.swift */,
+				9056EAA4207746ED00083F5C /* G15F00S01VC.xib */,
+				9056EAAA20775FEB00083F5C /* G15F00S02VC.swift */,
+				9056EAAB20775FEB00083F5C /* G15F00S02VC.xib */,
+			);
+			name = F00;
+			sourceTree = "<group>";
+		};
+		9056EAA720775C5C00083F5C /* API */ = {
+			isa = PBXGroup;
+			children = (
+				9056EAA820775C7500083F5C /* NewsViewRequest.swift */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 		90B9AB0220439FE200EEB2E5 /* Products */ = {
@@ -495,6 +536,7 @@
 				D733730F1E22CCC6004F2781 /* Podfile */,
 				D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */,
 				D7DDA4F01F77CA3900824FC4 /* BaseParentViewController.swift */,
+				90EF51BE207C8C8000CE0F92 /* BaseChildViewController.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -955,6 +997,7 @@
 				D7E299051F74E7CE0078C46C /* MenuVC.xib in Resources */,
 				D7359B1C1F67D2F60032F0AF /* bg_main_16_9_1080_1920.png in Resources */,
 				D7E3073A1F72BA6B0065F2E1 /* G12F01S01VC.xib in Resources */,
+				9056EAAD20775FEB00083F5C /* G15F00S02VC.xib in Resources */,
 				84284E1C1D40DF050079DEBC /* LaunchScreen.storyboard in Resources */,
 				84A4C06B1D6311D000C0B84C /* example.txt in Resources */,
 				905AE92D205B743E0094EF69 /* GoogleService-Info.plist in Resources */,
@@ -975,6 +1018,7 @@
 				84284E191D40DF050079DEBC /* Assets.xcassets in Resources */,
 				D7359B121F67C56C0032F0AF /* logo_new.png in Resources */,
 				D717774D1F5E87C1009CF656 /* LoadingViewVC.xib in Resources */,
+				9056EAA6207746ED00083F5C /* G15F00S01VC.xib in Resources */,
 				D7117B621F7ACF8F00B8C2FA /* G13F00S01VC.xib in Resources */,
 				D7804B3B1E7685CF00C94F75 /* G00HomeCell.xib in Resources */,
 				D7359B231F67D8F80032F0AF /* bg_main_1_1_2048_2048.png in Resources */,
@@ -1085,11 +1129,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9056EAA5207746ED00083F5C /* G15F00S01VC.swift in Sources */,
 				D7804B431E7685E700C94F75 /* G00InfomationVC.swift in Sources */,
 				D7671BED1E16E4680026DCFA /* G04F00S02MenuVC.swift in Sources */,
 				D7424AAA1E39BD1F00E442DC /* G04F01S05MenuVC.swift in Sources */,
 				D7F17CD91E5DF4A300208A73 /* OrderTransactionConfirmRespModel.swift in Sources */,
 				D7DDA4F61F77D3D100824FC4 /* TransactionStatusRequest.swift in Sources */,
+				9056EAAC20775FEB00083F5C /* G15F00S02VC.swift in Sources */,
 				90F3042E20440C860064F47A /* GetNearestAgentRespBean.swift in Sources */,
 				D7804B391E7685CF00C94F75 /* G00ConfigurationVC.swift in Sources */,
 				D70EDFBE1F96224A00658F64 /* G12F00VC.swift in Sources */,
@@ -1165,6 +1211,8 @@
 				D7C30A3D1E305BF900B3FDA6 /* OrderConfigRespModel.swift in Sources */,
 				D7E014A81E34647D001F26B6 /* G04F01S02MenuVC.swift in Sources */,
 				D7F684411E2F49E900D3D6F4 /* OrderConfigRequest.swift in Sources */,
+				90EF51BF207C8C8000CE0F92 /* BaseChildViewController.swift in Sources */,
+				9056EAA920775C7500083F5C /* NewsViewRequest.swift in Sources */,
 				D795D04C1F8C911D00001902 /* ReferInfoBean.swift in Sources */,
 				D71544AF1F6BB26600480486 /* G00LoginExtVC.swift in Sources */,
 				D76E580B1F7DF24900CF6557 /* G12F00S02VC.swift in Sources */,

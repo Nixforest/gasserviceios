@@ -1284,7 +1284,7 @@ class G13F00S01VC: BaseParentViewController {
     
     // MARK: Table view promotion list
     private func createPromotionList() {
-        let yPos = usingCodeView.frame.maxY + GlobalConst.MARGIN - getTopHeight() / 2
+        let yPos = usingCodeView.frame.maxY + GlobalConst.MARGIN/* - getTopHeight() / 2*/
         tblPromotion.frame = CGRect(
             x: (UIScreen.main.bounds.width - usingCodeView.frame.width) / 2,
             y: yPos,
@@ -1297,7 +1297,7 @@ class G13F00S01VC: BaseParentViewController {
     }
     
     private func updatePromotionList() {
-        let yPos = usingCodeView.frame.maxY + GlobalConst.MARGIN - getTopHeight() / 2
+        let yPos = usingCodeView.frame.maxY + GlobalConst.MARGIN/* - getTopHeight() / 2*/
         CommonProcess.updateViewPos(
             view: tblPromotion,
             x: (UIScreen.main.bounds.width - usingCodeView.frame.width) / 2,
