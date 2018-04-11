@@ -31,6 +31,8 @@ class G15F00S02VC: BaseChildViewController {
     var _btnOrder:          UIButton    = UIButton()
     /** Order btn */
     var _btnOrder2:         UIButton    = UIButton()
+    /** Scrollview */
+    var _scrollView:        UIScrollView = UIScrollView()
     
     // MARK: Constant
     var SCREEN_REAL_WIDTH_HD        = GlobalConst.HD_SCREEN_BOUND.w * BaseViewController.H_RATE_HD
@@ -118,12 +120,14 @@ class G15F00S02VC: BaseChildViewController {
         default:
             break
         }
-        self.view.addSubview(_lblPromotion)
-        self.view.addSubview(_lblPromotionValue)
-        self.view.addSubview(_lblTitle)
-        self.view.addSubview(_lblDate)
-        self.view.addSubview(_imgBanner)
-        self.view.addSubview(_webViewContent)
+        createScrollView()
+        self._scrollView.addSubview(_lblPromotion)
+        self._scrollView.addSubview(_lblPromotionValue)
+        self._scrollView.addSubview(_lblTitle)
+        self._scrollView.addSubview(_lblDate)
+        self._scrollView.addSubview(_imgBanner)
+        self._scrollView.addSubview(_webViewContent)
+        self.view.addSubview(_scrollView)
         self.view.addSubview(_btnOrder)
         self.view.addSubview(_btnOrder2)
     }
@@ -179,6 +183,7 @@ class G15F00S02VC: BaseChildViewController {
         default:
             break
         }
+        updateScrollView()
     }
     
     /**
@@ -192,6 +197,7 @@ class G15F00S02VC: BaseChildViewController {
             let bean = model.getRecord()
             _lblPromotionValue.text = bean.code_no
             _lblTitle.text = bean.title
+            _lblDate.text = "Ngày: \(bean.created_date)"
             _imgBanner.getImgFromUrl(link: bean.url_banner,
                                      contentMode: .scaleAspectFit)
             
@@ -199,6 +205,7 @@ class G15F00S02VC: BaseChildViewController {
             
             // Update button
             updateButton()
+            updateScrollView()
         } else {
             showAlert(message: model.message)
         }
@@ -272,7 +279,7 @@ class G15F00S02VC: BaseChildViewController {
     private func createPromotionLabel(width: CGFloat) {
         _lblPromotion.frame         = CGRect(
             x: (UIScreen.main.bounds.width - width) / 2,
-            y: getTopHeight() + GlobalConst.MARGIN,
+            y: GlobalConst.MARGIN,
             width: width,
             height: GlobalConst.LABEL_H)
         _lblPromotion.text          = DomainConst.CONTENT00250.uppercased()
@@ -286,12 +293,16 @@ class G15F00S02VC: BaseChildViewController {
      * - parameter width: Width of label
      */
     private func updatePromotionLabel(width: CGFloat) {
+        var height = GlobalConst.LABEL_H
+        if _data.getRecord().code_no.isEmpty {
+            height = 0
+        }
         CommonProcess.updateViewPos(
             view: _lblPromotion,
             x: (UIScreen.main.bounds.width - width) / 2,
-            y: getTopHeight() + GlobalConst.MARGIN,
+            y: GlobalConst.MARGIN,
             w: width,
-            h: GlobalConst.LABEL_H)
+            h: height)
     }
     
     // MARK: Promotion value Label
@@ -317,12 +328,16 @@ class G15F00S02VC: BaseChildViewController {
      * - parameter width: Width of label
      */
     private func updatePromotionValueLabel(width: CGFloat) {
+        var height = GlobalConst.LABEL_H * 2
+        if _data.getRecord().code_no.isEmpty {
+            height = 0
+        }
         CommonProcess.updateViewPos(
             view: _lblPromotionValue,
             x: (UIScreen.main.bounds.width - width) / 2,
             y: _lblPromotion.frame.maxY + GlobalConst.MARGIN,
             w: width,
-            h: GlobalConst.LABEL_H * 2)
+            h: height)
     }
     
     // MARK: Title Label
@@ -432,6 +447,8 @@ class G15F00S02VC: BaseChildViewController {
             y: yPos,
             width: width,
             height: UIScreen.main.bounds.height - yPos - _btnOrder.frame.height)
+        _webViewContent.delegate = self
+        _webViewContent.scrollView.isScrollEnabled = false
     }
     
     /**
@@ -558,5 +575,35 @@ class G15F00S02VC: BaseChildViewController {
                 break
             }
         }
+    }
+    
+    // MARK: Scrollview
+    private func createScrollView() {
+        _scrollView.frame = CGRect(
+            x: 0, y: getTopHeight(),
+            width: UIScreen.main.bounds.width,
+            height: UIScreen.main.bounds.height - _btnOrder.frame.height - getTopHeight())
+        _scrollView.contentSize = CGSize(
+            width: UIScreen.main.bounds.width,
+            height: _webViewContent.frame.maxY - _lblPromotion.frame.minY + GlobalConst.MARGIN)
+    }
+    
+    internal func updateScrollView() {
+        _scrollView.frame = CGRect(
+            x: 0, y: getTopHeight(),
+            width: UIScreen.main.bounds.width,
+            height: UIScreen.main.bounds.height - _btnOrder.frame.height - getTopHeight())
+        _scrollView.contentSize = CGSize(
+            width: UIScreen.main.bounds.width,
+            height: _webViewContent.frame.maxY - _lblPromotion.frame.minY + GlobalConst.MARGIN)
+    }
+}
+
+// MARK: UIWebViewDelegate
+extension G15F00S02VC: UIWebViewDelegate {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        webView.frame.size.height = 1
+        webView.frame.size = webView.sizeThatFits(CGSize.zero)
+        updateScrollView()
     }
 }
