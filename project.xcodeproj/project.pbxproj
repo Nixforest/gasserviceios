@@ -132,8 +132,6 @@
 		903D40A8206E23080019B157 /* IssueViewRespBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903D40A7206E23080019B157 /* IssueViewRespBean.swift */; };
 		904CB833206E44F5009EA439 /* G02F00S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904CB831206E44F5009EA439 /* G02F00S03VC.swift */; };
 		904CB834206E44F5009EA439 /* G02F00S03VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 904CB832206E44F5009EA439 /* G02F00S03VC.xib */; };
-		90672F5A205F8DFB00F8FC2E /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907F30B2204CFB690029E7EE /* harpyframework.framework */; };
-		90672F5B205F8DFB00F8FC2E /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 907F30B2204CFB690029E7EE /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		90A16F76204F95FC002BF7E6 /* G07F00S02ExtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A16F74204F95FC002BF7E6 /* G07F00S02ExtVC.swift */; };
 		90A16F77204F95FC002BF7E6 /* G07F00S02ExtVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90A16F75204F95FC002BF7E6 /* G07F00S02ExtVC.xib */; };
 		90EE7741206CF4B9008CB021 /* G02Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EE7740206CF4B9008CB021 /* G02Const.swift */; };
@@ -144,6 +142,19 @@
 		90F98513206F3FA200B05A92 /* IssueReplyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F98512206F3FA200B05A92 /* IssueReplyRequest.swift */; };
 		924EABC41DF10CFC0056A303 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924EABC31DF10CFC0056A303 /* UserNotifications.framework */; };
 		A4BCD3FEB1037821B1B45CAE /* Pods_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F41D3740318824A959AF708A /* Pods_project.framework */; };
+		CF2816CA208241D4008F3AD6 /* harpyframework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2816C7208241CB008F3AD6 /* harpyframework.framework */; };
+		CF33375C20824755008885E8 /* G15F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF33375820824754008885E8 /* G15F00S02VC.swift */; };
+		CF33375D20824755008885E8 /* G15F00S02VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF33375B20824755008885E8 /* G15F00S02VC.xib */; };
+		CF3337612082481D008885E8 /* BaseChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3337602082481D008885E8 /* BaseChildViewController.swift */; };
+		CF333764208249AA008885E8 /* G15F00S01VC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF333762208249AA008885E8 /* G15F00S01VC.xib */; };
+		CF333765208249AA008885E8 /* G15F00S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF333763208249AA008885E8 /* G15F00S01VC.swift */; };
+		CF3534A620825E3100FD016C /* NewsViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3534A320825E3100FD016C /* NewsViewRequest.swift */; };
+		CF3534B8208262FD00FD016C /* G13Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3534AD208262FC00FD016C /* G13Const.swift */; };
+		CF3534B9208262FD00FD016C /* ReferInfoRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3534AF208262FC00FD016C /* ReferInfoRespModel.swift */; };
+		CF3534BA208262FD00FD016C /* ReferInfoBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3534B0208262FC00FD016C /* ReferInfoBean.swift */; };
+		CF3534BB208262FD00FD016C /* ReferInvitedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3534B1208262FC00FD016C /* ReferInvitedModel.swift */; };
+		CF3534BC208262FD00FD016C /* PromotionAddRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3534B3208262FC00FD016C /* PromotionAddRequest.swift */; };
+		CF3534BD208262FD00FD016C /* ReferInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3534B4208262FC00FD016C /* ReferInfoRequest.swift */; };
 		D706C22D1E544AC000F89B8A /* G05Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706C22C1E544AC000F89B8A /* G05Const.swift */; };
 		D709FE921E86BCA600F32A7E /* CustomerFamilyCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D709FE911E86BCA600F32A7E /* CustomerFamilyCreateRequest.swift */; };
 		D709FE951E86ECCB00F32A7E /* CustomerFamilyUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D709FE941E86ECCB00F32A7E /* CustomerFamilyUpdateRequest.swift */; };
@@ -445,23 +456,16 @@
 			remoteGlobalIDString = 84284E0D1D40DF050079DEBC;
 			remoteInfo = project;
 		};
-		90672F5C205F8DFB00F8FC2E /* PBXContainerItemProxy */ = {
+		CF2816C6208241CB008F3AD6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 907F30AC204CFB680029E7EE /* harpyframework.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D7BE044C1E0584D900D37740;
-			remoteInfo = harpyframework;
-		};
-		907F30B1204CFB690029E7EE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 907F30AC204CFB680029E7EE /* harpyframework.xcodeproj */;
+			containerPortal = CF2816C1208241CA008F3AD6 /* harpyframework.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D7BE044D1E0584D900D37740;
 			remoteInfo = harpyframework;
 		};
-		907F30B3204CFB690029E7EE /* PBXContainerItemProxy */ = {
+		CF2816C8208241CB008F3AD6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 907F30AC204CFB680029E7EE /* harpyframework.xcodeproj */;
+			containerPortal = CF2816C1208241CA008F3AD6 /* harpyframework.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D7BE04561E0584DA00D37740;
 			remoteInfo = harpyframeworkTests;
@@ -475,7 +479,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				90672F5B205F8DFB00F8FC2E /* harpyframework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -616,7 +619,6 @@
 		903D40A7206E23080019B157 /* IssueViewRespBean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IssueViewRespBean.swift; path = G02/Model/IssueViewRespBean.swift; sourceTree = "<group>"; };
 		904CB831206E44F5009EA439 /* G02F00S03VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = G02F00S03VC.swift; path = G02/F00/G02F00S03VC.swift; sourceTree = "<group>"; };
 		904CB832206E44F5009EA439 /* G02F00S03VC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = G02F00S03VC.xib; path = G02/F00/G02F00S03VC.xib; sourceTree = "<group>"; };
-		907F30AC204CFB680029E7EE /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework_master/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 		90A16F74204F95FC002BF7E6 /* G07F00S02ExtVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = G07F00S02ExtVC.swift; path = G07/F00/G07F00S02ExtVC.swift; sourceTree = "<group>"; };
 		90A16F75204F95FC002BF7E6 /* G07F00S02ExtVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = G07F00S02ExtVC.xib; path = G07/F00/G07F00S02ExtVC.xib; sourceTree = "<group>"; };
 		90EE7740206CF4B9008CB021 /* G02Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G02Const.swift; path = G02/G02Const.swift; sourceTree = "<group>"; };
@@ -628,6 +630,19 @@
 		924EABC31DF10CFC0056A303 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		92D05F711DEB215C00DA87C3 /* project.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = project.entitlements; sourceTree = "<group>"; };
 		A18C7C071B3A30513EC7D78C /* Pods-project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project.debug.xcconfig"; path = "project/Pods/Target Support Files/Pods-project/Pods-project.debug.xcconfig"; sourceTree = "<group>"; };
+		CF2816C1208241CA008F3AD6 /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
+		CF33375820824754008885E8 /* G15F00S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G15F00S02VC.swift; sourceTree = "<group>"; };
+		CF33375B20824755008885E8 /* G15F00S02VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = G15F00S02VC.xib; sourceTree = "<group>"; };
+		CF3337602082481D008885E8 /* BaseChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseChildViewController.swift; sourceTree = "<group>"; };
+		CF333762208249AA008885E8 /* G15F00S01VC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = G15F00S01VC.xib; sourceTree = "<group>"; };
+		CF333763208249AA008885E8 /* G15F00S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G15F00S01VC.swift; sourceTree = "<group>"; };
+		CF3534A320825E3100FD016C /* NewsViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewRequest.swift; sourceTree = "<group>"; };
+		CF3534AD208262FC00FD016C /* G13Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G13Const.swift; sourceTree = "<group>"; };
+		CF3534AF208262FC00FD016C /* ReferInfoRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferInfoRespModel.swift; sourceTree = "<group>"; };
+		CF3534B0208262FC00FD016C /* ReferInfoBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferInfoBean.swift; sourceTree = "<group>"; };
+		CF3534B1208262FC00FD016C /* ReferInvitedModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferInvitedModel.swift; sourceTree = "<group>"; };
+		CF3534B3208262FC00FD016C /* PromotionAddRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionAddRequest.swift; sourceTree = "<group>"; };
+		CF3534B4208262FC00FD016C /* ReferInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferInfoRequest.swift; sourceTree = "<group>"; };
 		D706C22C1E544AC000F89B8A /* G05Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05Const.swift; path = G05/G05Const.swift; sourceTree = "<group>"; };
 		D709FE911E86BCA600F32A7E /* CustomerFamilyCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerFamilyCreateRequest.swift; path = G06/API/CustomerFamilyCreateRequest.swift; sourceTree = "<group>"; };
 		D709FE941E86ECCB00F32A7E /* CustomerFamilyUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerFamilyUpdateRequest.swift; path = G06/API/CustomerFamilyUpdateRequest.swift; sourceTree = "<group>"; };
@@ -920,9 +935,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF2816CA208241D4008F3AD6 /* harpyframework.framework in Frameworks */,
 				924EABC41DF10CFC0056A303 /* UserNotifications.framework in Frameworks */,
 				A4BCD3FEB1037821B1B45CAE /* Pods_project.framework in Frameworks */,
-				90672F5A205F8DFB00F8FC2E /* harpyframework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -955,7 +970,7 @@
 		84284E051D40DF050079DEBC = {
 			isa = PBXGroup;
 			children = (
-				907F30AC204CFB680029E7EE /* harpyframework.xcodeproj */,
+				CF2816C1208241CA008F3AD6 /* harpyframework.xcodeproj */,
 				D77A0B3B1EFAC86A00E66E70 /* bg1.jpg */,
 				D77A0B391EFAC82500E66E70 /* gas_logo.png */,
 				84284E101D40DF050079DEBC /* project */,
@@ -980,6 +995,8 @@
 		84284E101D40DF050079DEBC /* project */ = {
 			isa = PBXGroup;
 			children = (
+				CF3534AC208262FC00FD016C /* G13 */,
+				CF33375E20824762008885E8 /* G15 */,
 				92D05F711DEB215C00DA87C3 /* project.entitlements */,
 				92BF0C1D1DC1B2D1009B1DA4 /* G00 */,
 				92C1C95B1DBD28D0005A10C8 /* G01 */,
@@ -1269,15 +1286,6 @@
 			path = MBProgessHUD;
 			sourceTree = "<group>";
 		};
-		907F30AD204CFB680029E7EE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				907F30B2204CFB690029E7EE /* harpyframework.framework */,
-				907F30B4204CFB690029E7EE /* harpyframeworkTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		90EE7738206CF489008CB021 /* G02 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1347,6 +1355,7 @@
 			children = (
 				902F2512206E37B600DBA04F /* Library */,
 				D7CDEC261FEA55E300FA5A31 /* BaseParentViewController.swift */,
+				CF3337602082481D008885E8 /* BaseChildViewController.swift */,
 				D7CDEC211FEA55C700FA5A31 /* Menu */,
 				D733730F1E22CCC6004F2781 /* Podfile */,
 				D7F684421E2F4B6600D3D6F4 /* MapViewController.swift */,
@@ -1444,6 +1453,72 @@
 				D70ECED01EE2B79800997F1A /* G01F00S05VC.swift */,
 			);
 			name = F00;
+			sourceTree = "<group>";
+		};
+		CF2816C2208241CA008F3AD6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CF2816C7208241CB008F3AD6 /* harpyframework.framework */,
+				CF2816C9208241CB008F3AD6 /* harpyframeworkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CF33375E20824762008885E8 /* G15 */ = {
+			isa = PBXGroup;
+			children = (
+				CF3534A720825E3500FD016C /* API */,
+				CF33375F20824771008885E8 /* F00 */,
+			);
+			name = G15;
+			sourceTree = "<group>";
+		};
+		CF33375F20824771008885E8 /* F00 */ = {
+			isa = PBXGroup;
+			children = (
+				CF333763208249AA008885E8 /* G15F00S01VC.swift */,
+				CF333762208249AA008885E8 /* G15F00S01VC.xib */,
+				CF33375820824754008885E8 /* G15F00S02VC.swift */,
+				CF33375B20824755008885E8 /* G15F00S02VC.xib */,
+			);
+			name = F00;
+			sourceTree = "<group>";
+		};
+		CF3534A720825E3500FD016C /* API */ = {
+			isa = PBXGroup;
+			children = (
+				CF3534A320825E3100FD016C /* NewsViewRequest.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		CF3534AC208262FC00FD016C /* G13 */ = {
+			isa = PBXGroup;
+			children = (
+				CF3534AD208262FC00FD016C /* G13Const.swift */,
+				CF3534AE208262FC00FD016C /* Model */,
+				CF3534B2208262FC00FD016C /* API */,
+			);
+			path = G13;
+			sourceTree = "<group>";
+		};
+		CF3534AE208262FC00FD016C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CF3534AF208262FC00FD016C /* ReferInfoRespModel.swift */,
+				CF3534B0208262FC00FD016C /* ReferInfoBean.swift */,
+				CF3534B1208262FC00FD016C /* ReferInvitedModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CF3534B2208262FC00FD016C /* API */ = {
+			isa = PBXGroup;
+			children = (
+				CF3534B3208262FC00FD016C /* PromotionAddRequest.swift */,
+				CF3534B4208262FC00FD016C /* ReferInfoRequest.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		D706C22B1E544A8D00F89B8A /* G05 */ = {
@@ -2174,7 +2249,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				90672F5D205F8DFB00F8FC2E /* PBXTargetDependency */,
 			);
 			name = project;
 			productName = project;
@@ -2263,8 +2337,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 907F30AD204CFB680029E7EE /* Products */;
-					ProjectRef = 907F30AC204CFB680029E7EE /* harpyframework.xcodeproj */;
+					ProductGroup = CF2816C2208241CA008F3AD6 /* Products */;
+					ProjectRef = CF2816C1208241CA008F3AD6 /* harpyframework.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -2277,18 +2351,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		907F30B2204CFB690029E7EE /* harpyframework.framework */ = {
+		CF2816C7208241CB008F3AD6 /* harpyframework.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = harpyframework.framework;
-			remoteRef = 907F30B1204CFB690029E7EE /* PBXContainerItemProxy */;
+			remoteRef = CF2816C6208241CB008F3AD6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		907F30B4204CFB690029E7EE /* harpyframeworkTests.xctest */ = {
+		CF2816C9208241CB008F3AD6 /* harpyframeworkTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = harpyframeworkTests.xctest;
-			remoteRef = 907F30B3204CFB690029E7EE /* PBXContainerItemProxy */;
+			remoteRef = CF2816C8208241CB008F3AD6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2302,6 +2376,7 @@
 				902F25B5206E37B600DBA04F /* Library.png in Resources */,
 				902F25CB206E37B600DBA04F /* Refresh.png in Resources */,
 				D77F061D1E7175D000797A6B /* G00HomeCell.xib in Resources */,
+				CF333764208249AA008885E8 /* G15F00S01VC.xib in Resources */,
 				902F25D2206E37B600DBA04F /* GreenStepField.xib in Resources */,
 				902F258B206E37B600DBA04F /* SingleLineTableViewCell.xib in Resources */,
 				D7EA53D61EE408F6004CFE1F /* G11F00S01Cell.xib in Resources */,
@@ -2353,6 +2428,7 @@
 				902F25BA206E37B600DBA04F /* GLogout.png in Resources */,
 				902F25AC206E37B600DBA04F /* GHome.png in Resources */,
 				902F25B6206E37B600DBA04F /* GMinus.png in Resources */,
+				CF33375D20824755008885E8 /* G15F00S02VC.xib in Resources */,
 				D7D233391ECF451D0063CA04 /* CashBookCell.xib in Resources */,
 				902F25BD206E37B600DBA04F /* GPassword.png in Resources */,
 				D7D89F481FF9EAEB001FB2BB /* G14F00S02VC.xib in Resources */,
@@ -2483,6 +2559,7 @@
 				D77F06201E7175D000797A6B /* G00InfomationVC.swift in Sources */,
 				902F25D4206E37B600DBA04F /* GreenEmptyView.swift in Sources */,
 				D77F06741E7177E000797A6B /* OrderVIPViewRequest.swift in Sources */,
+				CF3337612082481D008885E8 /* BaseChildViewController.swift in Sources */,
 				D78AF60F1FF5311600186D81 /* G01F02S08.swift in Sources */,
 				902F25A0206E37B600DBA04F /* GreenDefine.swift in Sources */,
 				902F25EC206E37B600DBA04F /* MBProgressHUD.m in Sources */,
@@ -2499,6 +2576,7 @@
 				D77F06471E7176F700797A6B /* G01F01S03VC.swift in Sources */,
 				D7F0FF331EE02934007FDC81 /* UpdateStoreCardRequest.swift in Sources */,
 				D78B045F1ED137C50064DE88 /* G09F01S02.swift in Sources */,
+				CF3534BC208262FD00FD016C /* PromotionAddRequest.swift in Sources */,
 				D7D28B6F1EB98EED006DDF83 /* G08F00S01VC.swift in Sources */,
 				D7C491411ECC636E00CEF98C /* G09Const.swift in Sources */,
 				903D40A5206E1F250019B157 /* G02F00S02VC.swift in Sources */,
@@ -2560,6 +2638,7 @@
 				D78A2C9C1EBBAC50007FD27B /* G08F01S01.swift in Sources */,
 				D712BE881EEA791D00F679CE /* G08F01S05.swift in Sources */,
 				D78B04651ED191750064DE88 /* G09F01S05.swift in Sources */,
+				CF3534BD208262FD00FD016C /* ReferInfoRequest.swift in Sources */,
 				D7BA68811E83A34F001C675D /* CustomerFamilyListRequest.swift in Sources */,
 				902F25EA206E37B600DBA04F /* Service.swift in Sources */,
 				90EE7741206CF4B9008CB021 /* G02Const.swift in Sources */,
@@ -2585,6 +2664,7 @@
 				903D409C206DFE290019B157 /* IssueListBean.swift in Sources */,
 				D71DB0E01E84D25100BED724 /* CustomerFamilyViewRequest.swift in Sources */,
 				D77F06531E71771A00797A6B /* G01F02S01.swift in Sources */,
+				CF3534A620825E3100FD016C /* NewsViewRequest.swift in Sources */,
 				D709FE951E86ECCB00F32A7E /* CustomerFamilyUpdateRequest.swift in Sources */,
 				D78F99E31ECD47C8003CB814 /* EmployeeCashBookUpdateRequest.swift in Sources */,
 				D709FE9B1E86F68B00F32A7E /* WorkingReportCreateRequest.swift in Sources */,
@@ -2596,8 +2676,10 @@
 				D77F06481E7176F700797A6B /* G01F01VC.swift in Sources */,
 				D77F06821E7177F500797A6B /* G05F00S02VC.swift in Sources */,
 				902F25E4206E37B600DBA04F /* LoginUser.swift in Sources */,
+				CF3534B9208262FD00FD016C /* ReferInfoRespModel.swift in Sources */,
 				D77E62CD1EDD7C0F00FD5512 /* ReportInventoryRespBean.swift in Sources */,
 				D78EF9871FF1EFD90044713B /* G14F01S01.swift in Sources */,
+				CF3534BA208262FD00FD016C /* ReferInfoBean.swift in Sources */,
 				D78F99F91ECDAD68003CB814 /* G05SearchCustomerRespModel.swift in Sources */,
 				902F25D3206E37B600DBA04F /* GreenCheckbox.swift in Sources */,
 				D7EA53BF1EE3CBA8004CFE1F /* TicketReplyRequest.swift in Sources */,
@@ -2634,6 +2716,7 @@
 				D78A2C9E1EBBAF20007FD27B /* G08F01Sum.swift in Sources */,
 				19D74A851EE466D200B7DE47 /* G11F01S01.swift in Sources */,
 				D76E7E741EDE67F9005D5585 /* ReportCashbookRespBean.swift in Sources */,
+				CF333765208249AA008885E8 /* G15F00S01VC.swift in Sources */,
 				D77F061F1E7175D000797A6B /* G00HomeVC.swift in Sources */,
 				902F25A3206E37B600DBA04F /* GreenView.swift in Sources */,
 				D709FE971E86EF5400F32A7E /* WorkingReportListRequest.swift in Sources */,
@@ -2689,6 +2772,7 @@
 				D77F06441E7176F700797A6B /* G01F01MenuVC.swift in Sources */,
 				902F25A1206E37B600DBA04F /* GreenLabel.swift in Sources */,
 				D7D6FD761F0A081B001369D9 /* G07F02VC.swift in Sources */,
+				CF3534BB208262FD00FD016C /* ReferInvitedModel.swift in Sources */,
 				D7F8E3581FE8CED60076A8DA /* TransactionCreateResp.swift in Sources */,
 				902F25E9206E37B600DBA04F /* ServiceFunctions.swift in Sources */,
 				D76C17AD1EE1660400B71FAE /* FamilyUpholdBean.swift in Sources */,
@@ -2723,6 +2807,7 @@
 				D7EBB7E71EA9B34E00BE6612 /* G05F00S03VC.swift in Sources */,
 				D71112A31EF51FAB002CBDFE /* NotifyBean.swift in Sources */,
 				D70AC2C91EB65E56003F1673 /* StoreCardListRequest.swift in Sources */,
+				CF3534B8208262FD00FD016C /* G13Const.swift in Sources */,
 				D78B045B1ED12E700064DE88 /* G09F01S01.swift in Sources */,
 				D78A2C921EBB7F55007FD27B /* G08F00S02VC.swift in Sources */,
 				902F25DC206E37B600DBA04F /* GreenInfoField.swift in Sources */,
@@ -2764,6 +2849,7 @@
 				D7CBD06F1E8F673F00FB3BD6 /* G06F01S02.swift in Sources */,
 				90EE7743206CF4C0008CB021 /* IssueListRequest.swift in Sources */,
 				902F259E206E37B600DBA04F /* GreenExtension+Array.swift in Sources */,
+				CF33375C20824755008885E8 /* G15F00S02VC.swift in Sources */,
 				D76C17B11EE1704E00B71FAE /* FamilyUpholdViewRespModel.swift in Sources */,
 				D7D24D0B1EF4E98D00FF1D0C /* G00F01Sum.swift in Sources */,
 				D79C31771E9B8506006F3683 /* G07F00S02VC.swift in Sources */,
@@ -2829,11 +2915,6 @@
 			isa = PBXTargetDependency;
 			target = 84284E0D1D40DF050079DEBC /* project */;
 			targetProxy = 84284E2E1D40DF050079DEBC /* PBXContainerItemProxy */;
-		};
-		90672F5D205F8DFB00F8FC2E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = harpyframework;
-			targetProxy = 90672F5C205F8DFB00F8FC2E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
