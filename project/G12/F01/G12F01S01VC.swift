@@ -1767,9 +1767,10 @@ class G12F01S01VC: BaseParentViewController {
             title: data.link_web_text, style: .destructive,
             handler: {
                 alert in
-                if let url = URL(string: data.link_web) {
-                    UIApplication.shared.openURL(url)
-                }
+//                if let url = URL(string: data.link_web) {
+//                    UIApplication.shared.openURL(url)
+//                }
+                CommonProcess.openWeb(link: data.link_web)
                 self.handleShowPopup()
         })
         

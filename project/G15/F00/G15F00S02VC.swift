@@ -240,9 +240,10 @@ class G15F00S02VC: BaseChildViewController {
             case .shareCode:
                 break
             case .normal, .openWeb:
-                if let url = URL(string: _data.getRecord().link_web) {
-                    UIApplication.shared.openURL(url)
-                }
+//                if let url = URL(string: _data.getRecord().link_web) {
+//                    UIApplication.shared.openURL(url)
+//                }
+                CommonProcess.openWeb(link: _data.getRecord().link_web)
                 break
             case .usingCode, .openWebUsingCode:
                 if let curVC = BaseViewController.getCurrentViewController() {
@@ -259,9 +260,10 @@ class G15F00S02VC: BaseChildViewController {
      * Handle when tap on order button
      */
     internal func btnOrder2Tapped(_ sender: AnyObject) {
-        if let url = URL(string: _data.getRecord().link_web) {
-            UIApplication.shared.openURL(url)
-        }
+//        if let url = URL(string: _data.getRecord().link_web) {
+//            UIApplication.shared.openURL(url)
+//        }
+        CommonProcess.openWeb(link: _data.getRecord().link_web)
     }
     
     override func openPromotionActiveUsingCode(code: String) {
@@ -492,13 +494,26 @@ class G15F00S02VC: BaseChildViewController {
      * - parameter height: Height of button
      */
     private func updateOrderButton(width: CGFloat, height: CGFloat) {
-        if _data.getRecord().type == BottomMsgCellTypeEnum.openWebUsingCode.rawValue {
+//        if _data.getRecord().type == BottomMsgCellTypeEnum.openWebUsingCode.rawValue {
+//            CommonProcess.updateViewPos(
+//                view: _btnOrder,
+//                x: (UIScreen.main.bounds.width - width) / 2,
+//                y: UIScreen.main.bounds.height - height,
+//                w: width / 2, h: height)
+//        } else {
+//            CommonProcess.updateViewPos(
+//                view: _btnOrder,
+//                x: (UIScreen.main.bounds.width - width) / 2,
+//                y: UIScreen.main.bounds.height - height,
+//                w: width, h: height)
+//        }
+        if !self._btnOrder.isHidden && !self._btnOrder2.isHidden {
             CommonProcess.updateViewPos(
                 view: _btnOrder,
                 x: (UIScreen.main.bounds.width - width) / 2,
                 y: UIScreen.main.bounds.height - height,
                 w: width / 2, h: height)
-        } else {
+        } else if (!self._btnOrder.isHidden && self._btnOrder2.isHidden) {
             CommonProcess.updateViewPos(
                 view: _btnOrder,
                 x: (UIScreen.main.bounds.width - width) / 2,
@@ -534,20 +549,33 @@ class G15F00S02VC: BaseChildViewController {
      * - parameter height: Height of button
      */
     private func updateOrder2Button(width: CGFloat, height: CGFloat) {
-        CommonProcess.updateViewPos(
-            view: _btnOrder2,
-            x: UIScreen.main.bounds.width / 2,
-            y: UIScreen.main.bounds.height - height,
-            w: width / 2, h: height)
+//        CommonProcess.updateViewPos(
+//            view: _btnOrder2,
+//            x: UIScreen.main.bounds.width / 2,
+//            y: UIScreen.main.bounds.height - height,
+//            w: width / 2, h: height)
+        if !self._btnOrder.isHidden && !self._btnOrder2.isHidden {
+                CommonProcess.updateViewPos(
+                    view: _btnOrder2,
+                    x: (UIScreen.main.bounds.width - width) / 2,
+                    y: UIScreen.main.bounds.height - height,
+                    w: width / 2, h: height)
+            } else if (self._btnOrder.isHidden && !self._btnOrder2.isHidden) {
+                CommonProcess.updateViewPos(
+                    view: _btnOrder2,
+                    x: (UIScreen.main.bounds.width - width) / 2,
+                    y: UIScreen.main.bounds.height - height,
+                    w: width, h: height)
+        }
     }
     
     /**
      * Handle update buttons.
      */
     private func updateButton() {
-        updateChildrenViews()
         // Button 1
-        
+        _btnOrder.setTitle(_data.getRecord().code_no_text, for: UIControlState())
+        _btnOrder.setTitleColor(GlobalConst.URL_BUTTON_COLOR, for: UIControlState())
         // Button 2
         _btnOrder2.setTitle(_data.getRecord().link_web_text, for: UIControlState())
         _btnOrder2.setTitleColor(GlobalConst.URL_BUTTON_COLOR, for: UIControlState())
@@ -575,6 +603,9 @@ class G15F00S02VC: BaseChildViewController {
                 break
             }
         }
+        self._btnOrder.isHidden = self._data.getRecord().code_no.isEmpty
+        self._btnOrder2.isHidden = self._data.getRecord().link_web.isEmpty
+        updateChildrenViews()
     }
     
     // MARK: Scrollview
