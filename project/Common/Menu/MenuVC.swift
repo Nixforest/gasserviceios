@@ -173,6 +173,11 @@ class MenuVC: BaseMenuViewController {
     }
     //-- BUG0195-SPJ (NguyenPT 20180411) Add function announce
     
+    override func openMapAgent() {
+        let vc = MapAgentViewController(nibName: MapAgentViewController.theClassName, bundle: nil)
+        self.push(vc, animated: true)
+    }
+    
     override func update() {
         super.update()
         
