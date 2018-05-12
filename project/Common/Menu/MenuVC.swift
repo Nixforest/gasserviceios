@@ -173,10 +173,12 @@ class MenuVC: BaseMenuViewController {
     }
     //-- BUG0195-SPJ (NguyenPT 20180411) Add function announce
     
+    //++ BUG0196-SPJ (NguyenPT 20180511) Gas24h - Add new function: Map agent
     override func openMapAgent() {
         let vc = MapAgentViewController(nibName: MapAgentViewController.theClassName, bundle: nil)
         self.push(vc, animated: true)
     }
+    //-- BUG0196-SPJ (NguyenPT 20180511) Gas24h - Add new function: Map agent
     
     override func update() {
         super.update()
