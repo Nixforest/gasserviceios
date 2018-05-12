@@ -11,7 +11,11 @@ import harpyframework
 
 class G07F02VC: StepVC, StepDoneDelegate {
     /** Current data */
-    public static var _data: CustomerFamilyBean = CustomerFamilyBean()
+    public static var _data:    CustomerFamilyBean  = CustomerFamilyBean()
+    //++ BUG0197-SPJ (NguyenPT 20180512) Add new field transaction id
+    /** Current order id */
+    public static var _orderId: String              = DomainConst.NUMBER_ZERO_VALUE
+    //-- BUG0197-SPJ (NguyenPT 20180512) Add new field transaction id
 
     override func viewDidLoad() {
         // Get height of status bar + navigation bar
@@ -95,7 +99,10 @@ class G07F02VC: StepVC, StepDoneDelegate {
             serial:         G07F02VC._data.serial,
             hgd_doi_thu:    G07F02VC._data.hgd_doi_thu,
             customer_id:    G07F02VC._data.id,
-            ccsCode:        G07F02VC._data.ccsCode)
+            ccsCode:        G07F02VC._data.ccsCode,
+            //++ BUG0197-SPJ (NguyenPT 20180512) Add new field transaction id
+            transaction_id: G07F02VC._orderId)
+            //-- BUG0197-SPJ (NguyenPT 20180512) Add new field transaction id
     }
     
     /**

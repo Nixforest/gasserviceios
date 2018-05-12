@@ -126,8 +126,8 @@ public extension String
             return false
         }
     }
-    func capitalizingFirstLetter() -> String {
-        var result = ""
+//    func capitalizingFirstLetter() -> String {
+//        var result = ""
 //        let split = self.capitalized.split(separator: " ")
 //        for  i in 0..<split.count{
 //            let str = split[i]
@@ -138,12 +138,12 @@ public extension String
 //            
 //            
 //        }
-        return result
-    }
+//        return result
+//    }
     
-    mutating func capitalizeFirstLetter() {
-        self = self.capitalizingFirstLetter()
-    }
+//    mutating func capitalizeFirstLetter() {
+//        self = self.capitalizingFirstLetter()
+//    }
 
     
 

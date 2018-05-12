@@ -1134,6 +1134,9 @@ class G07F00S02ExtVC: ChildExtViewController {
      */
     private func updateCustomer() {
         G07F02VC._data = _customerModel
+        //++ BUG0197-SPJ (NguyenPT 20180512) Add new field transaction id
+        G07F02VC._orderId = self._id
+        //-- BUG0197-SPJ (NguyenPT 20180512) Add new field transaction id
         G07F02S01._selectedValue = (_customerModel.name, _customerModel.phone)
         G07F02S02._fullAddress.setData(bean: FullAddressBean(
             provinceId:     _customerModel.province_id,

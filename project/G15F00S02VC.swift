@@ -56,7 +56,7 @@ class G15F00S02VC: BaseChildViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.createNavigationBar(title: DomainConst.CONTENT00544)
+        self.createNavigationBar(title: DomainConst.CONTENT00582)
         createChildrenViews()
         requestData()
     }
