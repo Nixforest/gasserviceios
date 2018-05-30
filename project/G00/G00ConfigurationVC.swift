@@ -20,6 +20,7 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var configView: UIView!
     /** Config table view */
     @IBOutlet weak var configTableView: UITableView!
+    var _data:      [ConfigBean] = [ConfigBean]()
     
     // MARK: Actions
     //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
@@ -61,7 +62,7 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
             x: 0,
             y: 0,
             width: self.view.frame.size.width,
-            height: self.view.frame.size.height)
+            height: self.view.frame.size.height - searchBar.frame.size.height)
         searchBar.placeholder = DomainConst.CONTENT00128
         
         // Search bar
@@ -77,14 +78,33 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
         //setupNavigationBar(title: DomainConst.CONTENT00128, isNotifyEnable: true)
         createNavigationBar(title: DomainConst.CONTENT00128)
         //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
+        setData()
     }
-
-    /**
-     * Did receive memory warning
-     */
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    private func setData() {
+        _data.append(ConfigBean(id: "1", name: "Test Google Map"))
+        _data.append(ConfigBean(id: "2", name: "Test QR code"))
+        _data.append(ConfigBean(id: "3", name: "Test Loading"))
+        _data.append(ConfigBean(id: "4", name: "Test multi-device"))
+        _data.append(ConfigBean(id: "Device name", name: UIDevice.current.name))
+        _data.append(ConfigBean(id: "Device model", name: UIDevice.current.model))
+        _data.append(ConfigBean(id: "BatteryLevel", name: "\(UIDevice.current.batteryLevel)"))
+        _data.append(ConfigBean(id: "BatteryState", name: "\(UIDevice.current.batteryState)"))
+        if let identify = UIDevice.current.identifierForVendor {
+            _data.append(ConfigBean(id: "IdentifierForVendor", name: "\(identify.description)"))
+        }
+        
+        _data.append(ConfigBean(id: "IsBatteryMonitoringEnabled", name: "\(UIDevice.current.isBatteryMonitoringEnabled)"))
+        _data.append(ConfigBean(id: "IsGeneratingDeviceOrientationNotifications", name: "\(UIDevice.current.isGeneratingDeviceOrientationNotifications)"))
+        _data.append(ConfigBean(id: "IsMultitaskingSupported", name: "\(UIDevice.current.isMultitaskingSupported)"))
+        _data.append(ConfigBean(id: "isProximityMonitoringEnabled", name: "\(UIDevice.current.isProximityMonitoringEnabled)"))
+        _data.append(ConfigBean(id: "localizedModel", name: "\(UIDevice.current.localizedModel)"))
+        _data.append(ConfigBean(id: "orientation", name: "\(UIDevice.current.orientation)"))
+        _data.append(ConfigBean(id: "proximityState", name: "\(UIDevice.current.proximityState)"))
+        _data.append(ConfigBean(id: "systemName", name: "\(UIDevice.current.systemName)"))
+        _data.append(ConfigBean(id: "systemVersion", name: "\(UIDevice.current.systemVersion)"))
+        _data.append(ConfigBean(id: "userInterfaceIdiom", name: "\(UIDevice.current.userInterfaceIdiom)"))
+        _data.append(ConfigBean(id: "OS version", name: "\(UIDevice.current.systemName) \(UIDevice.current.systemVersion)"))
     }
     
     // MARK: - Table view data source
@@ -102,7 +122,7 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
             return 2
         case 1:
             if BaseModel.shared.checkTrainningMode() {
-                return 4
+                return _data.count
             }
             return 0
         default:
@@ -144,24 +164,28 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
             }
         case 1:                     // Test section
             if BaseModel.shared.checkTrainningMode() {
-                switch indexPath.row {
-                case 0:         // Test google map
+                let data = _data[indexPath.row]
+                switch data.id {
+                case "1":         // Test google map
                     cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
                                  name: "Test Google Map",
                                  value: DomainConst.BLANK)
-                case 1:         // Test QR code
+                case "2":         // Test QR code
                     cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
                                  name: "Test QR code",
                                  value: DomainConst.BLANK)
-                case 2:         // Test QR code
+                case "3":         // Test QR code
                     cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
                                  name: "Test Loading",
                                  value: DomainConst.BLANK)
-                case 3:         // Test QR code
+                case "4":         // Test QR code
                     cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
                                  name: "Test multi-device",
                                  value: DomainConst.BLANK)
                 default:
+                    cell.setData(leftImg: DomainConst.INFORMATION_IMG_NAME,
+                                 name: data.id,
+                                 value: data.name)
                     break
                 }
             }
@@ -187,16 +211,18 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
             }
             break
         case 1:                     // Test section
-            switch indexPath.row {
-            case 0:
+            let data = _data[indexPath.row]
+            switch data.id {
+            case "1":
                 testGoogleMap()
-            case 1:
+            case "2":
                 testQRCode()
-            case 2:
+            case "3":
                 testLoadingView()
-            case 3:
+            case "4":
                 testMultiDevice()
             default:
+                showAlert(message: data.name)
                 break
             }
             break
