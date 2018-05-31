@@ -8,6 +8,7 @@
 
 import UIKit
 import harpyframework
+import UserNotifications
 
 //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
 //class G00ConfigurationVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
@@ -47,7 +48,6 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
         //++ BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
 //        asignNotifyForMenuItem()
         //-- BUG0043-SPJ (NguyenPT 20170301) Change how to menu work
-        
         // Config view
         configView.translatesAutoresizingMaskIntoConstraints = true
         configView.frame = CGRect(
@@ -62,7 +62,7 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
             x: 0,
             y: 0,
             width: self.view.frame.size.width,
-            height: self.view.frame.size.height - searchBar.frame.size.height)
+            height: self.view.frame.size.height - searchBar.frame.size.height - getTopHeight())
         searchBar.placeholder = DomainConst.CONTENT00128
         
         // Search bar
@@ -105,6 +105,11 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
         _data.append(ConfigBean(id: "systemVersion", name: "\(UIDevice.current.systemVersion)"))
         _data.append(ConfigBean(id: "userInterfaceIdiom", name: "\(UIDevice.current.userInterfaceIdiom)"))
         _data.append(ConfigBean(id: "OS version", name: "\(UIDevice.current.systemName) \(UIDevice.current.systemVersion)"))
+        _data.append(ConfigBean(id: "test_local_notify_request", name: "Request local notify Auth"))
+        _data.append(ConfigBean(id: "test_local_notify_push", name: "Push local notify"))
+        _data.append(ConfigBean(id: "Current date", name: CommonProcess.getCurrentDate()))
+        _data.append(ConfigBean(id: "Current time", name: CommonProcess.getCurrentTime()))
+        _data.append(ConfigBean(id: "APNS Token", name: BaseModel.shared.getDeviceToken()))
     }
     
     // MARK: - Table view data source
@@ -221,6 +226,13 @@ class G00ConfigurationVC: ParentViewController, UITableViewDelegate, UITableView
                 testLoadingView()
             case "4":
                 testMultiDevice()
+            case "test_local_notify_request":
+                LocalNotification.registerForLocalNotification(on: UIApplication.shared)
+            case "test_local_notify_push":
+                LocalNotification.dispatchLocalNotification(with: "Notification Title for iOS10+", body: "This is the notification body, works on all versions", at: Date())
+            case "APNS Token":
+                UIPasteboard.general.string = BaseModel.shared.getDeviceToken()
+                self.showAlert(message: "Đã copy giá trị device token vào clipboard. Nhấn OK để tiếp tục.")
             default:
                 showAlert(message: data.name)
                 break
