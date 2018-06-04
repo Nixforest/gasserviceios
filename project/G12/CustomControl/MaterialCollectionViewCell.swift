@@ -12,13 +12,15 @@ import harpyframework
 class MaterialCollectionViewCell: UICollectionViewCell {
     // MARK: Properties
     /** Data */
-    private var _data:      OrderDetailBean     = OrderDetailBean()
+    private var _data:              OrderDetailBean     = OrderDetailBean()
     /** Image */
-    private var _imageView: UIImageView         = UIImageView()
+    private var _imageView:         UIImageView         = UIImageView()
     /** Material name label */
-    private var _lblName:   UILabel             = UILabel()
+    private var _lblName:           UILabel             = UILabel()
     /** Material price label */
-    private var _lblPrice:  UILabel             = UILabel()
+    private var _lblPrice:          UILabel             = UILabel()
+    /** Material original price label */
+    private var _lblPriceOriginal:  UILabel             = UILabel()
     
     // MARK: Constant
     let NAME_LABEL_HEIGHT                       = GlobalConst.LABEL_H * 3
@@ -47,7 +49,7 @@ class MaterialCollectionViewCell: UICollectionViewCell {
         let viewWidth = width - 2 * GlobalConst.MARGIN_CELL_X
         _imageView.frame = CGRect(x: xPos, y: 0,
                                   width: viewWidth,
-                                  height: height - (NAME_LABEL_HEIGHT + PRICE_LABEL_HEIGHT + GlobalConst.MARGIN_CELL_X))
+                                  height: height - (NAME_LABEL_HEIGHT + PRICE_LABEL_HEIGHT * 2 + GlobalConst.MARGIN_CELL_X))
         _imageView.layoutMargins = UIEdgeInsets(
             top: GlobalConst.MARGIN_CELL_X,
             left: 0, bottom: 0, right: 0)
@@ -97,12 +99,28 @@ class MaterialCollectionViewCell: UICollectionViewCell {
         self.addSubview(_lblPrice)
 //        self.layer.borderColor = GlobalConst.TEXT_COLOR_GRAY.cgColor
 //        self.layer.borderWidth = 1.0
+        
+        //++ BUG0200-SPJ (NguyenPT 20180604) Gas24h - Price original
+        // Original price
+        _lblPriceOriginal.frame  = CGRect(
+            x: xPos,
+            y: _lblPrice.frame.maxY,
+            width: viewWidth,
+            height: PRICE_LABEL_HEIGHT)
+        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: _data.price_original)
+        attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 1, range: NSMakeRange(0, attributeString.length))
+        _lblPriceOriginal.attributedText = attributeString
+        _lblPriceOriginal.textColor     = GlobalConst.BUTTON_COLOR_GRAY
+        _lblPriceOriginal.font          = GlobalConst.BASE_SMALL_FONT
+        _lblPriceOriginal.textAlignment = .center
+        self.addSubview(_lblPriceOriginal)
+        //-- BUG0200-SPJ (NguyenPT 20180604) Gas24h - Price original
         self.makeComponentsColor()
     }
     
     public func select(isSelected: Bool) {
         var color = GlobalConst.BACKGROUND_COLOR_GRAY
-        var thickness: CGFloat = 1.0
+        let thickness: CGFloat = 1.0
         if isSelected {
 //            self.layer.borderColor = GlobalConst.MAIN_COLOR_GAS_24H.cgColor
 //            self.layer.borderWidth = 2.0
@@ -117,8 +135,13 @@ class MaterialCollectionViewCell: UICollectionViewCell {
         _imageView.layer.addBorder(edge: .right, color: color, thickness: thickness)
         _lblName.layer.addBorder(edge: .left, color: color, thickness: thickness)
         _lblName.layer.addBorder(edge: .right, color: color, thickness: thickness)
-        _lblPrice.layer.addBorder(edge: .bottom, color: color, thickness: thickness)
+        //++ BUG0200-SPJ (NguyenPT 20180604) Gas24h - Price original
+//        _lblPrice.layer.addBorder(edge: .bottom, color: color, thickness: thickness)
         _lblPrice.layer.addBorder(edge: .left, color: color, thickness: thickness)
         _lblPrice.layer.addBorder(edge: .right, color: color, thickness: thickness)
+        _lblPriceOriginal.layer.addBorder(edge: .bottom, color: color, thickness: thickness)
+        _lblPriceOriginal.layer.addBorder(edge: .left, color: color, thickness: thickness)
+        _lblPriceOriginal.layer.addBorder(edge: .right, color: color, thickness: thickness)
+        //-- BUG0200-SPJ (NguyenPT 20180604) Gas24h - Price original
     }
 }

@@ -810,7 +810,22 @@ extension G12F00S02VC: UITableViewDataSource {
         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
         cell.textLabel?.text = data.name
         cell.textLabel?.font = GlobalConst.BASE_FONT
-        cell.detailTextLabel?.text = data.getValue()
+        //++ BUG0200-SPJ (NguyenPT 20180604) Gas24h - Price original
+//        cell.detailTextLabel?.text = data.getValue()
+        let arrValue = data.getValue().components(separatedBy: DomainConst.LINE_FEED)
+        if arrValue.count == 2 {
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: data.getValue())
+            let somePartStringRange = (data.getValue() as NSString).range(of: arrValue[1])
+            attributeString.addAttribute(NSStrikethroughStyleAttributeName, value: 1, range: somePartStringRange)
+            attributeString.addAttribute(
+                NSForegroundColorAttributeName,
+                value: GlobalConst.BUTTON_COLOR_YELLOW_NEW,
+                range: (data.getValue() as NSString).range(of: arrValue[0]))
+            cell.detailTextLabel?.attributedText = attributeString
+        } else {
+            cell.detailTextLabel?.text = data.getValue()
+        }
+        //-- BUG0200-SPJ (NguyenPT 20180604) Gas24h - Price original
         switch data.id {
         case DomainConst.ORDER_INFO_TOTAL_MONEY_ID:
             cell.detailTextLabel?.textColor = GlobalConst.MAIN_COLOR_GAS_24H
@@ -821,6 +836,10 @@ extension G12F00S02VC: UITableViewDataSource {
             break
         default:
             cell.detailTextLabel?.font = GlobalConst.BASE_FONT
+            //++ BUG0200-SPJ (NguyenPT 20180604) Gas24h - Price original
+            cell.detailTextLabel?.lineBreakMode = .byWordWrapping
+            cell.detailTextLabel?.numberOfLines = 0
+            //-- BUG0200-SPJ (NguyenPT 20180604) Gas24h - Price original
             break
         }
         return cell
