@@ -1481,13 +1481,19 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             id: G05F00S04VC._id,
             note: DomainConst.BLANK,
             statusCancel: DomainConst.BLANK,
-            orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2))
+            orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2),
+            //++ BUG0201-SPJ (NguyenPT 20180609) Upload image
+            images: self._images)
+            //-- BUG0201-SPJ (NguyenPT 20180609) Upload image
     }
     
     internal func finishCompleteOrder(_ notification: Notification) {
         let data = (notification.object as! String)
         let model = BaseRespModel(jsonString: data)
         if model.isSuccess() {
+            //++ BUG0201-SPJ (NguyenPT 20180609) Upload image
+            self._images.removeAll()
+            //-- BUG0201-SPJ (NguyenPT 20180609) Upload image
             OrderVIPViewRequest.request(action: #selector(setData(_:)),
                                         view: self,
                                         id: G05F00S04VC._id)
@@ -1644,7 +1650,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         createNavigationBar(title: DomainConst.CONTENT00232)
         
         setupListInfo()
-        var offset: CGFloat = getTopHeight()
+//        var offset: CGFloat = getTopHeight()
+        var offset: CGFloat = 0.0
         
         _scrollView.translatesAutoresizingMaskIntoConstraints = true
         _scrollView.frame = CGRect(
