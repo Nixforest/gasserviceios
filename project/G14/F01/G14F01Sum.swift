@@ -45,3 +45,4 @@ class G14F01Sum: StepSummary {
         return _detailView.updateData(listValues: listValues)
     }
 }
+

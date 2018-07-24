@@ -239,6 +239,14 @@ extension G07F00S03VC: UITableViewDataSource {
     }
     
     /**
+     * Asks the data source to verify that the given row is editable.
+     */
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {        
+        return true
+    }
+
+    
+    /**
      * Asks the data source for a cell to insert in a particular location of the table view.
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

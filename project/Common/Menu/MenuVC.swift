@@ -320,4 +320,5 @@ class MenuVC: BaseMenuViewController {
 ////            w: ADDRESS_WIDTH,
 ////            h: getHeightOfAddress())
 //    }
+    
 }

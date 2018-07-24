@@ -406,6 +406,9 @@ class G00HomeVC: MapViewController, UITableViewDataSource, UITableViewDelegate {
             let view = G14F00S01VC(nibName: G14F00S01VC.theClassName, bundle: nil)
             self.navigationController?.pushViewController(view, animated: true)
             break
+        case DomainConst.KEY_CUSTOMER_REQUEST_LIST:
+            self.pushToViewAndClearData(name: "G17F00S01VC")
+            break
         //-- BUG0183-SPJ (NguyenPT 20171227) Gas remain function
         default:
             self.showAlert(message: DomainConst.CONTENT00362)
@@ -470,4 +473,6 @@ class G00HomeVC: MapViewController, UITableViewDataSource, UITableViewDelegate {
 //        marker.snippet = "Australia"
 //        marker.map = mapView
 //    }
+    
+    
 }

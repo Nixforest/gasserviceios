@@ -5,4 +5,5 @@ target 'project' do
     pod 'GoogleMaps'
     pod 'GooglePlaces'
     pod 'AlamofireImage', '~> 3.3'
+    
 end

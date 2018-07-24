@@ -35,7 +35,10 @@ class BaseParentViewController: ParentExtViewController {
         view.setData(id: id)
         self.push(view, animated: true)
     }
+    
     //-- BUG0195-SPJ (NguyenPT 20180411) Add function announce
+    
+    
 //    /**
 //     * Handle open login view
 //     */
@@ -52,5 +55,7 @@ class BaseParentViewController: ParentExtViewController {
 //    internal func finishOpenLogin() -> Void {
 //        print("finishOpenLogin")
 //    }
-
+    
+    
+    
 }

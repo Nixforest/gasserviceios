@@ -47,6 +47,25 @@ class CustomerListRequest: BaseRequest {
     }
     
     /**
+     * Request list customer by keyword
+     * - parameter action:      Action execute when finish this task
+     * - parameter keyword:     Keyword
+     * - parameter type:        Type of request
+     */
+    public static func request(action: Selector, view: BaseViewController,
+                               keyword: String, type: String) {
+        // Show overlay
+        //LoadingView.shared.showOverlay(view: view.view)
+        let request = CustomerListRequest(url: DomainConst.PATH_SITE_AUTOCOMPLETE_USER,
+                                          reqMethod: DomainConst.HTTP_POST_REQUEST,
+                                          view: view)
+        request.setData(keyword: keyword, type: type)
+        NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
+        //request.execute()
+        request.execute(isShowLoadingView: false)
+    }
+    
+    /**
      * Set data content
      * - parameter keyword: Keyword
      */
@@ -76,4 +95,6 @@ class CustomerListRequest: BaseRequest {
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
         request.execute()
     }
+    
+    
 }
