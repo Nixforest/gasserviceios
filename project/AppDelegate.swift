@@ -11,6 +11,7 @@ import UserNotifications
 import harpyframework
 import GoogleMaps
 import GooglePlaces
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -80,6 +81,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Reset cache data
         URLCache.shared.removeAllCachedResponses()
         //-- BUG0168-SPJ (NguyenPT 20171124) Reset Cache data when terminal app
+        //++ BUG0215-SPJ (KhoiVT 20170807) Gaservice - Fix keyboard problem
+        // add iq keyboard manager
+        IQKeyboardManager.sharedManager().enable = true
+        //-- BUG0215-SPJ (KhoiVT 20170807) Gaservice - Fix keyboard problem
         return true
     }
 

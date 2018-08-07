@@ -65,7 +65,7 @@ class G14F00S01VC: BaseParentViewController {
     /** Current customer Id */
     var _customerId:            String              = DomainConst.NUMBER_ZERO_VALUE
     /** Tap gesture hide keyboard */
-    var _gestureHideKeyboard:   UIGestureRecognizer = UIGestureRecognizer()
+    internal var _gestureHideKeyboard:   UIGestureRecognizer = UIGestureRecognizer()
     /** Edit row index path */
     var _editRowIndexPath:      IndexPath           = IndexPath()
     

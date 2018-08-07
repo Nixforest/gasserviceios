@@ -176,6 +176,9 @@ class G00HomeVC: MapViewController, UITableViewDataSource, UITableViewDelegate {
             }
         }
         //-- BUG0121-SPJ (NguyenPT 20170712) Add menu to Home
+        //++ BUG0209-SPJ (KhoiVT 20170712) Add menu to Stock_Keeper
+        //self.funcList.append(ConfigBean(id: "stock_keeper", name: "Giữ Kho"))
+        //++ BUG0209-SPJ (KhoiVT 20170712) Add menu to Stock_Keeper
         self.homeTableView.reloadData()
     }
     //-- BUG0121-SPJ (NguyenPT 20170712) Add menu to Home
@@ -406,10 +409,15 @@ class G00HomeVC: MapViewController, UITableViewDataSource, UITableViewDelegate {
             let view = G14F00S01VC(nibName: G14F00S01VC.theClassName, bundle: nil)
             self.navigationController?.pushViewController(view, animated: true)
             break
+        //-- BUG0183-SPJ (NguyenPT 20171227) Gas remain function
+        //++ BUG0206-SPJ (KhoiVT 2018711) Customer request list function    
         case DomainConst.KEY_CUSTOMER_REQUEST_LIST:
             self.pushToViewAndClearData(name: "G17F00S01VC")
             break
-        //-- BUG0183-SPJ (NguyenPT 20171227) Gas remain function
+        //-- BUG0206-SPJ (KhoiVT 2018711) Customer request list function
+        /*case DomainConst.KEY_STOCK_LIST:
+            self.pushToViewAndClearData(name: "G18F00S01VC")
+            break*/
         default:
             self.showAlert(message: DomainConst.CONTENT00362)
         }

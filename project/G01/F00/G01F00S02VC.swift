@@ -24,8 +24,6 @@ class G01F00S02VC: ChildViewController, UIScrollViewDelegate, UITableViewDelegat
     @IBOutlet weak var tblViewHistory: UITableView!
     /** Create reply button */
     @IBOutlet weak var btnCreateReply: UIButton!
-    
-    // MARK: Actions
     /**
      * Segment ScrollView Control Action
      */
@@ -110,7 +108,6 @@ class G01F00S02VC: ChildViewController, UIScrollViewDelegate, UITableViewDelegat
         // Load content
         Bundle.main.loadNibNamed(DomainConst.G01_F00_S02_INFO_VIEW, owner: self, options: nil)
         scrViewInformation.addSubview(viewInformation)
-
         // Create reply button
         btnCreateReply.translatesAutoresizingMaskIntoConstraints = true
         btnCreateReply.frame = CGRect(
@@ -165,12 +162,52 @@ class G01F00S02VC: ChildViewController, UIScrollViewDelegate, UITableViewDelegat
 //        }
         getUpholdDetail()
         //-- BUG0049-SPJ (NguyenPT 20170313) Handle notification received
+        
+        //++ BUG0208-SPJ (KhoiVT 7/11/2018) Gasservice - Customer Request Create
+        // Add Create Customer request button to navigation bar
+        self.createRightNavigationItem(icon: DomainConst.ADD_MATERIAL_ICON_IMG_NAME,
+                                       action: #selector(createCustomerRequestButtonTapped(_:)), target: self)
+        //-- BUG0208-SPJ (KhoiVT 7/11/2018) Gasservice - Customer Request Create
+        
         // Notification
         if BaseModel.shared.checkNotificationExist() {
             BaseModel.shared.clearNotificationData()
         }
     }
+    //++ BUG0208-SPJ (KhoiVT 7/11/2018) Gasservice - Customer Request Create
+    /**
+     * Handle tap on create Customer Request Button
+     * - parameter sender: AnyObject
+     */
+    internal func createCustomerRequestButtonTapped(_ sender: AnyObject) {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00437,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        let action = UIAlertAction(title: DomainConst.CONTENT00584,
+                                       style: .default, handler: {
+                                        action in
+                                        self.handleCreateCustomerRequest()
+        })
+        alert.addAction(cancel)
+        alert.addAction(action)
+        alert.popoverPresentationController?.sourceView = self.view
+        self.present(alert, animated: true, completion: nil)
+    }
     
+    /**
+     * Open create ticket view controller
+     * - parameter id: Id of ticket handler
+     */
+    internal func handleCreateCustomerRequest() {
+        self.pushToView(name: G17F00S03VC.theClassName)
+        
+    }
+    
+    //-- BUG0208-SPJ (KhoiVT 7/11/2018) Gasservice - Customer Request Create
     //++ BUG0046-SPJ (NguyenPT 20170302) Use action for Request server completion
     /**
      * Get uphold detail data from server

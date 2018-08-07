@@ -21,7 +21,7 @@ class CustomerRequestUpdateRequest: BaseRequest {
                  json: String,
                  note: String) {
         self.data = "q=" + String.init(
-            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":\"%@\",\"%@\":%d}",
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":\"%@\",\"%@\":\"%d\"}",
             DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
             DomainConst.KEY_ID, id,
             DomainConst.KEY_CUSTOMER_ID, customerId,
@@ -29,6 +29,7 @@ class CustomerRequestUpdateRequest: BaseRequest {
             DomainConst.KEY_NOTE, note,
             DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
         )
+        
     }
     
     /**

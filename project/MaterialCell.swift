@@ -11,67 +11,50 @@ import harpyframework
 
 protocol CellTextChangeDelegte{
     func UpdateQuantity(quantity : String, index: Int)
+    func didBeginEdit()
 }
 class MaterialCell: UITableViewCell {
 
     var index : Int = 0
     @IBOutlet weak var lblMaterialName: UILabel!
-    
     @IBOutlet weak var btnReduce: UIButton!
     @IBOutlet weak var btnIncreate: UIButton!
     @IBOutlet weak var tf_quantity: UITextField!
     var delegate: CellTextChangeDelegte?
     
+    @IBAction func didBeginEdit(_ sender: Any) {
+        delegate?.didBeginEdit()
+    }
+    
     // editting change
     @IBAction func tf_Quantity_Changed(_ sender: Any) {
         if(tf_quantity.text! != ""){
-            let quantity : Int = Int(tf_quantity.text!)!
-            if quantity < 0 {
-                btnReduce.isHidden = true
-                tf_quantity.text = "0"
-            }
-            else if quantity > 99 {
-                tf_quantity.text = "99"
-                btnIncreate.isHidden = true
-            }
-            else{
-                btnReduce.isHidden = false
-                btnIncreate.isHidden = false
+            if let quantity = Int(tf_quantity.text!){
+                if quantity < 2 {
+                    btnReduce.isHidden = true
+                    tf_quantity.text = "1"
+                }
+                else if quantity > 98 {
+                    tf_quantity.text = "99"
+                    btnIncreate.isHidden = true
+                }
+                else{
+                    btnReduce.isHidden = false
+                    btnIncreate.isHidden = false
+                }
             }
         }
         else{
             btnReduce.isHidden = true
-            tf_quantity.text = "0"
+            tf_quantity.text = "1"
         }
         delegate?.UpdateQuantity(quantity: tf_quantity.text!, index: index)
     }
-    /*@IBAction func tf_Quantity_Editted(_ sender: Any) {
-        if(tf_quantity.text! != ""){
-            let quantity : Int = Int(tf_quantity.text!)!
-            if quantity < 0 {
-                btnReduce.isHidden = true
-                tf_quantity.text = "0"
-                }
-            else if quantity > 99 {
-                tf_quantity.text = "99"
-                btnIncreate.isHidden = true
-                }
-            else{
-                btnReduce.isHidden = false
-                btnIncreate.isHidden = false
-            }
-        }
-        else{
-            btnReduce.isHidden = true
-            tf_quantity.text = "0"
-        }
-        delegate?.UpdateQuantity(quantity: tf_quantity.text!, index: index)
-        
-    }*/
+    
     //value change
     @IBAction func tf_Quantity_Changed() {
         let quantity : Int = Int(tf_quantity.text!)!
-        if(quantity == 0){
+        if(quantity == 1){
             btnReduce.isHidden = true
         }
         else if(quantity == 99){
@@ -102,7 +85,7 @@ class MaterialCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+       
         // Initialization code
         
         //lblMaterialName.text = "asdfklasdfksafjsalkfdjlkasdfalskdfj"

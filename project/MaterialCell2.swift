@@ -11,38 +11,38 @@ import UIKit
 class MaterialCell2: UITableViewCell {
     var index : Int = 0
     var delegate: CellTextChangeDelegte?
-    
-    @IBOutlet weak var lblTenVatTu: UILabel!
-    @IBOutlet weak var lblSoLuong: UITextField!
-    
+    @IBOutlet weak var lblMaterialName: UILabel!
+    @IBOutlet weak var tfQuantity: UITextField!
+    @IBAction func didBeginEditQuantity(_ sender: Any) {
+        delegate?.didBeginEdit()
+    }
     @IBAction func tf_Quantity_Edit(_ sender: Any) {
-        if(lblSoLuong.text! != ""){
-            let quantity : Int = Int(lblSoLuong.text!)!
-            if quantity < 0 {
-                btnReduce.isHidden = true
-                lblSoLuong.text = "0"
+        if(tfQuantity.text! != ""){
+            if let quantity = Int(tfQuantity.text!){
+                if quantity < 2 {
+                    btnReduce.isHidden = true
+                    tfQuantity.text = "1"
+                }
+                else if quantity > 98 {
+                    tfQuantity.text = "99"
+                    btnIncrease.isHidden = true
+                }
+                else{
+                    btnReduce.isHidden = false
+                    btnIncrease.isHidden = false
+                }
             }
-            else if quantity > 99 {
-                lblSoLuong.text = "99"
-                btnIncrease.isHidden = true
-            }
-            else{
-                btnReduce.isHidden = false
-                btnIncrease.isHidden = false
-            }
-            
         }
         else{
             btnReduce.isHidden = true
-            lblSoLuong.text = "0"
+            tfQuantity.text = "1"
         }
-        delegate?.UpdateQuantity(quantity: lblSoLuong.text!, index: index)
+        delegate?.UpdateQuantity(quantity: tfQuantity.text!, index: index)
     }
     
-    
     @IBAction func tf_Quantity_Changed(_ sender: Any) {
-        let quantity : Int = Int(lblSoLuong.text!)!
-        if(quantity == 0){
+        let quantity : Int = Int(tfQuantity.text!)!
+        if(quantity == 1){
             btnReduce.isHidden = true
         }
         else if(quantity == 99){
@@ -60,22 +60,21 @@ class MaterialCell2: UITableViewCell {
     @IBOutlet weak var btnReduce: UIButton!
     
     @IBAction func btn_Increase(_ sender: Any) {
-        var quantity: Int = Int(lblSoLuong.text!)!
+        var quantity: Int = Int(tfQuantity.text!)!
         quantity += 1
-        lblSoLuong.text = String(quantity)
-        lblSoLuong.sendActions(for: UIControlEvents.valueChanged)
+        tfQuantity.text = String(quantity)
+        tfQuantity.sendActions(for: UIControlEvents.valueChanged)
     }
     
     @IBAction func btn_Reduce(_ sender: Any) {
-        var quantity: Int = Int(lblSoLuong.text!)!
+        var quantity: Int = Int(tfQuantity.text!)!
         quantity -= 1
-        lblSoLuong.text = String(quantity)
-        lblSoLuong.sendActions(for: UIControlEvents.valueChanged)
+        tfQuantity.text = String(quantity)
+        tfQuantity.sendActions(for: UIControlEvents.valueChanged)
     }
     @IBOutlet weak var btn_Reduce: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

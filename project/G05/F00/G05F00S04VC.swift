@@ -1268,6 +1268,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                         self.addImageFromLibrary()
         })
         alert.addAction(addImageLib)
+        //++ BUG0213-SPJ (KhoiVT 20170731) Gasservice - Stock Real View
+        let seri_confirmation = UIAlertAction(title: DomainConst.CONTENT00587,
+                                   style: .default, handler: {
+                                    action in
+                                    self.btnSeriConfirmationTapped(self)
+        })
+        alert.addAction(seri_confirmation)
+        //-- BUG0213-SPJ (KhoiVT 20170731) Gasservice - Stock Real View
         if let presenter = alert.popoverPresentationController {
             presenter.sourceView = sender as? UIButton
             presenter.sourceRect = sender.bounds
@@ -1585,6 +1593,19 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /**
      * Handle when finish request cache data
      */
+    
+    /**
+     * Handle when tap on Seri Confirmation button
+     */
+    internal func btnSeriConfirmationTapped(_ sender: AnyObject) {
+        BaseModel.shared.sharedString = G05F00S04VC._id
+        self.pushToView(name: G18F00S03VC.theClassName)
+    }
+    
+    /**
+     * Handle when tap on Seri Confirmation button
+     */
+    
     internal func finishRequestCacheData(_ notification: Notification) {
         let data = (notification.object as! String)
         let model = CacheDataRespModel(jsonString: data)

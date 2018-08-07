@@ -1,18 +1,21 @@
 //
-//  CustomerRequestViewResponseModel.swift
+//  StockResponseModel.swift
 //  project
 //
-//  Created by SPJ on 7/19/18.
+//  Created by SPJ on 7/26/18.
 //  Copyright © 2018 admin. All rights reserved.
 //
 
 import UIKit
 import harpyframework
 
-class CustomerRequestViewResponseModel: BaseRespModel{
+class StockResponseModel: BaseRespModel{
     /** Record */
-    var record: CustomerRequestBean = CustomerRequestBean()
+    var record: StockBean = StockBean()
     
+    /**
+     * Default init
+     */
     override init() {
         super.init()
     }
@@ -34,7 +37,7 @@ class CustomerRequestViewResponseModel: BaseRespModel{
                 }
                 // Record
                 if let str = json[DomainConst.KEY_RECORD] as? [String: AnyObject]{
-                    self.record = CustomerRequestBean(jsonData: str)
+                    self.record = StockBean(jsonData: str)
                 }
             } catch let error as NSError {
                 print(DomainConst.JSON_ERR_FAILED_LOAD + "\(error.localizedDescription)")
@@ -45,3 +48,4 @@ class CustomerRequestViewResponseModel: BaseRespModel{
         }
     }
 }
+

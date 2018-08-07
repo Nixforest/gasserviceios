@@ -1,17 +1,17 @@
 //
-//  CustomerRequestViewResponseModel.swift
+//  AppDataClientCacheResponseModel.swift
 //  project
 //
-//  Created by SPJ on 7/19/18.
+//  Created by SPJ on 8/5/18.
 //  Copyright © 2018 admin. All rights reserved.
 //
 
 import UIKit
 import harpyframework
 
-class CustomerRequestViewResponseModel: BaseRespModel{
+class AppDataClientCacheResponseModel: BaseRespModel {
     /** Record */
-    var record: CustomerRequestBean = CustomerRequestBean()
+    var record: [OrderDetailBean] = [OrderDetailBean]() 
     
     override init() {
         super.init()
@@ -33,8 +33,9 @@ class CustomerRequestViewResponseModel: BaseRespModel{
                     return
                 }
                 // Record
-                if let str = json[DomainConst.KEY_RECORD] as? [String: AnyObject]{
-                    self.record = CustomerRequestBean(jsonData: str)
+                let recordList = json[DomainConst.KEY_CACHE_REQUEST_MATERIALS] as? [[String: AnyObject]]
+                for item in recordList! {
+                    self.record.append(OrderDetailBean(jsonData: item))
                 }
             } catch let error as NSError {
                 print(DomainConst.JSON_ERR_FAILED_LOAD + "\(error.localizedDescription)")
@@ -43,5 +44,28 @@ class CustomerRequestViewResponseModel: BaseRespModel{
         } else {
             print(DomainConst.JSON_ERR_WRONG_FORMAT)
         }
+    }
+    
+    /**
+     * Get record value.
+     * - returns: Record value
+     */
+    public func getRecord() -> [OrderDetailBean] {
+        return self.record
+    }
+    
+    /**
+     * Append list of record
+     * - parameter contentOf: List of record
+     */
+    public func append(contentOf: [OrderDetailBean]) {
+        self.record.append(contentsOf: contentOf)
+    }
+    
+    /**
+     * Remove all data
+     */
+    public func clearData() {
+        self.record.removeAll()
     }
 }

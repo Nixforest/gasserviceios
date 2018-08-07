@@ -15,7 +15,7 @@ class G08F01S04: StepContent, UITextViewDelegate {
     /** Note textfield */
     var _tbxNote = UITextView()
     /** Flag show keyboard */
-    var _isKeyboardShow: Bool = false
+    internal var _isKeyboardShow: Bool = false
 
     /*
     // Only override draw() if you perform custom drawing.

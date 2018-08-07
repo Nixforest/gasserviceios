@@ -11,53 +11,66 @@ import harpyframework
 
 class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
     //Constrain height of Info layout component
-    internal var _customer_id: String = "" 
-    @IBOutlet weak var tblSearch: UITableView!
-    @IBOutlet weak var tblMaterial: UITableView!
+    internal var _customer_id:                String = "" 
+    @IBOutlet weak var tblSearch:             UITableView!
+    @IBOutlet weak var tblMaterial:           UITableView!
     /** Flag begin search */
-    private var _beginSearch:           Bool                = false
+    private var _beginSearch:                 Bool                = false
     /** Data */
-    internal var _dataCustomer:                  [CustomerBean]      = [CustomerBean]()
+    internal var _dataCustomer:              [CustomerBean]      = [CustomerBean]()
     /** Data json*/
     internal var _dataJson:                  [OrderDetailBean]      = [OrderDetailBean]()
+    /** Data Client Cache*/
+    public static var _dataClientCache:                  [OrderDetailBean]      = [OrderDetailBean]()
     /** Type of search target */
     public static var _type:                  String              = DomainConst.SEARCH_TARGET_TYPE_CUSTOMER
-    public static let TYPE_NONE:              String = DomainConst.NUMBER_ZERO_VALUE
-    public static let TYPE_GAS:               String = "1"
-    public static let TYPE_OTHERMATERIAL:     String = "2"
-    public static let TYPE_CYLINDER:          String = "3"
     /** Flag search active */
-    internal var _searchActive:          Bool                = false
+    internal var _searchActive:               Bool                = false
     /** Flag check keyboard is show or hide */
-    private var _isKeyboardShow:        Bool                = false
+    internal var _isKeyboardShow:              Bool                = false
     /** Tap gesture hide keyboard */
-    private var _gestureHideKeyboard:   UIGestureRecognizer = UIGestureRecognizer()
-    @IBOutlet weak var heightInfo: NSLayoutConstraint!
-    @IBOutlet weak var heightTable: NSLayoutConstraint!
-    @IBOutlet weak var sbTimKhachHang: UISearchBar!
-    @IBOutlet weak var viewThongTinKH: UIView!
-    @IBOutlet weak var lblCustomerName: UILabel!
-    @IBOutlet weak var lblAddress: UILabel!
-    @IBOutlet weak var lblNote: UITextField!
-    @IBOutlet weak var btnDeleteInfo: UIButton!
-    @IBOutlet weak var imgDeleteAll: UIButton!
-    @IBOutlet weak var bntSave: UIButton!
-    @IBOutlet weak var btnCancel: UIButton!
-    @IBOutlet weak var btnThemVatTu: UIButton!
+    internal var _gestureHideKeyboard:         UIGestureRecognizer = UIGestureRecognizer()
+    @IBOutlet weak var heightInfo:            NSLayoutConstraint!
+    @IBOutlet weak var heightTable:           NSLayoutConstraint!
+    /** Customer Searchbar */
+    @IBOutlet weak var sbSearchCustomer:      UISearchBar!
+    /** Customer View */
+    @IBOutlet weak var viewCustomer:          UIView!
+    /** Label Customer Name */
+    @IBOutlet weak var lblCustomerName:       UILabel!
+    /** Label Customer Address */
+    @IBOutlet weak var lblAddress:            UILabel!
+    /** Label Customer Note */
+    @IBOutlet weak var lblNote:               UITextField!
+    /** Button Delete Info */
+    @IBOutlet weak var btnDeleteInfo:         UIButton!
+    /** Button Delete All */
+    @IBOutlet weak var imgDeleteAll:          UIButton!
+    /** Button Save */
+    @IBOutlet weak var bntSave:               UIButton!
+    /** Button Cancel */
+    @IBOutlet weak var btnCancel:             UIButton!
+    /** Button Add supply */
+    @IBOutlet weak var btnAddSupply:          UIButton!
     
-    @IBAction func btn_ThemVatTu(_ sender: Any) {
-        if CacheDataRespModel.record.isEmpty() {
-            // Request server cache data
-            CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
-                                     view: self)
+    /** Click Button Add supply */
+    @IBAction func btn_Add_Supply(_ sender: Any) {
+        if G17F00S03VC._dataClientCache.count > 0 {
+             self.selectMaterial()
+            
         } 
         else{
-            self.selectMaterial(type: G17F00S03VC.TYPE_CYLINDER)
+            // Request server cache data
+            AppDataClientCacheRequest.request(action: #selector(finishRequestCacheData(_:)),
+                                              view: self)
+            /*CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
+                                     view: self)*/
         }
-        
+
     }
     @IBAction func img_DeleteAll(_ sender: Any) {
         _dataJson.removeAll()
+        heightTable.constant = 0
         tblMaterial.reloadData()
     }
     
@@ -80,67 +93,94 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
         self.backButtonTapped(self)
     }
     
+    
+    @IBAction func didBeginEdit(_ sender: Any) {
+        _isKeyboardShow = true
+        self.view.addGestureRecognizer(_gestureHideKeyboard)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createNavigationBar(title: DomainConst.CONTENT00584)
         self.automaticallyAdjustsScrollViewInsets = false
         tblMaterial.dataSource = self
-        tblMaterial.delegate = self
-        tblMaterial.estimatedRowHeight = 200
-        tblMaterial.rowHeight = UITableViewAutomaticDimension
+        tblMaterial.delegate   = self
+        tblMaterial.estimatedRowHeight = CGFloat(G18Const.ESTIMATE_ROW_HEIGHT)
+        tblMaterial.rowHeight  = UITableViewAutomaticDimension
         //hide customer view
         //HideCustomerInforView()
         // Initialization code
         /*viewCustomerRequestCreate.layer.borderColor = UIColor.red.cgColor
         viewCustomerRequestCreate.layer.borderWidth = 1
         viewCustomerRequestCreate.layer.cornerRadius = 5*/
-        
-        lblNote.layer.borderColor = UIColor.red.cgColor
-        lblNote.layer.borderWidth = 1
-        lblNote.layer.cornerRadius = 5
+        lblNote.layer.borderColor  = UIColor.red.cgColor
+        lblNote.layer.borderWidth  = CGFloat(G18Const.BORDER_WIDTH)
+        lblNote.layer.cornerRadius = CGFloat(G18Const.CORNER_RADIUS_BUTTON)
         //set Image for btnDelete All
         //imgDeleteAll.image = ImageManager.getImage(named: DomainConst.CLEAR_ALL_ICON_IMG_NAME)
         //Set corner Button Delete Info
-        btnDeleteInfo.layer.cornerRadius = 15
-        bntSave.layer.cornerRadius = 15
-        btnCancel.layer.cornerRadius = 15
+        btnDeleteInfo.layer.cornerRadius    = CGFloat(G18Const.CORNER_RADIUS_BUTTON_2)
+        bntSave.layer.cornerRadius          = CGFloat(G18Const.CORNER_RADIUS_BUTTON_2)
+        btnCancel.layer.cornerRadius        = CGFloat(G18Const.CORNER_RADIUS_BUTTON_2)
         // Do any additional setup after loading the view.
         // Search bar        
-        sbTimKhachHang.delegate = self
-        sbTimKhachHang.placeholder          = DomainConst.CONTENT00287
-        sbTimKhachHang.layer.shadowColor    = UIColor.black.cgColor
-        sbTimKhachHang.layer.shadowOpacity  = 0.5
-        sbTimKhachHang.layer.masksToBounds  = false
-        sbTimKhachHang.showsCancelButton    = true
-        sbTimKhachHang.showsBookmarkButton  = false
-        sbTimKhachHang.searchBarStyle       = .default
+        sbSearchCustomer.delegate = self
+        sbSearchCustomer.layer.shadowColor    = UIColor.black.cgColor
+        sbSearchCustomer.layer.shadowOpacity  = 0.5
+        sbSearchCustomer.layer.masksToBounds  = false
+        sbSearchCustomer.showsCancelButton    = true
+        sbSearchCustomer.showsBookmarkButton  = false
+        sbSearchCustomer.searchBarStyle       = .default
         // Gesture
         _gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         // Table Search Bar
         tblSearch.delegate = self
         tblSearch.dataSource = self
         tblSearch.isHidden = true
+        // Hide Customer View
         HideCustomerInforView()
-        
+        // hide tbl material
+        heightTable.constant = 0
         //button edit bar
         //self.navigationItem.rightBarButtonItem = self.editButtonItem
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if(G17F00S03VC._type == G17F00S03VC.TYPE_CYLINDER){
+    override func viewWillAppear(_ animated: Bool) {
             if !MaterialSelectViewController.getSelectedItem().isEmpty() {
                 // Add data
-                appendMaterialCylinder(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
-                tblMaterial.reloadData()
+                var flag: Int = 0
+                _dataJson.forEach { (OrderDetail) in
+                    if OrderDetail.material_id ==  MaterialSelectViewController.getSelectedItem().material_id{
+                        showAlert(message: G17Const.ERROR_SAME_MATERIAL,
+                                  okHandler: {
+                                    alert in
+                        })
+                        flag = 1
+                        return
+                    }  
+                }
+                if flag == 0{
+                    appendMaterialCylinder(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
+                    tblMaterial.reloadData()
+                }
                 //tblMaterial.reloadSections(IndexSet(1...2), with: .automatic)
+                //reset SelectedItem
+                MaterialSelectViewController.setSelectedItem(item: OrderDetailBean())
             }
-            G17F00S03VC._type = DomainConst.SEARCH_TARGET_TYPE_CUSTOMER
+            //G17F00S03VC._type = DomainConst.SEARCH_TARGET_TYPE_CUSTOMER
+        if BaseModel.shared.currentUpholdDetail.customer_id != "" {
+            _customer_id = BaseModel.shared.currentUpholdDetail.customer_id
+            ShowCustomerInforView()
+            self.lblCustomerName.text = BaseModel.shared.currentUpholdDetail.customer_name
+            self.lblAddress.text = BaseModel.shared.currentUpholdDetail.customer_address
+            BaseModel.shared.currentUpholdDetail.customer_id = ""
         }
     }
     
     private func appendMaterialCylinder(material: OrderDetailBean, isUpdateQty: Bool = true) {
         _dataJson.append(material)
+        heightTable.constant += 48
         tblMaterial.reloadData()
     }
     /**
@@ -148,10 +188,12 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
      */
     internal func finishRequestCacheData(_ notification: Notification) {
         let data = (notification.object as! String)
-        let model = CacheDataRespModel(jsonString: data)
+        let model = AppDataClientCacheResponseModel(jsonString: data)
         if model.isSuccess() {
             // Open create store card view controller
-            self.selectMaterial(type: G17F00S03VC.TYPE_CYLINDER)
+            //self.selectMaterial(type: G17F00S03VC.TYPE_CYLINDER)
+            G17F00S03VC._dataClientCache = model.record
+            self.selectMaterial()
         }
             //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
         else {
@@ -165,23 +207,10 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
      * - parameter type: Type of material
      * - parameter data: Current selection
      */
-    internal func selectMaterial(type: String, data: OrderDetailBean = OrderDetailBean.init()) {
+    internal func selectMaterial(data: OrderDetailBean = OrderDetailBean.init()) {
         MaterialSelectViewController.setSelectedItem(item: data)
-        G17F00S03VC._type = type
-        switch G17F00S03VC._type {
-        case G17F00S03VC.TYPE_GAS:                      // Gas
-            MaterialSelectViewController.setMaterialData(orderDetails: CacheDataRespModel.record.getGasMaterials())
-            //            MaterialSelectViewController.setMaterialDataFromFavourite(key: DomainConst.KEY_SETTING_FAVOURITE_GAS_LOGIN)
-            self.pushToView(name: G05F02S01VC.theClassName)
-        case G08F01S03.TYPE_CYLINDER:                 // Cylinder
-            MaterialSelectViewController.setMaterialData(orderDetails: CacheDataRespModel.record.getCylinderMaterials())
-            self.pushToView(name: G05F02S01VC.theClassName)
-        case G08F01S03.TYPE_OTHERMATERIAL:            // The other material
-            MaterialSelectViewController.setMaterialData(orderDetails: CacheDataRespModel.record.getAllMaterials())
-            self.pushToView(name: G05F02S01VC.theClassName)
-        default:
-            break
-        }
+        MaterialSelectViewController.setMaterialData(orderDetails: G17F00S03VC._dataClientCache)
+        self.pushToView(name: G05F02S01VC.theClassName)
     }
     
     /**
@@ -228,10 +257,10 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
         // Remove all current data
         _dataCustomer.removeAll()
         
-        if sbTimKhachHang.text != nil {
+        if sbSearchCustomer.text != nil {
             // Get keyword
-            let keyword = sbTimKhachHang.text!.removeSign().lowercased()
-            sbTimKhachHang.isUserInteractionEnabled = false
+            let keyword = sbSearchCustomer.text!.removeSign().lowercased()
+            sbSearchCustomer.isUserInteractionEnabled = false
             CustomerListRequest.request(action: #selector(finishSearch(_:)),
                                         view: self,
                                         keyword: keyword,
@@ -260,7 +289,7 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
             showAlert(message: model.message)
         }
         //-- BUG0092-SPJ (NguyenPT 20170517) Show error message
-        sbTimKhachHang.isUserInteractionEnabled = true
+        sbSearchCustomer.isUserInteractionEnabled = true
     }
     
     /**
@@ -268,7 +297,7 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
      */
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let filteredStr = searchText
-        if filteredStr.characters.count > (DomainConst.SEARCH_TARGET_MIN_LENGTH - 1) {
+        if filteredStr.count > (DomainConst.SEARCH_TARGET_MIN_LENGTH - 1) {
             _beginSearch = false
             _searchActive = true
             //            // Start count
@@ -290,8 +319,8 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         _searchActive = false
         // Clear textbox
-        if sbTimKhachHang.text != nil {
-            sbTimKhachHang.text = DomainConst.BLANK
+        if sbSearchCustomer.text != nil {
+            sbSearchCustomer.text = DomainConst.BLANK
         }
         tblSearch.isHidden = !_searchActive
         // Hide keyboard
@@ -322,7 +351,7 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
         _searchActive = true
         _isKeyboardShow = false
         // If text is empty
-        if (sbTimKhachHang.text?.isEmpty)! {
+        if (sbSearchCustomer.text?.isEmpty)! {
         } else {
             self.view.endEditing(true)
         }
@@ -330,14 +359,14 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
 
     func ShowCustomerInforView(){
         self.heightInfo.constant = 127
-        self.viewThongTinKH.isHidden = false
+        self.viewCustomer.isHidden = false
         self.view.layoutIfNeeded()
         //self.heightTable.constant = 300
     }
     
     func HideCustomerInforView(){
         self.heightInfo.constant = 0
-        self.viewThongTinKH.isHidden = true
+        self.viewCustomer.isHidden = true
         self.view.layoutIfNeeded()
         //self.heightTable.constant = 173
     }
@@ -367,7 +396,6 @@ extension G17F00S03VC: UITableViewDataSource{
      * Tells the data source to return the number of rows in a given section of a table view.
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        //return self._data.getRecord().count
         if tableView == tblSearch {
             return _dataCustomer.count
         }
@@ -396,6 +424,10 @@ extension G17F00S03VC: UITableViewDataSource{
                 // Setting attributes
                 cell2.lblMaterialName.text = _dataJson[indexPath.row].material_name
                 cell2.tf_quantity.text = _dataJson[indexPath.row].qty
+                let quantity: Int = Int(cell2.tf_quantity.text!)!
+                if quantity == 1{
+                    cell2.btnReduce.isHidden = true
+                }
                 cell2.delegate = self
                 cell2.index = indexPath.row
                 //cell2.tf_quantity.addTarget(self, action: #selector(self.changeValue), for: UIControlEvents)
@@ -410,6 +442,10 @@ extension G17F00S03VC: UITableViewDataSource{
  extension G17F00S03VC: CellTextChangeDelegte{
     func UpdateQuantity(quantity : String, index: Int){
         _dataJson[index].qty = quantity
+    }
+    func didBeginEdit(){
+        _isKeyboardShow = true
+        self.view.addGestureRecognizer(_gestureHideKeyboard)
     }
  }
 // MARK: - UITableViewDataSource-Delegate
@@ -445,11 +481,11 @@ extension G17F00S03VC: UITableViewDelegate {
         if tableView == tblSearch {
             _searchActive = false
             tblSearch.isHidden = !_searchActive
-            sbTimKhachHang.resignFirstResponder()
+            sbSearchCustomer.resignFirstResponder()
             self.lblCustomerName.text = _dataCustomer[indexPath.row].name
             self.lblAddress.text = _dataCustomer[indexPath.row].address
             self.heightInfo.constant = 135
-            self.viewThongTinKH.isHidden = false
+            self.viewCustomer.isHidden = false
             
             //Set Customer Id
             _customer_id = _dataCustomer[indexPath.row].id
@@ -472,6 +508,7 @@ extension G17F00S03VC: UITableViewDelegate {
         if editingStyle == .delete{
             _dataJson.remove(at: indexPath.row)
             tblMaterial.deleteRows(at: [indexPath], with: .fade)
+            heightTable.constant -= 48
             //tblMaterial.reloadData()
             
         }
