@@ -35,7 +35,20 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     /** Flag check need reload table view at viewDidAppear first time */
     private var _isFirstReload:     Bool                = false
     //++ BUG0081-SPJ (NguyenPT 20170510) UITableView not reload until scroll
-    
+    //++ BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function
+    /** Search view */
+    private var _viewSearch:        UIView = UIView()
+    /** Search input view */
+    private var _viewInput:         UIView = UIView()
+    /** From date value */
+    private var _fromDate:          String = CommonProcess.getCurrentDate()
+    /** To date value */
+    private var _toDate:            String = CommonProcess.getCurrentDate()
+    /** Date picker */
+    private var _datePickerFrom:    DatePickerView          = DatePickerView()
+    /** Date picker */
+    private var _datePickerTo:      DatePickerView          = DatePickerView()
+    //-- BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function
     // MARK: Methods
     
     /**
@@ -56,9 +69,12 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
 //                                       view: self,
 //                                       page: String(_page),
 //                                       status: status)
-        OrderFamilyListRequest.request(view: self, page: String(_page),
+        //++ BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function
+        OrderFamilyListRequest.request(view: self, page: String(_page), status: status, from: _fromDate, to: _toDate, completionHandler: completionHandler)
+        /*OrderFamilyListRequest.request(view: self, page: String(_page),
                                        status: status,
-                                       completionHandler: completionHandler)
+                                       completionHandler: completionHandler)*/
+        //-- BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function
     }
     
     /**
@@ -76,6 +92,10 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         _data.clearData()
         // Reset current search value
         self._page      = 0
+        _fromDate = CommonProcess.getCurrentDate()
+        _toDate = CommonProcess.getCurrentDate()
+        _datePickerFrom.setValue(value: CommonProcess.getCurrentDate())
+        _datePickerTo.setValue(value: CommonProcess.getCurrentDate())
         // Reload table
         _tblView.reloadData()
     }
@@ -173,7 +193,102 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         // Request data from server
         requestData()
         self.view.makeComponentsColor()
+        //++ BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function
+        setupSearchView()
+        //-- BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function
     }
+    
+    //++ BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function
+    /**
+     * Set up search view
+     */
+    private func setupSearchView() {
+        // Search view
+        _viewSearch.frame = CGRect(x: 0, y: self.getTopHeight(),
+                                   width: GlobalConst.SCREEN_WIDTH,
+                                   height: GlobalConst.SCREEN_HEIGHT - self.getTopHeight())
+        _viewSearch.isHidden = true
+        _viewSearch.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        self.view.addSubview(_viewSearch)
+        let inputWidth = GlobalConst.SCREEN_WIDTH - 2 * GlobalConst.MARGIN
+        // Input view
+        /*_viewInput.frame = CGRect(x: GlobalConst.MARGIN,
+                                  y: GlobalConst.MARGIN,
+                                  width: inputWidth,
+                                  height: DatePickerView.STATIC_HEIGHT + GlobalConst.SEARCH_BOX_HEIGHT + GlobalConst.BUTTON_H)*/
+        _viewInput.frame = CGRect(x: GlobalConst.MARGIN,
+                                  y: GlobalConst.MARGIN,
+                                  width: inputWidth,
+                                  height: DatePickerView.STATIC_HEIGHT + GlobalConst.BUTTON_H)
+        _viewInput.backgroundColor = UIColor.white
+        _viewInput.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
+        _viewSearch.addSubview(_viewInput)
+        var offset: CGFloat = 0.0
+        
+        // From date
+        _datePickerFrom = DatePickerView(frame: CGRect(x: 0,
+                                                       y: offset,
+                                                       width: inputWidth / 2,
+                                                       height: GlobalConst.LABEL_H * 2))
+        _datePickerFrom.setTitle(title: DomainConst.CONTENT00412)
+        _datePickerFrom.setValue(value: _fromDate)
+        _datePickerFrom.showTodayButton(isShow: false)
+        _datePickerFrom.setTextAlignment(alignment: .center)
+        _viewInput.addSubview(_datePickerFrom)
+        
+        // To date
+        _datePickerTo = DatePickerView(frame: CGRect(x: inputWidth / 2,
+                                                     y: offset,
+                                                     width: inputWidth / 2,
+                                                     height: GlobalConst.LABEL_H * 2))
+        _datePickerTo.setTitle(title: DomainConst.CONTENT00413)
+        _datePickerTo.setValue(value: _toDate)
+        _datePickerTo.showTodayButton(isShow: false)
+        _datePickerTo.setTextAlignment(alignment: .center)
+        _viewInput.addSubview(_datePickerTo)
+        offset += DatePickerView.STATIC_HEIGHT - GlobalConst.MARGIN
+        // Search button
+        let btnSearch = UIButton()
+        btnSearch.frame = CGRect(x: 0, y: offset,
+                                 width: _viewInput.frame.width,
+                                 height: GlobalConst.BUTTON_H)
+        btnSearch.setTitle(DomainConst.CONTENT00287, for: UIControlState())
+        btnSearch.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        btnSearch.setTitleColor(UIColor.white, for: UIControlState())
+        btnSearch.layer.cornerRadius = GlobalConst.BUTTON_CORNER_RADIUS
+        btnSearch.addTarget(self, action: #selector(btnSearchTapped(_:)), for: .touchUpInside)
+        self._viewInput.addSubview(btnSearch)
+    }
+    
+    /**
+     * Handle when tap button Search
+     */
+    internal func btnSearchTapped(_ sender: AnyObject) {
+        self._fromDate  = _datePickerFrom.getValue()
+        self._toDate    = _datePickerTo.getValue()
+        _data.clearData()
+        //        resetData()
+        requestData() 
+        // Hide keyboard
+        self.view.endEditing(true)
+        _viewSearch.isHidden = true
+    }
+    
+    /**
+     * Handle tap on Search menu icon
+     * - parameter sender: AnyObject
+     */
+    internal func searchMenuIconTapped(_ sender: AnyObject) {
+        if _viewSearch.isHidden {
+            _viewSearch.isHidden = false
+        } else {
+            _viewSearch.isHidden = true
+            _datePickerFrom.setValue(value: _fromDate)
+            _datePickerTo.setValue(value: _toDate)
+        }
+    }
+    
+    //-- BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function
     
     //++ BUG0182-SPJ (NguyenPT 20171219) Create transaction
     /**
@@ -181,6 +296,11 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * - parameter sender: AnyObject
      */
     internal func actionTapped(_ sender: AnyObject) {
+        if _viewSearch.isHidden == false {
+            _viewSearch.isHidden = true
+            _datePickerFrom.setValue(value: _fromDate)
+            _datePickerTo.setValue(value: _toDate)
+        } 
         // Show alert
         let alert = UIAlertController(title: DomainConst.CONTENT00436,
                                       message: DomainConst.CONTENT00437,
@@ -195,6 +315,14 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
                                     self.requestCreateTransaction()
         })
         alert.addAction(storeCard)
+        //++ BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function
+        let search = UIAlertAction(title: DomainConst.CONTENT00287,
+                                      style: .default, handler: {
+                                        action in
+                                        self.searchMenuIconTapped(self)
+        })
+        alert.addAction(search)
+        //-- BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function
         if let presenter = alert.popoverPresentationController {
             presenter.sourceView = sender as? UIButton
             presenter.sourceRect = sender.bounds

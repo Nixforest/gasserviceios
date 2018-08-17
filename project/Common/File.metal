@@ -8,6 +8,21 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.49.0
+// - Gasservice - Set Family Order title and Vip Customer Order title bigger
+// Version: 1.48.0
+// - Gasservice - Add Configbean store_keeper for Home screen (Stock keeper)
+// - Gasservice - Stock List
+// - Gasservice - Stock View/Update
+// - Add field gas_remain_car and gas remain_driver in Api Update Config
+// - Gasservice - Stock Real View
+// - Gasservice - Stock Real Update
+// - Gasservice - Fix keyboard problem
+// - Gasservice - Delete Button Sum, add Cylinder info and Sum in tab cylinder of Vip Customer Order View
+// Version: 1.47.0
+// - Gasservice - Customer Request List
+// - Gasservice - Customer Request View
+// - Gasservice - Customer Request Create
 // Version: 1.40.0
 // - BUG0190: Add user report field - Report CCS
 // Version: 1.33.0
