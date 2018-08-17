@@ -52,8 +52,12 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
     @IBOutlet weak var btnCancel:             UIButton!
     /** Button Add supply */
     @IBOutlet weak var btnAddSupply:          UIButton!
-    
+    /** List image add to this order */
+    internal var _images:            [UIImage]           = [UIImage]()
+    @IBOutlet weak var heightColectionView: NSLayoutConstraint!
     /** Click Button Add supply */
+    /** Image collection view */
+    @IBOutlet weak var cltImg: UICollectionView!
     @IBAction func btn_Add_Supply(_ sender: Any) {
         if G17F00S03VC._dataClientCache.count > 0 {
              self.selectMaterial()
@@ -85,7 +89,7 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
             }
         }
         CustomerRequestCreateRequest.request(action: #selector(finishCreateCustomerRequest(_:)), view: self, customerId: _customer_id, json: jsonCustomerRequest.joined(separator: DomainConst.SPLITER_TYPE2),
-            note: lblNote.text! )
+                                             note: lblNote.text!, images: _images )
         
     }
     
@@ -143,7 +147,12 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
         heightTable.constant = 0
         //button edit bar
         //self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
+        // Add action Add Image button to navigation bar
+        self.createRightNavigationItem(icon: DomainConst.ADD_MATERIAL_ICON_IMG_NAME,
+                                       action: #selector(addImageButtonTapped(_:)), target: self)
+        //collectionview
+        cltImg.dataSource = self
+        cltImg.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -175,6 +184,67 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
             self.lblCustomerName.text = BaseModel.shared.currentUpholdDetail.customer_name
             self.lblAddress.text = BaseModel.shared.currentUpholdDetail.customer_address
             BaseModel.shared.currentUpholdDetail.customer_id = ""
+        }
+    }
+    
+    /**
+     * Handle tap on create Customer Request Button
+     * - parameter sender: AnyObject
+     */
+    internal func addImageButtonTapped(_ sender: AnyObject) {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00437,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        let actionTakePicture = UIAlertAction(title: "Chụp ảnh",
+                                   style: .default, handler: {
+                                    action in
+                                    self.addImageFromCamera()
+        })
+        let actionGetPicture = UIAlertAction(title: "Chọn ảnh từ thư viện",
+                                             style: .default, handler: {
+                                                action in
+                                                self.addImageFromLibrary()
+        })
+        alert.addAction(cancel)
+        alert.addAction(actionTakePicture)
+        alert.addAction(actionGetPicture)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Handle add image from camera
+     */
+    internal func addImageFromCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = UIImagePickerControllerSourceType.camera
+            imgPicker.allowsEditing = true
+            self.present(imgPicker, animated: true, completion: {
+                self.cltImg.reloadData()
+            })
+        }
+    }
+    
+    /**
+     * Handle add image from library
+     */
+    internal func addImageFromLibrary() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            imgPicker.allowsEditing = true
+            self.present(imgPicker, animated: true, completion: {
+                self.cltImg.reloadData()
+            })
         }
     }
     
@@ -222,7 +292,7 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
         if model.isSuccess() {
             // Clear data at steps
             self.clearData()
-            showAlert(message: model.message,
+            showAlert(message: G17Const.MESSAGE_CREATE_SUCCESS,
                       okHandler: {
                         alert in
                         //self.backButtonTapped(self)
@@ -510,9 +580,100 @@ extension G17F00S03VC: UITableViewDelegate {
             tblMaterial.deleteRows(at: [indexPath], with: .fade)
             heightTable.constant -= 48
             //tblMaterial.reloadData()
-            
         }
     }
-
 }
-
+ // MARK: UIImagePickerControllerDelegate
+ extension G17F00S03VC: UIImagePickerControllerDelegate {
+    /**
+     * Tells the delegate that the user picked a still image or movie.
+     */
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            self._images.append(image)            
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+ }
+ 
+ // MARK: UINavigationControllerDelegate
+ extension G17F00S03VC: UINavigationControllerDelegate {
+    // Implement methods
+ }
+ 
+ // MARK: UICollectionViewDataSource
+ extension G17F00S03VC: UICollectionViewDataSource {
+    /**
+     * Asks your data source object for the number of items in the specified section.
+     */
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //        return _data.record.images.count
+        //return _data.record.images.count + self._images.count
+        return self._images.count
+    }
+    
+    /**
+     * Asks your data source object for the cell that corresponds to the specified item in the collection view.
+     */
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Get current cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell3", for: indexPath) as! ImageCell
+        cell.imgPicture.image = self._images[indexPath.row]
+        cell.btnDeletePicture.layer.cornerRadius = 12
+        cell.layer.borderColor = UIColor.red.cgColor
+        cell.layer.borderWidth = 1
+        cell.layer.cornerRadius = 2
+        cell.delegate = self
+        //cell.imageView.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+        /*if indexPath.row < _data.record.images.count {
+            cell.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].thumb, contentMode: cell.imageView.contentMode)
+        } else {
+            cell.imageView.image = self._images[indexPath.row - _data.record.images.count]
+        }*/
+        
+        return cell
+    }
+ }
+ 
+ // MARK: UICollectionViewDelegate
+ extension G17F00S03VC: UICollectionViewDelegate {
+    /**
+     * Tells the delegate that the item at the specified index path was selected.
+     */
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell3", for: indexPath) as! ImageCell
+        /** push to zoomIMGVC */
+        zoomIMGViewController.imgPicked = cell.imgPicture.image
+        zoomIMGViewController.setPickedImg(img: self._images[indexPath.row])
+        /*if indexPath.row < _data.record.images.count {
+            zoomIMGViewController.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].large, contentMode: cell.imageView.contentMode)
+        } else {
+            zoomIMGViewController.setPickedImg(img: self._images[indexPath.row - _data.record.images.count])
+        }*/
+        // Move to rating view
+        self.pushToView(name: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
+  
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        print("Perform")
+    }
+ }
+ extension G17F00S03VC: ImageDelegte{
+    func deleteImage(cell: ImageCell) {
+        if let indexPath = cltImg?.indexPath(for: cell){
+            _images.remove(at: indexPath.row)
+            cltImg?.deleteItems(at: [indexPath])
+        }
+    }
+    
+    
+ }

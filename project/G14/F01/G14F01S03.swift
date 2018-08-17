@@ -300,6 +300,10 @@ class G14F01S03: StepContent {
         
         alert.addAction(cancel)
         alert.addAction(ok)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self._tblMaterial
+            presenter.sourceRect = self._tblMaterial.bounds
+        }
         self.getParentView().present(alert, animated: true, completion: nil)
     }
     

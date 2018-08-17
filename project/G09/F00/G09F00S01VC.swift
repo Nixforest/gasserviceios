@@ -99,6 +99,9 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
             })
             alert.addAction(action)
         }
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -562,7 +565,7 @@ class G09F00S01VC: ParentViewController, UISearchBarDelegate, UITableViewDelegat
      */
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let filteredStr = searchText
-        if filteredStr.characters.count > (DomainConst.SEARCH_TARGET_MIN_LENGTH - 1) {
+        if filteredStr.count > (DomainConst.SEARCH_TARGET_MIN_LENGTH - 1) {
             _beginSearch = false
             _searchActive = true
             // Start count

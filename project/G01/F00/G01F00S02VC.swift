@@ -24,6 +24,8 @@ class G01F00S02VC: ChildViewController, UIScrollViewDelegate, UITableViewDelegat
     @IBOutlet weak var tblViewHistory: UITableView!
     /** Create reply button */
     @IBOutlet weak var btnCreateReply: UIButton!
+    /** Current uphold detail */
+    public static var currentUpholdDetail:         UpholdBean          = UpholdBean()
     /**
      * Segment ScrollView Control Action
      */
@@ -173,7 +175,17 @@ class G01F00S02VC: ChildViewController, UIScrollViewDelegate, UITableViewDelegat
         if BaseModel.shared.checkNotificationExist() {
             BaseModel.shared.clearNotificationData()
         }
+        /*if BaseModel.shared.currentUpholdDetail.customer_id != "" {
+            G01F00S02VC.currentUpholdDetail = BaseModel.shared.currentUpholdDetail
+        }*/
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if BaseModel.shared.currentUpholdDetail.customer_id == "" {
+         getUpholdDetail()
+         }
+    }
+    
     //++ BUG0208-SPJ (KhoiVT 7/11/2018) Gasservice - Customer Request Create
     /**
      * Handle tap on create Customer Request Button
@@ -194,7 +206,9 @@ class G01F00S02VC: ChildViewController, UIScrollViewDelegate, UITableViewDelegat
         })
         alert.addAction(cancel)
         alert.addAction(action)
-        alert.popoverPresentationController?.sourceView = self.view
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+        }
         self.present(alert, animated: true, completion: nil)
     }
     

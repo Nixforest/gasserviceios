@@ -24,8 +24,10 @@ class CustomerRequestBean: CustomerRequestListBean{
     public var last_update_time:        String = DomainConst.BLANK
     /** image */
     public var img:                     String = DomainConst.BLANK
-    
+    /** json */
     public var json:                    [OrderDetailBean] = [OrderDetailBean]()
+    /** List images */
+    public var images:                  [UpholdImageInfoItem] = [UpholdImageInfoItem]()
     /**
      * Initializer
      * - parameter jsonData: List of data
@@ -46,6 +48,11 @@ class CustomerRequestBean: CustomerRequestListBean{
                 self.json.append(OrderDetailBean(jsonData: item))
             }
             
+        }
+        if let dataArr = jsonData[DomainConst.KEY_LIST_IMAGE] as? [[String: AnyObject]] {
+            for listItem in dataArr {
+                self.images.append(UpholdImageInfoItem(jsonData: listItem))
+            }
         }
         
     }

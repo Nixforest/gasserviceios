@@ -32,6 +32,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     //++ BUG0216-SPJ (KhoiVT20170808) Gaservice - Delete Button Sum, add Cylinder info and Sum in tab cylinder of Vip Customer Order View
     /** List of information Material String */
     private var _listMaterialString:          [String] = [String]()
+    /** List of information Gas String */
+    private var _listGasString:          [String] = [String]()
     //-- BUG0216-SPJ (KhoiVT20170808) Gaservice - Delete Button Sum, add Cylinder info and Sum in tab cylinder of Vip Customer Order View
     /** Segment control */
     private var _segment:           UISegmentedControl   = UISegmentedControl(
@@ -168,6 +170,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         alert.addAction(cancel)
         alert.addAction(gas)
         alert.addAction(otherMaterial)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+            /*presenter.sourceRect = self.view
+                .bounds*/
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -310,10 +317,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _data.getRecord().info_gas.remove(at: idx)
         // Delete in table data
         _listMaterial.remove(at: idx)
-        let indexPath: IndexPath = IndexPath(item: idx, section: 1)
+        // Update info gas
+        getSumGasInfo()
+        //let indexPath: IndexPath = IndexPath(item: idx, section: 1)
         // Delete in table
-        _tblViewGas.deleteRows(at: [indexPath], with: .fade)
+        //_tblViewGas.deleteRows(at: [indexPath], with: .fade)
         updateLayout()
+        // Update table gas info
+        _tblViewGas.reloadData()
     }
     
     /**
@@ -350,7 +361,9 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 // Update in table data
                 self._listMaterial[idx][2].0 = String(describing: n)
                 // Update table
-                self._tblViewGas.reloadRows(at: [IndexPath(item: idx, section: 1)], with: .automatic)
+                //self._tblViewGas.reloadRows(at: [IndexPath(item: idx, section: 1)], with: .automatic)
+                self.getSumGasInfo()
+                self._tblViewGas.reloadData()
             } else {
                 self.showAlert(message: DomainConst.CONTENT00251, okTitle: DomainConst.CONTENT00251,
                                okHandler: {_ in
@@ -364,6 +377,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         alert.addAction(cancel)
         alert.addAction(ok)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+            /*presenter.sourceRect = self.view
+                .bounds*/
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -510,6 +528,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         alert.addAction(cancel)
         alert.addAction(ok)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+            /*presenter.sourceRect = self.view
+                .bounds*/
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -993,11 +1016,105 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _listMaterialString.append(str)
         //showAlert(message: sum.joined(separator: "\n"))
     }
+    
+    /**
+     * Show sum all cylinders info 
+     */
+    private func getSumGasInfo() {
+        _listGasString.removeAll()
+        // Count number
+        var sumCount: [(Int, Double)] = [
+            (0, 0.0),
+            (0, 0.0),
+            (0, 0.0),
+            (0, 0.0)
+        ]
+        // Summary strings
+        //var sum: [String] = [String]()
+        // Summary all
+        var sumAll: (Int, Double) = (0, 0.0)
+        // Loop through all info_vo array
+        for item in _data.getRecord().info_gas {
+            if let n = Int(item.qty_real) {
+                // Increase summary all number
+                sumAll.0 += n
+                // Calculate gas remain
+                var gasRemain: Double = 0.0
+                if !item.kg_empty.isEmpty && !item.kg_has_gas.isEmpty {
+                    gasRemain = (item.kg_has_gas as NSString).doubleValue - (item.kg_empty as NSString).doubleValue
+                }
+                sumAll.1 += gasRemain
+                // Check material type id
+                switch item.materials_type_id {
+                case DomainConst.GAS_TYPE_ID_6KG:      // Cylinder 6Kg
+                    sumCount[0].0 += n
+                    sumCount[0].1 += gasRemain
+                    break
+                case DomainConst.GAS_TYPE_ID_12KG:     // Cylinder 12Kg
+                    sumCount[1].0 += n
+                    sumCount[1].1 += gasRemain
+                    break
+                case DomainConst.GAS_TYPE_ID_45KG:     // Cylinder 45Kg
+                    sumCount[2].0 += n
+                    sumCount[2].1 += gasRemain
+                    break
+                case DomainConst.GAS_TYPE_ID_50KG:     // Cylinder 50Kg
+                    sumCount[3].0 += n
+                    sumCount[3].1 += gasRemain
+                    break
+                default:
+                    break
+                }
+            }
+        }
+        // Get name of type cylinder
+        for i in 0..<sumCount.count {
+            var name = DomainConst.BLANK
+            switch i {
+            case 0:
+                name = "6Kg"
+                break
+            case 1:
+                name = "12Kg"
+                break
+            case 2:
+                name = "45Kg"
+                break
+            case 3:
+                name = "50Kg"
+                break
+            default:
+                break
+            }
+            let item = sumCount[i]
+            if item.0 != 0 {
+                var str = String.init(format: "%@ %@: %d bình",
+                                      "bình",
+                                      name,
+                                      item.0)
+                if !item.1.isZero {
+                    str = String.init(format: "%@, gas dư: %.01f kg", str, item.1)
+                }
+                _listGasString.append(str)
+            }
+        }
+        
+        // Sum all
+        var str = String.init(format: "%@: %d bình",
+                              "Tổng cộng",
+                              sumAll.0)
+        if !sumAll.1.isZero {
+            str = String.init(format: "%@, gas dư: %.01f kg", str, sumAll.1)
+        }
+        _listGasString.append(str)
+        //showAlert(message: sum.joined(separator: "\n"))
+    }
+    
     //++ BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
     /**
      * Show sum all cylinders
      */
-    private func getSumCylinder() {
+    /*private func getSumCylinder() {
         // Count number
         var sumCount: [(Int, Double)] = [
             (0, 0.0),
@@ -1085,6 +1202,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         sum.append(str)
         showAlert(message: sum.joined(separator: "\n"))
     }
+ */
     //-- BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
     //++ BUG0137-SPJ (NguyenPT 20170727) Show payback field
     /**
@@ -1154,6 +1272,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         alert.addAction(cancel)
         alert.addAction(ok)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+            /*presenter.sourceRect = self.view
+                .bounds*/
+        }
         self.present(alert, animated: true, completion: nil)
     }
     //-- BUG0137-SPJ (NguyenPT 20170727) Show payback field
@@ -1218,6 +1341,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         alert.addAction(cancel)
         alert.addAction(ok)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+            /*presenter.sourceRect = self.view
+                .bounds*/
+        }
         self.present(alert, animated: true, completion: nil)
     }
     //-- BUG0139-SPJ (NguyenPT 20170805) Show discount field
@@ -1259,6 +1387,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             _lblCustomerName.text = _data.getRecord().customer_name
             //get list material info
             getSumCylinderInfo()
+            //get list gas info
+            getSumGasInfo()
             _tableView.reloadData()
             _tblViewGas.reloadData()
             _tblViewCylinder.reloadData()
@@ -1643,6 +1773,10 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             })
             alert.addAction(action)
         }
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = btnCancel
+            presenter.sourceRect = btnCancel.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -1746,6 +1880,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                         self.handleCreateTicket(id: item.id)
             })
             alert.addAction(action)
+        }
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+            /*presenter.sourceRect = self.view
+.bounds*/
         }
         self.present(alert, animated: true, completion: nil)
     }
@@ -1923,6 +2062,9 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 // Add data
                 appendMaterialGas(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
                 _tblViewGas.reloadSections(IndexSet(1...2), with: .automatic)
+                // Get sum gas and reload table
+                self.getSumGasInfo()
+                self._tblViewGas.reloadData()
             }
             _type = DomainConst.NUMBER_ZERO_VALUE
         case TYPE_CYLINDER:
@@ -2107,9 +2249,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         switch tableView {
         case _tableView:
             return 1
-        case _tblViewGas:
-            return 3
-        case _tblViewCylinder:
+        case _tblViewGas,_tblViewCylinder:
             return 4
         default:
             break
@@ -2136,7 +2276,14 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 return 1
             } else if (section == 2) {
                 return _listMaterialOption.count
-            } else {
+            }
+            //++ BUG0216-SPJ (KhoiVT20170808) Gaservice - Delete Button Sum, add Cylinder info and Sum in tab cylinder of Vip Customer Order View
+            else if (section == 3) {
+                return _listGasString.count 
+                //return 1
+            }
+            //++ BUG0216-SPJ (KhoiVT20170808) Gaservice - Delete Button Sum, add Cylinder info and Sum in tab cylinder of Vip Customer Order View
+            else {
                 return _listMaterial.count
             }
         case _tblViewCylinder:
@@ -2198,6 +2345,11 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 if _listMaterialOption.count > indexPath.row  {
                     cell.setup(config: _listMaterialOption[indexPath.row])
                 }
+            //++ BUG0216-SPJ (KhoiVT 20170808) Gaservice - Delete Button Sum, add Cylinder info and Sum in tab cylinder of Vip Customer Order View
+            case 3:             // Add new
+                //add label text 
+                cell.setup(text: _listGasString[indexPath.row])
+            //-- BUG0216-SPJ (KhoiVT 20170808) Gaservice - Delete Button Sum, add Cylinder info and Sum in tab cylinder of Vip Customer Order View  
             default:
                 break
             }
@@ -2307,9 +2459,9 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 }
                 //-- BUG0135-SPJ (NguyenPT 20170727) Clear all cylinder
                 //++ BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
-                else if _listCylinderOption[indexPath.row].id == DomainConst.ORDER_INFO_MATERIAL_SUM_ALL_CYLINDER {
+                /*else if _listCylinderOption[indexPath.row].id == DomainConst.ORDER_INFO_MATERIAL_SUM_ALL_CYLINDER {
                     self.getSumCylinder()
-                }
+                }*/
                 //-- BUG0136-SPJ (NguyenPT 20170727) Handle sum all cylinders
             }
             break

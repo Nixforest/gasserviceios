@@ -380,6 +380,7 @@
 		D7CBD06F1E8F673F00FB3BD6 /* G06F01S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD06E1E8F673F00FB3BD6 /* G06F01S02.swift */; };
 		D7CC15131EB05A98002F8434 /* G05F02S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC15121EB05A98002F8434 /* G05F02S01VC.swift */; };
 		D7CC15151EB098AA002F8434 /* OrderVIPUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC15141EB098AA002F8434 /* OrderVIPUpdateRequest.swift */; };
+		D7CD6A9F211C336400341174 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD6A9E211C336400341174 /* ImageCell.swift */; };
 		D7CDBE281E88061E00B73877 /* CustomerFamilyViewRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CDBE271E88061E00B73877 /* CustomerFamilyViewRespModel.swift */; };
 		D7CDBE2B1E8807CB00B73877 /* CustomerFamilyCreateRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CDBE2A1E8807CB00B73877 /* CustomerFamilyCreateRespModel.swift */; };
 		D7CDBE2F1E880E5200B73877 /* WorkingReportListRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CDBE2E1E880E5200B73877 /* WorkingReportListRespModel.swift */; };
@@ -903,6 +904,7 @@
 		D7CBD06E1E8F673F00FB3BD6 /* G06F01S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S02.swift; path = G06/F01/G06F01S02.swift; sourceTree = "<group>"; };
 		D7CC15121EB05A98002F8434 /* G05F02S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F02S01VC.swift; path = G05/F02/G05F02S01VC.swift; sourceTree = "<group>"; };
 		D7CC15141EB098AA002F8434 /* OrderVIPUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPUpdateRequest.swift; path = G05/API/OrderVIPUpdateRequest.swift; sourceTree = "<group>"; };
+		D7CD6A9E211C336400341174 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		D7CDBE271E88061E00B73877 /* CustomerFamilyViewRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerFamilyViewRespModel.swift; path = G06/Model/CustomerFamilyViewRespModel.swift; sourceTree = "<group>"; };
 		D7CDBE2A1E8807CB00B73877 /* CustomerFamilyCreateRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerFamilyCreateRespModel.swift; path = G06/Model/CustomerFamilyCreateRespModel.swift; sourceTree = "<group>"; };
 		D7CDBE2E1E880E5200B73877 /* WorkingReportListRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkingReportListRespModel.swift; path = G06/Model/WorkingReportListRespModel.swift; sourceTree = "<group>"; };
@@ -2298,6 +2300,7 @@
 				D7F7FA9B20FC880D0004F045 /* G17F00S02VC.swift */,
 				D76AE88420FF5153003E57E2 /* MaterialCell.swift */,
 				D7030BEE21005CFB0031CEDF /* MaterialCell2.swift */,
+				D7CD6A9E211C336400341174 /* ImageCell.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -2805,6 +2808,7 @@
 				903D409C206DFE290019B157 /* IssueListBean.swift in Sources */,
 				D71DB0E01E84D25100BED724 /* CustomerFamilyViewRequest.swift in Sources */,
 				D77F06531E71771A00797A6B /* G01F02S01.swift in Sources */,
+				D7CD6A9F211C336400341174 /* ImageCell.swift in Sources */,
 				CF3534A620825E3100FD016C /* NewsViewRequest.swift in Sources */,
 				D709FE951E86ECCB00F32A7E /* CustomerFamilyUpdateRequest.swift in Sources */,
 				D78F99E31ECD47C8003CB814 /* EmployeeCashBookUpdateRequest.swift in Sources */,

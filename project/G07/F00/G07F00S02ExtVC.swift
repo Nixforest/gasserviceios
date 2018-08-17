@@ -519,7 +519,10 @@ class G07F00S02ExtVC: ChildExtViewController {
         
         alert.addAction(cancel)
         alert.addAction(ok)
-        
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -595,6 +598,10 @@ class G07F00S02ExtVC: ChildExtViewController {
         }
         alert.addAction(cancel)
         alert.addAction(ok)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -729,8 +736,8 @@ class G07F00S02ExtVC: ChildExtViewController {
         alert.addAction(cylinder)
         alert.addAction(other)
         if let presenter = alert.popoverPresentationController {
-            presenter.sourceView = _tblInfo
-            presenter.sourceRect = _tblInfo.bounds
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
         }
         self.present(alert, animated: true, completion: nil)
     }
@@ -824,8 +831,8 @@ class G07F00S02ExtVC: ChildExtViewController {
             alert.addAction(action)
         }
         if let presenter = alert.popoverPresentationController {
-            presenter.sourceView = self.view
-            presenter.sourceRect = self.view.bounds
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
         }
         self.present(alert, animated: true, completion: nil)
     }
@@ -889,6 +896,10 @@ class G07F00S02ExtVC: ChildExtViewController {
         
         alert.addAction(cancel)
         alert.addAction(ok)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -1004,6 +1015,10 @@ class G07F00S02ExtVC: ChildExtViewController {
             })
             alert.addAction(action)
         }
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _btnCancel
+            presenter.sourceRect = _btnCancel.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -1066,6 +1081,10 @@ class G07F00S02ExtVC: ChildExtViewController {
                                     self.btnCreateTicketTapped(self)
         })
         alert.addAction(ticket)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _btnOtherAction
+            presenter.sourceRect = _btnOtherAction.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -1195,6 +1214,10 @@ class G07F00S02ExtVC: ChildExtViewController {
                                         self.handleCreateTicket(id: item.id)
             })
             alert.addAction(action)
+        }
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
         }
         self.present(alert, animated: true, completion: nil)
     }

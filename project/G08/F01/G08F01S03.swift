@@ -134,6 +134,10 @@ class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
         alert.addAction(gas)
         alert.addAction(cylinder)
         alert.addAction(other)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _tblMaterial
+            presenter.sourceRect = _tblMaterial.bounds
+        }
         self.getParentView().present(alert, animated: true, completion: nil)
     }
     
@@ -246,9 +250,12 @@ class G08F01S03: StepContent, UITableViewDataSource, UITableViewDelegate {
                 })
             }
         }
-        
         alert.addAction(cancel)
         alert.addAction(ok)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _tblMaterial
+            presenter.sourceRect = _tblMaterial.bounds
+        }
         self.getParentView().present(alert, animated: true, completion: nil)
     }
     

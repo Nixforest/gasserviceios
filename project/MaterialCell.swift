@@ -13,7 +13,7 @@ protocol CellTextChangeDelegte{
     func UpdateQuantity(quantity : String, index: Int)
     func didBeginEdit()
 }
-class MaterialCell: UITableViewCell {
+class MaterialCell: UITableViewCell, UITextFieldDelegate {
 
     var index : Int = 0
     @IBOutlet weak var lblMaterialName: UILabel!
@@ -34,8 +34,8 @@ class MaterialCell: UITableViewCell {
                     btnReduce.isHidden = true
                     tf_quantity.text = "1"
                 }
-                else if quantity > 98 {
-                    tf_quantity.text = "99"
+                else if quantity > 999998 {
+                    tf_quantity.text = "999999"
                     btnIncreate.isHidden = true
                 }
                 else{
@@ -57,7 +57,7 @@ class MaterialCell: UITableViewCell {
         if(quantity == 1){
             btnReduce.isHidden = true
         }
-        else if(quantity == 99){
+        else if(quantity == 999999){
             btnIncreate.isHidden = true
         }
         else{
@@ -85,12 +85,16 @@ class MaterialCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
-        // Initialization code
-        
-        //lblMaterialName.text = "asdfklasdfksafjsalkfdjlkasdfalskdfj"
+        tf_quantity.delegate = self
     }
-
+    
+    /*func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let nsString = NSString(string: textField.text!)
+        let newText = nsString.replacingCharacters(in: range, with: string)
+        return  newText.count <= 5
+    }*/
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

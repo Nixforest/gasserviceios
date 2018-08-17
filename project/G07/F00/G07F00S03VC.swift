@@ -162,7 +162,7 @@ class G07F00S03VC: ChildExtViewController {
         let ok = UIAlertAction(title: DomainConst.CONTENT00008, style: .default) {
             action -> Void in
             if let newValue = tbxValue?.text, !newValue.isEmpty {
-                if newValue.characters.count <= 5 {
+                if newValue.count <= 5 {
                     let newValueStr = newValue.replacingOccurrences(of: decimal, with: DomainConst.SPLITER_TYPE4)
                     let doubleValue = (newValueStr as NSString).doubleValue
                     bean.updateData(id: bean.id,

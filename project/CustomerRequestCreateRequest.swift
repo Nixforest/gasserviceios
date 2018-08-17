@@ -25,6 +25,17 @@ class CustomerRequestCreateRequest: BaseRequest {
             DomainConst.KEY_NOTE, note,
             DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
         )
+        // ++ add image
+        self.param = ["q": String.init(
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":[%@],\"%@\":\"%@\",\"%@\":\"%d\"}",
+            DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
+            DomainConst.KEY_CUSTOMER_ID, customerId,
+            DomainConst.KEY_JSON, json,
+            DomainConst.KEY_NOTE, note,
+            DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
+            )]
+        // -- add image
+        
     }
     
     /**
@@ -37,7 +48,7 @@ class CustomerRequestCreateRequest: BaseRequest {
     public static func request(action: Selector, view: BaseViewController,
                                customerId: String,
                                json: String,
-                               note: String) {
+                               note: String, images: [UIImage]) {
         let request = CustomerRequestCreateRequest(url: G17Const.PATH_VIP_CUSTOMER_REQUEST_CREATE,
                                              reqMethod: DomainConst.HTTP_POST_REQUEST,
                                              view: view)
@@ -45,7 +56,8 @@ class CustomerRequestCreateRequest: BaseRequest {
                         json: json,
                         note: note)
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
-        request.execute()
+        //request.execute()
+        request.executeUploadFile(listImages: images)
     }
 }
 

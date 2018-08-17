@@ -119,7 +119,7 @@ class G18F00S03VC: BaseChildViewController {
         let data = model as! String
         let model = StockResponseModel(jsonString: data)
         if model.isSuccess() {
-            showAlert(message: model.message,
+            showAlert(message: G18Const.MESSAGE_CONFIRM_STOCK_SUCCESS,
                       okHandler: {
                         alert in
                         self.backButtonTapped(self)

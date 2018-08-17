@@ -23,8 +23,8 @@ class MaterialCell2: UITableViewCell {
                     btnReduce.isHidden = true
                     tfQuantity.text = "1"
                 }
-                else if quantity > 98 {
-                    tfQuantity.text = "99"
+                else if quantity > 99998 {
+                    tfQuantity.text = "99999"
                     btnIncrease.isHidden = true
                 }
                 else{
@@ -45,7 +45,7 @@ class MaterialCell2: UITableViewCell {
         if(quantity == 1){
             btnReduce.isHidden = true
         }
-        else if(quantity == 99){
+        else if(quantity == 99999){
             btnIncrease.isHidden = true
         }
         else{
@@ -75,6 +75,7 @@ class MaterialCell2: UITableViewCell {
     @IBOutlet weak var btn_Reduce: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
+        //tfQuantity.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

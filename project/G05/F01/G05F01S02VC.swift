@@ -376,6 +376,9 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate, UITextFieldDelegate 
             })
             alert.addAction(action)
         }
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+        }
         self.present(alert, animated: true, completion: nil)
     }
     /**

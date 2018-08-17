@@ -45,6 +45,9 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate{
     @IBOutlet weak var heightCustomerInfoView: NSLayoutConstraint!
     /** Height of Table */
     @IBOutlet weak var heightTable: NSLayoutConstraint!
+    /** Height of collection view */
+    @IBOutlet weak var heightColectionView: NSLayoutConstraint!
+    //@IBOutlet weak var heightTable: NSLayoutConstraint!
     /** View Customer Info */
     @IBOutlet weak var viewCustomerInfo: UIView!
     /** TextField Note */
@@ -63,6 +66,10 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate{
     @IBOutlet weak var btnAddMaterial: UIButton!
     /** Button Delete Info */
     @IBOutlet weak var btnDeleteInfo: UIButton!
+    /** List image add to this order */
+    internal var _images:            [UIImage]           = [UIImage]()
+    /** Previous images */
+    public var _previousImage: [UpholdImageInfoItem] = [UpholdImageInfoItem]()
     /** Click Button Delete info */
     @IBAction func deleteInfo(_ sender: Any) {
         _customer_id = ""
@@ -76,6 +83,8 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate{
     }
     /** Button Delete All */
     @IBOutlet weak var btnDeleteAll: UIButton!
+    /** Image collection view */
+    @IBOutlet weak var cltImg: UICollectionView!
     /** Click Button Save */
     @IBAction func save(_ sender: Any) {
         var jsonCustomerRequest = [String]()
@@ -84,7 +93,11 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate{
                 jsonCustomerRequest.append(item.createJsonDataForCustomerRequest())
             }
         }
-        CustomerRequestUpdateRequest.request(action: #selector(finishUpdateCustomerRequest(_:)), view: self, id: _id, customerId: _customer_id, json: jsonCustomerRequest.joined(separator: DomainConst.SPLITER_TYPE2), note: tfNote.text!)
+        var imgDeleted = [String]()
+        _previousImage.forEach { (previousImage) in
+            imgDeleted.append(previousImage.id)
+        }
+        CustomerRequestUpdateRequest.request(action: #selector(finishUpdateCustomerRequest(_:)), view: self, id: _id, customerId: _customer_id, json: jsonCustomerRequest.joined(separator: DomainConst.SPLITER_TYPE2), note: tfNote.text!,images: _images,listImgDelete:  imgDeleted.joined(separator: DomainConst.SPLITER_TYPE2))
     }
     /** Click Button Cancel */
     @IBAction func cancel(_ sender: Any) {
@@ -142,6 +155,16 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate{
         tblSearch.dataSource = self
         // Do any additional setup after loading the view.
         tblMaterial.addSubview(refreshControl)
+        // Add action Add Image button to navigation bar
+        /*self.createRightNavigationItem(icon: DomainConst.ADD_MATERIAL_ICON_IMG_NAME,
+                                       action: #selector(addImageButtonTapped(_:)), target: self)*/
+        //heightColectionView.constant = 0
+        // Add action Add Image button to navigation bar
+        self.createRightNavigationItem(icon: DomainConst.ADD_MATERIAL_ICON_IMG_NAME,
+                                       action: #selector(addImageButtonTapped(_:)), target: self)
+        //collectionview
+        cltImg.dataSource = self
+        cltImg.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -169,6 +192,66 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate{
             G17F00S02VC._type = DomainConst.SEARCH_TARGET_TYPE_CUSTOMER
     }
     
+    /**
+     * Handle tap on create Customer Request Button
+     * - parameter sender: AnyObject
+     */
+    internal func addImageButtonTapped(_ sender: AnyObject) {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00437,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        let actionTakePicture = UIAlertAction(title: "Chụp ảnh",
+                                              style: .default, handler: {
+                                                action in
+                                                self.addImageFromCamera()
+        })
+        let actionGetPicture = UIAlertAction(title: "Chọn ảnh từ thư viện",
+                                             style: .default, handler: {
+                                                action in
+                                                self.addImageFromLibrary()
+        })
+        alert.addAction(cancel)
+        alert.addAction(actionTakePicture)
+        alert.addAction(actionGetPicture)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Handle add image from camera
+     */
+    internal func addImageFromCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = UIImagePickerControllerSourceType.camera
+            imgPicker.allowsEditing = true
+            self.present(imgPicker, animated: true, completion: {
+                self.cltImg.reloadData()
+            })
+        }
+    }
+    
+    /**
+     * Handle add image from library
+     */
+    internal func addImageFromLibrary() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            imgPicker.allowsEditing = true
+            self.present(imgPicker, animated: true, completion: {
+                self.cltImg.reloadData()
+            })
+        }
+    }
     /**
      * append Material Cylinder
      */
@@ -222,7 +305,7 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate{
         if model.isSuccess() {
             // Clear data at steps
             self.clearData()
-            showAlert(message: model.message,
+            showAlert(message: G17Const.MESSAGE_UPDATE_SUCCESS,
                       okHandler: {
                         alert in
                         //self.backButtonTapped(self)
@@ -368,6 +451,11 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate{
             lblCustomerAddress.text = _data.record.address
             tfNote.text = _data.record.note
             tblMaterial.reloadData()
+            //get image for _image
+            /*_data.record.images.forEach { (imageItem) in
+                loadImage(url: imageItem.large)
+            }*/
+            cltImg.reloadData()
             if(_data.record.allow_update == "0"){
             hideIfNotAllowUpdate()
             }
@@ -442,6 +530,24 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate{
         G17F00S02VC._type = DomainConst.SEARCH_TARGET_TYPE_CUSTOMER
         //-- BUG0179-SPJ (NguyenPT 20171217) Fix bug clear data
     }
+    
+    /**
+     * Load Image From Internet and append list uiimage
+     */
+    
+    func loadImage(url: String) {
+        let urlImage:URL = URL(string: url)!
+        do{
+            let data:Data = try Data(contentsOf: urlImage)
+            if let image = UIImage(data: data){
+                _images.append(image)
+            }
+        }
+        catch{
+            print("Download Image Error")
+        }
+    }
+    
 }
 
 // MARK: Protocol - UITableViewDataSource
@@ -479,7 +585,7 @@ extension G17F00S02VC: UITableViewDataSource{
                 cell2.lblMaterialName.text = _dataJson[indexPath.row].material_name 
                 cell2.tfQuantity.text = String(_dataJson[indexPath.row].qty)
                 let quantity: Int = Int(cell2.tfQuantity.text!)!
-                if quantity == 99{
+                if quantity == 999999{
                     cell2.btnIncrease.isHidden = true
                 }
                 else if quantity == 1{
@@ -569,6 +675,106 @@ extension G17F00S02VC: UITableViewDelegate {
             heightTable.constant -= 48
             tblMaterial.deleteRows(at: [indexPath], with: .fade)
             //tblMaterial.reloadData()
+        }
+    }
+}
+
+// MARK: UIImagePickerControllerDelegate
+extension G17F00S02VC: UIImagePickerControllerDelegate {
+    /**
+     * Tells the delegate that the user picked a still image or movie.
+     */
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            self._images.append(image)            
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: UINavigationControllerDelegate
+extension G17F00S02VC: UINavigationControllerDelegate {
+    // Implement methods
+}
+
+// MARK: UICollectionViewDataSource
+extension G17F00S02VC: UICollectionViewDataSource {
+    /**
+     * Asks your data source object for the number of items in the specified section.
+     */
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //        return _data.record.images.count
+        return _data.record.images.count + self._images.count
+        //return self._images.count
+        //return 10
+    }
+    
+    /**
+     * Asks your data source object for the cell that corresponds to the specified item in the collection view.
+     */
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Get current cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell2", for: indexPath) as! ImageCell
+        //cell.imgPicture.image = self._images[indexPath.row]
+        cell.btnDeletePicture.layer.cornerRadius = 12
+        cell.layer.borderColor = UIColor.red.cgColor
+        cell.layer.borderWidth = 1
+        cell.layer.cornerRadius = 2
+        cell.delegate = self
+        //cell.imageView.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+        if indexPath.row < _data.record.images.count {
+         cell.imgPicture.getImgFromUrl(link: _data.record.images[indexPath.row].thumb, contentMode: cell.imgPicture.contentMode)
+         } else {
+         cell.imgPicture.image = self._images[indexPath.row - _data.record.images.count]
+         }
+        return cell
+    }
+}
+
+// MARK: UICollectionViewDelegate
+extension G17F00S02VC: UICollectionViewDelegate {
+    /**
+     * Tells the delegate that the item at the specified index path was selected.
+     */
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell2", for: indexPath) as! ImageCell
+        /** push to zoomIMGVC */
+        zoomIMGViewController.imgPicked = cell.imgPicture.image
+        //zoomIMGViewController.setPickedImg(img: self._images[indexPath.row])
+        if indexPath.row < _data.record.images.count {
+         zoomIMGViewController.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].large, contentMode: cell.imgPicture.contentMode)
+         } else {
+         zoomIMGViewController.setPickedImg(img: self._images[indexPath.row - _data.record.images.count])
+         }
+        // Move to rating view
+        self.pushToView(name: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        print("Perform")
+    }
+}
+extension G17F00S02VC: ImageDelegte{
+    func deleteImage(cell: ImageCell) {
+        if let indexPath = cltImg?.indexPath(for: cell){
+            if indexPath.row < _data.record.images.count {
+                _previousImage.append(_data.record.images[indexPath.row])
+                _data.record.images.remove(at: indexPath.row)
+            } else {
+                _images.remove(at: indexPath.row - _data.record.images.count)
+            }
+            cltImg.reloadData()
+            /*_images.remove(at: indexPath.row)
+            cltImg?.deleteItems(at: [indexPath])*/
         }
     }
 }

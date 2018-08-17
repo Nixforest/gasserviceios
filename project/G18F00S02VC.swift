@@ -12,18 +12,20 @@ import harpyframework
 class G18F00S02VC: BaseChildViewController {
     /** Flag check keyboard is show or hide */
     internal var _isKeyboardShow:                    Bool                = false
+    /** Flag check  save is show or hide */
+    internal var _isUpdate:                    Bool                = false
     /** Tap gesture hide keyboard */
     internal var _gestureHideKeyboard:               UIGestureRecognizer = UIGestureRecognizer()
     // Button Save
-    @IBOutlet weak var btnSave: UIButton!
+    //@IBOutlet weak var btnSave: UIButton!
     // Button Other Action
-    @IBOutlet weak var btnOtherAction: UIButton!
+    //@IBOutlet weak var btnOtherAction: UIButton!
     // Click Button Save
-    @IBAction func btn_Save(_ sender: Any) {
+    /*@IBAction func btn_Save(_ sender: Any) {
         requestUpdate()
-    }
+    }*/
     // Click Button Other Action
-    @IBAction func btn_OtherAction(_ sender: Any) {
+    /*@IBAction func btn_OtherAction(_ sender: Any) {
         // Show alert
         let alert = UIAlertController(title: DomainConst.CONTENT00436,
                                       message: DomainConst.CONTENT00437,
@@ -45,7 +47,7 @@ class G18F00S02VC: BaseChildViewController {
         }
         //-- BUG0154-SPJ (NguyenPT 20170909) Add image in VIP order detail when update
         self.present(alert, animated: true, completion: nil)
-    }
+    }*/
     // Table Stock
     @IBOutlet weak var tblInfoGas: UITableView!
     // Label Deliveried Date
@@ -66,8 +68,8 @@ class G18F00S02VC: BaseChildViewController {
         super.viewDidLoad()
         //self.automaticallyAdjustsScrollViewInsets = true
         //Custom Button
-        btnSave.layer.cornerRadius = CGFloat(G18Const.CORNER_RADIUS_BUTTON)
-        btnOtherAction.layer.cornerRadius = CGFloat(G18Const.CORNER_RADIUS_BUTTON)
+        /*btnSave.layer.cornerRadius = CGFloat(G18Const.CORNER_RADIUS_BUTTON)
+        btnOtherAction.layer.cornerRadius = CGFloat(G18Const.CORNER_RADIUS_BUTTON)*/
         //Create title
         self.createNavigationBar(title: DomainConst.CONTENT00588)
         //tbl Stock
@@ -81,6 +83,42 @@ class G18F00S02VC: BaseChildViewController {
         requestData()
         // Gesture
         _gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        // Add action Add Image button to navigation bar
+        self.createRightNavigationItem(icon: DomainConst.ADD_MATERIAL_ICON_IMG_NAME,
+                                       action: #selector(actionTapped(_:)), target: self)
+    }
+    
+    /**
+     * Handle tap on create action Button
+     * - parameter sender: AnyObject
+     */
+    internal func actionTapped(_ sender: AnyObject) {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00437,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        let actionOther = UIAlertAction(title: "Tạo Ticket",
+                                             style: .default, handler: {
+                                                action in
+                                                self.btnCreateTicketTapped(self)
+        })
+        alert.addAction(cancel)
+        if _isUpdate == true{
+            let actionSave = UIAlertAction(title: "Lưu",
+                                           style: .default, handler: {
+                                            action in
+                                            self.requestUpdate()
+            })
+            alert.addAction(actionSave)
+        }
+        alert.addAction(actionOther)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+        }
+        self.present(alert, animated: true, completion: nil)
     }
     
     /**
@@ -119,8 +157,12 @@ class G18F00S02VC: BaseChildViewController {
             lblCustomerAddress.text = _data.record.customer_address
             if _data.record.allow_update == "0" {
                 tblInfoGas.isUserInteractionEnabled = false
-                btnSave.isUserInteractionEnabled = false
-                btnSave.backgroundColor = UIColor.gray
+                //btnSave.isUserInteractionEnabled = false
+                //btnSave.backgroundColor = UIColor.gray
+                _isUpdate = false
+            }
+            else{
+                _isUpdate = true
             }
             _dataStock = model.record.stock 
             tblInfoGas.reloadData()
@@ -155,7 +197,7 @@ class G18F00S02VC: BaseChildViewController {
         let data = model as! String
         let model = StockResponseModel(jsonString: data)
         if model.isSuccess() {
-            showAlert(message: model.message,
+            showAlert(message: G18Const.MESSAGE_UPDATE_SUCCESS,
                       okHandler: {
                         alert in
                         /*BaseModel.shared.sharedString = "273"
@@ -228,7 +270,11 @@ class G18F00S02VC: BaseChildViewController {
             })
             alert.addAction(action)
         }
-        alert.popoverPresentationController?.sourceView = self.view
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+            //presenter.sourceRect = self.view.bounds
+            
+        }
         self.present(alert, animated: true, completion: nil)
     }
     

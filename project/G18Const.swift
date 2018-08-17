@@ -11,27 +11,31 @@ import harpyframework
 
 class G18Const: NSObject {
     /** Function identifier */
-    public static let FUNC_IDENTIFIER             = DomainConst.APPNAME + "g18"
+    public static let FUNC_IDENTIFIER                   = DomainConst.APPNAME + "g18"
     /** Path to connect with PHP server */
-    public static let PATH_VIP_STOCK_LIST         = "boMoi/stockList"
+    public static let PATH_VIP_STOCK_LIST               = "boMoi/stockList"
     /** Path to connect with PHP server */
-    public static let PATH_VIP_STOCK_UPDATE       = "boMoi/stockUpdate"
+    public static let PATH_VIP_STOCK_UPDATE             = "boMoi/stockUpdate"
     /** Path to connect with PHP server */
-    public static let PATH_VIP_STOCK_VIEW         = "boMoi/stockView"
+    public static let PATH_VIP_STOCK_VIEW               = "boMoi/stockView"
     /** Path to connect with PHP server */
-    public static let PATH_VIP_STOCK_REAL_VIEW    = "boMoi/stockRealView"
+    public static let PATH_VIP_STOCK_REAL_VIEW          = "boMoi/stockRealView"
     /** Path to connect with PHP server */
-    public static let PATH_VIP_STOCK_REAL_UPDATE  = "boMoi/stockRealUpdate"
+    public static let PATH_VIP_STOCK_REAL_UPDATE        = "boMoi/stockRealUpdate"
     /** Corner Radius value */
-    public static let CORNER_RADIUS_BUTTON        = 2
+    public static let CORNER_RADIUS_BUTTON              = 2
     /** Corner Radius Button value */
-    public static let CORNER_RADIUS_BUTTON_2      = 15
+    public static let CORNER_RADIUS_BUTTON_2            = 15
     /** Estimate row height */
-    public static let ESTIMATE_ROW_HEIGHT         = 200
+    public static let ESTIMATE_ROW_HEIGHT               = 200
     /** Border width */
-    public static let BORDER_WIDTH                = 1
+    public static let BORDER_WIDTH                      = 1
     /** String Default value of Pickerview Driver */
-    public static let DEFAULT_VALUE_DRIVER        = "Chọn tài xế"
+    public static let DEFAULT_VALUE_DRIVER              = "Chọn tài xế"
     /** String Default value of Pickerview Car */
-    public static let DEFAULT_VALUE_CAR           = "Chọn xe"
+    public static let DEFAULT_VALUE_CAR                 = "Chọn xe"
+    /** Message Update Success */
+    public static let MESSAGE_UPDATE_SUCCESS            = "Cập nhật nhập xuất STT thành công"
+    /** Message Confirm Stock Success */
+    public static let MESSAGE_CONFIRM_STOCK_SUCCESS     = "Xác nhận STT thành công"
 }

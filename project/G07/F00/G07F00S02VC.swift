@@ -429,6 +429,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                     self.btnCreateTicketTapped(self)
         })
         alert.addAction(ticket)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     //++ BUG0133-SPJ (NguyenPT 20170724) Family order: change agent delivery
@@ -559,6 +563,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             })
             alert.addAction(action)
         }
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -686,6 +694,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             })
             alert.addAction(action)
         }
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -732,6 +744,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                         self.handleUpdateSupportOrder(id: item.id)
             })
             alert.addAction(action)
+        }
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
         }
         self.present(alert, animated: true, completion: nil)
     }
@@ -785,6 +801,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                         self.handleUpdateOrderType(id: item.id)
             })
             alert.addAction(action)
+        }
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
         }
         self.present(alert, animated: true, completion: nil)
     }
@@ -1236,6 +1256,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         alert.addAction(cancel)
         alert.addAction(ok)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     //-- BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
@@ -1302,6 +1326,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         alert.addAction(cancel)
         alert.addAction(ok)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -1364,6 +1392,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         alert.addAction(cancel)
         alert.addAction(ok)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code

@@ -117,6 +117,10 @@ class G11F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
             })
             alert.addAction(action)
         }
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _bottomView
+            presenter.sourceRect = _bottomView.bounds
+        }
         self.present(alert, animated: true, completion: nil)
     }
     

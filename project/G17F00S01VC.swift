@@ -28,33 +28,33 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
     /** tbl customer request */
     @IBOutlet weak var tblList:         UITableView!
     /** Search view */
-    private var _viewSearch:            UIView = UIView()
+    private var _viewSearch:            UIView              = UIView()
     /** Search input view */
-    private var _viewInput:             UIView = UIView()
+    private var _viewInput:             UIView              = UIView()
     /** Date label */
-    private var _lblFromDate:           UILabel = UILabel()
+    private var _lblFromDate:           UILabel             = UILabel()
     /** Date textfield */
-    private var _txtFromDate:           UITextField = UITextField()
+    private var _txtFromDate:           UITextField         = UITextField()
     /** Date label */
-    private var _lblToDate:             UILabel = UILabel()
+    private var _lblToDate:             UILabel             = UILabel()
     /** Date textfield */
-    private var _txtToDate:             UITextField = UITextField()
+    private var _txtToDate:             UITextField         = UITextField()
     /** From date value */
-    private var _fromDate:              String = CommonProcess.getFirstDateOfMonth(date: Date())
+    private var _fromDate:              String              = CommonProcess.getFirstDateOfMonth(date: Date())
     /** To date value */
-    private var _toDate:                String = CommonProcess.getCurrentDate()
+    private var _toDate:                String              = CommonProcess.getCurrentDate()
     /** Customer id value */
-    internal var _customerId:           String = DomainConst.BLANK
+    internal var _customerId:           String              = DomainConst.BLANK
     /** Refrest control */
-    lazy var refreshControl:            UIRefreshControl = {
+    lazy var refreshControl:            UIRefreshControl    = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: .valueChanged)
         return refreshControl
     }()
     /** Data */
-    internal var _data:                 CustomerRequestListResponseModel  = CustomerRequestListResponseModel()
+    internal var _data:                 CustomerRequestListResponseModel    = CustomerRequestListResponseModel()
     /** Page number */
-    internal var _page:                 Int                     = 0
+    internal var _page:                 Int                                 = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
@@ -172,12 +172,6 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
         if filteredStr.count > (DomainConst.SEARCH_TARGET_MIN_LENGTH - 1) {
             _beginSearch = false
             _searchActive = true
-            //            // Start count
-            //            /** Timer for search auto complete */
-            //            var timer = Timer()
-            //            timer.invalidate()
-            //            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(beginSearching), userInfo: nil, repeats: false)
-            
         } else {
             _beginSearch = false
             _searchActive = false
@@ -416,10 +410,12 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
     private func resetData() {
         _data.clearData()
         // Reset current search value
-        self._page      = 0
-        _customerId     = ""
-        self._fromDate  = CommonProcess.getFirstDateOfMonth(date: Date())
-        self._toDate    = CommonProcess.getCurrentDate()
+        self._page              = 0
+        _customerId             = ""
+        self._fromDate          = CommonProcess.getFirstDateOfMonth(date: Date())
+        self._toDate            = CommonProcess.getCurrentDate()
+        self._txtFromDate.text  = CommonProcess.getFirstDateOfMonth(date: Date())
+        self._txtToDate.text    = CommonProcess.getCurrentDate()
         // Reload table
         tblList.reloadData()
         
@@ -445,20 +441,10 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
         refreshControl.endRefreshing()
     }
     
-    /**
-     * Handle finish refresh
-     */
-    /*internal func finishHandleRefresh(_ notification: Notification) {
-        setData(notification)
-        refreshControl.endRefreshing()
-    }*/
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     // MARK: Logic
     /**

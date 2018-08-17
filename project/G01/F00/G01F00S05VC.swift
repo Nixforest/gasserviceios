@@ -213,7 +213,9 @@ class G01F00S05VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             })
             alert.addAction(action)
         }
-        
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+        }
         self.present(alert, animated: true, completion: nil)
     }
     

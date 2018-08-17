@@ -195,7 +195,7 @@ class CashBookCell: UITableViewCell {
         
         if let presenter = alert.popoverPresentationController {
             presenter.sourceView = self
-            presenter.sourceRect = self.bounds
+            /*presenter.sourceRect = self.bounds*/
         }
         // Show alert
         if self.parentViewController != nil {
@@ -257,7 +257,7 @@ class CashBookCell: UITableViewCell {
         
         if let presenter = alert.popoverPresentationController {
             presenter.sourceView = self
-            presenter.sourceRect = self.bounds
+            //presenter.sourceRect = self.bounds
         }
         
         if self.parentViewController != nil {

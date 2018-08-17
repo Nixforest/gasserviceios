@@ -229,12 +229,23 @@ class G00HomeVC: MapViewController, UITableViewDataSource, UITableViewDelegate {
 //        default: break
 //        }
         //setShowHideItem(cell: cell, indexPath: indexPath)
-        
-        cell.setData(icon: BaseMenuViewController.getMenuIcon(
-            id: funcList[indexPath.row].id), text: funcList[indexPath.row].name)
+        //++ BUG0217-SPJ (KhoiVT 20170808) Gasservice - Cho title Đơn hàng HGĐ và Đơn hàng bò mối lớn hơn các title còn lại trên menu
+        if (funcList[indexPath.row].id == DomainConst.ORDER_TRANSACTION_LIST || funcList[indexPath.row].id == DomainConst.ORDER_VIP_LIST){
+            cell.setDataBigTitle(icon: BaseMenuViewController.getMenuIcon(
+                id: funcList[indexPath.row].id), text: funcList[indexPath.row].name)
+        }
+        else{
+            cell.setData(icon: BaseMenuViewController.getMenuIcon(
+                id: funcList[indexPath.row].id), text: funcList[indexPath.row].name)
+        }
+        /*cell.setData(icon: BaseMenuViewController.getMenuIcon(
+            id: funcList[indexPath.row].id), text: funcList[indexPath.row].name)*/
+        //-- BUG0217-SPJ (KhoiVT 20170808) Gasservice - Cho title Đơn hàng HGĐ và Đơn hàng bò mối lớn hơn các title còn lại trên menu
         cell.makeComponentsColor()
         //-- BUG0121-SPJ (NguyenPT 20170712) Add menu to Home
-        
+        //homeTableView.setNeedsLayout()
+        //homeTableView.layoutIfNeeded()
+        //homeTableView.reloadData()
         return cell
     }
     
