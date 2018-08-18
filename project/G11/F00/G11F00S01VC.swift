@@ -34,9 +34,9 @@ class G11F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         return refreshControl
     }()
     /** Bottom view */
-    private var _bottomView:        UIView                      = UIView()
+    /*private var _bottomView:        UIView                      = UIView()*/
     /** Height of bottom view */
-    private let bottomHeight:       CGFloat                     = 2 * (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
+    //private let bottomHeight:       CGFloat                     = 2 * (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
     
     // MARK: Utility methods
     /**
@@ -101,36 +101,47 @@ class G11F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * Start create ticket
      */
     private func createTicket() {
-        // Show alert
-        let alert = UIAlertController(title: DomainConst.CONTENT00433,
-                                      message: DomainConst.BLANK,
-                                      preferredStyle: .actionSheet)
-        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
-                                   style: .cancel,
-                                   handler: nil)
-        alert.addAction(cancel)
-        for item in CacheDataRespModel.record.getListTicketHandler() {
-            let action = UIAlertAction(title: item.name,
-                                       style: .default, handler: {
-                                        action in
-                                        self.handleCreateTicket(id: item.id)
-            })
-            alert.addAction(action)
-        }
-        if let presenter = alert.popoverPresentationController {
-            presenter.sourceView = _bottomView
-            presenter.sourceRect = _bottomView.bounds
-        }
-        self.present(alert, animated: true, completion: nil)
+        //++ BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
+        /*if BaseModel.shared.getRoleId() == "4"{
+            self.handleCreateTicket(id: "")
+        }  
+        else{
+            // Show alert
+            let alert = UIAlertController(title: DomainConst.CONTENT00433,
+                                          message: DomainConst.BLANK,
+                                          preferredStyle: .actionSheet)
+            let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                       style: .cancel,
+                                       handler: nil)
+            alert.addAction(cancel)
+            for item in CacheDataRespModel.record.getListTicketHandler() {
+                let action = UIAlertAction(title: item.name,
+                                           style: .default, handler: {
+                                            action in
+                                            self.handleCreateTicket(id: item.id)
+                })
+                alert.addAction(action)
+            }
+            if let presenter = alert.popoverPresentationController {
+                presenter.sourceView = self._bottomView
+                presenter.sourceRect = self._bottomView.bounds
+            }
+            self.present(alert, animated: true, completion: nil)
+        }*/
+        //BaseModel.shared.sharedString = id
+        self.pushToView(name: G11F00S03VC.theClassName)
+        //-- BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
     }
     
     /**
      * Open create ticket view controller
      * - parameter id: Id of ticket handler
      */
-    internal func handleCreateTicket(id: String) {
-        G11F01VC._handlerId = id
-        self.pushToView(name: G11F01VC.theClassName)
+    internal func handleCreateTicket() {
+        //++ BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
+        //G11F01VC._handlerId = id
+        self.pushToView(name: G11F00S03VC.theClassName)
+        //-- BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
         
     }
     
@@ -204,26 +215,75 @@ class G11F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         _tblView.dataSource = self
         _tblView.frame = CGRect(x: 0, y: offset,
                                 width: GlobalConst.SCREEN_WIDTH,
-                                height: GlobalConst.SCREEN_HEIGHT - offset - bottomHeight)
+                                height: GlobalConst.SCREEN_HEIGHT)
         _tblView.addSubview(refreshControl)
         self.view.addSubview(_tblView)
         
         // Bottom view
-        _bottomView.frame = CGRect(x: 0, y: GlobalConst.SCREEN_HEIGHT - bottomHeight,
+        /*_bottomView.frame = CGRect(x: 0, y: GlobalConst.SCREEN_HEIGHT - bottomHeight,
                                    width: GlobalConst.SCREEN_WIDTH,
                                    height: bottomHeight)
         //_bottomView.isHidden = true
-        self.view.addSubview(_bottomView)
-        createBottomView()
+        self.view.addSubview(_bottomView)*/
+        //createBottomView()
         // Request data from server
         requestData()
         self.view.makeComponentsColor()
+        
+        self.createRightNavigationItem(icon: DomainConst.ADD_MATERIAL_ICON_IMG_NAME,
+                                       action: #selector(actionButtonTapped(_:)), target: self)
+    }
+    
+    /**
+     * Handle tap on Search button
+     * - parameter sender: AnyObject
+     */
+    internal func actionButtonTapped(_ sender: AnyObject) {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00437,
+                                      message: DomainConst.BLANK,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        let createTicket = UIAlertAction(title: "Tạo Ticket",
+                                        style: .default, handler: {
+                                            action in
+                                            self.requestCreateTicket()
+        })
+        let supportInfo = UIAlertAction(title: "Thông tin hỗ trợ",
+                                         style: .default, handler: {
+                                            action in
+                                            self.showAlert(message: self._data.message)
+        })
+        alert.addAction(cancel)
+        alert.addAction(createTicket)
+        alert.addAction(supportInfo)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = self.view
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    /**
+     * Handle when tap on create ticket action
+     */
+    internal func requestCreateTicket() {
+        // Check cache data is exist
+        if CacheDataRespModel.record.isEmpty() {
+            // Request server cache data
+            CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
+                                     view: self)
+        } else {
+            // Start create ticket
+            createTicket()
+        }
     }
     
     /**
      * Create bottom view
      */
-    private func createBottomView() {
+    /*private func createBottomView() {
         var botOffset: CGFloat = 0.0
         // Create Information button
         let btnInfo = UIButton()
@@ -253,7 +313,7 @@ class G11F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         botOffset += GlobalConst.BUTTON_H + GlobalConst.MARGIN
         _bottomView.addSubview(btnInfo)
         _bottomView.addSubview(btnCreate)
-    }
+    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

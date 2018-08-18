@@ -198,7 +198,8 @@ class G01F00S05VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     private func startCreateTicket() {
         // Show alert
-        let alert = UIAlertController(title: DomainConst.CONTENT00433,
+        //++ BUG0202-SPJ (KhoiVT 201780818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
+        /*let alert = UIAlertController(title: DomainConst.CONTENT00433,
                                       message: DomainConst.BLANK,
                                       preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
@@ -216,21 +217,25 @@ class G01F00S05VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         if let presenter = alert.popoverPresentationController {
             presenter.sourceView = self.view
         }
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)*/
+        handleCreateTicket()
+        //-- BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
     }
     
     /**
      * Open create ticket view controller
      * - parameter id: Id of ticket handler
      */
-    internal func handleCreateTicket(id: String) {
-        G11F01VC._handlerId = id
-        G11F01S01._selectedValue.content = String.init(
+    internal func handleCreateTicket() {
+        //++ BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
+        //G11F01VC._handlerId = id
+        G11F00S03VC._selectedValue.content = String.init(
             format: "Bảo trì HGĐ - %@ - %@ - %@\n",
             _data.record.created_date,
             _data.record.name,
             _data.record.customer_name)
-        self.pushToView(name: G11F01VC.theClassName)
+        self.pushToView(name: G11F00S03VC.theClassName)
+        //-- BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
     }
     
     /**

@@ -351,6 +351,7 @@
 		D791A3B71ECDE05E004A7C01 /* OrderVIPCreateByCoordinatorRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D791A3B61ECDE05E004A7C01 /* OrderVIPCreateByCoordinatorRequest.swift */; };
 		D791A3B91ECDE533004A7C01 /* OrderVIPCreateByCoordinatorRespModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D791A3B81ECDE533004A7C01 /* OrderVIPCreateByCoordinatorRespModel.swift */; };
 		D79254461ECE8DDF00982781 /* G05F03S04.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79254451ECE8DDF00982781 /* G05F03S04.swift */; };
+		D794B38F2127CB1D00D5C28C /* G11F00S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D794B38E2127CB1D00D5C28C /* G11F00S03VC.swift */; };
 		D79AC2311EBF4BFE00798514 /* G08F01S03.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AC2301EBF4BFE00798514 /* G08F01S03.swift */; };
 		D79C31771E9B8506006F3683 /* G07F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C31761E9B8506006F3683 /* G07F00S02VC.swift */; };
 		D7A5930D1F26DF1400A01853 /* RatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7A5930C1F26DF1400A01853 /* RatingView.xib */; };
@@ -875,6 +876,7 @@
 		D791A3B61ECDE05E004A7C01 /* OrderVIPCreateByCoordinatorRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPCreateByCoordinatorRequest.swift; path = G05/API/OrderVIPCreateByCoordinatorRequest.swift; sourceTree = "<group>"; };
 		D791A3B81ECDE533004A7C01 /* OrderVIPCreateByCoordinatorRespModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPCreateByCoordinatorRespModel.swift; path = G05/Model/OrderVIPCreateByCoordinatorRespModel.swift; sourceTree = "<group>"; };
 		D79254451ECE8DDF00982781 /* G05F03S04.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F03S04.swift; path = G05/F03/G05F03S04.swift; sourceTree = "<group>"; };
+		D794B38E2127CB1D00D5C28C /* G11F00S03VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = G11F00S03VC.swift; sourceTree = "<group>"; };
 		D79AC2301EBF4BFE00798514 /* G08F01S03.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S03.swift; path = G08/F01/G08F01S03.swift; sourceTree = "<group>"; };
 		D79C31761E9B8506006F3683 /* G07F00S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G07F00S02VC.swift; path = G07/F00/G07F00S02VC.swift; sourceTree = "<group>"; };
 		D7A5930C1F26DF1400A01853 /* RatingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RatingView.xib; path = G01/Controls/RatingView.xib; sourceTree = "<group>"; };
@@ -2224,6 +2226,7 @@
 			children = (
 				D7EA53CC1EE3EAC1004CFE1F /* G11F00S01VC.swift */,
 				D7EA53D91EE41A9B004CFE1F /* G11F00S02VC.swift */,
+				D794B38E2127CB1D00D5C28C /* G11F00S03VC.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -2679,6 +2682,7 @@
 				D77F06281E7176DD00797A6B /* CreateUpholdReplyRequest.swift in Sources */,
 				902F258C206E37B600DBA04F /* SingleLineTableViewCell.swift in Sources */,
 				D7030BF2210063CD0031CEDF /* CustomerRequestViewRequest.swift in Sources */,
+				D794B38F2127CB1D00D5C28C /* G11F00S03VC.swift in Sources */,
 				D77F06541E71771A00797A6B /* G01F02S02.swift in Sources */,
 				902F25A4206E37B600DBA04F /* GreenButton.swift in Sources */,
 				D7767C641EADB72A00D8FDA9 /* G05APITestVC.swift in Sources */,

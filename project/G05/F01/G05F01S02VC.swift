@@ -166,7 +166,9 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate, UITextFieldDelegate 
         _tbxNote.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.EDITTEXT_W) / 2,
                                 y: offset,
                                 width: GlobalConst.EDITTEXT_W,
-                                height: GlobalConst.EDITTEXT_H * 5)
+                                //++ BUG0143-SPJ (KhoiVT 20170508) Gasservice - Khuất giao diện ở iphone 4
+                                height: GlobalConst.EDITTEXT_H * 3)
+        //-- BUG0143-SPJ (KhoiVT 20170508) Gasservice - Khuất giao diện ở iphone 4
         NOTE_MAX_Y = _tbxNote.frame.maxY
         _tbxNote.font               = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         _tbxNote.backgroundColor    = UIColor.white
@@ -186,8 +188,10 @@ class G05F01S02VC: ChildViewController, UITextViewDelegate, UITextFieldDelegate 
         self.view.addGestureRecognizer(gesture)
         _tbxNote.delegate = self
         self.view.addSubview(_tbxNote)
-        offset = offset + _tbxNote.frame.height + GlobalConst.MARGIN_CELL_X
-        
+        //++ BUG0143-SPJ (KhoiVT 20170508) Gasservice - Khuất giao diện ở iphone 4
+        //offset = offset + _tbxNote.frame.height + GlobalConst.MARGIN_CELL_X
+        //++ BUG0143-SPJ (KhoiVT 20170508) Gasservice - Khuất giao diện ở iphone 4
+        offset = offset + _tbxNote.frame.height + GlobalConst.MARGIN
         // Button Confirm
         self._btnConfirm.frame = CGRect(x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
                                         y: offset,

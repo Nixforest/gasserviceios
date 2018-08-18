@@ -239,7 +239,8 @@ class CashBookCell: UITableViewCell {
      */
     private func startCreateTicket() {
         // Show alert
-        let alert = UIAlertController(title: DomainConst.CONTENT00433,
+        //++ BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
+        /*let alert = UIAlertController(title: DomainConst.CONTENT00433,
                                       message: DomainConst.BLANK,
                                       preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
@@ -262,22 +263,26 @@ class CashBookCell: UITableViewCell {
         
         if self.parentViewController != nil {
             (self.parentViewController as! BaseViewController).present(alert, animated: true, completion: nil)
-        }
+        }*/
+        handleCreateTicket()
+        //-- BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
     }
     
     /**
      * Open create ticket view controller
      * - parameter id: Id of ticket handler
      */
-    internal func handleCreateTicket(id: String) {
-        G11F01VC._handlerId = id
-        G11F01S01._selectedValue.content = String.init(
+    internal func handleCreateTicket() {
+        //++ BUG0202-SPJ (KhoiVT 201780818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
+        //G11F01VC._handlerId = id
+        G11F00S03VC._selectedValue.content = String.init(
             format: "Quỹ tiền mặt - %@ - %@\n",
             _data.created_date,
             _data.customer_name)
         if self.parentViewController != nil {
-            (self.parentViewController as! BaseViewController).pushToView(name: G11F01VC.theClassName)
+            (self.parentViewController as! BaseViewController).pushToView(name: G11F00S03VC.theClassName)
         }
+        //-- BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
     }
     
     /**

@@ -49,11 +49,11 @@ class G11F01VC: StepVC, StepDoneDelegate {
     */
     
     override func btnSendTapped() {
-        TicketCreateRequest.request(action: #selector(finishCreateTicket(_:)),
+        /*TicketCreateRequest.request(action: #selector(finishCreateTicket(_:)),
                                     view: self,
                                     id: G11F01VC._handlerId,
                                     title: G11F01S01._selectedValue.title,
-                                    message: G11F01S01._selectedValue.content)
+                                    message: G11F01S01._selectedValue.content, images: )*/
     }
     
     /**

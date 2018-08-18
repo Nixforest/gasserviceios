@@ -255,7 +255,8 @@ class G18F00S02VC: BaseChildViewController {
      */
     private func createTicket() {
         // Show alert
-        let alert = UIAlertController(title: DomainConst.CONTENT00433,
+        //++ BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
+        /*let alert = UIAlertController(title: DomainConst.CONTENT00433,
                                       message: DomainConst.BLANK,
                                       preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
@@ -266,7 +267,7 @@ class G18F00S02VC: BaseChildViewController {
             let action = UIAlertAction(title: item.name,
                                        style: .default, handler: {
                                         action in
-                                        self.handleCreateTicket(id: item.id)
+                                        self.handleCreateTicket()
             })
             alert.addAction(action)
         }
@@ -275,24 +276,28 @@ class G18F00S02VC: BaseChildViewController {
             //presenter.sourceRect = self.view.bounds
             
         }
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)*/
+        handleCreateTicket()
+        //-- BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
     }
     
     /**
      * Open create ticket view controller
      * - parameter id: Id of ticket handler
      */
-    internal func handleCreateTicket(id: String) {
-        G11F01VC._handlerId = id
-        G11F01S01._selectedValue.content = String.init(
+    internal func handleCreateTicket() {
+        //++ BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
+        //G11F01VC._handlerId = id
+        G11F00S03VC._selectedValue.content = String.init(
             format: "Giữ kho - %@ - %@ - %@\n",
             _data.record.created_date,
             _data.record.code_no,
             _data.record.customer_name)
-        self.pushToView(name: G11F01VC.theClassName)
-        
+        self.pushToView(name: G11F00S03VC.theClassName)
+        //-- BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
     }
 }
+
 extension G18F00S02VC: TextChangeDelegte{
     func UpdateSeri(seri: String, index: Int) {
         _dataStock[index].seri = seri

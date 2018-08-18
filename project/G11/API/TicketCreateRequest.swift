@@ -25,6 +25,16 @@ class TicketCreateRequest: BaseRequest {
             DomainConst.KEY_MESSAGE,    message,
             DomainConst.KEY_PLATFORM,   DomainConst.PLATFORM_IOS
         )
+        //++ BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
+        self.param = ["q": String.init(
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
+            DomainConst.KEY_TOKEN,      BaseModel.shared.getUserToken(),
+            DomainConst.KEY_SEND_TO_ID, id,
+            DomainConst.KEY_TITLE,      title,
+            DomainConst.KEY_MESSAGE,    message,
+            DomainConst.KEY_PLATFORM,   DomainConst.PLATFORM_IOS
+            )]
+        //-- BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
     }
     
     /**
@@ -37,7 +47,7 @@ class TicketCreateRequest: BaseRequest {
      */
     public static func request(action: Selector,
                                view: BaseViewController,
-                               id: String, title: String, message: String) {
+                               id: String, title: String, message: String, images: [UIImage]) {
 //        // Show overlay
 //        LoadingView.shared.showOverlay(view: view.view)
         let request = TicketCreateRequest(url: G11Const.PATH_TICKET_CREATE,
@@ -45,6 +55,9 @@ class TicketCreateRequest: BaseRequest {
                                          view: view)
         request.setData(id: id, title: title, message: message)
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
-        request.execute()
+        //++ BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
+        //request.execute()
+        request.executeUploadFile(listImages: images)
+        //-- BUG0202-SPJ (KhoiVT 20180818) Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
     }
 }

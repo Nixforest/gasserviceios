@@ -598,7 +598,6 @@ extension G17F00S02VC: UITableViewDataSource{
             }
             
             return cell
-            
     }
 }
 
