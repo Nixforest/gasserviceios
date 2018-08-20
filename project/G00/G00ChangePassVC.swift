@@ -171,11 +171,13 @@ class G00ChangePassVC: ChildViewController, UITextFieldDelegate {
                                height: GlobalConst.EDITTEXT_H)
         //++ BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
         //lblName.text = BaseModel.shared.user_info?.getName()
-        if (BaseModel.shared.user_info != nil) && (!(BaseModel.shared.user_info?.getName().isEmpty)!) {
-            lblName.text = BaseModel.shared.user_info?.getName()
+        //++ BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
+        if !BaseModel.shared.user_info.getName().isBlank {
+            lblName.text = BaseModel.shared.user_info.getName()
         } else {
             lblName.text = BaseModel.shared.getUserInfoLogin(id: DomainConst.KEY_FIRST_NAME)
         }
+        //-- BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
         //-- BUG0077-SPJ (NguyenPT 20170508) Handle Flag need change pass
         lblName.textAlignment = .center
         lblName.textColor = GlobalConst.BUTTON_COLOR_RED

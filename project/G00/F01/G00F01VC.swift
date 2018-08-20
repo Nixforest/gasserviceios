@@ -33,13 +33,15 @@ class G00F01VC: StepVC, StepDoneDelegate {
         appendSummary(summary: summary)
         step2.setTargetType(title: DomainConst.CONTENT00377,
                             type: DomainConst.SEARCH_TARGET_TYPE_AGENT)
+        //++ BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
         step3.setAddress(address: FullAddressBean(
-            provinceId: (BaseModel.shared.user_info?.getProvinceId())!,
-            districtId: (BaseModel.shared.user_info?.getDistrictId())!,
-            wardId: (BaseModel.shared.user_info?.getWardId())!,
-            streetId: (BaseModel.shared.user_info?.getStreetId())!,
-            houseNumber: (BaseModel.shared.user_info?.getHouseNumber())!,
-            fullAddress: (BaseModel.shared.user_info?.getAddress())!))
+            provinceId: (BaseModel.shared.user_info.getProvinceId()) ,
+            districtId: (BaseModel.shared.user_info.getDistrictId()) ,
+            wardId: (BaseModel.shared.user_info.getWardId()) ,
+            streetId: (BaseModel.shared.user_info.getStreetId()) ,
+            houseNumber: (BaseModel.shared.user_info.getHouseNumber()) ,
+            fullAddress: (BaseModel.shared.user_info.getAddress()) ))
+        //-- BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
         self.setTitle(title: DomainConst.CONTENT00442)
         super.viewDidLoad()
     }
@@ -84,7 +86,7 @@ class G00F01VC: StepVC, StepDoneDelegate {
                       okHandler: {
                         alert in
                         //++ BUG0123-SPJ (NguyenPT 20170711) Handle update Agent id after change on Account screen
-                        BaseModel.shared.user_info = nil
+                        BaseModel.shared.user_info = UserInfoBean()
                         //-- BUG0123-SPJ (NguyenPT 20170711) Handle update Agent id after change on Account screen
                         self.backButtonTapped(self)
             })

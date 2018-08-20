@@ -520,7 +520,9 @@ class MapViewController: ParentViewController, CLLocationManagerDelegate, GMSMap
             return
         case DomainConst.CATEGORY_TYPE_UPHOLD:
             self.showToast(message: "CATEGORY_TYPE_UPHOLD")
-            if BaseModel.shared.user_info == nil {
+            //++ BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
+            if BaseModel.shared.user_info.getName().isBlank {
+            //-- BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
                 // User information does not exist
                 //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
                 //RequestAPI.requestUserProfile(action: #selector(finishRequestUserProfile(_:)), view: self)

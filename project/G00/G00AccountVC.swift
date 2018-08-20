@@ -94,13 +94,15 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
             showAlert(message: DomainConst.CONTENT00362)
             return
         }
-        G00F01S01._selectedValue.name = (BaseModel.shared.user_info?.getName())!
-        G00F01S01._selectedValue.email = (BaseModel.shared.user_info?.getEmail())!
-        G00F01S02._target = CustomerBean(id: (BaseModel.shared.user_info?.getAgentId())!,
-                                         name: (BaseModel.shared.user_info?.getAgentName())!,
+        //++ BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
+        G00F01S01._selectedValue.name = (BaseModel.shared.user_info.getName()) 
+        G00F01S01._selectedValue.email = (BaseModel.shared.user_info.getEmail()) 
+        G00F01S02._target = CustomerBean(id: (BaseModel.shared.user_info.getAgentId()) ,
+                                         name: (BaseModel.shared.user_info.getAgentName()) ,
                                          phone: DomainConst.BLANK,
                                          address: DomainConst.BLANK)
-        G00F01S03._address = (BaseModel.shared.user_info?.getAddress())!
+        G00F01S03._address = (BaseModel.shared.user_info.getAddress()) 
+        //++ BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
         self.pushToView(name: G00F01VC.theClassName)
     }
     
@@ -311,7 +313,8 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         self.view.addGestureRecognizer(gesture)
         
         // Load data from server?
-        if BaseModel.shared.user_info == nil {
+        //++ BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
+        if BaseModel.shared.user_info.getName().isBlank {
             // User information does not exist
             //++ BUG0046-SPJ (NguyenPT 20170301) Use action for Request server completion
             //RequestAPI.requestUserProfile(action: #selector(setData(_:)), view: self)
@@ -321,18 +324,19 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
             //++ BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
             lblName.text = BaseModel.shared.getUserInfoLogin(id: DomainConst.KEY_USERNAME)
             //-- BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
-            txtName.text    = BaseModel.shared.user_info?.getName()
-            txtPhone.text   = BaseModel.shared.user_info?.getPhone()
-            txtAddress.text = BaseModel.shared.user_info?.getAddress()
+            txtName.text    = BaseModel.shared.user_info.getName()
+            txtPhone.text   = BaseModel.shared.user_info.getPhone()
+            txtAddress.text = BaseModel.shared.user_info.getAddress()
             //++ BUG0008-SPJ (NguyenPT 20170616) Update G00Account
-            txtAgent.text   = BaseModel.shared.user_info?.getAgentName()
+            txtAgent.text   = BaseModel.shared.user_info.getAgentName()
             //-- BUG0008-SPJ (NguyenPT 20170616) Update G00Account
 //            if let url      = NSURL(string: String(BaseModel.shared.getServerURL() + (BaseModel.shared.user_info?.getAvatarImage())!)!) {
 //                if let data = NSData(contentsOf: url as URL) {
 //                    imgAvatar.image = UIImage(data: data as Data)
 //                }
 //            }
-            imgAvatar.getImgFromUrl(link: (BaseModel.shared.user_info?.getAvatarImage())!, contentMode: imgAvatar.contentMode)
+            imgAvatar.getImgFromUrl(link: (BaseModel.shared.user_info.getAvatarImage()) , contentMode: imgAvatar.contentMode)
+            //-- BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
         }
         self.view.makeComponentsColor()
     }
@@ -354,11 +358,12 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
         //++ BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
         lblName.text = BaseModel.shared.getUserInfoLogin(id: DomainConst.KEY_USERNAME)
         //-- BUG0120-SPJ (NguyenPT 20170704) Show username in Account screen
-        txtName.text    = BaseModel.shared.user_info?.getName()
-        txtPhone.text   = BaseModel.shared.user_info?.getPhone()
-        txtAddress.text = BaseModel.shared.user_info?.getAddress()
+        //++ BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
+        txtName.text    = BaseModel.shared.user_info.getName()
+        txtPhone.text   = BaseModel.shared.user_info.getPhone()
+        txtAddress.text = BaseModel.shared.user_info.getAddress()
         //++ BUG0008-SPJ (NguyenPT 20170616) Update G00Account
-        txtAgent.text   = BaseModel.shared.user_info?.getAgentName()
+        txtAgent.text   = BaseModel.shared.user_info.getAgentName()
         //-- BUG0008-SPJ (NguyenPT 20170616) Update G00Account
         // Load image
 //        if let url = NSURL(string: String(BaseModel.shared.getServerURL() + (BaseModel.shared.user_info?.getAvatarImage())!)!) {
@@ -366,7 +371,8 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
 //                imgAvatar.image = UIImage(data: data as Data)
 //            }        
 //        }
-        imgAvatar.getImgFromUrl(link: (BaseModel.shared.user_info?.getAvatarImage())!, contentMode: imgAvatar.contentMode)
+        imgAvatar.getImgFromUrl(link: (BaseModel.shared.user_info.getAvatarImage()) , contentMode: imgAvatar.contentMode)
+        //-- BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
     }
 
     /**
@@ -450,10 +456,12 @@ class G00AccountVC: ParentViewController, UITextFieldDelegate, UINavigationContr
     
     //++ BUG0123-SPJ (NguyenPT 20170711) Handle update Agent id after change on Account screen
     override func viewDidAppear(_ animated: Bool) {
-        if BaseModel.shared.user_info == nil {
+        //++ BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
+        if BaseModel.shared.user_info.getName().isBlank {
             // User information does not exist
             UserProfileRequest.requestUserProfile(action: #selector(setData(_:)), view: self)
         }
+        //-- BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
     }
     //-- BUG0123-SPJ (NguyenPT 20170711) Handle update Agent id after change on Account screen
 }

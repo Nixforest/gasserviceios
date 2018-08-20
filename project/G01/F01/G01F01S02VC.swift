@@ -128,16 +128,18 @@ class G01F01S02: StepContent {
         G01F01S02._selectedValue = BaseModel.shared.listContactType[sender.tag]
         switch G01F01S02._selectedValue.id {
         case DomainConst.CONTACT_TYPE_BOSS:
-            G01F01S02._name = (BaseModel.shared.user_info?.getBossName())!
-            G01F01S02._phone = (BaseModel.shared.user_info?.getBossPhone())!
+            //++ BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
+            G01F01S02._name = (BaseModel.shared.user_info.getBossName()) 
+            G01F01S02._phone = (BaseModel.shared.user_info.getBossPhone()) 
             break
         case DomainConst.CONTACT_TYPE_MANAGER:
-            G01F01S02._name = (BaseModel.shared.user_info?.getManagerName())!
-            G01F01S02._phone = (BaseModel.shared.user_info?.getManagerPhone())!
+            G01F01S02._name = (BaseModel.shared.user_info.getManagerName()) 
+            G01F01S02._phone = (BaseModel.shared.user_info.getManagerPhone()) 
             break
         case DomainConst.CONTACT_TYPE_TECHNICAL:
-            G01F01S02._name = (BaseModel.shared.user_info?.getTechnicalName())!
-            G01F01S02._phone = (BaseModel.shared.user_info?.getTechnicalPhone())!
+            G01F01S02._name = (BaseModel.shared.user_info.getTechnicalName()) 
+            G01F01S02._phone = (BaseModel.shared.user_info.getTechnicalPhone()) 
+            //-- BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
             break
         default:
             break

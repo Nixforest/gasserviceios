@@ -431,7 +431,9 @@ class G01F00S01VC: ParentViewController, UIPickerViewDelegate, UIPickerViewDataS
      * Create new event handler
      */
     internal func btnCreateTapped(_ sender: AnyObject) {
-        if BaseModel.shared.user_info == nil {
+        //++ BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
+        if BaseModel.shared.user_info.getName().isBlank {
+            //++ BUG0159-SPJ (KhoiVT 20171113) Change [Basemodel._userInfo] from optional to normal variable
             // User information does not exist
             UserProfileRequest.requestUserProfile(action: #selector(finishRequestUserProfile(_:)), view: self)
         } else {

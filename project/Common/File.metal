@@ -11,6 +11,7 @@ using namespace metal;
 // Version: 1.50.0
 // - Gasservice - Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
 // - Family order list: First show current date. Add Search function
+// - Change [Basemodel._userInfo] from optional to normal variable
 // - Khuất giao diện ở iPhone 4s
 // Version: 1.49.0
 // - Gasservice - Set Family Order title and Vip Customer Order title bigger
