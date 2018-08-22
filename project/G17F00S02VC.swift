@@ -124,6 +124,7 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.automaticallyAdjustsScrollViewInsets = false
         tblSearch.isHidden = true
 
         self.createNavigationBar(title: DomainConst.CONTENT00585)
@@ -218,7 +219,8 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate{
         alert.addAction(actionTakePicture)
         alert.addAction(actionGetPicture)
         if let presenter = alert.popoverPresentationController {
-            presenter.sourceView = self.view
+            presenter.sourceView = sender as! UIButton
+            presenter.sourceRect = sender.bounds
         }
         self.present(alert, animated: true, completion: nil)
     }

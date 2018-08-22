@@ -14,7 +14,6 @@ import GooglePlaces
 //++ BUG0215-SPJ (KhoiVT 20170807) Gaservice - Fix keyboard problem
 import IQKeyboardManagerSwift
 //-- BUG0215-SPJ (KhoiVT 20170807) Gaservice - Fix keyboard problem
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

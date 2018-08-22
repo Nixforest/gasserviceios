@@ -12,7 +12,7 @@ import GoogleMaps
 
 //++ BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
 //class G00HomeVC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
-class G00HomeVC: MapViewController, UITableViewDataSource, UITableViewDelegate {
+class G00HomeVC: MapViewController, UITableViewDataSource, UITableViewDelegate  {
 //-- BUG0048-SPJ (NguyenPT 20170309) Create slide menu view controller
     // MARK: Properties
     //++ BUG0121-SPJ (NguyenPT 20170712) Add menu to Home

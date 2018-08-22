@@ -213,7 +213,8 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
         alert.addAction(actionTakePicture)
         alert.addAction(actionGetPicture)
         if let presenter = alert.popoverPresentationController {
-            presenter.sourceView = self.view
+            presenter.sourceView = sender as! UIButton
+            presenter.sourceRect = sender.bounds
         }
         self.present(alert, animated: true, completion: nil)
     }

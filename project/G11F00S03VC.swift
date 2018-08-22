@@ -41,6 +41,7 @@ class G11F00S03VC: BaseChildViewController, UIPickerViewDelegate {
     @IBOutlet weak var pkvHeight: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.automaticallyAdjustsScrollViewInsets = false
         //Create title
         self.createNavigationBar(title: DomainConst.CONTENT00589)
         // Picker view
@@ -123,7 +124,8 @@ class G11F00S03VC: BaseChildViewController, UIPickerViewDelegate {
         alert.addAction(actionTakePicture)
         alert.addAction(actionGetPicture)
         if let presenter = alert.popoverPresentationController {
-            presenter.sourceView = self.view
+            presenter.sourceView = sender as! UIButton
+            presenter.sourceRect = sender.bounds
         }
         self.present(alert, animated: true, completion: nil)
     }
@@ -180,7 +182,7 @@ class G11F00S03VC: BaseChildViewController, UIPickerViewDelegate {
 
 
 }
-// MARK: UIImagePickerControllerDelegate
+
 // MARK: UIImagePickerControllerDelegate
 extension G11F00S03VC: UIImagePickerControllerDelegate {
     /**

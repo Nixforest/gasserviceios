@@ -16,6 +16,7 @@ class ImageCell: UICollectionViewCell {
     @IBAction func deleteImage(_ sender: Any) {
         delegate?.deleteImage(cell: self)
     }
+    @IBOutlet weak var btnDeleteHeight: NSLayoutConstraint!
     @IBOutlet weak var imgPicture: UIImageView!
     @IBOutlet weak var btnDeletePicture: UIButton!
 }

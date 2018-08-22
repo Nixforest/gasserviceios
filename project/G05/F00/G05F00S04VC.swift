@@ -92,7 +92,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /** List image add to this order */
     internal var _images:            [UIImage]           = [UIImage]()
     //-- BUG0154-SPJ (NguyenPT 20170909) Add image in VIP order detail when update
-    
+    /** Previous images */
+    //public var _previousImage: [UpholdImageInfoItem] = [UpholdImageInfoItem]()
     /** Note textview */
     private var _tbxNote: UITextView                     = UITextView()
     /** Height of bottom view */
@@ -119,7 +120,7 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /** Other actions button */
     private var _btnOtherAction:    UIButton                = UIButton()
     /** Image collection view */
-    private var cltImg:             UICollectionView!       = nil
+    public var cltImg:             UICollectionView!       = nil
     //-- BUG0104-SPJ (NguyenPT 20170606) Handle action buttons
     
     // MARK: Methods
@@ -1999,12 +2000,16 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         
         // Create layout for image collection control
         let layout          = UICollectionViewFlowLayout()
+        //++ BUG0203-SPJ (KhoiVT 20180822) Gasservice - Redesign TicketView Screen, add Image for Reply and show Image for reply item
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize     = CGSize(width: GlobalConst.ACCOUNT_AVATAR_W / 2,
-                                     height: GlobalConst.ACCOUNT_AVATAR_W / 2)
-        
+        /*layout.itemSize     = CGSize(width: GlobalConst.ACCOUNT_AVATAR_W / 2,
+                                     height: GlobalConst.ACCOUNT_AVATAR_W / 2)*/
+        layout.itemSize     = CGSize(width: 100,
+                                     height: 129)
         // Create image collection controll
-        self.cltImg         = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        //self.cltImg         = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        self.cltImg         = UICollectionView(frame: CGRect(x:0, y: 0, width:self.view.frame.width, height:133), collectionViewLayout: layout)
+        //-- BUG0203-SPJ (KhoiVT 20180822) Gasservice - Redesign TicketView Screen, add Image for Reply and show Image for reply item
         let frameworkBundle = Bundle(identifier: DomainConst.HARPY_FRAMEWORK_BUNDLE_NAME)
         self.cltImg.register(UINib(nibName: DomainConst.COLLECTION_IMAGE_VIEW_CELL,
                                    bundle: frameworkBundle),
@@ -2018,7 +2023,10 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         if let layout = self.cltImg.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
-        offset += GlobalConst.ACCOUNT_AVATAR_W / 2
+        //++ BUG0203-SPJ (KhoiVT 20180822) Gasservice - Redesign TicketView Screen, add Image for Reply and show Image for reply item
+        //offset += GlobalConst.ACCOUNT_AVATAR_W / 2
+        offset += 133
+        //-- BUG0203-SPJ (KhoiVT 20180822) Gasservice - Redesign TicketView Screen, add Image for Reply and show Image for reply item
         // Add image collection to main view
         _scrollView.addSubview(self.cltImg)
         
@@ -2157,19 +2165,26 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         }
         if cltImg != nil {
             cltImg.translatesAutoresizingMaskIntoConstraints = true
+            /*cltImg.frame = CGRect(x: GlobalConst.MARGIN_CELL_X * 2,
+                                  y: offset,
+                                  width: self.view.frame.width - 4 * GlobalConst.MARGIN_CELL_X,
+                                  height: GlobalConst.ACCOUNT_AVATAR_H / 2)*/
             cltImg.frame = CGRect(x: GlobalConst.MARGIN_CELL_X * 2,
                                   y: offset,
                                   width: self.view.frame.width - 4 * GlobalConst.MARGIN_CELL_X,
-                                  height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+                                  height: 133)
             cltImg.backgroundColor = UIColor.white
+            /*cltImg.contentSize = CGSize(
+                width: GlobalConst.ACCOUNT_AVATAR_H / 2 * (CGFloat)(_data.record.images.count),
+                height: GlobalConst.ACCOUNT_AVATAR_H / 2)*/
             cltImg.contentSize = CGSize(
                 width: GlobalConst.ACCOUNT_AVATAR_H / 2 * (CGFloat)(_data.record.images.count),
-                height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+                height: 133)
             
             cltImg.reloadData()
         }
-        offset += GlobalConst.ACCOUNT_AVATAR_H / 2 + GlobalConst.MARGIN
-        
+        //offset += GlobalConst.ACCOUNT_AVATAR_H / 2 + GlobalConst.MARGIN
+        offset += 133 + GlobalConst.MARGIN
         // Scrollview content
         self._scrollView.contentSize = CGSize(
             width: GlobalConst.SCREEN_WIDTH,
@@ -2670,14 +2685,16 @@ extension G05F00S04VC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Get current cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DomainConst.COLLECTION_IMAGE_VIEW_CELL, for: indexPath) as! CollectionImageViewCell
-        
-        cell.imageView.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+        //++ BUG0203-SPJ (KhoiVT 20180822) Gasservice - Redesign TicketView Screen, add Image for Reply and show Image for reply item
+        /*cell.imageView.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)*/
         if indexPath.row < _data.record.images.count {
             cell.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].thumb, contentMode: cell.imageView.contentMode)
         } else {
             cell.imageView.image = self._images[indexPath.row - _data.record.images.count]
         }
-        
+        cell.btnDelete.layer.cornerRadius = 12
+        cell.delegate = self
+        //-- BUG0203-SPJ (KhoiVT 20180822) Gasservice - Redesign TicketView Screen, add Image for Reply and show Image for reply item
         return cell
     }
 }
@@ -2712,3 +2729,20 @@ extension G05F00S04VC: UICollectionViewDelegate {
         print("Perform")
     }
 }
+//++ BUG0203-SPJ (KhoiVT 20180822) Gasservice - Redesign TicketView Screen, add Image for Reply and show Image for reply item
+extension G05F00S04VC: CollectionImageDelegte{
+    public func deleteImage(cell: CollectionImageViewCell) {
+        if let indexPath = cltImg?.indexPath(for: cell){
+            if indexPath.row < _data.record.images.count {
+                //_previousImage.append(_data.record.images[indexPath.row])
+                _data.record.images.remove(at: indexPath.row)
+            } else {
+                _images.remove(at: indexPath.row - _data.record.images.count)
+            }
+            cltImg.reloadData()
+            /*_images.remove(at: indexPath.row)
+             cltImg?.deleteItems(at: [indexPath])*/
+        }
+    }
+}
+//-- BUG0203-SPJ (KhoiVT 20180822) Gasservice - Redesign TicketView Screen, add Image for Reply and show Image for reply item

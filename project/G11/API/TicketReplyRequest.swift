@@ -23,6 +23,15 @@ class TicketReplyRequest: BaseRequest {
             DomainConst.KEY_MESSAGE, message,
             DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
         )
+        //++ BUG0203-SPJ (KhoiVT 20180822) Gasservice - Redesign TicketView Screen, add Image for Reply and show Image for reply item
+        self.param = ["q": String.init(
+            format: "{\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%@\",\"%@\":\"%d\"}",
+            DomainConst.KEY_TOKEN, BaseModel.shared.getUserToken(),
+            DomainConst.KEY_ID, id,
+            DomainConst.KEY_MESSAGE, message,
+            DomainConst.KEY_PLATFORM, DomainConst.PLATFORM_IOS
+            )]
+        //-- BUG0203-SPJ (KhoiVT 20180822) Gasservice - Redesign TicketView Screen, add Image for Reply and show Image for reply item
     }
     
     /**
@@ -34,7 +43,7 @@ class TicketReplyRequest: BaseRequest {
      */
     public static func request(action: Selector,
                                view: BaseViewController,
-                               id: String, message: String) {
+                               id: String, message: String, images: [UIImage]) {
 //        // Show overlay
 //        LoadingView.shared.showOverlay(view: view.view)
         let request = TicketReplyRequest(url: G11Const.PATH_TICKET_REPLY,
@@ -42,6 +51,9 @@ class TicketReplyRequest: BaseRequest {
                                               view: view)
         request.setData(id: id, message: message)
         NotificationCenter.default.addObserver(view, selector: action, name: NSNotification.Name(rawValue: request.theClassName), object: nil)
-        request.execute()
+        //++ BUG0203-SPJ (KhoiVT 20180822) Gasservice - Redesign TicketView Screen, add Image for Reply and show Image for reply item
+        //request.execute()
+        request.executeUploadFile(listImages: images)
+        //-- BUG0203-SPJ (KhoiVT 20180822) Gasservice - Redesign TicketView Screen, add Image for Reply and show Image for reply item
     }
 }

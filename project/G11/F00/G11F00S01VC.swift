@@ -260,7 +260,8 @@ class G11F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         alert.addAction(createTicket)
         alert.addAction(supportInfo)
         if let presenter = alert.popoverPresentationController {
-            presenter.sourceView = self.view
+            presenter.sourceView = sender as! UIButton
+            presenter.sourceRect = sender.bounds
         }
         self.present(alert, animated: true, completion: nil)
     }

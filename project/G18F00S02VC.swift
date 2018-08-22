@@ -116,7 +116,8 @@ class G18F00S02VC: BaseChildViewController {
         }
         alert.addAction(actionOther)
         if let presenter = alert.popoverPresentationController {
-            presenter.sourceView = self.view
+            presenter.sourceView = sender as! UIButton
+            presenter.sourceRect = sender.bounds
         }
         self.present(alert, animated: true, completion: nil)
     }

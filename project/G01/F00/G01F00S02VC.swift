@@ -207,7 +207,8 @@ class G01F00S02VC: ChildViewController, UIScrollViewDelegate, UITableViewDelegat
         alert.addAction(cancel)
         alert.addAction(action)
         if let presenter = alert.popoverPresentationController {
-            presenter.sourceView = self.view
+            presenter.sourceView = sender as! UIButton
+            presenter.sourceRect = sender.bounds
         }
         self.present(alert, animated: true, completion: nil)
     }
