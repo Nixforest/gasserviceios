@@ -11,8 +11,200 @@ import harpyframework
 import Alamofire
 import AlamofireImage
 
-class G07F00S02ExtVC: ChildExtViewController {
+//++ BUG0141-SPJ (KhoiVT 20170805) Đơn hàng hộ GĐ thêm phần up hình + chụp hình giống các form cũ + redesign
+//class G07F00S02ExtVC: ChildExtViewController {
+class G07F00S02ExtVC: BaseChildViewController {
     // MARK: Properties
+    //++
+    
+    @IBOutlet weak var lblCode: UILabel!
+    
+    @IBOutlet weak var lblAdminName: UILabel!
+    
+    @IBOutlet weak var btnPhone: UIButton!
+    
+    @IBAction func btnPhoneTapped(_ sender: Any) {
+        self.makeACall(phone: _data.getRecord().phone)
+    }
+    
+    @IBOutlet weak var lblAddress: UILabel!
+    
+    @IBOutlet weak var tfPTTTCode: UITextField!
+    
+    @IBOutlet weak var btnAddMaterial: UIButton!
+    @IBOutlet weak var btnAddMaterialHeight: NSLayoutConstraint!
+    /** List image add to this order */
+    internal var _images:            [UIImage]           = [UIImage]()
+    //@IBOutlet weak var heightColectionView: NSLayoutConstraint!
+    /** Image collection view */
+    @IBOutlet weak var cltImg: UICollectionView!
+    /** Click Button Add supply */
+    @IBAction func btnaddMaterialTapped(_ sender: Any) {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00312,
+                                      message: DomainConst.CONTENT00314,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        let promotion = UIAlertAction(title: DomainConst.CONTENT00313,
+                                      style: .default, handler: {
+                                        action in
+                                        self.selectMaterial(type: self.TYPE_PROMOTE_ADD)
+        })
+        let cylinder = UIAlertAction(title: DomainConst.CONTENT00315,
+                                     style: .default, handler: {
+                                        action in
+                                        self.selectMaterial(type: self.TYPE_CYLINDER_ADD)
+        })
+        let other = UIAlertAction(title: DomainConst.CONTENT00316,
+                                  style: .default, handler: {
+                                    action in
+                                    self.selectMaterial(type: self.TYPE_OTHERMATERIAL_ADD)
+        })
+        let gas = UIAlertAction(title: DomainConst.CONTENT00333,
+                                style: .default, handler: {
+                                    action in
+                                    self.selectMaterial(type: self.TYPE_GAS_ADD)
+        })
+        alert.addAction(gas)
+        
+        alert.addAction(cancel)
+        alert.addAction(promotion)
+        alert.addAction(cylinder)
+        alert.addAction(other)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = btnAddMaterial
+            presenter.sourceRect = btnAddMaterial.bounds
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBOutlet weak var lblNote: UILabel!
+    
+    @IBOutlet weak var tblMaterial: UITableView!
+    
+    @IBOutlet weak var tblMaterialHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var btnTypeDelivery: UIButton!
+    
+    @IBAction func btnTypeDeliveryTapped(_ sender: Any) {
+        self.updateOrderType()
+    }
+    
+    @IBOutlet weak var btnTypeDeliveryValue: UIButton!
+    
+    @IBAction func btnTypeDeliveryValueTapped(_ sender: Any) {
+        self.updateOrderType()
+    }
+    
+    @IBAction func btnSaveTapped(_ sender: Any) {
+        /*var orderDetail = [String]()
+        for item in self._listMaterials {
+            if !item.material_id.isEmpty {
+                orderDetail.append(item.createJsonDataForUpdateOrder())
+            }
+        }
+        OrderFamilyHandleRequest.requestUpdate(
+            action: #selector(finishUpdateOrder(_:)),
+            view: self,
+            lat: String(MapViewController._originPos.latitude),
+            long: String(MapViewController._originPos.longitude),
+            id: _data.getRecord().id,
+            statusCancel: _data.getRecord().status_cancel,
+            orderType: _data.getRecord().order_type,
+            discountType: _data.getRecord().discount_type,
+            amountDiscount: _data.getRecord().amount_discount,
+            typeAmount: _data.getRecord().type_amount,
+            support_id: _data.getRecord().support_id,
+            orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2),
+            ccsCode: _data.getRecord().ccsCode)*/
+        requestCompleteOrder()
+    }
+    
+    @IBAction func btnCancelTapped(_ sender: Any) {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00320,
+                                      message: DomainConst.CONTENT00319,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        for item in BaseModel.shared.getListCancelOrderReasons() {
+            let action = UIAlertAction(title: item.name,
+                                       style: .default, handler: {
+                                        action in
+                                        self.handleCancelOrder(id: item.id)
+            })
+            alert.addAction(action)
+        }
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _btnCancel
+            presenter.sourceRect = _btnCancel.bounds
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func btnReloadTapped(_ sender: Any) {
+        requestData(action: #selector(finishHandleRefresh(_:)))
+    }
+    
+    @IBAction func btnOtherActionTapped(_ sender: Any) {
+        // Show alert
+        let alert = UIAlertController(title: DomainConst.CONTENT00436,
+                                      message: DomainConst.CONTENT00437,
+                                      preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
+                                   style: .cancel,
+                                   handler: nil)
+        alert.addAction(cancel)
+        let actionTakePicture = UIAlertAction(title: "Chụp ảnh",
+                                              style: .default, handler: {
+                                                action in
+                                                self.addImageFromCamera()
+        })
+        let actionGetPicture = UIAlertAction(title: "Chọn ảnh từ thư viện",
+                                             style: .default, handler: {
+                                                action in
+                                                self.addImageFromLibrary()
+        })
+        alert.addAction(actionTakePicture)
+        alert.addAction(actionGetPicture)
+        if _data.getRecord().show_button_change_agent == 1 {
+            let updateAgent = UIAlertAction(title: DomainConst.CONTENT00458,
+                                            style: .default, handler: {
+                                                action in
+                                                self.handleUpdateAgent()
+            })
+            alert.addAction(updateAgent)
+        }
+        
+        if _data.getRecord().show_button_update_customer == 1 {
+            let updateCustomer = UIAlertAction(title: DomainConst.CONTENT00154,
+                                               style: .default, handler: {
+                                                action in
+                                                self.handleUpdateCustomer()
+            })
+            alert.addAction(updateCustomer)
+        }
+        let ticket = UIAlertAction(title: DomainConst.CONTENT00402,
+                                   style: .default, handler: {
+                                    action in
+                                    self.btnCreateTicketTapped(self)
+        })
+        alert.addAction(ticket)
+        if let presenter = alert.popoverPresentationController {
+            presenter.sourceView = _btnOtherAction
+            presenter.sourceRect = _btnOtherAction.bounds
+        }
+        self.present(alert, animated: true, completion: nil)
+    }
+    @IBOutlet weak var lblSum: UILabel!
+    
+    @IBOutlet weak var lblAgent: UILabel!
+    
+    //--
     /** Present data */
     var _data:          OrderFamilyViewRespModel    = OrderFamilyViewRespModel()
     /** Id */
@@ -24,7 +216,7 @@ class G07F00S02ExtVC: ChildExtViewController {
     /** List material images */
     var _listMaterialImgs:  [UIImage]               = [UIImage]()
     /** Information table view */
-    var _tblInfo:       UITableView                 = UITableView()
+    //var _tblInfo:       UITableView                 = UITableView()
     /** Current type when open model VC */
     var _type:          String                      = DomainConst.NUMBER_ZERO_VALUE
     /** Customer model */
@@ -40,13 +232,18 @@ class G07F00S02ExtVC: ChildExtViewController {
     /** Height of bottom view */
     let _bottomHeight:   CGFloat                    = 2 * (GlobalConst.BUTTON_H + GlobalConst.MARGIN)
     /** Save button */
-    var _btnSave:           UIButton                = UIButton()
+    @IBOutlet weak var _btnSave: UIButton!
+    //var _btnSave:           UIButton                = UIButton()
     /** Action button */
-    var _btnAction:         UIButton                = UIButton()
+    //var _btnAction:         UIButton                = UIButton()
     /** Cancel button */
-    var _btnCancel:         UIButton                = UIButton()
+    @IBOutlet weak var _btnCancel: UIButton!
+    //var _btnCancel:         UIButton                = UIButton()
     /** Other actions button */
-    var _btnOtherAction:    UIButton                = UIButton()
+    //var _btnOtherAction:    UIButton                = UIButton()
+    @IBOutlet weak var _btnOtherAction: UIButton!
+    /** Refresh button */
+    @IBOutlet weak var btnRefresh: UIButton!
     
     // MARK: Static values
     // MARK: Constant
@@ -68,20 +265,63 @@ class G07F00S02ExtVC: ChildExtViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        _id = BaseModel.shared.sharedString
         // Do any additional setup after loading the view.
         createNavigationBar(title: DomainConst.CONTENT00232)
-        createInfoTableView()
+        /*createInfoTableView()
         self.view.addSubview(_tblInfo)
         createBottomView()
         self.view.addSubview(_bottomView)
         // Create list info
         _listInfo.append([ConfigurationModel]())
         _listInfo.append([ConfigurationModel]())
-        _listInfo.append([ConfigurationModel]())
+        _listInfo.append([ConfigurationModel]())*/
+        //custom button
+        _btnSave.layer.cornerRadius         = 20
+        _btnCancel.layer.cornerRadius       = 20
+        btnRefresh.layer.cornerRadius       = 20
+        _btnOtherAction.layer.cornerRadius  = 20
+        //Table View
+        tblMaterial.dataSource = self
+        tblMaterial.delegate   = self
+        //tblMaterial.estimatedRowHeight = 400
+        //tblMaterial.rowHeight = UITableViewAutomaticDimension
         
+        //collectionview
+        cltImg.dataSource = self
+        cltImg.delegate = self
         // Request data from server
         requestData()
+    }
+    
+    /**
+     * Handle add image from camera
+     */
+    internal func addImageFromCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = UIImagePickerControllerSourceType.camera
+            imgPicker.allowsEditing = true
+            self.present(imgPicker, animated: true, completion: {
+                self.cltImg.reloadData()
+            })
+        }
+    }
+    
+    /**
+     * Handle add image from library
+     */
+    internal func addImageFromLibrary() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+            let imgPicker = UIImagePickerController()
+            imgPicker.delegate = self
+            imgPicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            imgPicker.allowsEditing = true
+            self.present(imgPicker, animated: true, completion: {
+                self.cltImg.reloadData()
+            })
+        }
     }
     
     /**
@@ -89,7 +329,7 @@ class G07F00S02ExtVC: ChildExtViewController {
      */
     override func viewWillAppear(_ animated: Bool) {
         // Check if table view has selected rows
-        if (_tblInfo.indexPathForSelectedRow != nil) {
+        /*if (_tblInfo.indexPathForSelectedRow != nil) {
             // Get selected row index
             let selectedRow = (_tblInfo.indexPathForSelectedRow?.row)!
             
@@ -136,6 +376,20 @@ class G07F00S02ExtVC: ChildExtViewController {
             }
         }
         _type = DomainConst.NUMBER_ZERO_VALUE
+        */
+        switch _type {
+        case TYPE_PROMOTE_ADD, TYPE_CYLINDER_ADD, TYPE_OTHERMATERIAL_ADD, TYPE_GAS_ADD:              // Add material
+            if !MaterialSelectViewController.getSelectedItem().isEmpty() {
+                // Add data
+                //appendMaterial(material: OrderVIPDetailBean(orderDetail: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem())))
+                _listMaterials.append(OrderVIPDetailBean(orderDetail: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem())))
+                // Reload table with section 1,2
+                tblMaterialHeight.constant += 115
+                tblMaterial.reloadData()
+            }
+        default:
+            break
+        }
     }
     
     /**
@@ -147,13 +401,33 @@ class G07F00S02ExtVC: ChildExtViewController {
         // Success response
         if model.isSuccess() {
             _data = model
-            setupFirstListInfo()
-            setupListMaterialInfo()
-            setupListThirdListInfo()
-            loadImageFromServer()
+            //setupFirstListInfo()
+            //setupListMaterialInfo()
+            //setupListThirdListInfo()
+            //loadImageFromServer()
 //            _tblInfo.reloadData()
-            loadTableViewData()
+            //loadTableViewData()
+            lblCode.text = _data.getRecord().code_no
+            lblAdminName.text = _data.getRecord().first_name
+            btnPhone.setTitle(_data.getRecord().phone,for: .normal)
+            lblAddress.text = _data.getRecord().address
+            lblNote.text = _data.getRecord().note
+            tfPTTTCode.text = _data.getRecord().ccsCode
+            lblAgent.text = _data.getRecord().agent_name
+        btnTypeDeliveryValue.setTitle(_data.getRecord().order_type_text,for: .normal)
+            lblSum.text = _data.getRecord().grand_total
+            _listMaterials.removeAll()
+            _listMaterials = _data.getRecord().order_detail
+            tblMaterialHeight.constant = CGFloat(115 * _listMaterials.count)
+            tblMaterial.reloadData()
+            _images.removeAll()
+            cltImg.reloadData()
             showHideBottomView(isShow: _data.getRecord().allow_update.isON())
+            if _data.getRecord().allow_update != "1"{
+                btnAddMaterial.isHidden = true
+                btnAddMaterialHeight.constant = 0
+                btnTypeDeliveryValue.isUserInteractionEnabled = false
+            }
         } else {
             showAlert(message: model.message)
         }
@@ -192,16 +466,16 @@ class G07F00S02ExtVC: ChildExtViewController {
                                               right: GlobalConst.MARGIN)
     }
     // MARK: Information table view
-    private func createInfoTableView() {
+    /*private func createInfoTableView() {
         _tblInfo.frame = CGRect(
             x: 0, y: 0,
             width: UIScreen.main.bounds.width,
             height: UIScreen.main.bounds.height - _bottomHeight)
         _tblInfo.addSubview(refreshControl)
-        _tblInfo.dataSource = self
-        _tblInfo.delegate = self
-    }
-    
+        //_tblInfo.dataSource = self
+        //_tblInfo.delegate = self
+    }*/
+    /*
     /**
      * Create bottom view
      */
@@ -237,20 +511,20 @@ class G07F00S02ExtVC: ChildExtViewController {
         _bottomView.addSubview(_btnAction)
         _bottomView.addSubview(_btnCancel)
     }
-    
+    */
     /**
      * Handle show/hide bottom view
      * - parameter isShow: True is show bottom view, False is hide
      */
     private func showHideBottomView(isShow: Bool) {
         if isShow {
-            _btnSave.isEnabled   = _data.getRecord().show_button_save.isON()
-            _btnAction.isEnabled = _data.getRecord().show_button_complete.isON()
+            _btnSave.isEnabled   = _data.getRecord().show_button_complete.isON()
+            //_btnAction.isEnabled = _data.getRecord().show_button_complete.isON()
             _btnCancel.isEnabled = _data.getRecord().show_button_cancel.isON()
         } else {
             _btnCancel.isEnabled    = false
             _btnSave.isEnabled      = false
-            _btnAction.isEnabled    = false
+            //_btnAction.isEnabled    = false
         }
     }
     
@@ -292,7 +566,7 @@ class G07F00S02ExtVC: ChildExtViewController {
 //                            self._listMaterialImgs.append(img)
                             self._listMaterialImgs.insert(img, at: 0)
 //                            self._tblInfo.reloadSections(IndexSet(1...2), with: .automatic)
-                            self._tblInfo.reloadData()
+                            //self._tblInfo.reloadData()
                         }
                 })
         }
@@ -303,15 +577,15 @@ class G07F00S02ExtVC: ChildExtViewController {
      * Set init data for this screen
      * - parameter id: Id of order
      */
-    public func setData(id: String) {
+    /*public func setData(id: String) {
         self._id = id
-    }
+    }*/
     /**
      * Get status string from status number
      * - parameter status: Value of status number
      * - returns: Value of status string
      */
-    private func getStatusString(status: String) -> String {
+    /*private func getStatusString(status: String) -> String {
         var retVal = DomainConst.BLANK
         switch status {
         case DomainConst.ORDER_STATUS_NEW:
@@ -331,11 +605,12 @@ class G07F00S02ExtVC: ChildExtViewController {
         }
         return retVal
     }
+    */
     
     /**
      * Set update data for first list infor
      */
-    private func setupFirstListInfo() {
+    /*private func setupFirstListInfo() {
         _listInfo[0].removeAll()
         
         // Id
@@ -378,11 +653,11 @@ class G07F00S02ExtVC: ChildExtViewController {
             id: DomainConst.ORDER_INFO_CCS_CODE_ID, name: DomainConst.CONTENT00445,
             iconPath: DomainConst.CCS_CODE_ICON_IMG_NAME, value: _data.getRecord().ccsCode))
     }
-    
+    */
     /**
      * Set update data for list material infor
      */
-    private func setupListMaterialInfo() {
+    /*private func setupListMaterialInfo() {
         _listInfo[1].removeAll()
         _listMaterials.removeAll()
         
@@ -391,11 +666,12 @@ class G07F00S02ExtVC: ChildExtViewController {
             appendMaterial(material: item, isUpdateQty: false)
         }
     }
+    */
     
     /**
      * Set update data for third list infor
      */
-    private func setupListThirdListInfo() {
+    /*private func setupListThirdListInfo() {
         _listInfo[2].removeAll()
         
         // Add new material
@@ -469,12 +745,12 @@ class G07F00S02ExtVC: ChildExtViewController {
             id: DomainConst.AGENT_NAME_ID, name: DomainConst.CONTENT00240,
             iconPath: DomainConst.AGENT_ICON_IMG_NAME, value: _data.getRecord().agent_name))
     }
-    
+    */
     /**
      * Update quantity of material
      * - parameter idx: Index of selected row
      */
-    private func updateQtyMaterial(idx: Int) {
+    /*private func updateQtyMaterial(idx: Int) {
         let material = _listMaterials[idx]
         var tbxValue: UITextField?
         
@@ -505,7 +781,7 @@ class G07F00S02ExtVC: ChildExtViewController {
                 self._listInfo[1][idx] = ConfigurationModel(orderDetail: self._listMaterials[idx])
                 // Update table
 //                self._tblInfo.reloadRows(at: [IndexPath(item: idx, section: 1)], with: .automatic)
-                self._tblInfo.reloadData()
+                //self._tblInfo.reloadData()
             } else {
                 self.showAlert(message: DomainConst.CONTENT00251, okTitle: DomainConst.CONTENT00251,
                                okHandler: {_ in
@@ -525,11 +801,12 @@ class G07F00S02ExtVC: ChildExtViewController {
         }
         self.present(alert, animated: true, completion: nil)
     }
+    */
     
     /**
      * Update quantity for cylinder
      */
-    private func updateQtyCylinder(idx: Int) {
+    /*private func updateQtyCylinder(idx: Int) {
         let bean = _listMaterials[idx]
         var tbxSerial       : UITextField?
         var tbxCylinderOnly : UITextField?
@@ -592,7 +869,7 @@ class G07F00S02ExtVC: ChildExtViewController {
                 self._listInfo[1][idx] = ConfigurationModel(orderVIPDetail: self._listMaterials[idx])
                 // Update table
 //                self._tblInfo.reloadRows(at: [IndexPath(item: idx, section: 1)], with: .automatic)
-                self._tblInfo.reloadData()
+                //self._tblInfo.reloadData()
 //                self.loadTableViewData()
             }
         }
@@ -604,12 +881,13 @@ class G07F00S02ExtVC: ChildExtViewController {
         }
         self.present(alert, animated: true, completion: nil)
     }
+    */
     
     /**
      * Insert material at tail
      * - parameter material: Data to update
      */
-    private func appendMaterial(material: OrderVIPDetailBean, isUpdateQty: Bool = true) {
+    /*private func appendMaterial(material: OrderVIPDetailBean, isUpdateQty: Bool = true) {
         var idx: Int = -1
         // Search in lists
         for i in 0..<_listInfo[1].count {
@@ -647,22 +925,23 @@ class G07F00S02ExtVC: ChildExtViewController {
             }
         }
     }
+    */
     
     /**
      * Remove material
      * - parameter at: Index
      */
-    internal func removeMaterial(at: Int) {
+    /*internal func removeMaterial(at: Int) {
         _listMaterials.remove(at: at)
         _listInfo[1].remove(at: at)
-    }
+    }*/
     
     /**
      * Update material
      * - parameter at: Index
      * - parameter material: Data to update
      */
-    private func updateMaterial(at: Int, material: OrderDetailBean) {
+    /*private func updateMaterial(at: Int, material: OrderDetailBean) {
         var idx: Int = -1
         // Search in lists
         for i in 0..<_listInfo[1].count {
@@ -695,13 +974,14 @@ class G07F00S02ExtVC: ChildExtViewController {
                 }
             }
         }
-    }
+    }*/
+ 
     
     /**
      * Handle when tap on add new material item/buton
      * - parameter sender: AnyObject
      */
-    internal func addNewMaterialButtonTapped(_ sender: AnyObject) {
+    /*internal func addNewMaterialButtonTapped(_ sender: AnyObject) {
         // Show alert
         let alert = UIAlertController(title: DomainConst.CONTENT00312,
                                       message: DomainConst.CONTENT00314,
@@ -740,7 +1020,7 @@ class G07F00S02ExtVC: ChildExtViewController {
             presenter.sourceRect = _bottomView.bounds
         }
         self.present(alert, animated: true, completion: nil)
-    }
+    }*/
     
     /**
      * Handle select material
@@ -785,7 +1065,7 @@ class G07F00S02ExtVC: ChildExtViewController {
      * - parameter id: Id of order type
      */
     internal func handleUpdateOrderType(id: String) {
-        if id != _data.getRecord().order_type {
+        /*if id != _data.getRecord().order_type {
             _data.getRecord().order_type = id
             for item in _listInfo[2] {  // Loop in section 2 data
                 if item.id == DomainConst.ORDER_INFO_ORDER_TYPE_ID {  // Order type item
@@ -807,6 +1087,11 @@ class G07F00S02ExtVC: ChildExtViewController {
             }
 //            _tblInfo.reloadData()
             loadTableViewData()
+        }*/
+        if id != _data.getRecord().order_type {
+            _data.getRecord().order_type = id
+        btnTypeDeliveryValue.setTitle(_data.getRecord().order_type_text,for: .normal)
+            
         }
     }
     
@@ -826,13 +1111,17 @@ class G07F00S02ExtVC: ChildExtViewController {
             let action = UIAlertAction(title: item.name,
                                        style: .default, handler: {
                                         action in
-                                        self.handleUpdateOrderType(id: item.id)
+                                        self._data.getRecord().order_type = item.id
+                                        self.btnTypeDeliveryValue.setTitle(item.name,for: .normal)
+                                        
             })
             alert.addAction(action)
         }
         if let presenter = alert.popoverPresentationController {
-            presenter.sourceView = _bottomView
-            presenter.sourceRect = _bottomView.bounds
+            //presenter.sourceView = _bottomView
+            //presenter.sourceRect = _bottomView.bounds
+            presenter.sourceView = btnTypeDeliveryValue
+            presenter.sourceRect = btnTypeDeliveryValue.bounds
         }
         self.present(alert, animated: true, completion: nil)
     }
@@ -908,13 +1197,13 @@ class G07F00S02ExtVC: ChildExtViewController {
      */
     internal func loadTableViewData() {
 //        loadImageFromServer()
-        _tblInfo.reloadData()
+        //_tblInfo.reloadData()
     }
     
     /**
      * Handle when tap on save button
      */
-    internal func btnSaveTapped(_ sender: AnyObject) {
+    /*internal func btnSaveTapped(_ sender: AnyObject) {
         var orderDetail = [String]()
         for item in self._listMaterials {
             if !item.material_id.isEmpty {
@@ -935,7 +1224,7 @@ class G07F00S02ExtVC: ChildExtViewController {
             support_id: _data.getRecord().support_id,
             orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2),
             ccsCode: _data.getRecord().ccsCode)
-    }
+    }*/
     
     internal func finishUpdateOrder(_ notification: Notification) {
         setData(notification)
@@ -979,7 +1268,20 @@ class G07F00S02ExtVC: ChildExtViewController {
                 orderDetail.append(item.createJsonDataForUpdateOrder())
             }
         }
-        OrderFamilyHandleRequest.requestComplete(
+        OrderFamilyHandleRequest.requestComplete2(action: #selector(finishUpdateOrder(_:)),
+                                                  view: self,
+                                                  lat: String(MapViewController._originPos.latitude),
+                                                  long: String(MapViewController._originPos.longitude),
+                                                  id: _data.getRecord().id,
+                                                  statusCancel: _data.getRecord().status_cancel,
+                                                  orderType: _data.getRecord().order_type,
+                                                  discountType: _data.getRecord().discount_type,
+                                                  amountDiscount: _data.getRecord().amount_discount,
+                                                  typeAmount: _data.getRecord().type_amount,
+                                                  support_id: _data.getRecord().support_id,
+                                                  orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2),
+                                                  ccsCode: _data.getRecord().ccsCode, images: _images)
+        /*OrderFamilyHandleRequest.requestComplete(
             action: #selector(finishUpdateOrder(_:)),
             view: self,
             lat: String(MapViewController._originPos.latitude),
@@ -992,13 +1294,13 @@ class G07F00S02ExtVC: ChildExtViewController {
             typeAmount: _data.getRecord().type_amount,
             support_id: _data.getRecord().support_id,
             orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2),
-            ccsCode: _data.getRecord().ccsCode)
+            ccsCode: _data.getRecord().ccsCode)*/
     }
     
     /**
      * Handle when tap on Cancel button
      */
-    internal func btnCancelHandler(_ sender: AnyObject) {        
+    /*internal func btnCancelHandler(_ sender: AnyObject) {        
         // Show alert
         let alert = UIAlertController(title: DomainConst.CONTENT00320,
                                       message: DomainConst.CONTENT00319,
@@ -1020,7 +1322,7 @@ class G07F00S02ExtVC: ChildExtViewController {
             presenter.sourceRect = _btnCancel.bounds
         }
         self.present(alert, animated: true, completion: nil)
-    }
+    }*/
     
     /**
      * Handle cancel order
@@ -1048,7 +1350,7 @@ class G07F00S02ExtVC: ChildExtViewController {
     /**
      * Handle when tap on save button
      */
-    internal func btnOtherActionTapped(_ sender: AnyObject) {
+    /*internal func btnOtherActionTapped(_ sender: AnyObject) {
         // Show alert
         let alert = UIAlertController(title: DomainConst.CONTENT00436,
                                       message: DomainConst.CONTENT00437,
@@ -1087,7 +1389,7 @@ class G07F00S02ExtVC: ChildExtViewController {
         }
         self.present(alert, animated: true, completion: nil)
     }
-    
+    */
     /**
      * Handle update agent delivery
      */
@@ -1265,7 +1567,8 @@ extension G07F00S02ExtVC: UITableViewDataSource {
      * - returns: _listInfo.count
      */
     func numberOfSections(in tableView: UITableView) -> Int {
-        return _listInfo.count
+        //return _listInfo.count
+        return 1
     }
     
     /**
@@ -1273,14 +1576,15 @@ extension G07F00S02ExtVC: UITableViewDataSource {
      * - returns: List information count
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return _listInfo[section].count
+        //return _listInfo[section].count
+        return _listMaterials.count
     }
     
     /**
      * Asks the data source for a cell to insert in a particular location of the table view.
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row > self._listInfo[indexPath.section].count {
+        /*if indexPath.row > self._listInfo[indexPath.section].count {
             return UITableViewCell()
         }
         let data = self._listInfo[indexPath.section][indexPath.row]
@@ -1315,15 +1619,70 @@ extension G07F00S02ExtVC: UITableViewDataSource {
         default:
             break
         }
-        
+        */
+        let cell: G07F00S02ExtCell = tableView.dequeueReusableCell(
+            withIdentifier: "G07F00S02ExtCell")
+            as! G07F00S02ExtCell
+        cell.lblMaterialName.text = _listMaterials[indexPath.row].material_name
+        cell.tfQuantity.text = _listMaterials[indexPath.row].qty
+        cell.lblPrice.text = _listMaterials[indexPath.row].material_price
+        cell.tfSeri.text = _listMaterials[indexPath.row].seri
+        cell.tfShell.text = _listMaterials[indexPath.row].kg_empty
+        cell.tfWeight.text = _listMaterials[indexPath.row].kg_has_gas
+        switch _listMaterials[indexPath.row].materials_type_id{
+        case "6":
+            cell.imgGiftWidth.constant = 15
+            cell.lblPriceWidth.constant = 0
+            cell.lblPrice.isHidden = true
+            cell.materialViewWidth.constant = 0
+            cell.MaterialView.isHidden = true
+            cell.tfQuantityWidth.constant = 39
+            break
+        case "1":
+            cell.lblPriceWidth.constant = 0
+            cell.lblPrice.isHidden = true
+            cell.imgGiftWidth.constant = 0
+            cell.imgGift.isHidden = true
+            cell.tfQuantityWidth.constant = 0
+            cell.tfQuantity.isHidden = true
+            //cell.materialViewWidth.constant = 120
+            break
+        default:
+            cell.imgGiftWidth.constant = 0
+            cell.imgGift.isHidden = true
+            cell.materialViewWidth.constant = 0
+            cell.MaterialView.isHidden = true
+            cell.lblPriceWidth.constant = 42
+            cell.tfQuantityWidth.constant = 39
+        }
+        cell.delegate = self
+        cell.index = indexPath.row
         return cell    
     }
 }
-
+extension G07F00S02ExtVC:G07CellTextChangeDelegte{
+    func updateQuantity(quantity: String, index: Int) {
+        _listMaterials[index].qty = quantity
+    }
+    
+    func updateSeri(seri: String, index: Int) {
+        _listMaterials[index].seri = seri
+    }
+    
+    func updateShell(shell: String, index: Int) {
+        _listMaterials[index].kg_empty = shell
+    }
+    
+    func updateWeight(weight: String, index: Int) {
+        _listMaterials[index].kg_has_gas = weight
+    }
+    
+    
+}
 // MARK: Protocol - UITableViewDelegate
 extension G07F00S02ExtVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = _listInfo[indexPath.section][indexPath.row]
+        /*let data = _listInfo[indexPath.section][indexPath.row]
         switch indexPath.section {
         case 0, 2:     // Basic information
             switch data.id {
@@ -1331,7 +1690,7 @@ extension G07F00S02ExtVC: UITableViewDelegate {
                 showAlert(message: data.name, title: DomainConst.CONTENT00561)
             case DomainConst.ORDER_INFO_MATERIAL_ADD_NEW:
                 if self.canUpdate() {
-                    self.addNewMaterialButtonTapped(self)
+                    //self.addNewMaterialButtonTapped(self)
                 }
             case DomainConst.ORDER_INFO_PHONE_ID:
                 self.makeACall(phone: data.getValue().normalizatePhoneString())
@@ -1365,20 +1724,21 @@ extension G07F00S02ExtVC: UITableViewDelegate {
         default:
             break
         }
-        
+        */
     }
     /**
      * Asks the delegate for the height to use for a row in a specified location.
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        //return UITableViewAutomaticDimension
+        return 115
     }
     
     /**
      * Asks the data source to verify that the given row is editable.
      */
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        switch indexPath.section {
+        /*switch indexPath.section {
         case 0, 2:
             break
         case 1:
@@ -1388,27 +1748,149 @@ extension G07F00S02ExtVC: UITableViewDelegate {
         default:
             break
         }
-        return false
+        return false*/
+        return true
     }
     
     /**
      * Asks the data source to commit the insertion or deletion of a specified row in the receiver.
      */
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        switch editingStyle {
+        /*switch editingStyle {
         case .delete:
             self.showAlert(message: DomainConst.CONTENT00317,
                            okHandler: {
                             (alert: UIAlertAction!) in
                             self.removeMaterial(at: indexPath.row)
-                            self._tblInfo.deleteRows(
-                                at: [indexPath], with: .fade)
+                            //self._tblInfo.deleteRows(
+                             //   at: [indexPath], with: .fade)
             },
                            cancelHandler: {
                             (alert: UIAlertAction!) in
             })
         default:
             break
+        }*/
+        if editingStyle == .delete{
+            _listMaterials.remove(at: indexPath.row)
+            tblMaterial.deleteRows(at: [indexPath], with: .fade)
+            tblMaterialHeight.constant -= 115
+            //tblMaterial.reloadData()
         }
     }
 }
+ 
+// MARK: UIImagePickerControllerDelegate
+extension G07F00S02ExtVC: UIImagePickerControllerDelegate {
+    /**
+     * Tells the delegate that the user picked a still image or movie.
+     */
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            self._images.append(image)            
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: UINavigationControllerDelegate
+extension G07F00S02ExtVC: UINavigationControllerDelegate {
+    // Implement methods
+}
+
+// MARK: UICollectionViewDataSource
+extension G07F00S02ExtVC: UICollectionViewDataSource {
+    /**
+     * Asks your data source object for the number of items in the specified section.
+     */
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //        return _data.record.images.count
+        return _data.getRecord().images.count + self._images.count
+        //return self._images.count
+    }
+    
+    /**
+     * Asks your data source object for the cell that corresponds to the specified item in the collection view.
+     */
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Get current cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell6", for: indexPath) as! ImageCell
+        //cell.imgPicture.image = self._images[indexPath.row]
+        cell.btnDeletePicture.layer.cornerRadius = 12
+        cell.layer.borderColor = UIColor.red.cgColor
+        cell.layer.borderWidth = 1
+        cell.layer.cornerRadius = 2
+        cell.delegate = self
+        if indexPath.row < _data.getRecord().images.count {
+            cell.imgPicture.getImgFromUrl(link: _data.getRecord().images[indexPath.row].thumb, contentMode: cell.imgPicture.contentMode)
+        } else {
+            cell.imgPicture.image = self._images[indexPath.row - _data.getRecord().images.count]
+        }
+        //cell.imageView.frame  = CGRect(x: 0,  y: 0,  width: GlobalConst.ACCOUNT_AVATAR_H / 2, height: GlobalConst.ACCOUNT_AVATAR_H / 2)
+        /*if indexPath.row < _data.record.images.count {
+         cell.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].thumb, contentMode: cell.imageView.contentMode)
+         } else {
+         cell.imageView.image = self._images[indexPath.row - _data.record.images.count]
+         }*/
+        
+        return cell
+    }
+}
+
+// MARK: UICollectionViewDelegate
+extension G07F00S02ExtVC: UICollectionViewDelegate {
+    /**
+     * Tells the delegate that the item at the specified index path was selected.
+     */
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell6", for: indexPath) as! ImageCell
+        /** push to zoomIMGVC */
+        zoomIMGViewController.imgPicked = cell.imgPicture.image
+        if indexPath.row < _data.getRecord().images.count {
+            zoomIMGViewController.imageView.getImgFromUrl(link: _data.getRecord().images[indexPath.row].large, contentMode: cell.imgPicture.contentMode)
+        } else {
+            zoomIMGViewController.setPickedImg(img: self._images[indexPath.row - _data.getRecord().images.count])
+        }
+        //zoomIMGViewController.setPickedImg(img: self._images[indexPath.row])
+        /*if indexPath.row < _data.record.images.count {
+         zoomIMGViewController.imageView.getImgFromUrl(link: _data.record.images[indexPath.row].large, contentMode: cell.imageView.contentMode)
+         } else {
+         zoomIMGViewController.setPickedImg(img: self._images[indexPath.row - _data.record.images.count])
+         }*/
+        // Move to rating view
+        self.pushToView(name: DomainConst.ZOOM_IMAGE_VIEW_CTRL)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        print("Perform")
+    }
+}
+extension G07F00S02ExtVC: ImageDelegte{
+    func deleteImage(cell: ImageCell) {
+        /*if let indexPath = cltImg?.indexPath(for: cell){
+            _images.remove(at: indexPath.row)
+            cltImg?.deleteItems(at: [indexPath])
+        }*/
+        if let indexPath = cltImg?.indexPath(for: cell){
+            if indexPath.row < _data.getRecord().images.count {
+                //_previousImage.append(_data.record.images[indexPath.row])
+                _data.getRecord().images.remove(at: indexPath.row)
+            } else {
+                _images.remove(at: indexPath.row - _data.getRecord().images.count)
+            }
+            cltImg.reloadData()
+            /*_images.remove(at: indexPath.row)
+             cltImg?.deleteItems(at: [indexPath])*/
+        }
+    }
+}
+//-- BUG0141-SPJ (KhoiVT 20170805) Đơn hàng hộ GĐ thêm phần up hình + chụp hình giống các form cũ + redesign

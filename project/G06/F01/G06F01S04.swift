@@ -185,11 +185,16 @@ class G06F01S04: StepContent, UITextFieldDelegate, AddressPickerViewDelegate {
         _tbxCompetitor.delegate = self
         //++ BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         _tbxCCSCode.delegate    = self
+        //++ BUG0205-SPJ (KhoiVT 20180827) Gasservice - Change param page = 0 when request CCS Code and Add Button Done for Address Picker View
+        /*CCSCodeListRequest.requestCCSCode(action: #selector(finishRequestCCSCode(_:)),
+                                          view: self, page: "1")*/
         CCSCodeListRequest.requestCCSCode(action: #selector(finishRequestCCSCode(_:)),
-                                          view: self, page: "1")
+                                          view: self, page: "0")
+        //-- BUG0205-SPJ (KhoiVT 20180827) Gasservice - Change param page = 0 when request CCS Code and Add Button Done for Address Picker View
         //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         return
     }
+    
     internal func finishRequestCCSCode(_ notification: Notification) {
         let data = (notification.object as! String)
         let model = CCSCodeListRespModel(jsonString: data)

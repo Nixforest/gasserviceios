@@ -49,13 +49,19 @@ class G11F00S02VC: BaseChildViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var cltvHeight: NSLayoutConstraint!
     /** Table Reply height */
     @IBOutlet weak var tblHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var btnRefresh: UIButton!
+    
+    @IBAction func btnRefreshTapped(_ sender: Any) {
+        self.requestData(action: #selector(finishHandleRefresh(_:)))
+    }
     // MARK: Methods
     /**
      * Handle button answer tap event
      */
     @IBAction func btnAnswerTapped(_ sender: Any) {
         if cltvHeight.constant == 0 {
-            cltvHeight.constant = 296
+            cltvHeight.constant = 306
         }
         else{
             cltvHeight.constant = 0
@@ -215,9 +221,10 @@ class G11F00S02VC: BaseChildViewController, UITableViewDelegate, UITableViewData
             _btnClose.isEnabled = model.record.can_close == DomainConst.NUMBER_ONE_VALUE
             _dataReply = model.record.list_reply
             _images.removeAll()
+            self.tvContent.text = ""
             cltImg.reloadData()
             cltvHeight.constant = 0
-            tblHeight.constant = CGFloat(_dataReply.count * 300)
+            tblHeight.constant = CGFloat(_dataReply.count * 200)
             self._tblView.reloadData()
         } else {
             showAlert(message: model.message)
@@ -241,7 +248,9 @@ class G11F00S02VC: BaseChildViewController, UITableViewDelegate, UITableViewData
         //setupButton(button: _btnClose, icon: DomainConst.TICKET_CLOSE_ICON_IMG_NAME)
         _btnClose.layer.cornerRadius        = 2
         _btnAnswer.layer.cornerRadius       = 2
-        btnSendRequest.layer.cornerRadius   = 15
+        btnSendRequest.layer.cornerRadius   = 20
+        btnRefresh.layer.cornerRadius       = 25
+        btnRefresh.layer.zPosition          = 1
         //Custom textview
         //textview
         let color = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
@@ -296,6 +305,7 @@ class G11F00S02VC: BaseChildViewController, UITableViewDelegate, UITableViewData
         _tblView.dataSource = self
         _tblView.estimatedRowHeight = 500
         _tblView.rowHeight = UITableViewAutomaticDimension
+        _tblView.addSubview(refreshControl)
         // Request data from server
         requestData()
         self.view.makeComponentsColor()
@@ -436,9 +446,19 @@ class G11F00S02VC: BaseChildViewController, UITableViewDelegate, UITableViewData
                 withIdentifier: ReplyCell.theClassName)
                 as! ReplyCell
             if _data.record.list_reply.count > indexPath.row {
-                cell.lblName.text = "\(_data.record.list_reply[indexPath.row].name)[\(_data.record.list_reply[indexPath.row].position)]"
+                let attributedString = NSMutableAttributedString(string:"[\(_data.record.list_reply[indexPath.row].position)]")
+                
+                let attrs = [NSFontAttributeName : UIFont.boldSystemFont(ofSize: 15)]
+                let boldString = NSMutableAttributedString(string: _data.record.list_reply[indexPath.row].name, attributes:attrs)
+                boldString.append(attributedString)
+                attributedString.append(boldString)
+                cell.lblName.attributedText = boldString
+                //cell.lblName.text = "\(_data.record.list_reply[indexPath.row].name)[\(_data.record.list_reply[indexPath.row].position)]"
                 cell.lblDate.text = "Ngày gửi: \(_data.record.list_reply[indexPath.row].created_date)"
                 cell.lblReply.text = _data.record.list_reply[indexPath.row].content
+                if _data.record.list_reply[indexPath.row].images.count <= 0{
+                    cell.cltvHeight.constant = 0
+                }
             }
             cell.cltv.dataSource = self
             cell.cltv.delegate   = self
@@ -531,6 +551,9 @@ extension G11F00S02VC: UICollectionViewDataSource {
             cell.imgPicture.getImgFromUrl(link: _data.record.list_reply[collectionView.tag].images[indexPath.row].thumb, contentMode: cell.imgPicture.contentMode)
             cell.btnDeleteHeight.constant = 0
             cell.btnDeletePicture.isHidden = true
+            cell.layer.borderColor = UIColor.red.cgColor
+            cell.layer.borderWidth = 1
+            cell.layer.cornerRadius = 2
             cell0 = cell
         }
         return cell0

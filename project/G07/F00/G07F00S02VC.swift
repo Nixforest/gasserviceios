@@ -9,14 +9,14 @@
 import UIKit
 import harpyframework
 
-class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelegate {
+class G07F00S02VC: BaseChildViewController {
     // MARK: Properties
     /** Id */
     public static var _id:          String                      = DomainConst.BLANK
     /** Bottom view */
-    private var _bottomView:        UIView                      = UIView()
+    //private var _bottomView:        UIView                      = UIView()
     /** Information table view */
-    @IBOutlet weak var _tableView:  UITableView!
+    //@IBOutlet weak var _tableView:  UITableView!
     /** List of information data */
     private var _listInfo:          [[ConfigurationModel]]      = [[ConfigurationModel]]()
     /** List material bean */
@@ -102,10 +102,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Do any additional setup after loading the view.
         // Navigation
         createNavigationBar(title: DomainConst.CONTENT00232)
-        var offset: CGFloat = getTopHeight()
+        //var offset: CGFloat = getTopHeight()
         
         // Information table view
-        _tableView.translatesAutoresizingMaskIntoConstraints = true
+        /*_tableView.translatesAutoresizingMaskIntoConstraints = true
         _tableView.frame = CGRect(x: 0,
                                   y: 0,
                                   width: GlobalConst.SCREEN_WIDTH,
@@ -128,7 +128,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         //_bottomView.isHidden = true
         //-- BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
         self.view.addSubview(_bottomView)
-        createBottomView()
+        createBottomView()*/
         self.view.makeComponentsColor()
 //        // Add search button to navigation bar
 //        self.createRightNavigationItem(title: "+",
@@ -146,7 +146,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     override func viewWillAppear(_ animated: Bool) {
         // Check if table view has selected rows
-        if (_tableView.indexPathForSelectedRow != nil) {
+        /*if (_tableView.indexPathForSelectedRow != nil) {
             // Get selected row index
             let selectedRow = (_tableView.indexPathForSelectedRow?.row)!
             
@@ -208,15 +208,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 break
             }
         }
-        _type = DomainConst.NUMBER_ZERO_VALUE
-    }
-    
-    /**
-     * Sent to the view controller when the app receives a memory warning.
-     */
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        _type = DomainConst.NUMBER_ZERO_VALUE*/
     }
     
     /**
@@ -253,10 +245,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                 //-- BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
             }
             
-            _tableView.frame = CGRect(x: 0,
+            /*_tableView.frame = CGRect(x: 0,
                                       y: 0,
                                       width: GlobalConst.SCREEN_WIDTH,
-                                      height: GlobalConst.SCREEN_HEIGHT - bottomHeight)
+                                      height: GlobalConst.SCREEN_HEIGHT - bottomHeight)*/
             //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
 //            btnSave.isEnabled = (_data.getRecord().show_button_save == DomainConst.NUMBER_ONE_VALUE)
 //            btnAction.isEnabled = (_data.getRecord().show_button_complete == DomainConst.NUMBER_ONE_VALUE)
@@ -265,9 +257,9 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             // Reload data in table view
             //++ BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
             //self._tableView.reloadData()
-            DispatchQueue.main.async {
+            /*DispatchQueue.main.async {
                 self._tableView.reloadData()
-            }
+            }*/
             //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
         }
         //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
@@ -288,7 +280,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter color:   Color of button
      * - parameter action:  Action of button
      */
-    private func setupButton(button: UIButton, x: CGFloat, y: CGFloat, title: String,
+    /*private func setupButton(button: UIButton, x: CGFloat, y: CGFloat, title: String,
                              icon: String, color: UIColor, action: Selector) {
         button.frame = CGRect(x: x,
                               y: y,
@@ -311,7 +303,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                                               left: GlobalConst.MARGIN,
                                               bottom: GlobalConst.MARGIN,
                                               right: GlobalConst.MARGIN)
-    }
+    }*/
     
     //++ BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
     /**
@@ -319,7 +311,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter isShow: True is show bottom view, False is hide
      */
     private func showHideBottomView(isShow: Bool) {
-        if isShow {
+        /*if isShow {
             btnSave.isEnabled = (_data.getRecord().show_button_save == DomainConst.NUMBER_ONE_VALUE)
             btnAction.isEnabled = (_data.getRecord().show_button_complete == DomainConst.NUMBER_ONE_VALUE)
             btnCancel.isEnabled = _data.getRecord().show_button_cancel.isON()
@@ -327,14 +319,14 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             btnCancel.isEnabled = false
             btnSave.isEnabled = false
             btnAction.isEnabled = false
-        }
+        }*/
     }
     //-- BUG0118-SPJ (NguyenPT 20170629) Make Ticket always show on order
     
     /**
      * Create bottom view
      */
-    private func createBottomView() {
+    /*private func createBottomView() {
         var botOffset: CGFloat = 0.0
         // Create save button
         //++ BUG0103-SPJ (NguyenPT 20170606) Handle action buttons
@@ -390,6 +382,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _bottomView.addSubview(btnAction)
         _bottomView.addSubview(btnCancel)
     }
+ */
     
     // MARK: Handle events
     //++ BUG0119-SPJ (NguyenPT 20170630) Handle update customer in Order Family
@@ -398,7 +391,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     internal func btnOtherActionTapped(_ sender: AnyObject) {
         // Show alert
-        let alert = UIAlertController(title: DomainConst.CONTENT00436,
+        /*let alert = UIAlertController(title: DomainConst.CONTENT00436,
                                       message: DomainConst.CONTENT00437,
                                       preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
@@ -434,6 +427,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             presenter.sourceRect = _bottomView.bounds
         }
         self.present(alert, animated: true, completion: nil)
+ */
     }
     //++ BUG0133-SPJ (NguyenPT 20170724) Family order: change agent delivery
     /**
@@ -598,7 +592,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Handle when tap on save button
      */
     internal func btnSaveTapped(_ sender: AnyObject) {
-        var orderDetail = [String]()
+        /*var orderDetail = [String]()
         for item in self._listMaterials {
             if !item.material_id.isEmpty {
                 orderDetail.append(item.createJsonDataForUpdateOrder())
@@ -620,6 +614,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             //++ BUG0111-SPJ (NguyenPT 20170617) Update function G06
             ccsCode: _data.getRecord().ccsCode)
             //-- BUG0111-SPJ (NguyenPT 20170617) Update function G06
+ */
     }
     
     internal func finishUpdateOrder(_ notification: Notification) {
@@ -629,7 +624,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /**
      * Handle when tap on Action button
      */
-    internal func btnActionHandler(_ sender: AnyObject) {
+    /*internal func btnActionHandler(_ sender: AnyObject) {
         var bIsExistCylinder = false
         for item in _listMaterials {
             if item.isCylinder() {
@@ -653,6 +648,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             })
         }
     }
+    */
     
     private func requestCompleteOrder() {
         var orderDetail = [String]()
@@ -684,7 +680,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     internal func btnCancelHandler(_ sender: AnyObject) {        
         // Show alert
-        let alert = UIAlertController(title: DomainConst.CONTENT00320,
+        /*let alert = UIAlertController(title: DomainConst.CONTENT00320,
                                       message: DomainConst.CONTENT00319,
                                       preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
@@ -704,6 +700,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             presenter.sourceRect = _bottomView.bounds
         }
         self.present(alert, animated: true, completion: nil)
+ */
     }
     
     /**
@@ -735,7 +732,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     internal func updateSupportType() {
         // Show alert
-        let alert = UIAlertController(title: DomainConst.CONTENT00370,
+        /*let alert = UIAlertController(title: DomainConst.CONTENT00370,
                                       message: DomainConst.BLANK,
                                       preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
@@ -755,6 +752,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             presenter.sourceRect = _bottomView.bounds
         }
         self.present(alert, animated: true, completion: nil)
+ */
     }
     
     /**
@@ -762,7 +760,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter id: Id of support type
      */
     internal func handleUpdateSupportOrder(id: String) {
-        if id != _data.getRecord().support_id {
+        /*if id != _data.getRecord().support_id {
             _data.getRecord().support_id = id
             for item in _listInfo[2] {  // Loop in section 2 data
                 if item.id == DomainConst.ORDER_INFO_SUPPORT_TYPE_ID {  // Support item
@@ -783,7 +781,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
                     break
                 }
             }
-            _tableView.reloadData()
+            _tableView.reloadData()*/
         }
     }
     
@@ -792,7 +790,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     internal func updateOrderType() {
         // Show alert
-        let alert = UIAlertController(title: DomainConst.CONTENT00371,
+        /*let alert = UIAlertController(title: DomainConst.CONTENT00371,
                                       message: DomainConst.BLANK,
                                       preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
@@ -812,6 +810,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             presenter.sourceRect = _bottomView.bounds
         }
         self.present(alert, animated: true, completion: nil)
+ */
     }
     
     /**
@@ -819,7 +818,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter id: Id of order type
      */
     internal func handleUpdateOrderType(id: String) {
-        if id != _data.getRecord().order_type {
+        /*if id != _data.getRecord().order_type {
             _data.getRecord().order_type = id
             for item in _listInfo[2] {  // Loop in section 2 data
                 if item.id == DomainConst.ORDER_INFO_ORDER_TYPE_ID {  // Order type item
@@ -841,6 +840,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             }
             _tableView.reloadData()
         }
+ */
     }
     //-- BUG0079-SPJ (NguyenPT 20170509) Add order type and support type in Family order
     
@@ -850,7 +850,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      */
     internal func addNewMaterialButtonTapped(_ sender: AnyObject) {
         // Show alert
-        let alert = UIAlertController(title: DomainConst.CONTENT00312,
+        /*let alert = UIAlertController(title: DomainConst.CONTENT00312,
                                       message: DomainConst.CONTENT00314,
                                       preferredStyle: .actionSheet)
         let cancel = UIAlertAction(title: DomainConst.CONTENT00202,
@@ -920,6 +920,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         default:
             break
         }
+ */
     }
     
     // MARK: Utility methods
@@ -928,21 +929,22 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Get number of element in list info
      * - returns: Number of element in list info
      */
-    private func getCountOfInfo() -> Int {
-        var retVal = 0
+    /*private func getCountOfInfo() -> Int {
+        /*var retVal = 0
         for item in _listInfo {
             for _ in item {
                 retVal += 1
             }
         }
         return retVal
-    }
+ */
+    }*/
     
     /**
      * Set update data for first list infor
      */
     private func setupFirstListInfo() {
-        _listInfo[0].removeAll()
+        /*_listInfo[0].removeAll()
         
         // Id
         _listInfo[0].append(ConfigurationModel(
@@ -987,13 +989,14 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             id: DomainConst.ORDER_INFO_CCS_CODE_ID, name: DomainConst.CONTENT00445,
             iconPath: DomainConst.CCS_CODE_ICON_IMG_NAME, value: _data.getRecord().ccsCode))
         //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
+ */
     }
     
     /**
      * Set update data for list material infor
      */
     private func setupListMaterialInfo() {
-        _listInfo[1].removeAll()
+        /*_listInfo[1].removeAll()
         _listMaterials.removeAll()
         
         // Add materials to table
@@ -1002,14 +1005,14 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             //appendMaterial(material: item)
             appendMaterial(material: item, isUpdateQty: false)
             //-- BUG0125-SPJ (NguyenPT 20170712) Handle input quantity of material when edit Family Customer Order
-        }
+        }*/
     }
     
     /**
      * Set update data for third list infor
      */
     private func setupListThirdListInfo() {
-        _listInfo[2].removeAll()
+        /*_listInfo[2].removeAll()
         
         // Add new material
         if _data.getRecord().allow_update == DomainConst.NUMBER_ONE_VALUE {
@@ -1111,23 +1114,24 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         _listInfo[2].append(ConfigurationModel(
             id: DomainConst.AGENT_NAME_ID, name: DomainConst.CONTENT00240,
             iconPath: DomainConst.AGENT_ICON_IMG_NAME, value: _data.getRecord().agent_name))
+ */
     }
     
     /**
      * Remove material
      * - parameter at: Index
      */
-    private func removeMaterial(at: Int) {
+    /*private func removeMaterial(at: Int) {
         _listMaterials.remove(at: at)
         _listInfo[1].remove(at: at)
-    }
+    }*/
     
     /**
      * Update material
      * - parameter at: Index
      * - parameter material: Data to update
      */
-    private func updateMaterial(at: Int, material: OrderDetailBean) {
+    /*private func updateMaterial(at: Int, material: OrderDetailBean) {
         var idx: Int = -1
         // Search in lists
         for i in 0..<_listInfo[1].count {
@@ -1162,13 +1166,13 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             }
         }
     }
-    
+    */
     /**
      * Insert material at tail
      * - parameter material: Data to update
      */
 //    private func appendMaterial(material: OrderDetailBean, isUpdateQty: Bool = true) {
-    private func appendMaterial(material: OrderVIPDetailBean, isUpdateQty: Bool = true) {
+    /*private func appendMaterial(material: OrderVIPDetailBean, isUpdateQty: Bool = true) {
         var idx: Int = -1
         // Search in lists
         for i in 0..<_listInfo[1].count {
@@ -1211,13 +1215,13 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             //-- BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
         }
     }
-    
+    */
     //++ BUG0125-SPJ (NguyenPT 20170712) Handle input quantity
     /**
      * Update quantity of material
      * - parameter idx: Index of selected row
      */
-    private func updateQtyMaterial(idx: Int) {
+    /*private func updateQtyMaterial(idx: Int) {
         let material = _listMaterials[idx]
         var tbxValue: UITextField?
         
@@ -1426,9 +1430,11 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         // Pass the selected object to the new view controller.
     }
      */
+ */
     // MARK: - UITableViewDataSource-Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
-        return _listInfo.count
+        //return _listInfo.count
+        return 0
     }
     
     /**
@@ -1441,8 +1447,9 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
     /**
      * Set number of row in table view
      */
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return _listInfo[section].count
+    /*func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //return _listInfo[section].count
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -1450,7 +1457,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCell(
             withIdentifier: DomainConst.CONFIGURATION_TABLE_VIEW_CELL,
             for: indexPath) as! ConfigurationTableViewCell
-        cell.resetHighligh()
+        /*cell.resetHighligh()
         let data = _listInfo[indexPath.section][indexPath.row]
         switch indexPath.section {
         case 0:             // First section - Basic info
@@ -1492,9 +1499,10 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             break
         default:
             break
-        }
+        }*/
         return cell
     }
+ */
     /**
      * Set content of row in table view
      */
@@ -1570,7 +1578,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * Tells the delegate that the specified row is now selected.
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = _listInfo[indexPath.section][indexPath.row]
+        /*let data = _listInfo[indexPath.section][indexPath.row]
         switch indexPath.section {
         case 0:     // Section 0
             break
@@ -1656,13 +1664,14 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         return false
+ */
     }
     
     /**
      * Asks the data source to commit the insertion or deletion of a specified row in the receiver.
      */
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        switch editingStyle {
+        /*switch editingStyle {
         case .delete:
             self.showAlert(message: DomainConst.CONTENT00317,
                            okHandler: {
@@ -1677,7 +1686,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             })
         default:
             break
-        }
+        }*/
     }
     
     /**
@@ -1685,7 +1694,7 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
      * - parameter status: Value of status number
      * - returns: Value of status string
      */
-    private func getStatusString(status: String) -> String {
+    /*private func getStatusString(status: String) -> String {
         var retVal = DomainConst.BLANK
         switch status {
         case DomainConst.ORDER_STATUS_NEW:
@@ -1704,5 +1713,6 @@ class G07F00S02VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             break
         }
         return retVal
-    }
-}
+    }*/
+
+ 

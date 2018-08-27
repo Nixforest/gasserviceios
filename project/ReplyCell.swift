@@ -14,6 +14,7 @@ class ReplyCell: UITableViewCell {
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblReply: UILabel!
     @IBOutlet weak var cltv: UICollectionView!
+    @IBOutlet weak public var cltvHeight: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

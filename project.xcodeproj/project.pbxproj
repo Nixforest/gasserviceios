@@ -427,6 +427,7 @@
 		D7E5773C20F89EEF00C81E06 /* G17F00S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E5773B20F89EEF00C81E06 /* G17F00S03VC.swift */; };
 		D7E96237210EE59400441774 /* StockRealViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E96236210EE59400441774 /* StockRealViewRequest.swift */; };
 		D7E9623A210EE5B900441774 /* StockRealUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E96239210EE5B900441774 /* StockRealUpdateRequest.swift */; };
+		D7E97A8E212FA91200F18543 /* G07F00S02ExtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E97A8D212FA91100F18543 /* G07F00S02ExtCell.swift */; };
 		D7EA53B91EE3C99F004CFE1F /* G11Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA53B81EE3C99F004CFE1F /* G11Const.swift */; };
 		D7EA53BB1EE3CA11004CFE1F /* TicketListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA53BA1EE3CA11004CFE1F /* TicketListRequest.swift */; };
 		D7EA53BD1EE3CAF7004CFE1F /* TicketViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA53BC1EE3CAF7004CFE1F /* TicketViewRequest.swift */; };
@@ -953,6 +954,7 @@
 		D7E5773B20F89EEF00C81E06 /* G17F00S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = G17F00S03VC.swift; sourceTree = "<group>"; };
 		D7E96236210EE59400441774 /* StockRealViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockRealViewRequest.swift; sourceTree = "<group>"; };
 		D7E96239210EE5B900441774 /* StockRealUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockRealUpdateRequest.swift; sourceTree = "<group>"; };
+		D7E97A8D212FA91100F18543 /* G07F00S02ExtCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = G07F00S02ExtCell.swift; sourceTree = "<group>"; };
 		D7EA53B81EE3C99F004CFE1F /* G11Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G11Const.swift; path = G11/G11Const.swift; sourceTree = "<group>"; };
 		D7EA53BA1EE3CA11004CFE1F /* TicketListRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TicketListRequest.swift; path = G11/API/TicketListRequest.swift; sourceTree = "<group>"; };
 		D7EA53BC1EE3CAF7004CFE1F /* TicketViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TicketViewRequest.swift; path = G11/API/TicketViewRequest.swift; sourceTree = "<group>"; };
@@ -2366,6 +2368,7 @@
 				D79C31761E9B8506006F3683 /* G07F00S02VC.swift */,
 				90A16F74204F95FC002BF7E6 /* G07F00S02ExtVC.swift */,
 				90A16F75204F95FC002BF7E6 /* G07F00S02ExtVC.xib */,
+				D7E97A8D212FA91100F18543 /* G07F00S02ExtCell.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -2916,6 +2919,7 @@
 				D7A632862108B52800EE4AAE /* StockListResponseModel.swift in Sources */,
 				D76C17AA1EE161EE00B71FAE /* FamilyUpholdUpdateRequest.swift in Sources */,
 				D7ADCBC91ED020A800226523 /* TempDataRequest.swift in Sources */,
+				D7E97A8E212FA91200F18543 /* G07F00S02ExtCell.swift in Sources */,
 				D7EA53CD1EE3EAC1004CFE1F /* G11F00S01VC.swift in Sources */,
 				D78F99EC1ECD52F9003CB814 /* G09F00S01VC.swift in Sources */,
 				D7D28B7D1EB9BF9E006DDF83 /* StoreCardListResponseModel.swift in Sources */,

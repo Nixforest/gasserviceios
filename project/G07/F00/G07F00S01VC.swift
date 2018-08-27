@@ -16,8 +16,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         items: [
             DomainConst.CONTENT00074,
             DomainConst.CONTENT00311
-        ])
-    /** Table view */
+        ])    /** Table view */
     private var _tblView:           UITableView         = UITableView()
     /** Data */
     private var _data:              OrderFamilyListRespModel  = OrderFamilyListRespModel()
@@ -41,7 +40,7 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
     /** Search input view */
     private var _viewInput:         UIView = UIView()
     /** From date value */
-    private var _fromDate:          String = CommonProcess.getCurrentDate()
+    private var _fromDate:          String = CommonProcess.getFirstDateOfMonth(date: Date())
     /** To date value */
     private var _toDate:            String = CommonProcess.getCurrentDate()
     /** Date picker */
@@ -92,9 +91,9 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         _data.clearData()
         // Reset current search value
         self._page      = 0
-        _fromDate = CommonProcess.getCurrentDate()
+        _fromDate = CommonProcess.getFirstDateOfMonth(date: Date())
         _toDate = CommonProcess.getCurrentDate()
-        _datePickerFrom.setValue(value: CommonProcess.getCurrentDate())
+        _datePickerFrom.setValue(value: CommonProcess.getFirstDateOfMonth(date: Date()))
         _datePickerTo.setValue(value: CommonProcess.getCurrentDate())
         // Reload table
         _tblView.reloadData()
@@ -385,10 +384,13 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
      * - parameter id: Id of detail information
      */
     internal func openDetail(id: String) {
-        let view = G07F00S02ExtVC(nibName: G07F00S02ExtVC.theClassName,
+        /*let view = G07F00S02ExtVC(nibName: G07F00S02ExtVC.theClassName,
                                   bundle: nil)
         view.setData(id: id)
-        self.push(view, animated: true)
+        self.push(view, animated: true)*/
+        BaseModel.shared.sharedString = id
+        self.pushToView(name: G07F00S02ExtVC.theClassName)
+        
 //        G07F00S02VC._id = id
 //        self.pushToView(name: G07F00S02VC.theClassName)
     } 
