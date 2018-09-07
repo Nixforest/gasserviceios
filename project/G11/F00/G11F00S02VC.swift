@@ -49,9 +49,9 @@ class G11F00S02VC: BaseChildViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var cltvHeight: NSLayoutConstraint!
     /** Table Reply height */
     @IBOutlet weak var tblHeight: NSLayoutConstraint!
-    
+    /** button Refresh */
     @IBOutlet weak var btnRefresh: UIButton!
-    
+    /** button Refresh Tapped*/
     @IBAction func btnRefreshTapped(_ sender: Any) {
         self.requestData(action: #selector(finishHandleRefresh(_:)))
     }
@@ -62,12 +62,18 @@ class G11F00S02VC: BaseChildViewController, UITableViewDelegate, UITableViewData
     @IBAction func btnAnswerTapped(_ sender: Any) {
         if cltvHeight.constant == 0 {
             cltvHeight.constant = 306
+            ReplyView.isHidden = false
         }
         else{
             cltvHeight.constant = 0
+            ReplyView.isHidden = true
+            // Hide keyboard
+            self.view.endEditing(true)
         }
     }
-    
+    /**
+     * Send Reply Tapped
+     */
     @IBAction func btnSendRequestTapped(_ sender: Any) {
         TicketReplyRequest.request(action: #selector(finishReplyRequest(_:)), view: self, id: G11F00S02VC._id, message: tvContent.text, images: _images)
     }
@@ -159,6 +165,8 @@ class G11F00S02VC: BaseChildViewController, UITableViewDelegate, UITableViewData
             showAlert(message: model.message, okHandler: {
                 alert in
                 self.requestData()
+                // Hide keyboard
+                self.view.endEditing(true)
             })
         } else {
             showAlert(message: model.message)
@@ -249,7 +257,7 @@ class G11F00S02VC: BaseChildViewController, UITableViewDelegate, UITableViewData
         _btnClose.layer.cornerRadius        = 2
         _btnAnswer.layer.cornerRadius       = 2
         btnSendRequest.layer.cornerRadius   = 20
-        btnRefresh.layer.cornerRadius       = 25
+        btnRefresh.layer.cornerRadius       = 20
         btnRefresh.layer.zPosition          = 1
         //Custom textview
         //textview
@@ -316,10 +324,7 @@ class G11F00S02VC: BaseChildViewController, UITableViewDelegate, UITableViewData
         cltImg.dataSource = self
         cltImg.delegate = self
         cltvHeight.constant = 0
-        //cltImg.register(ImageCell.self, forCellWithReuseIdentifier: "ImageCell5")
-        /*let nib = UINib(nibName: "ImageCell", bundle:nil)
-        self.cltImg.register(nib, forCellWithReuseIdentifier: "ImageCell5")*/
-        
+        ReplyView.isHidden = true
     }
 
     /**
@@ -517,8 +522,6 @@ extension G11F00S02VC: UICollectionViewDataSource {
         else{
             return _data.record.list_reply[collectionView.tag].images.count
         }
-        return 0
-        
         //ImageCellReply
     }
     

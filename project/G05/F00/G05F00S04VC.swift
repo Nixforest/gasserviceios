@@ -1015,6 +1015,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             str = String.init(format: "%@, gas dư: %.01f kg", str, sumAll.1)
         }
         _listMaterialString.append(str)
+        //_listMaterialString.append(_data.getRecord().info_price)
+        _listMaterialString.append(_data.getRecord().text_summary)
         //showAlert(message: sum.joined(separator: "\n"))
     }
     
@@ -1108,6 +1110,8 @@ class G05F00S04VC: ChildViewController, UITableViewDataSource, UITableViewDelega
             str = String.init(format: "%@, gas dư: %.01f kg", str, sumAll.1)
         }
         _listGasString.append(str)
+        //_listGasString.append(_data.getRecord().info_price)
+        _listGasString.append(_data.getRecord().text_summary)
         //showAlert(message: sum.joined(separator: "\n"))
     }
     

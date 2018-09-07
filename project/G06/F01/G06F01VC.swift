@@ -295,7 +295,8 @@ class G06F01VC: StepVC, StepDoneDelegate, CLLocationManagerDelegate {
             self.showAlert(message: model.message,
                            okHandler: {
                             (alert: UIAlertAction!) in
-                            self.backButtonTapped(self)
+                            //self.backButtonTapped(self)
+                            self.pushToView(name: G06F00S01VC.theClassName)
             })
         }
         //++ BUG0092-SPJ (NguyenPT 20170517) Show error message

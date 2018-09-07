@@ -8,7 +8,14 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.52.0
+// - Thêm field action_invest, thêm radio button chọn action_invest trong tạo và cập nhật yêu cầu vật tư
+// - Chuyển cách chọn vât tư cũ sang chọn theo tag module, khi chọn hiển thị pop up với list vật tư, có thể chọn được nhiều vật tư
+// Version: 1.51.0
+// - Fix lỗi ở list vâtj tư ở đơn hàng HGĐ
 // Version: 1.50.0
+// - Đơn hàng hộ GĐ thêm phần up hình + chụp hình giống các form cũ + redesign
+// - Gasservice - Change param page = 0 when request CCS Code and Add Button Done for Address Picker View
 // - Gasservice - Gasservice - Design New Create Ticket View, Hide Handler Picker when role Customer, allow push Image 
 // - Family order list: First show current date. Add Search function
 // - Change [Basemodel._userInfo] from optional to normal variable

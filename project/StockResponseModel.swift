@@ -12,14 +12,12 @@ import harpyframework
 class StockResponseModel: BaseRespModel{
     /** Record */
     var record: StockBean = StockBean()
-    
     /**
      * Default init
      */
     override init() {
         super.init()
     }
-    
     /**
      * Initializer
      */

@@ -27,8 +27,6 @@ public class InfogasBean: MaterialBean {
     /** total_gas_du */
     public var total_gas_du_kg          : String = DomainConst.BLANK
     
-    
-    
         /**
      * Initializer
      * - parameter jsonData: List of data
@@ -43,8 +41,6 @@ public class InfogasBean: MaterialBean {
         self.grand_total            = getString(json: jsonData, key: DomainConst.KEY_GRAND_TOTAL)
         self.total_gas_du           = getString(json: jsonData, key: DomainConst.KEY_TOTAL_GAS_DU)
         self.total_gas_du_kg        = getString(json: jsonData, key: DomainConst.KEY_TOTAL_GAS_DU_KG)
-        
-        
     }
     
     /**

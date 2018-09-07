@@ -33,9 +33,10 @@ class AppDataClientCacheResponseModel: BaseRespModel {
                     return
                 }
                 // Record
-                let recordList = json[DomainConst.KEY_CACHE_REQUEST_MATERIALS] as? [[String: AnyObject]]
-                for item in recordList! {
-                    self.record.append(OrderDetailBean(jsonData: item))
+                if let recordList: [[String: AnyObject]] = json[DomainConst.KEY_CACHE_MODULE] as? [[String : AnyObject]]{
+                    for item in recordList {
+                        self.record.append(OrderDetailBean(jsonData: item))
+                    }
                 }
             } catch let error as NSError {
                 print(DomainConst.JSON_ERR_FAILED_LOAD + "\(error.localizedDescription)")

@@ -28,6 +28,9 @@ class CustomerRequestBean: CustomerRequestListBean{
     public var json:                    [OrderDetailBean] = [OrderDetailBean]()
     /** List images */
     public var images:                  [UpholdImageInfoItem] = [UpholdImageInfoItem]()
+    /** action_invest */
+    public var action_invest:                     String = DomainConst.BLANK
+    
     /**
      * Initializer
      * - parameter jsonData: List of data
@@ -54,6 +57,8 @@ class CustomerRequestBean: CustomerRequestListBean{
                 self.images.append(UpholdImageInfoItem(jsonData: listItem))
             }
         }
+        self.action_invest = getString(json: jsonData, key: DomainConst.KEY_ACTION_INVEST)
+        
         
     }
     

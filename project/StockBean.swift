@@ -20,7 +20,6 @@ class StockBean: StockListBean{
     override public init() {
         super.init()
     }
-    
     /**
      * Initializer
      * - parameter jsonData: List of data
@@ -29,14 +28,10 @@ class StockBean: StockListBean{
         super.init(jsonData: jsonData)
         self.allow_update                = getString(json: jsonData, key: DomainConst.KEY_ALLOW_UPDATE)
         if let dataArr = jsonData[DomainConst.KEY_STOCK] as? [[String: AnyObject]] {
-            
-            for item in dataArr {
-                
+            for item in dataArr {                
                 self.stock.append(InfogasBean(jsonData: item))
             }
-            
         }
-        
     }
 }
 

@@ -12,7 +12,7 @@ protocol G07CellTextChangeDelegte{
     func updateSeri(seri : String, index: Int)
     func updateShell(shell : String, index: Int)    
     func updateWeight(weight : String, index: Int)
-
+    func didBeginEdit()
 }
 class G07F00S02ExtCell: UITableViewCell {
     var index : Int = 0
@@ -32,6 +32,24 @@ class G07F00S02ExtCell: UITableViewCell {
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var tfWeight: UITextField!
     @IBOutlet weak var tfShell: UITextField!
+    @IBOutlet weak var imgPresent_lblPrice_Margin: NSLayoutConstraint!
+    
+    @IBAction func tfSeriBeginEdit(_ sender: Any) {
+        delegate?.didBeginEdit()
+    }
+    
+    @IBAction func tfWeightBeginEdit(_ sender: Any) {
+        delegate?.didBeginEdit()
+    }
+    
+    
+    @IBAction func tfShellBeginEdit(_ sender: Any) {
+        delegate?.didBeginEdit()
+    }
+    
+    @IBAction func tfQuantityBeginEdit(_ sender: Any) {
+        delegate?.didBeginEdit()
+    }
     
     @IBAction func seriEdittingChanged(_ sender: Any) {
         delegate?.updateSeri(seri: tfSeri.text!, index: index)

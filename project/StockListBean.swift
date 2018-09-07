@@ -11,21 +11,19 @@ import harpyframework
 
 open class StockListBean: OrderVIPListBean {
     /** total gas */
-    public var total_gas:             String = DomainConst.BLANK
+    public var total_gas:               String = DomainConst.BLANK
     /** total gas du */
-    public var total_gas_du:             String = DomainConst.BLANK
+    public var total_gas_du:            String = DomainConst.BLANK
     /** total gas du kg */
-    public var total_gas_du_kg:             String = DomainConst.BLANK
+    public var total_gas_du_kg:         String = DomainConst.BLANK
     /** customer id */
     public var customer_id:             String = DomainConst.BLANK
     /** type */
-    public var type:             String = DomainConst.BLANK
-    
-    
+    public var type:                    String = DomainConst.BLANK
+    /** init */
     override public init() {
         super.init()
     }
-    
     /**
      * Initializer
      * - parameter jsonData: List of data
@@ -38,7 +36,4 @@ open class StockListBean: OrderVIPListBean {
         self.customer_id          = getString(json: jsonData, key: DomainConst.KEY_CUSTOMER_ID)
         self.type          = getString(json: jsonData, key: DomainConst.KEY_TYPE)
     }
-    
-    
-
 }

@@ -190,11 +190,16 @@ class G07F00S01VC: ParentViewController, UITableViewDelegate, UITableViewDataSou
         //-- BUG0182-SPJ (NguyenPT 20171219) Create transaction
         
         // Request data from server
-        requestData()
+        //requestData()
         self.view.makeComponentsColor()
         //++ BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function
         setupSearchView()
         //-- BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        resetData()
+        requestData()
     }
     
     //++ BUG0147-SPJ (KhoiVT 20170805) Family order list: First show current date. Add Search function

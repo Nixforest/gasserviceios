@@ -9,19 +9,19 @@
 import UIKit
 import harpyframework
 
-class BaseChildViewController: ChildExtViewController {
+open class BaseChildViewController: ChildExtViewController {
 
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
+    override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func openAnnounceDetail(id: String) {
+    override open func openAnnounceDetail(id: String) {
         let view = G15F00S02VC(nibName: G15F00S02VC.theClassName, bundle: nil)
         view.setData(id: id)
         self.push(view, animated: true)

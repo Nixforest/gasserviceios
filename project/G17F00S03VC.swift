@@ -8,16 +8,23 @@
 
 import UIKit
 import harpyframework  
-
-class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
+import DLRadioButton
+import TagListView
+class G17F00S03VC: BaseChildViewController,UISearchBarDelegate, TagListViewDelegate {
     //Constrain height of Info layout component
+    @IBOutlet weak var cltImageMarginTop: NSLayoutConstraint!
+    @IBOutlet weak var cltImageHeight: NSLayoutConstraint!
+    //@IBOutlet weak var btnAddModule: UIButton!
     internal var _customer_id:                String = "" 
     @IBOutlet weak var tblSearch:             UITableView!
     @IBOutlet weak var tblMaterial:           UITableView!
+    public static var _selectedList:   [OrderDetailBean]   = [OrderDetailBean].init()
     /** Flag begin search */
     private var _beginSearch:                 Bool                = false
     /** Data */
     internal var _dataCustomer:              [CustomerBean]      = [CustomerBean]()
+    /** Data Catche */
+    var _dataCatche: [OrderDetailBean] = [OrderDetailBean]()
     /** Data json*/
     internal var _dataJson:                  [OrderDetailBean]      = [OrderDetailBean]()
     /** Data Client Cache*/
@@ -51,27 +58,45 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
     /** Button Cancel */
     @IBOutlet weak var btnCancel:             UIButton!
     /** Button Add supply */
-    @IBOutlet weak var btnAddSupply:          UIButton!
+    //@IBOutlet weak var btnAddSupply:          UIButton!
     /** List image add to this order */
     internal var _images:            [UIImage]           = [UIImage]()
     @IBOutlet weak var heightColectionView: NSLayoutConstraint!
-    /** Click Button Add supply */
+    @IBOutlet weak var viewCustomerName: UIView!
     /** Image collection view */
     @IBOutlet weak var cltImg: UICollectionView!
-    @IBAction func btn_Add_Supply(_ sender: Any) {
-        if G17F00S03VC._dataClientCache.count > 0 {
-             self.selectMaterial()
-            
-        } 
-        else{
-            // Request server cache data
-            AppDataClientCacheRequest.request(action: #selector(finishRequestCacheData(_:)),
-                                              view: self)
-            /*CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
-                                     view: self)*/
+    //++ BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
+    internal var _action_invest:              String = "1" 
+    /** Button Invest */
+    @IBOutlet weak var btnInvest: DLRadioButton!
+    /** Click Button Invest Tapped */
+    @IBAction func actionInvestTapped(_ sender: DLRadioButton) {
+        if sender.tag == 1{
+            _action_invest = "1"
         }
-
+        else if sender.tag == 2{
+            _action_invest = "2"
+        }
+        else {
+            _action_invest = "3"
+        }
     }
+    //-- BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
+    /** Click Button Add supply */
+//    @IBAction func btn_Add_Supply(_ sender: Any) {
+//        if G17F00S03VC._dataClientCache.count > 0 {
+//             self.selectMaterial()
+//            
+//        } 
+//        else{
+//            // Request server cache data
+//            AppDataClientCacheRequest.request(action: #selector(finishRequestCacheData(_:)),
+//                                              view: self)
+//            /*CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
+//                                     view: self)*/
+//        }
+//
+//    }
     @IBAction func img_DeleteAll(_ sender: Any) {
         _dataJson.removeAll()
         heightTable.constant = 0
@@ -83,14 +108,15 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
     }
     @IBAction func btn_Save(_ sender: Any) {
         var jsonCustomerRequest = [String]()
+        //++ BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
         for item in _dataJson {
-            if !item.material_id.isEmpty {
+            if !item.module_id.isEmpty {
                 jsonCustomerRequest.append(item.createJsonDataForCustomerRequest())
             }
         }
         CustomerRequestCreateRequest.request(action: #selector(finishCreateCustomerRequest(_:)), view: self, customerId: _customer_id, json: jsonCustomerRequest.joined(separator: DomainConst.SPLITER_TYPE2),
-                                             note: lblNote.text!, images: _images )
-        
+                                             note: lblNote.text!, action_invest: _action_invest, images: _images )
+        //-- BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
     }
     
     @IBAction func btn_Cancel(_ sender: Any) {
@@ -102,7 +128,8 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
         _isKeyboardShow = true
         self.view.addGestureRecognizer(_gestureHideKeyboard)
     }
-    
+
+    @IBOutlet weak var tagListView: TagListView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createNavigationBar(title: DomainConst.CONTENT00584)
@@ -117,15 +144,19 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
         /*viewCustomerRequestCreate.layer.borderColor = UIColor.red.cgColor
         viewCustomerRequestCreate.layer.borderWidth = 1
         viewCustomerRequestCreate.layer.cornerRadius = 5*/
-        lblNote.layer.borderColor  = UIColor.red.cgColor
-        lblNote.layer.borderWidth  = CGFloat(G18Const.BORDER_WIDTH)
-        lblNote.layer.cornerRadius = CGFloat(G18Const.CORNER_RADIUS_BUTTON)
+//        lblNote.layer.borderColor  = UIColor.red.cgColor
+//        lblNote.layer.borderWidth  = CGFloat(G18Const.BORDER_WIDTH)
+//        lblNote.layer.cornerRadius = CGFloat(G18Const.CORNER_RADIUS_BUTTON)
+        lblNote.setBottomBorder()
         //set Image for btnDelete All
         //imgDeleteAll.image = ImageManager.getImage(named: DomainConst.CLEAR_ALL_ICON_IMG_NAME)
         //Set corner Button Delete Info
         btnDeleteInfo.layer.cornerRadius    = CGFloat(G18Const.CORNER_RADIUS_BUTTON_2)
+        btnDeleteInfo.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
         bntSave.layer.cornerRadius          = CGFloat(G18Const.CORNER_RADIUS_BUTTON_2)
+        bntSave.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         btnCancel.layer.cornerRadius        = CGFloat(G18Const.CORNER_RADIUS_BUTTON_2)
+        btnCancel.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
         // Do any additional setup after loading the view.
         // Search bar        
         sbSearchCustomer.delegate = self
@@ -153,30 +184,106 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
         //collectionview
         cltImg.dataSource = self
         cltImg.delegate = self
+        cltImageMarginTop.constant = 0
+        cltImageHeight.constant = 0
+        //custom view
+        self.viewCustomerName.layer.addBorder(edge: .bottom,
+                                              color: UIColor.darkGray,
+                                              thickness: 0.5)
+        //radio button
+        //btnInvest.isMultipleSelectionEnabled = true
+        //++ BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
+        btnInvest.isSelected = true
+        // tag list view
+        tagListView.delegate = self
+        tagListView.textFont = UIFont.systemFont(ofSize: 17)
+        tagListView.tagBackgroundColor = GlobalConst.BUTTON_COLOR_RED
+        //tagListView.backgroundColor = GlobalConst.BUTTON_COLOR_RED
+        //tagListView.
+        //request module data
+        if _dataCatche.count <= 0 {
+            AppDataClientCacheRequest.request(action: #selector(finishRequestCacheData(_:)),
+                                        view: self)
+            }
+        else {
+            G17F00S03VC._dataClientCache.removeAll()
+            //            model.record.forEach { (moduleParent) in
+            //                moduleParent.data.forEach({ (moduleChild) in
+            //                    G17F00S03VC._dataClientCache.append(moduleChild)
+            //                })
+            //            }
+            _dataCatche.forEach { (moduleParent) in
+                tagListView.addTag(moduleParent.name)
+            }
+        }
     }
     
+    func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
+        G17F00S03VC._dataClientCache.removeAll()
+        _dataCatche.forEach { (orderDetailBean) in
+            if orderDetailBean.name == title{
+                //print(orderDetailBean.id)
+                orderDetailBean.data.forEach { (moduleChild) in
+                    G17F00S03VC._dataClientCache.append(moduleChild)
+                }
+                if let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "PopTableViewController"){
+                    let nav = UINavigationController(rootViewController: popoverContent)
+                    self.present(nav, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    //-- BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
     override func viewWillAppear(_ animated: Bool) {
-            if !MaterialSelectViewController.getSelectedItem().isEmpty() {
-                // Add data
-                var flag: Int = 0
-                _dataJson.forEach { (OrderDetail) in
-                    if OrderDetail.material_id ==  MaterialSelectViewController.getSelectedItem().material_id{
-                        showAlert(message: G17Const.ERROR_SAME_MATERIAL,
-                                  okHandler: {
-                                    alert in
-                        })
+        //++ BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
+        if G17F00S03VC._selectedList.count > 0{
+            G17F00S03VC._selectedList.forEach { (orderDetailBean) in
+                var flag:Int = 0
+                _dataJson.forEach({ (dataJson) in
+                    if dataJson.module_id == orderDetailBean.module_id{
                         flag = 1
                         return
-                    }  
-                }
+                    }
+                })
                 if flag == 0{
-                    appendMaterialCylinder(material: OrderDetailBean(data: MaterialSelectViewController.getSelectedItem()))
-                    tblMaterial.reloadData()
+                    appendMaterialCylinder(material: orderDetailBean)
                 }
-                //tblMaterial.reloadSections(IndexSet(1...2), with: .automatic)
-                //reset SelectedItem
-                MaterialSelectViewController.setSelectedItem(item: OrderDetailBean())
             }
+        }
+        G17F00S03VC._selectedList.removeAll()
+        tblMaterial.reloadData()
+        if self._images.count > 0 && cltImageMarginTop.constant == 0{
+            cltImageMarginTop.constant = 10
+            cltImageHeight.constant = 133
+        }
+        //-- BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
+        //PopTableViewController.setSelectedList(item: [OrderDetailBean]())
+//            if !PopTableViewController.getSelectedItem().isIdEmpty() {
+//                // Add data
+//                var flag: Int = 0
+//                _dataJson.forEach { (OrderDetail) in
+//                    if OrderDetail.id ==  PopTableViewController.getSelectedItem().id{
+//                        showAlert(message: G17Const.ERROR_SAME_MATERIAL,
+//                                  okHandler: {
+//                                    alert in
+//                        })
+//                        flag = 1
+//                        return
+//                    }  
+//                }
+//                if flag == 0{
+//                    //appendMaterialCylinder(MaterialSelectViewController2.getSelectedItem()))
+//                    appendMaterialCylinder(material: PopTableViewController.getSelectedItem())
+//                    tblMaterial.reloadData()
+//                    if cltImageMarginTop.constant == 0{
+//                        cltImageMarginTop.constant = 10
+//                        cltImageHeight.constant = 133
+//                    }
+//                }
+//                //tblMaterial.reloadSections(IndexSet(1...2), with: .automatic)
+//                //reset SelectedItem
+//                PopTableViewController.setSelectedItem(item: OrderDetailBean())
+//            }
             //G17F00S03VC._type = DomainConst.SEARCH_TARGET_TYPE_CUSTOMER
         if BaseModel.shared.currentUpholdDetail.customer_id != "" {
             _customer_id = BaseModel.shared.currentUpholdDetail.customer_id
@@ -263,8 +370,20 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
         if model.isSuccess() {
             // Open create store card view controller
             //self.selectMaterial(type: G17F00S03VC.TYPE_CYLINDER)
-            G17F00S03VC._dataClientCache = model.record
-            self.selectMaterial()
+            //++ BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
+            G17F00S03VC._dataClientCache.removeAll()
+//            model.record.forEach { (moduleParent) in
+//                moduleParent.data.forEach({ (moduleChild) in
+//                    G17F00S03VC._dataClientCache.append(moduleChild)
+//                })
+//            }
+            _dataCatche = model.record
+            _dataCatche.forEach { (moduleParent) in
+                tagListView.addTag(moduleParent.name)
+            }
+            //-- BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
+            //G17F00S03VC._dataClientCache = model.record
+            //self.selectMaterial()
         }
             //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
         else {
@@ -278,11 +397,11 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
      * - parameter type: Type of material
      * - parameter data: Current selection
      */
-    internal func selectMaterial(data: OrderDetailBean = OrderDetailBean.init()) {
-        MaterialSelectViewController.setSelectedItem(item: data)
-        MaterialSelectViewController.setMaterialData(orderDetails: G17F00S03VC._dataClientCache)
-        self.pushToView(name: G05F02S01VC.theClassName)
-    }
+//    internal func selectMaterial(data: OrderDetailBean = OrderDetailBean.init()) {
+//        MaterialSelectViewController2.setSelectedItem(item: data)
+//        MaterialSelectViewController2.setMaterialData(orderDetails: G17F00S03VC._dataClientCache)
+//        self.pushToView(name: G17F00S04VC.theClassName)
+//    }
     
     /**
      * Handle when finish create customer request
@@ -354,6 +473,13 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
             // Move to front
             self.view.bringSubview(toFront: tblSearch)
             tblSearch.layer.zPosition = 1
+            if viewCustomer.isHidden{
+                tagListView.isHidden = true
+            }
+            else{
+                tagListView.isHidden = false
+            }
+            
         }
             //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
         else {
@@ -382,6 +508,7 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
             _searchActive = false
             // Hide search bar table view
             tblSearch.isHidden = !_searchActive
+            tagListView.isHidden = false
         }
     }
     /**
@@ -394,6 +521,7 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate {
             sbSearchCustomer.text = DomainConst.BLANK
         }
         tblSearch.isHidden = !_searchActive
+        tagListView.isHidden = false
         // Hide keyboard
         self.view.endEditing(true)
     }
@@ -493,21 +621,19 @@ extension G17F00S03VC: UITableViewDataSource{
                     withIdentifier: "MaterialCell")
                     as! MaterialCell
                 // Setting attributes
-                cell2.lblMaterialName.text = _dataJson[indexPath.row].material_name
+                cell2.lblMaterialName.text = _dataJson[indexPath.row].module_name
                 cell2.tf_quantity.text = _dataJson[indexPath.row].qty
-                let quantity: Int = Int(cell2.tf_quantity.text!)!
-                if quantity == 1{
-                    cell2.btnReduce.isHidden = true
+                if let quantity = cell2.tf_quantity.text{
+                    if quantity == "1"{
+                        cell2.btnReduce.isHidden = true
+                    }
                 }
                 cell2.delegate = self
                 cell2.index = indexPath.row
                 //cell2.tf_quantity.addTarget(self, action: #selector(self.changeValue), for: UIControlEvents)
                 cell = cell2
-                
-                
             }
-            
-            return cell
+        return cell
     }
 }
  extension G17F00S03VC: CellTextChangeDelegte{
@@ -552,6 +678,7 @@ extension G17F00S03VC: UITableViewDelegate {
         if tableView == tblSearch {
             _searchActive = false
             tblSearch.isHidden = !_searchActive
+            tagListView.isHidden = false
             sbSearchCustomer.resignFirstResponder()
             self.lblCustomerName.text = _dataCustomer[indexPath.row].name
             self.lblAddress.text = _dataCustomer[indexPath.row].address
@@ -576,11 +703,13 @@ extension G17F00S03VC: UITableViewDelegate {
      * Asks the data source to commit the insertion or deletion of a specified row in the receiver.
      */
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete{
-            _dataJson.remove(at: indexPath.row)
-            tblMaterial.deleteRows(at: [indexPath], with: .fade)
-            heightTable.constant -= 48
-            //tblMaterial.reloadData()
+        if tableView == tblMaterial{
+            if editingStyle == .delete{
+                _dataJson.remove(at: indexPath.row)
+                tblMaterial.deleteRows(at: [indexPath], with: .fade)
+                heightTable.constant -= 48
+                //tblMaterial.reloadData()
+            }
         }
     }
 }
@@ -673,6 +802,10 @@ extension G17F00S03VC: UITableViewDelegate {
         if let indexPath = cltImg?.indexPath(for: cell){
             _images.remove(at: indexPath.row)
             cltImg?.deleteItems(at: [indexPath])
+            if _images.count == 0{
+                cltImageMarginTop.constant = 0
+                cltImageHeight.constant = 0
+            }
         }
     }
     

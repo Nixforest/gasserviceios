@@ -191,6 +191,8 @@
 		D722648E1FB9813700DDA94B /* G05F00S02ExtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D722648C1FB9813700DDA94B /* G05F00S02ExtVC.swift */; };
 		D722648F1FB9813700DDA94B /* G05F00S02ExtVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D722648D1FB9813700DDA94B /* G05F00S02ExtVC.xib */; };
 		D73373101E22CCC6004F2781 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D733730F1E22CCC6004F2781 /* Podfile */; };
+		D7337620213D539A004AF49B /* ModuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733761F213D539A004AF49B /* ModuleCell.swift */; };
+		D74A408C213E237700375F36 /* PopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74A408B213E237700375F36 /* PopTableViewController.swift */; };
 		D74F016C1E8CB934008DAA59 /* G06F01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74F016B1E8CB934008DAA59 /* G06F01VC.swift */; };
 		D74F016E1E8CBE94008DAA59 /* G06F01S01.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74F016D1E8CBE94008DAA59 /* G06F01S01.swift */; };
 		D76569F321171D1800C259EB /* AppDataClientCacheRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76569F221171D1800C259EB /* AppDataClientCacheRequest.swift */; };
@@ -379,6 +381,7 @@
 		D7C812101ED2721F0014EF51 /* G09F01S06.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8120F1ED2721F0014EF51 /* G09F01S06.swift */; };
 		D7C812131ED2784D0014EF51 /* G09F00S02VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C812121ED2784D0014EF51 /* G09F00S02VC.swift */; };
 		D7C812151ED2A7B30014EF51 /* G09F00S03VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C812141ED2A7B30014EF51 /* G09F00S03VC.swift */; };
+		D7C93C45213A6A69007F3A2B /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C93C44213A6A69007F3A2B /* DLRadioButton.m */; };
 		D7CBD06F1E8F673F00FB3BD6 /* G06F01S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CBD06E1E8F673F00FB3BD6 /* G06F01S02.swift */; };
 		D7CC15131EB05A98002F8434 /* G05F02S01VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC15121EB05A98002F8434 /* G05F02S01VC.swift */; };
 		D7CC15151EB098AA002F8434 /* OrderVIPUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC15141EB098AA002F8434 /* OrderVIPUpdateRequest.swift */; };
@@ -718,6 +721,8 @@
 		D722648C1FB9813700DDA94B /* G05F00S02ExtVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S02ExtVC.swift; path = G05/F00/G05F00S02ExtVC.swift; sourceTree = "<group>"; };
 		D722648D1FB9813700DDA94B /* G05F00S02ExtVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G05F00S02ExtVC.xib; path = G05/F00/G05F00S02ExtVC.xib; sourceTree = "<group>"; };
 		D733730F1E22CCC6004F2781 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D733761F213D539A004AF49B /* ModuleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleCell.swift; sourceTree = "<group>"; };
+		D74A408B213E237700375F36 /* PopTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopTableViewController.swift; sourceTree = "<group>"; };
 		D74F016B1E8CB934008DAA59 /* G06F01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01VC.swift; path = G06/F01/G06F01VC.swift; sourceTree = "<group>"; };
 		D74F016D1E8CBE94008DAA59 /* G06F01S01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S01.swift; path = G06/F01/G06F01S01.swift; sourceTree = "<group>"; };
 		D76569F221171D1800C259EB /* AppDataClientCacheRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataClientCacheRequest.swift; sourceTree = "<group>"; };
@@ -906,6 +911,8 @@
 		D7C8120F1ED2721F0014EF51 /* G09F01S06.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G09F01S06.swift; path = G09/F01/G09F01S06.swift; sourceTree = "<group>"; };
 		D7C812121ED2784D0014EF51 /* G09F00S02VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G09F00S02VC.swift; path = G09/F00/G09F00S02VC.swift; sourceTree = "<group>"; };
 		D7C812141ED2A7B30014EF51 /* G09F00S03VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G09F00S03VC.swift; path = G09/F00/G09F00S03VC.swift; sourceTree = "<group>"; };
+		D7C93C42213A6A69007F3A2B /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DLRadioButton.h; path = "../../../../khoi_demo/DLRadioButton-master/DLRadioButton/DLRadioButton.h"; sourceTree = "<group>"; };
+		D7C93C44213A6A69007F3A2B /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DLRadioButton.m; path = "../../../../khoi_demo/DLRadioButton-master/DLRadioButton/DLRadioButton.m"; sourceTree = "<group>"; };
 		D7CBD06E1E8F673F00FB3BD6 /* G06F01S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G06F01S02.swift; path = G06/F01/G06F01S02.swift; sourceTree = "<group>"; };
 		D7CC15121EB05A98002F8434 /* G05F02S01VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F02S01VC.swift; path = G05/F02/G05F02S01VC.swift; sourceTree = "<group>"; };
 		D7CC15141EB098AA002F8434 /* OrderVIPUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderVIPUpdateRequest.swift; path = G05/API/OrderVIPUpdateRequest.swift; sourceTree = "<group>"; };
@@ -1115,6 +1122,8 @@
 		842BA3551D8EA7DC004ECBFF /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				D7C93C42213A6A69007F3A2B /* DLRadioButton.h */,
+				D7C93C44213A6A69007F3A2B /* DLRadioButton.m */,
 			);
 			name = Component;
 			sourceTree = "<group>";
@@ -2309,6 +2318,8 @@
 				D76AE88420FF5153003E57E2 /* MaterialCell.swift */,
 				D7030BEE21005CFB0031CEDF /* MaterialCell2.swift */,
 				D7CD6A9E211C336400341174 /* ImageCell.swift */,
+				D733761F213D539A004AF49B /* ModuleCell.swift */,
+				D74A408B213E237700375F36 /* PopTableViewController.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -2626,13 +2637,17 @@
 				"${SRCROOT}/project/Pods/Target Support Files/Pods-project/Pods-project-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/DLRadioButton/DLRadioButton.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/TagListView/TagListView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DLRadioButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TagListView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2713,6 +2728,7 @@
 				D78AF60F1FF5311600186D81 /* G01F02S08.swift in Sources */,
 				902F25A0206E37B600DBA04F /* GreenDefine.swift in Sources */,
 				902F25EC206E37B600DBA04F /* MBProgressHUD.m in Sources */,
+				D7337620213D539A004AF49B /* ModuleCell.swift in Sources */,
 				D77F067A1E7177EA00797A6B /* OrderVIPListRespModel.swift in Sources */,
 				D76C17A81EE160CA00B71FAE /* FamilyUpholdViewRequest.swift in Sources */,
 				D706C22D1E544AC000F89B8A /* G05Const.swift in Sources */,
@@ -2818,6 +2834,7 @@
 				D7EA53C51EE3D0A8004CFE1F /* TicketBean.swift in Sources */,
 				903D409C206DFE290019B157 /* IssueListBean.swift in Sources */,
 				D71DB0E01E84D25100BED724 /* CustomerFamilyViewRequest.swift in Sources */,
+				D7C93C45213A6A69007F3A2B /* DLRadioButton.m in Sources */,
 				D77F06531E71771A00797A6B /* G01F02S01.swift in Sources */,
 				D7CD6A9F211C336400341174 /* ImageCell.swift in Sources */,
 				CF3534A620825E3100FD016C /* NewsViewRequest.swift in Sources */,
@@ -3039,6 +3056,7 @@
 				D7797A201F2A398F00A3EC5B /* G07F03S01.swift in Sources */,
 				D77F06231E7175D000797A6B /* G00RegisterMenuVC.swift in Sources */,
 				D77F06661E71772700797A6B /* G01F03VC.swift in Sources */,
+				D74A408C213E237700375F36 /* PopTableViewController.swift in Sources */,
 				D7EBB7E91EA9B72200BE6612 /* G05F00S04VC.swift in Sources */,
 				902F25CF206E37B600DBA04F /* GreenInfoFieldHorizontal.swift in Sources */,
 				902F2594206E37B600DBA04F /* GreenExtention+UITextView.swift in Sources */,

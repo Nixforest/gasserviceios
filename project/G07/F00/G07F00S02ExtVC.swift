@@ -16,23 +16,69 @@ import AlamofireImage
 class G07F00S02ExtVC: BaseChildViewController {
     // MARK: Properties
     //++
-    
+    /** Label Code */
     @IBOutlet weak var lblCode: UILabel!
-    
+    /** Label Admin Name */
     @IBOutlet weak var lblAdminName: UILabel!
-    
+    /** Button Phone */
     @IBOutlet weak var btnPhone: UIButton!
-    
+    /** Label Discount Amount */
+    @IBOutlet weak var lblDiscountAmount: UILabel!
+    /** Label Amount Get Shell*/
+    @IBOutlet weak var lblAmountGetShell: UILabel!
+    /** Tap button Phone */
     @IBAction func btnPhoneTapped(_ sender: Any) {
         self.makeACall(phone: _data.getRecord().phone)
     }
-    
+    /** Height of Label Discount  */
+    @IBOutlet weak var lblDiscountHeight: NSLayoutConstraint!
+    /** Height of Image View Substract  */
+    @IBOutlet weak var imgSubstractHeight: NSLayoutConstraint!
+    /** Height of Label Discount Value */
+    @IBOutlet weak var lblDiscountValueHeight: NSLayoutConstraint!
+    /** Margin top of label Discount  */
+    @IBOutlet weak var btnTypeDelivery_lblDiscount_Margin: NSLayoutConstraint!
+    /** Margin top of label Get shell  */
+    @IBOutlet weak var lblDiscount_lblGetShell_Margin: NSLayoutConstraint!
+    /** Height of Label Get Shell  */
+    @IBOutlet weak var lblGetShellHeight: NSLayoutConstraint!
+    /** Height of ImageView Plus  */
+    @IBOutlet weak var imgPlusHeight: NSLayoutConstraint!
+    /** Height of Label Get Shell Value */
+    @IBOutlet weak var lblGetShellValueHeight: NSLayoutConstraint!
+    /** Label Address*/
     @IBOutlet weak var lblAddress: UILabel!
-    
+    /** ImageView Agency*/
+    @IBOutlet weak var imgAgency: UIImageView!
+    /** ImageView Sum*/
+    @IBOutlet weak var imgSum: UIImageView!
+    /** TextField PTTT Code*/
     @IBOutlet weak var tfPTTTCode: UITextField!
-    
+    /** ImageView Plus*/
+    @IBOutlet weak var imgplus: UIImageView!
+    /** ImageView Substract*/
+    @IBOutlet weak var imgSubstract: UIImageView!
+    /** Height TextField Note */
+    @IBOutlet weak var tfNoteHeight: NSLayoutConstraint!
+    /** Margin top of Textfield Note*/
+    @IBOutlet weak var tfNoteMarginTopHeight: NSLayoutConstraint!
+    /** Begin Edit TextField PTTT Code */
+    @IBAction func tfPTTTCodeBeginEdit(_ sender: Any) {
+        _isKeyboardShow = true
+        self.view.addGestureRecognizer(_gestureHideKeyboard)
+    }
+    /** Begin Edit TextField Note */
+    @IBAction func tfNoteBeginEdit(_ sender: Any) {
+        _isKeyboardShow = true
+        self.view.addGestureRecognizer(_gestureHideKeyboard)
+    }
     @IBOutlet weak var btnAddMaterial: UIButton!
+    /** Height of Button Add Material */
     @IBOutlet weak var btnAddMaterialHeight: NSLayoutConstraint!
+    /** Tap gesture hide keyboard */
+    internal var _gestureHideKeyboard:         UIGestureRecognizer = UIGestureRecognizer()
+    /** Flag check keyboard is show or hide */
+    internal var _isKeyboardShow:              Bool                = false
     /** List image add to this order */
     internal var _images:            [UIImage]           = [UIImage]()
     //@IBOutlet weak var heightColectionView: NSLayoutConstraint!
@@ -68,7 +114,6 @@ class G07F00S02ExtVC: BaseChildViewController {
                                     self.selectMaterial(type: self.TYPE_GAS_ADD)
         })
         alert.addAction(gas)
-        
         alert.addAction(cancel)
         alert.addAction(promotion)
         alert.addAction(cylinder)
@@ -79,25 +124,29 @@ class G07F00S02ExtVC: BaseChildViewController {
         }
         self.present(alert, animated: true, completion: nil)
     }
-    
+    /** Label Note*/
     @IBOutlet weak var lblNote: UILabel!
-    
+    /** TextField Note*/
+    @IBOutlet weak var tfNote: UITextField!
+    /** Height of Label Note*/
+    @IBOutlet weak var lblNoteHeight: NSLayoutConstraint!
+    /** Table Material*/
     @IBOutlet weak var tblMaterial: UITableView!
-    
+    /** Height of Table Material*/
     @IBOutlet weak var tblMaterialHeight: NSLayoutConstraint!
-    
+    /** Button Type Delivery*/
     @IBOutlet weak var btnTypeDelivery: UIButton!
-    
+    /** Tap Type Delivery Button Value*/
     @IBAction func btnTypeDeliveryTapped(_ sender: Any) {
         self.updateOrderType()
     }
-    
+    /** Button Type Delivery*/
     @IBOutlet weak var btnTypeDeliveryValue: UIButton!
-    
+    /** Tap Type Delivery Value Button Value*/
     @IBAction func btnTypeDeliveryValueTapped(_ sender: Any) {
         self.updateOrderType()
     }
-    
+    /** Tap Save Button */
     @IBAction func btnSaveTapped(_ sender: Any) {
         /*var orderDetail = [String]()
         for item in self._listMaterials {
@@ -121,7 +170,7 @@ class G07F00S02ExtVC: BaseChildViewController {
             ccsCode: _data.getRecord().ccsCode)*/
         requestCompleteOrder()
     }
-    
+    /** Tap Cancel Button */
     @IBAction func btnCancelTapped(_ sender: Any) {
         // Show alert
         let alert = UIAlertController(title: DomainConst.CONTENT00320,
@@ -145,11 +194,11 @@ class G07F00S02ExtVC: BaseChildViewController {
         }
         self.present(alert, animated: true, completion: nil)
     }
-    
+    /** Tap Reload Button */
     @IBAction func btnReloadTapped(_ sender: Any) {
         requestData(action: #selector(finishHandleRefresh(_:)))
     }
-    
+    /** Tap OtherAction Button */
     @IBAction func btnOtherActionTapped(_ sender: Any) {
         // Show alert
         let alert = UIAlertController(title: DomainConst.CONTENT00436,
@@ -200,8 +249,9 @@ class G07F00S02ExtVC: BaseChildViewController {
         }
         self.present(alert, animated: true, completion: nil)
     }
+    /** Label Sum */
     @IBOutlet weak var lblSum: UILabel!
-    
+    /** Label Agent*/
     @IBOutlet weak var lblAgent: UILabel!
     
     //--
@@ -281,6 +331,14 @@ class G07F00S02ExtVC: BaseChildViewController {
         _btnCancel.layer.cornerRadius       = 20
         btnRefresh.layer.cornerRadius       = 20
         _btnOtherAction.layer.cornerRadius  = 20
+        //custom textfield
+        tfPTTTCode.setBottomBorder()
+        tfNote.setBottomBorder()
+        //custom image
+        imgSum.image = ImageManager.getImage(named: DomainConst.MONEY_ICON_IMG_NAME)
+        imgAgency.image = ImageManager.getImage(named: DomainConst.AGENT_ICON_IMG_NAME)
+        //imgplus.image = ImageManager.getImage(named: DomainConst.MENU_BKG_TOP_IMG_NAME)
+        //imgSubstract.image = ImageManager.getImage(named: DomainConst.MENU_BKG_TOP_IMG_NAME)
         //Table View
         tblMaterial.dataSource = self
         tblMaterial.delegate   = self
@@ -290,6 +348,11 @@ class G07F00S02ExtVC: BaseChildViewController {
         //collectionview
         cltImg.dataSource = self
         cltImg.delegate = self
+        // Gesture
+        _gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        // Hide TextField Note
+        tfNoteHeight.constant = 0
+        tfNoteMarginTopHeight.constant = 0
         // Request data from server
         requestData()
     }
@@ -307,6 +370,18 @@ class G07F00S02ExtVC: BaseChildViewController {
                 self.cltImg.reloadData()
             })
         }
+    }
+    
+    /**
+     * Hide keyboard.
+     */
+    func hideKeyboard() {
+        // Hide keyboard
+        self.view.endEditing(true)
+        // Turn off flag
+        _isKeyboardShow = false
+        // Remove hide keyboard gesture
+        self.view.removeGestureRecognizer(_gestureHideKeyboard)
     }
     
     /**
@@ -408,16 +483,45 @@ class G07F00S02ExtVC: BaseChildViewController {
 //            _tblInfo.reloadData()
             //loadTableViewData()
             lblCode.text = _data.getRecord().code_no
-            lblAdminName.text = _data.getRecord().first_name
-            btnPhone.setTitle(_data.getRecord().phone,for: .normal)
+            lblAdminName.text = _data.getRecord().first_name.trim()
+            let yourAttributes : [String: Any] = [
+                NSFontAttributeName : UIFont.systemFont(ofSize: 17),
+                NSForegroundColorAttributeName : UIColor.purple,
+                NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue] 
+            btnPhone.setAttributedTitle(NSMutableAttributedString(string: _data.getRecord().phone, 
+                                                        attributes: yourAttributes),for: .normal)
             lblAddress.text = _data.getRecord().address
-            lblNote.text = _data.getRecord().note
+            if _data.getRecord().note == ""{
+                lblNoteHeight.constant = 0
+            }
+            else{
+                lblNote.text = _data.getRecord().note
+            }
             tfPTTTCode.text = _data.getRecord().ccsCode
             lblAgent.text = _data.getRecord().agent_name
-        btnTypeDeliveryValue.setTitle(_data.getRecord().order_type_text,for: .normal)
+            btnTypeDeliveryValue.setAttributedTitle(NSMutableAttributedString(string: _data.getRecord().order_type_text, 
+                                                                              attributes: yourAttributes), for: .normal)
             lblSum.text = _data.getRecord().grand_total
             _listMaterials.removeAll()
             _listMaterials = _data.getRecord().order_detail
+            if _data.getRecord().discount_amount == "0"{
+                lblDiscountHeight.constant = 0
+                imgSubstractHeight.constant = 0
+                lblDiscountValueHeight.constant = 0
+                btnTypeDelivery_lblDiscount_Margin.constant = 0
+            }
+            else{
+                lblDiscountAmount.text = _data.getRecord().discount_amount
+            }
+            if _data.getRecord().amount_bu_vo == "0"{
+                lblGetShellHeight.constant = 0
+                imgPlusHeight.constant = 0
+                lblGetShellValueHeight.constant = 0
+                lblDiscount_lblGetShell_Margin.constant = 0
+            }
+            else{
+                 lblAmountGetShell.text = _data.getRecord().amount_bu_vo
+            }
             tblMaterialHeight.constant = CGFloat(115 * _listMaterials.count)
             tblMaterial.reloadData()
             _images.removeAll()
@@ -1129,6 +1233,7 @@ class G07F00S02ExtVC: BaseChildViewController {
     /**
      * Update value of ccs code
      */
+    /*
     internal func updateCCSCode() {
         var tbxValue: UITextField?
         // Create alert
@@ -1191,7 +1296,7 @@ class G07F00S02ExtVC: BaseChildViewController {
         }
         self.present(alert, animated: true, completion: nil)
     }
-    
+    */
     /**
      * Load data for table view
      */
@@ -1280,7 +1385,7 @@ class G07F00S02ExtVC: BaseChildViewController {
                                                   typeAmount: _data.getRecord().type_amount,
                                                   support_id: _data.getRecord().support_id,
                                                   orderDetail: orderDetail.joined(separator: DomainConst.SPLITER_TYPE2),
-                                                  ccsCode: _data.getRecord().ccsCode, images: _images)
+                                                  ccsCode: tfPTTTCode.text!, images: _images)
         /*OrderFamilyHandleRequest.requestComplete(
             action: #selector(finishUpdateOrder(_:)),
             view: self,
@@ -1559,7 +1664,24 @@ class G07F00S02ExtVC: BaseChildViewController {
         }
     }
 }
-
+//extension String
+//{   
+//    func trim() -> String
+//    {
+//        return self.trimmingCharacters(in: CharacterSet.whitespaces)
+//    }
+//}
+//extension UITextField {
+//    func setBottomBorder() {
+//        self.borderStyle = .none
+//        self.layer.backgroundColor = UIColor.white.cgColor
+//        self.layer.masksToBounds = false
+//        self.layer.shadowColor = UIColor.gray.cgColor
+//        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+//        self.layer.shadowOpacity = 1.0
+//        self.layer.shadowRadius = 0.0
+//    }
+//}
 // MARK: Protocol - UITableViewDataSource
 extension G07F00S02ExtVC: UITableViewDataSource {
     /**
@@ -1632,11 +1754,13 @@ extension G07F00S02ExtVC: UITableViewDataSource {
         switch _listMaterials[indexPath.row].materials_type_id{
         case "6":
             cell.imgGiftWidth.constant = 15
+            cell.imgGift.isHidden = false
             cell.lblPriceWidth.constant = 0
             cell.lblPrice.isHidden = true
             cell.materialViewWidth.constant = 0
             cell.MaterialView.isHidden = true
             cell.tfQuantityWidth.constant = 39
+            cell.tfQuantity.isHidden = false
             break
         case "1":
             cell.lblPriceWidth.constant = 0
@@ -1645,7 +1769,9 @@ extension G07F00S02ExtVC: UITableViewDataSource {
             cell.imgGift.isHidden = true
             cell.tfQuantityWidth.constant = 0
             cell.tfQuantity.isHidden = true
-            //cell.materialViewWidth.constant = 120
+            cell.imgPresent_lblPrice_Margin.constant = 0
+            cell.MaterialView.isHidden = false
+            cell.materialViewWidth.constant = 120
             break
         default:
             cell.imgGiftWidth.constant = 0
@@ -1653,7 +1779,9 @@ extension G07F00S02ExtVC: UITableViewDataSource {
             cell.materialViewWidth.constant = 0
             cell.MaterialView.isHidden = true
             cell.lblPriceWidth.constant = 42
+            cell.lblPrice.isHidden = false
             cell.tfQuantityWidth.constant = 39
+            cell.tfQuantity.isHidden = false
         }
         cell.delegate = self
         cell.index = indexPath.row
@@ -1677,6 +1805,10 @@ extension G07F00S02ExtVC:G07CellTextChangeDelegte{
         _listMaterials[index].kg_has_gas = weight
     }
     
+    func didBeginEdit(){
+        _isKeyboardShow = true
+        self.view.addGestureRecognizer(_gestureHideKeyboard)
+    }
     
 }
 // MARK: Protocol - UITableViewDelegate
