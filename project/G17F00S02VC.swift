@@ -73,7 +73,7 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate,TagListViewDelega
     /** Table Material */
     @IBOutlet weak var tblMaterial: UITableView!
     /** Button Add Material */
-    @IBOutlet weak var btnAddMaterial: UIButton!
+    //@IBOutlet weak var btnAddMaterial: UIButton!
     /** Button Delete Info */
     @IBOutlet weak var btnDeleteInfo: UIButton!
     //++ BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
@@ -119,17 +119,25 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate,TagListViewDelega
     @IBOutlet weak var cltImg: UICollectionView!
     /** Click Button Save */
     @IBAction func save(_ sender: Any) {
-        var jsonCustomerRequest = [String]()
-        for item in _dataJson {
-            if !item.module_id.isEmpty {
-                jsonCustomerRequest.append(item.createJsonDataForCustomerRequest())
+        if _dataJson.count == 0{
+            showAlert(message: G17Const.MESSAGE_JSON_EMPTY_SUCCESS,
+                      okHandler: {
+                        alert in
+            })
+        }
+        else{
+            var jsonCustomerRequest = [String]()
+            for item in _dataJson {
+                if !item.module_id.isEmpty {
+                    jsonCustomerRequest.append(item.createJsonDataForCustomerRequest())
+                }
             }
+            var imgDeleted = [String]()
+            _previousImage.forEach { (previousImage) in
+                imgDeleted.append(previousImage.id)
+            }
+            CustomerRequestUpdateRequest.request(action: #selector(finishUpdateCustomerRequest(_:)), view: self, id: _id, customerId: _customer_id, json: jsonCustomerRequest.joined(separator: DomainConst.SPLITER_TYPE2), note: tfNote.text!,images: _images,listImgDelete:  imgDeleted.joined(separator: DomainConst.SPLITER_TYPE2), action_invest: _action_invest)
         }
-        var imgDeleted = [String]()
-        _previousImage.forEach { (previousImage) in
-            imgDeleted.append(previousImage.id)
-        }
-        CustomerRequestUpdateRequest.request(action: #selector(finishUpdateCustomerRequest(_:)), view: self, id: _id, customerId: _customer_id, json: jsonCustomerRequest.joined(separator: DomainConst.SPLITER_TYPE2), note: tfNote.text!,images: _images,listImgDelete:  imgDeleted.joined(separator: DomainConst.SPLITER_TYPE2), action_invest: _action_invest)
     }
     /** Click Button Cancel */
     @IBAction func cancel(_ sender: Any) {
@@ -185,6 +193,8 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate,TagListViewDelega
         _searchBar.showsCancelButton    = true
         _searchBar.showsBookmarkButton  = false
         _searchBar.searchBarStyle       = .default
+        _searchBar.backgroundColor      = GlobalConst.BUTTON_COLOR_RED
+        _searchBar.removeBackgroundImageView()
         // Gesture
         _gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         // Table Search Bar
@@ -420,7 +430,7 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate,TagListViewDelega
                         alert in
                         //self.backButtonTapped(self)
                         //G08F00S02VC._id = model.record.id
-                         self.pushToView(name: G17F00S01VC.theClassName)
+                         //self.pushToView(name: G17F00S01VC.theClassName)
             })
         } else {    // Error
             self.showAlert(message: model.message)
@@ -442,6 +452,12 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate,TagListViewDelega
             // Move to front
             self.view.bringSubview(toFront: tblSearch)
             tblSearch.layer.zPosition = 1
+            if viewCustomerInfo.isHidden{
+                tagListView.isHidden = true
+            }
+            else{
+                tagListView.isHidden = false
+            }
         }
             //++ BUG0092-SPJ (NguyenPT 20170517) Show error message
         else {
@@ -470,6 +486,7 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate,TagListViewDelega
             _searchActive = false
             // Hide search bar table view
             tblSearch.isHidden = !_searchActive
+            tagListView.isHidden = false
         }
     }
     /**
@@ -482,6 +499,7 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate,TagListViewDelega
             _searchBar.text = DomainConst.BLANK
         }
         tblSearch.isHidden = !_searchActive
+        tagListView.isHidden = false
         // Hide keyboard
         self.view.endEditing(true)
     }
@@ -643,9 +661,9 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate,TagListViewDelega
         self.view.layoutIfNeeded()
     }
     func hideIfNotAllowUpdate(){
-        self.heightButtonDeleteAll.constant = 0
-        self.heightCustomerInfoView.constant = 98
-        self.btnDeleteInfo.isHidden = true
+        //self.heightButtonDeleteAll.constant = 0
+        //self.heightCustomerInfoView.constant = 98
+        //self.btnDeleteInfo.isHidden = true
         self.view.layoutIfNeeded()
         self.btnSave.isHidden = true
         self.btnCancel.isHidden = true
@@ -653,7 +671,13 @@ class G17F00S02VC: BaseChildViewController,UISearchBarDelegate,TagListViewDelega
         self.tblMaterial.isUserInteractionEnabled = false
         self.btnDeleteAll.isUserInteractionEnabled = false
         self._searchBar.isUserInteractionEnabled = false
-        self.btnAddMaterial.isUserInteractionEnabled = false
+        self.tagListView.isUserInteractionEnabled = false
+        self.btnInvest.isUserInteractionEnabled = false
+        self.btnInvest2.isUserInteractionEnabled = false
+        self.btnInvest3.isUserInteractionEnabled = false
+        self.btnDeleteInfo.isUserInteractionEnabled = false
+        self.cltImg.isUserInteractionEnabled = false
+        //self.btnAddMaterial.isUserInteractionEnabled = false
         
     }
     
@@ -719,12 +743,13 @@ extension G17F00S02VC: UITableViewDataSource{
                     // Setting attributes
                 cell2.lblMaterialName.text = _dataJson[indexPath.row].module_name 
                 cell2.tfQuantity.text = String(_dataJson[indexPath.row].qty)
-                let quantity: Int = Int(cell2.tfQuantity.text!)!
-                if quantity == 999999{
-                    cell2.btnIncrease.isHidden = true
-                }
-                else if quantity == 1{
-                    cell2.btnReduce.isHidden = true
+                if let quantity = Int(cell2.tfQuantity.text!){
+                    if quantity == 999999{
+                        cell2.btnIncrease.isHidden = true
+                    }
+                    else if quantity == 1{
+                        cell2.btnReduce.isHidden = true
+                    }
                 }
                 cell2.delegate = self
                 cell2.index = indexPath.row
@@ -776,6 +801,7 @@ extension G17F00S02VC: UITableViewDelegate {
         if tableView == tblSearch {
             _searchActive = false
             tblSearch.isHidden = !_searchActive
+            tagListView.isHidden = false
             _searchBar.resignFirstResponder()
             self.lblCustomerName.text = _dataCustomer[indexPath.row].name
             self.lblCustomerAddress.text = _dataCustomer[indexPath.row].address
@@ -916,3 +942,4 @@ extension G17F00S02VC: ImageDelegte{
         }
     }
 }
+

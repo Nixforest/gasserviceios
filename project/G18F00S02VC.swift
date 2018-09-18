@@ -64,12 +64,31 @@ class G18F00S02VC: BaseChildViewController {
     internal var _data : StockResponseModel = StockResponseModel()
     // App order ID
     internal var _app_order_id : String = ""
+    // View Code
+    @IBOutlet weak var viewCode: UIView!
+    // View Delivery Date
+    @IBOutlet weak var viewDeliveryDate: UIView!
+    // View Customer Address
+    @IBOutlet weak var viewCustomerAddress: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.automaticallyAdjustsScrollViewInsets = true
         //Custom Button
         /*btnSave.layer.cornerRadius = CGFloat(G18Const.CORNER_RADIUS_BUTTON)
         btnOtherAction.layer.cornerRadius = CGFloat(G18Const.CORNER_RADIUS_BUTTON)*/
+        self.automaticallyAdjustsScrollViewInsets = false
+        //Custom View With Bottom Line
+        self.viewCode.layer.addBorder(edge: .bottom,
+                                      color: UIColor.darkGray,
+                                      thickness: 0.5)
+        self.viewCustomerAddress.layer.addBorder(edge: .bottom,
+                                                 color: UIColor.darkGray,
+                                                 thickness: 0.5)
+//        self.viewCustomerAddress.layer.borderWidth = 0.5
+//        self.viewCustomerAddress.layer.borderColor = UIColor.darkGray.cgColor
+        self.viewDeliveryDate.layer.addBorder(edge: .bottom,
+                                              color: UIColor.darkGray,
+                                              thickness: 0.5)
         //Create title
         self.createNavigationBar(title: DomainConst.CONTENT00588)
         //tbl Stock

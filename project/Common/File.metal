@@ -8,6 +8,11 @@
 
 #include <metal_stdlib>
 using namespace metal;
+// Version: 1.53.0
+// - Sửa lỗi giao diện ở màn hình đơn hàng hộ gia đình.
+// - Sửa lỗi cập nhật số lượng của màn hình yêu cầu vật tư, giúp việc cập nhật số lượng dễ dàng hơn.
+// - Sửa lỗi phần cập nhật số nhà của KH Hộ gia đình.
+// - Thêm biến platform khi login.
 // Version: 1.52.0
 // - Thêm field action_invest, thêm radio button chọn action_invest trong tạo và cập nhật yêu cầu vật tư
 // - Chuyển cách chọn vât tư cũ sang chọn theo tag module, khi chọn hiển thị pop up với list vật tư, có thể chọn được nhiều vật tư

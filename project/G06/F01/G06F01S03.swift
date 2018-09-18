@@ -33,7 +33,7 @@ class G06F01S03: StepContent, AddressPickerViewDelegate {
     /** Street Picker */
     private var _pkrStreet:             AddressPickerView = AddressPickerView()
     /** House number */
-    private var _pkrHouseNum:           AddressPickerView = AddressPickerView()
+    public var _pkrHouseNum:            AddressPickerView = AddressPickerView()
     let contentView     = UIView()
     private var fullAddress:            FullAddressPicker = FullAddressPicker()
 
@@ -80,7 +80,6 @@ class G06F01S03: StepContent, AddressPickerViewDelegate {
 //        _pkrHouseNum.delegate = self
 //        contentView.addSubview(_pkrHouseNum)
 //        offset += GlobalConst.BUTTON_H
-        
         // Set parent
         self.setParentView(parent: parent)
         self.setup(mainView: contentView, title: DomainConst.CONTENT00301,
@@ -181,6 +180,11 @@ class G06F01S03: StepContent, AddressPickerViewDelegate {
         if fullAddress.getData().streetId.isEmpty {
             fullAddress.getData().streetId = G06F01VC._fullAddress.streetId
         }
+        //++ BUG0219-SPJ (KhoiVT 20180911) GasService - Haven't House_num when press Done Button in Create HGD Customer 
+        if fullAddress.getData().houseNumber.isEmpty {
+            fullAddress.getData().houseNumber = fullAddress._pkrHouseNum._tbx.text!
+        }
+        //-- BUG0219-SPJ (KhoiVT 20180911) GasService - Haven't House_num when press Done Button in Create HGD Customer
         G06F01VC._fullAddress = fullAddress.getData()
         //-- BUG0111-SPJ (NguyenPT 20170619) Add new field CCS code
         

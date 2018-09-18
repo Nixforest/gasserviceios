@@ -10,18 +10,24 @@ import UIKit
 import harpyframework
 
 class CustomerRequestCell: UITableViewCell {
-    
+    /** cell View*/
     @IBOutlet weak var viewlayout:  UIView!
+    /** status Image */
     @IBOutlet weak var imgStatus:   UIImageView!
+    /** code Label */
     @IBOutlet weak var lblCode:     UILabel!
+    /** name Label */
     @IBOutlet weak var lblName:     UILabel!
+    /** date Label */
     @IBOutlet weak var lblDate:     UILabel!
+    /** address Label */
     @IBOutlet weak var lblAddress:  UILabel!
+    /** note Label */
     @IBOutlet weak var lblNote:     UILabel!
-    //@IBOutlet weak var lblName: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        // custom Cell
         viewlayout.layer.borderColor  = UIColor.red.cgColor
         viewlayout.layer.borderWidth  = CGFloat(G18Const.BORDER_WIDTH)
         viewlayout.layer.cornerRadius = CGFloat(G18Const.CORNER_RADIUS_BUTTON)
@@ -29,8 +35,6 @@ class CustomerRequestCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

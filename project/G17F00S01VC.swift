@@ -52,9 +52,9 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
         return refreshControl
     }()
     /** Data */
-    internal var _data:                 CustomerRequestListResponseModel    = CustomerRequestListResponseModel()
+    internal var _data: CustomerRequestListResponseModel    = CustomerRequestListResponseModel()
     /** Page number */
-    internal var _page:                 Int                                 = 0
+    internal var _page:                 Int                 = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
@@ -64,27 +64,27 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
         self.createRightNavigationItem(icon: DomainConst.SEARCH_ICON_IMG_NAME,
                                        action: #selector(searchButtonTapped(_:)), target: self)
         // table list customer request
-        tblList.estimatedRowHeight = CGFloat(G17Const.ESTIMATE_ROW_HEIGHT)
-        tblList.rowHeight = UITableViewAutomaticDimension
-        tblList.dataSource = self
-        tblList.delegate = self
+        tblList.estimatedRowHeight      = CGFloat(G17Const.ESTIMATE_ROW_HEIGHT)
+        tblList.rowHeight               = UITableViewAutomaticDimension
+        tblList.dataSource              = self
+        tblList.delegate                = self
         tblList.addSubview(refreshControl)
         // Search bar        
-        _searchbar.delegate = self
+        _searchbar.delegate             = self
         _searchbar.layer.shadowColor    = UIColor.black.cgColor
         _searchbar.layer.shadowOpacity  = 0.5
         _searchbar.layer.masksToBounds  = false
         _searchbar.showsCancelButton    = true
         _searchbar.showsBookmarkButton  = false
         _searchbar.searchBarStyle       = .default
+        _searchbar.backgroundColor      = GlobalConst.BUTTON_COLOR_RED
+        _searchbar.removeBackgroundImageView()
         // Gesture
-        _gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        _gestureHideKeyboard            = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         // Table Search Bar
-        tblSearch.delegate = self
-        tblSearch.dataSource = self
-        tblSearch.isHidden = true
-        //requestData()
-        requestDataForSearch()
+        tblSearch.delegate              = self
+        tblSearch.dataSource            = self
+        tblSearch.isHidden              = true
         // Button create customer
         let btnCreateCustomer = UIButton()
         CommonProcess.createButtonLayout(btn: btnCreateCustomer,
@@ -102,6 +102,11 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
         self.view.addSubview(btnCreateCustomer)
         // Search view
         setupSearchView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //requestData()
+        requestDataForSearch()
     }
 
     // Handle Search Customer
@@ -170,13 +175,13 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let filteredStr = searchText
         if filteredStr.count > (DomainConst.SEARCH_TARGET_MIN_LENGTH - 1) {
-            _beginSearch = false
-            _searchActive = true
+            _beginSearch        = false
+            _searchActive       = true
         } else {
-            _beginSearch = false
-            _searchActive = false
+            _beginSearch        = false
+            _searchActive       = false
             // Hide search bar table view
-            tblSearch.isHidden = !_searchActive
+            tblSearch.isHidden  = !_searchActive
         }
     }
     /**
@@ -188,7 +193,7 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
         if _searchbar.text != nil {
             _searchbar.text = DomainConst.BLANK
         }
-        tblSearch.isHidden = !_searchActive
+        tblSearch.isHidden  = !_searchActive
         // Hide keyboard
         self.view.endEditing(true)
     }
@@ -205,7 +210,7 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
      * Tells the delegate when the user begins editing the search text.
      */
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        _searchActive = true
+        _searchActive   = true
         _isKeyboardShow = true
         self.view.addGestureRecognizer(_gestureHideKeyboard)
     }
@@ -214,7 +219,7 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
      * Tells the delegate that the user finished editing the search text.
      */
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        _searchActive = true
+        _searchActive   = true
         _isKeyboardShow = false
         // If text is empty
         if (_searchbar.text?.isEmpty)! {
@@ -227,10 +232,10 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
      */
     private func setupSearchView() {
         // Search view
-        _viewSearch.frame = CGRect(x: 0, y: self.getTopHeight(),
+        _viewSearch.frame       = CGRect(x: 0, y: self.getTopHeight(),
                                    width: GlobalConst.SCREEN_WIDTH,
                                    height: GlobalConst.SCREEN_HEIGHT - self.getTopHeight())
-        _viewSearch.isHidden = true
+        _viewSearch.isHidden    = true
         _viewSearch.backgroundColor = UIColor(white: 0, alpha: 0.5)
         self.view.addSubview(_viewSearch)
         // Input view
@@ -290,7 +295,7 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
         offset += GlobalConst.EDITTEXT_H
         
         // Search button
-        let btnSearch = UIButton()
+        let btnSearch   = UIButton()
         btnSearch.frame = CGRect(x: 0, y: offset,
                                  width: _viewInput.frame.width,
                                  height: GlobalConst.BUTTON_H)
@@ -391,8 +396,8 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
         let data = model as! String
         let model = CustomerRequestListResponseModel(jsonString: data)
         if model.isSuccess() {
-            _data.total_page = model.total_page
-            _data.total_record = model.total_record
+            _data.total_page    = model.total_page
+            _data.total_record  = model.total_record
             _data.append(contentOf: model.getRecord())
             tblList.reloadData()
         }
@@ -456,6 +461,10 @@ class G17F00S01VC: BaseParentViewController,UITextFieldDelegate,UISearchBarDeleg
     }
     
     // MARK: Logic
+    /**
+     * Handle go to detail screen
+     * - parameter id: id of Customer Request
+     */
     internal func openDetail(id: String) {
         BaseModel.shared.sharedString = id
         self.pushToView(name: G17F00S02VC.theClassName)
@@ -632,11 +641,11 @@ extension G17F00S01VC: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == tblSearch {
-            _searchActive = false
-            tblSearch.isHidden = !_searchActive
+            _searchActive       = false
+            tblSearch.isHidden  = !_searchActive
             _searchbar.resignFirstResponder()
-            _customerId = _dataCustomer[indexPath.row].id
-            _searchbar.text = _dataCustomer[indexPath.row].name
+            _customerId         = _dataCustomer[indexPath.row].id
+            _searchbar.text     = _dataCustomer[indexPath.row].name
             _data.clearData()
             requestDataForSearch()
             
@@ -647,17 +656,3 @@ extension G17F00S01VC: UITableViewDelegate {
         }
     }
 }
-    
-    
-    
-    
-
-
-    
-   
-     
-     
-     
-     
-     
-

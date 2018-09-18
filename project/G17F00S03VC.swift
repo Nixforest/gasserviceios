@@ -10,34 +10,41 @@ import UIKit
 import harpyframework  
 import DLRadioButton
 import TagListView
+ 
 class G17F00S03VC: BaseChildViewController,UISearchBarDelegate, TagListViewDelegate {
-    //Constrain height of Info layout component
+    /** Colection View Image Margin Top */
     @IBOutlet weak var cltImageMarginTop: NSLayoutConstraint!
+    /** Colection View Image Height */
     @IBOutlet weak var cltImageHeight: NSLayoutConstraint!
-    //@IBOutlet weak var btnAddModule: UIButton!
-    internal var _customer_id:                String = "" 
+    /** Customer id */
+    internal var _customer_id:                String              = DomainConst.BLANK 
+    /** Table View Search */
     @IBOutlet weak var tblSearch:             UITableView!
+    /** Table View Material */
     @IBOutlet weak var tblMaterial:           UITableView!
-    public static var _selectedList:   [OrderDetailBean]   = [OrderDetailBean].init()
+    /** List Material Selected */
+    public static var _selectedList:         [OrderDetailBean]    = [OrderDetailBean].init()
     /** Flag begin search */
     private var _beginSearch:                 Bool                = false
     /** Data */
-    internal var _dataCustomer:              [CustomerBean]      = [CustomerBean]()
+    internal var _dataCustomer:              [CustomerBean]       = [CustomerBean]()
     /** Data Catche */
-    var _dataCatche: [OrderDetailBean] = [OrderDetailBean]()
+    var _dataCatche:                         [OrderDetailBean]    = [OrderDetailBean]()
     /** Data json*/
-    internal var _dataJson:                  [OrderDetailBean]      = [OrderDetailBean]()
+    internal var _dataJson:                  [OrderDetailBean]    = [OrderDetailBean]()
     /** Data Client Cache*/
-    public static var _dataClientCache:                  [OrderDetailBean]      = [OrderDetailBean]()
+    public static var _dataClientCache:      [OrderDetailBean]    = [OrderDetailBean]()
     /** Type of search target */
     public static var _type:                  String              = DomainConst.SEARCH_TARGET_TYPE_CUSTOMER
     /** Flag search active */
     internal var _searchActive:               Bool                = false
     /** Flag check keyboard is show or hide */
-    internal var _isKeyboardShow:              Bool                = false
+    internal var _isKeyboardShow:             Bool                = false
     /** Tap gesture hide keyboard */
-    internal var _gestureHideKeyboard:         UIGestureRecognizer = UIGestureRecognizer()
+    internal var _gestureHideKeyboard:        UIGestureRecognizer = UIGestureRecognizer()
+    /** Customer Info View Height */
     @IBOutlet weak var heightInfo:            NSLayoutConstraint!
+    /** Table View Material Height*/
     @IBOutlet weak var heightTable:           NSLayoutConstraint!
     /** Customer Searchbar */
     @IBOutlet weak var sbSearchCustomer:      UISearchBar!
@@ -57,10 +64,8 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate, TagListViewDeleg
     @IBOutlet weak var bntSave:               UIButton!
     /** Button Cancel */
     @IBOutlet weak var btnCancel:             UIButton!
-    /** Button Add supply */
-    //@IBOutlet weak var btnAddSupply:          UIButton!
     /** List image add to this order */
-    internal var _images:            [UIImage]           = [UIImage]()
+    internal var _images:                     [UIImage]           = [UIImage]()
     @IBOutlet weak var heightColectionView: NSLayoutConstraint!
     @IBOutlet weak var viewCustomerName: UIView!
     /** Image collection view */
@@ -82,54 +87,57 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate, TagListViewDeleg
         }
     }
     //-- BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
-    /** Click Button Add supply */
-//    @IBAction func btn_Add_Supply(_ sender: Any) {
-//        if G17F00S03VC._dataClientCache.count > 0 {
-//             self.selectMaterial()
-//            
-//        } 
-//        else{
-//            // Request server cache data
-//            AppDataClientCacheRequest.request(action: #selector(finishRequestCacheData(_:)),
-//                                              view: self)
-//            /*CacheDataRequest.request(action: #selector(finishRequestCacheData(_:)),
-//                                     view: self)*/
-//        }
-//
-//    }
+    
+    /** Delete All Material */
     @IBAction func img_DeleteAll(_ sender: Any) {
         _dataJson.removeAll()
         heightTable.constant = 0
         tblMaterial.reloadData()
     }
     
+    /** Delete Customer Info View */
     @IBAction func btn_DeleteInfo(_ sender: Any) {
-        HideCustomerInforView()
-    }
-    @IBAction func btn_Save(_ sender: Any) {
-        var jsonCustomerRequest = [String]()
-        //++ BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
-        for item in _dataJson {
-            if !item.module_id.isEmpty {
-                jsonCustomerRequest.append(item.createJsonDataForCustomerRequest())
-            }
-        }
-        CustomerRequestCreateRequest.request(action: #selector(finishCreateCustomerRequest(_:)), view: self, customerId: _customer_id, json: jsonCustomerRequest.joined(separator: DomainConst.SPLITER_TYPE2),
-                                             note: lblNote.text!, action_invest: _action_invest, images: _images )
-        //-- BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
+        _customer_id = ""
+        hideCustomerInforView()
     }
     
+    /** Create Customer Request */
+    @IBAction func btn_Save(_ sender: Any) {
+        if _dataJson.count == 0{
+            showAlert(message: G17Const.MESSAGE_JSON_EMPTY_SUCCESS,
+                      okHandler: {
+                        alert in
+            })
+        }
+        else{
+            var jsonCustomerRequest = [String]()
+            //++ BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
+            for item in _dataJson {
+                if !item.module_id.isEmpty {
+                    jsonCustomerRequest.append(item.createJsonDataForCustomerRequest())
+                }
+            }
+            CustomerRequestCreateRequest.request(action: #selector(finishCreateCustomerRequest(_:)), view: self, customerId: _customer_id, json: jsonCustomerRequest.joined(separator: DomainConst.SPLITER_TYPE2),
+                                                 note: lblNote.text!, action_invest: _action_invest, images: _images )
+            //-- BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
+        }
+    }
+    
+    /** Cancel Customer Request */
     @IBAction func btn_Cancel(_ sender: Any) {
         self.backButtonTapped(self)
     }
     
-    
+    /** Begin Edit Note */
     @IBAction func didBeginEdit(_ sender: Any) {
         _isKeyboardShow = true
         self.view.addGestureRecognizer(_gestureHideKeyboard)
     }
-
+    
+    /** Tag List View */
     @IBOutlet weak var tagListView: TagListView!
+    
+    /** View Did Load */
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createNavigationBar(title: DomainConst.CONTENT00584)
@@ -144,48 +152,50 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate, TagListViewDeleg
         /*viewCustomerRequestCreate.layer.borderColor = UIColor.red.cgColor
         viewCustomerRequestCreate.layer.borderWidth = 1
         viewCustomerRequestCreate.layer.cornerRadius = 5*/
-//        lblNote.layer.borderColor  = UIColor.red.cgColor
-//        lblNote.layer.borderWidth  = CGFloat(G18Const.BORDER_WIDTH)
-//        lblNote.layer.cornerRadius = CGFloat(G18Const.CORNER_RADIUS_BUTTON)
+        //        lblNote.layer.borderColor  = UIColor.red.cgColor
+        //        lblNote.layer.borderWidth  = CGFloat(G18Const.BORDER_WIDTH)
+        //        lblNote.layer.cornerRadius = CGFloat(G18Const.CORNER_RADIUS_BUTTON)
         lblNote.setBottomBorder()
         //set Image for btnDelete All
         //imgDeleteAll.image = ImageManager.getImage(named: DomainConst.CLEAR_ALL_ICON_IMG_NAME)
         //Set corner Button Delete Info
-        btnDeleteInfo.layer.cornerRadius    = CGFloat(G18Const.CORNER_RADIUS_BUTTON_2)
-        btnDeleteInfo.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
-        bntSave.layer.cornerRadius          = CGFloat(G18Const.CORNER_RADIUS_BUTTON_2)
-        bntSave.backgroundColor = GlobalConst.BUTTON_COLOR_RED
-        btnCancel.layer.cornerRadius        = CGFloat(G18Const.CORNER_RADIUS_BUTTON_2)
-        btnCancel.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
+        btnDeleteInfo.layer.cornerRadius        = CGFloat(G18Const.CORNER_RADIUS_BUTTON_2)
+        btnDeleteInfo.backgroundColor           = GlobalConst.BUTTON_COLOR_YELLOW
+        bntSave.layer.cornerRadius              = CGFloat(G18Const.CORNER_RADIUS_BUTTON_2)
+        bntSave.backgroundColor                 = GlobalConst.BUTTON_COLOR_RED
+        btnCancel.layer.cornerRadius            = CGFloat(G18Const.CORNER_RADIUS_BUTTON_2)
+        btnCancel.backgroundColor               = GlobalConst.BUTTON_COLOR_YELLOW
         // Do any additional setup after loading the view.
         // Search bar        
-        sbSearchCustomer.delegate = self
-        sbSearchCustomer.layer.shadowColor    = UIColor.black.cgColor
-        sbSearchCustomer.layer.shadowOpacity  = 0.5
-        sbSearchCustomer.layer.masksToBounds  = false
-        sbSearchCustomer.showsCancelButton    = true
-        sbSearchCustomer.showsBookmarkButton  = false
-        sbSearchCustomer.searchBarStyle       = .default
+        sbSearchCustomer.delegate               = self
+        sbSearchCustomer.backgroundColor        = GlobalConst.BUTTON_COLOR_RED
+        sbSearchCustomer.layer.shadowColor      = UIColor.black.cgColor
+        sbSearchCustomer.layer.shadowOpacity    = 0.5
+        sbSearchCustomer.layer.masksToBounds    = false
+        sbSearchCustomer.showsCancelButton      = true
+        sbSearchCustomer.showsBookmarkButton    = false
+        sbSearchCustomer.searchBarStyle         = .default
+        sbSearchCustomer.removeBackgroundImageView()
         // Gesture
-        _gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        _gestureHideKeyboard    = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         // Table Search Bar
-        tblSearch.delegate = self
-        tblSearch.dataSource = self
-        tblSearch.isHidden = true
+        tblSearch.delegate      = self
+        tblSearch.dataSource    = self
+        tblSearch.isHidden      = true
         // Hide Customer View
-        HideCustomerInforView()
+        hideCustomerInforView()
         // hide tbl material
-        heightTable.constant = 0
+        heightTable.constant    = 0
         //button edit bar
         //self.navigationItem.rightBarButtonItem = self.editButtonItem
         // Add action Add Image button to navigation bar
         self.createRightNavigationItem(icon: DomainConst.ADD_MATERIAL_ICON_IMG_NAME,
                                        action: #selector(addImageButtonTapped(_:)), target: self)
         //collectionview
-        cltImg.dataSource = self
-        cltImg.delegate = self
-        cltImageMarginTop.constant = 0
-        cltImageHeight.constant = 0
+        cltImg.dataSource           = self
+        cltImg.delegate             = self
+        cltImageMarginTop.constant  = 0
+        cltImageHeight.constant     = 0
         //custom view
         self.viewCustomerName.layer.addBorder(edge: .bottom,
                                               color: UIColor.darkGray,
@@ -193,11 +203,11 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate, TagListViewDeleg
         //radio button
         //btnInvest.isMultipleSelectionEnabled = true
         //++ BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
-        btnInvest.isSelected = true
+        btnInvest.isSelected            = true
         // tag list view
-        tagListView.delegate = self
-        tagListView.textFont = UIFont.systemFont(ofSize: 17)
-        tagListView.tagBackgroundColor = GlobalConst.BUTTON_COLOR_RED
+        tagListView.delegate            = self
+        tagListView.textFont            = UIFont.systemFont(ofSize: 17)
+        tagListView.tagBackgroundColor  = GlobalConst.BUTTON_COLOR_RED
         //tagListView.backgroundColor = GlobalConst.BUTTON_COLOR_RED
         //tagListView.
         //request module data
@@ -258,32 +268,32 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate, TagListViewDeleg
         }
         //-- BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
         //PopTableViewController.setSelectedList(item: [OrderDetailBean]())
-//            if !PopTableViewController.getSelectedItem().isIdEmpty() {
-//                // Add data
-//                var flag: Int = 0
-//                _dataJson.forEach { (OrderDetail) in
-//                    if OrderDetail.id ==  PopTableViewController.getSelectedItem().id{
-//                        showAlert(message: G17Const.ERROR_SAME_MATERIAL,
-//                                  okHandler: {
-//                                    alert in
-//                        })
-//                        flag = 1
-//                        return
-//                    }  
-//                }
-//                if flag == 0{
-//                    //appendMaterialCylinder(MaterialSelectViewController2.getSelectedItem()))
-//                    appendMaterialCylinder(material: PopTableViewController.getSelectedItem())
-//                    tblMaterial.reloadData()
-//                    if cltImageMarginTop.constant == 0{
-//                        cltImageMarginTop.constant = 10
-//                        cltImageHeight.constant = 133
-//                    }
-//                }
-//                //tblMaterial.reloadSections(IndexSet(1...2), with: .automatic)
-//                //reset SelectedItem
-//                PopTableViewController.setSelectedItem(item: OrderDetailBean())
-//            }
+        //            if !PopTableViewController.getSelectedItem().isIdEmpty() {
+        //                // Add data
+        //                var flag: Int = 0
+        //                _dataJson.forEach { (OrderDetail) in
+        //                    if OrderDetail.id ==  PopTableViewController.getSelectedItem().id{
+        //                        showAlert(message: G17Const.ERROR_SAME_MATERIAL,
+        //                                  okHandler: {
+        //                                    alert in
+        //                        })
+        //                        flag = 1
+        //                        return
+        //                    }  
+        //                }
+        //                if flag == 0{
+        //                    //appendMaterialCylinder(MaterialSelectViewController2.getSelectedItem()))
+        //                    appendMaterialCylinder(material: PopTableViewController.getSelectedItem())
+        //                    tblMaterial.reloadData()
+        //                    if cltImageMarginTop.constant == 0{
+        //                        cltImageMarginTop.constant = 10
+        //                        cltImageHeight.constant = 133
+        //                    }
+        //                }
+        //                //tblMaterial.reloadSections(IndexSet(1...2), with: .automatic)
+        //                //reset SelectedItem
+        //                PopTableViewController.setSelectedItem(item: OrderDetailBean())
+        //            }
             //G17F00S03VC._type = DomainConst.SEARCH_TARGET_TYPE_CUSTOMER
         if BaseModel.shared.currentUpholdDetail.customer_id != "" {
             _customer_id = BaseModel.shared.currentUpholdDetail.customer_id
@@ -372,11 +382,11 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate, TagListViewDeleg
             //self.selectMaterial(type: G17F00S03VC.TYPE_CYLINDER)
             //++ BUG0218-SPJ (KhoiVT 20180906) Gasservice - Update Screen. Change Select Material by Pop Up, add field action invest of Customer Request Function
             G17F00S03VC._dataClientCache.removeAll()
-//            model.record.forEach { (moduleParent) in
-//                moduleParent.data.forEach({ (moduleChild) in
-//                    G17F00S03VC._dataClientCache.append(moduleChild)
-//                })
-//            }
+            //            model.record.forEach { (moduleParent) in
+            //                moduleParent.data.forEach({ (moduleChild) in
+            //                    G17F00S03VC._dataClientCache.append(moduleChild)
+            //                })
+            //            }
             _dataCatche = model.record
             _dataCatche.forEach { (moduleParent) in
                 tagListView.addTag(moduleParent.name)
@@ -563,7 +573,7 @@ class G17F00S03VC: BaseChildViewController,UISearchBarDelegate, TagListViewDeleg
         //self.heightTable.constant = 300
     }
     
-    func HideCustomerInforView(){
+    func hideCustomerInforView(){
         self.heightInfo.constant = 0
         self.viewCustomer.isHidden = true
         self.view.layoutIfNeeded()
@@ -808,6 +818,4 @@ extension G17F00S03VC: UITableViewDelegate {
             }
         }
     }
-    
-    
  }

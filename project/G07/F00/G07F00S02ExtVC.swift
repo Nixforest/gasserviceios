@@ -16,6 +16,28 @@ import AlamofireImage
 class G07F00S02ExtVC: BaseChildViewController {
     // MARK: Properties
     //++
+    /** check Update for Notification */
+    var isUpdateOrderSuccess: Int = 0
+    /** view Code */
+    @IBOutlet weak var viewCode: UIView!
+    /** view Admin Name */
+    @IBOutlet weak var viewAdminName: UIView!
+    /** view Address */
+    @IBOutlet weak var viewAddress: UIView!
+    /** view Note */
+    @IBOutlet weak var viewNote: UIView!
+    /** view PTTT Code */
+    @IBOutlet weak var viewPTTTCode: UIView!
+    
+    @IBOutlet weak var viewDeliveryType: UIView!
+    
+    @IBOutlet weak var viewDiscount: UIView!
+    
+    @IBOutlet weak var viewGetShell: UIView!
+    
+    @IBOutlet weak var viewSum: UIView!
+    
+    @IBOutlet weak var viewAgency: UIView!
     /** Label Code */
     @IBOutlet weak var lblCode: UILabel!
     /** Label Admin Name */
@@ -33,19 +55,19 @@ class G07F00S02ExtVC: BaseChildViewController {
     /** Height of Label Discount  */
     @IBOutlet weak var lblDiscountHeight: NSLayoutConstraint!
     /** Height of Image View Substract  */
-    @IBOutlet weak var imgSubstractHeight: NSLayoutConstraint!
+    //@IBOutlet weak var imgSubstractHeight: NSLayoutConstraint!
     /** Height of Label Discount Value */
-    @IBOutlet weak var lblDiscountValueHeight: NSLayoutConstraint!
+    //@IBOutlet weak var lblDiscountValueHeight: NSLayoutConstraint!
     /** Margin top of label Discount  */
     @IBOutlet weak var btnTypeDelivery_lblDiscount_Margin: NSLayoutConstraint!
     /** Margin top of label Get shell  */
     @IBOutlet weak var lblDiscount_lblGetShell_Margin: NSLayoutConstraint!
-    /** Height of Label Get Shell  */
+    /** Height of view Get Shell  */
     @IBOutlet weak var lblGetShellHeight: NSLayoutConstraint!
     /** Height of ImageView Plus  */
-    @IBOutlet weak var imgPlusHeight: NSLayoutConstraint!
+    //@IBOutlet weak var imgPlusHeight: NSLayoutConstraint!
     /** Height of Label Get Shell Value */
-    @IBOutlet weak var lblGetShellValueHeight: NSLayoutConstraint!
+    //@IBOutlet weak var lblGetShellValueHeight: NSLayoutConstraint!
     /** Label Address*/
     @IBOutlet weak var lblAddress: UILabel!
     /** ImageView Agency*/
@@ -60,6 +82,8 @@ class G07F00S02ExtVC: BaseChildViewController {
     @IBOutlet weak var imgSubstract: UIImageView!
     /** Height TextField Note */
     @IBOutlet weak var tfNoteHeight: NSLayoutConstraint!
+    /** view Note margin top */
+    @IBOutlet weak var viewNoteMarginTop: NSLayoutConstraint!
     /** Margin top of Textfield Note*/
     @IBOutlet weak var tfNoteMarginTopHeight: NSLayoutConstraint!
     /** Begin Edit TextField PTTT Code */
@@ -129,7 +153,7 @@ class G07F00S02ExtVC: BaseChildViewController {
     /** TextField Note*/
     @IBOutlet weak var tfNote: UITextField!
     /** Height of Label Note*/
-    @IBOutlet weak var lblNoteHeight: NSLayoutConstraint!
+    //@IBOutlet weak var lblNoteHeight: NSLayoutConstraint!
     /** Table Material*/
     @IBOutlet weak var tblMaterial: UITableView!
     /** Height of Table Material*/
@@ -326,11 +350,51 @@ class G07F00S02ExtVC: BaseChildViewController {
         _listInfo.append([ConfigurationModel]())
         _listInfo.append([ConfigurationModel]())
         _listInfo.append([ConfigurationModel]())*/
+        //custom view
+        self.viewCode.layer.addBorder(edge: .bottom,
+                                                 color: UIColor.darkGray,
+                                                 thickness: 0.5)
+//        self.viewAdminName.layer.addBorder(edge: .bottom,
+//                                      color: UIColor.darkGray,
+//                                      thickness: 0.5)
+        self.viewAddress.layer.addBorder(edge: .top,
+                                      color: UIColor.darkGray,
+                                      thickness: 0.5)
+        self.viewPTTTCode.layer.addBorder(edge: .top,
+                                          color: UIColor.darkGray,
+                                          thickness: 0.5)
+        viewDeliveryType.layer.addBorder(edge: .top,
+                                        color: UIColor.darkGray,
+                                        thickness: 0.5)
+        viewDeliveryType.layer.addBorder(edge: .bottom,
+                                         color: UIColor.darkGray,
+                                         thickness: 0.5)
+        viewDiscount.layer.addBorder(edge: .bottom,
+                                    color: UIColor.darkGray,
+                                    thickness: 0.5)
+        
+        viewGetShell.layer.addBorder(edge: .bottom,
+                                     color: UIColor.darkGray,
+                                     thickness: 0.5)
+        
+        viewSum.layer.addBorder(edge: .bottom,
+                                color: UIColor.darkGray,
+                                thickness: 0.5)
+        
+        viewAgency.layer.addBorder(edge: .bottom,
+                                   color: UIColor.darkGray,
+                                   thickness: 0.5)
         //custom button
+        btnAddMaterial.layer.cornerRadius   = 2
+        btnAddMaterial.backgroundColor      = GlobalConst.BUTTON_COLOR_RED
         _btnSave.layer.cornerRadius         = 20
         _btnCancel.layer.cornerRadius       = 20
         btnRefresh.layer.cornerRadius       = 20
         _btnOtherAction.layer.cornerRadius  = 20
+        _btnSave.backgroundColor            = GlobalConst.BUTTON_COLOR_RED
+        _btnCancel.backgroundColor          = GlobalConst.BUTTON_COLOR_RED
+        btnRefresh.backgroundColor          = GlobalConst.BUTTON_COLOR_RED
+        _btnOtherAction.backgroundColor     = GlobalConst.BUTTON_COLOR_RED
         //custom textfield
         tfPTTTCode.setBottomBorder()
         tfNote.setBottomBorder()
@@ -352,7 +416,8 @@ class G07F00S02ExtVC: BaseChildViewController {
         _gestureHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         // Hide TextField Note
         tfNoteHeight.constant = 0
-        tfNoteMarginTopHeight.constant = 0
+        //tfNoteMarginTopHeight.constant = 0
+        tfNote.isHidden = true
         // Request data from server
         requestData()
     }
@@ -475,6 +540,19 @@ class G07F00S02ExtVC: BaseChildViewController {
         let model = OrderFamilyViewRespModel(jsonString: data)
         // Success response
         if model.isSuccess() {
+            if isUpdateOrderSuccess == 1{
+                showAlert(message: "Cập nhật đơn hàng thành công",
+                          okHandler: {
+                            alert in
+                })
+            }
+            else if isUpdateOrderSuccess == 2{
+                showAlert(message: "Huỷ đơn hàng thành công",
+                          okHandler: {
+                            alert in
+                })
+            }
+            isUpdateOrderSuccess = 0
             _data = model
             //setupFirstListInfo()
             //setupListMaterialInfo()
@@ -492,10 +570,16 @@ class G07F00S02ExtVC: BaseChildViewController {
                                                         attributes: yourAttributes),for: .normal)
             lblAddress.text = _data.getRecord().address
             if _data.getRecord().note == ""{
-                lblNoteHeight.constant = 0
+                //lblNoteHeight.constant = 0
+                lblNote.text = ""
+                lblNote.isHidden = true
+                viewNoteMarginTop.constant = 0
             }
             else{
                 lblNote.text = _data.getRecord().note
+                self.viewNote.layer.addBorder(edge: .top,
+                                              color: UIColor.darkGray,
+                                              thickness: 0.5)
             }
             tfPTTTCode.text = _data.getRecord().ccsCode
             lblAgent.text = _data.getRecord().agent_name
@@ -506,18 +590,20 @@ class G07F00S02ExtVC: BaseChildViewController {
             _listMaterials = _data.getRecord().order_detail
             if _data.getRecord().discount_amount == "0"{
                 lblDiscountHeight.constant = 0
-                imgSubstractHeight.constant = 0
-                lblDiscountValueHeight.constant = 0
+                //imgSubstractHeight.constant = 0
+                //lblDiscountValueHeight.constant = 0
                 btnTypeDelivery_lblDiscount_Margin.constant = 0
+                viewDiscount.isHidden = true
             }
             else{
                 lblDiscountAmount.text = _data.getRecord().discount_amount
             }
             if _data.getRecord().amount_bu_vo == "0"{
                 lblGetShellHeight.constant = 0
-                imgPlusHeight.constant = 0
-                lblGetShellValueHeight.constant = 0
+                //imgPlusHeight.constant = 0
+                //lblGetShellValueHeight.constant = 0
                 lblDiscount_lblGetShell_Margin.constant = 0
+                viewGetShell.isHidden = true
             }
             else{
                  lblAmountGetShell.text = _data.getRecord().amount_bu_vo
@@ -1373,6 +1459,7 @@ class G07F00S02ExtVC: BaseChildViewController {
                 orderDetail.append(item.createJsonDataForUpdateOrder())
             }
         }
+        isUpdateOrderSuccess = 1
         OrderFamilyHandleRequest.requestComplete2(action: #selector(finishUpdateOrder(_:)),
                                                   view: self,
                                                   lat: String(MapViewController._originPos.latitude),
@@ -1439,6 +1526,7 @@ class G07F00S02ExtVC: BaseChildViewController {
                   cancelTitle: DomainConst.CONTENT00009,
                   okHandler: {
                     alert in
+                    self.isUpdateOrderSuccess = 2
                     OrderFamilyHandleRequest.requestCancelOrder(
                         action: #selector(self.finishUpdateOrder(_:)),
                         view: self,

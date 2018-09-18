@@ -23,8 +23,8 @@ class MaterialCell2: UITableViewCell {
                     btnReduce.isHidden = true
                     tfQuantity.text = "1"
                 }
-                else if quantity > 99998 {
-                    tfQuantity.text = "99999"
+                else if quantity > 999998 {
+                    tfQuantity.text = "999999"
                     btnIncrease.isHidden = true
                 }
                 else{
@@ -35,7 +35,7 @@ class MaterialCell2: UITableViewCell {
         }
         else{
             btnReduce.isHidden = true
-            tfQuantity.text = "1"
+            //tfQuantity.text = "1"
         }
         delegate?.UpdateQuantity(quantity: tfQuantity.text!, index: index)
     }
@@ -45,7 +45,7 @@ class MaterialCell2: UITableViewCell {
         if(quantity == 1){
             btnReduce.isHidden = true
         }
-        else if(quantity == 99999){
+        else if(quantity == 999999){
             btnIncrease.isHidden = true
         }
         else{
@@ -60,18 +60,37 @@ class MaterialCell2: UITableViewCell {
     @IBOutlet weak var btnReduce: UIButton!
     
     @IBAction func btn_Increase(_ sender: Any) {
-        var quantity: Int = Int(tfQuantity.text!)!
-        quantity += 1
-        tfQuantity.text = String(quantity)
+        if tfQuantity.text == ""{
+            tfQuantity.text = "1"
+        }
+        else{
+            var quantity: Int = Int(tfQuantity.text!)!
+            quantity += 1
+            tfQuantity.text = String(quantity)
+        }
         tfQuantity.sendActions(for: UIControlEvents.valueChanged)
     }
     
     @IBAction func btn_Reduce(_ sender: Any) {
-        var quantity: Int = Int(tfQuantity.text!)!
-        quantity -= 1
-        tfQuantity.text = String(quantity)
+        if tfQuantity.text == ""{
+            tfQuantity.text = "1"
+        }
+        else{
+            var quantity: Int = Int(tfQuantity.text!)!
+            quantity -= 1
+            tfQuantity.text = String(quantity)
+        }
         tfQuantity.sendActions(for: UIControlEvents.valueChanged)
     }
+    
+    
+    @IBAction func did_end(_ sender: Any) {
+        if tfQuantity.text == ""{
+            tfQuantity.text = "1"
+        }
+        delegate?.UpdateQuantity(quantity: tfQuantity.text!, index: index)
+    }
+    
     @IBOutlet weak var btn_Reduce: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()

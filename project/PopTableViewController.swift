@@ -39,12 +39,12 @@ class PopTableViewController: BaseChildViewController, UITableViewDelegate, UITa
         btnCancel.backgroundColor = GlobalConst.BUTTON_COLOR_YELLOW
         btnCancel.layer.cornerRadius = 15
     }
+    
     // Returns count of items in tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return self.names.count;
         return G17F00S03VC._dataClientCache.count
     }
-    
     
     // Select item from tableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -100,6 +100,7 @@ class PopTableViewController: BaseChildViewController, UITableViewDelegate, UITa
     // Close PopUp
     @IBAction func closePopup(_ sender: Any) {
         PopTableViewController._selectedList.removeAll()
+        //self.animationControllerForDismissedController(dismissed: self)
         dismiss(animated: true, completion: nil)
     }
     // Accept List Material

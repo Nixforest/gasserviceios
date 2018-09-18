@@ -46,11 +46,17 @@ class MaterialCell: UITableViewCell, UITextFieldDelegate {
         }
         else{
             btnReduce.isHidden = true
+            //tf_quantity.text = "1"
+        }
+        delegate?.UpdateQuantity(quantity: tf_quantity.text!, index: index)
+    }
+    //end edit quantity
+    @IBAction func did_end(_ sender: Any) {
+        if(tf_quantity.text! == ""){
             tf_quantity.text = "1"
         }
         delegate?.UpdateQuantity(quantity: tf_quantity.text!, index: index)
     }
-    
     //value change
     @IBAction func tf_Quantity_Changed() {
         let quantity : Int = Int(tf_quantity.text!)!
@@ -70,15 +76,25 @@ class MaterialCell: UITableViewCell, UITextFieldDelegate {
     
     @IBAction func btn_Reduce(_ 
         sender: Any) {
-        var quantity: Int = Int(tf_quantity.text!)!
-        quantity -= 1
-        tf_quantity.text = String(quantity)
+        if tf_quantity.text == ""{
+            tf_quantity.text = "1"
+        }
+        else{
+            var quantity: Int = Int(tf_quantity.text!)!
+            quantity -= 1
+            tf_quantity.text = String(quantity)
+        }
         tf_quantity.sendActions(for: UIControlEvents.valueChanged)
     }
     @IBAction func btn_Increase(_ sender: Any) {
-        var quantity: Int = Int(tf_quantity.text!)!
-        quantity += 1
-        tf_quantity.text = String(quantity)
+        if tf_quantity.text == ""{
+            tf_quantity.text = "1"
+        }
+        else{
+            var quantity: Int = Int(tf_quantity.text!)!
+            quantity += 1
+            tf_quantity.text = String(quantity)
+        }
         tf_quantity.sendActions(for: UIControlEvents.valueChanged)
 
     }

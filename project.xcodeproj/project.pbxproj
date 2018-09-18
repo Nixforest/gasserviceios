@@ -182,6 +182,7 @@
 		D712331220EE0C2B008909EA /* harpyframework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D712330E20EE0C0D008909EA /* harpyframework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D712BE881EEA791D00F679CE /* G08F01S05.swift in Sources */ = {isa = PBXBuildFile; fileRef = D712BE871EEA791D00F679CE /* G08F01S05.swift */; };
 		D715BB6D1EBE2D810097BDA8 /* G08F01S02.swift in Sources */ = {isa = PBXBuildFile; fileRef = D715BB6C1EBE2D810097BDA8 /* G08F01S02.swift */; };
+		D7185B692150D3090090F6EA /* IssueCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7185B682150D3090090F6EA /* IssueCreateRequest.swift */; };
 		D71DB0E01E84D25100BED724 /* CustomerFamilyViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71DB0DF1E84D25100BED724 /* CustomerFamilyViewRequest.swift */; };
 		D71E428721097A0700A39222 /* StockGasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E428621097A0700A39222 /* StockGasCell.swift */; };
 		D71E428921097C3200A39222 /* StockBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E428821097C3200A39222 /* StockBean.swift */; };
@@ -190,6 +191,7 @@
 		D71E428F210988CE00A39222 /* StockViewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E428E210988CE00A39222 /* StockViewRequest.swift */; };
 		D722648E1FB9813700DDA94B /* G05F00S02ExtVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D722648C1FB9813700DDA94B /* G05F00S02ExtVC.swift */; };
 		D722648F1FB9813700DDA94B /* G05F00S02ExtVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D722648D1FB9813700DDA94B /* G05F00S02ExtVC.xib */; };
+		D72A6131214FD53A00013D29 /* G02F00S04VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72A6130214FD53A00013D29 /* G02F00S04VC.swift */; };
 		D73373101E22CCC6004F2781 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D733730F1E22CCC6004F2781 /* Podfile */; };
 		D7337620213D539A004AF49B /* ModuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733761F213D539A004AF49B /* ModuleCell.swift */; };
 		D74A408C213E237700375F36 /* PopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74A408B213E237700375F36 /* PopTableViewController.swift */; };
@@ -712,6 +714,7 @@
 		D712330820EE0C0C008909EA /* harpyframework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = harpyframework.xcodeproj; path = ../harpyframework/harpyframework/harpyframework.xcodeproj; sourceTree = "<group>"; };
 		D712BE871EEA791D00F679CE /* G08F01S05.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S05.swift; path = G08/F01/G08F01S05.swift; sourceTree = "<group>"; };
 		D715BB6C1EBE2D810097BDA8 /* G08F01S02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G08F01S02.swift; path = G08/F01/G08F01S02.swift; sourceTree = "<group>"; };
+		D7185B682150D3090090F6EA /* IssueCreateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueCreateRequest.swift; sourceTree = "<group>"; };
 		D71DB0DF1E84D25100BED724 /* CustomerFamilyViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerFamilyViewRequest.swift; path = G06/API/CustomerFamilyViewRequest.swift; sourceTree = "<group>"; };
 		D71E428621097A0700A39222 /* StockGasCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockGasCell.swift; sourceTree = "<group>"; };
 		D71E428821097C3200A39222 /* StockBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockBean.swift; sourceTree = "<group>"; };
@@ -720,6 +723,7 @@
 		D71E428E210988CE00A39222 /* StockViewRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockViewRequest.swift; sourceTree = "<group>"; };
 		D722648C1FB9813700DDA94B /* G05F00S02ExtVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = G05F00S02ExtVC.swift; path = G05/F00/G05F00S02ExtVC.swift; sourceTree = "<group>"; };
 		D722648D1FB9813700DDA94B /* G05F00S02ExtVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = G05F00S02ExtVC.xib; path = G05/F00/G05F00S02ExtVC.xib; sourceTree = "<group>"; };
+		D72A6130214FD53A00013D29 /* G02F00S04VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = G02F00S04VC.swift; sourceTree = "<group>"; };
 		D733730F1E22CCC6004F2781 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D733761F213D539A004AF49B /* ModuleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleCell.swift; sourceTree = "<group>"; };
 		D74A408B213E237700375F36 /* PopTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopTableViewController.swift; sourceTree = "<group>"; };
@@ -1396,6 +1400,7 @@
 				903D40A4206E1F250019B157 /* G02F00S02VC.xib */,
 				904CB831206E44F5009EA439 /* G02F00S03VC.swift */,
 				904CB832206E44F5009EA439 /* G02F00S03VC.xib */,
+				D72A6130214FD53A00013D29 /* G02F00S04VC.swift */,
 			);
 			name = F00;
 			sourceTree = "<group>";
@@ -1418,6 +1423,7 @@
 				90EE7742206CF4C0008CB021 /* IssueListRequest.swift */,
 				903D409D206E0AAB0019B157 /* IssueViewRequest.swift */,
 				90F98512206F3FA200B05A92 /* IssueReplyRequest.swift */,
+				D7185B682150D3090090F6EA /* IssueCreateRequest.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -2762,6 +2768,7 @@
 				D7030BEF21005CFB0031CEDF /* MaterialCell2.swift in Sources */,
 				D78EF9891FF1F1030044713B /* G14F01S02.swift in Sources */,
 				D77F063E1E7176E900797A6B /* G01F00S03VC.swift in Sources */,
+				D72A6131214FD53A00013D29 /* G02F00S04VC.swift in Sources */,
 				903D40A2206E1B8C0019B157 /* IssueReplyBean.swift in Sources */,
 				D7ED37DB1EE931D6008522BC /* G05F04S01.swift in Sources */,
 				D77F06521E71771A00797A6B /* G01F02MenuVC.swift in Sources */,
@@ -2903,6 +2910,7 @@
 				D77F068B1E7177FE00797A6B /* G05F01S02VC.swift in Sources */,
 				D7E96237210EE59400441774 /* StockRealViewRequest.swift in Sources */,
 				D7C812131ED2784D0014EF51 /* G09F00S02VC.swift in Sources */,
+				D7185B692150D3090090F6EA /* IssueCreateRequest.swift in Sources */,
 				D7EA53DA1EE41A9B004CFE1F /* G11F00S02VC.swift in Sources */,
 				D7D24D021EF4E89900FF1D0C /* G00F01VC.swift in Sources */,
 				D77F068C1E7177FE00797A6B /* OrderVIPSelectorView.swift in Sources */,

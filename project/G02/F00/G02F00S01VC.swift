@@ -39,7 +39,26 @@ class G02F00S01VC: BaseParentViewController {
         self.createNavigationBar(title: DomainConst.CONTENT00131)
         createInfoTableView()
         self.view.addSubview(self.tblInfo)
+        // Button create customer
+        let btnIssue = UIButton()
+        CommonProcess.createButtonLayout(btn: btnIssue,
+                                         x: (GlobalConst.SCREEN_WIDTH - GlobalConst.BUTTON_W) / 2,
+                                         y:  GlobalConst.SCREEN_HEIGHT - GlobalConst.BUTTON_H - GlobalConst.MARGIN,
+                                         text: DomainConst.CONTENT00590.uppercased(),
+                                         action: #selector(self.createIssue(_:)),
+                                         target: self,
+                                         img: DomainConst.ADD_ICON_IMG_NAME,
+                                         tintedColor: UIColor.white)
+        btnIssue.imageEdgeInsets = UIEdgeInsets(top: GlobalConst.MARGIN,
+                                                         left: GlobalConst.MARGIN,
+                                                         bottom: GlobalConst.MARGIN,
+                                                         right: GlobalConst.MARGIN)
+        self.view.addSubview(btnIssue)
         requestData()
+    }
+    
+    internal func createIssue(_ sender: AnyObject) {
+        pushToView(name: G02F00S04VC.theClassName)
     }
     
     /**

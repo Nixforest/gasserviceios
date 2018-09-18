@@ -30,4 +30,6 @@ class G17Const: NSObject {
     public static let MESSAGE_UPDATE_SUCCESS                    = "Cập nhật yêu cầu vật tư thành công"
     /** Message Create Success */
     public static let MESSAGE_CREATE_SUCCESS                    = "Tạo yêu cầu vật tư thành công"
+    /** Message Create Success */
+    public static let MESSAGE_JSON_EMPTY_SUCCESS                    = "Yêu cầu bắt buộc phải có vật tư"
 }
