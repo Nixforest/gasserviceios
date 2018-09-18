@@ -35,9 +35,9 @@ class MenuVC: BaseMenuViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        createLabel(lbl: lblName, text: "Huỳnh Lê Chung", offset: topOffset, isBold: true)
-        createLabel(lbl: lblPhone, text: "0903816165", offset: lblName.frame.maxY)
-        createLabel(lbl: lblAddress, text: "189/22 Hoàng Hoa Thám P.6 Q.Bình Thạnh",
+        createLabel(lbl: lblName, text: "-", offset: topOffset, isBold: true)
+        createLabel(lbl: lblPhone, text: "-", offset: lblName.frame.maxY)
+        createLabel(lbl: lblAddress, text: "-",
                     offset: lblPhone.frame.maxY,
                     isBold: false,
                     height: GlobalConst.LABEL_H * 3,
